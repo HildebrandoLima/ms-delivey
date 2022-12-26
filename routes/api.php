@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,11 @@ Route::prefix('user')->group(function () {
     Route::put('/edit', [UserController::class, 'update'])->name('user.edit');
     Route::post('/save', [UserController::class, 'store'])->name('user.save');
     Route::delete('/remove', [UserController::class, 'destroy'])->name('user.remove');
+});
+
+//  Endereço
+Route::prefix('address')->group(function () {
+    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
+    Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
+    Route::post('/save', [AddressController::class, 'store'])->name('address.save');
 });

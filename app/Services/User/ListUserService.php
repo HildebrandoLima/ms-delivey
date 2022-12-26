@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Http\Requests\User\UserRequest;
+use App\Http\Requests\UserRequest;
 use App\Infra\Database\Dao\User\ListUserDb;
 use Illuminate\Support\Collection;
 

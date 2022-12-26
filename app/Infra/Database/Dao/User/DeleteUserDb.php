@@ -2,16 +2,16 @@
 
 namespace App\Infra\Database\Dao\User;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\User\UserRequest;
 use App\Infra\Database\Config\DbBase;
 
 class DeleteUserDb extends DbBase
 {
-    public function deleteUser(Request $request): bool
+    public function deleteUser(UserRequest $request): bool
     {
         return $this->db
-            ->table('users')
-            ->where('id', $request->usuarioId)
-            ->delete();
+        ->table('users')
+        ->where('id', $request->usuarioId)
+        ->delete();
     }
 }
