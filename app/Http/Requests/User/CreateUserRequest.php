@@ -17,7 +17,6 @@ class CreateUserRequest extends BaseRequest
         return [
             'nome' => 'required|string',
             'email'=> 'required|string',
-            'atividade' => 'required|string',
             'genero' => 'required|string',
             'senha' => 'required|string',
         ];
@@ -28,13 +27,11 @@ class CreateUserRequest extends BaseRequest
         return [
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::VALIDATION_FAILURE,
             'email.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'atividade.string' => DefaultErrorMessages::VALIDATION_FAILURE,
             'genero.string' => DefaultErrorMessages::VALIDATION_FAILURE,
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
         ];

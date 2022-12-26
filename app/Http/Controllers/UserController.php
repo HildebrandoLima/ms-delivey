@@ -56,29 +56,6 @@ class UserController extends Controller
         }
     }
 
-    public function search(UserRequest $request)
-    {
-        try {
-            $response = $this->listUserService->listUserSearch($request);
-            if($response):
-                return response()->json([
-                    "message" => "Listagem de usuáro encontrada com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao buscar listagem de usuário.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
-        }
-    }
-
     public function store(CreateUserRequest $request): Response
     {
         try {

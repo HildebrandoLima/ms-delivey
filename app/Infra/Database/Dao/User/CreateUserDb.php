@@ -15,6 +15,7 @@ class CreateUserDb extends DbBase
         ->insertGetId([
             'name' => $request->nome,
             'email' => $request->email,
+            'ativo' => '1',
             'genero' => $request->genero,
             'password' => Hash::make($request->senha),
             'created_at' => new \DateTime()

@@ -16,6 +16,7 @@ class EditUserDb extends DbBase
         ->update([
             'name' => $request->nome,
             'email' => $request->email,
+            'ativo' => $request->atividade,
             'genero' => $request->genero,
             'password' => Hash::make($request->senha),
             'updated_at' => new \DateTime()
