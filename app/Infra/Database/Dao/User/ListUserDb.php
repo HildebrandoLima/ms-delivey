@@ -13,7 +13,9 @@ class ListUserDb extends DbBase
         return collect($this->db
         ->table('users as u')
         ->leftJoin('endereco as e', 'e.usuario_id', '=', 'u.id')
+        ->leftJoin('unidade_federativa as uf', 'uf.id', '=', 'e.uf_id')
         ->leftJoin('telefone as t', 't.usuario_id', '=', 'u.id')
+        ->leftJoin('ddd as d', 'd.id', '=', 't.ddd_id')
         ->select([
             'u.id as usuarioId',
             'u.name as nome',
@@ -25,11 +27,15 @@ class ListUserDb extends DbBase
             'e.bairro as bairro',
             'e.cidade as cidade',
             'e.cep as cep',
-            'e.uf_id as ufId',
+            'uf.id as ufId',
+            'uf.uf as uf',
+            'uf.descricao as descricaoUF',
             't.ddd as ddd',
             't.numero as numero',
             't.tipo as tipo',
-            't.ddd_id as dddId',
+            'd.id as dddId',
+            'd.ddd as ddd',
+            'd.descricao as descricaoDDD',
             'u.created_at as criadoEm',
             'u.updated_at as alteradoEm'
         ])
@@ -41,7 +47,9 @@ class ListUserDb extends DbBase
         $query = $this->db
         ->table('users as u')
         ->leftJoin('endereco as e', 'e.usuario_id', '=', 'u.id')
+        ->leftJoin('unidade_federativa as uf', 'uf.id', '=', 'e.uf_id')
         ->leftJoin('telefone as t', 't.usuario_id', '=', 'u.id')
+        ->leftJoin('ddd as d', 'd.id', '=', 't.ddd_id')
         ->select([
             'u.id as usuarioId',
             'u.name as nome',
@@ -53,11 +61,15 @@ class ListUserDb extends DbBase
             'e.bairro as bairro',
             'e.cidade as cidade',
             'e.cep as cep',
-            'e.uf_id as ufId',
+            'uf.id as ufId',
+            'uf.uf as uf',
+            'uf.descricao as descricaoUF',
             't.ddd as ddd',
             't.numero as numero',
             't.tipo as tipo',
-            't.ddd_id as dddId',
+            'd.id as dddId',
+            'd.ddd as ddd',
+            'd.descricao as descricaoDDD',
             'u.created_at as criadoEm',
             'u.updated_at as alteradoEm'
         ]);
