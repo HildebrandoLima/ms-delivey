@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\TelephoneController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//  Endereço
+Route::prefix('address')->group(function () {
+    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
+    Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
+    Route::post('/save', [AddressController::class, 'store'])->name('address.save');
+});
+
+//  Telefone
+Route::prefix('telephone')->group(function () {
+    Route::get('/list', [TelephoneController::class, 'index'])->name('telephone.list');
+    Route::put('/edit', [TelephoneController::class, 'update'])->name('telephone.edit');
+    Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
+});
 
 //  Usuario
 Route::prefix('user')->group(function () {
@@ -27,11 +41,4 @@ Route::prefix('user')->group(function () {
     Route::put('/edit', [UserController::class, 'update'])->name('user.edit');
     Route::post('/save', [UserController::class, 'store'])->name('user.save');
     Route::delete('/remove', [UserController::class, 'destroy'])->name('user.remove');
-});
-
-//  Endereço
-Route::prefix('address')->group(function () {
-    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
-    Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
-    Route::post('/save', [AddressController::class, 'store'])->name('address.save');
 });

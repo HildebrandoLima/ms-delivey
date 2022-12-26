@@ -12,9 +12,9 @@ class ListFederativeUnitDb extends DbBase
         return $this->db
         ->table('unidade_federativa')
         ->select([
-            'id',
-            'uf',
-            'descricao'
+            'id as ufId',
+            'uf as uf',
+            'descricao as descricao'
         ])
         ->get();
     }
