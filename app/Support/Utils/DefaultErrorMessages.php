@@ -8,7 +8,8 @@ class DefaultErrorMessages
     public const DATABASE_CONNECTION_ERROR = "Erro de conexão com o banco de dados.";
     public const DATABASE_QUERY_ERROR = "Erro durante a operação ao banco de dados.";
     public const INTERNAL_SERVER_ERROR = "Ocorreu um erro no processamento da sua solicitação. Tente novamente dentro de alguns minutos. Se o serviço continuar sem funcionar, entre em contato com o suporte.";
-    public const FIELD_MUST_BE_INTEGER = "Esse campo precisa ser inteiro.";
+    public const FIELD_MUST_BE_INTEGER = "Esse campo deve ser do tipo inteiro.";
+    public const FIELD_MUST_BE_STRING = "Esse campo deve ser do tipo string.";
     public const REQUIRED_FIELD = "Campo obrigatório.";
     public const NOT_EMPTY_FIELD = "Esse campo não pode ser vazio.";
     public const INVALID_DATE = "Data inválida.";

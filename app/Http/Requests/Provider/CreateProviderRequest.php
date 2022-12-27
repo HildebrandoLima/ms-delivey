@@ -30,10 +30,10 @@ class CreateProviderRequest extends BaseRequest
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'data_fundacao.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'nome.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'cnpj.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'email.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'data_fundacao.string' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'data_fundacao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
         ];
     }
 }

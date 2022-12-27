@@ -34,11 +34,11 @@ class EditProviderRequest extends BaseRequest
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'atividade.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'fornecedorId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'nome.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'cnpj.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'email.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'atividade.string' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'atividade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
         ];
     }
 }

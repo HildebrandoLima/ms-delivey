@@ -35,10 +35,10 @@ class EditTelephoneRequest extends BaseRequest
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ddd_id.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'telefoneId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'numero.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'tipo.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'ddd_id.int' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'telefoneId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'ddd_id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

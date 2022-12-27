@@ -36,12 +36,12 @@ class EditUserRequest extends BaseRequest
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'usuarioId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'nome.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'email.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'atividade.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'genero.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'senha.string' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'atividade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
         ];
     }
 }

@@ -40,14 +40,14 @@ class CreateAddressRequest extends BaseRequest
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ufId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'logradouro.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'descricao.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'bairro.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'cidade.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'cep.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'ufId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'usuarioId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'fornecedorId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'bairro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'cidade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'cep.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ufId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

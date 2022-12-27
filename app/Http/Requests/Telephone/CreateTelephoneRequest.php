@@ -32,13 +32,13 @@ class CreateTelephoneRequest extends BaseRequest
 
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ddd_id.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'numero.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'tipo.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'ddd_id.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'usuarioId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'fornecedorId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'dddId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

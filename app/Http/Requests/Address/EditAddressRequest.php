@@ -39,13 +39,13 @@ class EditAddressRequest extends BaseRequest
             'cidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'enderecoId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'ufId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'logradouro.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'descricao.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'bairro.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'cidade.string' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'cep.int' => DefaultErrorMessages::VALIDATION_FAILURE,
+            'enderecoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ufId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'bairro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'cidade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'cep.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }
