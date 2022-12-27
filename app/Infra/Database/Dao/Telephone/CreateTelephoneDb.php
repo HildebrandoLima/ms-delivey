@@ -12,7 +12,6 @@ class CreateTelephoneDb extends DbBase
         return $this->db
         ->table('telefone')
         ->insert([
-            'ddd' => '123',
             'numero' => $request->numero,
             'tipo' => $request->tipo,
             'ddd_id' => $request->dddId,
