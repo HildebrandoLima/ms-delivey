@@ -18,8 +18,8 @@ class CreateTelephoneRequest extends BaseRequest
             'numero' => 'required|string',
             'tipo'=> 'required|string',
             'dddId' => 'required|int|exists:ddd,id',
-            'usuarioId' => 'required|int|exists:users,id',
-            'fornecedorId' => 'required|int|exists:fornecedor,id',
+            'usuarioId' => 'int|exists:users,id',
+            'fornecedorId' => 'int|exists:fornecedor,id',
         ];
     }
 
@@ -33,8 +33,6 @@ class CreateTelephoneRequest extends BaseRequest
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ddd_id.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'numero.string' => DefaultErrorMessages::VALIDATION_FAILURE,
             'tipo.string' => DefaultErrorMessages::VALIDATION_FAILURE,

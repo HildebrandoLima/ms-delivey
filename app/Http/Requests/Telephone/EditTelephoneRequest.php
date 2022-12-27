@@ -34,15 +34,11 @@ class EditTelephoneRequest extends BaseRequest
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ddd_id.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'telefoneId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
             'numero.string' => DefaultErrorMessages::VALIDATION_FAILURE,
             'tipo.string' => DefaultErrorMessages::VALIDATION_FAILURE,
             'ddd_id.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'usuarioId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
-            'fornecedorId.int' => DefaultErrorMessages::VALIDATION_FAILURE,
         ];
     }
 }
