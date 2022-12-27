@@ -4,10 +4,11 @@ namespace App\Infra\Database\Dao\Provider;
 
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Infra\Database\Config\DbBase;
+use App\Support\Utils\Enums\UserEnums;
 
 class CreateProviderDb extends DbBase
 {
-    public function createProvider(CreateProviderRequest $request, string $atividade): int
+    public function createProvider(CreateProviderRequest $request): int
     {
         $fornecedorId = $this->db
         ->table('fornecedor')
@@ -15,7 +16,7 @@ class CreateProviderDb extends DbBase
             'nome' => $request->nome,
             'cnpj' => $request->cnpj,
             'email' => $request->email,
-            'ativo' => $atividade,
+            'ativo' => UserEnums::ATIVADO,
             'data_fundacao' => $request->data_fundacao,
             'created_at' => new \DateTime()
         ]);

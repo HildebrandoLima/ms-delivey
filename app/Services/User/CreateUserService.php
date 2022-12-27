@@ -3,33 +3,27 @@
 namespace App\Services\User;
 
 use App\Http\Requests\User\CreateUserRequest;
+use App\Support\Utils\Cases\GenderCase;
 use App\Infra\Database\Dao\User\CreateUserDb;
-use App\Support\Utils\Enums\UserEnums;
 
 class CreateUserService
 {
+    private GenderCase   $genderCase;
     private CreateUserDb $createUserDb;
 
-    public function __construct(CreateUserDb $createUserDb)
+    public function __construct
+    (
+        GenderCase   $genderCase,
+        CreateUserDb $createUserDb
+    )
     {
+        $this->genderCase   = $genderCase;
         $this->createUserDb = $createUserDb;
     }
 
     public function createUser(CreateUserRequest $request): int
     {
-        $genero = $this->caseGenero($request->genero);
+        $genero = $this->genderCase->genderCase($request->genero);
         return $this->createUserDb->createUser($request, $genero);
-    }
-
-    private function caseGenero($genero): string
-    {
-        switch ($genero):
-            case $genero === 'Masculino':
-                return UserEnums::GENERO_MASCULINO;
-            case $genero === 'Feminino':
-                return UserEnums::GENERO_FEMININO;
-            case $genero === 'Outro':
-                return UserEnums::GENERO_OUTRO;
-        endswitch;
     }
 }

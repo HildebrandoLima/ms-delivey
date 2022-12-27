@@ -3,31 +3,27 @@
 namespace App\Services\Provider;
 
 use App\Http\Requests\Provider\EditProviderRequest;
+use App\Support\Utils\Cases\ActivityCase;
 use App\Infra\Database\Dao\Provider\EditProviderDb;
-use App\Support\Utils\Enums\UserEnums;
 
 class EditProviderService
 {
+    private ActivityCase   $activityCase;
     private EditProviderDb $editProviderDb;
 
-    public function __construct(EditProviderDb $editProviderDb)
+    public function __construct
+    (
+        ActivityCase   $activityCase,
+        EditProviderDb $editProviderDb
+    )
     {
+        $this->activityCase   = $activityCase;
         $this->editProviderDb = $editProviderDb;
     }
 
     public function editProvider(EditProviderRequest $request): bool
     {
-        $atividade = $this->caseAtividade($request->atividade);
+        $atividade = $this->activityCase->activityCase($request->atividade);
         return $this->editProviderDb->editProvider($request, $atividade);
-    }
-
-    private function caseAtividade($atividade): string
-    {
-        switch ($atividade):
-            case $atividade === '0':
-                return UserEnums::DESATIVADO;
-            case $atividade === '1':
-                return UserEnums::ATIVADO;
-        endswitch;
     }
 }
