@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\Provider;
 
-use App\Http\Requests\User\UserRequest;
-use App\Infra\Database\Dao\User\DeleteUserDb;
+use App\Http\Requests\Provider\ProviderRequest;
+use App\Infra\Database\Dao\Provider\DeleteProviderDb;
 use App\Infra\Database\Dao\Address\DeleteAddressDb;
 use App\Infra\Database\Dao\Telephone\DeleteTelephoneDb;
 
-class DeleteUserService
+class DeleteProviderService
 {
-    private DeleteUserDb      $deleteUserDb;
+    private DeleteProviderDb  $deleteProviderDb;
     private DeleteAddressDb   $deleteAddressDb;
     private DeleteTelephoneDb $deleteTelephoneDb;
 
     public function __construct
     (
-        DeleteUserDb      $deleteUserDb,
+        DeleteProviderDb  $deleteProviderDb,
         DeleteAddressDb   $deleteAddressDb,
         DeleteTelephoneDb $deleteTelephoneDb
     )
     {
-        $this->deleteUserDb      = $deleteUserDb;
+        $this->deleteProviderDb  = $deleteProviderDb;
         $this->deleteAddressDb   = $deleteAddressDb;
         $this->deleteTelephoneDb = $deleteTelephoneDb;
     }
 
-    public function deleteUser(UserRequest $request): bool
+    public function deleteProvider(ProviderRequest $request): bool
     {
-        $this->deleteUserDb->deleteUser($request);
+        $this->deleteProviderDb->deleteProvider($request);
         $this->deleteAddressDb->deleteAddress($request);
         $this->deleteTelephoneDb->deleteTelephone($request);
         return true;
