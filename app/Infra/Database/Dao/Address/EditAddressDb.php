@@ -7,13 +7,13 @@ use App\Infra\Database\Config\DbBase;
 
 class EditAddressDb extends DbBase
 {
-    public function editAddress(EditAddressRequest $request): bool
+    public function editAddress(EditAddressRequest $request, string $logradouro): bool
     {
         return $this->db
         ->table('endereco')
         ->where('id', $request->enderecoId)
         ->update([
-            'logradouro' => $request->logradouro,
+            'logradouro' => $logradouro,
             'descricao' => $request->descricao,
             'bairro' => $request->bairro,
             'cidade' => $request->cidade,

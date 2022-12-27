@@ -4,6 +4,7 @@ namespace App\Services\Telephone;
 
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Infra\Database\Dao\Telephone\CreateTelephoneDb;
+use App\Support\Utils\Enums\TelephoneEnums;
 
 class CreateTelephoneService
 {
@@ -16,6 +17,17 @@ class CreateTelephoneService
 
     public function createTelephone(CreateTelephoneRequest $request): int
     {
-        return $this->createTelephoneDb->createTelephone($request);
+        $tipo = $this->caseTipo($request->tipo);
+        return $this->createTelephoneDb->createTelephone($request, $tipo);
+    }
+
+    private function caseTipo($tipo): string
+    {
+        switch ($tipo):
+            case $tipo === 'Fixo':
+                return TelephoneEnums::TIPO_FIXO;
+            case $tipo === 'Celular':
+                return TelephoneEnums::TIPO_CELULAR;
+        endswitch;
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EditUserDb extends DbBase
 {
-    public function editUser(EditUserRequest $request): bool
+    public function editUser(EditUserRequest $request, string $atividade, string $genero): bool
     {
         return $this->db
         ->table('users')
@@ -16,8 +16,8 @@ class EditUserDb extends DbBase
         ->update([
             'name' => $request->nome,
             'email' => $request->email,
-            'ativo' => $request->atividade,
-            'genero' => $request->genero,
+            'ativo' => $atividade,
+            'genero' => $genero,
             'password' => Hash::make($request->senha),
             'updated_at' => new \DateTime()
         ]);

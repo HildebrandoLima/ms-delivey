@@ -35,10 +35,10 @@ class EditProviderRequest extends BaseRequest
             'atividade.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'atividade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'atividade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
         ];
     }
 }

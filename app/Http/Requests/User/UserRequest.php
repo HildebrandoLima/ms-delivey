@@ -25,7 +25,7 @@ class UserRequest extends BaseRequest
         return [
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'usuarioNome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'usuarioNome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
         ];
     }
 }

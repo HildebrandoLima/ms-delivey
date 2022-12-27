@@ -7,7 +7,7 @@ use App\Infra\Database\Config\DbBase;
 
 class EditProviderDb extends DbBase
 {
-    public function editProvider(EditProviderRequest $request): bool
+    public function editProvider(EditProviderRequest $request, string $atividade): bool
     {
         return $this->db
         ->table('fornecedor')
@@ -16,7 +16,7 @@ class EditProviderDb extends DbBase
             'nome' => $request->nome,
             'cnpj' => $request->cnpj,
             'email' => $request->email,
-            'ativo' => $request->atividade,
+            'ativo' => $atividade,
             'updated_at' => new \DateTime()
         ]);
     }

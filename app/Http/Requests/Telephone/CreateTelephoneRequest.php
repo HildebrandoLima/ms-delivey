@@ -34,8 +34,8 @@ class CreateTelephoneRequest extends BaseRequest
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dddId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,

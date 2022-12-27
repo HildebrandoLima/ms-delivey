@@ -36,8 +36,8 @@ class EditTelephoneRequest extends BaseRequest
             'ddd_id.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'telefoneId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'ddd_id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }

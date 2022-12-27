@@ -25,7 +25,7 @@ class ProviderRequest extends BaseRequest
         return [
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'fornecedorNome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'fornecedorNome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
         ];
     }
 }

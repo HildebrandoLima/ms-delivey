@@ -7,12 +7,12 @@ use App\Infra\Database\Config\DbBase;
 
 class CreateAddressDb extends DbBase
 {
-    public function createAddress(CreateAddressRequest $request): bool
+    public function createAddress(CreateAddressRequest $request, string $logradouro): bool
     {
         return $this->db
         ->table('endereco')
         ->insert([
-            'logradouro' => $request->logradouro,
+            'logradouro' => $logradouro,
             'descricao' => $request->descricao,
             'bairro' => $request->bairro,
             'cidade' => $request->cidade,

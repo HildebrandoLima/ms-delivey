@@ -4,6 +4,7 @@ namespace App\Services\Address;
 
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Infra\Database\Dao\Address\EditAddressDb;
+use App\Support\Utils\Enums\AddressEnums;
 
 class EditAddressService
 {
@@ -16,6 +17,17 @@ class EditAddressService
 
     public function editAddress(EditAddressRequest $request): bool
     {
-        return $this->editAddressDb->editAddress($request);
+        $logradouro = $this->caseLogradouro($request->logradouro);
+        return $this->editAddressDb->editAddress($request, $logradouro);
+    }
+
+    private function caseLogradouro($logradouro): string
+    {
+        switch ($logradouro):
+            case $logradouro === 'Rua':
+                return AddressEnums::LOGRADOURO_RUA;
+            case $logradouro === 'Avenida':
+                return AddressEnums::LOGRADOURO_AVENIDA;
+        endswitch;
     }
 }

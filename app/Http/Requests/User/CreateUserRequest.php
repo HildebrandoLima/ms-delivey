@@ -30,10 +30,10 @@ class CreateUserRequest extends BaseRequest
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
         ];
     }
 }

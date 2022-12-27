@@ -41,10 +41,10 @@ class EditAddressRequest extends BaseRequest
 
             'enderecoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'ufId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'bairro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
-            'cidade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRING,
+            'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'bairro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'cidade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cep.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }

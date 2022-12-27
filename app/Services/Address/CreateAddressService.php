@@ -4,6 +4,7 @@ namespace App\Services\Address;
 
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Infra\Database\Dao\Address\CreateAddressDb;
+use App\Support\Utils\Enums\AddressEnums;
 
 class CreateAddressService
 {
@@ -16,6 +17,17 @@ class CreateAddressService
 
     public function createAddress(CreateAddressRequest $request): int
     {
-        return $this->createAddressDb->createAddress($request);
+        $logradouro = $this->caseLogradouro($request->logradouro);
+        return $this->createAddressDb->createAddress($request, $logradouro);
+    }
+
+    private function caseLogradouro($logradouro): string
+    {
+        switch ($logradouro):
+            case $logradouro === 'Rua':
+                return AddressEnums::LOGRADOURO_RUA;
+            case $logradouro === 'Avenida':
+                return AddressEnums::LOGRADOURO_AVENIDA;
+        endswitch;
     }
 }

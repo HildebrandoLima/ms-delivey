@@ -7,7 +7,7 @@ use App\Infra\Database\Config\DbBase;
 
 class CreateProviderDb extends DbBase
 {
-    public function createProvider(CreateProviderRequest $request): int
+    public function createProvider(CreateProviderRequest $request, string $atividade): int
     {
         $fornecedorId = $this->db
         ->table('fornecedor')
@@ -15,7 +15,7 @@ class CreateProviderDb extends DbBase
             'nome' => $request->nome,
             'cnpj' => $request->cnpj,
             'email' => $request->email,
-            'ativo' => '1',
+            'ativo' => $atividade,
             'data_fundacao' => $request->data_fundacao,
             'created_at' => new \DateTime()
         ]);

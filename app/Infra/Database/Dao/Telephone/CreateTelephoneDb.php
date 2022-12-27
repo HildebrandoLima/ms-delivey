@@ -7,13 +7,13 @@ use App\Infra\Database\Config\DbBase;
 
 class CreateTelephoneDb extends DbBase
 {
-    public function createTelephone(CreateTelephoneRequest $request): bool
+    public function createTelephone(CreateTelephoneRequest $request, string $tipo): bool
     {
         return $this->db
         ->table('telefone')
         ->insert([
             'numero' => $request->numero,
-            'tipo' => $request->tipo,
+            'tipo' => $tipo,
             'ddd_id' => $request->dddId,
             'usuario_id' => $request->usuarioId,
             'fornecedor_id' => $request->fornecedorId,
