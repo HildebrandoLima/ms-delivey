@@ -16,10 +16,12 @@ class CreateUserDb extends DbBase
         ->insertGetId([
             'name' => $request->nome,
             'email' => $request->email,
+            'cpf' => $request->cpf,
             'ativo' => UserEnums::ATIVADO,
             'genero' => $genero,
+            'data_nascimento' => $request->data_nascimento,
             'password' => Hash::make($request->senha),
-            'created_at' => new \DateTime()
+            'created_at' => new \DateTime(),
         ]);
         return $usuarioId;
     }
