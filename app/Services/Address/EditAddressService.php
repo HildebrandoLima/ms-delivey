@@ -4,7 +4,7 @@ namespace App\Services\Address;
 
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Infra\Database\Dao\Address\EditAddressDb;
-use App\Support\Utils\Cases\PublicPlaceCase;
+use App\Support\Utils\Enums\AddressEnums;
 
 class EditAddressService
 {

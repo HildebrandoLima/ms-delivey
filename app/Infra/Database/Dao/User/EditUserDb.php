@@ -16,6 +16,7 @@ class EditUserDb extends DbBase
         ->update([
             'name' => $request->nome,
             'email' => $request->email,
+            'cpf' => $request->cpf,
             'ativo' => $atividade,
             'genero' => $genero,
             'password' => Hash::make($request->senha),
