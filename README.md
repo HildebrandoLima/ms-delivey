@@ -26,6 +26,7 @@
 <li>Instalar o Laravel `versão 9.0`</li>
 <li>Instalar o MySql `versão 8.0`</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VS code)</li>
+<li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL Workbench)</li>
 <li>Instalar o composer versão `2.4.0`</li>
 
 ### Executar o projeto:
@@ -41,14 +42,22 @@
 > Obanco de dados é do tipo relacional.
 
 ### Criando o Banco de de Dados:
-> No seu .env
-> Execute o comando: 
+> No seu .env adicione da seguinte forma:<br />
 
-Entre no seu cliente de banco de dados e copiar o conteúdo de **db.sql** e executar,
-certifique-se que as tabelas foram criadas, executando o comando:
+> DB_CONNECTION=mysql<br />
+> DB_HOST=seu_host<br />
+> DB_PORT=3306<br />
+> DB_DATABASE=nome_do_banco<br />
+> DB_USERNAME=nome_do_usuario<br />
+> DB_PASSWORD=sua_senha<br />
+
+> Execute o comando: php artisan migrate
+
+certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu:
 ```sql
     SHOW TABLES;
 ```
+
 #### Configure as credencias de acesso
 Encontre o arquivo **/config/database.php** e edite-o conforme as credencias do seu usuário do banco de dados.
 
