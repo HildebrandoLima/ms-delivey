@@ -53,21 +53,21 @@
 
 > Execute o comando: php artisan migrate
 
-certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu:
+certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu, execute o comando:
 ```sql
     SHOW TABLES;
 ```
 
-#### Configure as credencias de acesso
-Encontre o arquivo **/config/database.php** e edite-o conforme as credencias do seu usuário do banco de dados.
-
-### Crie o primeiro usuário de acesso
-Dentro do diretório da aplicação, execute no terminal o comando
-`php config/create-admin.php`;
-Isso criará um usuário com as credencias:
-|Nome|Email|Senha|
-| -  |   - |  -  |
-| Administrador | admin@admin.com | 123456|
 ### Para iniciar o servidor:
-`php -S localhost:8000 -t public`;
+`php artisan serve`
 Agora acesse o endereço http://localhost:8000 em seu navegador.
+
+### UML
+Cliente<br/>
+![Captura de tela de 2023-02-28 14-02-40](https://user-images.githubusercontent.com/47666194/221933419-f1fb4bc2-b8b1-46a7-8db1-0da1f82936d4.png)
+
+Admin<br />
+![Captura de tela de 2023-02-28 14-02-56](https://user-images.githubusercontent.com/47666194/221933281-3549c4e1-ec86-4491-9f14-413ecf334c27.png)
+
+### Modelagem de Dados
+![Captura de tela de 2023-02-28 14-03-30](https://user-images.githubusercontent.com/47666194/221933188-30fea7d3-3628-47b2-926e-1126ce4f9773.png)
