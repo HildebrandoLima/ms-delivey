@@ -30,26 +30,18 @@
 
 ### Executar o projeto:
 <ul>
-<li>Clone o projeto: `git clone `</li>
+<li>Clone o projeto: `git clone https://github.com/HildebrandoLima/ms-delivey.git`</li>
+<li><Adicionar arquivo `.env`</li>
+<li>Executar comandos: `composer install | php artisan key:generate | php artisan jwt:secret`</li>
+<li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
+<li>Executar: `php artisan serve`</li>
 </ul>
 
-Abra o diretório de instalação do PHP, encontre o arquivo *php.ini-production*, renomeio-o para *php.ini*.
-Encontre as seguintes linhas e descomente-as, removendo ";" que precede a linha.
-- pdo_mysql
-- curl
--mb_string
--openssl
-Baixe ou faça o clone do repositorio:
-`git clone https://github.com/SaorCampos/crud-php-oo.git`
-Após isso, entre no diretorio que foi gerado
-`cd crud-php-oo`
-Dentro da pasta do projeto execute no terminal os seguintes comandos:
-`composer install`,
-certifique-se que um diretório chamado **/vendor** foi criado.
-
 ### Banco de Dados:
-> Obanco de dados é do tipo relacional e contém as tabelas com até 2 níveis de normatização.
-### Criando o Banco de de Dados
+> Obanco de dados é do tipo relacional.
+
+### Criando o Banco de de Dados:
+
 Entre no seu cliente de banco de dados e copiar o conteúdo de **db.sql** e executar,
 certifique-se que as tabelas foram criadas, executando o comando:
 ```sql
