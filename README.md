@@ -31,8 +31,8 @@
 
 ### Executar o projeto:
 <ul>
-<li>Clone o projeto: `git clone https://github.com/HildebrandoLima/ms-delivey.git`</li>
-<li><Adicionar arquivo `.env`</li>
+<li>Clone o projeto: ` git clone https://github.com/HildebrandoLima/ms-delivey.git `</li>
+<li><Adicionar arquivo ` .env `</li>
 <li>Executar comandos: `composer install | php artisan key:generate | php artisan jwt:secret`</li>
 <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
 <li>Executar: `php artisan serve`</li>
