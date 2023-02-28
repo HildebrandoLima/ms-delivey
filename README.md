@@ -1,16 +1,17 @@
-# CRUD DE ESCOLAS
-Aplicação Web/API criada com:
-- Laravel/PHP para backend, ^8.0+
-MySQL para banco de dados.
+## API DE DELIVERY
 
-## Funcionalidades (Atualmente desenvolvidas)
+### Aplicação Web criada com:<br />
+- Laravel/PHP<br />
+- MySQL para banco de dados.<br/>
+
+### Funcionalidades (Atualmente desenvolvidas)
 <ul>
 <li>CRUD de Usuário</li>
 <li>CRUD de Endereço</li>
 <li>CRUD de Telefone</li>
 </ul>
 
-## Funcionalidades (A desenvolver)
+### Funcionalidades (A desenvolver)
 <ul>
 <li>CRUD de Produto</li>
 <li>CRUD de Item</li>
@@ -21,15 +22,15 @@ MySQL para banco de dados.
 </ul>
 
 ### Requesitos necessários para executar o projeto:
-<li>Instalar o PHP versão 8.0+</li>
-<li>Instalar o Laravel versão 9.0</li>
-<li>Instalar o MySql versão 8.0</li>
+<li>Instalar o PHP `versão 8.0`</li>
+<li>Instalar o Laravel `versão 9.0`</li>
+<li>Instalar o MySql `versão 8.0`</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VS code)</li>
-<li>Instalar o composer.</li>
+<li>Instalar o composer versão `2.4.0`</li>
 
 ### Executar o projeto:
 <ul>
-<li>Clone o projeto: </li>
+<li>Clone o projeto: `git clone `</li>
 </ul>
 
 Abra o diretório de instalação do PHP, encontre o arquivo *php.ini-production*, renomeio-o para *php.ini*.
