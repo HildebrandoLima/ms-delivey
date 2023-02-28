@@ -22,20 +22,20 @@
 </ul>
 
 ### Requesitos necessários para executar o projeto:
-<li>Instalar o PHP `versão 8.0`</li>
-<li>Instalar o Laravel `versão 9.0`</li>
-<li>Instalar o MySql `versão 8.0`</li>
+<li>Instalar o PHP versão 8.0</li>
+<li>Instalar o Laravel versão 9.0</li>
+<li>Instalar o MySql versão 8.0</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VS code)</li>
 <li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL Workbench)</li>
-<li>Instalar o composer versão `2.4.0`</li>
+<li>Instalar o composer versão 2.4.0</li>
 
 ### Executar o projeto:
 <ul>
-<li>Clone o projeto: ` git clone https://github.com/HildebrandoLima/ms-delivey.git `</li>
-<li><Adicionar arquivo ` .env `</li>
-<li>Executar comandos: `composer install | php artisan key:generate | php artisan jwt:secret`</li>
+<li>Clone o projeto: git clone https://github.com/HildebrandoLima/ms-delivey.git</li>
+<li><Adicionar arquivo .env</li>
+<li>Executar comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
 <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
-<li>Executar: `php artisan serve`</li>
+<li>Executar: php artisan serve</li>
 </ul>
 
 ### Banco de Dados:
