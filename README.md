@@ -41,6 +41,8 @@
 > Obanco de dados é do tipo relacional.
 
 ### Criando o Banco de de Dados:
+> No seu .env
+> Execute o comando: 
 
 Entre no seu cliente de banco de dados e copiar o conteúdo de **db.sql** e executar,
 certifique-se que as tabelas foram criadas, executando o comando:
