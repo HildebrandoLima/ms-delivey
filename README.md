@@ -24,7 +24,7 @@
 ### Requesitos necessários para executar o projeto:
 <li>Instalar o PHP versão 8.0</li>
 <li>Instalar o Laravel versão 9.0</li>
-<li>Instalar o MySql versão 8.0</li>
+<li>Instalar o MySQL versão 8.0</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VS code)</li>
 <li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL Workbench)</li>
 <li>Instalar o composer versão 2.4.0</li>
