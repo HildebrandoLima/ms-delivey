@@ -25,9 +25,10 @@
 <li>Instalar o PHP versão 8.0</li>
 <li>Instalar o Laravel versão 9.0</li>
 <li>Instalar o MySQL versão 8.0</li>
+<li>Instalar o composer versão 2.4.0</li>
+<li>Instalar o Postman</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VSCode)</li>
 <li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL WorkBench)</li>
-<li>Instalar o composer versão 2.4.0</li>
 
 ### Executar o projeto:
 <ul>
