@@ -31,7 +31,7 @@ class CreateUserRequest extends BaseRequest
             'cpf.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'data_nascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'dataNascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
