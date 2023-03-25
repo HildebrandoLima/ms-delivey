@@ -26,7 +26,7 @@
 <li>Instalar o Laravel versão 9.0</li>
 <li>Instalar o MySQL versão 8.0</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VSCode)</li>
-<li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL Workbench)</li>
+<li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL WorkBench)</li>
 <li>Instalar o composer versão 2.4.0</li>
 
 ### Executar o projeto:
@@ -45,9 +45,9 @@
 > No seu .env adicione da seguinte forma:<br />
 
 > DB_CONNECTION=mysql<br />
-> DB_HOST=seu_host<br />
+> DB_HOST=localhost<br />
 > DB_PORT=3306<br />
-> DB_DATABASE=nome_do_banco<br />
+> DB_DATABASE=msd_delivery<br />
 > DB_USERNAME=nome_do_usuario<br />
 > DB_PASSWORD=sua_senha<br />
 
