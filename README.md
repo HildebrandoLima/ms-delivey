@@ -59,6 +59,8 @@ certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolhe
     SHOW TABLES;
 ```
 
+### [Caso ocorra erro ao executar as migrations, clique aqui!](https://blog.renatolucena.net/post/como-fazer-rollback-de-migration-de-bd-no-laravel)
+
 ### Para iniciar o servidor:
 `php artisan serve`
 Agora acesse o endereço http://localhost:8000 em seu navegador.
