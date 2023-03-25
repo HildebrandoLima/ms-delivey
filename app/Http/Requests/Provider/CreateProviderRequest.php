@@ -18,7 +18,7 @@ class CreateProviderRequest extends BaseRequest
             'nome' => 'required|string',
             'cnpj' => 'required|string',
             'email'=> 'required|string',
-            'data_fundacao' => 'required|string',
+            'dataFundacao' => 'required|string',
         ];
     }
 
@@ -28,12 +28,12 @@ class CreateProviderRequest extends BaseRequest
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cnpj.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'data_fundacao.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'dataFundacao.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'data_fundacao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'dataFundacao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
         ];
     }
 }

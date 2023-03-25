@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('telefone', function (Blueprint $table) {
-            $table->id();
-            $table->string('numero', 9)->notnull();
+            $table->id()->autoIncrement();
+            $table->char('numero', 9)->unique()->notnull();
             $table->enum('tipo', ['Fixo', 'Celular']);
             $table->foreignId('ddd_id')->constrained('ddd');
-            $table->foreignId('users_id')->nullable()->constrained('users');
-            $table->foreignId('fornecedores_id')->nullable()->constrained('fornecedores');
+            $table->foreignId('usuario_id')->constrained('users');
+            $table->foreignId('fornecedor_id')->constrained('fornecedor');
             $table->timestamps();
         });
     }

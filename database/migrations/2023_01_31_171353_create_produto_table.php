@@ -14,18 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('produto', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome', 50)->notnull();
+            $table->id()->autoIncrement();
+            $table->string('nome', 50)->unique()->notnull();
             $table->decimal('preco_custo', 10, 2)->notnull();
             $table->decimal('margem_lucro', 10, 2)->notnull();
             $table->decimal('preco_venda', 10, 2)->notnull();
-            $table->string('codigo_barra', 13)->notnull();
+            $table->char('codigo_barra', 13)->unique()->notnull();
             $table->string('descricao', 100)->notnull();
-            $table->string('quantidade')->notnull();
+            $table->integer('quantidade')->notnull();
             $table->enum('unidade_medida', ['UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX']);
-            $table->enum('ativo', [0, 1]);
+            $table->boolean('ativo');
             $table->timestamp('data_validade')->notnull();
-            $table->foreignId('fornecedores_id')->constrained()->onDelete('cascade');
+            $table->foreignId('fornecedor_id')->constrained('fornecedor');
             $table->timestamps();
         });
     }
