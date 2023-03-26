@@ -18,7 +18,7 @@ class CreateUserDb extends DbBase
             'cpf' => $request->cpf,
             'email' => $request->email,
             'password' => Hash::make($request->senha),
-            'data_nascimento' => $request->data_nascimento,
+            'data_nascimento' => $request->dataNascimento,
             'ativo' => UserEnums::ATIVADO,
             'genero' => $genero,
             'created_at' => new \DateTime(),

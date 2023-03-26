@@ -21,8 +21,8 @@ class CreateAddressRequest extends BaseRequest
             'cidade' => 'required|string',
             'cep' => 'required|int',
             'ufId' => 'required|int|exists:unidade_federativa,id',
-            'usuarioId' => 'int|exists:users,id',
-            'fornecedorId' => 'int|exists:fornecedor,id',
+            'usuarioId' => 'required|int|exists:users,id',
+            'fornecedorId' => 'required|int|exists:fornecedor,id',
         ];
     }
 
@@ -39,6 +39,8 @@ class CreateAddressRequest extends BaseRequest
             'cidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ufId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

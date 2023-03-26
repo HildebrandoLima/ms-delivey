@@ -4,22 +4,23 @@ namespace App\Infra\Database\Dao\Address;
 
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Infra\Database\Config\DbBase;
+use App\Support\Utils\Enums\AddressEnums;
 
 class CreateAddressDb extends DbBase
 {
-    public function createAddress(CreateAddressRequest $request, string $logradouro): bool
+    public function createAddress(CreateAddressRequest $request): bool
     {
         return $this->db
         ->table('endereco')
         ->insert([
-            'logradouro' => $logradouro,
+            'logradouro' => $request->logradouro === 'Rua' ? AddressEnums::LOGRADOURO_RUA : AddressEnums::LOGRADOURO_AVENIDA,
             'descricao' => $request->descricao,
             'bairro' => $request->bairro,
             'cidade' => $request->cidade,
             'cep' => $request->cep,
             'uf_id' => $request->ufId,
-            'usuario_id' => $request->usuarioId,
-            'fornecedor_id' => $request->fornecedorId,
+            'usuario_id' => isset($request->usuarioId) ? $request->usuarioId : 0,
+            'fornecedor_id' => isset($request->fornecedorId) ? $request->fornecedorId : 0,
             'created_at' => new \DateTime()
         ]);
     }

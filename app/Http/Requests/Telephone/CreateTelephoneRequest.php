@@ -18,8 +18,8 @@ class CreateTelephoneRequest extends BaseRequest
             'numero' => 'required|string',
             'tipo'=> 'required|string',
             'dddId' => 'required|int|exists:ddd,id',
-            'usuarioId' => 'int|exists:users,id',
-            'fornecedorId' => 'int|exists:fornecedor,id',
+            'usuarioId' => 'required|int|exists:users,id',
+            'fornecedorId' => 'required|int|exists:fornecedor,id',
         ];
     }
 
