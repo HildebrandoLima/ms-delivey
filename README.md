@@ -18,7 +18,7 @@
 <li>CRUD de Categoria</li>
 <li>CRUD de Pedido</li>
 <li>CRUD de Pagamento</li>
-<li>CRUD de Login</li>
+<li>Login</li>
 </ul>
 
 ### Requesitos necessários para executar o projeto:
