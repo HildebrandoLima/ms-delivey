@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome', 50)->notnull()->unique();
-            $table->string('cpf', 11)->notnull()->unique();
-            $table->string('email', 50)->notnull()->unique();
-            $table->timestamp('data_mascimento')->notnull();
+            $table->id()->autoIncrement();
+            $table->string('name', 50)->unique()->notnull();
+            $table->string('cpf', 11)->unique()->notnull();
+            $table->string('email', 50)->unique()->notnull();
+            $table->string('password', 100)->unique()->notnull();
+            $table->timestamp('data_nascimento')->notnull();
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
-            $table->enum('ativo', [0, 1]);
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }

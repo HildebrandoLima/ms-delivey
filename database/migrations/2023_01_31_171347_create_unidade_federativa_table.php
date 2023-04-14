@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('unidade_federativa', function(Blueprint $table) {
-            $table->id();
-            $table->string('uf', 2);
-            $table->string('descricao', 20);
-        }); 
+            $table->id()->autoIncrement();
+            $table->char('uf', 2)->unique()->notnull();
+            $table->string('descricao', 20)->unique()->notnull();
+        });
     }
 
     /**

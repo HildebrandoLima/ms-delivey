@@ -17,7 +17,7 @@ class CreateProviderDb extends DbBase
             'cnpj' => $request->cnpj,
             'email' => $request->email,
             'ativo' => UserEnums::ATIVADO,
-            'data_fundacao' => $request->data_fundacao,
+            'data_fundacao' => $request->dataFundacao,
             'created_at' => new \DateTime()
         ]);
         return $fornecedorId;

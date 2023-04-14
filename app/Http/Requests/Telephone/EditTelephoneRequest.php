@@ -19,6 +19,8 @@ class EditTelephoneRequest extends BaseRequest
             'numero' => 'required|string',
             'tipo'=> 'required|string',
             'dddId' => 'required|int|exists:ddd,id',
+            'usuarioId' => 'required|int|exists:telefone,id',
+            'fornecedorId' => 'required|int|exists:telefone,id',
         ];
     }
 
@@ -33,12 +35,16 @@ class EditTelephoneRequest extends BaseRequest
             'telefoneId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ddd_id.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'usuarioId.exists' => DefaultErrorMessages::REQUIRED_FIELD,
+            'fornecedorId.exists' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'telefoneId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'ddd_id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'usuarioId.exists' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'fornecedorId.exists' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

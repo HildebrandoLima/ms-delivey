@@ -24,9 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //  Endereço
 Route::prefix('address')->group(function () {
-    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
+    Route::get('/uf/list', [AddressController::class, 'uf'])->name('address.uf.list');
+    Route::get('/list/{userId}', [AddressController::class, 'index'])->name('address.list');
     Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
     Route::post('/save', [AddressController::class, 'store'])->name('address.save');
+    Route::delete('/remove', [AddressController::class, 'destroy'])->name('address.remove');
 });
 
 // Fornecedor
@@ -39,9 +41,11 @@ Route::prefix('provider')->group(function () {
 
 //  Telefone
 Route::prefix('telephone')->group(function () {
-    Route::get('/list', [TelephoneController::class, 'index'])->name('telephone.list');
+    Route::get('/ddd/list', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
+    Route::get('/list/{userId}', [TelephoneController::class, 'index'])->name('telephone.list');
     Route::put('/edit', [TelephoneController::class, 'update'])->name('telephone.edit');
     Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
+    Route::delete('/remove', [TelephoneController::class, 'destroy'])->name('telephone.remove');
 });
 
 //  Usuario

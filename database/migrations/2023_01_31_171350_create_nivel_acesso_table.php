@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ddd', function (Blueprint $table) {
-            $table->id();
-            $table->string('char', 3)->notnull();
-            $table->string('descricao', 20);
+        Schema::create('nivel_acesso', function (Blueprint $table) {
+            $table->id()->autoIncrement();
+            $table->string('descricao', 50)->unique()->notnull();
+            $table->foreignId('usuario_id')->constrained('users');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ddd');
+        Schema::dropIfExists('nivel_acesso');
     }
 };

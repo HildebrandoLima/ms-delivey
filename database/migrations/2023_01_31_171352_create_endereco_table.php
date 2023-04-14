@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('endereco', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->enum('logradouro', ['Rua', 'Av']);
-            $table->string('descricao')->notnull();
-            $table->string('bairro')->notnull();
-            $table->string('cidade')->notnull();
-            $table->string('cep', 7)->notnull();
-            $table->foreignId('unidade_federativa_id')->constrained('unidade_federativa');
-            $table->foreignId('users_id')->constrained('users')->nullable()->onDelete('cascade');
-            $table->foreignId('fornecedores_id')->constrained('fornecedores')->nullable()->onDelete('cascade');
+            $table->string('descricao', 50)->notnull();
+            $table->string('bairro', 50)->notnull();
+            $table->string('cidade', 50)->notnull();
+            $table->char('cep', 7)->notnull();
+            $table->foreignId('uf_id')->constrained('unidade_federativa');
+            $table->foreignId('usuario_id')->constrained('users');
+            $table->foreignId('fornecedor_id')->constrained('fornecedor');
             $table->timestamps();
         });
     }

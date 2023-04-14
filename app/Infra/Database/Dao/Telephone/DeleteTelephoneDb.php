@@ -11,7 +11,9 @@ class DeleteTelephoneDb extends DbBase
     {
         return $this->db
         ->table('telefone')
-        ->where('usuario_id', $request->usuarioId)
+        ->where('id', $request->telefoneId)
+        ->orWhere('usuario_id', $request->usuarioId)
+        ->orWhere('fornecedor_id', $request->fornecedorId)
         ->delete();
     }
 }

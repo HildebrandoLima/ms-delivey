@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateUserDb extends DbBase
 {
-    public function createUser(CreateUserRequest $request, string $genero): int
+    public function createUser(CreateUserRequest $request): int
     {
         $usuarioId = $this->db
         ->table('users')
         ->insertGetId([
             'name' => $request->nome,
-            'email' => $request->email,
             'cpf' => $request->cpf,
-            'ativo' => UserEnums::ATIVADO,
-            'genero' => $genero,
-            'data_nascimento' => $request->data_nascimento,
+            'email' => $request->email,
             'password' => Hash::make($request->senha),
+            'data_nascimento' => $request->dataNascimento,
+            'ativo' => UserEnums::ATIVADO,
+            'genero' => ($request->genero == 'Masculino') ? UserEnums::GENERO_MASCULINO : (($request->genero == 'Feminino') ? UserEnums::GENERO_FEMININO : UserEnums::GENERO_OUTRO),
             'created_at' => new \DateTime(),
         ]);
         return $usuarioId;

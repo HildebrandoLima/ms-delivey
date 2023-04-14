@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fornecedores', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome', 30)->unique()->notnull();
+        Schema::create('fornecedor', function (Blueprint $table) {
+            $table->id()->autoIncrement();
+            $table->string('nome', 50)->unique()->notnull();
             $table->string('cnpj', 14)->unique()->notnull();
-            $table->string('email', 50)->notnull();
+            $table->string('email', 50)->unique()->notnull();
+            $table->boolean('ativo');
             $table->timestamp('data_fundacao')->notnull();
             $table->timestamps();
         });

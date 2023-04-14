@@ -2,36 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Address\AddressRequest;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Services\Address\CreateAddressService;
+use App\Services\Address\DeleteAddressService;
 use App\Services\Address\EditAddressService;
-use App\Services\Address\ListFederativeUnitService;
+use App\Services\Address\ListAddressService;
 use App\Exceptions\SystemDefaultException;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
 {
     private CreateAddressService      $createAddressService;
+    private DeleteAddressService      $deleteAddressService;
     private EditAddressService        $editAddressService;
-    private ListFederativeUnitService $listFederativeUnitService;
+    private ListAddressService        $listAddressService;
 
     public function __construct
     (
         CreateAddressService      $createAddressService,
+        DeleteAddressService      $deleteAddressService,
         EditAddressService        $editAddressService,
-        ListFederativeUnitService $listFederativeUnitService
+        ListAddressService        $listAddressService
     )
     {
         $this->createAddressService      =   $createAddressService;
+        $this->deleteAddressService      =   $deleteAddressService;
         $this->editAddressService        =   $editAddressService;
-        $this->listFederativeUnitService =   $listFederativeUnitService;
+        $this->listAddressService        =   $listAddressService;
     }
 
-    public function index(): Response
+    public function uf(): Response
     {
         try {
-            $response = $this->listFederativeUnitService->listFederativeUnitAll();
+            $response = $this->listAddressService->listFederativeUnitAll();
             if($response):
                 return response()->json([
                     "message" => "Listagem de uf encontrada com sucesso.",
@@ -42,6 +47,29 @@ class AddressController extends Controller
             endif;
             return response()->json([
                 "message" => "Error ao buscar listagem de uf.",
+                "data" => false,
+                "status" => Response::HTTP_BAD_REQUEST,
+                "details" => ""
+            ]);
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
+    }
+
+    public function index(int $userId): Response
+    {
+        try {
+            $response = $this->listAddressService->listAddressAll($userId);
+            if($response):
+                return response()->json([
+                    "message" => "Listagem de endereço encontrada com sucesso.",
+                    "data" => $response,
+                    "status" => 200,
+                    "details" => ""
+                ]);
+            endif;
+            return response()->json([
+                "message" => "Error ao buscar listagem de endereço.",
                 "data" => false,
                 "status" => Response::HTTP_BAD_REQUEST,
                 "details" => ""
@@ -88,6 +116,29 @@ class AddressController extends Controller
             endif;
             return response()->json([
                 "message" => "Error ao efetuar edição de endereço.",
+                "data" => false,
+                "status" => Response::HTTP_BAD_REQUEST,
+                "details" => ""
+            ]);
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
+    }
+
+    public function destroy(AddressRequest $request): Response
+    {
+        try {
+            $response = $this->deleteAddressService->deleteAddress($request);
+            if($response):
+                return response()->json([
+                    "message" => "Remoção do endereço efetuado com sucesso.",
+                    "data" => true,
+                    "status" => 200,
+                    "details" => ""
+                ]);
+            endif;
+            return response()->json([
+                "message" => "Error ao efetuar remoção de endereço.",
                 "data" => false,
                 "status" => Response::HTTP_BAD_REQUEST,
                 "details" => ""
