@@ -24,7 +24,8 @@ class CreateProviderService
 
     private function checkProvider($request): void
     {
-        if (Fornecedor::query()->where('cnpj', $request->cnpj)->count() !== 0):
+        if (Fornecedor::query()->where('nome', $request->nome)->orWhere('cnpj', $request->cnpj)
+            ->orWhere('email', $request->email)->count() !== 0):
             throw new HttpBadRequest('O fornecedor já existe');
         endif;
     }

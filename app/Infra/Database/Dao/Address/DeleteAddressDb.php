@@ -11,7 +11,9 @@ class DeleteAddressDb extends DbBase
     {
         return $this->db
         ->table('endereco')
-        ->where('usuario_id', $request->usuarioId)
+        ->where('id', $request->enderecoId)
+        ->orWhere('usuario_id', $request->usuarioId)
+        ->orWhere('fornecedor_id', $request->fornecedorId)
         ->delete();
     }
 }

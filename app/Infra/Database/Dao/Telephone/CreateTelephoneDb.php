@@ -14,7 +14,7 @@ class CreateTelephoneDb extends DbBase
         ->table('telefone')
         ->insert([
             'numero' => $request->numero,
-            'tipo' => $request->tipo === 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR,
+            'tipo' => $request->tipo == 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR,
             'ddd_id' => $request->dddId,
             'usuario_id' => $request->usuarioId,
             'fornecedor_id' => $request->fornecedorId,

@@ -13,7 +13,7 @@ class CreateAddressDb extends DbBase
         return $this->db
         ->table('endereco')
         ->insert([
-            'logradouro' => $request->logradouro === 'Rua' ? AddressEnums::LOGRADOURO_RUA : AddressEnums::LOGRADOURO_AVENIDA,
+            'logradouro' => $request->logradouro == 'Rua' ? AddressEnums::LOGRADOURO_RUA : AddressEnums::LOGRADOURO_AVENIDA,
             'descricao' => $request->descricao,
             'bairro' => $request->bairro,
             'cidade' => $request->cidade,

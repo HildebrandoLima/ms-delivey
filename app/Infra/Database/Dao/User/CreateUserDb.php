@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateUserDb extends DbBase
 {
-    public function createUser(CreateUserRequest $request, string $genero): int
+    public function createUser(CreateUserRequest $request): int
     {
         $usuarioId = $this->db
         ->table('users')
@@ -20,7 +20,7 @@ class CreateUserDb extends DbBase
             'password' => Hash::make($request->senha),
             'data_nascimento' => $request->dataNascimento,
             'ativo' => UserEnums::ATIVADO,
-            'genero' => $genero,
+            'genero' => ($request->genero == 'Masculino') ? UserEnums::GENERO_MASCULINO : (($request->genero == 'Feminino') ? UserEnums::GENERO_FEMININO : UserEnums::GENERO_OUTRO),
             'created_at' => new \DateTime(),
         ]);
         return $usuarioId;

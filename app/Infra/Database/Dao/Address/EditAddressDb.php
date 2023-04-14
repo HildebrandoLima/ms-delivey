@@ -14,7 +14,7 @@ class EditAddressDb extends DbBase
         ->table('endereco')
         ->where('id', $request->enderecoId)
         ->update([
-            'logradouro' => $request->logradouro === 'Rua' ? AddressEnums::LOGRADOURO_RUA : AddressEnums::LOGRADOURO_AVENIDA,
+            'logradouro' => $request->logradouro == 'Rua' ? AddressEnums::LOGRADOURO_RUA : AddressEnums::LOGRADOURO_AVENIDA,
             'descricao' => $request->descricao,
             'bairro' => $request->bairro,
             'cidade' => $request->cidade,

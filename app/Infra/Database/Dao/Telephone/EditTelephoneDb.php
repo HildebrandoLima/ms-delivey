@@ -15,7 +15,7 @@ class EditTelephoneDb extends DbBase
         ->where('id', $request->telefoneId)
         ->update([
             'numero' => $request->numero,
-            'tipo' => $request->tipo === 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR,
+            'tipo' => $request->tipo == 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR,
             'ddd_id' => $request->dddId,
             'updated_at' => new \DateTime()
         ]);

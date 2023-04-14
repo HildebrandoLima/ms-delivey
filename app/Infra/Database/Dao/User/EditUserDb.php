@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EditUserDb extends DbBase
 {
-    public function editUser(EditUserRequest $request, string $genero): bool
+    public function editUser(EditUserRequest $request): bool
     {
         return $this->db
         ->table('users')
@@ -19,8 +19,9 @@ class EditUserDb extends DbBase
             'cpf' => $request->cpf,
             'email' => $request->email,
             'password' => Hash::make($request->senha),
-            'genero' => $genero,
+            'data_nascimento' => $request->dataNascimento,
             'ativo' => $request->atividade === '1' ? UserEnums::ATIVADO : UserEnums::DESATIVADO,
+            'genero' => ($request->genero == 'Masculino') ? UserEnums::GENERO_MASCULINO : (($request->genero == 'Feminino') ? UserEnums::GENERO_FEMININO : UserEnums::GENERO_OUTRO),
             'updated_at' => new \DateTime()
         ]);
     }
