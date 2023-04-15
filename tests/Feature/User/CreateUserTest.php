@@ -14,7 +14,16 @@ class CreateUserTest extends TestCase
      */
     public function it_endpoint_post_create_a_successful_response(): void
     {
-        $user = User::factory(1)->create()->toArray();
+        //$user = User::factory(1)->create()->toArray();
+        $user = [
+            'name' => 'Teste',
+            'cpf' => rand(1000, 10000),
+            'email' => 'email@email.com.br',
+            'password' => Hash::make('Teste#421A'),
+            'dataNascimento' => new \dateTime(),
+            'genero' => 'Masculino',
+            'ativo' => '1',
+        ];
         $response = $this->postJson('/api/user/save', $user);
         $response->assertStatus(200);
     }
@@ -24,15 +33,15 @@ class CreateUserTest extends TestCase
      */
     public function it_endpoint_post_create_a_failure_response(): void
     {
-        $data = [
+        $user = [
             'name' => 'Teste',
             'cpf' => rand(1000, 10000),
             'email' => 'email@email.com.br',
             'password' => Hash::make('Teste#421A'),
-            'data_nascimento' => new \dateTime(),
+            'dataNascimento' => new \dateTime(),
             'genero' => ''
         ];
-        $response = $this->postJson('/api/user/save', $data);
+        $response = $this->postJson('/api/user/save', $user);
         $response->assertStatus(404);
     }
 }
