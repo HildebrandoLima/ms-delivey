@@ -20,7 +20,7 @@ class CreateUserTest extends TestCase
             'cpf' => rand(1000, 10000),
             'email' => 'email@email.com.br',
             'password' => Hash::make('Teste#421A'),
-            'dataNascimento' => new \dateTime(),
+            'data_nascimento' => new \dateTime(),
             'genero' => 'Masculino',
             'ativo' => '1',
         ];
@@ -38,7 +38,7 @@ class CreateUserTest extends TestCase
             'cpf' => rand(1000, 10000),
             'email' => 'email@email.com.br',
             'password' => Hash::make('Teste#421A'),
-            'dataNascimento' => new \dateTime(),
+            'data_nascimento' => new \dateTime(),
             'genero' => ''
         ];
         $response = $this->postJson('/api/user/save', $user);
