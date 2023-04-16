@@ -38,6 +38,6 @@ class CreateTelephoneTest extends TestCase
             'fornecedor_id' => 1,
         ];
         $response = $this->postJson('/api/telephone/save', $telephone);
-        $response->assertStatus(404);
+        $response->assertStatus(422);
     }
 }
