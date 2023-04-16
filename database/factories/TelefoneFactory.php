@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Endereco>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Telefone>
  */
-class EnderecoFactory extends Factory
+class TelefoneFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,9 @@ class EnderecoFactory extends Factory
     public function definition()
     {
         return [
-            'logradouro' => 'Rua',
-            'descricao' => 'sdsdsd',
-            'bairro' => 'asdsd',
-            'cidade' => $this->faker->country,
-            'cep' => rand(1000, 9000),
-            'uf_id' => 1,
+            'numero' => rand(100, 900),
+            'tipo' => 'Fixo',
+            'ddd_id' => 1,
             'usuario_id' => 1,
             'fornecedor_id' => 1,
         ];
