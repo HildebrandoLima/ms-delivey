@@ -11,13 +11,13 @@ class ListProviderDb extends DbBase
     public function listProviderAll(): Collection
     {
         return collect($this->db
-            ->table('fornecedor ')
+            ->table('fornecedor')
             ->select([
-                'f.id as fornecedorId',
-                'f.nome as nome',
-                'f.cnpj as cnpj',
-                'f.created_at as criadoEm',
-                'f.updated_at as alteradoEm'
+                'id as fornecedorId',
+                'nome as nome',
+                'cnpj as cnpj',
+                'created_at as criadoEm',
+                'updated_at as alteradoEm'
             ])
             ->orderBy('id')->paginate(10));
     }

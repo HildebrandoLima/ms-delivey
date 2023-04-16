@@ -10,15 +10,18 @@ class CreateTelephoneDb extends DbBase
 {
     public function createTelephone(CreateTelephoneRequest $request): bool
     {
-        return $this->db
-        ->table('telefone')
-        ->insert([
-            'numero' => $request->numero,
-            'tipo' => $request->tipo == 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR,
-            'ddd_id' => $request->dddId,
-            'usuario_id' => $request->usuarioId,
-            'fornecedor_id' => $request->fornecedorId,
-            'created_at' => new \DateTime()
-        ]);
+        foreach ($request->telefones as $telefone):
+            $this->db
+            ->table('telefone')
+            ->insert([
+                'numero' => $telefone['numero'],
+                'tipo' => $telefone['tipo'] == 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR,
+                'ddd_id' => $telefone['dddId'],
+                'usuario_id' => $telefone['usuarioId'],
+                'fornecedor_id' => $telefone['fornecedorId'],
+                'created_at' => new \DateTime()
+            ]);
+        endforeach;
+        return true;
     }
 }

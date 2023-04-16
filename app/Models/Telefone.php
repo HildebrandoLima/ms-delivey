@@ -22,7 +22,6 @@ class Telefone extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'ddd',
         'numero',
         'tipo',
         'ddd_id',

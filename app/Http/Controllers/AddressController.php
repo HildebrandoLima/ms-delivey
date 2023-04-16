@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Address\AddressRequest;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
+use App\Http\Requests\User\UserRequest;
 use App\Services\Address\CreateAddressService;
 use App\Services\Address\DeleteAddressService;
 use App\Services\Address\EditAddressService;
@@ -56,10 +57,10 @@ class AddressController extends Controller
         }
     }
 
-    public function index(int $userId): Response
+    public function index(UserRequest $request): Response
     {
         try {
-            $response = $this->listAddressService->listAddressAll($userId);
+            $response = $this->listAddressService->listAddressAll($request);
             if($response):
                 return response()->json([
                     "message" => "Listagem de endereço encontrada com sucesso.",

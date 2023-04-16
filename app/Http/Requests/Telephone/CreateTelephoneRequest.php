@@ -15,11 +15,12 @@ class CreateTelephoneRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'numero' => 'required|string',
-            'tipo'=> 'required|string',
-            'dddId' => 'required|int|exists:ddd,id',
-            'usuarioId' => 'required|int|exists:users,id',
-            'fornecedorId' => 'required|int|exists:fornecedor,id',
+            'telefones' => 'required|array',
+            'telefones.*.numero' => 'required|string',
+            'telefones.*.tipo'=> 'required|string',
+            'telefones.*.dddId' => 'required|int|exists:ddd,id',
+            'telefones.*.usuarioId' => 'required|int|exists:users,id',
+            'telefones.*.fornecedorId' => 'required|int|exists:fornecedor,id',
         ];
     }
 
@@ -30,10 +31,12 @@ class CreateTelephoneRequest extends BaseRequest
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
 
+            'telefones.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
+            'telefones.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dddId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
