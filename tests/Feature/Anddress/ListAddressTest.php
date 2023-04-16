@@ -21,7 +21,7 @@ class ListAddressTest extends TestCase
      */
     public function it_endpoint_get_address_a_successful_response(): void
     {
-        $response = $this->getJson('/api/address/list/1');
+        $response = $this->getJson('/api/address/list', [1]);
         $response->assertStatus(200);
     }
 
@@ -39,7 +39,7 @@ class ListAddressTest extends TestCase
      */
     public function it_endpoint_get_address_a_failure_response(): void
     {
-        $response = $this->getJson('/api/address/list/');
-        $response->assertStatus( 200);
+        $response = $this->getJson('/api/address/list/', [3000]);
+        $response->assertStatus( 400);
     }
 }

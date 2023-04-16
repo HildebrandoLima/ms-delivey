@@ -2,6 +2,7 @@
 
 namespace App\Infra\Database\Dao\Address;
 
+use App\Http\Requests\User\UserRequest;
 use App\Infra\Database\Config\DbBase;
 use Illuminate\Support\Collection;
 
@@ -19,7 +20,7 @@ class ListAddressDb extends DbBase
         ->get();
     }
 
-    public function listAddressAll(int $userId): Collection
+    public function listAddressAll(UserRequest $request): Collection
     {
         return $this->db
         ->table('endereco as e')
@@ -37,7 +38,7 @@ class ListAddressDb extends DbBase
             'uf.uf as uf',
             'uf.descricao as estado'
         ])
-        ->where('e.usuario_id', $userId)
+        ->where('e.usuario_id', $request->usuarioId)
         ->get();
     }
 }

@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //  Endereço
 Route::prefix('address')->group(function () {
     Route::get('/uf/list', [AddressController::class, 'uf'])->name('address.uf.list');
-    Route::get('/list/{userId}', [AddressController::class, 'index'])->name('address.list');
+    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
     Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
     Route::post('/save', [AddressController::class, 'store'])->name('address.save');
     Route::delete('/remove', [AddressController::class, 'destroy'])->name('address.remove');
