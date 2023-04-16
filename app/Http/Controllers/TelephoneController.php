@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Http\Requests\Telephone\TelephoneRequest;
+use App\Http\Requests\User\UserRequest;
 use App\Services\Telephone\CreateTelephoneService;
 use App\Services\Telephone\DeleteTelephoneService;
 use App\Services\Telephone\EditTelephoneService;
@@ -56,10 +57,10 @@ class TelephoneController extends Controller
         }
     }
 
-    public function index(int $userId): Response
+    public function index(UserRequest $request): Response
     {
         try {
-            $response = $this->listTelephoneService->listTelephoneAll($userId);
+            $response = $this->listTelephoneService->listTelephoneAll($request);
             if($response):
                 return response()->json([
                     "message" => "Listagem de telefone encontrada com sucesso.",

@@ -42,7 +42,7 @@ Route::prefix('provider')->group(function () {
 //  Telefone
 Route::prefix('telephone')->group(function () {
     Route::get('/ddd/list', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
-    Route::get('/list/{userId}', [TelephoneController::class, 'index'])->name('telephone.list');
+    Route::get('/list', [TelephoneController::class, 'index'])->name('telephone.list');
     Route::put('/edit', [TelephoneController::class, 'update'])->name('telephone.edit');
     Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
     Route::delete('/remove', [TelephoneController::class, 'destroy'])->name('telephone.remove');

@@ -2,6 +2,7 @@
 
 namespace App\Infra\Database\Dao\Telephone;
 
+use App\Http\Requests\User\UserRequest;
 use App\Infra\Database\Config\DbBase;
 use Illuminate\Support\Collection;
 
@@ -19,7 +20,7 @@ class ListTelephoneDb extends DbBase
         ->get();
     }
 
-    public function listTelephoneAll(int $userId): Collection
+    public function listTelephoneAll(UserRequest $request): Collection
     {
         return $this->db
         ->table('telefone as t')
@@ -32,7 +33,7 @@ class ListTelephoneDb extends DbBase
             'd.ddd as ddd',
             'd.descricao as estado'
         ])
-        ->where('t.usuario_id', $userId)
+        ->where('t.usuario_id', $request->usuarioId)
         ->get();
     }
 }
