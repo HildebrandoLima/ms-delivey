@@ -11,7 +11,7 @@ class EditUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_create_a_successful_response(): void
+    public function it_endpoint_put_update_a_successful_response(): void
     {
         $user = [
             'usuarioId'=> 1,
@@ -30,7 +30,7 @@ class EditUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_create_a_failure_response(): void
+    public function it_endpoint_put_update_a_failure_response(): void
     {
         $user = [
             'usuarioId'=> 1000,

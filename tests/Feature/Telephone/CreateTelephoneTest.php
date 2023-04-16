@@ -15,11 +15,20 @@ class CreateTelephoneTest extends TestCase
     {
         // $telephone = Telefone::factory(3)->create()->toArray();
         $telephone = [
-            'numero' => rand(100, 900),
-            'tipo' => 'Fixo',
-            'ddd_id' => 1,
-            'usuario_id' => 1,
-            'fornecedor_id' => 1,
+            [
+                'numero' => rand(100, 900),
+                'tipo' => 'Fixo',
+                'ddd_id' => 1,
+                'usuario_id' => 1,
+                'fornecedor_id' => 1,
+            ],
+            [
+                'numero' => rand(100, 900),
+                'tipo' => 'Fixo',
+                'ddd_id' => 1,
+                'usuario_id' => 1,
+                'fornecedor_id' => 1,
+            ]
         ];
         $response = $this->postJson('/api/telephone/save', $telephone);
         $response->assertStatus(200);
@@ -31,13 +40,20 @@ class CreateTelephoneTest extends TestCase
     public function it_endpoint_post_create_a_failure_response(): void
     {
         $telephone = [
-            'numero' => '',
-            'tipo' => 'Fixo',
-            'ddd_id' => 1,
-            'usuario_id' => 1,
-            'fornecedor_id' => 1,
+            [
+                'numero' => '',
+                'tipo' => 'Fixo',
+                'ddd_id' => 1,
+                'usuario_id' => 1,
+                'fornecedor_id' => 1,
+            ],
+            [
+                'numero' => rand(100, 900),
+                'tipo' => 'Fixo',
+                'ddd_id' => 1,
+            ]
         ];
         $response = $this->postJson('/api/telephone/save', $telephone);
-        $response->assertStatus(422);
+        $response->assertStatus(400);
     }
 }

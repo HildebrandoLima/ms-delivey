@@ -10,7 +10,7 @@ class EditProviderTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_create_a_successful_response(): void
+    public function it_endpoint_put_update_a_successful_response(): void
     {
         $provider = [
             'fornecedorId'=> 1,
@@ -27,7 +27,7 @@ class EditProviderTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_create_a_failure_response(): void
+    public function it_endpoint_put_update_a_failure_response(): void
     {
         $provider = [
             'fornecedorId'=> 1,
