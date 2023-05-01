@@ -2,31 +2,72 @@
 
 namespace App\Repositories;
 
+use App\Models\Endereco;
+use App\Models\UnidadeFederativa;
 use Illuminate\Support\Collection;
 
 class AddressRepository {
-    public function insert(): int
+    public function insert(Endereco $endereco): bool
     {
-        return 1;
+        return Endereco::query()->insert([
+            'logradouro' => $endereco->logradouro,
+            'descricao' => $endereco->descricao,
+            'bairro' => $endereco->bairro,
+            'cidade' => $endereco->cidade,
+            'cep' => $endereco->cep,
+            'uf_id' => $endereco->uf_id,
+            'usuario_id' => $endereco->usuario_id,
+            'fornecedor_id' => $endereco->fornecedor_id,
+            'created_at' => $endereco->created_at
+        ]);
     }
 
-    public function update(): bool
+    public function update(int $id, Endereco $endereco): bool
     {
-        return true;
+        return Endereco::query()->where('id', $id)->update([
+            'logradouro' => $endereco->logradouro,
+            'descricao' => $endereco->descricao,
+            'bairro' => $endereco->bairro,
+            'cidade' => $endereco->cidade,
+            'cep' => $endereco->cep,
+            'uf_id' => $endereco->uf_id,
+            'usuario_id' => $endereco->usuario_id,
+            'fornecedor_id' => $endereco->fornecedor_id,
+            'updated_at' => $endereco->updated_at
+        ]);
     }
 
-    public function delete(): bool
+    public function delete(int $id): bool
     {
-        return true;
+        return Endereco::query()->where('id', $id)->delete();
     }
 
-    public function getAll(): Collection
+    public function getAllFederativeUnit(): Collection
     {
-        return collect();
+        return UnidadeFederativa::query()->select([
+            'id as ufId',
+            'uf as uf',
+            'descricao as descricao'
+        ])->get();
     }
 
-    public function getFind(): Collection
+    public function getAllAddress(int $id): Collection
     {
-        return collect();
+        return Endereco::query()->select([
+            'endereco.id as enderecoId',
+            'endereco.logradouro as logradouro',
+            'endereco.descricao as descricao',
+            'endereco.bairro as bairro',
+            'endereco.cidade as cidade',
+            'endereco.cep as cep',
+            'endereco.created_at as criadoEm',
+            'endereco.updated_at as alteradoEm',
+            'uf.id as ufId',
+            'uf.uf as uf',
+            'uf.descricao as estado'
+        ])
+        ->join('unidade_federativa as uf', 'uf.id', '=', 'endereco.uf_id')
+        ->where('endereco.usuario_id', $id)
+        ->get();
     }
 }

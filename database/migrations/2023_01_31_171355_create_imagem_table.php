@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('imagem', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nome', 50)->unique()->notnull();
+            $table->boolean('ativo');
             $table->foreignId('produto_id')->constrained('produto');
             $table->timestamps();
         });

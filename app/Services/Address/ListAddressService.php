@@ -2,26 +2,25 @@
 
 namespace App\Services\Address;
 
-use App\Http\Requests\User\UserRequest;
-use App\Infra\Database\Dao\Address\ListAddressDb;
+use App\Repositories\AddressRepository;
 use Illuminate\Support\Collection;
 
 class ListAddressService
 {
-    private ListAddressDb $listAddressDb;
+    private AddressRepository $addressRepository;
 
-    public function __construct(ListAddressDb $listAddressDb)
+    public function __construct(AddressRepository $addressRepository)
     {
-        $this->listAddressDb = $listAddressDb;
+        $this->addressRepository = $addressRepository;
     }
 
     public function listFederativeUnitAll(): Collection
     {
-        return $this->listAddressDb->listFederativeUnitAll();
+        return $this->addressRepository->getAllFederativeUnit();
     }
 
-    public function listAddressAll(UserRequest $request): Collection
+    public function listAddressAll(int $id): Collection
     {
-        return $this->listAddressDb->listAddressAll($request);
+        return $this->addressRepository->getAllAddress($id);
     }
 }

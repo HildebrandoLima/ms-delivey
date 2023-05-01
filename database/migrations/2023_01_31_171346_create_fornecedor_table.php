@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nome', 50)->unique()->notnull();
             $table->string('cnpj', 14)->unique()->notnull();
             $table->string('email', 50)->unique()->notnull();
-            $table->boolean('ativo');
             $table->timestamp('data_fundacao')->notnull();
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }

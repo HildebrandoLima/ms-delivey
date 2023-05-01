@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Address\AddressRequest;
-use App\Http\Requests\Address\CreateAddressRequest;
+use App\Exceptions\SystemDefaultException;
+//use App\Http\Requests\Address\AddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
+use App\Http\Requests\AddressRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Services\Address\CreateAddressService;
 use App\Services\Address\DeleteAddressService;
 use App\Services\Address\EditAddressService;
 use App\Services\Address\ListAddressService;
-use App\Exceptions\SystemDefaultException;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
@@ -37,113 +37,53 @@ class AddressController extends Controller
     public function uf(): Response
     {
         try {
-            $response = $this->listAddressService->listFederativeUnitAll();
-            if($response):
-                return response()->json([
-                    "message" => "Listagem de uf encontrada com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao buscar listagem de uf.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->listAddressService->listFederativeUnitAll();
+            if (!$success) return Controller::error();
+            return Controller::get($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function index(UserRequest $request): Response
+    public function index(int $id): Response
     {
         try {
-            $response = $this->listAddressService->listAddressAll($request);
-            if($response):
-                return response()->json([
-                    "message" => "Listagem de endereço encontrada com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao buscar listagem de endereço.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->listAddressService->listAddressAll($id);
+            if (!$success) return Controller::error();
+            return Controller::get($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function store(CreateAddressRequest $request): Response
+    public function store(AddressRequest $request): Response
     {
         try {
-            $response = $this->createAddressService->createAddress($request);
-            if($response):
-                return response()->json([
-                    "message" => "Cadastro de endereço efetuado com sucesso.",
-                    "data" => "true",
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar cadastro de endereço.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->createAddressService->createAddress($request);
+            if (!$success) return Controller::error();
+            return Controller::post($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function update(EditAddressRequest $request): Response
+    public function update(int $id, AddressRequest $request): Response
     {
         try {
-            $response = $this->editAddressService->editAddress($request);
-            if($response):
-                return response()->json([
-                    "message" => "Edição de endereço efetuado com sucesso.",
-                    "data" => true,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar edição de endereço.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->editAddressService->editAddress($id, $request);
+            if (!$success) return Controller::error();
+            return Controller::put();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function destroy(AddressRequest $request): Response
+    public function destroy(int $id): Response
     {
         try {
-            $response = $this->deleteAddressService->deleteAddress($request);
-            if($response):
-                return response()->json([
-                    "message" => "Remoção do endereço efetuado com sucesso.",
-                    "data" => true,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar remoção de endereço.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->deleteAddressService->deleteAddress($id);
+            if (!$success) return Controller::error();
+            return Controller::delete();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }

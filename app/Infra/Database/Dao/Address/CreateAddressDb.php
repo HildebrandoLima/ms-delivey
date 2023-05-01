@@ -2,13 +2,13 @@
 
 namespace App\Infra\Database\Dao\Address;
 
-use App\Http\Requests\Address\CreateAddressRequest;
+use App\Http\Requests\AddressRequest;
 use App\Infra\Database\Config\DbBase;
 use App\Support\Utils\Enums\AddressEnums;
 
 class CreateAddressDb extends DbBase
 {
-    public function createAddress(CreateAddressRequest $request): bool
+    public function createAddress(AddressRequest $request): bool
     {
         return $this->db
         ->table('endereco')

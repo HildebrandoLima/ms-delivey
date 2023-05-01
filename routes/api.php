@@ -24,11 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //  Endereço
 Route::prefix('address')->group(function () {
-    Route::get('/uf/list', [AddressController::class, 'uf'])->name('address.uf.list');
-    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
-    Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
+    Route::get('/list', [AddressController::class, 'uf'])->name('address.uf.list');
+    Route::get('/list/{id}', [AddressController::class, 'index'])->name('address.list');
+    Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit');
     Route::post('/save', [AddressController::class, 'store'])->name('address.save');
-    Route::delete('/remove', [AddressController::class, 'destroy'])->name('address.remove');
+    Route::delete('/remove/{id}', [AddressController::class, 'destroy'])->name('address.remove');
 });
 
 // Fornecedor
