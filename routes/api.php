@@ -51,7 +51,8 @@ Route::prefix('telephone')->group(function () {
 //  Usuario
 Route::prefix('user')->group(function () {
     Route::get('/list', [UserController::class, 'index'])->name('user.list');
-    Route::put('/edit', [UserController::class, 'update'])->name('user.edit');
+    Route::get('/list/{id}', [UserController::class, 'show'])->name('user.list.find');
+    Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
     Route::post('/save', [UserController::class, 'store'])->name('user.save');
-    Route::delete('/remove', [UserController::class, 'destroy'])->name('user.remove');
+    Route::delete('/remove/{id}', [UserController::class, 'destroy'])->name('user.remove');
 });

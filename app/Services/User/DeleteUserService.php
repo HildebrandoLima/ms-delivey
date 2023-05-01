@@ -2,34 +2,30 @@
 
 namespace App\Services\User;
 
-use App\Http\Requests\User\UserRequest;
-use App\Infra\Database\Dao\User\DeleteUserDb;
-use App\Infra\Database\Dao\Address\DeleteAddressDb;
-use App\Infra\Database\Dao\Telephone\DeleteTelephoneDb;
+use App\Exceptions\HttpBadRequest;
+use App\Models\User;
+use App\Repositories\UserRepository;
 
 class DeleteUserService
 {
-    private DeleteUserDb      $deleteUserDb;
-    private DeleteAddressDb   $deleteAddressDb;
-    private DeleteTelephoneDb $deleteTelephoneDb;
+    private UserRepository $userRepository;
 
-    public function __construct
-    (
-        DeleteUserDb      $deleteUserDb,
-        DeleteAddressDb   $deleteAddressDb,
-        DeleteTelephoneDb $deleteTelephoneDb
-    )
+    public function __construct(UserRepository $userRepository)
     {
-        $this->deleteUserDb      = $deleteUserDb;
-        $this->deleteAddressDb   = $deleteAddressDb;
-        $this->deleteTelephoneDb = $deleteTelephoneDb;
+        $this->userRepository = $userRepository;
     }
 
-    public function deleteUser(UserRequest $request): bool
+    public function deleteUser(int $id): bool
     {
-        $this->deleteUserDb->deleteUser($request);
-        $this->deleteAddressDb->deleteAddress($request);
-        $this->deleteTelephoneDb->deleteTelephone($request);
+        $this->checkUser($id);
+        $this->userRepository->delete($id);
         return true;
+    }
+
+    private function checkUser(int $id): void
+    {
+        if (User::query()->where('id', $id)->count() == 0):
+            throw new HttpBadRequest('O usuário não existe');
+        endif;
     }
 }

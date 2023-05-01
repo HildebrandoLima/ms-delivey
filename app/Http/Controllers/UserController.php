@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\EditUserRequest;
-use App\Http\Requests\User\UserRequest;
+use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\UserRequest;
 use App\Services\User\CreateUserService;
 use App\Services\User\DeleteUserService;
 use App\Services\User\EditUserService;
 use App\Services\User\ListUserService;
-use App\Exceptions\SystemDefaultException;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -33,93 +32,56 @@ class UserController extends Controller
         $this->listUserService      =   $listUserService;
     }
 
-    public function index(UserRequest $request): Response
+    public function index(Request $request): Response
     {
         try {
-            $response = isset($request->usuarioId) || isset($request->usuarioNome) ? $this->listUserService->listUserFind($request) : $this->listUserService->listUserAll();
-            if($response):
-                return response()->json([
-                    "message" => "Listagem de usuáiro(s) encontrada com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao buscar listagem de usuário(s).",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->listUserService->listUserAll($request);
+            if (!$success) return Controller::error();
+            return Controller::get($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function store(CreateUserRequest $request): Response
+    public function show(int $id): Response
     {
         try {
-            $response = $this->createUserService->createUser($request);
-            if($response):
-                return response()->json([
-                    "message" => "Cadastro de usuário efetuado com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar cadastro de usuário.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->listUserService->listUserFind($id);
+            if (!$success) return Controller::error();
+            return Controller::get($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function update(EditUserRequest $request): Response
+    public function store(UserRequest $request): Response
     {
         try {
-            $response = $this->editUserService->editUser($request);
-            if($response):
-                return response()->json([
-                    "message" => "Edição de usuário efetuado com sucesso.",
-                    "data" => true,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar edição de usuário.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->createUserService->createUser($request);
+            if (!$success) return Controller::error();
+            return Controller::post($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function destroy(UserRequest $request): Response
+    public function update(int $id, UserRequest $request): Response
     {
         try {
-            $response = $this->deleteUserService->deleteUser($request);
-            if($response):
-                return response()->json([
-                    "message" => "Remoção de usuário efetuado com sucesso.",
-                    "data" => true,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar remoção de usuário.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->editUserService->editUser($id, $request);
+            if (!$success) return Controller::error();
+            return Controller::put();
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
+    }
+
+    public function destroy(int $id): Response
+    {
+        try {
+            $success = $this->deleteUserService->deleteUser($id);
+            if (!$success) return Controller::error();
+            return Controller::delete();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }

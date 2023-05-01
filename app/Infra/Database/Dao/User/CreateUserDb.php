@@ -2,14 +2,14 @@
 
 namespace App\Infra\Database\Dao\User;
 
-use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Infra\Database\Config\DbBase;
 use App\Support\Utils\Enums\UserEnums;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserDb extends DbBase
 {
-    public function createUser(CreateUserRequest $request): int
+    public function createUser(UserRequest $request): int
     {
         $usuarioId = $this->db
         ->table('users')

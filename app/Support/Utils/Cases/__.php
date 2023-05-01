@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Support\Utils;
+namespace App\Support\Utils\Cases;
+
+use App\Support\Utils\Pagination;
 
 class PaginatedList
 {
