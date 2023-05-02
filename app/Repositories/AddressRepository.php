@@ -53,7 +53,9 @@ class AddressRepository {
 
     public function getAllAddress(int $id): Collection
     {
-        return Endereco::query()->select([
+        return Endereco::query()
+            ->join('unidade_federativa as uf', 'uf.id', '=', 'endereco.uf_id')
+            ->select([
             'endereco.id as enderecoId',
             'endereco.logradouro as logradouro',
             'endereco.descricao as descricao',
@@ -66,7 +68,6 @@ class AddressRepository {
             'uf.uf as uf',
             'uf.descricao as estado'
         ])
-        ->join('unidade_federativa as uf', 'uf.id', '=', 'endereco.uf_id')
         ->where('endereco.usuario_id', $id)
         ->get();
     }

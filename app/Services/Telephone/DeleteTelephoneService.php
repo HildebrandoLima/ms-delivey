@@ -2,20 +2,29 @@
 
 namespace App\Services\Telephone;
 
-use App\Http\Requests\Telephone\TelephoneRequest;
-use App\Infra\Database\Dao\Telephone\DeleteTelephoneDb;
+use App\Exceptions\HttpBadRequest;
+use App\Models\Telefone;
+use App\Repositories\TelephoneRepository;
 
 class DeleteTelephoneService
 {
-    private DeleteTelephoneDb $deleteTelephoneDb;
+    private TelephoneRepository $telephoneRepository;
 
-    public function __construct(DeleteTelephoneDb $deleteTelephoneDb)
+    public function __construct(TelephoneRepository $telephoneRepository)
     {
-        $this->deleteTelephoneDb = $deleteTelephoneDb;
+        $this->telephoneRepository = $telephoneRepository;
     }
 
-    public function deleteTelephone(TelephoneRequest $request): bool
+    public function deleteTelephone(int $id): bool
     {
-        return $this->deleteTelephoneDb->deleteTelephone($request);
+        $this->checkTelephone($id);
+        return $this->telephoneRepository->delete($id);
+    }
+
+    private function checkTelephone(int $id): void
+    {
+        if (Telefone::query()->where('id', $id)->count() == 0):
+            throw new HttpBadRequest('O telefone não existe');
+        endif;
     }
 }

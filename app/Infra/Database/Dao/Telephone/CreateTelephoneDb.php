@@ -2,13 +2,13 @@
 
 namespace App\Infra\Database\Dao\Telephone;
 
-use App\Http\Requests\Telephone\CreateTelephoneRequest;
+use App\Http\Requests\TelephoneRequest;
 use App\Infra\Database\Config\DbBase;
 use App\Support\Utils\Enums\TelephoneEnums;
 
 class CreateTelephoneDb extends DbBase
 {
-    public function createTelephone(CreateTelephoneRequest $request): bool
+    public function createTelephone(TelephoneRequest $request): bool
     {
         foreach ($request->telefones as $telefone):
             $this->db

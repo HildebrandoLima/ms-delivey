@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Telefone extends Model
+class DDD extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Telefone extends Model
      *
      * @var string
      */
-    protected $table = 'telefone';
+    protected $table = 'ddd';
 
     /**
      * The attributes that are mass assignable.
@@ -22,20 +22,7 @@ class Telefone extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'numero',
-        'tipo',
-        'ddd_id',
-        'usuario_id',
-        'fornecedor_id',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' =>'datetime',
+        'ddd',
+        'descricao',
     ];
 }
