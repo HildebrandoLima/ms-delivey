@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
 use App\Support\Utils\DefaultErrorMessages;
 
-class CreateUserRequest extends BaseRequest
+class UserRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -20,7 +19,8 @@ class CreateUserRequest extends BaseRequest
             'email'=> 'required|string',
             'senha' => 'required|string',
             'dataNascimento' => 'required|date',
-            'genero' => 'required|string'
+            'genero' => 'required|string',
+            'ativo' => 'required|int'
         ];
     }
 
@@ -33,6 +33,7 @@ class CreateUserRequest extends BaseRequest
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataNascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -40,6 +41,7 @@ class CreateUserRequest extends BaseRequest
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dataNascimento.date' => DefaultErrorMessages::INVALID_DATE,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'ativo.int' => DefaultErrorMessages::REQUIRED_FIELD,
         ];
     }
 }

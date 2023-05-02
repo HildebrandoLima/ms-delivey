@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Provider\CreateProviderRequest;
-use App\Http\Requests\Provider\EditProviderRequest;
-use App\Http\Requests\Provider\ProviderRequest;
+use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\ProviderRequest;
 use App\Services\Provider\CreateProviderService;
 use App\Services\Provider\DeleteProviderService;
 use App\Services\Provider\EditProviderService;
 use App\Services\Provider\ListProviderService;
-use App\Exceptions\SystemDefaultException;
+use App\Support\Utils\Search;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller
@@ -33,93 +33,64 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(ProviderRequest $request): Response
+    public function index(Request $request): Response
     {
         try {
-            $response = isset($request->fornecedorId) || isset($request->fornecedorNome) ? $this->listProviderService->listProviderFind($request) : $this->listProviderService->listProviderAll();
-            if($response):
-                return response()->json([
-                    "message" => "Listagem de fornecedor(s) encontrada com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao buscar listagem de fornecedor(s).",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $search = new Search();
+            $search = $search->search($request);
+            $success = $this->listProviderService->listProviderAll($request, $search);
+            if (!$success) return Controller::error();
+            return Controller::get($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function store(CreateProviderRequest $request): Response
+    public function show(string $id): Response
     {
         try {
-            $response = $this->createProviderService->createProvider($request);
-            if($response):
-                return response()->json([
-                    "message" => "Cadastro de fornecedor efetuado com sucesso.",
-                    "data" => $response,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar cadastro de fornecedor.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $search = new Search();
+            $id = $search->id($id);
+            $success = $this->listProviderService->listProviderFind($id);
+            if (!$success) return Controller::error();
+            return Controller::get($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function update(EditProviderRequest $request): Response
+    public function store(ProviderRequest $request): Response
     {
         try {
-            $response = $this->editProviderService->editProvider($request);
-            if($response):
-                return response()->json([
-                    "message" => "Edição de fornecedor efetuado com sucesso.",
-                    "data" => true,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar edição de fornecedor.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $success = $this->createProviderService->createProvider($request);
+            if (!$success) return Controller::error();
+            return Controller::post($success);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function destroy(ProviderRequest $request): Response
+    public function update(string $id, ProviderRequest $request): Response
     {
         try {
-            $response = $this->deleteProviderService->deleteProvider($request);
-            if($response):
-                return response()->json([
-                    "message" => "Remoção de fornecedor efetuado com sucesso.",
-                    "data" => true,
-                    "status" => 200,
-                    "details" => ""
-                ]);
-            endif;
-            return response()->json([
-                "message" => "Error ao efetuar remoção de fornecedor.",
-                "data" => false,
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => ""
-            ]);
+            $search = new Search();
+            $id = $search->id($id);
+            $success = $this->editProviderService->editProvider($id, $request);
+            if (!$success) return Controller::error();
+            return Controller::put();
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
+    }
+
+    public function destroy(string $id): Response
+    {
+        try {
+            $search = new Search();
+            $id = $search->id($id);
+            $success = $this->deleteProviderService->deleteProvider($id);
+            if (!$success) return Controller::error();
+            return Controller::put();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }

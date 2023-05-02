@@ -2,20 +2,37 @@
 
 namespace App\Services\Provider;
 
-use App\Http\Requests\Provider\EditProviderRequest;
-use App\Infra\Database\Dao\Provider\EditProviderDb;
+use App\Http\Requests\ProviderRequest;
+use App\Models\Fornecedor;
+use App\Repositories\ProviderRepository;
+use App\Support\Utils\Enums\UserEnums;
+use DateTime;
 
 class EditProviderService
 {
-    private EditProviderDb $editProviderDb;
+    private ProviderRepository $providerRepository;
 
-    public function __construct(EditProviderDb $editProviderDb)
+    public function __construct(ProviderRepository $providerRepository)
     {
-        $this->editProviderDb = $editProviderDb;
+        $this->providerRepository = $providerRepository;
     }
 
-    public function editProvider(EditProviderRequest $request): bool
+    public function editProvider(int $id, ProviderRequest $request): bool
     {
-        return $this->editProviderDb->editProvider($request);
+        $this->request = $request;
+        $provider = $this->mapToModel();
+        return $this->providerRepository->update($id, $provider);
+    }
+
+    private function mapToModel(): Fornecedor
+    {
+        $provider = new Fornecedor();
+        $provider->nome = $this->request->nome;
+        $provider->cnpj = $this->request->cnpj;
+        $provider->email = $this->request->email;
+        $provider->data_fundacao = $this->request->dataFundacao;
+        $provider->ativo = UserEnums::ATIVADO;
+        $provider->updated_at = new DateTime();
+        return $provider;
     }
 }

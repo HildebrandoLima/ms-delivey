@@ -2,20 +2,42 @@
 
 namespace App\Services\Address;
 
-use App\Http\Requests\Address\CreateAddressRequest;
-use App\Infra\Database\Dao\Address\CreateAddressDb;
+use App\Http\Requests\AddressRequest;
+use App\Models\Endereco;
+use App\Repositories\AddressRepository;
+use App\Support\Utils\Cases\AddressCase;
+use DateTime;
 
 class CreateAddressService
 {
-    private CreateAddressDb $createAddressDb;
+    private AddressRepository $addressRepository;
+    private AddressCase $addressCase;
 
-    public function __construct(CreateAddressDb $createAddressDb)
+    public function __construct(AddressRepository $addressRepository, AddressCase $addressCase)
     {
-        $this->createAddressDb = $createAddressDb;
+        $this->addressRepository = $addressRepository;
+        $this->addressCase = $addressCase;
     }
 
-    public function createAddress(CreateAddressRequest $request): int
+    public function createAddress(AddressRequest $request): int
     {
-        return $this->createAddressDb->createAddress($request);
+        $this->request = $request;
+        $address = $this->mapToModel();
+        return $this->addressRepository->insert($address);
+    }
+
+    private function mapToModel(): Endereco
+    {
+        $address = new Endereco();
+        $address->logradouro = $this->addressCase->publicPlaceCase($this->request->logradouro);
+        $address->descricao = $this->request->descricao;
+        $address->bairro = $this->request->bairro;
+        $address->cidade = $this->request->cidade;
+        $address->cep = $this->request->cep;
+        $address->uf_id = $this->request->ufId;
+        $address->usuario_id = isset($this->request->usuarioId) ? $this->request->usuarioId : 1;
+        $address->fornecedor_id = isset($this->request->fornecedorId) ? $this->request->fornecedorId : 1;
+        $address->created_at = new DateTime();
+        return $address;
     }
 }

@@ -2,26 +2,26 @@
 
 namespace App\Services\User;
 
-use App\Http\Requests\User\UserRequest;
-use App\Infra\Database\Dao\User\ListUserDb;
+use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ListUserService
 {
-    private ListUserDb $listUserDb;
+    private UserRepository $userRepository;
 
-    public function __construct(ListUserDb $listUserDb)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->listUserDb = $listUserDb;
+        $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(): Collection
+    public function listUserAll(Request $request, string $search): Collection
     {
-        return $this->listUserDb->listUserAll();
+        return $this->userRepository->getAll($request, $search);
     }
 
-    public function listUserFind(UserRequest $request): Collection
+    public function listUserFind(int $id): Collection
     {
-        return $this->listUserDb->listUserFind($request);
+        return $this->userRepository->getFind($id);
     }
 }

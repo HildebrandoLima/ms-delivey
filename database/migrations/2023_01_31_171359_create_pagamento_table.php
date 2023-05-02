@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('data_credito')->notnull();
             $table->integer('parcela')->notnull();
             $table->decimal('total', 10, 2)->notnull();
+            $table->boolean('ativo');
             $table->foreignId('metodo_pagamento_id')->constrained('metodo_pagamento');
             $table->foreignId('imp_id')->constrained('identificador_metodo_pagamento');
             $table->foreignId('pedido_id')->constrained('pedido');

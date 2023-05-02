@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Address;
+namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
 use App\Support\Utils\DefaultErrorMessages;
 
-class CreateAddressRequest extends BaseRequest
+class AddressRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -21,8 +20,8 @@ class CreateAddressRequest extends BaseRequest
             'cidade' => 'required|string',
             'cep' => 'required|int',
             'ufId' => 'required|int|exists:unidade_federativa,id',
-            'usuarioId' => 'required|int|exists:users,id',
-            'fornecedorId' => 'required|int|exists:fornecedor,id',
+            'usuarioId' => 'int|exists:users,id',
+            'fornecedorId' => 'int|exists:fornecedor,id',
         ];
     }
 
@@ -39,8 +38,6 @@ class CreateAddressRequest extends BaseRequest
             'cidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ufId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

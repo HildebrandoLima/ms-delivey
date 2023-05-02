@@ -24,34 +24,36 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //  Endereço
 Route::prefix('address')->group(function () {
-    Route::get('/uf/list', [AddressController::class, 'uf'])->name('address.uf.list');
-    Route::get('/list', [AddressController::class, 'index'])->name('address.list');
-    Route::put('/edit', [AddressController::class, 'update'])->name('address.edit');
+    Route::get('/list', [AddressController::class, 'uf'])->name('address.uf.list');
+    Route::get('/list/{id}', [AddressController::class, 'index'])->name('address.list');
+    Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit');
     Route::post('/save', [AddressController::class, 'store'])->name('address.save');
-    Route::delete('/remove', [AddressController::class, 'destroy'])->name('address.remove');
+    Route::delete('/remove/{id}', [AddressController::class, 'destroy'])->name('address.remove');
 });
 
 // Fornecedor
 Route::prefix('provider')->group(function () {
     Route::get('/list', [ProviderController::class, 'index'])->name('provider.list');
-    Route::put('/edit', [ProviderController::class, 'update'])->name('provider.edit');
+    Route::get('/list/{id}', [ProviderController::class, 'show'])->name('provider.list.find');
+    Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
     Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
-    Route::delete('/remove', [ProviderController::class, 'destroy'])->name('provider.remove');
+    Route::delete('/remove/{id}', [ProviderController::class, 'destroy'])->name('provider.remove');
 });
 
 //  Telefone
 Route::prefix('telephone')->group(function () {
-    Route::get('/ddd/list', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
-    Route::get('/list', [TelephoneController::class, 'index'])->name('telephone.list');
-    Route::put('/edit', [TelephoneController::class, 'update'])->name('telephone.edit');
+    Route::get('/list', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
+    Route::get('/list/{id}', [TelephoneController::class, 'index'])->name('telephone.list');
+    Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit');
     Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
-    Route::delete('/remove', [TelephoneController::class, 'destroy'])->name('telephone.remove');
+    Route::delete('/remove/{id}', [TelephoneController::class, 'destroy'])->name('telephone.remove');
 });
 
 //  Usuario
 Route::prefix('user')->group(function () {
     Route::get('/list', [UserController::class, 'index'])->name('user.list');
-    Route::put('/edit', [UserController::class, 'update'])->name('user.edit');
+    Route::get('/list/{id}', [UserController::class, 'show'])->name('user.list.find');
+    Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
     Route::post('/save', [UserController::class, 'store'])->name('user.save');
-    Route::delete('/remove', [UserController::class, 'destroy'])->name('user.remove');
+    Route::delete('/remove/{id}', [UserController::class, 'destroy'])->name('user.remove');
 });

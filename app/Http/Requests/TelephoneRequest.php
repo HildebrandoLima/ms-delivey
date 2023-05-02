@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Telephone;
+namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
 use App\Support\Utils\DefaultErrorMessages;
 
-class CreateTelephoneRequest extends BaseRequest
+class TelephoneRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -19,8 +18,8 @@ class CreateTelephoneRequest extends BaseRequest
             'telefones.*.numero' => 'required|string',
             'telefones.*.tipo'=> 'required|string',
             'telefones.*.dddId' => 'required|int|exists:ddd,id',
-            'telefones.*.usuarioId' => 'required|int|exists:users,id',
-            'telefones.*.fornecedorId' => 'required|int|exists:fornecedor,id',
+            'telefones.*.usuarioId' => 'int|exists:users,id',
+            'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
         ];
     }
 

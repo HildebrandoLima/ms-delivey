@@ -2,34 +2,29 @@
 
 namespace App\Services\Provider;
 
-use App\Http\Requests\Provider\ProviderRequest;
-use App\Infra\Database\Dao\Provider\DeleteProviderDb;
-use App\Infra\Database\Dao\Address\DeleteAddressDb;
-use App\Infra\Database\Dao\Telephone\DeleteTelephoneDb;
+use App\Exceptions\HttpBadRequest;
+use App\Models\Fornecedor;
+use App\Repositories\ProviderRepository;
 
 class DeleteProviderService
 {
-    private DeleteProviderDb  $deleteProviderDb;
-    private DeleteAddressDb   $deleteAddressDb;
-    private DeleteTelephoneDb $deleteTelephoneDb;
+    private ProviderRepository $providerRepository;
 
-    public function __construct
-    (
-        DeleteProviderDb  $deleteProviderDb,
-        DeleteAddressDb   $deleteAddressDb,
-        DeleteTelephoneDb $deleteTelephoneDb
-    )
+    public function __construct(ProviderRepository $providerRepository,)
     {
-        $this->deleteProviderDb  = $deleteProviderDb;
-        $this->deleteAddressDb   = $deleteAddressDb;
-        $this->deleteTelephoneDb = $deleteTelephoneDb;
+        $this->providerRepository = $providerRepository;
     }
 
-    public function deleteProvider(ProviderRequest $request): bool
+    public function deleteProvider(int $id): bool
     {
-        $this->deleteProviderDb->deleteProvider($request);
-        $this->deleteAddressDb->deleteAddress($request);
-        $this->deleteTelephoneDb->deleteTelephone($request);
-        return true;
+        $this->checkProvider($id);
+        return $this->providerRepository->delete($id);
+    }
+
+    private function checkProvider(int $id): void
+    {
+        if (Fornecedor::query()->where('id', $id)->count() == 0):
+            throw new HttpBadRequest('O fornecedor não existe');
+        endif;
     }
 }
