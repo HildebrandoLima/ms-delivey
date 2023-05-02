@@ -8,6 +8,7 @@ use App\Services\User\CreateUserService;
 use App\Services\User\DeleteUserService;
 use App\Services\User\EditUserService;
 use App\Services\User\ListUserService;
+use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,9 +44,11 @@ class UserController extends Controller
         }
     }
 
-    public function show(int $id): Response
+    public function show(string $id): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->listUserService->listUserFind($id);
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -65,9 +68,11 @@ class UserController extends Controller
         }
     }
 
-    public function update(int $id, UserRequest $request): Response
+    public function update(string $id, UserRequest $request): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->editUserService->editUser($id, $request);
             if (!$success) return Controller::error();
             return Controller::put();
@@ -76,9 +81,11 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(int $id): Response
+    public function destroy(string $id): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->deleteUserService->deleteUser($id);
             if (!$success) return Controller::error();
             return Controller::delete();

@@ -8,27 +8,28 @@ use App\Services\Telephone\CreateTelephoneService;
 use App\Services\Telephone\DeleteTelephoneService;
 use App\Services\Telephone\EditTelephoneService;
 use App\Services\Telephone\ListTelephoneService;
+use App\Support\Utils\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller
 {
-    private CreateTelephoneService $createTelephoneService;
-    private DeleteTelephoneService $deleteTelephoneService;
-    private EditTelephoneService   $editTelephoneService;
-    private ListTelephoneService   $listTelephoneService;
+    private CreateTelephoneService  $createTelephoneService;
+    private DeleteTelephoneService  $deleteTelephoneService;
+    private EditTelephoneService    $editTelephoneService;
+    private ListTelephoneService    $listTelephoneService;
 
     public function __construct
     (
-        CreateTelephoneService    $createTelephoneService,
-        DeleteTelephoneService    $deleteTelephoneService,
-        EditTelephoneService      $editTelephoneService,
-        ListTelephoneService      $listTelephoneService
+        CreateTelephoneService  $createTelephoneService,
+        DeleteTelephoneService  $deleteTelephoneService,
+        EditTelephoneService    $editTelephoneService,
+        ListTelephoneService    $listTelephoneService
     )
     {
-        $this->createTelephoneService    =   $createTelephoneService;
-        $this->deleteTelephoneService    =   $deleteTelephoneService;
-        $this->editTelephoneService      =   $editTelephoneService;
-        $this->listTelephoneService      =   $listTelephoneService;
+        $this->createTelephoneService   =   $createTelephoneService;
+        $this->deleteTelephoneService   =   $deleteTelephoneService;
+        $this->editTelephoneService     =   $editTelephoneService;
+        $this->listTelephoneService     =   $listTelephoneService;
     }
 
     public function ddd(): Response
@@ -42,7 +43,7 @@ class TelephoneController extends Controller
         }
     }
 
-    public function index(int $id): Response
+    public function index(string $id): Response
     {
         try {
             $success = $this->listTelephoneService->listTelephoneAll($id);
@@ -64,9 +65,11 @@ class TelephoneController extends Controller
         }
     }
 
-    public function update(int $id, TelephoneRequest $request): Response
+    public function update(string $id, TelephoneRequest $request): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->editTelephoneService->editTelephone($id, $request);
             if (!$success) return Controller::error();
             return Controller::put();
@@ -75,9 +78,11 @@ class TelephoneController extends Controller
         }
     }
 
-    public function destroy(int $id): Response
+    public function destroy(string $id): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->deleteTelephoneService->deleteTelephone($id);
             if (!$success) return Controller::error();
             return Controller::delete();

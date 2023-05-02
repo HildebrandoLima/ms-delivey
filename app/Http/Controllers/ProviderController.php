@@ -8,6 +8,7 @@ use App\Services\Provider\CreateProviderService;
 use App\Services\Provider\DeleteProviderService;
 use App\Services\Provider\EditProviderService;
 use App\Services\Provider\ListProviderService;
+use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,9 +44,11 @@ class ProviderController extends Controller
         }
     }
 
-    public function show(int $id): Response
+    public function show(string $id): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->listProviderService->listProviderFind($id);
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -65,7 +68,7 @@ class ProviderController extends Controller
         }
     }
 
-    public function update(int $id, ProviderRequest $request): Response
+    public function update(string $id, ProviderRequest $request): Response
     {
         try {
             $success = $this->editProviderService->editProvider($id, $request);
@@ -76,9 +79,11 @@ class ProviderController extends Controller
         }
     }
 
-    public function destroy(int $id): Response
+    public function destroy(string $id): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->deleteProviderService->deleteProvider($id);
             if (!$success) return Controller::error();
             return Controller::put();
