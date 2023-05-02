@@ -34,9 +34,10 @@ Route::prefix('address')->group(function () {
 // Fornecedor
 Route::prefix('provider')->group(function () {
     Route::get('/list', [ProviderController::class, 'index'])->name('provider.list');
-    Route::put('/edit', [ProviderController::class, 'update'])->name('provider.edit');
+    Route::get('/list/{id}', [ProviderController::class, 'show'])->name('provider.list.find');
+    Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
     Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
-    Route::delete('/remove', [ProviderController::class, 'destroy'])->name('provider.remove');
+    Route::delete('/remove/{id}', [ProviderController::class, 'destroy'])->name('provider.remove');
 });
 
 //  Telefone

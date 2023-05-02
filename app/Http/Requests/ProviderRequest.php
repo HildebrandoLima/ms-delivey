@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Provider;
+namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
 use App\Support\Utils\DefaultErrorMessages;
 
-class CreateProviderRequest extends BaseRequest
+class ProviderRequest extends BaseRequest
 {
     public function authorize(): bool
     {
