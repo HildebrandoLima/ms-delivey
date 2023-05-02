@@ -2,13 +2,16 @@
 
 namespace App\Support\Utils;
 
+use Illuminate\Http\Request;
+
 class Search
 {
     private string $search;
     private int $id;
 
-    public function search(): string
+    public function search(Request $request): string
     {
+        $this->search = $request->search;
         return '%' . $this->search . '%';
     }
 

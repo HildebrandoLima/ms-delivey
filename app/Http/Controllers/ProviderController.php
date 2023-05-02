@@ -71,6 +71,8 @@ class ProviderController extends Controller
     public function update(string $id, ProviderRequest $request): Response
     {
         try {
+            $search = new Search();
+            $id = $search->id($id);
             $success = $this->editProviderService->editProvider($id, $request);
             if (!$success) return Controller::error();
             return Controller::put();
