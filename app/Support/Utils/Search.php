@@ -11,7 +11,7 @@ class Search
 
     public function search(Request $request): string
     {
-        $this->search = $request->search;
+        $this->search = $request->search ?? '';
         return '%' . $this->search . '%';
     }
 

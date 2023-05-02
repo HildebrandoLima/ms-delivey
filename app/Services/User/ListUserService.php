@@ -15,9 +15,9 @@ class ListUserService
         $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(Request $request): Collection
+    public function listUserAll(Request $request, string $search): Collection
     {
-        return $this->userRepository->getAll($request);
+        return $this->userRepository->getAll($request, $search);
     }
 
     public function listUserFind(int $id): Collection

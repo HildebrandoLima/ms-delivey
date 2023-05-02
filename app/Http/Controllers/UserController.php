@@ -36,7 +36,9 @@ class UserController extends Controller
     public function index(Request $request): Response
     {
         try {
-            $success = $this->listUserService->listUserAll($request);
+            $search = new Search();
+            $search = $search->search($request);
+            $success = $this->listUserService->listUserAll($request, $search);
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

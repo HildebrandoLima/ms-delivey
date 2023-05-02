@@ -46,12 +46,12 @@ class ProviderRepository {
         return true;
     }
 
-    public function getAll(Request $request): Collection
+    public function getAll(Request $request, string $search): Collection
     {
         $query = $this->mapToCollection();
         $query->orderBy('id');
         if (isset($request->search)):
-            $query->where('nome', 'like', '%' . $request->search . '%')
+            $query->where('nome', 'like', $search)
                 ->orWhere('cnpj', $request->search);
             return $query->get();
         endif;

@@ -50,12 +50,12 @@ class UserRepository {
         return true;
     }
 
-    public function getAll(Request $request): Collection
+    public function getAll(Request $request, string $search): Collection
     {
         $query = $this->mapToCollection();
         $query->orderBy('id');
         if (isset($request->search)):
-            $query->where('name', 'like', '%' . $request->search . '%')
+            $query->where('name', 'like', $search)
             ->orWhere('email', $request->search);
         return $query->get();
         endif;

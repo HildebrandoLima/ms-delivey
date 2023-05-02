@@ -36,7 +36,9 @@ class ProviderController extends Controller
     public function index(Request $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderAll($request);
+            $search = new Search();
+            $search = $search->search($request);
+            $success = $this->listProviderService->listProviderAll($request, $search);
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

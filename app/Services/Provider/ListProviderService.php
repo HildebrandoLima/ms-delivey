@@ -17,9 +17,9 @@ class ListProviderService
         $this->providerRepository = $providerRepository;
     }
 
-    public function listProviderAll(Request $request): Collection
+    public function listProviderAll(Request $request, string $search): Collection
     {
-        return $this->providerRepository->getAll($request);
+        return $this->providerRepository->getAll($request, $search);
     }
 
     public function listProviderFind(int $id): Collection
