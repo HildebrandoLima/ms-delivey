@@ -9,6 +9,7 @@
 <li>CRUD de Usuário</li>
 <li>CRUD de Endereço</li>
 <li>CRUD de Telefone</li>
+<li>CRUD de Fornecedor</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
@@ -77,6 +78,8 @@ Admin<br />
 
 ### API DOCUMENTAÇÃO
 
+<b>Todos os parâmetro 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
+
 ### Usuário
 
 |Verbo |         Rota          |
@@ -91,3 +94,44 @@ Admin<br />
 |------|-----------------------|
 |DELETE| /api/user/remove/{id} |
 
+### Endereço
+
+|Verbo |            Rota          |
+|------|--------------------------|
+| GET  | /api/address/list        |
+|------|--------------------------|
+| GET  | /api/address/list/{id}   |
+|------|--------------------------|
+| POST | /api/address/save        |
+|------|--------------------------|
+| PUT  | /api/address/edit/{id}   |
+|------|--------------------------|
+|DELETE| /api/address/remove/{id} |
+
+### Telefone
+
+|Verbo |            Rota            |
+|------|----------------------------|
+| GET  | /api/telephone/list        |
+|------|----------------------------|
+| GET  | /api/telephone/list/{id}   |
+|------|----------------------------|
+| POST | /api/telephone/save        |
+|------|----------------------------|
+| PUT  | /api/telephone/edit/{id}   |
+|------|----------------------------|
+|DELETE| /api/telephone/remove/{id} |
+
+### Fornecedor
+
+|Verbo |            Rota           |
+|------|---------------------------|
+| GET  | /api/provider/list        |
+|------|---------------------------|
+| GET  | /api/provider/list/{id}   |
+|------|---------------------------|
+| POST | /api/provider/save        |
+|------|---------------------------|
+| PUT  | /api/provider/edit/{id}   |
+|------|---------------------------|
+|DELETE| /api/provider/remove/{id} |
