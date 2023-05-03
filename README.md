@@ -48,7 +48,7 @@
 > DB_CONNECTION=mysql<br />
 > DB_HOST=localhost<br />
 > DB_PORT=3306<br />
-> DB_DATABASE=msd_delivery<br />
+> DB_DATABASE=ms_delivery<br />
 > DB_USERNAME=nome_do_usuario<br />
 > DB_PASSWORD=sua_senha<br />
 
@@ -74,3 +74,20 @@ Admin<br />
 
 ### Modelagem de Dados
 ![Captura de tela de 2023-02-28 14-03-30](https://user-images.githubusercontent.com/47666194/221933188-30fea7d3-3628-47b2-926e-1126ce4f9773.png)
+
+### API DOCUMENTAÇÃO
+
+### Usuário
+
+|Verbo |         Rota          |
+|------|-----------------------|
+| GET  | /api/user/list        |
+|------|-----------------------|
+| GET  | /api/user/list/{id}   |
+|------|-----------------------|
+| POST | /api/user/save        |
+|------|-----------------------|
+| PUT  | /api/user/edit/{id}   |
+|------|-----------------------|
+|DELETE| /api/user/remove/{id} |
+--------------------------------
