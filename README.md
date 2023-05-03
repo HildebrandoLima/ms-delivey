@@ -80,9 +80,14 @@ Admin<br />
 ### Usuário
 
 |Verbo |         Rota          |
+|------|-----------------------|
 | GET  | /api/user/list        |
+|------|-----------------------|
 | GET  | /api/user/list/{id}   |
+|------|-----------------------|
 | POST | /api/user/save        |
+|------|-----------------------|
 | PUT  | /api/user/edit/{id}   |
+|------|-----------------------|
 |DELETE| /api/user/remove/{id} |
 
