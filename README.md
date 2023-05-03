@@ -82,7 +82,7 @@ Admin<br />
 
 ### Usuário
 
-|Verbo |         Rota          |
+|MÉTODO|          ROTA         |
 |------|-----------------------|
 | GET  | /api/user/list        |
 |------|-----------------------|
@@ -96,7 +96,7 @@ Admin<br />
 
 ### Endereço
 
-|Verbo |            Rota          |
+|MÉTODO|          ROTA            |
 |------|--------------------------|
 | GET  | /api/address/list        |
 |------|--------------------------|
@@ -110,7 +110,7 @@ Admin<br />
 
 ### Telefone
 
-|Verbo |            Rota            |
+|MÉTODO|          ROTA              |
 |------|----------------------------|
 | GET  | /api/telephone/list        |
 |------|----------------------------|
@@ -124,7 +124,7 @@ Admin<br />
 
 ### Fornecedor
 
-|Verbo |            Rota           |
+|MÉTODO|          ROTA             |
 |------|---------------------------|
 | GET  | /api/provider/list        |
 |------|---------------------------|
