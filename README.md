@@ -80,6 +80,8 @@ Admin<br />
 
 <b>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
 
+<details>
+
 ### Usuário
 
 |MÉTODO|          ROTA         |
@@ -135,3 +137,5 @@ Admin<br />
 | PUT  | /api/provider/edit/{id}   |
 |------|---------------------------|
 |DELETE| /api/provider/remove/{id} |
+
+</details>
