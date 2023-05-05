@@ -81,8 +81,20 @@ Admin<br />
 <b>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
 
 <details>
-    
-    <summary>Tips for collapsed sections</summary>
+
+<summary>Tips for collapsed sections</summary>
+
+### You can add a header
+
+You can add text within a collapsed section. 
+
+You can add an image or a code block, too.
+
+```ruby
+   puts "Hello World"
+```
+
+</details>
 
 ### Usuário
 
@@ -140,4 +152,4 @@ Admin<br />
 |------|---------------------------|
 |DELETE| /api/provider/remove/{id} |
 
-</details>
+
