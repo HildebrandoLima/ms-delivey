@@ -151,7 +151,6 @@ Admin<br />
 }
 ```
 
-
 ```
 {
     "message": "Error ao efetuar ação!",
@@ -209,7 +208,6 @@ Admin<br />
     "details": ""
 }
 ```
-
 
 ```
 {
@@ -290,7 +288,6 @@ Admin<br />
 }
 ```
 
-
 ```
 {
     "message": "Edição efetuada com sucesso!",
@@ -361,7 +358,6 @@ Admin<br />
 }
 ```
 
-
 ```
 {
     "message": "Edição efetuada com sucesso!",
@@ -384,7 +380,6 @@ Admin<br />
     "details": ""
 }
 ```
-
 
 ```
 {
