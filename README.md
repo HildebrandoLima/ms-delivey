@@ -79,6 +79,8 @@ Admin<br />
 ### API DOCUMENTAÇÃO
 
 <b>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
+<b>Nos body, é preciso identificar quem se referencia o endereço ou telefone. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</b>
+<b>Como as chaves estrangeiras são obrigatórias, por padrão, vem um usuário e um fornecedor já cadastrados, como inativos. E seus valores são enviados automaticamente pelo back-end, caso o mesmo não for referenciado.</b>
 
 ### Usuário
 
@@ -130,7 +132,7 @@ Admin<br />
 ```
 {
     "message": "Edição efetuada com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "data": "true",
     "status": 200,
     "details": ""
 }
@@ -163,7 +165,27 @@ Admin<br />
 </details>
 </details>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Endereço
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
 
 |MÉTODO|          ROTA            |
 |------|--------------------------|
@@ -176,6 +198,77 @@ Admin<br />
 | PUT  | /api/address/edit/{id}   |
 |------|--------------------------|
 |DELETE| /api/address/remove/{id} |
+
+### Exemplo: POST/PUT
+```
+{
+    "logradouro": "Rua",
+    "descricao": "1",
+    "bairro": "Messejana",
+    "cidade": "Fortaleza",
+    "cep": 1234567,
+    "ufId": 1,
+    "usuarioId": 2
+}
+```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": "true,
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>404 - Bad Reuqest</summary>
+
+```
+{
+    "message": "O usuário já existe!",
+    "data": "false,
+    "status": 404,
+    "details": ""
+}
+```
+
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false,
+    "status": 404,
+    "details": ""
+}
+```
+
+</details>
+</details>
+
+
+
+
+
+
+
 
 ### Telefone
 
