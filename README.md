@@ -82,13 +82,19 @@ Admin<br />
 
 <details>
 
-<summary>Tips for collapsed sections</summary>
+<summary>### Usuário</summary>
 
-### You can add a header
-
-You can add text within a collapsed section. 
-
-You can add an image or a code block, too.
+|MÉTODO|          ROTA         |
+|------|-----------------------|
+| GET  | /api/user/list        |
+|------|-----------------------|
+| GET  | /api/user/list/{id}   |
+|------|-----------------------|
+| POST | /api/user/save        |
+|------|-----------------------|
+| PUT  | /api/user/edit/{id}   |
+|------|-----------------------|
+|DELETE| /api/user/remove/{id} |
 
 ```ruby
    puts "Hello World"
