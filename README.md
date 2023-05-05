@@ -80,30 +80,10 @@ Admin<br />
 
 <b>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
 
-<details>
-
-<summary>Usuário</summary>
-
-|MÉTODO|          ROTA         |
-|------|-----------------------|
-| GET  | /api/user/list        |
-|------|-----------------------|
-| GET  | /api/user/list/{id}   |
-|------|-----------------------|
-| POST | /api/user/save        |
-|------|-----------------------|
-| PUT  | /api/user/edit/{id}   |
-|------|-----------------------|
-|DELETE| /api/user/remove/{id} |
-
-```ruby
-   puts "Hello World"
-```
-
-</details>
-
 ### Usuário
 
+<details>
+<summary>Detalhes</summary>
 |MÉTODO|          ROTA         |
 |------|-----------------------|
 | GET  | /api/user/list        |
@@ -115,6 +95,21 @@ Admin<br />
 | PUT  | /api/user/edit/{id}   |
 |------|-----------------------|
 |DELETE| /api/user/remove/{id} |
+
+Exemplo:
+POST/PUT
+```
+{
+    "nome": "Hill",
+    "cpf": "22350458201",
+    "email": "test@gmail.com",
+    "senha": "Hill@123",
+    "dataNascimento": "2023-03-25 18:20:59",
+    "genero": "Feminino",
+    "ativo": 1
+}
+```
+</details>
 
 ### Endereço
 
