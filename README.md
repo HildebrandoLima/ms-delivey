@@ -243,16 +243,6 @@ Admin<br />
 
 ```
 {
-    "message": "O usuário já existe!",
-    "data": "false,
-    "status": 404,
-    "details": ""
-}
-```
-
-
-```
-{
     "message": "Error ao efetuar ação!",
     "data": "false,
     "status": 404,
@@ -270,7 +260,15 @@ Admin<br />
 
 
 
+
+
+
 ### Telefone
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
 
 |MÉTODO|          ROTA              |
 |------|----------------------------|
@@ -283,6 +281,70 @@ Admin<br />
 | PUT  | /api/telephone/edit/{id}   |
 |------|----------------------------|
 |DELETE| /api/telephone/remove/{id} |
+
+### Exemplo: POST/PUT
+```
+{
+    "telefones": [
+        {
+            "numero": "995069315",
+            "tipo": "Fixo",
+            "dddId": 1,
+            "usuarioId": 2
+        },
+        {
+            "numero": "980458709",
+            "tipo": "Fixo",
+            "dddId": 1,
+            "usuarioId": 2
+        }
+    ]
+}
+```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": "true,
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>404 - Bad Reuqest</summary>
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false,
+    "status": 404,
+    "details": ""
+}
+```
+
+</details>
+</details>
+
+
+
 
 ### Fornecedor
 
