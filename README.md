@@ -128,7 +128,6 @@ Admin<br />
 }
 ```
 
-
 ```
 {
     "message": "Edição efetuada com sucesso!",
@@ -146,7 +145,7 @@ Admin<br />
 ```
 {
     "message": "O usuário já existe!",
-    "data": "false,
+    "data": "false",
     "status": 404,
     "details": ""
 }
@@ -156,7 +155,7 @@ Admin<br />
 ```
 {
     "message": "Error ao efetuar ação!",
-    "data": "false,
+    "data": "false",
     "status": 404,
     "details": ""
 }
@@ -164,21 +163,6 @@ Admin<br />
 
 </details>
 </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### Endereço
 
@@ -230,7 +214,7 @@ Admin<br />
 ```
 {
     "message": "Edição efetuada com sucesso!",
-    "data": "true,
+    "data": "true",
     "status": 200,
     "details": ""
 }
@@ -244,7 +228,7 @@ Admin<br />
 ```
 {
     "message": "Error ao efetuar ação!",
-    "data": "false,
+    "data": "false",
     "status": 404,
     "details": ""
 }
@@ -252,16 +236,6 @@ Admin<br />
 
 </details>
 </details>
-
-
-
-
-
-
-
-
-
-
 
 ### Telefone
 
@@ -288,7 +262,7 @@ Admin<br />
     "telefones": [
         {
             "numero": "995069315",
-            "tipo": "Fixo",
+            "tipo": "Celular",
             "dddId": 1,
             "usuarioId": 2
         },
@@ -320,7 +294,7 @@ Admin<br />
 ```
 {
     "message": "Edição efetuada com sucesso!",
-    "data": "true,
+    "data": "true",
     "status": 200,
     "details": ""
 }
@@ -334,7 +308,7 @@ Admin<br />
 ```
 {
     "message": "Error ao efetuar ação!",
-    "data": "false,
+    "data": "false",
     "status": 404,
     "details": ""
 }
@@ -343,10 +317,12 @@ Admin<br />
 </details>
 </details>
 
-
-
-
 ### Fornecedor
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
 
 |MÉTODO|          ROTA             |
 |------|---------------------------|
@@ -360,4 +336,64 @@ Admin<br />
 |------|---------------------------|
 |DELETE| /api/provider/remove/{id} |
 
+### Exemplo: POST/PUT
+```
+{
+    "nome": "Teste Test",
+    "cnpj": "12394678811",
+    "email": "hill@email.com.br",
+    "dataFundacao": "2022-12-25 13:28:59",
+    "ativo": 1
+}
+```
 
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>404 - Bad Reuqest</summary>
+
+```
+{
+    "message": "O fornecedor já existe!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+</details>
+</details>
