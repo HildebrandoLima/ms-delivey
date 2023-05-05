@@ -81,6 +81,8 @@ Admin<br />
 <b>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
 
 <details>
+    
+    <summary>Tips for collapsed sections</summary>
 
 ### Usuário
 
