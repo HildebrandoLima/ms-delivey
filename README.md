@@ -116,6 +116,7 @@ Admin<br />
 
 <details>
 <summary>200 - OK</summary>
+
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
@@ -125,6 +126,7 @@ Admin<br />
 }
 ```
 
+
 ```
 {
     "message": "Edição efetuada com sucesso!",
@@ -133,10 +135,12 @@ Admin<br />
     "details": ""
 }
 ```
+
 </details>
 
 <details>
 <summary>404 - Bad Reuqest</summary>
+
 ```
 {
     "message": "O usuário já existe!",
@@ -146,6 +150,7 @@ Admin<br />
 }
 ```
 
+
 ```
 {
     "message": "Error ao efetuar ação!",
@@ -154,6 +159,7 @@ Admin<br />
     "details": ""
 }
 ```
+
 </details>
 </details>
 
