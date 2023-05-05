@@ -85,6 +85,8 @@ Admin<br />
 <details>
 <summary>Detalhes</summary>
 
+### Rotas
+
 |MÉTODO|          ROTA         |
 |------|-----------------------|
 | GET  | /api/user/list        |
@@ -97,8 +99,7 @@ Admin<br />
 |------|-----------------------|
 |DELETE| /api/user/remove/{id} |
 
-Exemplo:
-POST/PUT
+### Exemplo: POST/PUT
 ```
 {
     "nome": "Hill",
@@ -110,6 +111,50 @@ POST/PUT
     "ativo": 1
 }
 ```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+</details>
+
+<details>
+<summary>404 - Bad Reuqest</summary>
+```
+{
+    "message": "O usuário já existe!",
+    "data": "false,
+    "status": 404,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false,
+    "status": 404,
+    "details": ""
+}
+```
+</details>
 </details>
 
 ### Endereço
