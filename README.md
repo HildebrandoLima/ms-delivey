@@ -78,7 +78,7 @@ Admin<br />
 
 ### API DOCUMENTAÇÃO
 
-<b>Todos os parâmetro 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
+<b>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</b>
 
 ### Usuário
 
