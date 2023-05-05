@@ -82,7 +82,7 @@ Admin<br />
 
 <details>
 
-<summary>### Usuário</summary>
+<summary>Usuário</summary>
 
 |MÉTODO|          ROTA         |
 |------|-----------------------|
