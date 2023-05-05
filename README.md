@@ -84,6 +84,7 @@ Admin<br />
 
 <details>
 <summary>Detalhes</summary>
+
 |MÉTODO|          ROTA         |
 |------|-----------------------|
 | GET  | /api/user/list        |
