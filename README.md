@@ -62,10 +62,12 @@ Para criar as tabelas:
 
 Para criar os registros de ddd e uf:
 
-```php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
+```sql
+    php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
 ```
 
-```php artisan db:seed --class=UnidadeFederativaSeeder
+```sql
+    php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
 Certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu, execute o comando:
