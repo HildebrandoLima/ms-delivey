@@ -53,9 +53,13 @@
 > DB_USERNAME=nome_do_usuario<br />
 > DB_PASSWORD=sua_senha<br />
 
-> Execute o comando: php artisan migrate
-> Execute os comandos: php artisan db:seed --class=UnidadeFederativaSeeder && DiscagemDiretaDistanciaSeeder
+> Execute os comandos:
+
+> Para criar as tabelas:
+> php artisan migrate
+
 > Para criar os registros de ddd e uf
+> php artisan db:seed --class=UnidadeFederativaSeeder && DiscagemDiretaDistanciaSeeder
 
 certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu, execute o comando:
 ```sql
