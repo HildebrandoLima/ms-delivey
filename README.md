@@ -159,7 +159,7 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Bad Reuqest</summary>
+<summary>404 - Bad Request</summary>
 
 ```
 {
@@ -240,7 +240,7 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Bad Reuqest</summary>
+<summary>404 - Bad Request</summary>
 
 ```
 {
@@ -319,7 +319,7 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Bad Reuqest</summary>
+<summary>404 - Bad Request</summary>
 
 ```
 {
@@ -389,7 +389,7 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Bad Reuqest</summary>
+<summary>404 - Bad Request</summary>
 
 ```
 {
