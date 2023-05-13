@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('ddd_id')->constrained('ddd')->notnull();
             $table->foreignId('usuario_id')->constrained('users')->nullable();
             $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable();
-            $table->boolean('ativo');
             $table->timestamps();
         });
     }
