@@ -18,6 +18,7 @@ class AddressRepository {
             'uf_id' => $endereco->uf_id,
             'usuario_id' => $endereco->usuario_id,
             'fornecedor_id' => $endereco->fornecedor_id,
+            'ativo' => $endereco->ativo,
             'created_at' => $endereco->created_at
         ]);
     }
@@ -33,6 +34,7 @@ class AddressRepository {
             'uf_id' => $endereco->uf_id,
             'usuario_id' => $endereco->usuario_id,
             'fornecedor_id' => $endereco->fornecedor_id,
+            'ativo' => $endereco->ativo,
             'updated_at' => $endereco->updated_at
         ]);
     }

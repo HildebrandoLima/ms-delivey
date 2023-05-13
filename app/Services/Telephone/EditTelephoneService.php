@@ -35,8 +35,8 @@ class EditTelephoneService
         $telephone->numero = $value['numero'];
         $telephone->tipo = $this->telephoneCase->typeCase($value['tipo']);
         $telephone->ddd_id = $value['dddId'];
-        $telephone->usuario_id = isset($value['usuarioId']) ? $value['usuarioId'] : 1;
-        $telephone->fornecedor_id = isset($value['fornecedorId']) ? $value['fornecedorId'] : 1;
+        $telephone->usuario_id = isset($value['usuarioId']) ? $value['usuarioId'] : null;
+        $telephone->fornecedor_id = isset($value['fornecedorId']) ? $value['fornecedorId'] : null;
         $telephone->updated_at = new DateTime();
         return $telephone;
     }

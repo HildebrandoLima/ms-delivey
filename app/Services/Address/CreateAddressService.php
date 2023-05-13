@@ -6,6 +6,7 @@ use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\AddressRepository;
 use App\Support\Utils\Cases\AddressCase;
+use App\Support\Utils\Enums\AddressEnums;
 use DateTime;
 
 class CreateAddressService
@@ -35,8 +36,9 @@ class CreateAddressService
         $address->cidade = $this->request->cidade;
         $address->cep = $this->request->cep;
         $address->uf_id = $this->request->ufId;
-        $address->usuario_id = isset($this->request->usuarioId) ? $this->request->usuarioId : 1;
-        $address->fornecedor_id = isset($this->request->fornecedorId) ? $this->request->fornecedorId : 1;
+        $address->usuario_id = isset($this->request->usuarioId) ? $this->request->usuarioId : null;
+        $address->fornecedor_id = isset($this->request->fornecedorId) ? $this->request->fornecedorId : null;
+        $address->ativo = AddressEnums::ATIVADO;
         $address->created_at = new DateTime();
         return $address;
     }

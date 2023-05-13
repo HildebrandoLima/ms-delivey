@@ -30,6 +30,7 @@ class EnderecoFactory extends Factory
             'uf_id' => DDD::factory()->createOne()->id,
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,
+            'ativo' => rand(0, 1)
         ];
     }
 }
