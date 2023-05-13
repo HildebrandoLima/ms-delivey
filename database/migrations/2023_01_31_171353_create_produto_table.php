@@ -25,7 +25,8 @@ return new class extends Migration
             $table->enum('unidade_medida', ['UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX']);
             $table->boolean('ativo');
             $table->timestamp('data_validade')->notnull();
-            $table->foreignId('fornecedor_id')->constrained('fornecedor');
+            $table->foreignId('fornecedor_id')->constrained('fornecedor')->notnull();
+            $table->foreignId('categoria_id')->constrained('categoria')->notnull();
             $table->timestamps();
         });
     }

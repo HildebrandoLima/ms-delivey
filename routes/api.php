@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TelephoneController;
@@ -20,6 +21,11 @@ use App\Http\Controllers\UserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+//  Usuario
+Route::prefix('category')->group(function () {
+    Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
 });
 
 //  Endereço
