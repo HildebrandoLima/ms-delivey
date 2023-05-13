@@ -20,9 +20,9 @@ class FornecedorFactory extends Factory
     {
         return [
             'nome' => $this->faker->name,
-            'cnpj' => rand(1000, 10000),
+            'cnpj' => Str::random(14),
             'email' => $this->faker->email,
-            'ativo' => '1',
+            'ativo' => rand(0, 1),
             'data_fundacao' => $this->faker->dateTime(),
         ];
     }

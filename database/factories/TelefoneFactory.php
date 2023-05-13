@@ -2,7 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\DDD;
+use App\Models\Fornecedor;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Telefone>
@@ -16,12 +20,13 @@ class TelefoneFactory extends Factory
      */
     public function definition()
     {
+        $tipo = array('Fixo', 'Celular');
         return [
-            'numero' => rand(100, 900),
-            'tipo' => 'Fixo',
-            'ddd_id' => 1,
-            'usuario_id' => 1,
-            'fornecedor_id' => 1,
+            'numero' => Str::ramdon(9),
+            'tipo' => array_rand($tipo),
+            'ddd_id' => DDD::factory()->createOne()->id,
+            'usuario_id' => User::factory()->createOne()->id,
+            'fornecedor_id' => Fornecedor::factory()->createOne()->id,
         ];
     }
 }

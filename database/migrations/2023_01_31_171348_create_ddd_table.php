@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('ddd', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->char('ddd', 3)->unique()->notnull();
-            $table->string('descricao', 20)->unique()->notnull();
+            $table->string('descricao', 30)->notnull();
+            $table->string('regiao', 20)->notnull();
         });
     }
 
