@@ -18,8 +18,8 @@ return new class extends Migration
             $table->char('numero', 9)->unique()->notnull();
             $table->enum('tipo', ['Fixo', 'Celular']);
             $table->foreignId('ddd_id')->constrained('ddd')->notnull();
-            $table->foreignId('usuario_id')->constrained('users')->nullable();
-            $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable();
+            $table->foreignId('usuario_id')->constrained('users')->nullable(false)->change();
+            $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable(false)->change();
             $table->timestamps();
         });
     }

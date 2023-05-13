@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('cidade', 50)->notnull();
             $table->char('cep', 7)->notnull();
             $table->foreignId('uf_id')->constrained('unidade_federativa')->notnull();
-            $table->foreignId('usuario_id')->constrained('users')->nullable();
-            $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable();
+            $table->foreignId('usuario_id')->constrained('users')->nullable(false)->change();
+            $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable(false)->change();
             $table->timestamps();
         });
     }
