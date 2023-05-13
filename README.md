@@ -57,22 +57,23 @@ Execute os comandos:
 
 Para criar as tabelas:
 
-```sql
+```
     php artisan migrate
 ```
 
 Para criar os registros de ddd e uf:
 
-```sql
+```
     php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
 ```
 
-```sql
+```
     php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
 Certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu, execute o comando:
-```sql
+
+```
     SHOW TABLES;
 ```
 
