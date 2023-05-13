@@ -55,10 +55,10 @@
 
 > Execute os comandos:
 
-> Para criar as tabelas:
+> Para criar as tabelas: 
 > php artisan migrate
 
-> Para criar os registros de ddd e uf
+> Para criar os registros de ddd e uf: 
 > php artisan db:seed --class=UnidadeFederativaSeeder && DiscagemDiretaDistanciaSeeder
 
 certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu, execute o comando:
