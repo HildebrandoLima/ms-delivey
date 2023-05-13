@@ -57,7 +57,8 @@ Execute os comandos:
 
 Para criar as tabelas:
 
-```php artisan migrate
+```sql
+    php artisan migrate
 ```
 
 Para criar os registros de ddd e uf:
