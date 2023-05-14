@@ -35,7 +35,8 @@ Route::prefix('address')->group(function () {
 //  Categoria
 Route::prefix('category')->group(function () {
     Route::get('/list', [CategoryController::class, 'index'])->name('category.list');
-    Route::get('/list/{id}', [CategoryController::class, 'show'])->name('address.list.find');
+    Route::get('/list/{id}', [CategoryController::class, 'show'])->name('category.list.find');
+    Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
     Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
 });
 

@@ -15,9 +15,12 @@ class CategoryRepository {
         ]);
     }
 
-    public function update()
+    public function update(int $id, Categoria $categoria): bool
     {
-        #
+        return Categoria::query()->where('id', $id)->update([
+            'descricao' => $categoria->descricao,
+            'updated_at' => $categoria->updated_at
+        ]);
     }
 
     public function delete()

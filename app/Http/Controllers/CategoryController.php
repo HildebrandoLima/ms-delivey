@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\CategoryRequest;
 use App\Services\Category\CreateCategoryService;
+use App\Services\Category\EditCategoryService;
 use App\Services\Category\ListCategoryService;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
@@ -13,15 +14,18 @@ use Symfony\Component\HttpFoundation\Response;
 class CategoryController extends Controller
 {
     private CreateCategoryService $createCategoryService;
+    private EditCategoryService $editCategoryService;
     private ListCategoryService $listCategoryService;
 
     public function __construct
     (
         CreateCategoryService $createCategoryService,
+        EditCategoryService   $editCategoryService,
         ListCategoryService   $listCategoryService
     )
     {
         $this->createCategoryService = $createCategoryService;
+        $this->editCategoryService   = $editCategoryService;
         $this->listCategoryService   = $listCategoryService;
     }
 
@@ -46,6 +50,19 @@ class CategoryController extends Controller
             $success = $this->listCategoryService->listProviderFind($id);
             if (!$success) return Controller::error();
             return Controller::get($success);
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
+    }
+
+    public function update(string $id, CategoryRequest $request): Response
+    {
+        try {
+            $search = new Search();
+            $id = $search->id($id);
+            $success = $this->editCategoryService->editCategory($id, $request);
+            if (!$success) return Controller::error();
+            return Controller::put();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
