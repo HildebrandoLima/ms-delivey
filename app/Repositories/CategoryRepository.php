@@ -23,9 +23,9 @@ class CategoryRepository {
         ]);
     }
 
-    public function delete()
+    public function delete(int $id): bool
     {
-        #
+        return Categoria::query()->where('id', $id)->delete();
     }
 
     public function getFind(int $id): Collection

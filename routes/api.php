@@ -38,6 +38,7 @@ Route::prefix('category')->group(function () {
     Route::get('/list/{id}', [CategoryController::class, 'show'])->name('category.list.find');
     Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
     Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
+    Route::delete('/remove/{id}', [CategoryController::class, 'destroy'])->name('category.remove');
 });
 
 // Fornecedor
