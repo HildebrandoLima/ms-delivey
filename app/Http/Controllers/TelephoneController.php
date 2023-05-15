@@ -8,6 +8,7 @@ use App\Services\Telephone\CreateTelephoneService;
 use App\Services\Telephone\DeleteTelephoneService;
 use App\Services\Telephone\EditTelephoneService;
 use App\Services\Telephone\ListTelephoneService;
+use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,10 +44,10 @@ class TelephoneController extends Controller
         }
     }
 
-    public function index(string $id): Response
+    public function index(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $success = $this->listTelephoneService->listTelephoneAll($id);
+            $success = $this->listTelephoneService->listTelephoneAll($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -65,12 +66,10 @@ class TelephoneController extends Controller
         }
     }
 
-    public function update(string $id, TelephoneRequest $request): Response
+    public function update(string $id, TelephoneRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->editTelephoneService->editTelephone($id, $request);
+            $success = $this->editTelephoneService->editTelephone($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -78,12 +77,10 @@ class TelephoneController extends Controller
         }
     }
 
-    public function destroy(string $id): Response
+    public function destroy(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->deleteTelephoneService->deleteTelephone($id);
+            $success = $this->deleteTelephoneService->deleteTelephone($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {

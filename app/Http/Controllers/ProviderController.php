@@ -8,6 +8,7 @@ use App\Services\Provider\CreateProviderService;
 use App\Services\Provider\DeleteProviderService;
 use App\Services\Provider\EditProviderService;
 use App\Services\Provider\ListProviderService;
+use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,11 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(Request $request): Response
+    public function index(Request $request, Search $search): Response
     {
         try {
-            $search = new Search();
-            $search = $search->search($request);
-            $success = $this->listProviderService->listProviderAll($request, $search);
+            $success = $this->listProviderService->listProviderAll
+            ($request, $search->search($request->search ?? ''));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -46,12 +46,10 @@ class ProviderController extends Controller
         }
     }
 
-    public function show(string $id): Response
+    public function show(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->listProviderService->listProviderFind($id);
+            $success = $this->listProviderService->listProviderFind($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -70,12 +68,11 @@ class ProviderController extends Controller
         }
     }
 
-    public function update(string $id, ProviderRequest $request): Response
+    public function update(string $id, ProviderRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->editProviderService->editProvider($id, $request);
+            $success = $this->editProviderService->editProvider
+            ($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -83,12 +80,10 @@ class ProviderController extends Controller
         }
     }
 
-    public function destroy(string $id): Response
+    public function destroy(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->deleteProviderService->deleteProvider($id);
+            $success = $this->deleteProviderService->deleteProvider($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {

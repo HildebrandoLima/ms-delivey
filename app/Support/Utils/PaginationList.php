@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
-class Pagination
+class PaginationList
 {
     public static function createFromPagination(Builder $query, Request $request): Collection
     {

@@ -8,6 +8,7 @@ use App\Services\User\CreateUserService;
 use App\Services\User\DeleteUserService;
 use App\Services\User\EditUserService;
 use App\Services\User\ListUserService;
+use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,11 @@ class UserController extends Controller
         $this->listUserService      =   $listUserService;
     }
 
-    public function index(Request $request): Response
+    public function index(Request $request, Search $search): Response
     {
         try {
-            $search = new Search();
-            $search = $search->search($request);
-            $success = $this->listUserService->listUserAll($request, $search);
+            $success = $this->listUserService->listUserAll
+            ($request, $search->search($request->search ?? ''));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -46,12 +46,10 @@ class UserController extends Controller
         }
     }
 
-    public function show(string $id): Response
+    public function show(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->listUserService->listUserFind($id);
+            $success = $this->listUserService->listUserFind($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -70,12 +68,11 @@ class UserController extends Controller
         }
     }
 
-    public function update(string $id, UserRequest $request): Response
+    public function update(string $id, UserRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->editUserService->editUser($id, $request);
+            $success = $this->editUserService->editUser
+            ($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -83,12 +80,10 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(string $id): Response
+    public function destroy(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->deleteUserService->deleteUser($id);
+            $success = $this->deleteUserService->deleteUser($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {

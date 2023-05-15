@@ -8,6 +8,7 @@ use App\Services\Category\CreateCategoryService;
 use App\Services\Category\DeleteCategoryService;
 use App\Services\Category\EditCategoryService;
 use App\Services\Category\ListCategoryService;
+use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,11 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(Request $request): Response
+    public function index(Request $request, Search $search): Response
     {
         try {
-            $search = new Search();
-            $search = $search->search($request);
-            $success = $this->listCategoryService->listCategoryAll($search);
+            $success = $this->listCategoryService->listCategoryAll
+            ($search->search($request->search ?? ''));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -46,12 +46,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function show(string $id): Response
+    public function show(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->listCategoryService->listProviderFind($id);
+            $success = $this->listCategoryService->listProviderFind($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -59,12 +57,11 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(string $id, CategoryRequest $request): Response
+    public function update(string $id, CategoryRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->editCategoryService->editCategory($id, $request);
+            $success = $this->editCategoryService->editCategory
+            ($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -83,12 +80,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function destroy(string $id): Response
+    public function destroy(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->deleteCategoryService->deleteCategory($id);
+            $success = $this->deleteCategoryService->deleteCategory($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {

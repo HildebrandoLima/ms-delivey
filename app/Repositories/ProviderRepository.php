@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Support\Utils\Pagination;
+use App\Support\Utils\PaginationList;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -55,7 +55,7 @@ class ProviderRepository {
                 ->orWhere('cnpj', $request->search);
             return $query->get();
         endif;
-        return Pagination::createFromPagination($query, $request);
+        return PaginationList::createFromPagination($query, $request);
     }
 
     public function getFind(int $id): Collection
