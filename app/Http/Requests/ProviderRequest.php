@@ -16,7 +16,7 @@ class ProviderRequest extends BaseRequest
         return [
             'nome' => 'required|string',
             'cnpj' => 'required|string',
-            'email'=> 'required|string',
+            'email' => 'required|string',
             'dataFundacao' => 'required|string',
         ];
     }

@@ -8,6 +8,7 @@ use App\Services\Address\CreateAddressService;
 use App\Services\Address\DeleteAddressService;
 use App\Services\Address\EditAddressService;
 use App\Services\Address\ListAddressService;
+use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -65,12 +66,11 @@ class AddressController extends Controller
         }
     }
 
-    public function update(string $id, AddressRequest $request): Response
+    public function update(string $id, AddressRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->editAddressService->editAddress($id, $request);
+            $success = $this->editAddressService->editAddress
+            ($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -78,12 +78,10 @@ class AddressController extends Controller
         }
     }
 
-    public function destroy(string $id): Response
+    public function destroy(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $search = new Search();
-            $id = $search->id($id);
-            $success = $this->deleteAddressService->deleteAddress($id);
+            $success = $this->deleteAddressService->deleteAddress($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {

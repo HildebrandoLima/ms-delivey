@@ -15,7 +15,7 @@ class AddressRequest extends BaseRequest
     {
         return [
             'logradouro' => 'required|string',
-            'descricao'=> 'required|string',
+            'descricao' => 'required|string',
             'bairro' => 'required|string',
             'cidade' => 'required|string',
             'cep' => 'required|int',

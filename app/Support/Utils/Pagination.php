@@ -2,27 +2,34 @@
 
 namespace App\Support\Utils;
 
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use App\Http\Requests\BaseRequest;
 
-class Pagination
+class Pagination extends BaseRequest
 {
-    public static function createFromPagination(Builder $query, Request $request): Collection
+    public function authorize(): bool
     {
-        try {
-            $total = $query->count();
-            $list = $query->offset(($request->perPage - 1) * $request->page)->limit($request->perPage)->get();
-            return collect([
-                'list' => $list,
-                'total' => $total,
-                'page' => (int)$request->page,
-                'lastPage' => ceil($total / $request->perPage)
-            ]);
-        } catch(Exception $e) {
-            return Log::error('Error ao criar paginação', $e->getMessage());
-        }
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'page' => 'int',
+            'perPage' => 'int',
+            'search' => 'string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'page.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'perPage.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'search.required' => DefaultErrorMessages::REQUIRED_FIELD,
+
+            'page.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'perPage.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'search.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+        ];
     }
 }
