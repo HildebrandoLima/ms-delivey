@@ -26,7 +26,7 @@ class TelefoneFactory extends Factory
             'tipo' => array_rand($tipo),
             'ddd_id' => DDD::factory()->createOne()->id,
             'usuario_id' => User::factory()->createOne()->id,
-            'fornecedor_id' => Fornecedor::factory()->createOne()->id,
+            'fornecedor_id' => Fornecedor::factory()->createOne()->id
         ];
     }
 }

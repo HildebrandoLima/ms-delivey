@@ -20,10 +20,9 @@ return new class extends Migration
             $table->string('bairro', 50)->notnull();
             $table->string('cidade', 50)->notnull();
             $table->char('cep', 7)->notnull();
-            $table->foreignId('uf_id')->constrained('unidade_federativa');
-            $table->foreignId('usuario_id')->constrained('users');
-            $table->foreignId('fornecedor_id')->constrained('fornecedor');
-            $table->boolean('ativo');
+            $table->foreignId('uf_id')->constrained('unidade_federativa')->notnull();
+            $table->foreignId('usuario_id')->constrained('users')->nullable(false)->change();
+            $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable(false)->change();
             $table->timestamps();
         });
     }
