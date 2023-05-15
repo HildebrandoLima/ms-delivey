@@ -9,6 +9,7 @@ use App\Services\Category\DeleteCategoryService;
 use App\Services\Category\EditCategoryService;
 use App\Services\Category\ListCategoryService;
 use App\Support\Utils\BaseDecode;
+use App\Support\Utils\Pagination;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,11 +35,11 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(Request $request, Search $search): Response
+    public function index(Pagination $pagination, Search $search): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryAll
-            ($search->search($request->search ?? ''));
+            ($search->search($pagination->search ?? ''));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

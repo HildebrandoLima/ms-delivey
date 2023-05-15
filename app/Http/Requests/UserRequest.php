@@ -16,7 +16,7 @@ class UserRequest extends BaseRequest
         return [
             'nome' => 'required|string',
             'cpf' => 'required|string',
-            'email'=> 'required|string',
+            'email' => 'required|string',
             'senha' => 'required|string',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string',

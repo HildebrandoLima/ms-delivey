@@ -9,6 +9,7 @@ use App\Services\User\DeleteUserService;
 use App\Services\User\EditUserService;
 use App\Services\User\ListUserService;
 use App\Support\Utils\BaseDecode;
+use App\Support\Utils\Pagination;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,11 +35,11 @@ class UserController extends Controller
         $this->listUserService      =   $listUserService;
     }
 
-    public function index(Request $request, Search $search): Response
+    public function index(Pagination $pagination, Search $search): Response
     {
         try {
             $success = $this->listUserService->listUserAll
-            ($request, $search->search($request->search ?? ''));
+            ($pagination, $search->search($pagination->search ?? ''));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

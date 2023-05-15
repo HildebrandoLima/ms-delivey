@@ -16,7 +16,7 @@ class TelephoneRequest extends BaseRequest
         return [
             'telefones' => 'required|array',
             'telefones.*.numero' => 'required|string',
-            'telefones.*.tipo'=> 'required|string',
+            'telefones.*.tipo' => 'required|string',
             'telefones.*.dddId' => 'required|int|exists:ddd,id',
             'telefones.*.usuarioId' => 'int|exists:users,id',
             'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',

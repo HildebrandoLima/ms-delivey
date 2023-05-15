@@ -69,7 +69,8 @@ class TelephoneController extends Controller
     public function update(string $id, TelephoneRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $success = $this->editTelephoneService->editTelephone($baseDecode->baseDecode($id), $request);
+            $success = $this->editTelephoneService->editTelephone
+            ($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {

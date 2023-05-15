@@ -9,6 +9,7 @@ use App\Services\Provider\DeleteProviderService;
 use App\Services\Provider\EditProviderService;
 use App\Services\Provider\ListProviderService;
 use App\Support\Utils\BaseDecode;
+use App\Support\Utils\Pagination;
 use App\Support\Utils\Search;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,11 +35,11 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(Request $request, Search $search): Response
+    public function index(Pagination $pagination, Search $search): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
-            ($request, $search->search($request->search ?? ''));
+            ($pagination, $search->search($pagination->search ?? ''));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
