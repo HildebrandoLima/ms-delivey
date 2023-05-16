@@ -2,11 +2,11 @@
 
 namespace App\Services\User\Interfaces;
 
-use Illuminate\Http\Request;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 interface IListUserService
 {
-    public function listUserAll(Request $request, string $search): Collection;
+    public function listUserAll(Pagination $pagination, string $search): Collection;
     public function listUserFind(int $id): Collection;
 }

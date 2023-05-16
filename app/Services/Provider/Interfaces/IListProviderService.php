@@ -2,12 +2,11 @@
 
 namespace App\Services\Provider\Interfaces;
 
-use App\Http\Requests\ProviderRequest;
-use Illuminate\Http\Request;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 interface IListProviderService
 {
-    public function listProviderAll(Request $request, string $search): Collection;
+    public function listProviderAll(Pagination $pagination, string $search): Collection;
     public function listProviderFind(int $id): Collection;
 }

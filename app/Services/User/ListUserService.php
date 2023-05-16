@@ -4,7 +4,7 @@ namespace App\Services\User;
 
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\IListUserService;
-use Illuminate\Http\Request;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListUserService implements IListUserService
@@ -16,9 +16,9 @@ class ListUserService implements IListUserService
         $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(Request $request, string $search): Collection
+    public function listUserAll(Pagination $pagination, string $search): Collection
     {
-        return $this->userRepository->getAll($request, $search);
+        return $this->userRepository->getAll($pagination, $search);
     }
 
     public function listUserFind(int $id): Collection
