@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Categoria;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class CategoryRepository {

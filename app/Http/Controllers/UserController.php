@@ -11,7 +11,6 @@ use App\Services\User\ListUserService;
 use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Pagination;
 use App\Support\Utils\Search;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller

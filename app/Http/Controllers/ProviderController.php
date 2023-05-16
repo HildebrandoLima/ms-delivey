@@ -11,7 +11,6 @@ use App\Services\Provider\ListProviderService;
 use App\Support\Utils\BaseDecode;
 use App\Support\Utils\Pagination;
 use App\Support\Utils\Search;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller

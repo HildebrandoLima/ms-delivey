@@ -4,9 +4,7 @@ namespace App\Services\Category;
 
 use App\Exceptions\HttpBadRequest;
 use App\Models\Categoria;
-use App\Models\Fornecedor;
 use App\Repositories\CategoryRepository;
-use App\Repositories\ProviderRepository;
 
 class DeleteCategoryService
 {

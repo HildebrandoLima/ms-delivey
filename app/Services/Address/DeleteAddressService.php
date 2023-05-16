@@ -2,8 +2,6 @@
 
 namespace App\Services\Address;
 
-use App\Http\Requests\Address\AddressRequest;
-use App\Infra\Database\Dao\Address\DeleteAddressDb;
 use App\Repositories\AddressRepository;
 
 class DeleteAddressService

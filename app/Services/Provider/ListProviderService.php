@@ -2,8 +2,6 @@
 
 namespace App\Services\Provider;
 
-use App\Http\Requests\Provider\ProviderRequest;
-use App\Infra\Database\Dao\Provider\ListProviderDb;
 use App\Repositories\ProviderRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

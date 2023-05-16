@@ -3,8 +3,6 @@
 namespace App\Services\Telephone;
 
 use App\Exceptions\HttpBadRequest;
-use App\Http\Requests\User\UserRequest;
-use App\Infra\Database\Dao\Telephone\ListTelephoneDb;
 use App\Models\User;
 use App\Repositories\TelephoneRepository;
 use Illuminate\Support\Collection;

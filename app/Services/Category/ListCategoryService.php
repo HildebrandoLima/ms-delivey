@@ -3,7 +3,6 @@
 namespace App\Services\Category;
 
 use App\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ListCategoryService
