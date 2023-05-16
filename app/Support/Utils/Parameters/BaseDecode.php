@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Utils\Parameter;
+namespace App\Support\Utils\Parameters;
 
 class BaseDecode
 {

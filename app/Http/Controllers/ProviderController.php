@@ -9,8 +9,8 @@ use App\Services\Provider\DeleteProviderService;
 use App\Services\Provider\EditProviderService;
 use App\Services\Provider\ListProviderService;
 use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Parameter\BaseDecode;
-use App\Support\Utils\Parameter\Search;
+use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller

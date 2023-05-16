@@ -8,7 +8,7 @@ use App\Services\Address\CreateAddressService;
 use App\Services\Address\DeleteAddressService;
 use App\Services\Address\EditAddressService;
 use App\Services\Address\ListAddressService;
-use App\Support\Utils\Parameter\BaseDecode;
+use App\Support\Utils\Parameters\BaseDecode;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
