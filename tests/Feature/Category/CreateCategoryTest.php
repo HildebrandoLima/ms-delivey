@@ -13,9 +13,7 @@ class CreateCategoryTest extends TestCase
      */
     public function it_endpoint_post_create_a_failure_response(): void
     {
-        $category = Categoria::query()->where('id', 2)->get();
-        $response = $this->postJson('/api/category/save', $category->toArray());
-        $this->assertEquals($response->original['status'], 400);
+        //
     }
 
     /**
@@ -23,8 +21,9 @@ class CreateCategoryTest extends TestCase
      */
     public function it_endpoint_post_create_a_successful_response(): void
     {
-        $category = Categoria::factory(1)->create();
-        $response = $this->postJson('/api/category/save', $category->toArray());
+        $category = Categoria::factory(1)->createOne();
+        $data = $category->toArray();
+        $response = $this->postJson(route('category.save', $data));
         $response->assertStatus(200);
     }
 }

@@ -21,7 +21,7 @@ class ListProviderAllTest extends TestCase
      */
     public function it_endpoint_get_list_all_a_successful_response(): void
     {
-        Fornecedor::factory()->createOne();
+        Fornecedor::factory(1)->create();
         $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10]));
         $response->assertOk();
     }

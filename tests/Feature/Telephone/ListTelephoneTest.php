@@ -21,7 +21,7 @@ class ListTelephoneTest extends TestCase
      */
     public function it_endpoint_get_list_telephone_a_successful_response(): void
     {
-        $telephone = Telefone::factory()->createOne();
+        $telephone = Telefone::factory(1)->create();
         $data = $telephone->toArray();
         $response = $this->getJson(route('telephone.list', ['id' => base64_encode($data['id'])]));
         $response->assertOk();

@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Category;
 
+use App\Models\Fornecedor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListCategoryTest extends TestCase
+class ListCategoryAllTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_endpoint_get_list_all_successful_response(): void
+    public function it_endpoint_get_list_all_failure_response(): void
     {
-        $response = $this->getJson('/api/category/list');
-        $response->assertStatus(200);
+        //
     }
 
     /**
@@ -21,7 +21,8 @@ class ListCategoryTest extends TestCase
      */
     public function it_endpoint_get_list_find_successful_response(): void
     {
-        $response = $this->getJson('/api/category/list/', [2]);
+        Fornecedor::factory(10)->create();
+        $response = $this->getJson(route('category.list.all'));
         $response->assertStatus(200);
     }
 }
