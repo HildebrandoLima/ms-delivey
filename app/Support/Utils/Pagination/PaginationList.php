@@ -10,16 +10,16 @@ use Illuminate\Support\Facades\Log;
 
 class PaginationList
 {
-    public static function createFromPagination(Builder $query, Request $request): Collection
+    public static function createFromPagination(Builder $query, Pagination $pagination): Collection
     {
         try {
             $total = $query->count();
-            $list = $query->offset(($request->perPage - 1) * $request->page)->limit($request->perPage)->get();
+            $list = $query->offset(($pagination->perPage - 1) * $pagination->page)->limit($pagination->perPage)->get();
             return collect([
                 'list' => $list,
                 'total' => $total,
-                'page' => (int)$request->page,
-                'lastPage' => ceil($total / $request->perPage)
+                'page' => (int)$pagination->page,
+                'lastPage' => ceil($total / $pagination->perPage)
             ]);
         } catch(Exception $e) {
             return Log::error('Error ao criar paginação', $e->getMessage());

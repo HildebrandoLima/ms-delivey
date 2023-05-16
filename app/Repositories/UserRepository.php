@@ -5,12 +5,13 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Telefone;
 use App\Models\User;
+use App\Repositories\Interface\IUserRepository;
+use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class UserRepository {
+class UserRepository implements IUserRepository {
     public function insert(User $user): int
     {
         return User::query()->insertGetId([
@@ -50,16 +51,16 @@ class UserRepository {
         return true;
     }
 
-    public function getAll(Request $request, string $search): Collection
+    public function getAll(Pagination $pagination, string $search): Collection
     {
         $query = $this->mapToCollection();
         $query->orderBy('id');
-        if (isset($request->search)):
+        if (isset($search)):
             $query->where('name', 'like', $search)
-            ->orWhere('email', $request->search);
+            ->orWhere('email', 'like', $search);
         return $query->get();
         endif;
-        return PaginationList::createFromPagination($query, $request);
+        return PaginationList::createFromPagination($query, $pagination);
     }
 
     public function getFind(int $id): Collection

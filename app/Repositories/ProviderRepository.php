@@ -5,33 +5,34 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
+use App\Repositories\Interface\IProviderRepository;
+use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class ProviderRepository {
-    public function insert(Fornecedor $provider): int
+class ProviderRepository implements IProviderRepository {
+    public function insert(Fornecedor $fornecedor): int
     {
         return Fornecedor::query()->insertGetId([
-            'nome' => $provider->nome,
-            'cnpj' => $provider->cnpj,
-            'email' => $provider->email,
-            'ativo' => $provider->ativo,
-            'data_fundacao' => $provider->data_fundacao,
-            'created_at' => $provider->created_at
+            'nome' => $fornecedor->nome,
+            'cnpj' => $fornecedor->cnpj,
+            'email' => $fornecedor->email,
+            'ativo' => $fornecedor->ativo,
+            'data_fundacao' => $fornecedor->data_fundacao,
+            'created_at' => $fornecedor->created_at
         ]);
     }
 
-    public function update(int $id, Fornecedor $provider): bool
+    public function update(int $id, Fornecedor $fornecedor): bool
     {
         return Fornecedor::query()->where('id', $id)->update([
-            'nome' => $provider->nome,
-            'cnpj' => $provider->cnpj,
-            'email' => $provider->email,
-            'ativo' => $provider->ativo,
-            'data_fundacao' => $provider->data_fundacao,
-            'updated_at' => $provider->updated_at
+            'nome' => $fornecedor->nome,
+            'cnpj' => $fornecedor->cnpj,
+            'email' => $fornecedor->email,
+            'ativo' => $fornecedor->ativo,
+            'data_fundacao' => $fornecedor->data_fundacao,
+            'updated_at' => $fornecedor->updated_at
         ]);
     }
 
@@ -46,16 +47,16 @@ class ProviderRepository {
         return true;
     }
 
-    public function getAll(Request $request, string $search): Collection
+    public function getAll(Pagination $pagination, string $search): Collection
     {
         $query = $this->mapToCollection();
         $query->orderBy('id');
-        if (isset($request->search)):
+        if (isset($search)):
             $query->where('nome', 'like', $search)
-                ->orWhere('cnpj', $request->search);
+                ->orWhere('cnpj', 'like', $search);
             return $query->get();
         endif;
-        return PaginationList::createFromPagination($query, $request);
+        return PaginationList::createFromPagination($query, $pagination);
     }
 
     public function getFind(int $id): Collection

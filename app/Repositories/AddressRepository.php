@@ -4,9 +4,10 @@ namespace App\Repositories;
 
 use App\Models\Endereco;
 use App\Models\UnidadeFederativa;
+use App\Repositories\Interface\IAddressRepository;
 use Illuminate\Support\Collection;
 
-class AddressRepository {
+class AddressRepository implements IAddressRepository {
     public function insert(Endereco $endereco): bool
     {
         return Endereco::query()->insert([

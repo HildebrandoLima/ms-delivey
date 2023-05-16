@@ -4,10 +4,11 @@ namespace App\Repositories;
 
 use App\Models\DDD;
 use App\Models\Telefone;
+use App\Repositories\Interface\ITelephoneRepository;
 use Illuminate\Support\Collection;
 
-class TelephoneRepository {
-    public function insert(Telefone $telefone): int
+class TelephoneRepository implements ITelephoneRepository {
+    public function insert(Telefone $telefone): bool
     {
         return Telefone::query()->insert([
             'numero' => $telefone->numero,

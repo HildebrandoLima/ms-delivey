@@ -3,9 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Categoria;
+use App\Repositories\Interface\ICategoryRepository;
 use Illuminate\Support\Collection;
 
-class CategoryRepository {
+class CategoryRepository implements ICategoryRepository {
     public function insert(Categoria $categoria): bool
     {
         return Categoria::query()->insert([
@@ -27,16 +28,6 @@ class CategoryRepository {
         return Categoria::query()->where('id', $id)->delete();
     }
 
-    public function getFind(int $id): Collection
-    {
-        return Categoria::query()->select([
-            'id as descricaoId',
-            'descricao as descricao',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ])->where('id', $id)->get();
-    }
-
     public function getAll(string $search): Collection
     {
         $query = Categoria::query()->select([
@@ -49,5 +40,15 @@ class CategoryRepository {
             $query->where('descricao', 'like', $search)->get();
         endif;
         return $query->get();
+    }
+
+    public function getFind(int $id): Collection
+    {
+        return Categoria::query()->select([
+            'id as descricaoId',
+            'descricao as descricao',
+            'created_at as criadoEm',
+            'updated_at as alteradoEm'
+        ])->where('id', $id)->get();
     }
 }

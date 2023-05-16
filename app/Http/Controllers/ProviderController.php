@@ -85,7 +85,7 @@ class ProviderController extends Controller
         try {
             $success = $this->deleteProviderService->deleteProvider($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
-            return Controller::put();
+            return Controller::delete();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
