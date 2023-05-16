@@ -20,11 +20,11 @@ class TelefoneFactory extends Factory
      */
     public function definition()
     {
-        $tipo = array('Fixo', 'Celular');
+        $tipo = array('Fixo' => 'Fixo', 'Celular' => 'Celular');
         return [
-            'numero' => Str::ramdon(9),
+            'numero' => Str::random(9),
             'tipo' => array_rand($tipo),
-            'ddd_id' => DDD::factory()->createOne()->id,
+            'ddd_id' => rand(1, 27),
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id
         ];
