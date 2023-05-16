@@ -1,5 +1,7 @@
 ## API DE DELIVERY
 
+Para fins de estudo e ampliar meu conhecimento com o framework laravel. Esse é um projeto que resulta em uma api de delivery/ecommerce. Nela atualmente abordo o uso do frammekork, com foco em POO e padrão de projetos, arquitetura limpa e distribuída, eloquent, e muito mais.
+
 ### Aplicação Web criada com:<br />
 - Laravel/PHP<br />
 - MySQL para banco de dados.<br/>
