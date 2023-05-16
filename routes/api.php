@@ -34,7 +34,7 @@ Route::prefix('address')->group(function () {
 
 //  Categoria
 Route::prefix('category')->group(function () {
-    Route::get('/list', [CategoryController::class, 'index'])->name('category.list');
+    Route::get('/list', [CategoryController::class, 'index'])->name('category.list.all');
     Route::get('/list/{id}', [CategoryController::class, 'show'])->name('category.list.find');
     Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
     Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
@@ -43,7 +43,7 @@ Route::prefix('category')->group(function () {
 
 // Fornecedor
 Route::prefix('provider')->group(function () {
-    Route::get('/list', [ProviderController::class, 'index'])->name('provider.list');
+    Route::get('/list', [ProviderController::class, 'index'])->name('provider.list.all');
     Route::get('/list/{id}', [ProviderController::class, 'show'])->name('provider.list.find');
     Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
     Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
@@ -61,7 +61,7 @@ Route::prefix('telephone')->group(function () {
 
 //  Usuario
 Route::prefix('user')->group(function () {
-    Route::get('/list', [UserController::class, 'index'])->name('user.list');
+    Route::get('/list', [UserController::class, 'index'])->name('user.list.all');
     Route::get('/list/{id}', [UserController::class, 'show'])->name('user.list.find');
     Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
     Route::post('/save', [UserController::class, 'store'])->name('user.save');
