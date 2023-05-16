@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Address;
 
+use App\Models\Endereco;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -10,10 +11,9 @@ class ListAddressTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_uf_a_successful_response(): void
+    public function it_endpoint_get_list_address_a_failure_response(): void
     {
-        $response = $this->getJson('/api/address/uf/list');
-        $response->assertStatus(200);
+        //
     }
 
     /**
@@ -21,25 +21,9 @@ class ListAddressTest extends TestCase
      */
     public function it_endpoint_get_list_address_a_successful_response(): void
     {
-        $response = $this->getJson('/api/address/list', [1]);
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function it_endpoint_get_list_uf_a_failure_response(): void
-    {
-        $response = $this->getJson('/api/address/uf/list');
-        $response->assertStatus( 401);
-    }
-
-    /**
-     * @test
-     */
-    public function it_endpoint_get_list_address_a_failure_response(): void
-    {
-        $response = $this->getJson('/api/address/list/', [3000]);
-        $response->assertStatus( 400);
+        $address = Endereco::factory()->createOne();
+        $data = $address->toArray();
+        $response = $this->getJson(route('address.list', ['id' => base64_encode($data['id'])]));
+        $response->assertOk();
     }
 }

@@ -44,10 +44,10 @@ class AddressController extends Controller
         }
     }
 
-    public function index(string $id): Response
+    public function index(string $id, BaseDecode $baseDecode): Response
     {
         try {
-            $success = $this->listAddressService->listAddressAll($id);
+            $success = $this->listAddressService->listAddressAll($baseDecode->baseDecode($id));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
