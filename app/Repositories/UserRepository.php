@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Telefone;
 use App\Models\User;
-use App\Support\Utils\PaginationList;
+use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

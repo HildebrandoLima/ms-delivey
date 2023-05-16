@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Support\Utils\Pagination;
-use App\Support\Utils\DefaultErrorMessages;
+use App\Support\Utils\Messages\DefaultErrorMessages;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;

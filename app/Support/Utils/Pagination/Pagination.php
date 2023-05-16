@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Support\Utils;
+namespace App\Support\Utils\Pagination;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class Pagination extends BaseRequest
 {

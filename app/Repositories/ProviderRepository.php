@@ -5,9 +5,9 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Support\Utils\PaginationList;
-use Illuminate\Http\Request;
+use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ProviderRepository {

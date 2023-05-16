@@ -8,9 +8,9 @@ use App\Services\User\CreateUserService;
 use App\Services\User\DeleteUserService;
 use App\Services\User\EditUserService;
 use App\Services\User\ListUserService;
-use App\Support\Utils\BaseDecode;
-use App\Support\Utils\Pagination;
-use App\Support\Utils\Search;
+use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Parameter\BaseDecode;
+use App\Support\Utils\Parameter\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller

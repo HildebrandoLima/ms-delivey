@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\UnidadeFederativa;
-use App\Support\Utils\UnidadesFederativas;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Support\Utils\DefaultDatabaseStatic\UnidadesFederativas;
 use Illuminate\Database\Seeder;
 
 class UnidadeFederativaSeeder extends Seeder

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Support\Utils;
+namespace App\Support\Utils\Pagination;
 
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Exception;
 
 class PaginationList
 {
