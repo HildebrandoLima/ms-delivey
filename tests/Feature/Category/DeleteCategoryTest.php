@@ -13,9 +13,7 @@ class DeleteCategoryTest extends TestCase
      */
     public function it_endpoint_delete_remove_a_failure_response(): void
     {
-        //$category = Categoria::factory(1)->create();
-        //$response = $this->deleteJson('/api/category/remove', $category->toArray()[0]['id']);
-        //$this->assertEquals($response->original['status'], 400);
+        //
     }
 
     /**
@@ -23,8 +21,9 @@ class DeleteCategoryTest extends TestCase
      */
     public function it_endpoint_delete_remove_a_successful_response(): void
     {
-        $category = Categoria::factory(1)->create();
-        $response = $this->deleteJson('/api/category/remove', $category->toArray());
+        $category = Categoria::factory(1)->createOne();
+        $data = $category->toArray();
+        $response = $this->deleteJson(route('category.remove', ['id' => base64_encode($data['id'])]));
         $response->assertStatus(200);
     }
 }

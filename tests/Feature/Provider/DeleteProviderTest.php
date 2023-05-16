@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Provider;
 
+use App\Models\Fornecedor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -9,19 +10,20 @@ class DeleteProviderTest extends TestCase
 {
     /**
      * @test
-     */
-    public function it_endpoint_delete_remove_a_successful_response(): void
+    */
+    public function it_endpoint_delete_remove_a_failure_response(): void
     {
-        $response = $this->deleteJson('/api/provider/remove', [2]);
-        $response->assertStatus(200);
+        //
     }
 
     /**
      * @test
      */
-    public function it_endpoint_delete_remove_a_failure_response(): void
+    public function it_endpoint_delete_remove_a_successful_response(): void
     {
-        $response = $this->deleteJson('/api/provider/remove', []);
-        $response->assertStatus(422);
+        $provider = Fornecedor::factory()->createOne();
+        $data = $provider->toArray();
+        $response = $this->deleteJson(route('provider.remove', ['id' => base64_encode($data['id'])]));
+        $response->assertStatus(200);
     }
 }

@@ -18,7 +18,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $genero = array('Masculino', 'Feminino', 'Outro');
+        $genero = array('Masculino' => 'Masculino', 'Feminino' => 'Feminino', 'Outro' => 'Outro');
         return [
             'name' => $this->faker->name,
             'cpf' => Str::random(11),
