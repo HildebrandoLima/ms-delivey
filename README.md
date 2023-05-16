@@ -412,4 +412,84 @@ Admin<br />
 ```
 
 </details>
+### aaa
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA         |
+|------|-----------------------|
+| GET  | /api/user/list        |
+|------|-----------------------|
+| GET  | /api/user/list/{id}   |
+|------|-----------------------|
+| POST | /api/user/save        |
+|------|-----------------------|
+| PUT  | /api/user/edit/{id}   |
+|------|-----------------------|
+|DELETE| /api/user/remove/{id} |
+
+### Exemplo: POST/PUT
+```
+{
+    "nome": "Hill",
+    "cpf": "22350458201",
+    "email": "test@gmail.com",
+    "senha": "Hill@123",
+    "dataNascimento": "2023-03-25 18:20:59",
+    "genero": "Feminino",
+    "ativo": 1
+}
+```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>404 - Not Found</summary>
+
+```
+{
+    "message": "O usuário já existe!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+</details>
+</details>
 </details>
