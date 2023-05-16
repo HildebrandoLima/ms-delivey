@@ -6,12 +6,13 @@ use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Services\User\Interfaces\ICreateUserService;
 use App\Support\Utils\Cases\UserCase;
 use App\Support\Utils\Enums\UserEnums;
 use Illuminate\Support\Facades\Hash;
 use DateTime;
 
-class CreateUserService
+class CreateUserService implements ICreateUserService
 {
     private UserRepository $userRepository;
     private UserCase $userCase;

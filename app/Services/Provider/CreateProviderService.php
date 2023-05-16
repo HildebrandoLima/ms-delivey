@@ -6,10 +6,11 @@ use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\ProviderRepository;
+use App\Services\Provider\Interfaces\ICreateProviderService;
 use App\Support\Utils\Enums\UserEnums;
 use DateTime;
 
-class CreateProviderService
+class CreateProviderService implements ICreateProviderService
 {
     private ProviderRepository $providerRepository;
 

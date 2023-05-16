@@ -3,8 +3,9 @@
 namespace App\Services\Address;
 
 use App\Repositories\AddressRepository;
+use App\Services\Address\Interfaces\IDeleteAddressService;
 
-class DeleteAddressService
+class DeleteAddressService implements IDeleteAddressService
 {
     private AddressRepository $addressRepository;
 

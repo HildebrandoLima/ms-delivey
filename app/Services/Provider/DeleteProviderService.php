@@ -5,8 +5,9 @@ namespace App\Services\Provider;
 use App\Exceptions\HttpBadRequest;
 use App\Models\Fornecedor;
 use App\Repositories\ProviderRepository;
+use App\Services\Provider\Interfaces\IDeleteProviderService;
 
-class DeleteProviderService
+class DeleteProviderService implements IDeleteProviderService
 {
     private ProviderRepository $providerRepository;
 

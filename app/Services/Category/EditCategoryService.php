@@ -5,9 +5,10 @@ namespace App\Services\Category;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\CategoryRepository;
+use App\Services\Category\Interfaces\IEditCategoryService;
 use DateTime;
 
-class EditCategoryService
+class EditCategoryService implements IEditCategoryService
 {
     private CategoryRepository $categoryRepository;
 

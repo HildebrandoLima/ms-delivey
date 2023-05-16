@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Categoria;
-use App\Repositories\Interface\ICategoryRepository;
+use App\Repositories\Interfaces\ICategoryRepository;
 use Illuminate\Support\Collection;
 
 class CategoryRepository implements ICategoryRepository {

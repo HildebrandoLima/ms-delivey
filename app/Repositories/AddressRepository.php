@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Endereco;
 use App\Models\UnidadeFederativa;
-use App\Repositories\Interface\IAddressRepository;
+use App\Repositories\Interfaces\IAddressRepository;
 use Illuminate\Support\Collection;
 
 class AddressRepository implements IAddressRepository {
@@ -43,7 +43,7 @@ class AddressRepository implements IAddressRepository {
         return Endereco::query()->where('id', $id)->delete();
     }
 
-    public function getAllFederativeUnit(): Collection
+    public function getFederativeUnitAll(): Collection
     {
         return UnidadeFederativa::query()->select([
             'id as ufId',
@@ -52,7 +52,7 @@ class AddressRepository implements IAddressRepository {
         ])->get();
     }
 
-    public function getAllAddress(int $id): Collection
+    public function getAddressAll(int $id): Collection
     {
         return Endereco::query()
             ->join('unidade_federativa as uf', 'uf.id', '=', 'endereco.uf_id')

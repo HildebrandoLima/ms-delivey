@@ -6,9 +6,10 @@ use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\CategoryRepository;
+use App\Services\Category\Interfaces\ICreateCategoryService;
 use DateTime;
 
-class CreateCategoryService
+class CreateCategoryService implements ICreateCategoryService
 {
     private CategoryRepository $categoryRepository;
 

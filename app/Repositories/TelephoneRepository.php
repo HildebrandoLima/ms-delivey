@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\DDD;
 use App\Models\Telefone;
-use App\Repositories\Interface\ITelephoneRepository;
+use App\Repositories\Interfaces\ITelephoneRepository;
 use Illuminate\Support\Collection;
 
 class TelephoneRepository implements ITelephoneRepository {

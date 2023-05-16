@@ -3,9 +3,10 @@
 namespace App\Services\Category;
 
 use App\Repositories\CategoryRepository;
+use App\Services\Category\Interfaces\IListCategoryService;
 use Illuminate\Support\Collection;
 
-class ListCategoryService
+class ListCategoryService implements IListCategoryService
 {
     private CategoryRepository $categoryRepository;
 

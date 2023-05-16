@@ -5,11 +5,12 @@ namespace App\Services\User;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Services\User\Interfaces\IEditUserService;
 use App\Support\Utils\Cases\UserCase;
 use App\Support\Utils\Enums\UserEnums;
 use DateTime;
 
-class EditUserService
+class EditUserService implements IEditUserService
 {
     private UserRepository $userRepository;
     private UserCase $userCase;

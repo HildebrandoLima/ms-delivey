@@ -5,10 +5,11 @@ namespace App\Services\Telephone;
 use App\Http\Requests\TelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\TelephoneRepository;
+use App\Services\Telephone\Interfaces\IEditTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
 use DateTime;
 
-class EditTelephoneService
+class EditTelephoneService implements IEditTelephoneService
 {
     private TelephoneRepository $telephoneRepository;
     private TelephoneCase $telephoneCase;

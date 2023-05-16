@@ -5,10 +5,11 @@ namespace App\Services\Provider;
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\ProviderRepository;
+use App\Services\Provider\Interfaces\IEditProviderService;
 use App\Support\Utils\Enums\UserEnums;
 use DateTime;
 
-class EditProviderService
+class EditProviderService implements IEditProviderService
 {
     private ProviderRepository $providerRepository;
 

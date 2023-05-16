@@ -5,8 +5,9 @@ namespace App\Services\Category;
 use App\Exceptions\HttpBadRequest;
 use App\Models\Categoria;
 use App\Repositories\CategoryRepository;
+use App\Services\Category\Interfaces\IDeleteCategoryService;
 
-class DeleteCategoryService
+class DeleteCategoryService implements IDeleteCategoryService
 {
     private CategoryRepository $categoryRepository;
 

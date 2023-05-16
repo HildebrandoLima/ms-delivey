@@ -5,8 +5,9 @@ namespace App\Services\Telephone;
 use App\Exceptions\HttpBadRequest;
 use App\Models\Telefone;
 use App\Repositories\TelephoneRepository;
+use App\Services\Telephone\Interfaces\IDeleteTelephoneService;
 
-class DeleteTelephoneService
+class DeleteTelephoneService implements IDeleteTelephoneService
 {
     private TelephoneRepository $telephoneRepository;
 

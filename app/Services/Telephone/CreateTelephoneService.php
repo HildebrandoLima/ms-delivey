@@ -6,10 +6,11 @@ use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\TelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\TelephoneRepository;
+use App\Services\Telephone\Interfaces\ICreateTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
 use DateTime;
 
-class CreateTelephoneService
+class CreateTelephoneService implements ICreateTelephoneService
 {
     private TelephoneRepository $telephoneRepository;
     private TelephoneCase $telephoneCase;

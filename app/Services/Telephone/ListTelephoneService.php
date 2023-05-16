@@ -5,9 +5,10 @@ namespace App\Services\Telephone;
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
 use App\Repositories\TelephoneRepository;
+use App\Services\Telephone\Interfaces\IListTelephoneService;
 use Illuminate\Support\Collection;
 
-class ListTelephoneService
+class ListTelephoneService implements IListTelephoneService
 {
     private TelephoneRepository $telephoneRepository;
 

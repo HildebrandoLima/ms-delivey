@@ -3,10 +3,11 @@
 namespace App\Services\User;
 
 use App\Repositories\UserRepository;
+use App\Services\User\Interfaces\IListUserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class ListUserService
+class ListUserService implements IListUserService
 {
     private UserRepository $userRepository;
 

@@ -5,10 +5,11 @@ namespace App\Services\Address;
 use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\AddressRepository;
+use App\Services\Address\Interfaces\ICreateAddressService;
 use App\Support\Utils\Cases\AddressCase;
 use DateTime;
 
-class CreateAddressService
+class CreateAddressService implements ICreateAddressService
 {
     private AddressRepository $addressRepository;
     private AddressCase $addressCase;

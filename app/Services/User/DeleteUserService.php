@@ -5,8 +5,9 @@ namespace App\Services\User;
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Services\User\Interfaces\IDeleteUserService;
 
-class DeleteUserService
+class DeleteUserService implements IDeleteUserService
 {
     private UserRepository $userRepository;
 
