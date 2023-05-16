@@ -413,35 +413,29 @@ Admin<br />
 
 </details>
 </details>
-### aaa
+### Categoria
 
 <details>
 <summary>Detalhes</summary>
 
 ### Rotas
 
-|MÉTODO|          ROTA         |
-|------|-----------------------|
-| GET  | /api/user/list        |
-|------|-----------------------|
-| GET  | /api/user/list/{id}   |
-|------|-----------------------|
-| POST | /api/user/save        |
-|------|-----------------------|
-| PUT  | /api/user/edit/{id}   |
-|------|-----------------------|
-|DELETE| /api/user/remove/{id} |
+|MÉTODO|            ROTA           |
+|------|---------------------------|
+| GET  | /api/category/list        |
+|------|---------------------------|
+| GET  | /api/category/list/{id}   |
+|------|---------------------------|
+| POST | /api/category/save        |
+|------|---------------------------|
+| PUT  | /api/category/edit/{id}   |
+|------|---------------------------|
+|DELETE| /api/category/remove/{id} |
 
 ### Exemplo: POST/PUT
 ```
 {
-    "nome": "Hill",
-    "cpf": "22350458201",
-    "email": "test@gmail.com",
-    "senha": "Hill@123",
-    "dataNascimento": "2023-03-25 18:20:59",
-    "genero": "Feminino",
-    "ativo": 1
+    "descricao": "Eletrônicos"
 }
 ```
 
@@ -453,7 +447,7 @@ Admin<br />
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "data": 1,
     "status": 200,
     "details": ""
 }
@@ -475,7 +469,7 @@ Admin<br />
 
 ```
 {
-    "message": "O usuário já existe!",
+    "message": "A categoria já existe!",
     "data": "false",
     "status": 404,
     "details": ""
