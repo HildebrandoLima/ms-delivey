@@ -2,48 +2,40 @@
 
 namespace App\Services\User;
 
-use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\ICreateUserService;
 use App\Support\Utils\Cases\UserCase;
+use App\Support\Utils\CheckRegister\CheckUser;
 use App\Support\Utils\Enums\UserEnums;
 use Illuminate\Support\Facades\Hash;
 use DateTime;
 
 class CreateUserService implements ICreateUserService
 {
-    private UserRepository $userRepository;
+    private CheckUser $checkUser;
     private UserCase $userCase;
+    private UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository, UserCase $userCase)
+    public function __construct
+    (
+        CheckUser      $checkUser,
+        UserCase       $userCase,
+        UserRepository $userRepository
+    )
     {
+        $this->checkUser      = $checkUser;
+        $this->userCase       = $userCase;
         $this->userRepository = $userRepository;
-        $this->userCase = $userCase;
     }
 
     public function createUser(UserRequest $request): int
     {
         $this->request = $request;
-        $this->checkUser();
+        $this->checkUser->checkUserExist($this->request);
         $user = $this->mapToModel();
         return $this->userRepository->insert($user);
-    }
-
-    private function checkUser(): void
-    {
-        if (!User::query()
-                ->where('name', 'like', $this->request->nome)
-                ->orWhere(function ($query) {
-                    $query->where('cpf', '=', $this->request->cpf)
-                        ->orWhere(function ($query) {
-                            $query->where('email', 'like', $this->request->email);
-                        });
-                })
-                ->count() == 0):
-            throw new HttpBadRequest('O usuário já existe');
-        endif;
     }
 
     private function mapToModel(): User

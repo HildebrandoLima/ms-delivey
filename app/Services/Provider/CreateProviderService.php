@@ -2,20 +2,26 @@
 
 namespace App\Services\Provider;
 
-use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\ICreateProviderService;
+use App\Support\Utils\CheckRegister\CheckProvider;
 use App\Support\Utils\Enums\UserEnums;
 use DateTime;
 
 class CreateProviderService implements ICreateProviderService
 {
+    private CheckProvider $checkProvider;
     private ProviderRepository $providerRepository;
 
-    public function __construct(ProviderRepository $providerRepository)
+    public function __construct
+    (
+        CheckProvider      $checkProvider,
+        ProviderRepository $providerRepository
+    )
     {
+        $this->checkProvider      = $checkProvider;
         $this->providerRepository = $providerRepository;
     }
 
@@ -23,23 +29,8 @@ class CreateProviderService implements ICreateProviderService
     {
         $this->request = $request;
         $provider = $this->mapToModel();
-        $this->checkProvider();
+        $this->checkProvider->checkProviderExist($request);
         return $this->providerRepository->insert($provider);
-    }
-
-    private function checkProvider(): void
-    {
-        if (!Fornecedor::query()
-                ->where('nome', 'like', $this->request->nome)
-                ->orWhere(function ($query) {
-                    $query->where('cnpj', '=', $this->request->cnpj)
-                        ->orWhere(function ($query) {
-                            $query->where('email', 'like', $this->request->email);
-                        });
-                })
-                ->count() == 0):
-            throw new HttpBadRequest('O fornecedor já existe');
-        endif;
     }
 
     private function mapToModel(): Fornecedor

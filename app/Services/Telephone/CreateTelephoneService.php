@@ -2,41 +2,51 @@
 
 namespace App\Services\Telephone;
 
-use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\TelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\TelephoneRepository;
 use App\Services\Telephone\Interfaces\ICreateTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
+use App\Support\Utils\CheckRegister\CheckProvider;
+use App\Support\Utils\CheckRegister\CheckTelephone;
+use App\Support\Utils\CheckRegister\CheckUser;
 use DateTime;
 
 class CreateTelephoneService implements ICreateTelephoneService
 {
+    private CheckUser $checkUser;
+    private CheckProvider $checkProvider;
+    private CheckTelephone $checkTelephone;
     private TelephoneRepository $telephoneRepository;
     private TelephoneCase $telephoneCase;
 
-    public function __construct(TelephoneRepository $telephoneRepository, TelephoneCase $telephoneCase)
+    public function __construct
+    (
+        CheckUser           $checkUser,
+        CheckProvider       $checkProvider,
+        CheckTelephone      $checkTelephone,
+        TelephoneCase       $telephoneCase,
+        TelephoneRepository $telephoneRepository
+    )
     {
+        $this->checkUser           = $checkUser;
+        $this->checkProvider       = $checkProvider;
+        $this->checkTelephone      = $checkTelephone;
+        $this->telephoneCase       = $telephoneCase;
         $this->telephoneRepository = $telephoneRepository;
-        $this->telephoneCase = $telephoneCase;
     }
 
     public function createTelephone(TelephoneRequest $request): int
     {
         $this->request = $request->telefones;
         foreach ($this->request as $value):
-            $this->checkTelephone($value['numero']);
+            isset($value['usuarioId']) ? $this->checkUser->checkUserIdExist($value['usuarioId'])
+            : $this->checkProvider->checkProviderIdExist($value['fornecedorId']);
+            $this->checkTelephone->checkTelephoneExist($value['numero']);
             $telephone = $this->mapToModel($value);
             $this->telephoneRepository->insert($telephone);
         endforeach;
         return true;
-    }
-
-    private function checkTelephone(string $numero): void
-    {
-        if (!Telefone::query()->where('numero', 'like', $numero)->count() == 0):
-            throw new HttpBadRequest('O número já existe', (int)$numero);
-        endif;
     }
 
     private function mapToModel(array $value): Telefone

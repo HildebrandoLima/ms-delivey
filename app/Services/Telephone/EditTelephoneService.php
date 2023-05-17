@@ -7,23 +7,32 @@ use App\Models\Telefone;
 use App\Repositories\TelephoneRepository;
 use App\Services\Telephone\Interfaces\IEditTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
+use App\Support\Utils\CheckRegister\CheckTelephone;
 use DateTime;
 
 class EditTelephoneService implements IEditTelephoneService
 {
-    private TelephoneRepository $telephoneRepository;
+    private CheckTelephone $checkTelephone;
     private TelephoneCase $telephoneCase;
+    private TelephoneRepository $telephoneRepository;
 
-    public function __construct(TelephoneRepository $telephoneRepository, TelephoneCase $telephoneCase)
+    public function __construct
+    (
+        CheckTelephone      $checkTelephone,
+        TelephoneCase       $telephoneCase,
+        TelephoneRepository $telephoneRepository
+    )
     {
+        $this->checkTelephone      = $checkTelephone;
+        $this->telephoneCase       = $telephoneCase;
         $this->telephoneRepository = $telephoneRepository;
-        $this->telephoneCase = $telephoneCase;
     }
 
     public function editTelephone(int $id, TelephoneRequest $request): bool
     {
         $this->request = $request->telefones;
         foreach ($this->request as $value):
+            $this->checkTelephone->checkTelephoneIdExist($id);
             $telephone = $this->mapToModel($value);
             $this->telephoneRepository->update($id, $telephone);
         endforeach;

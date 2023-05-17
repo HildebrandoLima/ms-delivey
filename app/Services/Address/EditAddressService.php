@@ -7,22 +7,36 @@ use App\Models\Endereco;
 use App\Repositories\AddressRepository;
 use App\Services\Address\Interfaces\IEditAddressService;
 use App\Support\Utils\Cases\AddressCase;
+use App\Support\Utils\CheckRegister\CheckProvider;
+use App\Support\Utils\CheckRegister\CheckUser;
 use DateTime;
 
 class EditAddressService implements IEditAddressService
 {
-    private AddressRepository $addressRepository;
+    private CheckUser $checkUser;
+    private CheckProvider $checkProvider;
     private AddressCase $addressCase;
+    private AddressRepository $addressRepository;
 
-    public function __construct(AddressRepository $addressRepository, AddressCase $addressCase)
+    public function __construct
+    (
+        CheckUser         $checkUser,
+        CheckProvider     $checkProvider,
+        AddressCase       $addressCase,
+        AddressRepository $addressRepository
+    )
     {
+        $this->checkUser         = $checkUser;
+        $this->checkProvider     = $checkProvider;
+        $this->addressCase       = $addressCase;
         $this->addressRepository = $addressRepository;
-        $this->addressCase = $addressCase;
     }
 
     public function editAddress($id, AddressRequest $request): bool
     {
         $this->request = $request;
+        isset($request->usuarioId) ? $this->checkUser->checkUserIdExist($request->usuarioId)
+        : $this->checkProvider->checkProviderIdExist($request->fornecedorId);
         $address = $this->mapToModel();
         return $this->addressRepository->update($id, $address);
     }
