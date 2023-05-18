@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Categoria;
 use App\Repositories\Interfaces\ICategoryRepository;
+use App\Support\Utils\QueryBuilder\CategoryQuery;
 use Illuminate\Support\Collection;
 
 class CategoryRepository implements ICategoryRepository {
@@ -30,13 +31,9 @@ class CategoryRepository implements ICategoryRepository {
 
     public function getAll(string $search): Collection
     {
-        $query = Categoria::query()->select([
-            'id as descricaoId',
-            'descricao as descricao',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ]);
-        if (isset($search)):
+        $resulQuery = new CategoryQuery();
+        $query = $resulQuery->categoryQuery();
+        if (isset ($search)):
             $query->where('descricao', 'like', $search)->get();
         endif;
         return $query->get();
@@ -44,11 +41,8 @@ class CategoryRepository implements ICategoryRepository {
 
     public function getFind(int $id): Collection
     {
-        return Categoria::query()->select([
-            'id as descricaoId',
-            'descricao as descricao',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ])->where('id', $id)->get();
+        $resulQuery = new CategoryQuery();
+        $query = $resulQuery->categoryQuery();
+        return $query->where('id', $id)->get();
     }
 }

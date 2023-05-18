@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\DDD;
 use App\Models\Telefone;
 use App\Repositories\Interfaces\ITelephoneRepository;
+use App\Support\Utils\QueryBuilder\TelephoneQuery;
 use Illuminate\Support\Collection;
 
 class TelephoneRepository implements ITelephoneRepository {
@@ -39,26 +40,15 @@ class TelephoneRepository implements ITelephoneRepository {
 
     public function getDDDAll(): Collection
     {
-        return DDD::query()->select([
-            'id as dddId',
-            'ddd as ddd',
-            'descricao as descricao'
-        ])->get();
+        $resulQuery = new TelephoneQuery();
+        $query = $resulQuery->discagemDiretaDistanciaQuery();
+        return $query->get();
     }
 
     public function getTelephoneAll(int $id): Collection
     {
-        return Telefone::query()
-            ->join('ddd as d', 'd.id', '=', 'telefone.ddd_id')
-            ->select([
-            'telefone.id as telefoneId',
-            'telefone.numero as numero',
-            'telefone.tipo as tipo',
-            'd.id as dddId',
-            'd.ddd as ddd',
-            'd.descricao as estado'
-        ])
-        ->where('telefone.usuario_id', $id)
-        ->get();
+        $resulQuery = new TelephoneQuery();
+        $query = $resulQuery->telephoneQuery();
+        return $query->where('telefone.usuario_id', $id)->get();
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Telefone;
 use App\Repositories\Interfaces\IProviderRepository;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\QueryBuilder\ProviderQuery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -49,7 +50,8 @@ class ProviderRepository implements IProviderRepository {
 
     public function getAll(Pagination $pagination, string $search): Collection
     {
-        $query = $this->mapToCollection();
+        $resulQuery = new ProviderQuery();
+        $query = $resulQuery->providerQuery();
         $query->orderBy('id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
@@ -60,19 +62,8 @@ class ProviderRepository implements IProviderRepository {
 
     public function getFind(int $id): Collection
     {
-        $query = $this->mapToCollection();
-        $query->where('id', $id);
-        return $query->get();
-    }
-
-    private function mapToCollection(): Builder
-    {
-        return Fornecedor::query()->select([
-            'id as fornecedorId',
-            'nome as nome',
-            'cnpj as cnpj',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ]);
+        $resulQuery = new ProviderQuery();
+        $query = $resulQuery->providerQuery();
+        return $query->where('id', $id)->get();
     }
 }

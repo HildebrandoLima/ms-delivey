@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
-use Illuminate\Database\Eloquent\Builder;
+use App\Support\Utils\QueryBuilder\UserQuery;
 use Illuminate\Support\Collection;
 
 class UserRepository implements IUserRepository {
@@ -53,7 +53,8 @@ class UserRepository implements IUserRepository {
 
     public function getAll(Pagination $pagination, string $search): Collection
     {
-        $query = $this->mapToCollection();
+        $resulQuery = new UserQuery();
+        $query = $resulQuery->userQuery();
         $query->orderBy('id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
@@ -64,23 +65,9 @@ class UserRepository implements IUserRepository {
 
     public function getFind(int $id): Collection
     {
-        $query = $this->mapToCollection();
+        $resulQuery = new UserQuery();
+        $query = $resulQuery->userQuery();
         $query->where('id', $id);
         return $query->get();
-    }
-
-    private function mapToCollection(): Builder
-    {
-        return User::query()->select([
-            'id as usuarioId',
-            'name as nome',
-            'cpf as cpf',
-            'email as email',
-            'data_nascimento as dataNascimento',
-            'genero as genero',
-            'ativo as ativo',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ]);
     }
 }
