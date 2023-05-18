@@ -3,29 +3,26 @@
 namespace App\Services\User;
 
 use App\Http\Requests\UserRequest;
-use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\IEditUserService;
-use App\Support\Utils\Cases\UserCase;
 use App\Support\Utils\CheckRegister\CheckUser;
-use App\Support\Utils\Enums\UserEnums;
-use DateTime;
+use App\Support\Utils\MapToModel\UserModel;
 
 class EditUserService implements IEditUserService
 {
     private CheckUser $checkUser;
-    private UserCase $userCase;
+    private UserModel $userModel;
     private UserRepository $userRepository;
 
     public function __construct
     (
         CheckUser      $checkUser,
-        UserCase       $userCase,
+        UserModel      $userModel,
         UserRepository $userRepository
     )
     {
         $this->checkUser      = $checkUser;
-        $this->userCase       = $userCase;
+        $this->userModel      = $userModel;
         $this->userRepository = $userRepository;
     }
 
@@ -33,21 +30,7 @@ class EditUserService implements IEditUserService
     {
         $this->request = $request;
         $this->checkUser->checkUserIdExist($id);
-        $user = $this->mapToModel();
+        $user = $this->userModel->userModel($request, 'edit');
         return $this->userRepository->update($id, $user);
-    }
-
-    private function mapToModel(): User
-    {
-        $user = new User();
-        $user->name = $this->request->nome;
-        $user->cpf = $this->request->cpf;
-        $user->email = $this->request->email;
-        $user->password = $this->request->senha;
-        $user->data_nascimento = $this->request->dataNascimento;
-        $user->genero = $this->userCase->genderCase($this->request->genero);
-        $user->ativo = UserEnums::ATIVADO;
-        $user->updated_at = new DateTime();
-        return $user;
     }
 }

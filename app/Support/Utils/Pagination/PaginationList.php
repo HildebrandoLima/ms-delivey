@@ -2,11 +2,10 @@
 
 namespace App\Support\Utils\Pagination;
 
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class PaginationList
 {

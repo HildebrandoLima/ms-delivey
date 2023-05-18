@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Support\Utils\MapToModel;
+
+class UserModel {
+    public function userModel()
+    {
+        #
+    }
+}

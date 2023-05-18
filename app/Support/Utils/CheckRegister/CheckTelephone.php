@@ -19,7 +19,7 @@ class CheckTelephone
     public function checkTelephoneIdExist(int $id): void
     {
         if (Telefone::query()->where('id', $id)->count() == 0):
-            throw new HttpBadRequest('O número informado não existe.');
+            throw new HttpBadRequest('O código de telefone informado não existe.');
         endif;
     }
 }

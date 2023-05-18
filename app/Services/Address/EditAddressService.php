@@ -3,56 +3,38 @@
 namespace App\Services\Address;
 
 use App\Http\Requests\AddressRequest;
-use App\Models\Endereco;
 use App\Repositories\AddressRepository;
 use App\Services\Address\Interfaces\IEditAddressService;
-use App\Support\Utils\Cases\AddressCase;
 use App\Support\Utils\CheckRegister\CheckProvider;
 use App\Support\Utils\CheckRegister\CheckUser;
-use DateTime;
+use App\Support\Utils\MapToModel\AddressModel;
 
 class EditAddressService implements IEditAddressService
 {
     private CheckUser $checkUser;
     private CheckProvider $checkProvider;
-    private AddressCase $addressCase;
+    private AddressModel $addressModel;
     private AddressRepository $addressRepository;
 
     public function __construct
     (
         CheckUser         $checkUser,
         CheckProvider     $checkProvider,
-        AddressCase       $addressCase,
+        AddressModel      $addressModel,
         AddressRepository $addressRepository
     )
     {
         $this->checkUser         = $checkUser;
         $this->checkProvider     = $checkProvider;
-        $this->addressCase       = $addressCase;
+        $this->addressModel      = $addressModel;
         $this->addressRepository = $addressRepository;
     }
 
     public function editAddress($id, AddressRequest $request): bool
     {
-        $this->request = $request;
-        isset($request->usuarioId) ? $this->checkUser->checkUserIdExist($request->usuarioId)
+        isset ($request->usuarioId) ? $this->checkUser->checkUserIdExist($request->usuarioId)
         : $this->checkProvider->checkProviderIdExist($request->fornecedorId);
-        $address = $this->mapToModel();
+        $address = $this->addressModel->addressModel($request, 'edit');
         return $this->addressRepository->update($id, $address);
-    }
-
-    private function mapToModel(): Endereco
-    {
-        $address = new Endereco();
-        $address->logradouro = $this->addressCase->publicPlaceCase($this->request->logradouro);
-        $address->descricao = $this->request->descricao;
-        $address->bairro = $this->request->bairro;
-        $address->cidade = $this->request->cidade;
-        $address->cep = $this->request->cep;
-        $address->uf_id = $this->request->ufId;
-        $address->usuario_id = isset($this->request->usuarioId) ? $this->request->usuarioId : 1;
-        $address->fornecedor_id = isset($this->request->fornecedorId) ? $this->request->fornecedorId : 1;
-        $address->updated_at = new DateTime();
-        return $address;
     }
 }

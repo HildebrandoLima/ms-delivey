@@ -55,12 +55,11 @@ class UserRepository implements IUserRepository {
     {
         $query = $this->mapToCollection();
         $query->orderBy('id');
-        if (isset($search)):
-            $query->where('name', 'like', $search)
-            ->orWhere('email', 'like', $search);
-        return $query->get();
+        if (isset ($pagination->page) && isset ($pagination->perPage)):
+            return PaginationList::createFromPagination($query, $pagination);
         endif;
-        return PaginationList::createFromPagination($query, $pagination);
+        return $query->where('name', 'like', $search)
+            ->orWhere('email', 'like', $search)->get();
     }
 
     public function getFind(int $id): Collection
