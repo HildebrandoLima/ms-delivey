@@ -6,6 +6,7 @@ use App\Models\Endereco;
 use App\Models\Telefone;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
+use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use App\Support\Utils\QueryBuilder\UserQuery;
@@ -14,30 +15,16 @@ use Illuminate\Support\Collection;
 class UserRepository implements IUserRepository {
     public function insert(User $user): int
     {
-        return User::query()->insertGetId([
-            'name' => $user->name,
-            'cpf' => $user->cpf,
-            'email' => $user->email,
-            'password' => $user->password,
-            'data_nascimento' => $user->data_nascimento,
-            'ativo' => $user->ativo,
-            'genero' => $user->genero,
-            'created_at' => $user->created_at,
-        ]);
+        $resulQuery = new DateFormat();
+        $user = $resulQuery->dateFormatDefault($user->toArray());
+        return User::query()->insertGetId($user);
     }
 
     public function update(int $id, User $user): bool
     {
-        return User::query()->where('id', $id)->update([
-            'name' => $user->name,
-            'cpf' => $user->cpf,
-            'email' => $user->email,
-            'password' => $user->password,
-            'data_nascimento' => $user->data_nascimento,
-            'ativo' => $user->ativo,
-            'genero' => $user->genero,
-            'updated_at' => $user->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $user = $resulQuery->dateFormatDefault($user->toArray());
+        return User::query()->where('id', $id)->update($user);
     }
 
     public function delete(int $id): bool

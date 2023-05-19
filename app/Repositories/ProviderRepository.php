@@ -6,35 +6,25 @@ use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
 use App\Repositories\Interfaces\IProviderRepository;
+use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use App\Support\Utils\QueryBuilder\ProviderQuery;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProviderRepository implements IProviderRepository {
     public function insert(Fornecedor $fornecedor): int
     {
-        return Fornecedor::query()->insertGetId([
-            'nome' => $fornecedor->nome,
-            'cnpj' => $fornecedor->cnpj,
-            'email' => $fornecedor->email,
-            'ativo' => $fornecedor->ativo,
-            'data_fundacao' => $fornecedor->data_fundacao,
-            'created_at' => $fornecedor->created_at
-        ]);
+        $resulQuery = new DateFormat();
+        $fornecedor = $resulQuery->dateFormatDefault($fornecedor->toArray());
+        return Fornecedor::query()->insertGetId($fornecedor);
     }
 
     public function update(int $id, Fornecedor $fornecedor): bool
     {
-        return Fornecedor::query()->where('id', $id)->update([
-            'nome' => $fornecedor->nome,
-            'cnpj' => $fornecedor->cnpj,
-            'email' => $fornecedor->email,
-            'ativo' => $fornecedor->ativo,
-            'data_fundacao' => $fornecedor->data_fundacao,
-            'updated_at' => $fornecedor->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $fornecedor = $resulQuery->dateFormatDefault($fornecedor->toArray());
+        return Fornecedor::query()->where('id', $id)->update($fornecedor);
     }
 
     public function delete(int $id): bool

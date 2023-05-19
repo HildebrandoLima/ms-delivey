@@ -4,24 +4,23 @@ namespace App\Repositories;
 
 use App\Models\Categoria;
 use App\Repositories\Interfaces\ICategoryRepository;
+use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\QueryBuilder\CategoryQuery;
 use Illuminate\Support\Collection;
 
 class CategoryRepository implements ICategoryRepository {
     public function insert(Categoria $categoria): bool
     {
-        return Categoria::query()->insert([
-            'descricao' => $categoria->descricao,
-            'created_at' => $categoria->created_at
-        ]);
+        $resulQuery = new DateFormat();
+        $categoria = $resulQuery->dateFormatDefault($categoria->toArray());
+        return Categoria::query()->insert($categoria);
     }
 
     public function update(int $id, Categoria $categoria): bool
     {
-        return Categoria::query()->where('id', $id)->update([
-            'descricao' => $categoria->descricao,
-            'updated_at' => $categoria->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $categoria = $resulQuery->dateFormatDefault($categoria->toArray());
+        return Categoria::query()->where('id', $id)->update($categoria);
     }
 
     public function delete(int $id): bool

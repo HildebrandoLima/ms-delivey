@@ -4,38 +4,23 @@ namespace App\Repositories;
 
 use App\Models\Endereco;
 use App\Repositories\Interfaces\IAddressRepository;
+use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\QueryBuilder\AddressQuery;
 use Illuminate\Support\Collection;
 
 class AddressRepository implements IAddressRepository {
     public function insert(Endereco $endereco): bool
     {
-        return Endereco::query()->insert([
-            'logradouro' => $endereco->logradouro,
-            'descricao' => $endereco->descricao,
-            'bairro' => $endereco->bairro,
-            'cidade' => $endereco->cidade,
-            'cep' => $endereco->cep,
-            'uf_id' => $endereco->uf_id,
-            'usuario_id' => $endereco->usuario_id,
-            'fornecedor_id' => $endereco->fornecedor_id,
-            'created_at' => $endereco->created_at
-        ]);
+        $resulQuery = new DateFormat();
+        $endereco = $resulQuery->dateFormatDefault($endereco->toArray());
+        return Endereco::query()->insert($endereco);
     }
 
     public function update(int $id, Endereco $endereco): bool
     {
-        return Endereco::query()->where('id', $id)->update([
-            'logradouro' => $endereco->logradouro,
-            'descricao' => $endereco->descricao,
-            'bairro' => $endereco->bairro,
-            'cidade' => $endereco->cidade,
-            'cep' => $endereco->cep,
-            'uf_id' => $endereco->uf_id,
-            'usuario_id' => $endereco->usuario_id,
-            'fornecedor_id' => $endereco->fornecedor_id,
-            'updated_at' => $endereco->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $endereco = $resulQuery->dateFormatDefault($endereco->toArray());
+        return Endereco::query()->where('id', $id)->update($endereco);
     }
 
     public function delete(int $id): bool
