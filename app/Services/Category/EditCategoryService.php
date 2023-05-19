@@ -3,31 +3,34 @@
 namespace App\Services\Category;
 
 use App\Http\Requests\CategoryRequest;
-use App\Models\Categoria;
 use App\Repositories\CategoryRepository;
-use DateTime;
+use App\Services\Category\Interfaces\IEditCategoryService;
+use App\Support\Utils\CheckRegister\CheckCategory;
+use App\Support\Utils\MapToModel\CategoryModel;
 
-class EditCategoryService
+class EditCategoryService implements IEditCategoryService
 {
+    private CheckCategory $checkCategory;
+    private CategoryModel $categoryModel;
     private CategoryRepository $categoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct
+    (
+        CheckCategory      $checkCategory,
+        CategoryModel       $categoryModel,
+        CategoryRepository $categoryRepository
+    )
     {
+        $this->checkCategory      = $checkCategory;
+        $this->categoryModel      = $categoryModel;
         $this->categoryRepository = $categoryRepository;
     }
 
     public function editCategory(int $id, CategoryRequest $request): bool
     {
         $this->request = $request;
-        $category = $this->mapToModel();
+        $this->checkCategory->checkCategoryIdExist($id);
+        $category = $this->categoryModel->categoryModel($request, 'edit');
         return $this->categoryRepository->update($id, $category);
-    }
-
-    private function mapToModel(): Categoria
-    {
-        $category = new Categoria();
-        $category->descricao = $this->request->descricao;
-        $category->updated_at = new DateTime();
-        return $category;
     }
 }

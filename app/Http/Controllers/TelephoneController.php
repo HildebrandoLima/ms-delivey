@@ -8,7 +8,7 @@ use App\Services\Telephone\CreateTelephoneService;
 use App\Services\Telephone\DeleteTelephoneService;
 use App\Services\Telephone\EditTelephoneService;
 use App\Services\Telephone\ListTelephoneService;
-use App\Support\Utils\BaseDecode;
+use App\Support\Utils\Parameters\BaseDecode;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller

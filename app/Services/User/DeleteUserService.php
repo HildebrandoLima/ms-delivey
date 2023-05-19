@@ -2,30 +2,29 @@
 
 namespace App\Services\User;
 
-use App\Exceptions\HttpBadRequest;
-use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Services\User\Interfaces\IDeleteUserService;
+use App\Support\Utils\CheckRegister\CheckUser;
 
-class DeleteUserService
+class DeleteUserService implements IDeleteUserService
 {
+    private CheckUser $checkUser;
     private UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct
+    (
+        CheckUser      $checkUser,
+        UserRepository $userRepository
+    )
     {
+        $this->checkUser      = $checkUser;
         $this->userRepository = $userRepository;
     }
 
     public function deleteUser(int $id): bool
     {
-        $this->checkUser($id);
+        $this->checkUser->checkUserIdExist($id);
         $this->userRepository->delete($id);
         return true;
-    }
-
-    private function checkUser(int $id): void
-    {
-        if (User::query()->where('id', $id)->count() == 0):
-            throw new HttpBadRequest('O usuário não existe');
-        endif;
     }
 }

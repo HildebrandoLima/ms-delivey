@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Support\Utils\DefaultErrorMessages;
+use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class TelephoneRequest extends BaseRequest
 {

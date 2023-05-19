@@ -2,35 +2,34 @@
 
 namespace App\Services\Address;
 
-use App\Exceptions\HttpBadRequest;
-use App\Models\User;
 use App\Repositories\AddressRepository;
+use App\Services\Address\Interfaces\IListAddressService;
+use App\Support\Utils\CheckRegister\CheckUser;
 use Illuminate\Support\Collection;
 
-class ListAddressService
+class ListAddressService implements IListAddressService
 {
+    private CheckUser $checkUser;
     private AddressRepository $addressRepository;
 
-    public function __construct(AddressRepository $addressRepository)
+    public function __construct
+    (
+        CheckUser         $checkUser,
+        AddressRepository $addressRepository
+    )
     {
+        $this->checkUser         = $checkUser;
         $this->addressRepository = $addressRepository;
     }
 
     public function listFederativeUnitAll(): Collection
     {
-        return $this->addressRepository->getAllFederativeUnit();
+        return $this->addressRepository->getFederativeUnitAll();
     }
 
     public function listAddressAll(int $id): Collection
     {
-        $this->checkUser($id);
-        return $this->addressRepository->getAllAddress($id);
-    }
-
-    private function checkUser(int $id): void
-    {
-        if (User::query()->where('id', $id)->count() == 0):
-            throw new HttpBadRequest('O usuário não existe');
-        endif;
+        $this->checkUser->checkUserIdExist($id);
+        return $this->addressRepository->getAddressAll($id);
     }
 }

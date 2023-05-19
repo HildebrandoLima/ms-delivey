@@ -3,38 +3,24 @@
 namespace App\Repositories;
 
 use App\Models\Endereco;
-use App\Models\UnidadeFederativa;
+use App\Repositories\Interfaces\IAddressRepository;
+use App\Support\Utils\Date\DateFormat;
+use App\Support\Utils\QueryBuilder\AddressQuery;
 use Illuminate\Support\Collection;
 
-class AddressRepository {
+class AddressRepository implements IAddressRepository {
     public function insert(Endereco $endereco): bool
     {
-        return Endereco::query()->insert([
-            'logradouro' => $endereco->logradouro,
-            'descricao' => $endereco->descricao,
-            'bairro' => $endereco->bairro,
-            'cidade' => $endereco->cidade,
-            'cep' => $endereco->cep,
-            'uf_id' => $endereco->uf_id,
-            'usuario_id' => $endereco->usuario_id,
-            'fornecedor_id' => $endereco->fornecedor_id,
-            'created_at' => $endereco->created_at
-        ]);
+        $resulQuery = new DateFormat();
+        $endereco = $resulQuery->dateFormatDefault($endereco->toArray());
+        return Endereco::query()->insert($endereco);
     }
 
     public function update(int $id, Endereco $endereco): bool
     {
-        return Endereco::query()->where('id', $id)->update([
-            'logradouro' => $endereco->logradouro,
-            'descricao' => $endereco->descricao,
-            'bairro' => $endereco->bairro,
-            'cidade' => $endereco->cidade,
-            'cep' => $endereco->cep,
-            'uf_id' => $endereco->uf_id,
-            'usuario_id' => $endereco->usuario_id,
-            'fornecedor_id' => $endereco->fornecedor_id,
-            'updated_at' => $endereco->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $endereco = $resulQuery->dateFormatDefault($endereco->toArray());
+        return Endereco::query()->where('id', $id)->update($endereco);
     }
 
     public function delete(int $id): bool
@@ -42,33 +28,17 @@ class AddressRepository {
         return Endereco::query()->where('id', $id)->delete();
     }
 
-    public function getAllFederativeUnit(): Collection
+    public function getFederativeUnitAll(): Collection
     {
-        return UnidadeFederativa::query()->select([
-            'id as ufId',
-            'uf as uf',
-            'descricao as descricao'
-        ])->get();
+        $resulQuery = new AddressQuery();
+        $query = $resulQuery->unidadeFederativaQuery();
+        return $query->get();
     }
 
-    public function getAllAddress(int $id): Collection
+    public function getAddressAll(int $id): Collection
     {
-        return Endereco::query()
-            ->join('unidade_federativa as uf', 'uf.id', '=', 'endereco.uf_id')
-            ->select([
-            'endereco.id as enderecoId',
-            'endereco.logradouro as logradouro',
-            'endereco.descricao as descricao',
-            'endereco.bairro as bairro',
-            'endereco.cidade as cidade',
-            'endereco.cep as cep',
-            'endereco.created_at as criadoEm',
-            'endereco.updated_at as alteradoEm',
-            'uf.id as ufId',
-            'uf.uf as uf',
-            'uf.descricao as estado'
-        ])
-        ->where('endereco.usuario_id', $id)
-        ->get();
+        $resulQuery = new AddressQuery();
+        $query = $resulQuery->addressQuery();
+        return $query->where('endereco.usuario_id', $id)->get();
     }
 }

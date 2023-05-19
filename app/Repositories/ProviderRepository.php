@@ -5,34 +5,26 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Support\Utils\PaginationList;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
+use App\Repositories\Interfaces\IProviderRepository;
+use App\Support\Utils\Date\DateFormat;
+use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\QueryBuilder\ProviderQuery;
 use Illuminate\Support\Collection;
 
-class ProviderRepository {
-    public function insert(Fornecedor $provider): int
+class ProviderRepository implements IProviderRepository {
+    public function insert(Fornecedor $fornecedor): int
     {
-        return Fornecedor::query()->insertGetId([
-            'nome' => $provider->nome,
-            'cnpj' => $provider->cnpj,
-            'email' => $provider->email,
-            'ativo' => $provider->ativo,
-            'data_fundacao' => $provider->data_fundacao,
-            'created_at' => $provider->created_at
-        ]);
+        $resulQuery = new DateFormat();
+        $fornecedor = $resulQuery->dateFormatDefault($fornecedor->toArray());
+        return Fornecedor::query()->insertGetId($fornecedor);
     }
 
-    public function update(int $id, Fornecedor $provider): bool
+    public function update(int $id, Fornecedor $fornecedor): bool
     {
-        return Fornecedor::query()->where('id', $id)->update([
-            'nome' => $provider->nome,
-            'cnpj' => $provider->cnpj,
-            'email' => $provider->email,
-            'ativo' => $provider->ativo,
-            'data_fundacao' => $provider->data_fundacao,
-            'updated_at' => $provider->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $fornecedor = $resulQuery->dateFormatDefault($fornecedor->toArray());
+        return Fornecedor::query()->where('id', $id)->update($fornecedor);
     }
 
     public function delete(int $id): bool
@@ -46,33 +38,22 @@ class ProviderRepository {
         return true;
     }
 
-    public function getAll(Request $request, string $search): Collection
+    public function getAll(Pagination $pagination, string $search): Collection
     {
-        $query = $this->mapToCollection();
+        $resulQuery = new ProviderQuery();
+        $query = $resulQuery->providerQuery();
         $query->orderBy('id');
-        if (isset($request->search)):
-            $query->where('nome', 'like', $search)
-                ->orWhere('cnpj', $request->search);
-            return $query->get();
+        if (isset ($pagination->page) && isset ($pagination->perPage)):
+            return PaginationList::createFromPagination($query, $pagination);
         endif;
-        return PaginationList::createFromPagination($query, $request);
+        return $query->where('nome', 'like', $search)
+            ->orWhere('cnpj', 'like', $search)->get();
     }
 
     public function getFind(int $id): Collection
     {
-        $query = $this->mapToCollection();
-        $query->where('id', $id);
-        return $query->get();
-    }
-
-    private function mapToCollection(): Builder
-    {
-        return Fornecedor::query()->select([
-            'id as fornecedorId',
-            'nome as nome',
-            'cnpj as cnpj',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ]);
+        $resulQuery = new ProviderQuery();
+        $query = $resulQuery->providerQuery();
+        return $query->where('id', $id)->get();
     }
 }

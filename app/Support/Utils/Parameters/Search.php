@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Utils;
+namespace App\Support\Utils\Parameters;
 
 class Search
 {

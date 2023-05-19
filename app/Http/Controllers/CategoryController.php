@@ -8,10 +8,9 @@ use App\Services\Category\CreateCategoryService;
 use App\Services\Category\DeleteCategoryService;
 use App\Services\Category\EditCategoryService;
 use App\Services\Category\ListCategoryService;
-use App\Support\Utils\BaseDecode;
-use App\Support\Utils\Pagination;
-use App\Support\Utils\Search;
-use Illuminate\Http\Request;
+use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller

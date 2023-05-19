@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\DDD;
-use App\Support\Utils\DiscagemDiretaDistancia;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Support\Utils\DefaultDatabaseStatic\DiscagemDiretaDistancia;
 use Illuminate\Database\Seeder;
 
 class DiscagemDiretaDistanciaSeeder extends Seeder

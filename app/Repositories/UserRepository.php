@@ -5,38 +5,26 @@ namespace App\Repositories;
 use App\Models\Endereco;
 use App\Models\Telefone;
 use App\Models\User;
-use App\Support\Utils\PaginationList;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use App\Repositories\Interfaces\IUserRepository;
+use App\Support\Utils\Date\DateFormat;
+use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\QueryBuilder\UserQuery;
 use Illuminate\Support\Collection;
 
-class UserRepository {
+class UserRepository implements IUserRepository {
     public function insert(User $user): int
     {
-        return User::query()->insertGetId([
-            'name' => $user->name,
-            'cpf' => $user->cpf,
-            'email' => $user->email,
-            'password' => $user->password,
-            'data_nascimento' => $user->data_nascimento,
-            'ativo' => $user->ativo,
-            'genero' => $user->genero,
-            'created_at' => $user->created_at,
-        ]);
+        $resulQuery = new DateFormat();
+        $user = $resulQuery->dateFormatDefault($user->toArray());
+        return User::query()->insertGetId($user);
     }
 
     public function update(int $id, User $user): bool
     {
-        return User::query()->where('id', $id)->update([
-            'name' => $user->name,
-            'cpf' => $user->cpf,
-            'email' => $user->email,
-            'password' => $user->password,
-            'data_nascimento' => $user->data_nascimento,
-            'ativo' => $user->ativo,
-            'genero' => $user->genero,
-            'updated_at' => $user->updated_at
-        ]);
+        $resulQuery = new DateFormat();
+        $user = $resulQuery->dateFormatDefault($user->toArray());
+        return User::query()->where('id', $id)->update($user);
     }
 
     public function delete(int $id): bool
@@ -50,37 +38,23 @@ class UserRepository {
         return true;
     }
 
-    public function getAll(Request $request, string $search): Collection
+    public function getAll(Pagination $pagination, string $search): Collection
     {
-        $query = $this->mapToCollection();
+        $resulQuery = new UserQuery();
+        $query = $resulQuery->userQuery();
         $query->orderBy('id');
-        if (isset($request->search)):
-            $query->where('name', 'like', $search)
-            ->orWhere('email', $request->search);
-        return $query->get();
+        if (isset ($pagination->page) && isset ($pagination->perPage)):
+            return PaginationList::createFromPagination($query, $pagination);
         endif;
-        return PaginationList::createFromPagination($query, $request);
+        return $query->where('name', 'like', $search)
+            ->orWhere('email', 'like', $search)->get();
     }
 
     public function getFind(int $id): Collection
     {
-        $query = $this->mapToCollection();
+        $resulQuery = new UserQuery();
+        $query = $resulQuery->userQuery();
         $query->where('id', $id);
         return $query->get();
-    }
-
-    private function mapToCollection(): Builder
-    {
-        return User::query()->select([
-            'id as usuarioId',
-            'name as nome',
-            'cpf as cpf',
-            'email as email',
-            'data_nascimento as dataNascimento',
-            'genero as genero',
-            'ativo as ativo',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
-        ]);
     }
 }

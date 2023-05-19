@@ -2,17 +2,23 @@
 
 namespace App\Services\Telephone;
 
-use App\Exceptions\HttpBadRequest;
-use App\Models\User;
 use App\Repositories\TelephoneRepository;
+use App\Services\Telephone\Interfaces\IListTelephoneService;
+use App\Support\Utils\CheckRegister\CheckUser;
 use Illuminate\Support\Collection;
 
-class ListTelephoneService
+class ListTelephoneService implements IListTelephoneService
 {
+    private CheckUser $checkUser;
     private TelephoneRepository $telephoneRepository;
 
-    public function __construct(TelephoneRepository $telephoneRepository)
+    public function __construct
+    (
+        CheckUser           $checkUser,
+        TelephoneRepository $telephoneRepository
+    )
     {
+        $this->checkUser           = $checkUser;
         $this->telephoneRepository = $telephoneRepository;
     }
 
@@ -23,14 +29,7 @@ class ListTelephoneService
 
     public function listTelephoneAll(int $id): Collection
     {
-        $this->checkUser($id);
+        $this->checkUser->checkUserIdExist($id);
         return $this->telephoneRepository->getTelephoneAll($id);
-    }
-
-    private function checkUser(int $id): void
-    {
-        if (User::query()->where('id', $id)->count() == 0):
-            throw new HttpBadRequest('O usuário não existe');
-        endif;
     }
 }

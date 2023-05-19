@@ -2,54 +2,34 @@
 
 namespace App\Services\Provider;
 
-use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\ProviderRequest;
-use App\Models\Fornecedor;
 use App\Repositories\ProviderRepository;
-use App\Support\Utils\Enums\UserEnums;
-use DateTime;
+use App\Services\Provider\Interfaces\ICreateProviderService;
+use App\Support\Utils\CheckRegister\CheckProvider;
+use App\Support\Utils\MapToModel\ProviderModel;
 
-class CreateProviderService
+class CreateProviderService implements ICreateProviderService
 {
+    private CheckProvider $checkProvider;
+    private ProviderModel $providerModel;
     private ProviderRepository $providerRepository;
 
-    public function __construct(ProviderRepository $providerRepository)
+    public function __construct
+    (
+        CheckProvider      $checkProvider,
+        ProviderModel      $providerModel,
+        ProviderRepository $providerRepository
+    )
     {
+        $this->checkProvider      = $checkProvider;
+        $this->providerModel      = $providerModel;
         $this->providerRepository = $providerRepository;
     }
 
     public function createProvider(ProviderRequest $request): int
     {
-        $this->request = $request;
-        $provider = $this->mapToModel();
-        $this->checkProvider();
+        $this->checkProvider->checkProviderExist($request);
+        $provider = $this->providerModel->providerModel($request, 'create');
         return $this->providerRepository->insert($provider);
-    }
-
-    private function checkProvider(): void
-    {
-        if (!Fornecedor::query()
-                ->where('nome', 'like', $this->request->nome)
-                ->orWhere(function ($query) {
-                    $query->where('cnpj', '=', $this->request->cnpj)
-                        ->orWhere(function ($query) {
-                            $query->where('email', 'like', $this->request->email);
-                        });
-                })
-                ->count() == 0):
-            throw new HttpBadRequest('O fornecedor já existe');
-        endif;
-    }
-
-    private function mapToModel(): Fornecedor
-    {
-        $provider = new Fornecedor();
-        $provider->nome = $this->request->nome;
-        $provider->cnpj = $this->request->cnpj;
-        $provider->email = $this->request->email;
-        $provider->data_fundacao = $this->request->dataFundacao;
-        $provider->ativo = UserEnums::ATIVADO;
-        $provider->created_at = new DateTime();
-        return $provider;
     }
 }
