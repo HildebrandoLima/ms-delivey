@@ -2,7 +2,24 @@
 
 Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
-### Aplicação Web criada com:<br />
+## DockerFile
+Caso não queira seguir os passos abaixo, utilize o docker.
+
+### Requisitos
+<li>Instalar Docker</li>
+<li>Instalar Docker-Composer</li>
+
+Suba a aplicação usando docker:
+
+```
+    docker-compose up -d --build
+```
+
+Resultado:
+
+ file:///home/hildebrando/Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202023-05-20%2008-48-33.png
+
+### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
 - MySQL para banco de dados.<br/>
 
