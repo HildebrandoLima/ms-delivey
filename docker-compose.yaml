@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  ms-delivery:
+    build: .
+    container_name: app_delivery
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx
+    networks:
+      - app-network
+
+  mysql-connection:
+    image: mysql:5.7.22
+    container_name: db_mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - .docker/dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ms_delivery
+      MYSQL_ROOT_PASSWORD: ms_delivery
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
