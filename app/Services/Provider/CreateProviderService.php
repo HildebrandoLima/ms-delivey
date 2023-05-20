@@ -3,6 +3,7 @@
 namespace App\Services\Provider;
 
 use App\Http\Requests\ProviderRequest;
+use App\Jobs\EmailForRegisterJob;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\ICreateProviderService;
 use App\Support\Utils\CheckRegister\CheckProvider;
@@ -30,6 +31,8 @@ class CreateProviderService implements ICreateProviderService
     {
         $this->checkProvider->checkProviderExist($request);
         $provider = $this->providerModel->providerModel($request, 'create');
-        return $this->providerRepository->insert($provider);
+        $providerId = $this->providerRepository->insert($provider);
+        EmailForRegisterJob::dispatch($request->email);
+        return $providerId;
     }
 }

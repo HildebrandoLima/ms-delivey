@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Http\Requests\UserRequest;
+use App\Jobs\EmailForRegisterJob;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\ICreateUserService;
 use App\Support\Utils\CheckRegister\CheckUser;
@@ -30,6 +31,8 @@ class CreateUserService implements ICreateUserService
     {
         $this->checkUser->checkUserExist($request);
         $user = $this->userModel->userModel($request, 'create');
-        return $this->userRepository->insert($user);
+        $userId = $this->userRepository->insert($user);
+        EmailForRegisterJob::dispatch($request->email);
+        return $userId;
     }
 }
