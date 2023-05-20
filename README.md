@@ -9,6 +9,8 @@ Caso não queira seguir os passos abaixo, utilize o docker.
 <li>Instalar Docker</li>
 <li>Instalar Docker-Composer</li>
 
+<br/>
+
 Suba a aplicação usando docker:
 
 ```
