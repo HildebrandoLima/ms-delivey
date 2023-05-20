@@ -6,6 +6,7 @@
 /vendor
 .docker
 .env
+.env.example
 .env.backup
 .env.production
 .env.testing
