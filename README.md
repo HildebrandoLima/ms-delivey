@@ -7,7 +7,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 - MySQL para banco de dados.<br/>
 
 ## DockerFile
-Caso não queira seguir os passos abaixo, utilize o docker.
+Caso não queira seguir os passos do método tradicional, utilize o docker.
 
 ### Requisitos
 <li>Instalar Docker</li>
@@ -43,6 +43,8 @@ Suba a aplicação usando docker:
 <li>CRUD de Pagamento</li>
 <li>Login</li>
 </ul>
+
+## Método Tradicional
 
 ### Requesitos necessários para executar o projeto:
 <li>Instalar o PHP versão 8.0</li>
