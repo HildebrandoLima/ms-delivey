@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliar meu conhecimento com o framework laravel. Esse é um projeto que resulta em uma api de delivery/ecommerce. Nela atualmente abordo o uso do frammekork, com foco em POO e padrão de projetos, arquitetura limpa e distribuída, eloquent, e muito mais.
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
 ### Aplicação Web criada com:<br />
 - Laravel/PHP<br />
@@ -8,17 +8,18 @@ Para fins de estudo e ampliar meu conhecimento com o framework laravel. Esse é 
 
 ### Funcionalidades (Atualmente desenvolvidas)
 <ul>
-<li>CRUD de Usuário</li>
-<li>CRUD de Endereço</li>
-<li>CRUD de Telefone</li>
-<li>CRUD de Fornecedor</li>
+    <li>CRUD de Usuário</li>
+    <li>CRUD de Endereço</li>
+    <li>CRUD de Telefone</li>
+    <li>CRUD de Fornecedor</li>
+    <li>CRUD de Categoria</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
 <li>CRUD de Produto</li>
+<li>CRUD de Imagem</li>
 <li>CRUD de Item</li>
-<li>CRUD de Categoria</li>
 <li>CRUD de Pedido</li>
 <li>CRUD de Pagamento</li>
 <li>Login</li>
@@ -29,17 +30,17 @@ Para fins de estudo e ampliar meu conhecimento com o framework laravel. Esse é 
 <li>Instalar o Laravel versão 9.0</li>
 <li>Instalar o MySQL versão 8.0</li>
 <li>Instalar o composer versão 2.4.0</li>
-<li>Instalar o Postman</li>
+<li>Instalar o Postman ou Insomnia</li>
 <li>Instalar uma IDE de sua escolha (PHPStorm / VSCode)</li>
 <li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL WorkBench)</li>
 
 ### Executar o projeto:
 <ul>
-<li>Clone o projeto: git clone https://github.com/HildebrandoLima/ms-delivey.git</li>
-<li><Adicionar arquivo .env</li>
-<li>Executar comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
+<li>Clone o projeto: git clone git@github.com:HildebrandoLima/ms-delivey.git</li>
+<li>Adicione o arquivo .env</li>
+<li>Execute os comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
 <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
-<li>Executar: php artisan serve</li>
+<li>Execute o comando: php artisan serve</li>
 </ul>
 
 ### Banco de Dados:
@@ -73,7 +74,15 @@ Para criar os registros de ddd e uf:
     php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
-Certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolheu, execute o comando:
+```
+    php artisan db:seed --class=UserSeeder
+```
+
+```
+    php artisan db:seed --class=FornecedorSeeder
+```
+
+Certifique-se que as tabelas foram criadas. Abrindo o cliente SQL que você escolheu, e então execute o comando:
 
 ```
     SHOW TABLES;
@@ -83,7 +92,7 @@ Certifique-se que as tabelas foram criadas. Abra o cliente SQL que você escolhe
 
 ### Para iniciar o servidor:
 `php artisan serve`
-Agora acesse o endereço http://localhost:8000 em seu navegador.
+Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomnia.
 
 ### UML
 Cliente<br/>
