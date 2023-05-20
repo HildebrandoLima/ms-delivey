@@ -17,7 +17,7 @@ Suba a aplicação usando docker:
 
 Resultado:
 
-![Captura de tela de 202023-05-20-2008-48-33](file:///home/hildebrando/Imagens/Capturas%20de%20tela/Captura%20de%20tela%20de%202023-05-20%2008-48-33.png)
+![Captura de tela de 2023-05-20 08-48-33](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/9ef9d406-5b13-448f-b633-47ce105caf7c)
 
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
