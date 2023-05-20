@@ -2,6 +2,10 @@
 
 Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
+### Aplicação Web desenvolvida com:<br />
+- Laravel/PHP<br />
+- MySQL para banco de dados.<br/>
+
 ## DockerFile
 Caso não queira seguir os passos abaixo, utilize o docker.
 
@@ -20,10 +24,6 @@ Suba a aplicação usando docker:
 ### Resultado:
 
 ![Captura de tela de 2023-05-20 08-48-33](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/9ef9d406-5b13-448f-b633-47ce105caf7c)
-
-### Aplicação Web desenvolvida com:<br />
-- Laravel/PHP<br />
-- MySQL para banco de dados.<br/>
 
 ### Funcionalidades (Atualmente desenvolvidas)
 <ul>
