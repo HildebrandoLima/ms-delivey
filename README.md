@@ -32,6 +32,7 @@ Suba a aplicação usando docker:
     <li>CRUD de Telefone</li>
     <li>CRUD de Fornecedor</li>
     <li>CRUD de Categoria</li>
+    <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
@@ -41,7 +42,6 @@ Suba a aplicação usando docker:
 <li>CRUD de Item</li>
 <li>CRUD de Pedido</li>
 <li>CRUD de Pagamento</li>
-<li>Job (Disparo de e-mail ao cadastrar usuário)</li>
 <li>Job (Atualização de Estoque)</li>
 <li>Login</li>
 </ul>
