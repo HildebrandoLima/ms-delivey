@@ -4,13 +4,16 @@ namespace App\Repositories;
 
 use App\Models\Produto;
 use App\Repositories\Interfaces\IProductRepository;
+use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ProductRepository implements IProductRepository {
     public function insert(Produto $produto): int
     {
-        return 1;
+        $resulQuery = new DateFormat();
+        $produto = $resulQuery->dateFormatDefault($produto->toArray());
+        return Produto::query()->insertGetId($produto);
     }
 
     public function update(int $id, Produto $produto): bool

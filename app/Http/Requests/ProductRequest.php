@@ -15,14 +15,14 @@ class ProductRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string',
-            'precoCusto' => 'required|int',
-            'precoVenda' => 'required|int',
-            'codigoBarra' => 'required|string',
+            'precoCusto' => 'required|between:0,99.99',
+            'precoVenda' => 'required|between:0,99.99',
+            'codigoBarra' => 'required|string|min:13|max:13',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
             'unidadeMedida' => 'required|string',
-            'ativo' => 'required|int',
             'dataValidade' => 'required|date',
+            'ativo' => 'required|int',
             'fornecedorId' => 'int|exists:fornecedor,id',
         ];
     }
@@ -32,6 +32,9 @@ class ProductRequest extends BaseRequest
         return [
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
 
+            'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
+            'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
+
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'precoCusto.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'precoVenda.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -39,19 +42,19 @@ class ProductRequest extends BaseRequest
             'descricao.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'quantidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'unidadeMedida.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataValidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'precoCusto.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'precoVenda.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'precoCusto.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
+            'precoVenda.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'codigoBarra.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'quantidade.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'unidadeMedida.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
