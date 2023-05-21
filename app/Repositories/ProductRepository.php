@@ -6,6 +6,8 @@ use App\Models\Produto;
 use App\Repositories\Interfaces\IProductRepository;
 use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\QueryBuilder\ProductQuery;
 use Illuminate\Support\Collection;
 
 class ProductRepository implements IProductRepository {
@@ -28,11 +30,20 @@ class ProductRepository implements IProductRepository {
 
     public function getAll(Pagination $pagination, string $search): Collection
     {
-        return collect();
+        $resulQuery = new ProductQuery();
+        $query = $resulQuery->productQuery();
+        $query->orderBy('produto.id');
+        if (isset ($pagination->page) && isset ($pagination->perPage)):
+            return PaginationList::createFromPagination($query, $pagination);
+        endif;
+        return $query->where('produto.nome', 'like', $search)->get();
     }
 
     public function getFind(int $id): Collection
     {
-       return collect();
+        $resulQuery = new ProductQuery();
+        $query = $resulQuery->productQuery();
+        $query->where('produto.id', $id);
+        return $query->get();
     }
 }
