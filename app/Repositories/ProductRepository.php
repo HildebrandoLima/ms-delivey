@@ -27,7 +27,7 @@ class ProductRepository implements IProductRepository {
 
     public function delete(int $id): bool
     {
-        return true;
+        return Produto::query()->where('id', $id)->delete();
     }
 
     public function getAll(Pagination $pagination, string $search): Collection
