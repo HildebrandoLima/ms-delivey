@@ -20,7 +20,9 @@ class ProductRepository implements IProductRepository {
 
     public function update(int $id, Produto $produto): bool
     {
-        return true;
+        $resulQuery = new DateFormat();
+        $produto = $resulQuery->dateFormatDefault($produto->toArray());
+        return Produto::query()->where('id', $id)->update($produto);
     }
 
     public function delete(int $id): bool
