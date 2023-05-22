@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Categoria;
 use App\Models\Fornecedor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -30,7 +31,8 @@ class ProdutoFactory extends Factory
             'unidade_medida' => array_rand($unidadeMedida),
             'ativo' => rand(0, 1),
             'data_validade' => $this->faker->dateTime,
-            'fornecedor_id' => Fornecedor::factory()->createOne()->id,
+            'categoria_id' => Categoria::factory()->createOne()->id,
+            'fornecedor_id' => Fornecedor::factory()->createOne()->id
         ];
     }
 }
