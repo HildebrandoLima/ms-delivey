@@ -4,23 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Categoria;
 use App\Repositories\Interfaces\ICategoryRepository;
-use App\Support\Utils\Date\DateFormat;
-use App\Support\Utils\QueryBuilder\CategoryQuery;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CategoryRepository implements ICategoryRepository {
     public function insert(Categoria $categoria): bool
     {
-        $resulQuery = new DateFormat();
-        $categoria = $resulQuery->dateFormatDefault($categoria->toArray());
-        return Categoria::query()->insert($categoria);
+        return Categoria::query()->insert($categoria->toArray());
     }
 
     public function update(int $id, Categoria $categoria): bool
     {
-        $resulQuery = new DateFormat();
-        $categoria = $resulQuery->dateFormatDefault($categoria->toArray());
-        return Categoria::query()->where('id', $id)->update($categoria);
+        return Categoria::query()->where('id', $id)->update($categoria->toArray());
     }
 
     public function delete(int $id): bool
@@ -30,18 +25,26 @@ class CategoryRepository implements ICategoryRepository {
 
     public function getAll(string $search): Collection
     {
-        $resulQuery = new CategoryQuery();
-        $query = $resulQuery->categoryQuery();
+        $query = $this->mapToQuery();
         if (isset ($search)):
-            $query->where('descricao', 'like', $search)->get();
+            $query->where('descricao', 'like', $search)
+                  ->orderByDesc('id')->get();
         endif;
         return $query->get();
     }
 
     public function getFind(int $id): Collection
     {
-        $resulQuery = new CategoryQuery();
-        $query = $resulQuery->categoryQuery();
-        return $query->where('id', $id)->get();
+        return $this->mapToQuery()->where('id', $id)->get();
+    }
+
+    private function mapToQuery(): Builder
+    {
+        return Categoria::query()->select([
+            'id as descricaoId',
+            'descricao as descricao',
+            'created_at as criadoEm',
+            'updated_at as alteradoEm'
+        ]);
     }
 }
