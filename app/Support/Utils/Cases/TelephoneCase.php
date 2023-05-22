@@ -6,7 +6,7 @@ use App\Support\Utils\Enums\TelephoneEnums;
 
 class TelephoneCase
 {
-    public function typeCase($tipo)
+    public function typeCase($tipo): string
     {
         if ($tipo == 'Fixo'):
             $tipo = TelephoneEnums::TIPO_FIXO;

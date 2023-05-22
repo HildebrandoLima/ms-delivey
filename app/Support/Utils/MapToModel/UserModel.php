@@ -26,7 +26,7 @@ class UserModel {
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $this->userCase->genderCase($request->genero);
-        $user->ativo = UserEnums::ATIVADO;
+        $request->ativo == 1 ? $user->ativo = UserEnums::ATIVADO : $user->ativo = UserEnums::DESATIVADO;
         $method == 'create' ? $user->created_at = new DateTime() : $user->updated_at = new DateTime();
         return $user;
     }

@@ -15,7 +15,7 @@ class ProviderModel {
         $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
         $provider->data_fundacao = $request->dataFundacao;
-        $provider->ativo = UserEnums::ATIVADO;
+        $request->ativo == 1 ? $provider->ativo = UserEnums::ATIVADO : $provider->ativo = UserEnums::DESATIVADO;
         $method == 'create' ? $provider->created_at = new DateTime() : $provider->updated_at = new DateTime();
         return $provider;
     }
