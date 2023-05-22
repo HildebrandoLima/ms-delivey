@@ -9,20 +9,22 @@ class ProductQuery {
     public function productQuery(): Builder
     {
         return Produto::query()
+        ->join('categoria as c', 'c.id', '=', 'produto.categoria_id')
         ->select([
-            'id as produtoId',
-            'nome as produto',
-            'preco_custo as custo',
-            'margem_lucro as lucro',
-            'preco_venda as venda',
-            'codigo_barra as codigoBarra',
-            'descricao as descricao',
-            'quantidade as quantidade',
-            'unidade_medida as unidadeMedida',
-            'data_validade as dataValidade',
-            'ativo as ativo',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm',
+            'produto.id as produtoId',
+            'produto.nome as produto',
+            'produto.preco_custo as custo',
+            'produto.margem_lucro as lucro',
+            'produto.preco_venda as venda',
+            'produto.codigo_barra as codigoBarra',
+            'produto.descricao as descricao',
+            'produto.quantidade as quantidade',
+            'produto.unidade_medida as unidadeMedida',
+            'produto.data_validade as dataValidade',
+            'produto.ativo as ativo',
+            'produto.created_at as criadoEm',
+            'produto.updated_at as alteradoEm',
+            'c.descricao as descricaoCategoria'
         ]);
     }
 }

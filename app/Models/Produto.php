@@ -22,6 +22,7 @@ class Produto extends Model
         'unidade_medida',
         'ativo',
         'data_validade',
+        'categoria_id',
         'fornecedor_id',
     ];
 

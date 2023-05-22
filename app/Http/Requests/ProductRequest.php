@@ -23,6 +23,7 @@ class ProductRequest extends BaseRequest
             'unidadeMedida' => 'required|string',
             'dataValidade' => 'required|date',
             'ativo' => 'required|int',
+            'categoriaId' => 'int|exists:categoria,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
         ];
     }
@@ -30,6 +31,7 @@ class ProductRequest extends BaseRequest
     public function messages()
     {
         return [
+            'categoriaId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
 
             'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
@@ -44,6 +46,7 @@ class ProductRequest extends BaseRequest
             'unidadeMedida.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataValidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'categoriaId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -55,6 +58,7 @@ class ProductRequest extends BaseRequest
             'unidadeMedida.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
             'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }

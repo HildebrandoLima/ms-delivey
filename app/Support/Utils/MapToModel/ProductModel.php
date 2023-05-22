@@ -28,6 +28,7 @@ class ProductModel {
         $product->quantidade = $request->quantidade;
         $product->unidade_medida = $this->productCase->productCase($request->unidadeMedida);
         $product->data_validade = $request->dataValidade;
+        $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
         $request->ativo == 1 ? $product->ativo = ProductEnums::ATIVADO : $product->ativo = ProductEnums::DESATIVADO;
         $method == 'create' ? $product->created_at = new DateTime() : $product->updated_at = new DateTime();
