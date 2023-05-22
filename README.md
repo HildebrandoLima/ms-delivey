@@ -10,8 +10,10 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 Caso não queira seguir os passos do método tradicional, utilize o docker.
 
 ### Requisitos
-<li>Instalar Docker</li>
-<li>Instalar Docker-Composer</li>
+<ul>
+    <li>Instalar Docker</li>
+    <li>Instalar Docker-Composer</li>
+</ul>
 
 <br/>
 
@@ -32,38 +34,40 @@ Suba a aplicação usando docker:
     <li>CRUD de Telefone</li>
     <li>CRUD de Fornecedor</li>
     <li>CRUD de Categoria</li>
+    <li>CRUD de Produto</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
-<li>CRUD de Produto</li>
-<li>CRUD de Imagem</li>
-<li>CRUD de Item</li>
-<li>CRUD de Pedido</li>
-<li>CRUD de Pagamento</li>
-<li>Job (Atualização de Estoque)</li>
-<li>Login</li>
+    <li>CRUD de Imagem</li>
+    <li>CRUD de Item</li>
+    <li>CRUD de Pedido</li>
+    <li>CRUD de Pagamento</li>
+    <li>Job (Atualização de Estoque)</li>
+    <li>Login</li>
 </ul>
 
 ## Método Tradicional
 
 ### Requesitos necessários para executar o projeto:
-<li>Instalar o PHP versão 8.0</li>
-<li>Instalar o Laravel versão 9.0</li>
-<li>Instalar o MySQL versão 8.0</li>
-<li>Instalar o composer versão 2.4.0</li>
-<li>Instalar o Postman ou Insomnia</li>
-<li>Instalar uma IDE de sua escolha (PHPStorm / VSCode)</li>
-<li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL WorkBench)</li>
+<ul>
+    <li>Instalar o PHP versão 8.0</li>
+    <li>Instalar o Laravel versão 9.0</li>
+    <li>Instalar o MySQL versão 8.0</li>
+    <li>Instalar o composer versão 2.4.0</li>
+    <li>Instalar o Postman ou Insomnia</li>
+    <li>Instalar uma IDE de sua escolha (PHPStorm / VSCode)</li>
+    <li>Instalar um cliente SQL de sua escolha (DBeaver / PHPMyAdmin / MySQL WorkBench)</li>
+</ul>
 
 ### Executar o projeto:
 <ul>
-<li>Clone o projeto: git clone git@github.com:HildebrandoLima/ms-delivey.git</li>
-<li>Adicione o arquivo .env</li>
-<li>Execute os comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
-<li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
-<li>Execute o comando: php artisan serve</li>
+    <li>Clone o projeto: git clone git@github.com:HildebrandoLima/ms-delivey.git</li>
+    <li>Adicione o arquivo .env</li>
+    <li>Execute os comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
+    <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
+    <li>Execute o comando: php artisan serve</li>
 </ul>
 
 ### Banco de Dados:
@@ -130,9 +134,9 @@ Admin<br />
 ### API DOCUMENTAÇÃO
 
 <ul>
-<li>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</li>
-<li>Nos body, é preciso identificar quem se referencia o endereço ou telefone. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
-<li>Como as chaves estrangeiras são obrigatórias, por padrão, vem um usuário e um fornecedor já cadastrados, como inativos. E seus valores são enviados automaticamente pelo back-end, caso o mesmo não for referenciado.</li>
+    <li>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</li>
+    <li>Nos body, é preciso identificar quem se referencia o endereço ou telefone. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
+    <li>Como as chaves estrangeiras são obrigatórias, por padrão, vem um usuário e um fornecedor já cadastrados, como inativos. E seus valores são enviados automaticamente pelo back-end, caso o mesmo não for referenciado.</li>
 </ul>
 
 ### Usuário
