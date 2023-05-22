@@ -522,3 +522,107 @@ Admin<br />
 }
 ```
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Produto
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA            |
+|------|--------------------------|
+| GET  | /api/product/list        |
+|------|--------------------------|
+| GET  | /api/product/list/{id}   |
+|------|--------------------------|
+| POST | /api/product/save        |
+|------|--------------------------|
+| PUT  | /api/product/edit/{id}   |
+|------|--------------------------|
+|DELETE| /api/product/remove/{id} |
+
+### Exemplo: POST/PUT
+```
+{
+    "nome": "TV LED 55' FULLHD",
+    "precoCusto": 2,000.99,
+    "precoVenda": 2,399.95,
+    "codigoBarra": "1234567890123",
+    "descricao": "TV LED 55' FULLHD",
+    "quantidade": 13,
+    "unidadeMedida": "UN",
+    "dataValidade": "2024-12-25 13:28:59",
+    "ativo": 1,
+    "categoriaId": 10,
+    "fornecedorId": 2
+}
+```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>404 - Not Found</summary>
+
+```
+{
+    "message": "O produto já existe!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+</details>
+</details>
