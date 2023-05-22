@@ -6,25 +6,20 @@ use App\Models\Endereco;
 use App\Models\Telefone;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
-use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
-use App\Support\Utils\QueryBuilder\UserQuery;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class UserRepository implements IUserRepository {
     public function insert(User $user): int
     {
-        $resulQuery = new DateFormat();
-        $user = $resulQuery->dateFormatDefault($user->toArray());
-        return User::query()->insertGetId($user);
+        return User::query()->insertGetId($user->toArray());
     }
 
     public function update(int $id, User $user): bool
     {
-        $resulQuery = new DateFormat();
-        $user = $resulQuery->dateFormatDefault($user->toArray());
-        return User::query()->where('id', $id)->update($user);
+        return User::query()->where('id', $id)->update($user->toArray());
     }
 
     public function delete(int $id): bool
@@ -40,9 +35,8 @@ class UserRepository implements IUserRepository {
 
     public function getAll(Pagination $pagination, string $search): Collection
     {
-        $resulQuery = new UserQuery();
-        $query = $resulQuery->userQuery();
-        $query->orderBy('id');
+        $query = $this->mapToQuery();
+        $query->orderByDesc('id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
         endif;
@@ -52,9 +46,21 @@ class UserRepository implements IUserRepository {
 
     public function getFind(int $id): Collection
     {
-        $resulQuery = new UserQuery();
-        $query = $resulQuery->userQuery();
-        $query->where('id', $id);
-        return $query->get();
+        return $this->mapToQuery()->where('id', $id)->get();
+    }
+
+    private function mapToQuery(): Builder
+    {
+        return User::query()->select([
+            'id as usuarioId',
+            'name as nome',
+            'cpf as cpf',
+            'email as email',
+            'data_nascimento as dataNascimento',
+            'genero as genero',
+            'ativo as ativo',
+            'created_at as criadoEm',
+            'updated_at as alteradoEm'
+        ]);
     }
 }
