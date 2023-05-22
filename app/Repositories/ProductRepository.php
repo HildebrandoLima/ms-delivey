@@ -34,18 +34,18 @@ class ProductRepository implements IProductRepository {
     {
         $resulQuery = new ProductQuery();
         $query = $resulQuery->productQuery();
-        $query->orderBy('produto.id');
+        $query->orderBy('id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
         endif;
-        return $query->where('produto.nome', 'like', $search)->get();
+        return $query->where('nome', 'like', $search)->get();
     }
 
     public function getFind(int $id): Collection
     {
         $resulQuery = new ProductQuery();
         $query = $resulQuery->productQuery();
-        $query->where('produto.id', $id);
+        $query->where('id', $id);
         return $query->get();
     }
 }
