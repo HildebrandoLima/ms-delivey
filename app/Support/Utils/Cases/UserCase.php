@@ -6,7 +6,7 @@ use App\Support\Utils\Enums\UserEnums;
 
 class UserCase
 {
-    public function genderCase($genero)
+    public function genderCase($genero): string
     {
         if ($genero == 'Masculino'):
             $genero = UserEnums::GENERO_MASCULINO;
