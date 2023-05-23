@@ -5,29 +5,29 @@ namespace App\Services\Provider;
 use App\Http\Requests\ProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\ICreateProviderService;
-use App\Support\Utils\CheckRegister\CheckProvider;
 use App\Support\Utils\Enums\UserEnums;
 
 class CreateProviderService implements ICreateProviderService
 {
-    private CheckProvider $checkProvider;
+    private CheckRegisterRepository $checkRegisterRepository;
     private ProviderRepository $providerRepository;
 
     public function __construct
     (
-        CheckProvider      $checkProvider,
-        ProviderRepository $providerRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        ProviderRepository      $providerRepository
     )
     {
-        $this->checkProvider      = $checkProvider;
-        $this->providerRepository = $providerRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->providerRepository      = $providerRepository;
     }
 
     public function createProvider(ProviderRequest $request): int
     {
-        $this->checkProvider->checkProviderExist($request);
+        $this->checkRegisterRepository->checkProviderExist($request);
         $provider = $this->mapToModel($request);
         $providerId = $this->providerRepository->insert($provider);
         EmailForRegisterJob::dispatch($request->email);

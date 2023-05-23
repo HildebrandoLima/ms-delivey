@@ -4,30 +4,30 @@ namespace App\Services\Provider;
 
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\IEditProviderService;
-use App\Support\Utils\CheckRegister\CheckProvider;
 use App\Support\Utils\Enums\UserEnums;
 
 class EditProviderService implements IEditProviderService
 {
-    private CheckProvider $checkProvider;
+    private CheckRegisterRepository $checkRegisterRepository;
     private ProviderRepository $providerRepository;
 
     public function __construct
     (
-        CheckProvider      $checkProvider,
-        ProviderRepository $providerRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        ProviderRepository      $providerRepository
     )
     {
-        $this->checkProvider      = $checkProvider;
-        $this->providerRepository = $providerRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->providerRepository      = $providerRepository;
     }
 
     public function editProvider(int $id, ProviderRequest $request): bool
     {
         $this->request = $request;
-        $this->checkProvider->checkProviderIdExist($id);
+        $this->checkRegisterRepository->checkProviderIdExist($id);
         $provider = $this->mapToModel($request);
         return $this->providerRepository->update($id, $provider);
     }
