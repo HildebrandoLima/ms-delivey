@@ -8,11 +8,6 @@ class AddressCase
 {
     public function publicPlaceCase($logradouro): string
     {
-        if ($logradouro == 'Rua'):
-            $logradouro = AddressEnums::LOGRADOURO_RUA;
-        else:
-            $logradouro = AddressEnums::LOGRADOURO_AVENIDA;
-        endif;
-        return $logradouro;
+        return $logradouro == 'Rua' ? AddressEnums::LOGRADOURO_RUA : AddressEnums::LOGRADOURO_AVENIDA;
     }
 }
