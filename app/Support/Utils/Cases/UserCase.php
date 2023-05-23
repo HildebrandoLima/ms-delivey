@@ -8,13 +8,16 @@ class UserCase
 {
     public function genderCase($genero): string
     {
-        if ($genero == 'Masculino'):
-            $genero = UserEnums::GENERO_MASCULINO;
-        elseif ($genero == 'Feminino'):
-            $genero = UserEnums::GENERO_FEMININO;
-        else:
-            $genero = UserEnums::GENERO_OUTRO;
-        endif;
+        switch ($genero):
+            case $genero == 'Masculino':
+                $genero = UserEnums::GENERO_MASCULINO;
+            break;
+            case $genero == 'Feminino':
+                $genero = UserEnums::GENERO_FEMININO;
+            break;
+            default:
+                $genero = UserEnums::GENERO_OUTRO;
+        endswitch;
         return $genero;
     }
 }

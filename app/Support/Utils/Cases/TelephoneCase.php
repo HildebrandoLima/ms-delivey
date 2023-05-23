@@ -8,11 +8,6 @@ class TelephoneCase
 {
     public function typeCase($tipo): string
     {
-        if ($tipo == 'Fixo'):
-            $tipo = TelephoneEnums::TIPO_FIXO;
-        else:
-            $tipo = TelephoneEnums::TIPO_CELULAR;
-        endif;
-        return $tipo;
+        return $tipo == 'Fixo' ? TelephoneEnums::TIPO_FIXO : TelephoneEnums::TIPO_CELULAR;
     }
 }
