@@ -2,28 +2,28 @@
 
 namespace App\Services\Provider;
 
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\IDeleteProviderService;
-use App\Support\Utils\CheckRegister\CheckProvider;
 
 class DeleteProviderService implements IDeleteProviderService
 {
-    private CheckProvider $checkProvider;
+    private CheckRegisterRepository $checkRegisterRepository;
     private ProviderRepository $providerRepository;
 
     public function __construct
     (
-        CheckProvider      $checkProvider,
-        ProviderRepository $providerRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        ProviderRepository      $providerRepository
     )
     {
-        $this->checkProvider      = $checkProvider;
-        $this->providerRepository = $providerRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->providerRepository      = $providerRepository;
     }
 
     public function deleteProvider(int $id): bool
     {
-        $this->checkProvider->checkProviderIdExist($id);
+        $this->checkRegisterRepository->checkProviderIdExist($id);
         return $this->providerRepository->delete($id);
     }
 }

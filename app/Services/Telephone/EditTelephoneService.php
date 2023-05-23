@@ -4,43 +4,35 @@ namespace App\Services\Telephone;
 
 use App\Http\Requests\TelephoneRequest;
 use App\Models\Telefone;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\TelephoneRepository;
 use App\Services\Telephone\Interfaces\IEditTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
-use App\Support\Utils\CheckRegister\CheckProvider;
-use App\Support\Utils\CheckRegister\CheckTelephone;
-use App\Support\Utils\CheckRegister\CheckUser;
 
 class EditTelephoneService implements IEditTelephoneService
 {
-    private CheckUser $checkUser;
-    private CheckProvider $checkProvider;
-    private CheckTelephone $checkTelephone;
     private TelephoneCase $telephoneCase;
+    private CheckRegisterRepository $checkRegisterRepository;
     private TelephoneRepository $telephoneRepository;
 
     public function __construct
     (
-        CheckUser           $checkUser,
-        CheckProvider       $checkProvider,
-        CheckTelephone      $checkTelephone,
-        TelephoneCase       $telephoneCase,
-        TelephoneRepository $telephoneRepository
+        TelephoneCase           $telephoneCase,
+        CheckRegisterRepository $checkRegisterRepository,
+        TelephoneRepository     $telephoneRepository
     )
     {
-        $this->checkUser           = $checkUser;
-        $this->checkProvider       = $checkProvider;
-        $this->checkTelephone      = $checkTelephone;
-        $this->telephoneCase       = $telephoneCase;
-        $this->telephoneRepository = $telephoneRepository;
+        $this->telephoneCase           = $telephoneCase;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->telephoneRepository     = $telephoneRepository;
     }
 
     public function editTelephone(int $id, TelephoneRequest $request): bool
     {
         foreach ($request->telefones as $telefone):
-            $this->checkTelephone->checkTelephoneIdExist($id);
-            isset ($telefone['usuarioId']) ? $this->checkUser->checkUserIdExist($telefone['usuarioId'])
-            : $this->checkProvider->checkProviderIdExist($telefone['fornecedorId']);
+            $this->checkRegisterRepository->checkTelephoneIdExist($id);
+            isset ($telefone['usuarioId']) ? $this->checkRegisterRepository->checkUserIdExist($telefone['usuarioId'])
+            : $this->checkRegisterRepository->checkProviderIdExist($telefone['fornecedorId']);
             $telephone = $this->mapToModel($telefone);
             $this->telephoneRepository->update($id, $telephone);
         endforeach;

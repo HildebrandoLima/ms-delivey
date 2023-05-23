@@ -3,27 +3,27 @@
 namespace App\Services\Category;
 
 use App\Repositories\CategoryRepository;
+use App\Repositories\CheckRegisterRepository;
 use App\Services\Category\Interfaces\IDeleteCategoryService;
-use App\Support\Utils\CheckRegister\CheckCategory;
 
 class DeleteCategoryService implements IDeleteCategoryService
 {
-    private CheckCategory $checkCategory;
+    private CheckRegisterRepository $checkRegisterRepository;
     private CategoryRepository $categoryRepository;
 
     public function __construct
     (
-        CheckCategory      $checkCategory,
-        CategoryRepository $categoryRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        CategoryRepository      $categoryRepository
     )
     {
-        $this->checkCategory      = $checkCategory;
-        $this->categoryRepository = $categoryRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->categoryRepository      = $categoryRepository;
     }
 
     public function deleteCategory(int $id): bool
     {
-        $this->checkCategory->checkCategoryIdExist($id);
+        $this->checkRegisterRepository->checkCategoryIdExist($id);
         return $this->categoryRepository->delete($id);
     }
 }

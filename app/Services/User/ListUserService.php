@@ -2,25 +2,25 @@
 
 namespace App\Services\User;
 
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\IListUserService;
-use App\Support\Utils\CheckRegister\CheckUser;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListUserService implements IListUserService
 {
-    private CheckUser $checkUser;
-    private UserRepository $userRepository;
+    private CheckRegisterRepository $checkRegisterRepository;
+    private UserRepository          $userRepository;
 
     public function __construct
     (
-        CheckUser      $checkUser,
-        UserRepository $userRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        UserRepository          $userRepository
     )
     {
-        $this->checkUser      = $checkUser;
-        $this->userRepository = $userRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->userRepository          = $userRepository;
     }
 
     public function listUserAll(Pagination $pagination, string $search): Collection
@@ -30,7 +30,7 @@ class ListUserService implements IListUserService
 
     public function listUserFind(int $id): Collection
     {
-        $this->checkUser->checkUserIdExist($id);
+        $this->checkRegisterRepository->checkUserIdExist($id);
         return $this->userRepository->getFind($id);
     }
 }

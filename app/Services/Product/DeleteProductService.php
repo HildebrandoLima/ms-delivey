@@ -2,28 +2,28 @@
 
 namespace App\Services\Product;
 
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProductRepository;
 use App\Services\Product\Interfaces\IDeleteProductService;
-use App\Support\Utils\CheckRegister\CheckProduct;
 
 class DeleteProductService implements IDeleteProductService
 {
-    private CheckProduct      $checkProduct;
+    private CheckRegisterRepository $checkRegisterRepository;
     private ProductRepository $productRepository;
 
     public function __construct
     (
-        CheckProduct      $checkProduct,
-        ProductRepository $productRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        ProductRepository       $productRepository
     )
     {
-        $this->checkProduct      = $checkProduct;
-        $this->productRepository = $productRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->productRepository       = $productRepository;
     }
 
     public function deleteProduct(int $id): bool
     {
-        $this->checkProduct->checkProductIdExist($id);
+        $this->checkRegisterRepository->checkProductIdExist($id);
         return $this->productRepository->delete($id);
     }
 }
