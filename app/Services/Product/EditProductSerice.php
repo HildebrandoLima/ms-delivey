@@ -4,33 +4,33 @@ namespace App\Services\Product;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Produto;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProductRepository;
 use App\Services\Product\Interfaces\IEditProductSerice;
 use App\Support\Utils\Cases\ProductCase;
-use App\Support\Utils\CheckRegister\CheckProvider;
 use App\Support\Utils\Enums\ProductEnums;
 
 class EditProductSerice implements IEditProductSerice
 {
-    private CheckProvider $checkProvider;
     private ProductCase $productCase;
+    private CheckRegisterRepository $checkRegisterRepository;
     private ProductRepository $productRepository;
 
     public function __construct
     (
-        CheckProvider     $checkProvider,
-        ProductCase       $productCase,
-        ProductRepository $productRepository
+        ProductCase             $productCase,
+        CheckRegisterRepository $checkRegisterRepository,
+        ProductRepository       $productRepository
     )
     {
-        $this->checkProvider     = $checkProvider;
-        $this->productCase       = $productCase;
-        $this->productRepository = $productRepository;
+        $this->productCase             = $productCase;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->productRepository       = $productRepository;
     }
 
     public function editProduct(int $id, ProductRequest $request): bool
     {
-        $this->checkProvider->checkProviderIdExist($id);
+        $this->checkRegisterRepository->checkProviderIdExist($id);
         $provider = $this->mapToModel($request);
         return $this->productRepository->update($id, $provider);
     }

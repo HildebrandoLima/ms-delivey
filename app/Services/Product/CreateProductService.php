@@ -4,38 +4,34 @@ namespace App\Services\Product;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Produto;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProductRepository;
 use App\Services\Product\Interfaces\ICreateProductService;
 use App\Support\Utils\Cases\ProductCase;
-use App\Support\Utils\CheckRegister\CheckProduct;
-use App\Support\Utils\CheckRegister\CheckProvider;
 use App\Support\Utils\Enums\ProductEnums;
 
 class CreateProductService implements ICreateProductService
 {
-    private CheckProduct $checkProduct;
-    private CheckProvider $checkProvider;
     private ProductCase $productCase;
+    private CheckRegisterRepository $checkRegisterRepository;
     private ProductRepository $productRepository;
 
     public function __construct
     (
-        CheckProduct      $checkProduct,
-        CheckProvider     $checkProvider,
-        ProductCase       $productCase,
-        ProductRepository $productRepository
+        ProductCase             $productCase,
+        CheckRegisterRepository $checkRegisterRepository,
+        ProductRepository       $productRepository
     )
     {
-        $this->checkProduct      = $checkProduct;
-        $this->checkProvider     = $checkProvider;
-        $this->productCase       = $productCase;
-        $this->productRepository = $productRepository;
+        $this->productCase             = $productCase;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->productRepository       = $productRepository;
     }
 
     public function createProduct(ProductRequest $request): int
     {
-        $this->checkProduct->checkProductExist($request);
-        $this->checkProvider->checkProviderIdExist($request->fornecedorId);
+        $this->checkRegisterRepository->checkProductExist($request);
+        $this->checkRegisterRepository->checkProviderIdExist($request->fornecedorId);
         $product = $this->mapToModel($request);
         return $this->productRepository->insert($product);
     }
