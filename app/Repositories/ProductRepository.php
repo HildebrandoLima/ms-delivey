@@ -4,25 +4,20 @@ namespace App\Repositories;
 
 use App\Models\Produto;
 use App\Repositories\Interfaces\IProductRepository;
-use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
-use App\Support\Utils\QueryBuilder\ProductQuery;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProductRepository implements IProductRepository {
     public function insert(Produto $produto): int
     {
-        $resulQuery = new DateFormat();
-        $produto = $resulQuery->dateFormatDefault($produto->toArray());
-        return Produto::query()->insertGetId($produto);
+        return Produto::query()->insertGetId($produto->toArray());
     }
 
     public function update(int $id, Produto $produto): bool
     {
-        $resulQuery = new DateFormat();
-        $produto = $resulQuery->dateFormatDefault($produto->toArray());
-        return Produto::query()->where('id', $id)->update($produto);
+        return Produto::query()->where('id', $id)->update($produto->toArray());
     }
 
     public function delete(int $id): bool
@@ -32,8 +27,7 @@ class ProductRepository implements IProductRepository {
 
     public function getAll(Pagination $pagination, string $search): Collection
     {
-        $resulQuery = new ProductQuery();
-        $query = $resulQuery->productQuery();
+        $query = $this->mapToQuery();
         $query->orderBy('produto.id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
@@ -43,9 +37,28 @@ class ProductRepository implements IProductRepository {
 
     public function getFind(int $id): Collection
     {
-        $resulQuery = new ProductQuery();
-        $query = $resulQuery->productQuery();
-        $query->where('produto.id', $id);
-        return $query->get();
+        return $this->mapToQuery()->where('produto.id', $id)->get();
+    }
+
+    private function mapToQuery(): Builder
+    {
+        return Produto::query()
+        ->join('categoria as c', 'c.id', '=', 'produto.categoria_id')
+        ->select([
+            'produto.id as produtoId',
+            'produto.nome as produto',
+            'produto.preco_custo as custo',
+            'produto.margem_lucro as lucro',
+            'produto.preco_venda as venda',
+            'produto.codigo_barra as codigoBarra',
+            'produto.descricao as descricao',
+            'produto.quantidade as quantidade',
+            'produto.unidade_medida as unidadeMedida',
+            'produto.data_validade as dataValidade',
+            'produto.ativo as ativo',
+            'produto.created_at as criadoEm',
+            'produto.updated_at as alteradoEm',
+            'c.descricao as descricaoCategoria'
+        ]);
     }
 }

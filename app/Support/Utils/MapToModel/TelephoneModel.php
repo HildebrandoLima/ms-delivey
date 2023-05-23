@@ -2,10 +2,8 @@
 
 namespace App\Support\Utils\MapToModel;
 
-use App\Http\Requests\TelephoneRequest;
 use App\Models\Telefone;
 use App\Support\Utils\Cases\TelephoneCase;
-use DateTime;
 
 class TelephoneModel {
     private TelephoneCase $telephoneCase;
@@ -15,7 +13,7 @@ class TelephoneModel {
         $this->telephoneCase = $telephoneCase;
     }
 
-    public function telephoneModel(array $telephones, string $method): Telefone
+    public function telephoneModel(array $telephones): Telefone
     {
         $telephone = new Telefone();
         $telephone->numero = $telephones['numero'];
@@ -23,7 +21,6 @@ class TelephoneModel {
         $telephone->ddd_id = $telephones['dddId'];
         $telephone->usuario_id = isset ($telephones['usuarioId']) ? $telephones['usuarioId'] : 1;
         $telephone->fornecedor_id = isset ($telephones['fornecedorId']) ? $telephones['fornecedorId'] : 1;
-        $method == 'create' ? $telephone->created_at = new DateTime() : $telephone->updated_at = new DateTime();
         return $telephone;
     }
 }

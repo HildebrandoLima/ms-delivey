@@ -12,7 +12,7 @@ class CheckTelephone
         if (Telefone::query()
                 ->where('numero', 'like', $numero)
                 ->count() != 0):
-            throw new HttpBadRequest('O número informado já existe: ', (int)$numero);
+            throw new HttpBadRequest('O número informado já existe.', (int)$numero);
         endif;
     }
 

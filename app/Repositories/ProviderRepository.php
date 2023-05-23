@@ -6,25 +6,20 @@ use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
 use App\Repositories\Interfaces\IProviderRepository;
-use App\Support\Utils\Date\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
-use App\Support\Utils\QueryBuilder\ProviderQuery;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProviderRepository implements IProviderRepository {
     public function insert(Fornecedor $fornecedor): int
     {
-        $resulQuery = new DateFormat();
-        $fornecedor = $resulQuery->dateFormatDefault($fornecedor->toArray());
-        return Fornecedor::query()->insertGetId($fornecedor);
+        return Fornecedor::query()->insertGetId($fornecedor->toArray());
     }
 
     public function update(int $id, Fornecedor $fornecedor): bool
     {
-        $resulQuery = new DateFormat();
-        $fornecedor = $resulQuery->dateFormatDefault($fornecedor->toArray());
-        return Fornecedor::query()->where('id', $id)->update($fornecedor);
+        return Fornecedor::query()->where('id', $id)->update($fornecedor->toArray());
     }
 
     public function delete(int $id): bool
@@ -40,9 +35,8 @@ class ProviderRepository implements IProviderRepository {
 
     public function getAll(Pagination $pagination, string $search): Collection
     {
-        $resulQuery = new ProviderQuery();
-        $query = $resulQuery->providerQuery();
-        $query->orderBy('id');
+        $query = $this->mapToQuery();
+        $query->orderByDesc('id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
         endif;
@@ -52,8 +46,17 @@ class ProviderRepository implements IProviderRepository {
 
     public function getFind(int $id): Collection
     {
-        $resulQuery = new ProviderQuery();
-        $query = $resulQuery->providerQuery();
-        return $query->where('id', $id)->get();
+        return $this->mapToQuery()->where('id', $id)->get();
+    }
+
+    private function mapToQuery(): Builder
+    {
+        return Fornecedor::query()->select([
+            'id as fornecedorId',
+            'nome as nome',
+            'cnpj as cnpj',
+            'created_at as criadoEm',
+            'updated_at as alteradoEm'
+        ]);
     }
 }
