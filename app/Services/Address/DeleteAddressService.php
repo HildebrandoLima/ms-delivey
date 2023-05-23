@@ -3,27 +3,27 @@
 namespace App\Services\Address;
 
 use App\Repositories\AddressRepository;
+use App\Repositories\CheckRegisterRepository;
 use App\Services\Address\Interfaces\IDeleteAddressService;
-use App\Support\Utils\CheckRegister\CheckAddress;
 
 class DeleteAddressService implements IDeleteAddressService
 {
-    private CheckAddress $checkAddress;
+    private CheckRegisterRepository $checkRegisterRepository;
     private AddressRepository $addressRepository;
 
     public function __construct
     (
-        CheckAddress      $checkAddress,
-        AddressRepository $addressRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        AddressRepository       $addressRepository
     )
     {
-        $this->checkAddress      = $checkAddress;
-        $this->addressRepository = $addressRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->addressRepository       = $addressRepository;
     }
 
     public function deleteAddress(int $id): bool
     {
-        $this->checkAddress->checkAddressIdExist($id);
+        $this->checkRegisterRepository->checkAddressIdExist($id);
         return $this->addressRepository->delete($id);
     }
 }

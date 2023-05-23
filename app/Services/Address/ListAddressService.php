@@ -3,23 +3,23 @@
 namespace App\Services\Address;
 
 use App\Repositories\AddressRepository;
+use App\Repositories\CheckRegisterRepository;
 use App\Services\Address\Interfaces\IListAddressService;
-use App\Support\Utils\CheckRegister\CheckUser;
 use Illuminate\Support\Collection;
 
 class ListAddressService implements IListAddressService
 {
-    private CheckUser $checkUser;
+    private CheckRegisterRepository $checkRegisterRepository;
     private AddressRepository $addressRepository;
 
     public function __construct
     (
-        CheckUser         $checkUser,
-        AddressRepository $addressRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        AddressRepository       $addressRepository
     )
     {
-        $this->checkUser         = $checkUser;
-        $this->addressRepository = $addressRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->addressRepository       = $addressRepository;
     }
 
     public function listFederativeUnitAll(): Collection
@@ -29,7 +29,7 @@ class ListAddressService implements IListAddressService
 
     public function listAddressAll(int $id): Collection
     {
-        $this->checkUser->checkUserIdExist($id);
+        $this->checkRegisterRepository->checkUserIdExist($id);
         return $this->addressRepository->getAddressAll($id);
     }
 }
