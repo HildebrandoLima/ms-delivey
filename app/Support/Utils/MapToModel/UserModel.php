@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Support\Utils\Cases\UserCase;
 use App\Support\Utils\Enums\UserEnums;
 use Illuminate\Support\Facades\Hash;
-use DateTime;
 
 class UserModel {
     private UserCase $userCase;
@@ -17,7 +16,7 @@ class UserModel {
         $this->userCase = $userCase;
     }
 
-    public function userModel(UserRequest $request, string $method): User
+    public function userModel(UserRequest $request): User
     {
         $user = new User();
         $user->name = $request->nome;
@@ -27,7 +26,6 @@ class UserModel {
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $this->userCase->genderCase($request->genero);
         $request->ativo == 1 ? $user->ativo = UserEnums::ATIVADO : $user->ativo = UserEnums::DESATIVADO;
-        $method == 'create' ? $user->created_at = new DateTime() : $user->updated_at = new DateTime();
         return $user;
     }
 }

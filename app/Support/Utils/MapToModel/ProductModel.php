@@ -6,7 +6,6 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Produto;
 use App\Support\Utils\Cases\ProductCase;
 use App\Support\Utils\Enums\ProductEnums;
-use DateTime;
 
 class ProductModel {
     private ProductCase $productCase;
@@ -16,7 +15,7 @@ class ProductModel {
         $this->productCase = $productCase;
     }
 
-    public function productModel(ProductRequest $request, string $method): Produto
+    public function productModel(ProductRequest $request): Produto
     {
         $product = new Produto();
         $product->nome = $request->nome;
@@ -31,7 +30,6 @@ class ProductModel {
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
         $request->ativo == 1 ? $product->ativo = ProductEnums::ATIVADO : $product->ativo = ProductEnums::DESATIVADO;
-        $method == 'create' ? $product->created_at = new DateTime() : $product->updated_at = new DateTime();
         return $product;
     }
 }
