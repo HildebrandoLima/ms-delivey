@@ -4,35 +4,35 @@ namespace App\Services\User;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\IEditUserService;
 use App\Support\Utils\Cases\UserCase;
-use App\Support\Utils\CheckRegister\CheckUser;
 use App\Support\Utils\Enums\UserEnums;
 use Illuminate\Support\Facades\Hash;
 
 class EditUserService implements IEditUserService
 {
-    private CheckUser $checkUser;
     private UserCase $userCase;
+    private CheckRegisterRepository $checkRegisterRepository;
     private UserRepository $userRepository;
 
     public function __construct
     (
-        CheckUser      $checkUser,
-        UserCase       $userCase,
-        UserRepository $userRepository
+        UserCase                $userCase,
+        CheckRegisterRepository $checkRegisterRepository,
+        UserRepository          $userRepository
     )
     {
-        $this->checkUser      = $checkUser;
-        $this->userCase       = $userCase;
-        $this->userRepository = $userRepository;
+        $this->userCase                = $userCase;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->userRepository          = $userRepository;
     }
 
     public function editUser(int $id, UserRequest $request): bool
     {
         $this->request = $request;
-        $this->checkUser->checkUserIdExist($id);
+        $this->checkRegisterRepository->checkUserIdExist($id);
         $user = $this->mapToModel($request);
         return $this->userRepository->update($id, $user);
     }

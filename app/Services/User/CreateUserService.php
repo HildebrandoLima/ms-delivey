@@ -5,34 +5,34 @@ namespace App\Services\User;
 use App\Http\Requests\UserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\User;
+use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\ICreateUserService;
 use App\Support\Utils\Cases\UserCase;
-use App\Support\Utils\CheckRegister\CheckUser;
 use App\Support\Utils\Enums\UserEnums;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements ICreateUserService
 {
-    private CheckUser $checkUser;
     private UserCase $userCase;
+    private CheckRegisterRepository $checkRegisterRepository;
     private UserRepository $userRepository;
 
     public function __construct
     (
-        CheckUser      $checkUser,
-        UserCase       $userCase,
-        UserRepository $userRepository
+        UserCase                $userCase,
+        CheckRegisterRepository $checkRegisterRepository,
+        UserRepository          $userRepository
     )
     {
-        $this->checkUser      = $checkUser;
-        $this->userCase       = $userCase;
-        $this->userRepository = $userRepository;
+        $this->userCase                = $userCase;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->userRepository          = $userRepository;
     }
 
     public function createUser(UserRequest $request): int
     {
-        $this->checkUser->checkUserExist($request);
+        $this->checkRegisterRepository->checkUserExist($request);
         $user = $this->mapToModel($request);
         $userId = $this->userRepository->insert($user);
         EmailForRegisterJob::dispatch($request->email);
