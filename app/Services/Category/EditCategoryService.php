@@ -5,28 +5,28 @@ namespace App\Services\Category;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\CategoryRepository;
+use App\Repositories\CheckRegisterRepository;
 use App\Services\Category\Interfaces\IEditCategoryService;
-use App\Support\Utils\CheckRegister\CheckCategory;
 
 class EditCategoryService implements IEditCategoryService
 {
-    private CheckCategory $checkCategory;
+    private CheckRegisterRepository $checkRegisterRepository;
     private CategoryRepository $categoryRepository;
 
     public function __construct
     (
-        CheckCategory      $checkCategory,
-        CategoryRepository $categoryRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        CategoryRepository      $categoryRepository
     )
     {
-        $this->checkCategory      = $checkCategory;
-        $this->categoryRepository = $categoryRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->categoryRepository      = $categoryRepository;
     }
 
     public function editCategory(int $id, CategoryRequest $request): bool
     {
         $this->request = $request;
-        $this->checkCategory->checkCategoryIdExist($id);
+        $this->checkRegisterRepository->checkCategoryIdExist($id);
         $category = $this->mapToModel($request);
         return $this->categoryRepository->update($id, $category);
     }

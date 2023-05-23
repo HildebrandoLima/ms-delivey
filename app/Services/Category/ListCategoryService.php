@@ -3,23 +3,23 @@
 namespace App\Services\Category;
 
 use App\Repositories\CategoryRepository;
+use App\Repositories\CheckRegisterRepository;
 use App\Services\Category\Interfaces\IListCategoryService;
-use App\Support\Utils\CheckRegister\CheckCategory;
 use Illuminate\Support\Collection;
 
 class ListCategoryService implements IListCategoryService
 {
-    private CheckCategory $checkCategory;
+    private CheckRegisterRepository $checkRegisterRepository;
     private CategoryRepository $categoryRepository;
 
     public function __construct
     (
-        CheckCategory      $checkCategory,
-        CategoryRepository $categoryRepository
+        CheckRegisterRepository $checkRegisterRepository,
+        CategoryRepository      $categoryRepository
     )
     {
-        $this->checkCategory      = $checkCategory;
-        $this->categoryRepository = $categoryRepository;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->categoryRepository      = $categoryRepository;
     }
 
     public function listCategoryAll(string $search): Collection
@@ -29,7 +29,7 @@ class ListCategoryService implements IListCategoryService
 
     public function listProviderFind(int $id): Collection
     {
-        $this->checkCategory->checkCategoryIdExist($id);
+        $this->checkRegisterRepository->checkCategoryIdExist($id);
         return $this->categoryRepository->getFind($id);
     }
 }
