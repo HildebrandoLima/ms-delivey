@@ -24,6 +24,10 @@ class ImageRepository implements IImageRepository {
 
     public function getAll(int $id): Collection
     {
-        return Imagem::query()->select(['caminho as path', 'produto_id as produtoId'])->where('produto_id', $id)->get();
+        return Imagem::query()->select([
+            'id as imagemId',
+            'caminho as path',
+            'produto_id as produtoId'
+        ])->where('produto_id', $id)->get();
     }
 }
