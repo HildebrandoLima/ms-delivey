@@ -10,6 +10,5 @@ interface IImageRepository {
     public function insert(Imagem $imagem): bool;
     public function update(int $id, Imagem $imagem): bool;
     public function delete(int $id): bool;
-    public function getAll(Pagination $pagination, string $search): Collection;
-    public function getFind(int $id): Collection;
+    public function getAll(int $id): Collection;
 }

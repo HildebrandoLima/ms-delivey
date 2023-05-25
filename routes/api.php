@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ImagemController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TelephoneController;
@@ -45,11 +45,8 @@ Route::prefix('category')->group(function () {
 
 //  Imagem
 Route::prefix('image')->group(function () {
-    Route::get('/list', [ImagemController::class, 'index'])->name('image.list.all');
-    Route::get('/list/{id}', [ImagemController::class, 'show'])->name('image.list.find');
-    Route::put('/edit/{id}', [ImagemController::class, 'update'])->name('image.edit');
-    Route::post('/save', [ImagemController::class, 'store'])->name('image.save');
-    Route::delete('/remove/{id}', [ImagemController::class, 'destroy'])->name('image.remove');
+    Route::get('/list/{id}', [ImageController::class, 'index'])->name('image.list.all');
+    Route::delete('/remove/{id}', [ImageController::class, 'destroy'])->name('image.remove');
 });
 
 //  Produto

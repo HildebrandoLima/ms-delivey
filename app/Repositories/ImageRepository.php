@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Imagem;
 use App\Repositories\Interfaces\IImageRepository;
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ImageRepository implements IImageRepository {
@@ -23,13 +22,8 @@ class ImageRepository implements IImageRepository {
         return true;
     }
 
-    public function getAll(Pagination $pagination, string $search): Collection
+    public function getAll(int $id): Collection
     {
-        return collect();
-    }
-
-    public function getFind(int $id): Collection
-    {
-        return collect();
+        return Imagem::query()->select(['caminho as path', 'produto_id as produtoId'])->where('produto_id', $id)->get();
     }
 }
