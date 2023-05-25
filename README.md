@@ -522,25 +522,7 @@ Admin<br />
 }
 ```
 </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</details>
 
 ### Produto
 
@@ -624,5 +606,4 @@ Admin<br />
 }
 ```
 
-</details>
 </details>
