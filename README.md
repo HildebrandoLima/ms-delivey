@@ -606,6 +606,7 @@ Admin<br />
 }
 ```
 </details>
+</details>
 
 ### Imagens
 
@@ -641,4 +642,5 @@ Admin<br />
     "details": ""
 }
 ```
+</details>
 </details>
