@@ -605,5 +605,40 @@ Admin<br />
     "details": ""
 }
 ```
+</details>
 
+### Imagens
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA            |
+|------|--------------------------|
+| GET  | /api/image/list/{id}     |
+|------|--------------------------|
+|DELETE| /api/image/remove/{id}   |
+
+### Resposta:
+<details>
+<summary>404 - Not Found</summary>
+
+```
+{
+    "message": "O produto já existe!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
 </details>
