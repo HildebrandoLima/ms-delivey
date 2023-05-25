@@ -65,6 +65,13 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
         endif;
     }
 
+    public function checkImageIdExist(int $id): void
+    {
+        if (Imagem::query()->where('id', $id)->count() == 0):
+            throw new HttpBadRequest('A imagem informada não existe.');
+        endif;
+    }
+
     public function checkProviderExist(ProviderRequest $request): void
     {
         if (Fornecedor::query()

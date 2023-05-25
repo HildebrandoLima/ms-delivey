@@ -19,7 +19,7 @@ class ImageRepository implements IImageRepository {
 
     public function delete(int $id): bool
     {
-        return true;
+        return Imagem::query()->where('id', $id)->delete();
     }
 
     public function getAll(int $id): Collection
