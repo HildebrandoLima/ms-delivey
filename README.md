@@ -35,12 +35,12 @@ Suba a aplicação usando docker:
     <li>CRUD de Fornecedor</li>
     <li>CRUD de Categoria</li>
     <li>CRUD de Produto</li>
+    <li>CRUD de Imagem</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
-    <li>CRUD de Imagem</li>
     <li>CRUD de Item</li>
     <li>CRUD de Pedido</li>
     <li>CRUD de Pagamento</li>
