@@ -46,7 +46,7 @@ Suba a aplicação usando docker:
     <li>CRUD de Pagamento</li>
     <li>Job (Atualização de Estoque)</li>
     <li>Login</li>
-    <li>Validação de dados (CPF, CNPJ e Telefone)</li>
+    <li>Validação de dados (CPF, CNPJ, Placa de Carro, CEP, Telefone e Celular)</li>
 </ul>
 
 ## Método Tradicional
