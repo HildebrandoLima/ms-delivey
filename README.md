@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Testing - TDD, Job (envio de e-mails e atualização de estoque).
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
@@ -46,6 +46,7 @@ Suba a aplicação usando docker:
     <li>CRUD de Pagamento</li>
     <li>Job (Atualização de Estoque)</li>
     <li>Login</li>
+    <li>Validação e Autenticação de dados (CPF, CNPJ e Telefone)</li>
 </ul>
 
 ## Método Tradicional
