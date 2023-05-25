@@ -25,6 +25,7 @@ class ProductRequest extends BaseRequest
             'ativo' => 'required|int',
             'categoriaId' => 'int|exists:categoria,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
+            'imagens' => 'required|array'
         ];
     }
 
@@ -48,6 +49,7 @@ class ProductRequest extends BaseRequest
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'categoriaId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'imagens.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'precoCusto.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
@@ -60,6 +62,7 @@ class ProductRequest extends BaseRequest
             'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'imagens.int' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
         ];
     }
 }

@@ -8,9 +8,9 @@ use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ImageRepository implements IImageRepository {
-    public function insert(Imagem $imagem): int
+    public function insert(Imagem $imagem): bool
     {
-        return true;
+        return Imagem::query()->insert($imagem->toArray());
     }
 
     public function update(int $id, Imagem $imagem): bool

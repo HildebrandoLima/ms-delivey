@@ -12,7 +12,7 @@ class Imagem extends Model
     protected $table = 'imagem';
 
     protected $fillable = [
-        'nome',
+        'caminho',
         'ativo',
         'produto_id',
     ];
