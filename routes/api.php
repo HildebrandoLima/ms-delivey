@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TelephoneController;
 use App\Http\Controllers\UserController;
@@ -44,11 +44,11 @@ Route::prefix('category')->group(function () {
 
 //  Produto
 Route::prefix('product')->group(function () {
-    Route::get('/list', [ProdutoController::class, 'index'])->name('product.list.all');
-    Route::get('/list/{id}', [ProdutoController::class, 'show'])->name('product.list.find');
-    Route::put('/edit/{id}', [ProdutoController::class, 'update'])->name('product.edit');
-    Route::post('/save', [ProdutoController::class, 'store'])->name('product.save');
-    Route::delete('/remove/{id}', [ProdutoController::class, 'destroy'])->name('product.remove');
+    Route::get('/list', [ProductController::class, 'index'])->name('product.list.all');
+    Route::get('/list/{id}', [ProductController::class, 'show'])->name('product.list.find');
+    Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit');
+    Route::post('/save', [ProductController::class, 'store'])->name('product.save');
+    Route::delete('/remove/{id}', [ProductController::class, 'destroy'])->name('product.remove');
 });
 
 // Fornecedor
