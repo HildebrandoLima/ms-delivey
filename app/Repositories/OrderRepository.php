@@ -22,7 +22,7 @@ class OrderRepository implements IOrderRepository {
 
     public function delete(int $id): bool
     {
-        return true;
+        return Pedido::query()->where('id', $id)->delete();
     }
 
     public function getAll(Pagination $pagination, string $search): Collection
