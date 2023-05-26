@@ -14,12 +14,11 @@ class OrderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'numeroPedido' => 'required|int',
             'quantidadeItem' => 'required|int',
             'total' => 'required|between:0,99.99',
-            'entrega' => 'required|string',
+            'entrega' => 'required|between:0,99.99',
             'ativo' => 'required|int',
-            'usuarioId' => 'int|exists:usuario,id',
+            'usuarioId' => 'int|exists:users,id',
         ];
     }
 
@@ -28,17 +27,15 @@ class OrderRequest extends BaseRequest
         return [
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
 
-            'numeroPedido.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'quantidadeItem.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'entrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'numeroPedido.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
-            'entrega.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];

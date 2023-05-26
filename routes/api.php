@@ -52,11 +52,11 @@ Route::prefix('image')->group(function () {
 
 //  Pedido
 Route::prefix('order')->group(function () {
-    Route::get('/list', [CategoryController::class, 'index'])->name('order.list.all');
-    Route::get('/list/{id}', [CategoryController::class, 'show'])->name('order.list.find');
-    Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('order.edit');
-    Route::post('/save', [CategoryController::class, 'store'])->name('order.save');
-    Route::delete('/remove/{id}', [CategoryController::class, 'destroy'])->name('order.remove');
+    Route::get('/list', [OrderController::class, 'index'])->name('order.list.all');
+    Route::get('/list/{id}', [OrderController::class, 'show'])->name('order.list.find');
+    Route::put('/edit/{id}', [OrderController::class, 'update'])->name('order.edit');
+    Route::post('/save', [OrderController::class, 'store'])->name('order.save');
+    Route::delete('/remove/{id}', [OrderController::class, 'destroy'])->name('order.remove');
 });
 
 //  Produto
