@@ -11,6 +11,7 @@ use App\Models\Categoria;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Imagem;
+use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Telefone;
 use App\Models\User;
@@ -40,12 +41,10 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
         endif;
     }
 
-    public function checkImageExist(string $imagem): void
+    public function checkOrderIdExist(string $id): void
     {
-        if (Imagem::query()
-                ->where('nome', 'like', $imagem)
-                ->count() != 0):
-            throw new HttpBadRequest('A imagem informada já existe.');
+        if (Pedido::query()->where('id', $id)->count() == 0):
+            throw new HttpBadRequest('O pedido informado não existe.');
         endif;
     }
 

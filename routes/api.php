@@ -4,8 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TelephoneController;
 use App\Http\Controllers\UserController;
@@ -47,6 +48,15 @@ Route::prefix('category')->group(function () {
 Route::prefix('image')->group(function () {
     Route::get('/list/{id}', [ImageController::class, 'index'])->name('image.list.all');
     Route::delete('/remove/{id}', [ImageController::class, 'destroy'])->name('image.remove');
+});
+
+//  Pedido
+Route::prefix('order')->group(function () {
+    Route::get('/list', [OrderController::class, 'index'])->name('order.list.all');
+    Route::get('/list/{id}', [OrderController::class, 'show'])->name('order.list.find');
+    Route::put('/edit/{id}', [OrderController::class, 'update'])->name('order.edit');
+    Route::post('/save', [OrderController::class, 'store'])->name('order.save');
+    Route::delete('/remove/{id}', [OrderController::class, 'destroy'])->name('order.remove');
 });
 
 //  Produto
