@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('endereco', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->enum('logradouro', ['Rua', 'Av']);
+            $table->enum('logradouro', ['Rua', 'Avenida']);
             $table->string('descricao', 50)->notnull();
             $table->string('bairro', 50)->notnull();
             $table->string('cidade', 50)->notnull();
-            $table->char('cep', 7)->notnull();
+            $table->char('cep', 8)->notnull();
             $table->foreignId('uf_id')->constrained('unidade_federativa')->notnull();
             $table->foreignId('usuario_id')->constrained('users')->nullable(false)->change();
             $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable(false)->change();

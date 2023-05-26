@@ -42,7 +42,7 @@ class CreateTelephoneService implements ICreateTelephoneService
     private function mapToModel(array $telephones): Telefone
     {
         $telephone = new Telefone();
-        $telephone->numero = $telephones['numero'];
+        $telephone->numero = str_replace('-', "", $telephones['numero']);
         $telephone->tipo = $this->telephoneCase->typeCase($telephones['tipo']);
         $telephone->ddd_id = $telephones['dddId'];
         $telephone->usuario_id = isset ($telephones['usuarioId']) ? $telephones['usuarioId'] : 1;

@@ -36,7 +36,7 @@ class EditProviderService implements IEditProviderService
     {
         $provider = new Fornecedor();
         $provider->nome = $request->nome;
-        $provider->cnpj = $request->cnpj;
+        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
         $provider->email = $request->email;
         $provider->data_fundacao = $request->dataFundacao;
         $request->ativo == 1 ? $provider->ativo = UserEnums::ATIVADO : $provider->ativo = UserEnums::DESATIVADO;

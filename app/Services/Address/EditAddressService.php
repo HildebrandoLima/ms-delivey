@@ -42,7 +42,7 @@ class EditAddressService implements IEditAddressService
         $address->descricao = $request->descricao;
         $address->bairro = $request->bairro;
         $address->cidade = $request->cidade;
-        $address->cep = $request->cep;
+        $address->cep = str_replace('-', "", $request->cep);
         $address->uf_id = $request->ufId;
         $address->usuario_id = isset ($request->usuarioId) ? $request->usuarioId : 1;
         $address->fornecedor_id = isset ($request->fornecedorId) ? $request->fornecedorId : 1;

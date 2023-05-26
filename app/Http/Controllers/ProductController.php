@@ -13,7 +13,7 @@ use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\Search;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProdutoController extends Controller
+class ProductController extends Controller
 {
     private CreateProductService $createProductService;
     private DeleteProductService $deleteProductService;

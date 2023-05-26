@@ -15,7 +15,7 @@ class TelephoneRequest extends BaseRequest
     {
         return [
             'telefones' => 'required|array',
-            'telefones.*.numero' => 'required|string',
+            'telefones.*.numero' => 'required|string|min:10|max:10|Celular',
             'telefones.*.tipo' => 'required|string',
             'telefones.*.dddId' => 'required|int|exists:ddd,id',
             'telefones.*.usuarioId' => 'int|exists:users,id',
@@ -29,6 +29,9 @@ class TelephoneRequest extends BaseRequest
             'dddId.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+
+            'numero.min' => DefaultErrorMessages::MIN_CHARACTERS,
+            'numero.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
             'telefones.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
