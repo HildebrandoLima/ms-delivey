@@ -36,17 +36,18 @@ Suba a aplicação usando docker:
     <li>CRUD de Categoria</li>
     <li>CRUD de Produto</li>
     <li>CRUD de Imagem</li>
+    <li>CRUD de Pedido</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
+    <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
     <li>CRUD de Item</li>
-    <li>CRUD de Pedido</li>
     <li>CRUD de Pagamento</li>
     <li>Job (Atualização de Estoque)</li>
+    <li>Job (Ao criar pedido)</li>
     <li>Login</li>
-    <li>Validação de dados (CPF, CNPJ, Placa de Carro, CEP, Telefone e Celular)</li>
 </ul>
 
 ## Método Tradicional
@@ -118,6 +119,21 @@ Certifique-se que as tabelas foram criadas. Abrindo o cliente SQL que você esco
 
 ### [Caso ocorra erro ao executar as migrations, clique aqui!](https://blog.renatolucena.net/post/como-fazer-rollback-de-migration-de-bd-no-laravel)
 
+### E-mail:
+
+### [Crie uma conta na plataforma mailtrap clicando aqui!](https://mailtrap.io/)
+
+> No seu .env adicione da seguinte forma:<br />
+
+> MAIL_MAILER=smtp<br />
+> MAIL_HOST=host<br />
+> MAIL_PORT=2525<br />
+> MAIL_USERNAME=seu_usuario<br />
+> MAIL_PASSWORD=sua_senha<br />
+> MAIL_ENCRYPTION=tls<br />
+> MAIL_FROM_ADDRESS="hello@example.com"<br />
+> MAIL_FROM_NAME="${APP_NAME}"<br />
+
 ### Para iniciar o servidor:
 `php artisan serve`
 Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomnia.
@@ -163,7 +179,7 @@ Admin<br />
 ```
 {
     "nome": "Hill",
-    "cpf": "22350458201",
+    "cpf": "572.561.700-92",
     "email": "test@gmail.com",
     "senha": "Hill@123",
     "dataNascimento": "2023-03-25 18:20:59",
@@ -198,13 +214,13 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request</summary>
 
 ```
 {
     "message": "O usuário já existe!",
-    "data": "false",
-    "status": 404,
+    "data": "",
+    "status": 400,
     "details": ""
 }
 ```
@@ -213,7 +229,7 @@ Admin<br />
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
     "details": ""
 }
 ```
@@ -247,7 +263,7 @@ Admin<br />
     "descricao": "1",
     "bairro": "Messejana",
     "cidade": "Fortaleza",
-    "cep": 1234567,
+    "cep": 1234-567,
     "ufId": 1,
     "usuarioId": 2
 }
@@ -279,13 +295,22 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request/summary>
+
+```
+{
+    "message": "O endereço já existe!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
 
 ```
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
     "details": ""
 }
 ```
@@ -317,13 +342,13 @@ Admin<br />
 {
     "telefones": [
         {
-            "numero": "995069315",
+            "numero": "99506-9315",
             "tipo": "Celular",
             "dddId": 1,
             "usuarioId": 2
         },
         {
-            "numero": "980458709",
+            "numero": "98045-8709",
             "tipo": "Fixo",
             "dddId": 1,
             "usuarioId": 2
@@ -358,13 +383,22 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request</summary>
+    
+```
+{
+    "message": "O telefone já existe!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
 
 ```
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
     "details": ""
 }
 ```
@@ -395,7 +429,7 @@ Admin<br />
 ```
 {
     "nome": "Teste Test",
-    "cnpj": "12394678811",
+    "cnpj": "89.872.593/0001-90",
     "email": "hill@email.com.br",
     "dataFundacao": "2022-12-25 13:28:59",
     "ativo": 1
@@ -428,13 +462,13 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request</summary>
 
 ```
 {
     "message": "O fornecedor já existe!",
-    "data": "false",
-    "status": 404,
+    "data": "",
+    "status": 400,
     "details": ""
 }
 ```
@@ -443,7 +477,7 @@ Admin<br />
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
     "details": ""
 }
 ```
@@ -503,13 +537,13 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request</summary>
 
 ```
 {
     "message": "A categoria já existe!",
-    "data": "false",
-    "status": 404,
+    "data": "",
+    "status": 400,
     "details": ""
 }
 ```
@@ -518,7 +552,7 @@ Admin<br />
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
     "details": ""
 }
 ```
@@ -544,7 +578,25 @@ Admin<br />
 |------|--------------------------|
 |DELETE| /api/product/remove/{id} |
 
-### Exemplo: POST/PUT
+### Exemplo: POST
+```
+{
+    "nome": "TV LED 55' FULLHD",
+    "precoCusto": 2,000.99,
+    "precoVenda": 2,399.95,
+    "codigoBarra": "1234567890123",
+    "descricao": "TV LED 55' FULLHD",
+    "quantidade": 13,
+    "unidadeMedida": "UN",
+    "dataValidade": "2024-12-25 13:28:59",
+    "ativo": 1,
+    "categoriaId": 10,
+    "fornecedorId": 2,
+    "imagens": [files]
+}
+```
+
+### Exemplo: PUT
 ```
 {
     "nome": "TV LED 55' FULLHD",
@@ -587,13 +639,13 @@ Admin<br />
 </details>
 
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request</summary>
 
 ```
 {
     "message": "O produto já existe!",
-    "data": "false",
-    "status": 404,
+    "data": "",
+    "status": 400,
     "details": ""
 }
 ```
@@ -602,7 +654,7 @@ Admin<br />
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
     "details": ""
 }
 ```
@@ -624,13 +676,13 @@ Admin<br />
 
 ### Resposta:
 <details>
-<summary>404 - Not Found</summary>
+<summary>400 - Bad Request</summary>
 
 ```
 {
     "message": "O produto já existe!",
-    "data": "false",
-    "status": 404,
+    "data": "",
+    "status": 400,
     "details": ""
 }
 ```
@@ -639,7 +691,74 @@ Admin<br />
 {
     "message": "Error ao efetuar ação!",
     "data": "false",
-    "status": 404,
+    "status": 400,
+    "details": ""
+}
+```
+</details>
+</details>
+
+### Pedido
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA            |
+|------|--------------------------|
+| GET  | /api/order/list/         |
+|------|--------------------------|
+| GET  | /api/order/list/{id}     |
+|------|--------------------------|
+| GET  | /api/order/save          |
+|------|--------------------------|
+|DELETE| /api/order/remove/{id}   |
+
+### Exemplo: POST
+```
+{
+    "quantidadeItem": 4,
+    "total": 102.99,
+    "entrega": 13.40,
+    "ativo": 1,
+    "usuarioId": 3
+}
+```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>400 - Bad Request</summary>
+
+```
+{
+    "message": "O produto já existe!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 400,
     "details": ""
 }
 ```
