@@ -15,9 +15,9 @@ class ProviderRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string',
-            'cnpj' => 'required|string',
-            'email' => 'required|string',
-            'dataFundacao' => 'required|string',
+            'cnpj' => 'required|string|cnpj',
+            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
+            'dataFundacao' => 'required|date',
         ];
     }
 
@@ -32,7 +32,8 @@ class ProviderRequest extends BaseRequest
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'dataFundacao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'email' => DefaultErrorMessages::INVALID_EMAIL,
+            'dataFundacao.date' => DefaultErrorMessages::INVALID_DATE,
         ];
     }
 }

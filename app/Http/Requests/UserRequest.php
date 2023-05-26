@@ -15,8 +15,8 @@ class UserRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string',
-            'cpf' => 'required|string',
-            'email' => 'required|string',
+            'cpf' => 'required|string|cpf',
+            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string',
@@ -38,6 +38,7 @@ class UserRequest extends BaseRequest
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'email' => DefaultErrorMessages::INVALID_EMAIL,
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dataNascimento.date' => DefaultErrorMessages::INVALID_DATE,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

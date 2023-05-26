@@ -43,7 +43,7 @@ class CreateUserService implements ICreateUserService
     {
         $user = new User();
         $user->name = $request->nome;
-        $user->cpf = $request->cpf;
+        $user->cpf = str_replace(array('.','-','/'), "", $request->cpf);
         $user->email = $request->email;
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
