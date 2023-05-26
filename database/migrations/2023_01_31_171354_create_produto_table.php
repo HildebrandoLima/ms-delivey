@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('descricao', 100)->notnull();
             $table->integer('quantidade')->notnull();
             $table->enum('unidade_medida', ['UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX']);
-            $table->boolean('ativo');
             $table->timestamp('data_validade')->notnull();
+            $table->boolean('ativo');
             $table->foreignId('fornecedor_id')->constrained('fornecedor')->notnull();
             $table->foreignId('categoria_id')->constrained('categoria')->notnull();
             $table->timestamps();
