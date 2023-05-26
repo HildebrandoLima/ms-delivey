@@ -24,7 +24,7 @@ class ProductRequest extends BaseRequest
             'dataValidade' => 'required|date',
             'ativo' => 'required|int',
             'categoriaId' => 'int|exists:categoria,id',
-            'fornecedorId' => 'int|exists:fornecedor,id',
+            'fornecedorId' => 'int|exists:fornecedor,id'
         ];
     }
 

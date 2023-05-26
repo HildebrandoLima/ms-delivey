@@ -10,6 +10,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Categoria;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
+use App\Models\Imagem;
 use App\Models\Produto;
 use App\Models\Telefone;
 use App\Models\User;
@@ -39,6 +40,15 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
         endif;
     }
 
+    public function checkImageExist(string $imagem): void
+    {
+        if (Imagem::query()
+                ->where('nome', 'like', $imagem)
+                ->count() != 0):
+            throw new HttpBadRequest('A imagem informada já existe.');
+        endif;
+    }
+
     public function checkProductExist(ProductRequest $request): void
     {
         if (Produto::query()->where('nome', 'like', $request->nome)
@@ -52,6 +62,13 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
     {
         if (Produto::query()->where('id', $id)->count() == 0):
             throw new HttpBadRequest('O produto informado não existe.');
+        endif;
+    }
+
+    public function checkImageIdExist(int $id): void
+    {
+        if (Imagem::query()->where('id', $id)->count() == 0):
+            throw new HttpBadRequest('A imagem informada não existe.');
         endif;
     }
 

@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Upload Multiplo de Imagens, Testing - TDD, Job (envio de e-mails e atualização de estoque).
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
@@ -35,17 +35,18 @@ Suba a aplicação usando docker:
     <li>CRUD de Fornecedor</li>
     <li>CRUD de Categoria</li>
     <li>CRUD de Produto</li>
+    <li>CRUD de Imagem</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
-    <li>CRUD de Imagem</li>
     <li>CRUD de Item</li>
     <li>CRUD de Pedido</li>
     <li>CRUD de Pagamento</li>
     <li>Job (Atualização de Estoque)</li>
     <li>Login</li>
+    <li>Validação de dados (CPF, CNPJ, Placa de Carro, CEP, Telefone e Celular)</li>
 </ul>
 
 ## Método Tradicional
@@ -522,25 +523,7 @@ Admin<br />
 }
 ```
 </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</details>
 
 ### Produto
 
@@ -623,6 +606,42 @@ Admin<br />
     "details": ""
 }
 ```
+</details>
+</details>
 
+### Imagens
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA            |
+|------|--------------------------|
+| GET  | /api/image/list/{id}     |
+|------|--------------------------|
+|DELETE| /api/image/remove/{id}   |
+
+### Resposta:
+<details>
+<summary>404 - Not Found</summary>
+
+```
+{
+    "message": "O produto já existe!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 404,
+    "details": ""
+}
+```
 </details>
 </details>

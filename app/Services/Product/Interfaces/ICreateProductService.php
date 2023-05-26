@@ -6,5 +6,5 @@ use App\Http\Requests\ProductRequest;
 
 interface ICreateProductService
 {
-    public function createProduct(ProductRequest $request): int;
+    public function createProduct(ProductRequest $request): bool;
 }
