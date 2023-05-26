@@ -154,6 +154,7 @@ Admin<br />
     <li>Todos os parâmetros 'id' são enviados em base64, e o back-end se responsabiliza em decodificar.</li>
     <li>Nos body, é preciso identificar quem se referencia o endereço ou telefone. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
     <li>Como as chaves estrangeiras são obrigatórias, por padrão, vem um usuário e um fornecedor já cadastrados, como inativos. E seus valores são enviados automaticamente pelo back-end, caso o mesmo não for referenciado.</li>
+    <li>Futuramente, será aplicado uma nova regra para não deletar dados, mas sim desativá-los, e ativá-los, quando necessário.</li>
 </ul>
 
 ### Usuário
@@ -674,6 +675,8 @@ Admin<br />
 |------|--------------------------|
 |DELETE| /api/image/remove/{id}   |
 
+O cadastro de imagem, é realizado ao cadastrar op produto. Atualmente, não se pode alterar a imagem.
+
 ### Resposta:
 <details>
 <summary>400 - Bad Request</summary>
@@ -725,6 +728,8 @@ Admin<br />
     "usuarioId": 3
 }
 ```
+
+Não é permitido alterar os dados do pedido.
 
 ### Resposta:
 
