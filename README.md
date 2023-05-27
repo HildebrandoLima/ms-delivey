@@ -2,7 +2,7 @@
 
 Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
-### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clique aqui!](https://www.4devs.com.br/)
+### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
@@ -40,6 +40,7 @@ Suba a aplicação usando docker:
     <li>CRUD de Imagem</li>
     <li>CRUD de Pedido</li>
     <li>CRUD de Item</li>
+    <li>CRUD de Pagamento</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
     <li>Job (Disparo de e-mail ao criar pedido)</li>
     <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
@@ -47,7 +48,6 @@ Suba a aplicação usando docker:
 
 ### Funcionalidades (A desenvolver)
 <ul>
-    <li>CRUD de Pagamento</li>
     <li>Job (Atualização de Estoque)</li>
     <li>Login</li>
 </ul>
@@ -103,6 +103,10 @@ Para criar os registros de ddd e uf:
 
 ```
     php artisan db:seed --class=UnidadeFederativaSeeder
+```
+
+```
+    php artisan db:seed --class=MetodoPagamentoSeeder
 ```
 
 ```
@@ -818,6 +822,54 @@ O cadastro do item, é feito ao regisrar pedido.
     "details": ""
 }
 ```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+</details>
+</details>
+
+    
+    
+    
+    
+    
+    
+### Pagamento
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO |          ROTA            |
+|-------|--------------------------|
+| POST  | /api/payment/save        |
+
+Até o momento, só faz o registro do pagamento. A listagem vem junto com o pedido.
+
+### Exemplo: POST
+```
+{
+    "numeroCartao": 3433068434086543,
+    "dataValidade": "2023-05-16 13:44:18",
+    "parcela": 0,
+    "total": 20.99,
+    "ativo": 1,
+    "metodoPagamentoId": 1,
+    "pedidoId": 25
+}
+```
+
+### Resposta:
+
+<details>
+<summary>400 - Bad Request</summary>
 
 ```
 {
