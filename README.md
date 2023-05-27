@@ -37,16 +37,16 @@ Suba a aplicação usando docker:
     <li>CRUD de Produto</li>
     <li>CRUD de Imagem</li>
     <li>CRUD de Pedido</li>
+    <li>CRUD de Item</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
+    <li>Job (Disparo de e-mail ao criar pedido)</li>
     <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
-    <li>CRUD de Item</li>
     <li>CRUD de Pagamento</li>
     <li>Job (Atualização de Estoque)</li>
-    <li>Job (Ao criar pedido)</li>
     <li>Login</li>
 </ul>
 
@@ -520,7 +520,7 @@ Admin<br />
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": 1,
+    "data": "true",
     "status": 200,
     "details": ""
 }
@@ -622,7 +622,7 @@ Admin<br />
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "data": "true",
     "status": 200,
     "details": ""
 }
@@ -675,7 +675,7 @@ Admin<br />
 |------|--------------------------|
 |DELETE| /api/image/remove/{id}   |
 
-O cadastro de imagem, é realizado ao cadastrar op produto. Atualmente, não se pode alterar a imagem.
+O cadastro de imagem, é realizado ao registrar o produto. Atualmente, não se pode alterar a(s) imagem(ns).
 
 ### Resposta:
 <details>
@@ -725,7 +725,27 @@ O cadastro de imagem, é realizado ao cadastrar op produto. Atualmente, não se 
     "total": 102.99,
     "entrega": 13.40,
     "ativo": 1,
-    "usuarioId": 3
+    "usuarioId": 3,
+    "items": [
+        {
+            "nome": "Batata Pringles Original 114g",
+            "preco": 14.85,
+            "codigoBarra": "1324618322141",
+            "quantidadeItem": 1,
+            "subTotal": 14.85,
+            "unidadeMedida": "UN",
+            "produtoId": 32
+        },
+        {
+            "nome": "Batata Palha Yoki 105G",
+            "preco": 6.59,
+            "codigoBarra": "1324618321141",
+            "quantidadeItem": 2,
+            "subTotal": 13.18,
+            "unidadeMedida": "UN",
+            "produtoId": 33
+        }
+    ]
 }
 ```
 
@@ -753,6 +773,44 @@ Não é permitido alterar os dados do pedido.
 ```
 {
     "message": "O produto já existe!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+</details>
+</details>
+
+### Item
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA            |
+|------|--------------------------|
+| GET  | /api/item/list/{id}      |
+
+O cadastro do item, é feito ao regisrar pedido.
+
+### Resposta:
+
+<details>
+<summary>400 - Bad Request</summary>
+
+```
+{
+    "message": "O item não existe!",
     "data": "",
     "status": 400,
     "details": ""
