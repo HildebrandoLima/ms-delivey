@@ -6,5 +6,5 @@ use App\Http\Requests\OrderRequest;
 
 interface ICreateOrderService
 {
-    public function createOrder(OrderRequest $request): int;
+    public function createOrder(OrderRequest $request): bool;
 }

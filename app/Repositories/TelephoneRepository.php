@@ -20,7 +20,13 @@ class TelephoneRepository implements ITelephoneRepository {
 
     public function delete(int $id): bool
     {
-        return Telefone::query()->where('id', $id)->delete();
+        return Telefone::query()->where('id', $id)
+        ->orWhere(function ($query) use ($id) {
+            $query->where('usuario_id', $id)
+                ->orWhere(function ($query) use ($id) {
+                    $query->where('fornecedor_id', $id);
+                });
+        })->delete();
     }
 
     public function getDDDAll(): Collection

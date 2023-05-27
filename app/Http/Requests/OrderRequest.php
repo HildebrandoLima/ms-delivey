@@ -14,11 +14,19 @@ class OrderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'quantidadeItem' => 'required|int',
+            'totalItems' => 'required|int',
             'total' => 'required|between:0,99.99',
             'entrega' => 'required|between:0,99.99',
             'ativo' => 'required|int',
             'usuarioId' => 'int|exists:users,id',
+            'items' => 'required|array',
+            'items.*.nome' => 'required|string',
+            'items.*.preco' => 'required|between:0,99.99',
+            'items.*.codigoBarra' => 'required|string|max:13|min:13',
+            'items.*.quantidadeItem' => 'required|int',
+            'items.*.subTotal' => 'required|between:0,99.99',
+            'items.*.unidadeMedida' => 'required|string',
+            'items.*.produtoId' => 'required|int|exists:produto,id'
         ];
     }
 
@@ -26,18 +34,40 @@ class OrderRequest extends BaseRequest
     {
         return [
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'produtoId.exists' => DefaultErrorMessages::NOT_FOUND,
 
-            'quantidadeItem.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'totalItems.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'entrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
+            'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
+
+            'items.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'preco.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'codigoBarra.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'quantidadeItem.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'subTotal.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'unidadeMedida.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'produtoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+
+            'totalItems.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+
+            'items.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'preco.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
+            'codigoBarra.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'subTotal.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
+            'unidadeMedida.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'produtoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

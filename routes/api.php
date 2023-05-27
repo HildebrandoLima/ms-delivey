@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
@@ -48,6 +49,11 @@ Route::prefix('category')->group(function () {
 Route::prefix('image')->group(function () {
     Route::get('/list/{id}', [ImageController::class, 'index'])->name('image.list.all');
     Route::delete('/remove/{id}', [ImageController::class, 'destroy'])->name('image.remove');
+});
+
+//  Item
+Route::prefix('item')->group(function () {
+    Route::get('/list/{id}', [ItemController::class, 'index'])->name('item.list.all');
 });
 
 //  Pedido

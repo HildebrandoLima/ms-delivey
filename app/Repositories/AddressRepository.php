@@ -20,7 +20,13 @@ class AddressRepository implements IAddressRepository {
 
     public function delete(int $id): bool
     {
-        return Endereco::query()->where('id', $id)->delete();
+        return Endereco::query()->where('id', $id)
+        ->orWhere(function ($query) use ($id) {
+            $query->where('usuario_id', $id)
+                ->orWhere(function ($query) use ($id) {
+                    $query->where('fornecedor_id', $id);
+                });
+        })->delete();
     }
 
     public function getFederativeUnitAll(): Collection
