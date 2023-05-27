@@ -2,6 +2,8 @@
 
 Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD, Job (envio de e-mails e atualização de estoque).
 
+### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clique aqui!](https://www.4devs.com.br/)
+
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
 - MySQL para banco de dados.<br/>
