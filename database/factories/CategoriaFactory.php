@@ -17,7 +17,7 @@ class CategoriaFactory extends Factory
     public function definition()
     {
         return [
-            'descricao' => $this->faker->name
+            'descricao' => $this->faker->word
         ];
     }
 }

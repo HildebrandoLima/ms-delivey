@@ -22,7 +22,7 @@ class FornecedorFactory extends Factory
             'cnpj' => Str::random(14),
             'email' => $this->faker->email,
             'ativo' => rand(0, 1),
-            'data_fundacao' => $this->faker->dateTime(),
+            'data_fundacao' => $this->faker->dateTime,
         ];
     }
 }
