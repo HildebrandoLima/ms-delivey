@@ -31,9 +31,9 @@ class DeleteUserService implements IDeleteUserService
 
     public function deleteUser(int $id): bool
     {
+        $this->checkRegisterRepository->checkUserIdExist($id);
         $this->checkRegisterRepository->checkAddressIdExist($id);
         $this->checkRegisterRepository->checkTelephoneIdExist($id);
-        $this->checkRegisterRepository->checkUserIdExist($id);
         if
         (
             $this->addressRepository->delete($id)

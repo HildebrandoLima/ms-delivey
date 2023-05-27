@@ -24,13 +24,7 @@ class ProviderRepository implements IProviderRepository {
 
     public function delete(int $id): bool
     {
-        $provider = Fornecedor::query()->where('id', $id)->delete();
-        $address = Endereco::query()->where('fornecedor_id', $id)->delete();
-        $telephone = Telefone::query()->where('fornecedor_id', $id)->delete();
-        if (!$provider and !$address and !$telephone):
-            return false;
-        endif;
-        return true;
+        return Fornecedor::query()->where('id', $id)->delete();
     }
 
     public function getAll(Pagination $pagination, string $search): Collection
