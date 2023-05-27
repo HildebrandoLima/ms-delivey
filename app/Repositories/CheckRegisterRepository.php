@@ -41,7 +41,7 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
         endif;
     }
 
-    public function checkOrderIdExist(string $id): void
+    public function checkOrderIdExist(int $id): void
     {
         if (Pedido::query()->where('id', $id)->count() == 0):
             throw new HttpBadRequest('O pedido informado não existe.');
