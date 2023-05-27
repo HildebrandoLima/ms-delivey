@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TelephoneController;
@@ -63,6 +64,11 @@ Route::prefix('order')->group(function () {
     Route::put('/edit/{id}', [OrderController::class, 'update'])->name('order.edit');
     Route::post('/save', [OrderController::class, 'store'])->name('order.save');
     Route::delete('/remove/{id}', [OrderController::class, 'destroy'])->name('order.remove');
+});
+
+//  Pagamento
+Route::prefix('payment')->group(function () {
+    Route::post('/save', [PaymentController::class, 'store'])->name('payment.save');
 });
 
 //  Produto

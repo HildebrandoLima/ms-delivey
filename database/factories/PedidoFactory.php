@@ -18,12 +18,12 @@ class PedidoFactory extends Factory
     public function definition()
     {
         return [
-            'numeroPedido' => rand(9, 9),
-            'quantidadeItem' => rand(10, 10),
+            'numero_pedido' => random_int(100000000, 999999999),
+            'quantidade_item' => rand(10, 10),
             'total' => 50.99,
             'entrega' => 4.5,
-            'ativo' => rand(0, 1),
-            'usuarioId' => User::factory()->createOne()->id,
+            'ativo' => true,
+            'usuario_id' => User::factory()->createOne()->id,
         ];
     }
 }

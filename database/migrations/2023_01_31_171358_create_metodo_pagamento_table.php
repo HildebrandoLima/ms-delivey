@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('metodo_pagamento', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('descricao', 20)->unique()->notnull();
+            $table->string('pagamento', 25)->unique()->notnull();
         });
     }
 

@@ -28,30 +28,37 @@ class OrderRepository implements IOrderRepository {
     public function getAll(Pagination $pagination, string $search): Collection
     {
         $query = $this->mapToQuery();
-        $query->orderByDesc('id');
+        $query->orderByDesc('pedido.id');
         if (isset ($pagination->page) && isset ($pagination->perPage)):
             return PaginationList::createFromPagination($query, $pagination);
         endif;
-        return $query->where('numero_pedido', 'like', $search)->get();
+        return $query->where('pedido.numero_pedido', 'like', $search)->get();
     }
 
     public function getFind(int $id): Collection
     {
-        return $this->mapToQuery()->where('id', $id)->get();
+        return $this->mapToQuery()->where('pedido.id', $id)->get();
     }
 
     private function mapToQuery(): Builder
     {
-        return Pedido::query()->select([
-            'id as pedidoId',
-            'numero_pedido as numeroPedido',
-            'quantidade_item as quantidadeItem',
-            'total as total',
-            'entrega as entrega',
-            'ativo as ativo',
-            'usuario_id as usuarioId',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
+        return Pedido::query()
+        ->leftJoin('pagamento as p', 'p.pedido_id', '=', 'pedido.id')
+        ->leftJoin('metodo_pagamento as mp', 'mp.id', '=', 'p.metodo_pagamento_id')
+        ->select([
+            'pedido.id as pedidoId',
+            'pedido.numero_pedido as numeroPedido',
+            'pedido.quantidade_item as quantidadeItem',
+            'pedido.total as total',
+            'pedido.entrega as entrega',
+            'pedido.ativo as ativo',
+            'pedido.usuario_id as usuarioId',
+            'pedido.created_at as criadoEm',
+            'pedido.updated_at as alteradoEm',
+            'p.codigo_transacao as codigoTransacao',
+            'p.numero_cartao as numeroCartao',
+            'p.data_validade as dataValidade',
+            'p.parcela as parcela'
         ]);
     }
 }

@@ -24,9 +24,9 @@ class UserFactory extends Factory
             'cpf' => Str::random(11),
             'email' => $this->faker->email,
             'password' => Hash::make($this->faker->password),
-            'data_nascimento' => $this->faker->dateTime(),
+            'data_nascimento' => $this->faker->dateTime,
             'genero' => array_rand($genero),
-            'ativo' => rand(0, 1)
+            'ativo' => true
         ];
     }
 
