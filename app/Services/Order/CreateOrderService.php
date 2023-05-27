@@ -26,7 +26,7 @@ class CreateOrderService implements ICreateOrderService
         $this->itemRepository  = $itemRepository;
     }
 
-    public function createOrder(OrderRequest $request): bool
+    public function createOrder(OrderRequest $request): int
     {
         $order = $this->mapToModelOrder($request);
         $orderId = $this->orderRepository->insert($order);
@@ -35,7 +35,7 @@ class CreateOrderService implements ICreateOrderService
             $this->itemRepository->insert($items);
         endforeach;
         EmailCreateOrderJob::dispatch($order->toArray(), $request->items);
-        return true;
+        return $orderId;
     }
 
     private function mapToModelOrder(OrderRequest $request): Pedido
