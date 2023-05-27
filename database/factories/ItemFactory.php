@@ -27,7 +27,7 @@ class ItemFactory extends Factory
             'quantidade_item' => rand(1, 3),
             'sub_total' => 20.5,
             'unidade_medida' => array_rand($unidadeMedida),
-            'ativo' => rand(0, 1),
+            'ativo' => true,
             'pedido_id' => Pedido::factory()->createOne()->id,
             'produto_id' => Produto::factory()->createOne()->id
         ];

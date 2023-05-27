@@ -68,7 +68,6 @@ Route::prefix('order')->group(function () {
 
 //  Pagamento
 Route::prefix('payment')->group(function () {
-    Route::get('/list/{id}', [PaymentController::class, 'show'])->name('payment.list.find');
     Route::post('/save', [PaymentController::class, 'store'])->name('payment.save');
 });
 

@@ -14,7 +14,7 @@ class Pagamento extends Model
     protected $fillable = [
         'codigo_transacao',
         'numero_cartao',
-        'data_credito',
+        'data_validade',
         'parcela',
         'total',
         'ativo',

@@ -20,7 +20,7 @@ class ImagemFactory extends Factory
     {
         return [
             'nome' => Str::random(45),
-            'ativo' => rand(0, 1),
+            'ativo' => true,
             'produto_id' => Produto::factory()->createOne()->id,
         ];
     }

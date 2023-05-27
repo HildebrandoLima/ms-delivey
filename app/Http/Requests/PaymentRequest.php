@@ -14,8 +14,8 @@ class PaymentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'numeroCartao' => 'int|min:13|max:13',
-            'dataValidade' => 'date',
+            'numeroCartao' => '',
+            'dataValidade' => '',
             'parcela' => 'int',
             'total' => 'between:0,99.99',
             'ativo' => 'required|int',

@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class PaymentRepository implements IPaymentRepository {
     public function insert(Pagamento $pagamento): bool
     {
-        return true;
+        return Pagamento::query()->insert($pagamento->toArray());
     }
 
     public function update(int $id, Pagamento $pagamento): bool

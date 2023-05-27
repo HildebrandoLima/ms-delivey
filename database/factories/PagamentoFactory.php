@@ -21,12 +21,12 @@ class PagamentoFactory extends Factory
     {
         return [
             'codigo_transacao' => rand(1, 10),
-            'numero_cartao' => Str::random(),
+            'numero_cartao' => rand(1000000000000000, 9999999999999999),
             'data_validade' => $this->faker->dateTime,
             'parcela' => rand(1, 3),
             'total' => 20.0,
-            'ativo' => rand(0, 1),
-            'metodo_pagamento_id' => MetodoPagamento::factory()->createOne()->id,
+            'ativo' => true,
+            'metodo_pagamento_id' => rand(1, 6),
             'pedido_id' => Pedido::factory()->createOne()->id,
         ];
     }
