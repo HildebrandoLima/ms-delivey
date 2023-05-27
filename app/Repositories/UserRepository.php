@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Endereco;
-use App\Models\Telefone;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
 use App\Support\Utils\Pagination\Pagination;
@@ -24,13 +22,7 @@ class UserRepository implements IUserRepository {
 
     public function delete(int $id): bool
     {
-        $user = User::query()->where('id', $id)->delete();
-        $address = Endereco::query()->where('usuario_id', $id)->delete();
-        $telephone = Telefone::query()->where('usuario_id', $id)->delete();
-        if(!$user and !$address and !$telephone):
-            return false;
-        endif;
-        return true;
+        return User::query()->where('id', $id)->delete();
     }
 
     public function getAll(Pagination $pagination, string $search): Collection

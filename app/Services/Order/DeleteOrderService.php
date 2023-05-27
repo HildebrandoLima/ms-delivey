@@ -8,22 +8,26 @@ use App\Services\Order\Interfaces\IDeleteOrderService;
 
 class DeleteOrderService implements IDeleteOrderService
 {
-    private OrderRepository $orderRepository;
     private ItemRepository $itemRepository;
+    private OrderRepository $orderRepository;
 
     public function __construct
     (
-        OrderRepository $orderRepository,
-        ItemRepository $itemRepository
+        ItemRepository $itemRepository,
+        OrderRepository $orderRepository
     )
     {
-        $this->orderRepository = $orderRepository;
         $this->itemRepository  = $itemRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function deleteOrder(int $id): bool
     {
-        if ($this->orderRepository->delete($id) and $this->itemRepository->delete($id)):
+        if
+        (
+            $this->itemRepository->delete($id)
+            and $this->orderRepository->delete($id)
+        ):
             return true;
         else:
             return false;

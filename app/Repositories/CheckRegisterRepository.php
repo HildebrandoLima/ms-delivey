@@ -20,7 +20,7 @@ use App\Repositories\Interfaces\ICheckRegisterRepository;
 class CheckRegisterRepository implements ICheckRegisterRepository {
     public function checkAddressIdExist(int $id): void
     {
-        if (Endereco::query()->where('id', $id)->count() == 0):
+        if (Endereco::query()->where('id', $id)->orWhere('usuario_id', $id)->count() == 0):
             throw new HttpBadRequest('O código do endereço informado não existe.');
         endif;
     }
@@ -104,7 +104,7 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
 
     public function checkTelephoneIdExist(int $id): void
     {
-        if (Telefone::query()->where('id', $id)->count() == 0):
+        if (Telefone::query()->where('id', $id)->orWhere('usuario_id', $id)->count() == 0):
             throw new HttpBadRequest('O código de telefone informado não existe.');
         endif;
     }
