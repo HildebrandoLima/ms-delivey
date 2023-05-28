@@ -15,6 +15,7 @@ class CategoryRequest extends BaseRequest
     {
         return [
             'descricao' => 'required|string',
+            'ativo' => 'required|int'
         ];
     }
 
@@ -22,7 +23,9 @@ class CategoryRequest extends BaseRequest
     {
         return [
             'descricao.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

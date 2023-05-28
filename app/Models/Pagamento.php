@@ -17,9 +17,9 @@ class Pagamento extends Model
         'data_validade',
         'parcela',
         'total',
-        'ativo',
         'metodo_pagamento_id',
         'pedido_id',
+        'ativo',
     ];
 
     protected $casts = [

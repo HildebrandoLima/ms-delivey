@@ -17,8 +17,8 @@ class OrderRequest extends BaseRequest
             'totalItems' => 'required|int',
             'total' => 'required|between:0,99.99',
             'entrega' => 'required|between:0,99.99',
-            'ativo' => 'required|int',
             'usuarioId' => 'int|exists:users,id',
+            'ativo' => 'required|int',
             'items' => 'required|array',
             'items.*.nome' => 'required|string',
             'items.*.preco' => 'required|between:0,99.99',
@@ -26,7 +26,8 @@ class OrderRequest extends BaseRequest
             'items.*.quantidadeItem' => 'required|int',
             'items.*.subTotal' => 'required|between:0,99.99',
             'items.*.unidadeMedida' => 'required|string',
-            'items.*.produtoId' => 'required|int|exists:produto,id'
+            'items.*.produtoId' => 'required|int|exists:produto,id',
+            'items.*.ativo' => 'required|int',
         ];
     }
 
@@ -39,8 +40,8 @@ class OrderRequest extends BaseRequest
             'totalItems.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'entrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
@@ -57,8 +58,8 @@ class OrderRequest extends BaseRequest
             'totalItems.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
 
             'items.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

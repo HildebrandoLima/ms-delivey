@@ -15,8 +15,8 @@ class Fornecedor extends Model
         'nome',
         'cnpj',
         'email',
-        'ativo',
         'data_fundacao',
+        'ativo',
     ];
 
     protected $casts = [

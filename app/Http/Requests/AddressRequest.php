@@ -22,6 +22,7 @@ class AddressRequest extends BaseRequest
             'ufId' => 'required|int|exists:unidade_federativa,id',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
+            'ativo' => 'required|int',
         ];
     }
 
@@ -38,6 +39,7 @@ class AddressRequest extends BaseRequest
             'cidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ufId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -47,6 +49,7 @@ class AddressRequest extends BaseRequest
             'ufId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

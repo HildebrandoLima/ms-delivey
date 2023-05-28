@@ -13,6 +13,7 @@ class Categoria extends Model
 
     protected $fillable = [
         'descricao',
+        'ativo',
     ];
 
     protected $casts = [

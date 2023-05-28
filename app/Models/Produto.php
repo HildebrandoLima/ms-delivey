@@ -20,10 +20,10 @@ class Produto extends Model
         'descricao',
         'quantidade',
         'unidade_medida',
-        'ativo',
         'data_validade',
         'categoria_id',
         'fornecedor_id',
+        'ativo',
     ];
 
     protected $casts = [

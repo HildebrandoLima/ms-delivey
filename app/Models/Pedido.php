@@ -16,8 +16,8 @@ class Pedido extends Model
         'quantidade_item',
         'total',
         'entrega',
+        'usuario_id',
         'ativo',
-        'usuario_id'
     ];
 
     protected $casts = [

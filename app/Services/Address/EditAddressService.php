@@ -8,6 +8,7 @@ use App\Repositories\AddressRepository;
 use App\Repositories\CheckRegisterRepository;
 use App\Services\Address\Interfaces\IEditAddressService;
 use App\Support\Utils\Cases\AddressCase;
+use App\Support\Utils\Enums\AddressEnum;
 
 class EditAddressService implements IEditAddressService
 {
@@ -46,6 +47,7 @@ class EditAddressService implements IEditAddressService
         $address->uf_id = $request->ufId;
         $address->usuario_id = isset ($request->usuarioId) ? $request->usuarioId : 1;
         $address->fornecedor_id = isset ($request->fornecedorId) ? $request->fornecedorId : 1;
+        $request->ativo == 1 ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
         return $address;
     }
 }

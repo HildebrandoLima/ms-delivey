@@ -20,6 +20,7 @@ class TelephoneRequest extends BaseRequest
             'telefones.*.dddId' => 'required|int|exists:ddd,id',
             'telefones.*.usuarioId' => 'int|exists:users,id',
             'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
+            'telefones.*.ativo' => 'required|int',
         ];
     }
 
@@ -37,6 +38,7 @@ class TelephoneRequest extends BaseRequest
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'telefones.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -44,6 +46,7 @@ class TelephoneRequest extends BaseRequest
             'dddId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

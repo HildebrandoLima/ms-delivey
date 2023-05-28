@@ -17,6 +17,7 @@ class Telefone extends Model
         'ddd_id',
         'usuario_id',
         'fornecedor_id',
+        'ativo',
     ];
 
     protected $casts = [

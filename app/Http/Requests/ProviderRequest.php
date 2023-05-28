@@ -18,6 +18,7 @@ class ProviderRequest extends BaseRequest
             'cnpj' => 'required|string|cnpj',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'dataFundacao' => 'required|date',
+            'ativo' => 'required|int'
         ];
     }
 
@@ -28,12 +29,14 @@ class ProviderRequest extends BaseRequest
             'cnpj.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataFundacao.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'dataFundacao.date' => DefaultErrorMessages::INVALID_DATE,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }
