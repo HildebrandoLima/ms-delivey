@@ -2,6 +2,7 @@
 
 namespace App\Services\Product;
 
+use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\ProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
@@ -10,6 +11,7 @@ use App\Repositories\ImageRepository;
 use App\Repositories\ProductRepository;
 use App\Services\Product\Interfaces\ICreateProductService;
 use App\Support\Utils\Cases\ProductCase;
+use App\Support\Utils\Enums\ImageEnum;
 use App\Support\Utils\Enums\ProductEnum;
 
 class CreateProductService implements ICreateProductService
@@ -71,6 +73,8 @@ class CreateProductService implements ICreateProductService
                 $image = $this->mapToModelImage($path, $productId);
                 $this->imageRepository->insert($image);
             endforeach;
+        else:
+            throw new HttpBadRequest('Nenhuma imagem foi selecionada.');
         endif;
     }
 
@@ -79,7 +83,7 @@ class CreateProductService implements ICreateProductService
         $image = new Imagem();
         $image->caminho = $path;
         $image->produto_id = $productId;
-        $image->ativo = ProductEnum::ATIVADO;
+        $image->ativo = ImageEnum::ATIVADO;
         return $image;
     }
 }
