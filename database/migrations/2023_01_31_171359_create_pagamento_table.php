@@ -20,9 +20,9 @@ return new class extends Migration
             $table->date('data_validade');
             $table->integer('parcela');
             $table->decimal('total', 10, 2)->notnull();
-            $table->boolean('ativo');
             $table->foreignId('metodo_pagamento_id')->constrained('metodo_pagamento')->notnull();
             $table->foreignId('pedido_id')->constrained('pedido')->notnull();
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }
