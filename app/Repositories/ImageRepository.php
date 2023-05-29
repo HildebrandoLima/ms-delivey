@@ -22,12 +22,13 @@ class ImageRepository implements IImageRepository {
         return Imagem::query()->where('id', $id)->delete();
     }
 
-    public function getAll(int $id): Collection
+    public function getAll(int $id, int $active): Collection
     {
         return Imagem::query()->select([
             'id as imagemId',
             'caminho as path',
-            'produto_id as produtoId'
-        ])->where('produto_id', $id)->get();
+            'produto_id as produtoId',
+            'ativo as ativo'
+        ])->where('ativo', $active)->where('produto_id', $id)->get();
     }
 }

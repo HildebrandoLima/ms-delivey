@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface IListImageService
 {
-    public function listImageAll(int $id): Collection;
+    public function listImageAll(int $id, int $active): Collection;
 }

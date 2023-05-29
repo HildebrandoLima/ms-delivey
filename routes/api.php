@@ -48,7 +48,7 @@ Route::prefix('category')->group(function () {
 
 //  Imagem
 Route::prefix('image')->group(function () {
-    Route::get('/list/{id}', [ImageController::class, 'index'])->name('image.list.all');
+    Route::get('/list', [ImageController::class, 'index'])->name('image.list.all');
     Route::delete('/remove/{id}', [ImageController::class, 'destroy'])->name('image.remove');
 });
 
