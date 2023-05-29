@@ -6,6 +6,6 @@ use Illuminate\Support\Collection;
 
 interface IListCategoryService
 {
-    public function listCategoryAll(string $search): Collection;
-    public function listProviderFind(int $id): Collection;
+    public function listCategoryAll(int $active): Collection;
+    public function listProviderFind(int $id, string $search, int $active): Collection;
 }

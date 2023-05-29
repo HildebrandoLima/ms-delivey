@@ -23,19 +23,16 @@ class CategoryRepository implements ICategoryRepository {
         return Categoria::query()->where('id', $id)->delete();
     }
 
-    public function getAll(string $search): Collection
+    public function getAll(int $active): Collection
     {
-        $query = $this->mapToQuery();
-        if (isset ($search)):
-            $query->where('descricao', 'like', $search)
-                  ->orderByDesc('id')->get();
-        endif;
-        return $query->get();
+        return $this->mapToQuery()->where('ativo', $active)->orderByDesc('id')->get();
     }
 
-    public function getFind(int $id): Collection
+    public function getFind(int $id, string $search, int $active): Collection
     {
-        return $this->mapToQuery()->where('id', $id)->get();
+        return $this->mapToQuery()
+        ->where('ativo', $active)->where('id', $id)
+        ->orWhere('descricao', 'like', $search)->get();
     }
 
     private function mapToQuery(): Builder
@@ -43,6 +40,7 @@ class CategoryRepository implements ICategoryRepository {
         return Categoria::query()->select([
             'id as descricaoId',
             'descricao as descricao',
+            'ativo as ativo',
             'created_at as criadoEm',
             'updated_at as alteradoEm'
         ]);
