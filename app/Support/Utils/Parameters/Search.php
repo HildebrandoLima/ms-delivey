@@ -8,7 +8,7 @@ class Search
 
     public function search(string $search): string
     {
-        $this->search = $search;
-        return '%' . $this->search . '%';
+        $search == '' ? $this->search = '' : $this->search = '%' . $search . '%';
+        return $this->search;
     }
 }

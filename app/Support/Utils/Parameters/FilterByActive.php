@@ -4,8 +4,8 @@ namespace App\Support\Utils\Parameters;
 
 class FilterByActive
 {
-    public function filterByActive(): bool
+    public function filterByActive(int $active): int
     {
-        return true;
+        return $active;
     }
 }
