@@ -195,6 +195,12 @@ Admin<br />
 }
 ```
 
+Lembre-se de passar os parâmetros nas rotas de litagem.
+
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=Mjg=&active=1</li>
+<li>/find?search=Hill=&active=1</li>
+
 ### Resposta:
 
 <details>
@@ -227,59 +233,6 @@ Admin<br />
 }
 ```
 
-</details>
-
-Lembre-se de passar os parâmetros nas rotas de litagem.
-
-<li>?page=1&perPage=10&active=1</li>
-<li>/find?id=Mjg=&active=1</li>
-<li>/find?search=Hill=&active=1</li>
-
-<details>
-<summary>200 - OK</summary>
-```
-{
-    {
-        "message": "Listagem efetuada com sucesso.",
-        "data": [
-            {
-                "usuarioId": 2,
-                "nome": "Hill",
-                "cpf": "tpB4pdsDdkk",
-                "email": "hildebrandolima16@gmail.com",
-                "dataNascimento": "2022-07-18 08:19:13",
-                "genero": "Masculino",
-                "ativo": 1,
-                "criadoEm": "2023-05-27 19:22:39",
-                "alteradoEm": "2023-05-27 19:22:39"
-            },
-            {
-                "usuarioId": 4,
-                "nome": "Amie Hills MD",
-                "cpf": "M1W0HIdyjv3",
-                "email": "lela.doyle@prosacco.biz",
-                "dataNascimento": "1980-08-06 01:29:38",
-                "genero": "Outro",
-                "ativo": 1,
-                "criadoEm": "2023-05-27 19:23:57",
-                "alteradoEm": "2023-05-27 19:23:57"
-            },
-            {
-                "usuarioId": 32,
-                "nome": "Kasandra Schiller",
-                "cpf": "HMMMtDhO3L3",
-                "email": "camille12@brown.com",
-                "dataNascimento": "2017-12-03 10:48:52",
-                "genero": "Masculino",
-                "ativo": 1,
-                "criadoEm": "2023-05-27 20:14:38",
-                "alteradoEm": "2023-05-27 20:14:38"
-            }
-        ],
-        "status": 200,
-        "details": ""
-    }
-}
 </details>
 
 <details>
@@ -317,7 +270,7 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 |------|--------------------------|
 | GET  | /api/address/list        |
 |------|--------------------------|
-| GET  | /api/address/list/{id}   |
+| GET  | /api/address/list/uf     |
 |------|--------------------------|
 | POST | /api/address/save        |
 |------|--------------------------|
@@ -334,7 +287,23 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
     "cidade": "Fortaleza",
     "cep": 1234-567,
     "ufId": 1,
-    "usuarioId": 2
+    "usuarioId": 22,
+    "ativo": 1
+}
+```
+
+ou
+
+```
+{
+    "logradouro": "Rua",
+    "descricao": "1",
+    "bairro": "Messejana",
+    "cidade": "Fortaleza",
+    "cep": 1234-567,
+    "ufId": 1,
+    "fornecedorId": 23,
+    "ativo": 1
 }
 ```
 
@@ -398,7 +367,7 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 |------|----------------------------|
 | GET  | /api/telephone/list        |
 |------|----------------------------|
-| GET  | /api/telephone/list/{id}   |
+| GET  | /api/telephone/list/ddd    |
 |------|----------------------------|
 | POST | /api/telephone/save        |
 |------|----------------------------|
@@ -414,13 +383,38 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
             "numero": "99506-9315",
             "tipo": "Celular",
             "dddId": 1,
-            "usuarioId": 2
+            "usuarioId": 2,
+            "ativo": 1
         },
         {
             "numero": "98045-8709",
             "tipo": "Fixo",
             "dddId": 1,
-            "usuarioId": 2
+            "usuarioId": 2,
+            "ativo": 1
+        }
+    ]
+}
+```
+
+ou
+
+```
+{
+    "telefones": [
+        {
+            "numero": "99506-9315",
+            "tipo": "Celular",
+            "dddId": 1,
+            "fornecedorId": 2,
+            "ativo": 1
+        },
+        {
+            "numero": "98045-8709",
+            "tipo": "Fixo",
+            "dddId": 1,
+            "fornecedorId": 2,
+            "ativo": 1
         }
     ]
 }
@@ -494,6 +488,12 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 |------|---------------------------|
 |DELETE| /api/provider/remove/{id} |
 
+Lembre-se de passar os parâmetros nas rotas de litagem.
+
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=Mjg=&active=1</li>
+<li>/find?search=System=&active=1</li>
+
 ### Exemplo: POST/PUT
 ```
 {
@@ -565,7 +565,7 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 |------|---------------------------|
 | GET  | /api/category/list        |
 |------|---------------------------|
-| GET  | /api/category/list/{id}   |
+| GET  | /api/category/list/find   |
 |------|---------------------------|
 | POST | /api/category/save        |
 |------|---------------------------|
@@ -576,7 +576,8 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 ### Exemplo: POST/PUT
 ```
 {
-    "descricao": "Eletrônicos"
+    "descricao": "Eletrônicos",
+    "ativo": 1
 }
 ```
 
@@ -639,13 +640,17 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 |------|--------------------------|
 | GET  | /api/product/list        |
 |------|--------------------------|
-| GET  | /api/product/list/{id}   |
+| GET  | /api/product/list/find   |
 |------|--------------------------|
 | POST | /api/product/save        |
 |------|--------------------------|
 | PUT  | /api/product/edit/{id}   |
 |------|--------------------------|
 |DELETE| /api/product/remove/{id} |
+
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=Mjg=&active=1</li>
+<li>/find?search=TV LED=&active=1</li>
 
 ### Exemplo: POST
 ```
@@ -658,27 +663,27 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
     "quantidade": 13,
     "unidadeMedida": "UN",
     "dataValidade": "2024-12-25 13:28:59",
-    "ativo": 1,
     "categoriaId": 10,
     "fornecedorId": 2,
-    "imagens": [files]
+    "imagens": [files],
+    "ativo": 1
 }
 ```
 
 ### Exemplo: PUT
 ```
 {
-    "nome": "TV LED 55' FULLHD",
-    "precoCusto": 2,000.99,
-    "precoVenda": 2,399.95,
+    "nome": "Batata Frita Sabor Original Pringles - 114g",
+    "precoCusto": 15.99,
+    "precoVenda": 13.99,
     "codigoBarra": "1234567890123",
-    "descricao": "TV LED 55' FULLHD",
+    "descricao": "Batata Frita Sabor Original Pringles - 114g",
     "quantidade": 13,
     "unidadeMedida": "UN",
     "dataValidade": "2024-12-25 13:28:59",
-    "ativo": 1,
     "categoriaId": 10,
-    "fornecedorId": 2
+    "fornecedorId": 2,
+    "ativo": 1
 }
 ```
 
@@ -778,13 +783,19 @@ O cadastro de imagem, é realizado ao registrar o produto. Atualmente, não se p
 
 |MÉTODO|          ROTA            |
 |------|--------------------------|
-| GET  | /api/order/list/         |
+| GET  | /api/order/list          |
 |------|--------------------------|
-| GET  | /api/order/list/{id}     |
+| GET  | /api/order/list/find     |
 |------|--------------------------|
 | GET  | /api/order/save          |
 |------|--------------------------|
 |DELETE| /api/order/remove/{id}   |
+
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=Mjg=&active=1</li>
+<li>/find?search=Hill=&active=1</li>
+
+O pedido não pode ser modificado.
 
 ### Exemplo: POST
 ```
@@ -869,7 +880,7 @@ Não é permitido alterar os dados do pedido.
 |------|--------------------------|
 | GET  | /api/item/list/{id}      |
 
-O cadastro do item, é feito ao regisrar pedido.
+O cadastro do item, é feito ao regisrar pedido. Não pode modificar o item.
 
 ### Resposta:
 
