@@ -54,7 +54,7 @@ Route::prefix('image')->group(function () {
 
 //  Item
 Route::prefix('item')->group(function () {
-    Route::get('/list/{id}', [ItemController::class, 'index'])->name('item.list.all');
+    Route::get('/list', [ItemController::class, 'index'])->name('item.list.all');
 });
 
 //  Pedido

@@ -22,7 +22,7 @@ class ItemRepository implements IItemRepository {
         return Item::query()->where('pedido_id', $id)->delete();
     }
 
-    public function getAll(int $id): Collection
+    public function getAll(int $id, int $active): Collection
     {
         return Item::query()
         ->join('pedido as p', 'p.id', '=', 'item.pedido_id')
@@ -39,6 +39,7 @@ class ItemRepository implements IItemRepository {
             'item.created_at as criadoEm',
             'item.updated_at as alteradoEm',
         ])
+        ->where('item.ativo', $active)
         ->where('p.id', $id)->get();
     }
 }
