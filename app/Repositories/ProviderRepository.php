@@ -27,20 +27,20 @@ class ProviderRepository implements IProviderRepository {
         return Fornecedor::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, string $search): Collection
+    public function getAll(Pagination $pagination, int $active): Collection
     {
         $query = $this->mapToQuery();
-        $query->orderByDesc('id');
-        if (isset ($pagination->page) && isset ($pagination->perPage)):
-            return PaginationList::createFromPagination($query, $pagination);
-        endif;
-        return $query->where('nome', 'like', $search)
-            ->orWhere('cnpj', 'like', $search)->get();
+        $query->where('ativo', $active)->orderByDesc('id');
+        return PaginationList::createFromPagination($query, $pagination);
     }
 
-    public function getFind(int $id): Collection
+    public function getFind(int $id, string $search, int $active): Collection
     {
-        return $this->mapToQuery()->where('id', $id)->get();
+        return $this->mapToQuery()
+        ->where('ativo', $active)
+        ->where('id', $id)
+        ->orWhere('nome', 'like', $search)
+        ->get();
     }
 
     private function mapToQuery(): Builder
@@ -49,6 +49,7 @@ class ProviderRepository implements IProviderRepository {
             'id as fornecedorId',
             'nome as nome',
             'cnpj as cnpj',
+            'ativo as ativo',
             'created_at as criadoEm',
             'updated_at as alteradoEm'
         ]);

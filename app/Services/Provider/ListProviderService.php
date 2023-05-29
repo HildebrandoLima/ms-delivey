@@ -23,14 +23,16 @@ class ListProviderService implements IListProviderService
         $this->providerRepository      = $providerRepository;
     }
 
-    public function listProviderAll(Pagination $pagination, string $search): Collection
+    public function listProviderAll(Pagination $pagination, int $active): Collection
     {
-        return $this->providerRepository->getAll($pagination, $search);
+        return $this->providerRepository->getAll($pagination, $active);
     }
 
-    public function listProviderFind(int $id): Collection
+    public function listProviderFind(int $id, string $search, int $activ): Collection
     {
-        $this->checkRegisterRepository->checkProviderIdExist($id);
-        return $this->providerRepository->getFind($id);
+        if ($id != 0):
+            $this->checkRegisterRepository->checkProviderIdExist($id);
+        endif;
+        return $this->providerRepository->getFind($id, $search, $activ);
     }
 }
