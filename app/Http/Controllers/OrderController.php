@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\OrderRequest;
+use App\Http\Requests\ParametersRequest;
 use App\Services\Order\CreateOrderService;
 use App\Services\Order\DeleteOrderService;
 use App\Services\Order\ListOrderService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,11 +32,14 @@ class OrderController extends Controller
         $this->listOrderService   = $listOrderService;
     }
 
-    public function index(Pagination $pagination, Search $search): Response
+    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listOrderService->listOrderAll
-            ($pagination, $search->search($pagination->search ?? ''));
+            (
+                $pagination,
+                $filterByActive->filterByActive($pagination->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -42,10 +47,15 @@ class OrderController extends Controller
         }
     }
 
-    public function show(string $id, BaseDecode $baseDecode): Response
+    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->listOrderService->listOrderFind($baseDecode->baseDecode($id));
+            $success = $this->listOrderService->listOrderFind
+            (
+                $baseDecode->baseDecode($request->id ?? ''),
+                $search->search($request->search ?? ''),
+                $filterByActive->filterByActive($request->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

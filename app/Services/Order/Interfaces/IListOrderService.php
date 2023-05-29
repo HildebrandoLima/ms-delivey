@@ -7,6 +7,6 @@ use Illuminate\Support\Collection;
 
 interface IListOrderService
 {
-    public function listOrderAll(Pagination $pagination, string $search): Collection;
-    public function listOrderFind(int $id): Collection;
+    public function listOrderAll(Pagination $pagination, int $active): Collection;
+    public function listOrderFind(int $id, string $search, int $active): Collection;
 }

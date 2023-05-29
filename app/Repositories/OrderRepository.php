@@ -25,19 +25,18 @@ class OrderRepository implements IOrderRepository {
         return Pedido::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, string $search): Collection
+    public function getAll(Pagination $pagination, int $active): Collection
     {
         $query = $this->mapToQuery();
         $query->orderByDesc('pedido.id');
-        if (isset ($pagination->page) && isset ($pagination->perPage)):
-            return PaginationList::createFromPagination($query, $pagination);
-        endif;
-        return $query->where('pedido.numero_pedido', 'like', $search)->get();
+        return PaginationList::createFromPagination($query, $pagination);
     }
 
-    public function getFind(int $id): Collection
+    public function getFind(int $id, string $search, int $active): Collection
     {
-        return $this->mapToQuery()->where('pedido.id', $id)->get();
+        return $this->mapToQuery()
+        ->where('pedido.ativo', $active)->where('pedido.id', $id)
+        ->orWhere('pedido.numero_pedido', 'like', $search)->get();
     }
 
     private function mapToQuery(): Builder
