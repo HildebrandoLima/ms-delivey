@@ -195,7 +195,7 @@ Admin<br />
 }
 ```
 
-Lembre-se de passar os parâmetros nas rotas de litagem.
+Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
@@ -488,7 +488,7 @@ ou
 |------|---------------------------|
 |DELETE| /api/provider/remove/{id} |
 
-Lembre-se de passar os parâmetros nas rotas de litagem.
+Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
@@ -647,6 +647,8 @@ Lembre-se de passar os parâmetros nas rotas de litagem.
 | PUT  | /api/product/edit/{id}   |
 |------|--------------------------|
 |DELETE| /api/product/remove/{id} |
+    
+Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
@@ -790,6 +792,8 @@ O cadastro de imagem, é realizado ao registrar o produto. Atualmente, não se p
 | GET  | /api/order/save          |
 |------|--------------------------|
 |DELETE| /api/order/remove/{id}   |
+
+Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
