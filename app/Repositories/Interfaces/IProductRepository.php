@@ -10,6 +10,6 @@ interface IProductRepository {
     public function insert(Produto $produto): int;
     public function update(int $id, Produto $produto): bool;
     public function delete(int $id): bool;
-    public function getAll(Pagination $pagination, string $search): Collection;
-    public function getFind(int $id): Collection;
+    public function getAll(Pagination $pagination, int $active): Collection;
+    public function getFind(int $id, string $search, int $active): Collection;
 }

@@ -25,19 +25,20 @@ class ProductRepository implements IProductRepository {
         return Produto::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, string $search): Collection
+    public function getAll(Pagination $pagination, int $active): Collection
     {
         $query = $this->mapToQuery();
-        $query->orderBy('produto.id');
-        if (isset ($pagination->page) && isset ($pagination->perPage)):
-            return PaginationList::createFromPagination($query, $pagination);
-        endif;
-        return $query->where('produto.nome', 'like', $search)->get();
+        $query->where('produto.ativo', $active)->orderBy('produto.id');
+        return PaginationList::createFromPagination($query, $pagination);
     }
 
-    public function getFind(int $id): Collection
+    public function getFind(int $id, string $search, int $active): Collection
     {
-        return $this->mapToQuery()->where('produto.id', $id)->get();
+        return $this->mapToQuery()
+        ->where('produto.ativo', $active)
+        ->where('produto.id', $id)
+        ->orWhere('produto.nome', 'like', $search)
+        ->get();
     }
 
     private function mapToQuery(): Builder

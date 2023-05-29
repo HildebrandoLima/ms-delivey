@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\ProductRequest;
 use App\Services\Product\CreateProductService;
 use App\Services\Product\DeleteProductService;
@@ -10,6 +11,7 @@ use App\Services\Product\EditProductSerice;
 use App\Services\Product\ListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,11 +36,14 @@ class ProductController extends Controller
         $this->listProductService   = $listProductService;
     }
 
-    public function index(Pagination $pagination, Search $search): Response
+    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listProductService->listProductAll
-            ($pagination, $search->search($pagination->search ?? ''));
+            (
+                $pagination,
+                $filterByActive->filterByActive($pagination->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -46,10 +51,15 @@ class ProductController extends Controller
         }
     }
 
-    public function show(string $id, BaseDecode $baseDecode): Response
+    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->listProductService->listProductFind($baseDecode->baseDecode($id));
+            $success = $this->listProductService->listProductFind
+            (
+                $baseDecode->baseDecode($request->id ?? ''),
+                $search->search($request->search ?? ''),
+                $filterByActive->filterByActive($request->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

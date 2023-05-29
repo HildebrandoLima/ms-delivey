@@ -74,7 +74,7 @@ Route::prefix('payment')->group(function () {
 //  Produto
 Route::prefix('product')->group(function () {
     Route::get('/list', [ProductController::class, 'index'])->name('product.list.all');
-    Route::get('/list/{id}', [ProductController::class, 'show'])->name('product.list.find');
+    Route::get('/list/find', [ProductController::class, 'show'])->name('product.list.find');
     Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit');
     Route::post('/save', [ProductController::class, 'store'])->name('product.save');
     Route::delete('/remove/{id}', [ProductController::class, 'destroy'])->name('product.remove');
