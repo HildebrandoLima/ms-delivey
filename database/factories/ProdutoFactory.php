@@ -29,10 +29,10 @@ class ProdutoFactory extends Factory
             'descricao' => $this->faker->sentence,
             'quantidade' => rand(10, 50),
             'unidade_medida' => array_rand($unidadeMedida),
-            'ativo' => true,
             'data_validade' => $this->faker->dateTime,
             'categoria_id' => Categoria::factory()->createOne()->id,
-            'fornecedor_id' => Fornecedor::factory()->createOne()->id
+            'fornecedor_id' => Fornecedor::factory()->createOne()->id,
+            'ativo' => true,
         ];
     }
 }
