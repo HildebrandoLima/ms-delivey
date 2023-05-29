@@ -91,8 +91,8 @@ Route::prefix('provider')->group(function () {
 
 //  Telefone
 Route::prefix('telephone')->group(function () {
-    Route::get('/list', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
-    Route::get('/list/{id}', [TelephoneController::class, 'index'])->name('telephone.list');
+    Route::get('/list', [TelephoneController::class, 'index'])->name('telephone.list');
+    Route::get('/list/ddd', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
     Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit');
     Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
     Route::delete('/remove/{id}', [TelephoneController::class, 'destroy'])->name('telephone.remove');

@@ -10,5 +10,5 @@ interface ITelephoneRepository {
     public function update(int $id, Telefone $telefone): bool;
     public function delete(int $id): bool;
     public function getDDDAll(): Collection;
-    public function getTelephoneAll(int $id): Collection;
+    public function getTelephoneAll(int $id, int $active): Collection;
 }

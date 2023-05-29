@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\TelephoneRequest;
 use App\Services\Telephone\CreateTelephoneService;
 use App\Services\Telephone\DeleteTelephoneService;
 use App\Services\Telephone\EditTelephoneService;
 use App\Services\Telephone\ListTelephoneService;
 use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller
@@ -43,10 +45,14 @@ class TelephoneController extends Controller
         }
     }
 
-    public function index(string $id, BaseDecode $baseDecode): Response
+    public function index(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->listTelephoneService->listTelephoneAll($baseDecode->baseDecode($id));
+            $success = $this->listTelephoneService->listTelephoneAll
+            (
+                $baseDecode->baseDecode($request->id),
+                $filterByActive->filterByActive($request->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
