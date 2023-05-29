@@ -174,11 +174,11 @@ Admin<br />
 |------|-----------------------|
 | GET  | /api/user/list        |
 |------|-----------------------|
-| GET  | /api/user/list/{id}   |
-|------|-----------------------|
-| POST | /api/user/save        |
+| GET  | /api/user/list/find   |
 |------|-----------------------|
 | PUT  | /api/user/edit/{id}   |
+|------|-----------------------|
+| POST | /api/user/save        |
 |------|-----------------------|
 |DELETE| /api/user/remove/{id} |
 
@@ -218,6 +218,68 @@ Admin<br />
 }
 ```
 
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+Lembre-se de passar os parâmetros nas rotas de litagem.
+
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=Mjg=&active=1</li>
+<li>/find?search=Hill=&active=1</li>
+
+<details>
+<summary>200 - OK</summary>
+```
+{
+    {
+        "message": "Listagem efetuada com sucesso.",
+        "data": [
+            {
+                "usuarioId": 2,
+                "nome": "Hill",
+                "cpf": "tpB4pdsDdkk",
+                "email": "hildebrandolima16@gmail.com",
+                "dataNascimento": "2022-07-18 08:19:13",
+                "genero": "Masculino",
+                "ativo": 1,
+                "criadoEm": "2023-05-27 19:22:39",
+                "alteradoEm": "2023-05-27 19:22:39"
+            },
+            {
+                "usuarioId": 4,
+                "nome": "Amie Hills MD",
+                "cpf": "M1W0HIdyjv3",
+                "email": "lela.doyle@prosacco.biz",
+                "dataNascimento": "1980-08-06 01:29:38",
+                "genero": "Outro",
+                "ativo": 1,
+                "criadoEm": "2023-05-27 19:23:57",
+                "alteradoEm": "2023-05-27 19:23:57"
+            },
+            {
+                "usuarioId": 32,
+                "nome": "Kasandra Schiller",
+                "cpf": "HMMMtDhO3L3",
+                "email": "camille12@brown.com",
+                "dataNascimento": "2017-12-03 10:48:52",
+                "genero": "Masculino",
+                "ativo": 1,
+                "criadoEm": "2023-05-27 20:14:38",
+                "alteradoEm": "2023-05-27 20:14:38"
+            }
+        ],
+        "status": 200,
+        "details": ""
+    }
+}
 </details>
 
 <details>
