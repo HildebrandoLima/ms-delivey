@@ -38,7 +38,7 @@ class AddressRepository implements IAddressRepository {
         ])->get();
     }
 
-    public function getAddressAll(int $id): Collection
+    public function getAddressAll(int $id, int $active): Collection
     {
         return Endereco::query()
         ->join('unidade_federativa as uf', 'uf.id', '=', 'endereco.uf_id')
@@ -54,6 +54,7 @@ class AddressRepository implements IAddressRepository {
             'uf.id as ufId',
             'uf.uf as uf',
             'uf.descricao as estado'
-        ])->where('endereco.usuario_id', $id)->get();
+        ])->where('endereco.usuario_id', $id)
+        ->where('ativo', $active)->get();
     }
 }

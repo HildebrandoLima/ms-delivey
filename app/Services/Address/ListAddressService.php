@@ -27,9 +27,9 @@ class ListAddressService implements IListAddressService
         return $this->addressRepository->getFederativeUnitAll();
     }
 
-    public function listAddressAll(int $id): Collection
+    public function listAddressAll(int $id, int $active): Collection
     {
         $this->checkRegisterRepository->checkUserIdExist($id);
-        return $this->addressRepository->getAddressAll($id);
+        return $this->addressRepository->getAddressAll($id, $active);
     }
 }

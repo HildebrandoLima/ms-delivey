@@ -10,5 +10,5 @@ interface IAddressRepository {
     public function update(int $id, Endereco $endereco): bool;
     public function delete(int $id): bool;
     public function getFederativeUnitAll(): Collection;
-    public function getAddressAll(int $id): Collection;
+    public function getAddressAll(int $id, int $active): Collection;
 }
