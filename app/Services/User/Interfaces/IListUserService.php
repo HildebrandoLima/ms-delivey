@@ -7,6 +7,6 @@ use Illuminate\Support\Collection;
 
 interface IListUserService
 {
-    public function listUserAll(Pagination $pagination, string $search): Collection;
-    public function listUserFind(int $id): Collection;
+    public function listUserAll(Pagination $pagination, int $active): Collection;
+    public function listUserFind(int $id, string $search, int $active): Collection;
 }

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ParametersRequest;
 use App\Services\Address\CreateAddressService;
 use App\Services\Address\DeleteAddressService;
 use App\Services\Address\EditAddressService;
 use App\Services\Address\ListAddressService;
 use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
@@ -43,10 +45,14 @@ class AddressController extends Controller
         }
     }
 
-    public function index(string $id, BaseDecode $baseDecode): Response
+    public function index(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->listAddressService->listAddressAll($baseDecode->baseDecode($id));
+            $success = $this->listAddressService->listAddressAll
+            (
+                $baseDecode->baseDecode($request->id),
+                $filterByActive->filterByActive($request->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

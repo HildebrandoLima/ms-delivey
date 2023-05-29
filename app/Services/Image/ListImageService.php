@@ -22,9 +22,9 @@ class ListImageService implements IListImageService
         $this->imageRepository         = $imageRepository;
     }
 
-    public function listImageAll(int $id): Collection
+    public function listImageAll(int $id, int $active): Collection
     {
         $this->checkRegisterRepository->checkProductIdExist($id);
-        return $this->imageRepository->getAll($id);
+        return $this->imageRepository->getAll($id, $active);
     }
 }

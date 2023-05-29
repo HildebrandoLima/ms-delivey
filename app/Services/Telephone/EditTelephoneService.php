@@ -8,6 +8,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\TelephoneRepository;
 use App\Services\Telephone\Interfaces\IEditTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
+use App\Support\Utils\Enums\TelephoneEnum;
 
 class EditTelephoneService implements IEditTelephoneService
 {
@@ -47,6 +48,7 @@ class EditTelephoneService implements IEditTelephoneService
         $telephone->ddd_id = $telephones['dddId'];
         $telephone->usuario_id = isset ($telephones['usuarioId']) ? $telephones['usuarioId'] : 1;
         $telephone->fornecedor_id = isset ($telephones['fornecedorId']) ? $telephones['fornecedorId'] : 1;
+        $telephones['ativo'] == 1 ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
         return $telephone;
     }
 }

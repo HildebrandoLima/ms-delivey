@@ -22,14 +22,16 @@ class ListCategoryService implements IListCategoryService
         $this->categoryRepository      = $categoryRepository;
     }
 
-    public function listCategoryAll(string $search): Collection
+    public function listCategoryAll(int $active): Collection
     {
-        return $this->categoryRepository->getAll($search);
+        return $this->categoryRepository->getAll($active);
     }
 
-    public function listProviderFind(int $id): Collection
+    public function listProviderFind(int $id, string $search, int $active): Collection
     {
-        $this->checkRegisterRepository->checkCategoryIdExist($id);
-        return $this->categoryRepository->getFind($id);
+        if ($id != 0):
+            $this->checkRegisterRepository->checkCategoryIdExist($id);
+        endif;
+        return $this->categoryRepository->getFind($id, $search, $active);
     }
 }

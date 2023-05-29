@@ -8,7 +8,7 @@ class BaseDecode
 
     public function baseDecode(string $id): int
     {
-        $this->id = base64_decode($id);
+        $id == '' ? $this->id = 0 : $this->id = base64_decode($id);
         return $this->id;
     }
 }

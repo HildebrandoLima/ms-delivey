@@ -2,7 +2,7 @@
 
 namespace App\Support\Utils\Cases;
 
-use App\Support\Utils\Enums\ProductEnums;
+use App\Support\Utils\Enums\ProductEnum;
 
 class ProductCase
 {
@@ -10,7 +10,7 @@ class ProductCase
 
     public function productCase($parameter): string
     {
-        array_filter(ProductEnums::UNIDADE_MEDIDA, function ($value) use ($parameter) {
+        array_filter(ProductEnum::UNIDADE_MEDIDA, function ($value) use ($parameter) {
             if ($value == $parameter):
                 $this->unidadeMedida = $parameter;
             endif;

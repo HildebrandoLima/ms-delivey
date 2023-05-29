@@ -23,14 +23,16 @@ class ListProductService implements IListProductService
         $this->productRepository       = $productRepository;
     }
 
-    public function listProductAll(Pagination $pagination, string $search): Collection
+    public function listProductAll(Pagination $pagination, int $active): Collection
     {
-        return $this->productRepository->getAll($pagination, $search);
+        return $this->productRepository->getAll($pagination, $active);
     }
 
-    public function listProductFind(int $id): Collection
+    public function listProductFind(int $id, string $search, int $active): Collection
     {
-        $this->checkRegisterRepository->checkProductIdExist($id);
-        return $this->productRepository->getFind($id);
+        if ($id != 0):
+            $this->checkRegisterRepository->checkProductIdExist($id);
+        endif;
+        return $this->productRepository->getFind($id, $search, $active);
     }
 }

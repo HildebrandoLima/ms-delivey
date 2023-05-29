@@ -23,9 +23,9 @@ class ListItemService implements IListItemService
         $this->itemRepository          = $itemRepository;
     }
 
-    public function listItemAll(int $id): Collection
+    public function listItemAll(int $id, int $active): Collection
     {
         $this->checkRegisterRepository->checkOrderIdExist($id);
-        return $this->itemRepository->getAll($id);
+        return $this->itemRepository->getAll($id, $active);
     }
 }

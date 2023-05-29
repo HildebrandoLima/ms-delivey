@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CheckRegisterRepository;
 use App\Services\Category\Interfaces\ICreateCategoryService;
+use App\Support\Utils\Enums\CategoryEnum;
 
 class CreateCategoryService implements ICreateCategoryService
 {
@@ -34,6 +35,7 @@ class CreateCategoryService implements ICreateCategoryService
     {
         $category = new Categoria();
         $category->descricao = $request->descricao;
+        $category->ativo = CategoryEnum::ATIVADO;
         return $category;
     }
 }

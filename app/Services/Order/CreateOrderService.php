@@ -9,7 +9,9 @@ use App\Models\Pedido;
 use App\Repositories\ItemRepository;
 use App\Repositories\OrderRepository;
 use App\Services\Order\Interfaces\ICreateOrderService;
-use App\Support\Utils\Enums\ProductEnums;
+use App\Support\Utils\Enums\ImageEnum;
+use App\Support\Utils\Enums\ItemEnum;
+use App\Support\Utils\Enums\OrderEnum;
 
 class CreateOrderService implements ICreateOrderService
 {
@@ -45,7 +47,7 @@ class CreateOrderService implements ICreateOrderService
         $order->quantidade_item = $request->totalItems;
         $order->total = $request->total;
         $order->entrega = $request->entrega;
-        $order->ativo = ProductEnums::ATIVADO;
+        $order->ativo = OrderEnum::ATIVADO;
         $order->usuario_id = $request->usuarioId;
         return $order;
     }
@@ -61,7 +63,7 @@ class CreateOrderService implements ICreateOrderService
         $item->unidade_medida = $items['unidadeMedida'];
         $item->pedido_id = $orderId;
         $item->produto_id = $items['produtoId'];
-        $item->ativo = ProductEnums::ATIVADO;
+        $item->ativo = ItemEnum::ATIVADO;
         return $item;
     }
 }

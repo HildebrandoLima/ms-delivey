@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface IListItemService
 {
-    public function listItemAll(int $id): Collection;
+    public function listItemAll(int $id, int $active): Collection;
 }

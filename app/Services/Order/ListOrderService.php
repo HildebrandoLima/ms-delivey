@@ -23,14 +23,16 @@ class ListOrderService implements IListOrderService
         $this->orderRepository         = $orderRepository;
     }
 
-    public function listOrderAll(Pagination $pagination, string $search): Collection
+    public function listOrderAll(Pagination $pagination, int $active): Collection
     {
-        return $this->orderRepository->getAll($pagination, $search);
+        return $this->orderRepository->getAll($pagination, $active);
     }
 
-    public function listOrderFind(int $id): Collection
+    public function listOrderFind(int $id, string $search, int $active): Collection
     {
-        $this->checkRegisterRepository->checkOrderIdExist($id);
-        return $this->orderRepository->getFind($id);
+        if ($id != 0):
+            $this->checkRegisterRepository->checkOrderIdExist($id);
+        endif;
+        return $this->orderRepository->getFind($id, $search, $active);
     }
 }

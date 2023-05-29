@@ -8,7 +8,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\IEditUserService;
 use App\Support\Utils\Cases\UserCase;
-use App\Support\Utils\Enums\UserEnums;
+use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
 class EditUserService implements IEditUserService
@@ -46,7 +46,7 @@ class EditUserService implements IEditUserService
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $this->userCase->genderCase($request->genero);
-        $request->ativo == 1 ? $user->ativo = UserEnums::ATIVADO : $user->ativo = UserEnums::DESATIVADO;
+        $request->ativo == 1 ? $user->ativo = UserEnum::ATIVADO : $user->ativo = UserEnum::DESATIVADO;
         return $user;
     }
 }

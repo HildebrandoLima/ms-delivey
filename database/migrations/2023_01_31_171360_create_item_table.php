@@ -21,9 +21,9 @@ return new class extends Migration
             $table->integer('quantidade_item')->notnull();
             $table->decimal('sub_total', 10, 2)->notnull();
             $table->enum('unidade_medida', ['UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX']);
-            $table->boolean('ativo');
             $table->foreignId('pedido_id')->constrained('pedido');
             $table->foreignId('produto_id')->constrained('produto');
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }

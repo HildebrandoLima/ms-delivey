@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\ProviderRequest;
 use App\Services\Provider\CreateProviderService;
 use App\Services\Provider\DeleteProviderService;
@@ -10,6 +11,7 @@ use App\Services\Provider\EditProviderService;
 use App\Services\Provider\ListProviderService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
+use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,11 +36,14 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(Pagination $pagination, Search $search): Response
+    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
-            ($pagination, $search->search($pagination->search ?? ''));
+            (
+                $pagination,
+                $filterByActive->filterByActive($pagination->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -46,10 +51,15 @@ class ProviderController extends Controller
         }
     }
 
-    public function show(string $id, BaseDecode $baseDecode): Response
+    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->listProviderService->listProviderFind($baseDecode->baseDecode($id));
+            $success = $this->listProviderService->listProviderFind
+            (
+                $baseDecode->baseDecode($request->id ?? ''),
+                $search->search($request->search ?? ''),
+                $filterByActive->filterByActive($request->active)
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

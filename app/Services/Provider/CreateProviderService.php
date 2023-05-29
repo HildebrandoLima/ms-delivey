@@ -8,7 +8,7 @@ use App\Models\Fornecedor;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\ICreateProviderService;
-use App\Support\Utils\Enums\UserEnums;
+use App\Support\Utils\Enums\ProviderEnum;
 
 class CreateProviderService implements ICreateProviderService
 {
@@ -41,7 +41,7 @@ class CreateProviderService implements ICreateProviderService
         $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
         $provider->email = $request->email;
         $provider->data_fundacao = $request->dataFundacao;
-        $provider->ativo = UserEnums::ATIVADO;
+        $provider->ativo = ProviderEnum::ATIVADO;
         return $provider;
     }
 }

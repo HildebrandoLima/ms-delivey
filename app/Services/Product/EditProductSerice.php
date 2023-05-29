@@ -8,7 +8,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProductRepository;
 use App\Services\Product\Interfaces\IEditProductSerice;
 use App\Support\Utils\Cases\ProductCase;
-use App\Support\Utils\Enums\ProductEnums;
+use App\Support\Utils\Enums\ProductEnum;
 
 class EditProductSerice implements IEditProductSerice
 {
@@ -49,7 +49,7 @@ class EditProductSerice implements IEditProductSerice
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $request->ativo == 1 ? $product->ativo = ProductEnums::ATIVADO : $product->ativo = ProductEnums::DESATIVADO;
+        $request->ativo == 1 ? $product->ativo = ProductEnum::ATIVADO : $product->ativo = ProductEnum::DESATIVADO;
         return $product;
     }
 }

@@ -13,8 +13,8 @@ class Imagem extends Model
 
     protected $fillable = [
         'caminho',
-        'ativo',
         'produto_id',
+        'ativo',
     ];
 
     protected $casts = [

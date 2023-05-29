@@ -6,7 +6,7 @@ use App\Http\Requests\PaymentRequest;
 use App\Models\Pagamento;
 use App\Repositories\PaymentRepository;
 use App\Services\Payment\Interfaces\ICreatePaymentService;
-use App\Support\Utils\Enums\PaymentEnums;
+use App\Support\Utils\Enums\PaymentEnum;
 
 class CreatePaymentService implements ICreatePaymentService
 {
@@ -31,7 +31,7 @@ class CreatePaymentService implements ICreatePaymentService
         $payment->data_validade = $request->dataValidade;
         $payment->parcela = $request->parcela;
         $payment->total = $request->total;
-        $payment->ativo = PaymentEnums::ATIVADO;
+        $payment->ativo = PaymentEnum::ATIVADO;
         $payment->metodo_pagamento_id = $request->metodoPagamentoId;
         $payment->pedido_id = $request->pedidoId;
         return $payment;

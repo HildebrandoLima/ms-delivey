@@ -8,5 +8,5 @@ use Illuminate\Support\Collection;
 interface IListAddressService
 {
     public function listFederativeUnitAll(): Collection;
-    public function listAddressAll(int $id): Collection;
+    public function listAddressAll(int $id, int $active): Collection;
 }

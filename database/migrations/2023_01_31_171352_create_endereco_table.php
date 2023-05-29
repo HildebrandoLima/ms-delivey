@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('uf_id')->constrained('unidade_federativa')->notnull();
             $table->foreignId('usuario_id')->constrained('users')->nullable(false)->change();
             $table->foreignId('fornecedor_id')->constrained('fornecedor')->nullable(false)->change();
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }

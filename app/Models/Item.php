@@ -18,9 +18,9 @@ class Item extends Model
         'quantidade_item',
         'sub_total',
         'unidade_medida',
-        'ativo',
         'pedido_id',
-        'produto_id'
+        'produto_id',
+        'ativo',
     ];
 
     protected $casts = [

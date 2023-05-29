@@ -15,9 +15,9 @@ class Pagination extends BaseRequest
     public function rules(): array
     {
         return [
-            'page' => 'int',
-            'perPage' => 'int',
-            'search' => 'string',
+            'page' => 'required|int',
+            'perPage' => 'required|int',
+            'active' => 'required|int',
         ];
     }
 
@@ -26,11 +26,10 @@ class Pagination extends BaseRequest
         return [
             'page.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'perPage.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'search.required' => DefaultErrorMessages::REQUIRED_FIELD,
-
+            'active.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'page.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'perPage.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'search.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'active.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

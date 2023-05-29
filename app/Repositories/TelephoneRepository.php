@@ -38,7 +38,7 @@ class TelephoneRepository implements ITelephoneRepository {
         ])->get();
     }
 
-    public function getTelephoneAll(int $id): Collection
+    public function getTelephoneAll(int $id, int $active): Collection
     {
         return Telefone::query()
         ->join('ddd as d', 'd.id', '=', 'telefone.ddd_id')
@@ -49,6 +49,8 @@ class TelephoneRepository implements ITelephoneRepository {
             'd.id as dddId',
             'd.ddd as ddd',
             'd.descricao as estado'
-        ])->where('telefone.usuario_id', $id)->get();
+        ])
+        ->where('telefone.usuario_id', $id)
+        ->where('ativo', $active)->get();
     }
 }

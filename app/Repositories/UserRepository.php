@@ -25,20 +25,19 @@ class UserRepository implements IUserRepository {
         return User::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, string $search): Collection
+    public function getAll(Pagination $pagination, int $active): Collection
     {
         $query = $this->mapToQuery();
-        $query->orderByDesc('id');
-        if (isset ($pagination->page) && isset ($pagination->perPage)):
-            return PaginationList::createFromPagination($query, $pagination);
-        endif;
-        return $query->where('name', 'like', $search)
-            ->orWhere('email', 'like', $search)->get();
+        $query->where('ativo', $active)->orderByDesc('id');
+        return PaginationList::createFromPagination($query, $pagination);
     }
 
-    public function getFind(int $id): Collection
+    public function getFind(int $id, string $search, int $active): Collection
     {
-        return $this->mapToQuery()->where('id', $id)->get();
+        return $this->mapToQuery()
+        ->where('ativo', $active)
+        ->where('id', $id)
+        ->orWhere('name', 'like', $search)->get();
     }
 
     private function mapToQuery(): Builder

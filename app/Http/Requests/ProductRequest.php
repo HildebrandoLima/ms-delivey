@@ -22,9 +22,9 @@ class ProductRequest extends BaseRequest
             'quantidade' => 'required|int',
             'unidadeMedida' => 'required|string',
             'dataValidade' => 'required|date',
-            'ativo' => 'required|int',
             'categoriaId' => 'int|exists:categoria,id',
-            'fornecedorId' => 'int|exists:fornecedor,id'
+            'fornecedorId' => 'int|exists:fornecedor,id',
+            'ativo' => 'required|int',
         ];
     }
 
@@ -45,9 +45,9 @@ class ProductRequest extends BaseRequest
             'quantidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'unidadeMedida.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataValidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'categoriaId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'precoCusto.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
@@ -57,9 +57,9 @@ class ProductRequest extends BaseRequest
             'quantidade.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'unidadeMedida.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

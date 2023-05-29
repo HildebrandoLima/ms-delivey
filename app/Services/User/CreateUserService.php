@@ -9,7 +9,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\ICreateUserService;
 use App\Support\Utils\Cases\UserCase;
-use App\Support\Utils\Enums\UserEnums;
+use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements ICreateUserService
@@ -48,7 +48,7 @@ class CreateUserService implements ICreateUserService
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $this->userCase->genderCase($request->genero);
-        $user->ativo = UserEnums::ATIVADO;
+        $user->ativo = UserEnum::ATIVADO;
         return $user;
     }
 }

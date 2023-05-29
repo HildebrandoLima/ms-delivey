@@ -20,6 +20,7 @@ class Endereco extends Model
         'uf_id',
         'usuario_id',
         'fornecedor_id',
+        'ativo',
     ];
 
     protected $casts = [
