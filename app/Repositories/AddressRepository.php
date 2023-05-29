@@ -54,7 +54,8 @@ class AddressRepository implements IAddressRepository {
             'uf.id as ufId',
             'uf.uf as uf',
             'uf.descricao as estado'
-        ])->where('endereco.usuario_id', $id)
+        ])
+        ->where('endereco.usuario_id', $id)
         ->where('ativo', $active)->get();
     }
 }
