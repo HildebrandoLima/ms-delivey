@@ -7,6 +7,7 @@ use App\Models\Pagamento;
 use App\Repositories\PaymentRepository;
 use App\Services\Payment\Interfaces\ICreatePaymentService;
 use App\Support\Utils\Enums\PaymentEnum;
+use Illuminate\Support\Carbon;
 
 class CreatePaymentService implements ICreatePaymentService
 {
@@ -27,9 +28,9 @@ class CreatePaymentService implements ICreatePaymentService
     {
         $payment = new Pagamento();
         $payment->codigo_transacao = random_int(100000000, 999999999);
-        $payment->numero_cartao = $request->numeroCartao;
-        $payment->data_validade = $request->dataValidade;
-        $payment->parcela = $request->parcela;
+        $payment->numero_cartao = isset ($request->numeroCartao) ? str_replace(' ', "", $request->numeroCartao) : random_int(10000000000000, 99999999999999);
+        $payment->data_validade = $request->dataValidade ?? Carbon::now()->format('Y-m-d H:i:s');
+        $payment->parcela = $request->parcela ?? 0;
         $payment->total = $request->total;
         $payment->ativo = PaymentEnum::ATIVADO;
         $payment->metodo_pagamento_id = $request->metodoPagamentoId;

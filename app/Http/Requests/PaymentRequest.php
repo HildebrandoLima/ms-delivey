@@ -14,8 +14,8 @@ class PaymentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'numeroCartao' => '',
-            'dataValidade' => '',
+            'numeroCartao' => 'string|min:14|max:19',
+            'dataValidade' => 'date',
             'parcela' => 'int',
             'total' => 'between:0,99.99',
             'metodoPagamentoId' => 'required|int|exists:metodo_pagamento,id',
@@ -37,7 +37,7 @@ class PaymentRequest extends BaseRequest
             'pedidoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'numeroCartao.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'numeroCartao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dataValidade.date' => DefaultErrorMessages::INVALID_DATE,
             'parcela.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
