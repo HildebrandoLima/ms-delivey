@@ -28,7 +28,8 @@ class EnderecoFactory extends Factory
             'cep' => Str::random(7),
             'uf_id' => rand(1, 27),
             'usuario_id' => User::factory()->createOne()->id,
-            'fornecedor_id' => Fornecedor::factory()->createOne()->id
+            'fornecedor_id' => Fornecedor::factory()->createOne()->id,
+            'ativo' => true,
         ];
     }
 }

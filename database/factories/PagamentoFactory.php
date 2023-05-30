@@ -25,9 +25,9 @@ class PagamentoFactory extends Factory
             'data_validade' => $this->faker->dateTime,
             'parcela' => rand(1, 3),
             'total' => 20.0,
-            'ativo' => true,
             'metodo_pagamento_id' => rand(1, 6),
             'pedido_id' => Pedido::factory()->createOne()->id,
+            'ativo' => true,
         ];
     }
 }

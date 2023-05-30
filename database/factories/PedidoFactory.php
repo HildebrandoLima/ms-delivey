@@ -22,8 +22,8 @@ class PedidoFactory extends Factory
             'quantidade_item' => rand(10, 10),
             'total' => 50.99,
             'entrega' => 4.5,
-            'ativo' => true,
             'usuario_id' => User::factory()->createOne()->id,
+            'ativo' => true,
         ];
     }
 }
