@@ -931,15 +931,29 @@ O cadastro do item, é feito ao regisrar pedido. Não pode modificar o item.
 Até o momento, só faz o registro do pagamento. A listagem vem junto com o pedido.
 
 ### Exemplo: POST
+
+Com cartão
+
 ```
 {
-    "numeroCartao": 3433068434086543,
+    "numeroCartao": 3433 0684 3408 6543,
     "dataValidade": "2023-05-16 13:44:18",
-    "parcela": 0,
-    "total": 20.99,
+    "parcela": 3,
+    "total": 399.48,
     "ativo": 1,
     "metodoPagamentoId": 1,
     "pedidoId": 25
+}
+```
+
+Com dinheiro ou PIX
+
+```
+{
+    "total": 20.50,
+    "ativo": 1,
+    "metodoPagamentoId": 4,
+    "pedidoId": 30
 }
 ```
 
