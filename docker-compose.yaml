@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    tty: true
+    networks:
+      - app-network
+
   ms-delivery:
     build: .
     container_name: app_delivery
@@ -8,6 +15,15 @@ services:
       - "8080:80"
     volumes:
       - ./:/usr/share/nginx
+    networks:
+      - app-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mail
+    ports:
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - app-network
 
@@ -19,8 +35,8 @@ services:
     volumes:
       - .docker/dbdata:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: ms_delivery
-      MYSQL_ROOT_PASSWORD: ms_delivery
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     networks:
       - app-network
 
