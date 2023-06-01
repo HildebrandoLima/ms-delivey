@@ -25,9 +25,15 @@ Suba a aplicação usando docker:
     docker-compose up -d --build
 ```
 
+Não há necessidade de configurar servidor de teste para email. Utilize a imagem docker do mailhog. 
+
 ### Resultado:
 
-![Captura de tela de 2023-05-20 08-48-33](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/9ef9d406-5b13-448f-b633-47ce105caf7c)
+```
+    docker ps
+```
+
+![Captura de tela de 2023-06-01 11-29-53](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/bcd10923-10bd-4cef-87e6-d6570a9cdd18)
 
 ### Funcionalidades (Atualmente desenvolvidas)
 <ul>
