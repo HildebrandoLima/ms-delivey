@@ -1,39 +1,12 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD (Ainda sendo implementado), Job (envio de e-mails e atualização de estoque).
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD (Ainda sendo implementado), Job (envio de e-mails e atualização de estoque). Docker ainda sendo implementado.
 
 ### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
 - MySQL para banco de dados.<br/>
-
-## DockerFile
-Caso não queira seguir os passos do método tradicional, utilize o docker.
-
-### Requisitos
-<ul>
-    <li>Instalar Docker</li>
-    <li>Instalar Docker-Composer</li>
-</ul>
-
-<br/>
-
-Suba a aplicação usando docker:
-
-```
-    docker-compose up -d --build
-```
-
-Não há necessidade de configurar servidor de teste para email. Utilize a imagem docker do mailhog. 
-
-### Resultado:
-
-```
-    docker ps
-```
-
-![Captura de tela de 2023-06-01 11-29-53](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/bcd10923-10bd-4cef-87e6-d6570a9cdd18)
 
 ### Funcionalidades (Atualmente desenvolvidas)
 <ul>
