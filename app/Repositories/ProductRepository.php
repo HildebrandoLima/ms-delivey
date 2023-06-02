@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProductRepository implements IProductRepository {
-    public function insert(Produto $produto): int
+    public function create(Produto $produto): int
     {
         $produtoId = Produto::query()->create($produto->toArray());
         return $produtoId->id;

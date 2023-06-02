@@ -29,7 +29,7 @@ class CreateProviderService implements ICreateProviderService
     {
         $this->checkRegisterRepository->checkProviderExist($request);
         $provider = $this->mapToModel($request);
-        $providerId = $this->providerRepository->insert($provider);
+        $providerId = $this->providerRepository->create($provider);
         EmailForRegisterJob::dispatch($request->email);
         return $providerId;
     }

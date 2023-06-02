@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\IImageRepository;
 use Illuminate\Support\Collection;
 
 class ImageRepository implements IImageRepository {
-    public function insert(Imagem $imagem): bool
+    public function create(Imagem $imagem): bool
     {
         Imagem::query()->create($imagem->toArray());
         return true;

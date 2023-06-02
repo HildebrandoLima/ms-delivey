@@ -35,7 +35,7 @@ class CreateTelephoneService implements ICreateTelephoneService
             isset ($telefone['usuarioId']) ? $this->checkRegisterRepository->checkUserIdExist($telefone['usuarioId'])
             : $this->checkRegisterRepository->checkProviderIdExist($telefone['fornecedorId']);
             $telephone = $this->mapToModel($telefone);
-            $this->telephoneRepository->insert($telephone);
+            $this->telephoneRepository->create($telephone);
         endforeach;
         return true;
     }

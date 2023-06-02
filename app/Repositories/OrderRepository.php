@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class OrderRepository implements IOrderRepository {
-    public function insert(Pedido $pedido): int
+    public function create(Pedido $pedido): int
     {
         $pedidoId = Pedido::query()->create($pedido->toArray());
         return $pedidoId->id;

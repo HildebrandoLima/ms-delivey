@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CategoryRepository implements ICategoryRepository {
-    public function insert(Categoria $categoria): bool
+    public function create(Categoria $categoria): bool
     {
         Categoria::query()->create($categoria->toArray());
         return true;

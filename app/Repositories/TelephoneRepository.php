@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\ITelephoneRepository;
 use Illuminate\Support\Collection;
 
 class TelephoneRepository implements ITelephoneRepository {
-    public function insert(Telefone $telefone): bool
+    public function create(Telefone $telefone): bool
     {
         Telefone::query()->create($telefone->toArray());
         return true;

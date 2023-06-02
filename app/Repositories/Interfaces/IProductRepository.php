@@ -7,7 +7,7 @@ use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 interface IProductRepository {
-    public function insert(Produto $produto): int;
+    public function create(Produto $produto): int;
     public function update(int $id, Produto $produto): bool;
     public function delete(int $id): bool;
     public function getAll(Pagination $pagination, int $active): Collection;

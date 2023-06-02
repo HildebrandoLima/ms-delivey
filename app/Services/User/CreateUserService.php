@@ -34,7 +34,7 @@ class CreateUserService implements ICreateUserService
     {
         $this->checkRegisterRepository->checkUserExist($request);
         $user = $this->mapToModel($request);
-        $userId = $this->userRepository->insert($user);
+        $userId = $this->userRepository->create($user);
         EmailForRegisterJob::dispatch($request->email);
         return $userId;
     }

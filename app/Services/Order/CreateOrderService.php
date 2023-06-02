@@ -31,10 +31,10 @@ class CreateOrderService implements ICreateOrderService
     public function createOrder(OrderRequest $request): int
     {
         $order = $this->mapToModelOrder($request);
-        $orderId = $this->orderRepository->insert($order);
+        $orderId = $this->orderRepository->create($order);
         foreach ($request->items as $item):
             $items = $this->mapToModelItems($orderId , $item);
-            $this->itemRepository->insert($items);
+            $this->itemRepository->create($items);
         endforeach;
         EmailCreateOrderJob::dispatch($order->toArray(), $request->items);
         return $orderId;

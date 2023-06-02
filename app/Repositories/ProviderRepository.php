@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProviderRepository implements IProviderRepository {
-    public function insert(Fornecedor $fornecedor): int
+    public function create(Fornecedor $fornecedor): int
     {
         $fornecedorId = Fornecedor::query()->create($fornecedor->toArray());
         return $fornecedorId->id;

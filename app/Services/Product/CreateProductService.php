@@ -41,7 +41,7 @@ class CreateProductService implements ICreateProductService
         $this->checkRegisterRepository->checkProductExist($request);
         $this->checkRegisterRepository->checkProviderIdExist($request->fornecedorId);
         $product = $this->mapToModelProduct();
-        $productId = $this->productRepository->insert($product);
+        $productId = $this->productRepository->create($product);
         $this->validatedImage($productId);
         return true;
     }
@@ -71,7 +71,7 @@ class CreateProductService implements ICreateProductService
             foreach ($images as $image):
                 $path = $image->store('images', 'public');
                 $image = $this->mapToModelImage($path, $productId);
-                $this->imageRepository->insert($image);
+                $this->imageRepository->create($image);
             endforeach;
         else:
             throw new HttpBadRequest('Nenhuma imagem foi selecionada.');

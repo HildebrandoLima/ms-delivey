@@ -33,7 +33,7 @@ class CreateAddressService implements ICreateAddressService
         isset ($request->usuarioId) ? $this->checkRegisterRepository->checkUserIdExist($request->usuarioId)
         : $this->checkRegisterRepository->checkProviderIdExist($request->fornecedorId);
         $address = $this->mapToModel($request);
-        return $this->addressRepository->insert($address);
+        return $this->addressRepository->create($address);
     }
 
     private function mapToModel(AddressRequest $request): Endereco

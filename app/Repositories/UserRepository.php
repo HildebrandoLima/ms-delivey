@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class UserRepository implements IUserRepository {
-    public function insert(User $user): int
+    public function create(User $user): int
     {
         $userId = User::query()->create($user->toArray());
         return $userId->id;

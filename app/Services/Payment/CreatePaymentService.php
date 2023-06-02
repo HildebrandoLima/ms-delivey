@@ -21,7 +21,7 @@ class CreatePaymentService implements ICreatePaymentService
     public function createPayment(PaymentRequest $request): bool
     {
         $payment = $this->mapToModel($request);
-        return $this->paymentRepository->insert($payment);
+        return $this->paymentRepository->create($payment);
     }
 
     private function mapToModel(PaymentRequest $request): Pagamento

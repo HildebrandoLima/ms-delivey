@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\IItemRepository;
 use Illuminate\Support\Collection;
 
 class ItemRepository implements IItemRepository {
-    public function insert(Item $item): bool
+    public function create(Item $item): bool
     {
         Item::query()->create($item->toArray());
         return true;

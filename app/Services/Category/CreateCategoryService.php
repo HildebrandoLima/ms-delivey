@@ -28,7 +28,7 @@ class CreateCategoryService implements ICreateCategoryService
     {
         $this->checkRegisterRepository->checkCategoryExist($request);
         $category = $this->mapToModel($request);
-        return $this->categoryRepository->insert($category);
+        return $this->categoryRepository->create($category);
     }
 
     private function mapToModel(CategoryRequest $request): Categoria

@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\IAddressRepository;
 use Illuminate\Support\Collection;
 
 class AddressRepository implements IAddressRepository {
-    public function insert(Endereco $endereco): bool
+    public function create(Endereco $endereco): bool
     {
         Endereco::query()->create($endereco->toArray());
         return true;
