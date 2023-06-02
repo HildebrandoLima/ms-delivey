@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('pagamento', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->integer('codigo_transacao')->unique()->notnull();
-            $table->char('numero_cartao', 16);
-            $table->date('data_validade');
-            $table->integer('parcela');
+            $table->char('numero_cartao', 16)->nullable()->default(NULL);
+            $table->date('data_validade')->nullable()->default(NULL);
+            $table->integer('parcela')->nullable()->default(NULL);
             $table->decimal('total', 10, 2)->notnull();
             $table->foreignId('metodo_pagamento_id')->constrained('metodo_pagamento')->notnull();
             $table->foreignId('pedido_id')->constrained('pedido')->notnull();
