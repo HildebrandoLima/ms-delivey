@@ -46,8 +46,8 @@ class EditTelephoneService implements IEditTelephoneService
         $telephone->numero = str_replace('-', "", $telephones['numero']);
         $telephone->tipo = $this->telephoneCase->typeCase($telephones['tipo']);
         $telephone->ddd_id = $telephones['dddId'];
-        $telephone->usuario_id = isset ($telephones['usuarioId']) ? $telephones['usuarioId'] : 1;
-        $telephone->fornecedor_id = isset ($telephones['fornecedorId']) ? $telephones['fornecedorId'] : 1;
+        $telephone->usuario_id = $telephones['usuarioId'] ?? null;
+        $telephone->fornecedor_id = $telephones['fornecedorId'] ?? null;
         $telephones['ativo'] == 1 ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
         return $telephone;
     }

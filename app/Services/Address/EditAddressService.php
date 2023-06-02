@@ -45,8 +45,8 @@ class EditAddressService implements IEditAddressService
         $address->cidade = $request->cidade;
         $address->cep = str_replace('-', "", $request->cep);
         $address->uf_id = $request->ufId;
-        $address->usuario_id = isset ($request->usuarioId) ? $request->usuarioId : 1;
-        $address->fornecedor_id = isset ($request->fornecedorId) ? $request->fornecedorId : 1;
+        $address->usuario_id = $request->usuarioId ?? null;
+        $address->fornecedor_id = $request->fornecedorId ?? null;
         $request->ativo == 1 ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
         return $address;
     }
