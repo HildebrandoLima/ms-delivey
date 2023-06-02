@@ -9,7 +9,8 @@ use Illuminate\Support\Collection;
 class ItemRepository implements IItemRepository {
     public function insert(Item $item): bool
     {
-        return Item::query()->insert($item->toArray());
+        Item::query()->create($item->toArray());
+        return true;
     }
 
     public function update(int $id, Item $item): bool

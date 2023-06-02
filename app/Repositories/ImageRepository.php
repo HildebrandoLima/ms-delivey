@@ -9,7 +9,8 @@ use Illuminate\Support\Collection;
 class ImageRepository implements IImageRepository {
     public function insert(Imagem $imagem): bool
     {
-        return Imagem::query()->insert($imagem->toArray());
+        Imagem::query()->create($imagem->toArray());
+        return true;
     }
 
     public function update(int $id, Imagem $imagem): bool

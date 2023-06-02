@@ -12,7 +12,8 @@ use Illuminate\Support\Collection;
 class OrderRepository implements IOrderRepository {
     public function insert(Pedido $pedido): int
     {
-        return Pedido::query()->insertGetId($pedido->toArray());
+        $pedidoId = Pedido::query()->create($pedido->toArray());
+        return $pedidoId->id;
     }
 
     public function update(int $id, Pedido $pedido): bool

@@ -12,7 +12,8 @@ use Illuminate\Support\Collection;
 class ProductRepository implements IProductRepository {
     public function insert(Produto $produto): int
     {
-        return Produto::query()->insertGetId($produto->toArray());
+        $produtoId = Produto::query()->create($produto->toArray());
+        return $produtoId->id;
     }
 
     public function update(int $id, Produto $produto): bool

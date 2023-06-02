@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 class AddressRepository implements IAddressRepository {
     public function insert(Endereco $endereco): bool
     {
-        return Endereco::query()->insert($endereco->toArray());
+        Endereco::query()->create($endereco->toArray());
+        return true;
     }
 
     public function update(int $id, Endereco $endereco): bool

@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 class CategoryRepository implements ICategoryRepository {
     public function insert(Categoria $categoria): bool
     {
-        return Categoria::query()->insert($categoria->toArray());
+        Categoria::query()->create($categoria->toArray());
+        return true;
     }
 
     public function update(int $id, Categoria $categoria): bool

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Endereco;
 use App\Models\Fornecedor;
-use App\Models\Telefone;
 use App\Repositories\Interfaces\IProviderRepository;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
@@ -14,7 +12,8 @@ use Illuminate\Support\Collection;
 class ProviderRepository implements IProviderRepository {
     public function insert(Fornecedor $fornecedor): int
     {
-        return Fornecedor::query()->insertGetId($fornecedor->toArray());
+        $fornecedorId = Fornecedor::query()->create($fornecedor->toArray());
+        return $fornecedorId->id;
     }
 
     public function update(int $id, Fornecedor $fornecedor): bool

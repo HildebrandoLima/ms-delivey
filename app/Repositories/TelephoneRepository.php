@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 class TelephoneRepository implements ITelephoneRepository {
     public function insert(Telefone $telefone): bool
     {
-        return Telefone::query()->insert($telefone->toArray());
+        Telefone::query()->create($telefone->toArray());
+        return true;
     }
 
     public function update(int $id, Telefone $telefone): bool

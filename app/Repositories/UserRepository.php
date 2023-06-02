@@ -12,7 +12,8 @@ use Illuminate\Support\Collection;
 class UserRepository implements IUserRepository {
     public function insert(User $user): int
     {
-        return User::query()->insertGetId($user->toArray());
+        $userId = User::query()->create($user->toArray());
+        return $userId->id;
     }
 
     public function update(int $id, User $user): bool
