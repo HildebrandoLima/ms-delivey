@@ -9,16 +9,15 @@ use Exception;
 
 class PaginationList
 {
-    public static function createFromPagination(Builder $query, Pagination $pagination): Collection
+    public static function createFromPagination(Builder $query): Collection
     {
         try {
-            $total = $query->count();
-            $list = $query->offset(($pagination->perPage - 1) * $pagination->page)->limit($pagination->perPage)->get();
+            $list = $query->paginate(10);
             return collect([
-                'list' => $list,
-                'total' => $total,
-                'page' => (int)$pagination->page,
-                'lastPage' => ceil($total / $pagination->perPage)
+                'list' => $list->items(),
+                'total' => $list->total(),
+                'page' => $list->currentPage(),
+                'lastPage' => $list->lastPage()
             ]);
         } catch(Exception $e) {
             return Log::error('Error ao criar paginação', $e->getMessage());

@@ -32,8 +32,6 @@ class EditTelephoneService implements IEditTelephoneService
     {
         foreach ($request->telefones as $telefone):
             $this->checkRegisterRepository->checkTelephoneIdExist($id);
-            isset ($telefone['usuarioId']) ? $this->checkRegisterRepository->checkUserIdExist($telefone['usuarioId'])
-            : $this->checkRegisterRepository->checkProviderIdExist($telefone['fornecedorId']);
             $telephone = $this->mapToModel($telefone);
             $this->telephoneRepository->update($id, $telephone);
         endforeach;
@@ -46,8 +44,8 @@ class EditTelephoneService implements IEditTelephoneService
         $telephone->numero = str_replace('-', "", $telephones['numero']);
         $telephone->tipo = $this->telephoneCase->typeCase($telephones['tipo']);
         $telephone->ddd_id = $telephones['dddId'];
-        $telephone->usuario_id = isset ($telephones['usuarioId']) ? $telephones['usuarioId'] : 1;
-        $telephone->fornecedor_id = isset ($telephones['fornecedorId']) ? $telephones['fornecedorId'] : 1;
+        $telephone->usuario_id = $telephones['usuarioId'] ?? null;
+        $telephone->fornecedor_id = $telephones['fornecedorId'] ?? null;
         $telephones['ativo'] == 1 ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
         return $telephone;
     }

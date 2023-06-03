@@ -28,18 +28,18 @@ class EditProviderService implements IEditProviderService
     {
         $this->request = $request;
         $this->checkRegisterRepository->checkProviderIdExist($id);
-        $provider = $this->mapToModel($request);
+        $provider = $this->mapToModel();
         return $this->providerRepository->update($id, $provider);
     }
 
-    private function mapToModel(ProviderRequest $request): Fornecedor
+    private function mapToModel(): Fornecedor
     {
         $provider = new Fornecedor();
-        $provider->nome = $request->nome;
-        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
-        $provider->email = $request->email;
-        $provider->data_fundacao = $request->dataFundacao;
-        $request->ativo == 1 ? $provider->ativo = ProviderEnum::ATIVADO : $provider->ativo = ProviderEnum::DESATIVADO;
+        $provider->razao_social = $this->request->razaoSocial;
+        $provider->cnpj = str_replace(array('.','-','/'), "", $this->request->cnpj);
+        $provider->email = $this->request->email;
+        $provider->data_fundacao = $this->request->dataFundacao;
+        $this->request->ativo == 1 ? $provider->ativo = ProviderEnum::ATIVADO : $provider->ativo = ProviderEnum::DESATIVADO;
         return $provider;
     }
 }

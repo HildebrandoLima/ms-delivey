@@ -29,9 +29,7 @@ class ListCategoryService implements IListCategoryService
 
     public function listProviderFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0):
-            $this->checkRegisterRepository->checkCategoryIdExist($id);
-        endif;
+        if ($id != 0) $this->checkRegisterRepository->checkCategoryIdExist($id);
         return $this->categoryRepository->getFind($id, $search, $active);
     }
 }

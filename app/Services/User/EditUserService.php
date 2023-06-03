@@ -32,21 +32,26 @@ class EditUserService implements IEditUserService
     public function editUser(int $id, UserRequest $request): bool
     {
         $this->request = $request;
-        $this->checkRegisterRepository->checkUserIdExist($id);
-        $user = $this->mapToModel($request);
+        $this->checkExist($id);
+        $user = $this->mapToModel();
         return $this->userRepository->update($id, $user);
     }
 
-    private function mapToModel(UserRequest $request): User
+    public function checkExist(int $id): void
+    {
+        $this->checkRegisterRepository->checkUserIdExist($id);
+    }
+
+    private function mapToModel(): User
     {
         $user = new User();
-        $user->name = $request->nome;
-        $user->cpf = str_replace(array('.','-','/'), "", $request->cpf);
-        $user->email = $request->email;
-        $user->password = Hash::make($request->senha);
-        $user->data_nascimento = $request->dataNascimento;
-        $user->genero = $this->userCase->genderCase($request->genero);
-        $request->ativo == 1 ? $user->ativo = UserEnum::ATIVADO : $user->ativo = UserEnum::DESATIVADO;
+        $user->name = $this->request->nome;
+        $user->cpf = str_replace(array('.','-','/'), "", $this->request->cpf);
+        $user->email = $this->request->email;
+        $user->password = Hash::make($this->request->senha);
+        $user->data_nascimento = $this->request->dataNascimento;
+        $user->genero = $this->userCase->genderCase($this->request->genero);
+        $this->request->ativo == 1 ? $user->ativo = UserEnum::ATIVADO : $user->ativo = UserEnum::DESATIVADO;
         return $user;
     }
 }

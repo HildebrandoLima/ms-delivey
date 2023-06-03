@@ -34,7 +34,7 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
     public function checkCategoryExist(CategoryRequest $request): void
     {
         if (Categoria::query()
-                ->where('descricao', 'like', $request->descricao)
+                ->where('nome', 'like', $request->nome)
                 ->count() != 0):
             throw new HttpBadRequest('A categoria informada já existe.');
         endif;
@@ -80,7 +80,7 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
     public function checkProviderExist(ProviderRequest $request): void
     {
         if (Fornecedor::query()
-                ->where('nome', 'like', $request->nome)
+                ->where('razao_social', 'like', $request->razaoSocial)
                 ->orWhere(function ($query) use ($request) {
                     $query->where('cnpj', '=', $request->cnpj)
                         ->orWhere(function ($query) use ($request) {

@@ -14,7 +14,7 @@ class ProviderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string',
+            'razaoSocial' => 'required|string',
             'cnpj' => 'required|string|cnpj',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'dataFundacao' => 'required|date',
@@ -25,13 +25,13 @@ class ProviderRequest extends BaseRequest
     public function messages()
     {
         return [
-            'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'razaoSocial.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cnpj.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataFundacao.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'razaoSocial.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email' => DefaultErrorMessages::INVALID_EMAIL,

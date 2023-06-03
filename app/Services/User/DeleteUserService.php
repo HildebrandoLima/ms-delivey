@@ -31,9 +31,7 @@ class DeleteUserService implements IDeleteUserService
 
     public function deleteUser(int $id): bool
     {
-        $this->checkRegisterRepository->checkUserIdExist($id);
-        $this->checkRegisterRepository->checkAddressIdExist($id);
-        $this->checkRegisterRepository->checkTelephoneIdExist($id);
+        $this->checkExist($id);
         if
         (
             $this->addressRepository->delete($id)
@@ -44,5 +42,12 @@ class DeleteUserService implements IDeleteUserService
         else:
             return false;
         endif;
+    }
+
+    public function checkExist(int $id): void
+    {
+        $this->checkRegisterRepository->checkUserIdExist($id);
+        $this->checkRegisterRepository->checkAddressIdExist($id);
+        $this->checkRegisterRepository->checkTelephoneIdExist($id);
     }
 }

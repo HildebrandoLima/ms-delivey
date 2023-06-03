@@ -41,7 +41,6 @@ class ProductController extends Controller
         try {
             $success = $this->listProductService->listProductAll
             (
-                $pagination,
                 $filterByActive->filterByActive($pagination->active)
             );
             if (!$success) return Controller::error();

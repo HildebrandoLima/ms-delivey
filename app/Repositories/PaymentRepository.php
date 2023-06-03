@@ -7,9 +7,10 @@ use App\Repositories\Interfaces\IPaymentRepository;
 use Illuminate\Support\Collection;
 
 class PaymentRepository implements IPaymentRepository {
-    public function insert(Pagamento $pagamento): bool
+    public function create(Pagamento $pagamento): bool
     {
-        return Pagamento::query()->insert($pagamento->toArray());
+        Pagamento::query()->create($pagamento->toArray());
+        return true;
     }
 
     public function update(int $id, Pagamento $pagamento): bool

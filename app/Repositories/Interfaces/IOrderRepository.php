@@ -3,13 +3,12 @@
 namespace App\Repositories\Interfaces;
 
 use App\Models\Pedido;
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 interface IOrderRepository {
-    public function insert(Pedido $pedido): int;
+    public function create(Pedido $pedido): int;
     public function update(int $id, Pedido $pedido): bool;
     public function delete(int $id): bool;
-    public function getAll(Pagination $pagination, int $active): Collection;
+    public function getAll(int $active): Collection;
     public function getFind(int $id, string $search, int $active): Collection;
 }

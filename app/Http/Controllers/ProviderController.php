@@ -41,7 +41,6 @@ class ProviderController extends Controller
         try {
             $success = $this->listProviderService->listProviderAll
             (
-                $pagination,
                 $filterByActive->filterByActive($pagination->active)
             );
             if (!$success) return Controller::error();

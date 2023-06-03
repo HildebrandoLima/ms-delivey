@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('quantidade_item')->notnull();
             $table->decimal('total', 10, 2)->notnull();
             $table->decimal('entrega', 10, 2)->notnull();
+            $table->foreignId('usuario_id')->constrained('users')->notnull();
             $table->boolean('ativo');
-            $table->foreignId('usuario_id')->constrained('users');
             $table->timestamps();
         });
     }

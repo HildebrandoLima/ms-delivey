@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProductRepository implements IProductRepository {
-    public function insert(Produto $produto): int
+    public function create(Produto $produto): int
     {
-        return Produto::query()->insertGetId($produto->toArray());
+        $produtoId = Produto::query()->create($produto->toArray());
+        return $produtoId->id;
     }
 
     public function update(int $id, Produto $produto): bool
@@ -25,11 +26,11 @@ class ProductRepository implements IProductRepository {
         return Produto::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, int $active): Collection
+    public function getAll(int $active): Collection
     {
         $query = $this->mapToQuery();
         $query->where('produto.ativo', $active)->orderBy('produto.id');
-        return PaginationList::createFromPagination($query, $pagination);
+        return PaginationList::createFromPagination($query);
     }
 
     public function getFind(int $id, string $search, int $active): Collection
@@ -46,6 +47,7 @@ class ProductRepository implements IProductRepository {
         return Produto::query()
         ->join('categoria as c', 'c.id', '=', 'produto.categoria_id')
         ->select([
+            'c.nome as categoria',
             'produto.id as produtoId',
             'produto.nome as produto',
             'produto.preco_custo as custo',
@@ -58,8 +60,7 @@ class ProductRepository implements IProductRepository {
             'produto.data_validade as dataValidade',
             'produto.ativo as ativo',
             'produto.created_at as criadoEm',
-            'produto.updated_at as alteradoEm',
-            'c.descricao as descricaoCategoria'
+            'produto.updated_at as alteradoEm'
         ]);
     }
 }

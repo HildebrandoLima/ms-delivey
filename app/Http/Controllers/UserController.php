@@ -41,7 +41,6 @@ class UserController extends Controller
         try {
             $success = $this->listUserService->listUserAll
             (
-                $pagination,
                 $filterByActive->filterByActive($pagination->active)
             );
             if (!$success) return Controller::error();

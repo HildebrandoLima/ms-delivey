@@ -5,7 +5,6 @@ namespace App\Services\Address;
 use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\AddressRepository;
-use App\Repositories\CheckRegisterRepository;
 use App\Services\Address\Interfaces\IEditAddressService;
 use App\Support\Utils\Cases\AddressCase;
 use App\Support\Utils\Enums\AddressEnum;
@@ -13,25 +12,20 @@ use App\Support\Utils\Enums\AddressEnum;
 class EditAddressService implements IEditAddressService
 {
     private AddressCase $addressCase;
-    private CheckRegisterRepository $checkRegisterRepository;
     private AddressRepository $addressRepository;
 
     public function __construct
     (
-        AddressCase             $addressCase,
-        CheckRegisterRepository $checkRegisterRepository,
-        AddressRepository       $addressRepository
+        AddressCase       $addressCase,
+        AddressRepository $addressRepository
     )
     {
-        $this->addressCase             = $addressCase;
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->addressRepository       = $addressRepository;
+        $this->addressCase       = $addressCase;
+        $this->addressRepository = $addressRepository;
     }
 
     public function editAddress($id, AddressRequest $request): bool
     {
-        isset ($request->usuarioId) ? $this->checkRegisterRepository->checkUserIdExist($request->usuarioId)
-        : $this->checkRegisterRepository->checkProviderIdExist($request->fornecedorId);
         $address = $this->mapToModel($request);
         return $this->addressRepository->update($id, $address);
     }
@@ -45,8 +39,8 @@ class EditAddressService implements IEditAddressService
         $address->cidade = $request->cidade;
         $address->cep = str_replace('-', "", $request->cep);
         $address->uf_id = $request->ufId;
-        $address->usuario_id = isset ($request->usuarioId) ? $request->usuarioId : 1;
-        $address->fornecedor_id = isset ($request->fornecedorId) ? $request->fornecedorId : 1;
+        $address->usuario_id = $request->usuarioId ?? null;
+        $address->fornecedor_id = $request->fornecedorId ?? null;
         $request->ativo == 1 ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
         return $address;
     }

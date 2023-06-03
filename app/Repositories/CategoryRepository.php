@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CategoryRepository implements ICategoryRepository {
-    public function insert(Categoria $categoria): bool
+    public function create(Categoria $categoria): bool
     {
-        return Categoria::query()->insert($categoria->toArray());
+        Categoria::query()->create($categoria->toArray());
+        return true;
     }
 
     public function update(int $id, Categoria $categoria): bool
@@ -32,14 +33,14 @@ class CategoryRepository implements ICategoryRepository {
     {
         return $this->mapToQuery()
         ->where('ativo', $active)->where('id', $id)
-        ->orWhere('descricao', 'like', $search)->get();
+        ->orWhere('nome', 'like', $search)->get();
     }
 
     private function mapToQuery(): Builder
     {
         return Categoria::query()->select([
             'id as descricaoId',
-            'descricao as descricao',
+            'nome as nome',
             'ativo as ativo',
             'created_at as criadoEm',
             'updated_at as alteradoEm'

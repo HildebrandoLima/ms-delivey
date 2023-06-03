@@ -4,15 +4,15 @@ namespace App\Repositories;
 
 use App\Models\Pedido;
 use App\Repositories\Interfaces\IOrderRepository;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class OrderRepository implements IOrderRepository {
-    public function insert(Pedido $pedido): int
+    public function create(Pedido $pedido): int
     {
-        return Pedido::query()->insertGetId($pedido->toArray());
+        $pedidoId = Pedido::query()->create($pedido->toArray());
+        return $pedidoId->id;
     }
 
     public function update(int $id, Pedido $pedido): bool
@@ -25,11 +25,11 @@ class OrderRepository implements IOrderRepository {
         return Pedido::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, int $active): Collection
+    public function getAll(int $active): Collection
     {
         $query = $this->mapToQuery();
         $query->orderByDesc('pedido.id');
-        return PaginationList::createFromPagination($query, $pagination);
+        return PaginationList::createFromPagination($query);
     }
 
     public function getFind(int $id, string $search, int $active): Collection

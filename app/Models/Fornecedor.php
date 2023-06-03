@@ -12,7 +12,7 @@ class Fornecedor extends Model
     protected $table = 'fornecedor';
 
     protected $fillable = [
-        'nome',
+        'razao_social',
         'cnpj',
         'email',
         'data_fundacao',
