@@ -18,7 +18,7 @@ class FornecedorFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => $this->faker->name,
+            'razao_social' => $this->faker->name,
             'cnpj' => Str::random(14),
             'email' => $this->faker->email,
             'data_fundacao' => $this->faker->dateTime,
