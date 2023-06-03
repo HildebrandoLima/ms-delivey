@@ -35,7 +35,7 @@ class EditCategoryService implements IEditCategoryService
     private function mapToModel(): Categoria
     {
         $category = new Categoria();
-        $category->nome = $this->request->descricao;
+        $category->nome = $this->request->nome;
         $this->request->ativo == 1 ? $category->ativo = CategoryEnum::ATIVADO : $category->ativo = CategoryEnum::DESATIVADO;
         return $category;
     }

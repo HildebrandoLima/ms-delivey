@@ -38,7 +38,7 @@ class ProviderRepository implements IProviderRepository {
         return $this->mapToQuery()
         ->where('ativo', $active)
         ->where('id', $id)
-        ->orWhere('nome', 'like', $search)
+        ->orWhere('razao_social', 'like', $search)
         ->get();
     }
 
@@ -46,7 +46,7 @@ class ProviderRepository implements IProviderRepository {
     {
         return Fornecedor::query()->select([
             'id as fornecedorId',
-            'nome as nome',
+            'razao_social as razao_social',
             'cnpj as cnpj',
             'ativo as ativo',
             'created_at as criadoEm',

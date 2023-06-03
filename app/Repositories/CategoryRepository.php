@@ -33,14 +33,14 @@ class CategoryRepository implements ICategoryRepository {
     {
         return $this->mapToQuery()
         ->where('ativo', $active)->where('id', $id)
-        ->orWhere('descricao', 'like', $search)->get();
+        ->orWhere('nome', 'like', $search)->get();
     }
 
     private function mapToQuery(): Builder
     {
         return Categoria::query()->select([
             'id as descricaoId',
-            'descricao as descricao',
+            'nome as nome',
             'ativo as ativo',
             'created_at as criadoEm',
             'updated_at as alteradoEm'
