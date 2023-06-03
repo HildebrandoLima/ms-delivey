@@ -153,7 +153,7 @@ Admin<br />
 |------|-----------------------|
 |DELETE| /api/user/remove/{id} |
 
-### Exemplo: POST/PUT
+### Body: POST/PUT
 ```
 {
     "nome": "Hill",
@@ -255,7 +255,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 <li>/find?id=Mjg=&active=1</li>
 <li>/find?search=System=&active=1</li>
 
-### Exemplo: POST/PUT
+### Body: POST/PUT
 ```
 {
     "razaoSocial": "Teste Test",
@@ -334,7 +334,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 |------|--------------------------|
 |DELETE| /api/address/remove/{id} |
 
-### Exemplo: POST/PUT
+### Body: POST/PUT
 ```
 {
     "logradouro": "Rua",
@@ -431,7 +431,7 @@ ou
 |------|----------------------------|
 |DELETE| /api/telephone/remove/{id} |
 
-### Exemplo: POST/PUT
+### Body: POST/PUT
 ```
 {
     "telefones": [
@@ -544,7 +544,7 @@ ou
 |------|---------------------------|
 |DELETE| /api/category/remove/{id} |
 
-### Exemplo: POST/PUT
+### Body: POST/PUT
 ```
 {
     "nome": "Eletrônicos",
@@ -625,7 +625,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 <li>/find?id=Mjg=&active=1</li>
 <li>/find?search=TV LED=&active=1</li>
 
-### Exemplo: POST
+### Body: POST
 ```
 {
     "nome": "TV LED 55' FULLHD",
@@ -643,7 +643,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 }
 ```
 
-### Exemplo: PUT
+### Body: PUT
 ```
 {
     "nome": "Batata Frita Sabor Original Pringles - 114g",
@@ -772,7 +772,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 O pedido não pode ser modificado.
 
-### Exemplo: POST
+### Body: POST
 ```
 {
     "quantidadeItem": 4,
@@ -882,12 +882,6 @@ O cadastro do item, é feito ao regisrar pedido. Não pode modificar o item.
 </details>
 </details>
 
-    
-    
-    
-    
-    
-    
 ### Pagamento
 
 <details>
@@ -901,7 +895,7 @@ O cadastro do item, é feito ao regisrar pedido. Não pode modificar o item.
 
 Até o momento, só faz o registro do pagamento. A listagem vem junto com o pedido.
 
-### Exemplo: POST
+### Body: POST
 
 Com cartão
 
