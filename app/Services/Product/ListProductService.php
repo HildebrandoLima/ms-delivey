@@ -30,9 +30,7 @@ class ListProductService implements IListProductService
 
     public function listProductFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0):
-            $this->checkRegisterRepository->checkProductIdExist($id);
-        endif;
+        if ($id != 0) $this->checkRegisterRepository->checkProductIdExist($id);
         return $this->productRepository->getFind($id, $search, $active);
     }
 }

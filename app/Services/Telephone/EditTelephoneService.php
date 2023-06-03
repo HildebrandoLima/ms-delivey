@@ -32,8 +32,6 @@ class EditTelephoneService implements IEditTelephoneService
     {
         foreach ($request->telefones as $telefone):
             $this->checkRegisterRepository->checkTelephoneIdExist($id);
-            isset ($telefone['usuarioId']) ? $this->checkRegisterRepository->checkUserIdExist($telefone['usuarioId'])
-            : $this->checkRegisterRepository->checkProviderIdExist($telefone['fornecedorId']);
             $telephone = $this->mapToModel($telefone);
             $this->telephoneRepository->update($id, $telephone);
         endforeach;

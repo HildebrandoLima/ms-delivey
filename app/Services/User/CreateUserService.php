@@ -32,23 +32,34 @@ class CreateUserService implements ICreateUserService
 
     public function createUser(UserRequest $request): int
     {
-        $this->checkRegisterRepository->checkUserExist($request);
-        $user = $this->mapToModel($request);
+        $this->request = $request;
+        $this->checkExist();
+        $user = $this->mapToModel();
         $userId = $this->userRepository->create($user);
-        EmailForRegisterJob::dispatch($request->email);
+        if ($userId) $this->dispatchJob();
         return $userId;
     }
 
-    private function mapToModel(UserRequest $request): User
+    public function checkExist(): void
+    {
+        $this->checkRegisterRepository->checkUserExist($this->request);
+    }
+
+    private function mapToModel(): User
     {
         $user = new User();
-        $user->name = $request->nome;
-        $user->cpf = str_replace(array('.','-','/'), "", $request->cpf);
-        $user->email = $request->email;
-        $user->password = Hash::make($request->senha);
-        $user->data_nascimento = $request->dataNascimento;
-        $user->genero = $this->userCase->genderCase($request->genero);
+        $user->name = $this->request->nome;
+        $user->cpf = str_replace(array('.','-','/'), "", $this->request->cpf);
+        $user->email = $this->request->email;
+        $user->password = Hash::make($this->request->senha);
+        $user->data_nascimento = $this->request->dataNascimento;
+        $user->genero = $this->userCase->genderCase($this->request->genero);
         $user->ativo = UserEnum::ATIVADO;
         return $user;
+    }
+
+    public function dispatchJob(): void
+    {
+        EmailForRegisterJob::dispatch($this->request->email);
     }
 }

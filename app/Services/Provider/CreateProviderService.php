@@ -27,21 +27,32 @@ class CreateProviderService implements ICreateProviderService
 
     public function createProvider(ProviderRequest $request): int
     {
-        $this->checkRegisterRepository->checkProviderExist($request);
-        $provider = $this->mapToModel($request);
+        $this->request = $request;
+        $this->checkExist();
+        $provider = $this->mapToModel();
         $providerId = $this->providerRepository->create($provider);
-        EmailForRegisterJob::dispatch($request->email);
+        if ($providerId) $this->dispatchJob();
         return $providerId;
     }
 
-    private function mapToModel(ProviderRequest $request): Fornecedor
+    public function checkExist(): void
+    {
+        $this->checkRegisterRepository->checkProviderExist($this->request);
+    }
+
+    private function mapToModel(): Fornecedor
     {
         $provider = new Fornecedor();
-        $provider->nome = $request->nome;
-        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
-        $provider->email = $request->email;
-        $provider->data_fundacao = $request->dataFundacao;
+        $provider->nome = $this->request->nome;
+        $provider->cnpj = str_replace(array('.','-','/'), "", $this->request->cnpj);
+        $provider->email = $this->request->email;
+        $provider->data_fundacao = $this->request->dataFundacao;
         $provider->ativo = ProviderEnum::ATIVADO;
         return $provider;
+    }
+
+    public function dispatchJob(): void
+    {
+        EmailForRegisterJob::dispatch($this->request->email);
     }
 }

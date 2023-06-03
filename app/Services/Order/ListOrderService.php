@@ -30,9 +30,7 @@ class ListOrderService implements IListOrderService
 
     public function listOrderFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0):
-            $this->checkRegisterRepository->checkOrderIdExist($id);
-        endif;
+        if ($id != 0) $this->checkRegisterRepository->checkOrderIdExist($id);
         return $this->orderRepository->getFind($id, $search, $active);
     }
 }

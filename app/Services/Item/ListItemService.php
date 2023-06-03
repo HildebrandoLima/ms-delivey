@@ -4,7 +4,6 @@ namespace App\Services\Item;
 
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ItemRepository;
-use App\Repositories\OrderRepository;
 use App\Services\Item\Interfaces\IListItemService;
 use Illuminate\Support\Collection;
 
@@ -15,7 +14,7 @@ class ListItemService implements IListItemService
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
+        CheckRegisterRepository  $checkRegisterRepository,
         ItemRepository           $itemRepository
     )
     {
