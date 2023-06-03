@@ -547,7 +547,7 @@ ou
 ### Exemplo: POST/PUT
 ```
 {
-    "descricao": "Eletrônicos",
+    "nome": "Eletrônicos",
     "ativo": 1
 }
 ```
