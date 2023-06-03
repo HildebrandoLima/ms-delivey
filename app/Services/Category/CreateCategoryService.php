@@ -26,15 +26,16 @@ class CreateCategoryService implements ICreateCategoryService
 
     public function createCategory(CategoryRequest $request): int
     {
+        $this->request = $request;
         $this->checkRegisterRepository->checkCategoryExist($request);
-        $category = $this->mapToModel($request);
+        $category = $this->mapToModel();
         return $this->categoryRepository->create($category);
     }
 
-    private function mapToModel(CategoryRequest $request): Categoria
+    private function mapToModel(): Categoria
     {
         $category = new Categoria();
-        $category->descricao = $request->descricao;
+        $category->nome = $this->request->descricao;
         $category->ativo = CategoryEnum::ATIVADO;
         return $category;
     }

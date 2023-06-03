@@ -17,19 +17,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $count = User::all()->count();
-        if ($count > 0):
-            User::factory()->create();
-        else:
-            User::query()->insert([
-                'name' => 'Desativado',
-                'cpf' => Str::random(11),
-                'email' => 'email@email.com.br',
-                'password' => Hash::make('123456'),
-                'data_nascimento' => new \dateTime(),
-                'genero' => 'Outro',
-                'ativo' => 0
-            ]);
-        endif;
+        User::factory()->create();
     }
 }

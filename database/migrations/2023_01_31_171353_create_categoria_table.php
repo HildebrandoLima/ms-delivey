@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('categoria', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('descricao', 50)->unique()->notnull();
+            $table->string('nome', 50)->unique()->notnull();
             $table->boolean('ativo');
             $table->timestamps();
         });

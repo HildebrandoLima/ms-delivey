@@ -16,17 +16,6 @@ class FornecedorSeeder extends Seeder
      */
     public function run()
     {
-        $count = Fornecedor::all()->count();
-        if ($count > 0):
-            Fornecedor::factory()->create();
-        else:
-            Fornecedor::query()->insert([
-                'nome' => 'Desativado',
-                'cnpj' => Str::random(14),
-                'email' => 'email@email.com.br',
-                'ativo' => 0,
-                'data_fundacao' => new \dateTime(),
-            ]);
-        endif;
+        Fornecedor::factory()->create();
     }
 }

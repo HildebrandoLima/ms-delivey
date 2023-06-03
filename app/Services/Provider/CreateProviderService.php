@@ -43,7 +43,7 @@ class CreateProviderService implements ICreateProviderService
     private function mapToModel(): Fornecedor
     {
         $provider = new Fornecedor();
-        $provider->nome = $this->request->nome;
+        $provider->razao_social = $this->request->razaoSocial;
         $provider->cnpj = str_replace(array('.','-','/'), "", $this->request->cnpj);
         $provider->email = $this->request->email;
         $provider->data_fundacao = $this->request->dataFundacao;

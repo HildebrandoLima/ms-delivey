@@ -28,15 +28,15 @@ class EditCategoryService implements IEditCategoryService
     {
         $this->request = $request;
         $this->checkRegisterRepository->checkCategoryIdExist($id);
-        $category = $this->mapToModel($request);
+        $category = $this->mapToModel();
         return $this->categoryRepository->update($id, $category);
     }
 
-    private function mapToModel(CategoryRequest $request): Categoria
+    private function mapToModel(): Categoria
     {
         $category = new Categoria();
-        $category->descricao = $request->descricao;
-        $request->ativo == 1 ? $category->ativo = CategoryEnum::ATIVADO : $category->ativo = CategoryEnum::DESATIVADO;
+        $category->nome = $this->request->descricao;
+        $this->request->ativo == 1 ? $category->ativo = CategoryEnum::ATIVADO : $category->ativo = CategoryEnum::DESATIVADO;
         return $category;
     }
 }

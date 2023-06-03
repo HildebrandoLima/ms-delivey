@@ -14,7 +14,7 @@ class CategoryRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'descricao' => 'required|string',
+            'nome' => 'required|string',
             'ativo' => 'required|int'
         ];
     }
@@ -22,9 +22,9 @@ class CategoryRequest extends BaseRequest
     public function messages()
     {
         return [
-            'descricao.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }

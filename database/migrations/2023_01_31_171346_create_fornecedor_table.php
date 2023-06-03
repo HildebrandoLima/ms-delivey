@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('fornecedor', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('nome', 50)->unique()->notnull();
+            $table->string('razao_social', 50)->unique()->notnull();
             $table->string('cnpj', 14)->unique()->notnull();
             $table->string('email', 50)->unique()->notnull();
             $table->timestamp('data_fundacao')->notnull();
