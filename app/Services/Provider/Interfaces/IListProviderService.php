@@ -2,11 +2,10 @@
 
 namespace App\Services\Provider\Interfaces;
 
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 interface IListProviderService
 {
-    public function listProviderAll(Pagination $pagination, int $active): Collection;
+    public function listProviderAll(int $active): Collection;
     public function listProviderFind(int $id, string $search, int $activ): Collection;
 }

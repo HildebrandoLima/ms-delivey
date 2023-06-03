@@ -37,7 +37,6 @@ class OrderController extends Controller
         try {
             $success = $this->listOrderService->listOrderAll
             (
-                $pagination,
                 $filterByActive->filterByActive($pagination->active)
             );
             if (!$success) return Controller::error();

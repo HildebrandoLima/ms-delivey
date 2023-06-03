@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\IProviderRepository;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -26,11 +25,11 @@ class ProviderRepository implements IProviderRepository {
         return Fornecedor::query()->where('id', $id)->delete();
     }
 
-    public function getAll(Pagination $pagination, int $active): Collection
+    public function getAll(int $active): Collection
     {
         $query = $this->mapToQuery();
         $query->where('ativo', $active)->orderByDesc('id');
-        return PaginationList::createFromPagination($query, $pagination);
+        return PaginationList::createFromPagination($query);
     }
 
     public function getFind(int $id, string $search, int $active): Collection

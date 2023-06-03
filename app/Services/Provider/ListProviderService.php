@@ -5,7 +5,6 @@ namespace App\Services\Provider;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ProviderRepository;
 use App\Services\Provider\Interfaces\IListProviderService;
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListProviderService implements IListProviderService
@@ -23,9 +22,9 @@ class ListProviderService implements IListProviderService
         $this->providerRepository      = $providerRepository;
     }
 
-    public function listProviderAll(Pagination $pagination, int $active): Collection
+    public function listProviderAll(int $active): Collection
     {
-        return $this->providerRepository->getAll($pagination, $active);
+        return $this->providerRepository->getAll($active);
     }
 
     public function listProviderFind(int $id, string $search, int $activ): Collection
