@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services\Category\Interfaces;
+namespace App\Services\Auth\Interfaces;
 
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Collection;
 
-interface ICreateCategoryService
+interface ILoginService
 {
-    public function createCategory(CategoryRequest $request): int;
+    public function login(LoginRequest $request): Collection;
 }
