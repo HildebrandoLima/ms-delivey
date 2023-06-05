@@ -26,7 +26,6 @@ class AuthController extends Controller
         RefreshPasswordService $refreshPasswordService
     )
     {
-        //$this->middleware('auth:api', ['except' => ['login']]);
         $this->forgotPasswordService  = $forgotPasswordService;
         $this->loginService           = $loginService;
         $this->logoutService          = $logoutService;
