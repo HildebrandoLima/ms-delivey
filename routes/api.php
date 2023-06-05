@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('auth/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
+Route::post('auth/forgot-password/{email}', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
 
 Route::middleware(['jwt-authenticated'])->group(callback: function () {
     //  Autenticação

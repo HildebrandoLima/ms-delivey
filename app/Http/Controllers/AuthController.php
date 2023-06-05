@@ -4,20 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\LoginRequest;
+use App\Services\Auth\ForgotPasswordService;
 use App\Services\Auth\LoginService;
 use App\Services\Auth\LogoutService;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    private ForgotPasswordService $forgotPasswordService;
     private LoginService  $loginService;
     private LogoutService $logoutService;
 
-    public function __construct(LoginService $loginService, LogoutService $logoutService)
+    public function __construct
+    (
+        ForgotPasswordService $forgotPasswordService,
+        LoginService          $loginService,
+        LogoutService         $logoutService
+    )
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
-        $this->loginService = $loginService;
-        $this->logoutService = $logoutService;
+        //$this->middleware('auth:api', ['except' => ['login']]);
+        $this->forgotPasswordService = $forgotPasswordService;
+        $this->loginService          = $loginService;
+        $this->logoutService         = $logoutService;
     }
 
     public function login(LoginRequest $request): Response
@@ -56,8 +64,29 @@ class AuthController extends Controller
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
-        //auth()->logout();
-        //return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function forgotPassword(string $email): Response
+    {
+        try {
+            $success = $this->forgotPasswordService->forgotPassword($email);
+            if (!isset ($success)):
+                return response()->json([
+                    "message" => "Error ao efetuar solicitação de nova senha!",
+                    "data" => false,
+                    "status" => Response::HTTP_BAD_REQUEST,
+                    "details" => ""
+                ]);
+            endif;
+            return response()->json([
+                "message" => "Solicitação de nova senha efetuada com sucesso!",
+                "data" => $success,
+                "status" => 200,
+                "details" => ""
+            ]);
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
     }
 
     public function refreshPassword()
