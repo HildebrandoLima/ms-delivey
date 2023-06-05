@@ -31,16 +31,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('auth/forgot-password/{email}', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
+//  Autenticação
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/forgot-password/{email}', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
+    Route::post('/refresh-password', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
+});
+
+// Usuário
 Route::post('user/save', [UserController::class, 'store'])->name('user.save');
 
 Route::middleware(['jwt-authenticated'])->group(callback: function () {
+
     //  Autenticação
-    Route::prefix('auth')->group(function () {
-        Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-        Route::post('/refresh-password', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
-    });
+    Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     //  Endereço
     Route::prefix('address')->group(function () {

@@ -11,6 +11,7 @@ use App\Models\Categoria;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Imagem;
+use App\Models\PasswordReset;
 use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Telefone;
@@ -138,6 +139,13 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
     {
         if (User::query()->where('id', $id)->count() == 0):
             throw new HttpBadRequest('O usuário informado não existe.');
+        endif;
+    }
+
+    public function checkUserCodeRefreshPassword(string $codigo): void
+    {
+        if (PasswordReset::query()->where('codigo', $codigo)->count() == 0):
+            throw new HttpBadRequest('O código informado não existe.');
         endif;
     }
 }

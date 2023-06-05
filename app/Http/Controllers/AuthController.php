@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RefreshPasswordRequest;
 use App\Services\Auth\ForgotPasswordService;
 use App\Services\Auth\LoginService;
 use App\Services\Auth\LogoutService;
+use App\Services\Auth\RefreshPasswordService;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -14,18 +16,21 @@ class AuthController extends Controller
     private ForgotPasswordService $forgotPasswordService;
     private LoginService  $loginService;
     private LogoutService $logoutService;
+    private RefreshPasswordService $refreshPasswordService;
 
     public function __construct
     (
-        ForgotPasswordService $forgotPasswordService,
-        LoginService          $loginService,
-        LogoutService         $logoutService
+        ForgotPasswordService  $forgotPasswordService,
+        LoginService           $loginService,
+        LogoutService          $logoutService,
+        RefreshPasswordService $refreshPasswordService
     )
     {
         //$this->middleware('auth:api', ['except' => ['login']]);
-        $this->forgotPasswordService = $forgotPasswordService;
-        $this->loginService          = $loginService;
-        $this->logoutService         = $logoutService;
+        $this->forgotPasswordService  = $forgotPasswordService;
+        $this->loginService           = $loginService;
+        $this->logoutService          = $logoutService;
+        $this->refreshPasswordService = $refreshPasswordService;
     }
 
     public function login(LoginRequest $request): Response
@@ -34,7 +39,7 @@ class AuthController extends Controller
             $success = $this->loginService->login($request);
             if (!isset ($success)):
                 return response()->json([
-                    "message" => "Error ao efetuar Login!",
+                    "message" => "Error ao efetuar login!",
                     "data" => false,
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
@@ -89,18 +94,26 @@ class AuthController extends Controller
         }
     }
 
-    public function refreshPassword()
+    public function refreshPassword(RefreshPasswordRequest $request): Response
     {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'accessToken' => $token,
-            'userId' => auth()->user()->id,
-            'userName' => auth()->user()->name,
-            'userEmail' => auth()->user()->email,
-        ]);
+        try {
+            $success = $this->refreshPasswordService->refreshPassword($request);
+            if (!isset ($success)):
+                return response()->json([
+                    "message" => "Error ao modificar senha!",
+                    "data" => false,
+                    "status" => Response::HTTP_UNAUTHORIZED,
+                    "details" => ""
+                ]);
+            endif;
+            return response()->json([
+                "message" => "Senha modificada com sucesso!",
+                "data" => $success,
+                "status" => 200,
+                "details" => ""
+            ]);
+        } catch(SystemDefaultException $e) {
+            return $e->response();
+        }
     }
 }
