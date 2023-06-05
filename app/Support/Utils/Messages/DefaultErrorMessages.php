@@ -19,6 +19,7 @@ class DefaultErrorMessages
     public const MIN_CHARACTERS = "Esse campo não tem a quantidade mínima de caracteres.";
     public const MAX_CHARACTERS = "Esse campo excedeu a quantidade de caracteres.";
     public const INVALID_EMAIL = "Email inválido.";
+    public const INVALID_PASSWORD = "Senha inválida.";
     public const NOT_FOUND = "Registro não encontrado.";
     public const UNAUTHORIZED_MESSAGE = "Acesso não autorizado.";
 }

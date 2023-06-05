@@ -17,7 +17,7 @@ class UserRequest extends BaseRequest
             'nome' => 'required|string',
             'cpf' => 'required|string|cpf',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
-            'senha' => 'required|string',
+            'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string',
             'ativo' => 'required|int'
@@ -38,11 +38,13 @@ class UserRequest extends BaseRequest
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'email' => DefaultErrorMessages::INVALID_EMAIL,
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'dataNascimento.date' => DefaultErrorMessages::INVALID_DATE,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'ativo.int' => DefaultErrorMessages::REQUIRED_FIELD,
+
+            'email' => DefaultErrorMessages::INVALID_EMAIL,
+            'senha' => DefaultErrorMessages::INVALID_PASSWORD,
+            'dataNascimento.date' => DefaultErrorMessages::INVALID_DATE,
         ];
     }
 }
