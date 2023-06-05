@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('auth/forgot-password/{email}', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
+Route::post('user/save', [UserController::class, 'store'])->name('user.save');
 
 Route::middleware(['jwt-authenticated'])->group(callback: function () {
     //  Autenticação
@@ -116,7 +117,6 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list', [UserController::class, 'index'])->name('user.list.all');
         Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
-        Route::post('/save', [UserController::class, 'store'])->name('user.save');
         Route::delete('/remove/{id}', [UserController::class, 'destroy'])->name('user.remove');
     });
 });
