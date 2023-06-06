@@ -32,8 +32,6 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>Autenticação Solialite (GitHub, Google e Facebook)</li>
 </ul>
 
-## Método Tradicional
-
 ### Requesitos necessários para executar o projeto:
 <ul>
     <li>Instalar o PHP versão 8.0</li>
