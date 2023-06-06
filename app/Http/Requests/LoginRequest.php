@@ -14,7 +14,7 @@ class LoginRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
+            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i|min:8|exists:users,email',
             'password' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i'
         ];
     }
@@ -22,6 +22,8 @@ class LoginRequest extends BaseRequest
     public function messages()
     {
         return [
+            'email.exists' => DefaultErrorMessages::NOT_FOUND,
+            'email.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'password' => DefaultErrorMessages::INVALID_PASSWORD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
