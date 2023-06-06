@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RefreshPasswordRequest;
 use App\Services\Auth\ForgotPasswordService;
@@ -70,10 +71,10 @@ class AuthController extends Controller
         }
     }
 
-    public function forgotPassword(string $email): Response
+    public function forgotPassword(ForgotPasswordRequest $request): Response
     {
         try {
-            $success = $this->forgotPasswordService->forgotPassword($email);
+            $success = $this->forgotPasswordService->forgotPassword($request);
             if (!isset ($success)):
                 return response()->json([
                     "message" => "Error ao efetuar solicitação de nova senha!",

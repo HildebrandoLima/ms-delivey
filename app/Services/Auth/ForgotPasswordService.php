@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Http\Requests\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 use App\Models\PasswordReset;
 use App\Repositories\AuthRepositoy;
@@ -17,9 +18,9 @@ class ForgotPasswordService implements IForgotPasswordService
         $this->authRepositoy = $authRepositoy;
     }
 
-    public function forgotPassword(string $email): bool
+    public function forgotPassword(ForgotPasswordRequest $request): bool
     {
-        $passwordReset = $this->mapToModel($email);
+        $passwordReset = $this->mapToModel($request->email);
         if ($this->authRepositoy->forgotPassword($passwordReset)):
             ForgotPassword::dispatch($passwordReset->email, $passwordReset->codigo);
             return true;

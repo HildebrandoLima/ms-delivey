@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //  Autenticação
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-    Route::post('/forgot-password/{email}', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
     Route::post('/refresh-password', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
 });
 

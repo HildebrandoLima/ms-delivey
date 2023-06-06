@@ -2,7 +2,9 @@
 
 namespace App\Services\Auth\Interfaces;
 
+use App\Http\Requests\ForgotPasswordRequest;
+
 interface IForgotPasswordService
 {
-    public function forgotPassword(string $email): bool;
+    public function forgotPassword(ForgotPasswordRequest $request): bool;
 }
