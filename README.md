@@ -132,6 +132,7 @@ Admin<br />
     <li>Todos os parâmetros 'id' são enviados em base64. O back-end se responsabiliza em decodificar.</li>
     <li>Nos body de endereço e telefone, é preciso identificar quem se referência os mesmos. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
     <li>Futuramente, será aplicado uma nova regra para não deletar dados, mas sim desativá-los, e ativá-los, quando necessário.</li>
+    <li>Não é necessário estar autenticado para cadastrar usuário.</li>
 </ul>
 
 ### Login
