@@ -36,7 +36,7 @@ class CreateUserService implements ICreateUserService
         $this->checkExist();
         $user = $this->mapToModel();
         $userId = $this->userRepository->create($user);
-        if ($userId) $this->dispatchJob();
+        if ($userId) $this->dispatchJob($userId);
         return $userId;
     }
 
@@ -58,8 +58,9 @@ class CreateUserService implements ICreateUserService
         return $user;
     }
 
-    public function dispatchJob(): void
+    public function dispatchJob(int $userId): void
     {
-        EmailForRegisterJob::dispatch($this->request->email);
+        $entity = 'user';
+        EmailForRegisterJob::dispatch($this->request->email, $userId, $entity);
     }
 }

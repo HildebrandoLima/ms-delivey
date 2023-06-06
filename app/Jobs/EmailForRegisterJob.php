@@ -17,16 +17,20 @@ class EmailForRegisterJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private string $email;
+    private int $id;
+    private string $entity;
 
-    public function __construct(string $email)
+    public function __construct(string $email, int $id, string $entity)
     {
         $this->email = $email;
+        $this->id = $id;
+        $this->entity = $entity;
     }
 
     public function handle(): void
     {
         try {
-            Mail::to($this->email)->send(new EmailForRegister());
+            Mail::to($this->email)->send(new EmailForRegister($this->id, $this->entity));
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

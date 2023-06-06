@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 
 interface IUserRepository {
     public function create(User $user): int;
+    public function emailVerifiedAt(int $id, int $active): bool;
     public function update(int $id, User $user): bool;
     public function delete(int $id): bool;
     public function getAll(int $active): Collection;
