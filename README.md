@@ -134,6 +134,115 @@ Admin<br />
     <li>Futuramente, será aplicado uma nova regra para não deletar dados, mas sim desativá-los, e ativá-los, quando necessário.</li>
 </ul>
 
+
+
+
+
+### Usuário
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|          ROTA         |
+|------|-----------------------|
+| GET  | /api/user/list        |
+|------|-----------------------|
+| GET  | /api/user/list/find   |
+|------|-----------------------|
+| PUT  | /api/user/edit/{id}   |
+|------|-----------------------|
+| POST | /api/user/save        |
+|------|-----------------------|
+|DELETE| /api/user/remove/{id} |
+
+### Body: POST/PUT
+```
+{
+    "nome": "Hill",
+    "cpf": "572.561.700-92",
+    "email": "test@gmail.com",
+    "senha": "Hill@123",
+    "dataNascimento": "2023-03-25 18:20:59",
+    "genero": "Feminino",
+    "ativo": 1
+}
+```
+
+Lembre-se de passar os parâmetros nas rotas de listagem.
+
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=Mjg=&active=1</li>
+<li>/find?search=Hill=&active=1</li>
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Edição efetuada com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": codigo_do_ultimo_cadastro,
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>400 - Bad Request</summary>
+
+```
+{
+    "message": "O usuário já existe!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação!",
+    "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+
+</details>
+</details>
+
+
+
+
+
+
+
+
+
+
 ### Usuário
 
 <details>
