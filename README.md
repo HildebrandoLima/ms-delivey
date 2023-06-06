@@ -134,47 +134,40 @@ Admin<br />
     <li>Futuramente, será aplicado uma nova regra para não deletar dados, mas sim desativá-los, e ativá-los, quando necessário.</li>
 </ul>
 
-
-
-
-
-### Usuário
+### Login
 
 <details>
 <summary>Detalhes</summary>
 
 ### Rotas
 
-|MÉTODO|          ROTA         |
-|------|-----------------------|
-| GET  | /api/user/list        |
-|------|-----------------------|
-| GET  | /api/user/list/find   |
-|------|-----------------------|
-| PUT  | /api/user/edit/{id}   |
-|------|-----------------------|
-| POST | /api/user/save        |
-|------|-----------------------|
-|DELETE| /api/user/remove/{id} |
+|MÉTODO|             ROTA                   |
+|------|------------------------------------|
+| POST | /api/auth/login                    |
+|------|------------------------------------|
+| POST | /api/auth/forgot-password          |
+|------|------------------------------------|
+| POST | /api/auth/refresh-password/{token} |
+|------|------------------------------------|
+| POST | /api/auth/logout                   |
+|------|------------------------------------|
+|GET   | /api/email-verified/save/{entity}  |
+
+Atenção: A senha é validada como padrão de forte.
+
+<li>8 caracteres no mínimo</li>
+<li>1 Letra Maiúscula no mínimo</li>
+<li>1 Número no mínimo</li>
+<li>1 Caracter especial no mínimo: $*&@#</li>
+<li>Não é permitido sequência como: aa, bb, 44, etc</li>
 
 ### Body: POST/PUT
 ```
 {
-    "nome": "Hill",
-    "cpf": "572.561.700-92",
     "email": "test@gmail.com",
-    "senha": "Hill@123",
-    "dataNascimento": "2023-03-25 18:20:59",
-    "genero": "Feminino",
-    "ativo": 1
+    "password": "Hild3br@nd0",
 }
 ```
-
-Lembre-se de passar os parâmetros nas rotas de listagem.
-
-<li>?page=1&perPage=10&active=1</li>
-<li>/find?id=Mjg=&active=1</li>
-<li>/find?search=Hill=&active=1</li>
 
 ### Resposta:
 
@@ -183,8 +176,13 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "message": "Login efetuado com sucesso!",
+    "data": {
+        "acessToken": token,
+        "userId": id,
+        "userName": name,
+        "userEmail": email
+    },
     "status": 200,
     "details": ""
 }
@@ -192,7 +190,16 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
+    "message": "Logout efetuado com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+
+```
+```
+{
+    "message": "Solicitação de redefinação de senha efetuada com sucesso!",
     "data": "true",
     "status": 200,
     "details": ""
@@ -201,8 +208,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "message": "Mudança de senha efetuada com sucesso!",
+    "data": "true",
     "status": 200,
     "details": ""
 }
@@ -212,10 +219,9 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <details>
 <summary>400 - Bad Request</summary>
-
 ```
 {
-    "message": "O usuário já existe!",
+    "message": "E-mail inválido!",
     "data": "",
     "status": 400,
     "details": ""
@@ -224,7 +230,34 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Error ao efetuar ação!",
+    "message": "Senha inválida!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Não foi possível modificar senha!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao logar!",
+    "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao solicitar mudança de senha!",
     "data": "false",
     "status": 400,
     "details": ""
@@ -233,15 +266,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 </details>
 </details>
-
-
-
-
-
-
-
-
-
 
 ### Usuário
 
