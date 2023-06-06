@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
 use App\Support\Utils\Pagination\PaginationList;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -13,6 +14,11 @@ class UserRepository implements IUserRepository {
     {
         $userId = User::query()->create($user->toArray());
         return $userId->id;
+    }
+
+    public function emailVerifiedAt(int $id, int $active): bool
+    {
+        return User::query()->where('ativo', $active)->where('id', $id)->update(['email_verified_at' => Carbon::now()]);
     }
 
     public function update(int $id, User $user): bool

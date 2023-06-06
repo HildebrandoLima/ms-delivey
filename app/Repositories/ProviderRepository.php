@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\IProviderRepository;
 use App\Support\Utils\Pagination\PaginationList;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -13,6 +14,11 @@ class ProviderRepository implements IProviderRepository {
     {
         $fornecedorId = Fornecedor::query()->create($fornecedor->toArray());
         return $fornecedorId->id;
+    }
+
+    public function emailVerifiedAt(int $id, int $active): bool
+    {
+        return Fornecedor::query()->where('ativo', $active)->where('id', $id)->update(['email_verified_at' => Carbon::now()]);
     }
 
     public function update(int $id, Fornecedor $fornecedor): bool

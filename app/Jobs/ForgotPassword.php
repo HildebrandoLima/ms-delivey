@@ -2,8 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Mail\EmailForRegister;
+use App\Mail\EmailForgotPassword;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,25 +13,30 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Exception;
 
-class EmailForRegisterJob implements ShouldQueue
+class ForgotPassword implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    private array $data;
 
-    private string $email;
-    private int $id;
-    private string $entity;
-
-    public function __construct(string $email, int $id, string $entity)
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct(array $data)
     {
-        $this->email = $email;
-        $this->id = $id;
-        $this->entity = $entity;
+        $this->data = $data;
     }
 
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
     public function handle(): void
     {
         try {
-            Mail::to($this->email)->send(new EmailForRegister($this->id, $this->entity));
+            Mail::to($this->data['email'])->send(new EmailForgotPassword($this->data));
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

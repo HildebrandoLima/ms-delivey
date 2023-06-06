@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('data_nascimento')->notnull();
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
             $table->boolean('ativo');
+            $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->timestamps();
         });
     }

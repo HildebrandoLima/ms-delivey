@@ -31,7 +31,7 @@ class CreateProviderService implements ICreateProviderService
         $this->checkExist();
         $provider = $this->mapToModel();
         $providerId = $this->providerRepository->create($provider);
-        if ($providerId) $this->dispatchJob();
+        if ($providerId) $this->dispatchJob($providerId);
         return $providerId;
     }
 
@@ -51,8 +51,9 @@ class CreateProviderService implements ICreateProviderService
         return $provider;
     }
 
-    public function dispatchJob(): void
+    public function dispatchJob(int $providerId): void
     {
-        EmailForRegisterJob::dispatch($this->request->email);
+        $entity = 'provider';
+        EmailForRegisterJob::dispatch($this->request->email, $providerId, $entity);
     }
 }

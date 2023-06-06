@@ -14,7 +14,22 @@
     <div class="container">
         <div class="grid text-center">
             <div class="card mt-3">
-                <img src="https://lirp.cdn-website.com/e03f5bd8/dms3rep/multi/opt/bem-vindo-benvindo-og-640w.jpg" alt="logo" width="100%" height="100%"/>
+                <center class="mt-3">
+                    <img src="https://lirp.cdn-website.com/e03f5bd8/dms3rep/multi/opt/bem-vindo-benvindo-og-640w.jpg" alt="logo" width="50%" height="50%"/>
+                </center>
+                <hr />
+                <p>
+                    Confirme seu cadastro clicando no botão abaixo.
+                </p>
+                <p>
+                    <a href="{{ $url ?? '' }}">Confirmar!</a>
+                </a>
+                <p>
+                    Atenciosamente,
+                </p>
+                <p>
+                    Delivery
+                </p>
             </div>
         </div>
     </div>
