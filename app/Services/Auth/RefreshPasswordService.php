@@ -22,8 +22,9 @@ class RefreshPasswordService implements IRefreshPasswordService
         $this->checkRegisterRepository = $checkRegisterRepository;
     }
 
-    public function refreshPassword(RefreshPasswordRequest $request): bool
+    public function refreshPassword(RefreshPasswordRequest $request, string $token): bool
     {
+        $this->checkRegisterRepository->checkTokenPassword($token);
         $this->checkRegisterRepository->checkUserCodeRefreshPassword($request->codigo);
         return $this->authRepositoy->refreshPassword($request);
     }

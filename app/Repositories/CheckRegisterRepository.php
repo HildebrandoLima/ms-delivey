@@ -148,4 +148,11 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
             throw new HttpBadRequest('O código informado não existe.');
         endif;
     }
+
+    public function checkTokenPassword(string $token): void
+    {
+        if (PasswordReset::query()->where('token', $token)->count() == 0):
+            throw new HttpBadRequest('O token informado não existe.');
+        endif;
+    }
 }

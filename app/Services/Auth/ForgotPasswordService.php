@@ -22,7 +22,7 @@ class ForgotPasswordService implements IForgotPasswordService
     {
         $passwordReset = $this->mapToModel($request->email);
         if ($this->authRepositoy->forgotPassword($passwordReset)):
-            ForgotPassword::dispatch($passwordReset->email, $passwordReset->codigo);
+            ForgotPassword::dispatch($passwordReset->toArray());
             return true;
         else:
             return false;
@@ -32,8 +32,9 @@ class ForgotPasswordService implements IForgotPasswordService
     private function mapToModel(string $email): PasswordReset
     {
         $passwordReset = new PasswordReset();
-        $passwordReset->codigo = Str::random(10);
         $passwordReset->email = $email;
+        $passwordReset->token = Str::uuid();
+        $passwordReset->codigo = Str::random(10);
         return $passwordReset;
     }
 }

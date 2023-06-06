@@ -16,18 +16,16 @@ use Exception;
 class ForgotPassword implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private string $email;
-    private string $codigo;
+    private array $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(string $email, string $codigo)
+    public function __construct(array $data)
     {
-        $this->email = $email;
-        $this->codigo = $codigo;
+        $this->data = $data;
     }
 
     /**
@@ -38,8 +36,7 @@ class ForgotPassword implements ShouldQueue
     public function handle(): void
     {
         try {
-            $url = env('URL_FRONT_FORGOT_PASSWORD');
-            Mail::to($this->email)->send(new EmailForgotPassword($this->codigo, $url));
+            Mail::to($this->data['email'])->send(new EmailForgotPassword($this->data));
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

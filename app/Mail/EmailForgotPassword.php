@@ -9,13 +9,12 @@ use Illuminate\Queue\SerializesModels;
 class EmailForgotPassword extends Mailable
 {
     use Queueable, SerializesModels;
-    private string $codigo;
+    private array $data;
     private string $url;
 
-    public function __construct(string $codigo, string $url)
+    public function __construct(array $data)
     {
-        $this->codigo = $codigo;
-        $this->url = $url;
+        $this->data = $data;
     }
 
     public function build()
@@ -23,7 +22,9 @@ class EmailForgotPassword extends Mailable
         return $this
             ->from('delivery@gmail.com', 'Delivey')
             ->subject('DELIVERY')
-            ->view('mails.forgotPassword',
-             ['codigo' => $this->codigo, 'url' => $this->url]);
+            ->view('mails.forgotPassword', [
+                'codigo' => $this->data['codigo'],
+                'url' => $this->url = env('URL_FRONT_FORGOT_PASSWORD') . '/' . $this->data['token']
+            ]);
     }
 }

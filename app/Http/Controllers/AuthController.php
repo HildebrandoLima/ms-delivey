@@ -94,10 +94,10 @@ class AuthController extends Controller
         }
     }
 
-    public function refreshPassword(RefreshPasswordRequest $request): Response
+    public function refreshPassword(RefreshPasswordRequest $request, string $token): Response
     {
         try {
-            $success = $this->refreshPasswordService->refreshPassword($request);
+            $success = $this->refreshPasswordService->refreshPassword($request, $token);
             if (!isset ($success)):
                 return response()->json([
                     "message" => "Error ao modificar senha!",
