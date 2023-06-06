@@ -14,12 +14,22 @@
 <div class="container">
     <div class="grid text-center">
         <div class="card mt-3">
-            <h1>Solicitação, mudança de senha!</h1>
+            <h1>Mudança de senha!</h1>
             <hr />
             <p>
-                Para mudar sua senha, clique <a href="{{ $url  }}">Aqui!</a>.
-                Copie seu código <b>{{ $codigo ?? '' }}</b> e cole no campo ao mudar
-                sua senha.
+                Para redefinir sua senha, clique no link abaixo e utilize o código a seguir:
+            </p>
+            <h1 class="text-white bg-info">
+                {{ $codigo ?? '' }}
+            </h1>
+            <p>
+                <a href="{{ $url  }}">Redefinir senha!</a>
+            </p>
+            <p>
+                Atenciosamente,
+            </p>
+            <p>
+                Delivery
             </p>
         </div>
     </div>

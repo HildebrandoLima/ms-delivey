@@ -14,7 +14,7 @@
 <div class="container">
     <div class="grid text-center">
         <div class="card mt-3">
-            <h3 class="mt-3">Resumo do seu Pedido de Número: {{ $order['numero_pedido'] ?? 0 }}</h3>
+            <h3 class="text-white bg-info mt-3">Resumo do seu Pedido de Número: {{ $order['numero_pedido'] ?? 0 }}</h3>
             <hr />
             <p>
                 <b>Quantidade de Itens Solicitados:</b> {{ $order['quantidade_item'] ?? 0 }}
@@ -28,7 +28,7 @@
                 $count = 1;
             @endphp
             <table class="table table-striped mt-3">
-                <thead>
+                <thead class="text-white bg-info">
                     <tr>
                         <th scope="col">Item</th>
                         <th scope="col">Produto</th>
@@ -51,6 +51,12 @@
                 @endforeach
                 </tbody>
             </table>
+            <p>
+                Atenciosamente,
+            </p>
+            <p>
+                Delivery
+            </p>
         </div>
     </div>
 </div>
