@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Testing - TDD (Ainda sendo implementado), Job (envio de e-mails e atualização de estoque). Docker e TDD ainda sendo implementado.
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Autenticação Solialite, Job (envio de e-mails e atualização de estoque). Docker e TDD ainda sendo implementado.
 
 ### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
@@ -23,12 +23,12 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
     <li>Job (Disparo de e-mail ao criar pedido)</li>
     <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
+    <li>Autenticação (login, logout e esqueci minha senha)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
     <li>Job (Atualização de Estoque)</li>
-    <li>Autenticação (login, logout e esqueci minha senha)</li>
     <li>Autenticação Solialite (GitHub, Google e Facebook)</li>
 </ul>
 
@@ -75,18 +75,18 @@ Para criar as tabelas:
     php artisan migrate
 ```
 
-Para criar os registros de ddd e uf:
+Para criar os registros de ddd, método de pagamento e uf:
 
 ```
     php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
 ```
 
 ```
-    php artisan db:seed --class=UnidadeFederativaSeeder
+    php artisan db:seed --class=MetodoPagamentoSeeder
 ```
 
 ```
-    php artisan db:seed --class=MetodoPagamentoSeeder
+    php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
 Certifique-se que as tabelas foram criadas. Abrindo o cliente SQL que você escolheu, e então execute o comando:
@@ -133,6 +133,139 @@ Admin<br />
     <li>Nos body de endereço e telefone, é preciso identificar quem se referência os mesmos. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
     <li>Futuramente, será aplicado uma nova regra para não deletar dados, mas sim desativá-los, e ativá-los, quando necessário.</li>
 </ul>
+
+### Login
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|             ROTA                   |
+|------|------------------------------------|
+| POST | /api/auth/login                    |
+|------|------------------------------------|
+| POST | /api/auth/forgot-password          |
+|------|------------------------------------|
+| POST | /api/auth/refresh-password/{token} |
+|------|------------------------------------|
+| POST | /api/auth/logout                   |
+|------|------------------------------------|
+|GET   | /api/email-verified/save/{entity}  |
+
+Atenção: A senha é validada como padrão de forte.
+
+<li>8 caracteres no mínimo</li>
+<li>1 Letra Maiúscula no mínimo</li>
+<li>1 Número no mínimo</li>
+<li>1 Caracter especial no mínimo: $*&@#</li>
+<li>Não é permitido sequência como: aa, bb, 44, etc</li>
+
+### Body: POST/PUT
+```
+{
+    "email": "test@gmail.com",
+    "password": "Hild3br@nd0",
+}
+```
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Login efetuado com sucesso!",
+    "data": {
+        "acessToken": token,
+        "userId": id,
+        "userName": name,
+        "userEmail": email
+    },
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Logout efetuado com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+
+```
+{
+    "message": "Solicitação de redefinação de senha efetuada com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Mudança de senha efetuada com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>400 - Bad Request</summary>
+
+```
+{
+    "message": "E-mail inválido!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Senha inválida!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Não foi possível modificar senha!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao logar!",
+    "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao solicitar mudança de senha!",
+    "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+
+</details>
+</details>
 
 ### Usuário
 
