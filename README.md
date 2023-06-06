@@ -842,7 +842,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 </details>
 </details>
 
-### Imagens
+### Imagem
 
 <details>
 <summary>Detalhes</summary>
