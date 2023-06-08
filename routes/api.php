@@ -34,6 +34,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //  Autenticação
 Route::prefix('auth')->group(function () {
+    Route::get('/login/social/{provider}', [AuthController::class, 'redirectToProvider'])->name('social.login');
+    Route::get('/login/social/{provider}/callback', [AuthController::class, 'handleProviderCallback'])->name('social.callback');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
     Route::post('/refresh-password/{token}', [AuthController::class, 'refreshPassword'])->name('auth.refresh');

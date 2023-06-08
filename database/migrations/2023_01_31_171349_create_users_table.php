@@ -15,14 +15,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->string('provider_id')->unique()->nullable()->default(NULL);
+            $table->string('provider')->unique()->nullable()->default(NULL);
             $table->string('name', 50)->unique()->notnull();
             $table->string('cpf', 11)->unique()->notnull();
             $table->string('email', 50)->unique()->notnull();
-            $table->string('password', 100)->unique()->notnull();
+            $table->string('password', 100)->unique()->nullable();
             $table->timestamp('data_nascimento')->notnull();
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
             $table->boolean('ativo');
             $table->timestamp('email_verified_at')->nullable()->default(NULL);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
