@@ -20,6 +20,8 @@ class UserFactory extends Factory
     {
         $genero = array('Masculino' => 'Masculino', 'Feminino' => 'Feminino', 'Outro' => 'Outro');
         return [
+            'provider_id' => null,
+            'provider' => null,
             'name' => $this->faker->name,
             'cpf' => Str::random(11),
             'email' => $this->faker->email,
