@@ -11,6 +11,7 @@ use App\Support\Utils\Enums\UserEnum;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class HandleProviderCallbackService implements IHandleProviderCallbackService
 {
@@ -38,10 +39,10 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
             $this->userSocial = Socialite::driver($this->provider)->stateless()->user();
             $this->createUserSocial();
             return collect([
-                'accessToken' => $this->user->createToken('token-name')->plainTextToken,
+                'accessToken' => JWTAuth::fromUser($this->user),
                 'userId' => $this->user->id,
-                'userName' => $this->userSocial->getName(),
-                'userEmail' => $this->userSocial->getEmail(),
+                'userName' => $this->user->name,
+                'userEmail' => $this->user->email,
             ]);
         } catch (ClientException $e) {
             throw new HttpBadRequest('Credenciais Inválidas!');
