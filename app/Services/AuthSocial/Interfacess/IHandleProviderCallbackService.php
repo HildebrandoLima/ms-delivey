@@ -4,7 +4,7 @@ namespace App\Services\AuthSocial\Interfacess;
 
 use Illuminate\Support\Collection;
 
-interface IAuthSocialService
+interface IHandleProviderCallbackService
 {
-    public function authSocial(string $provider): Collection;
+    public function handleProviderCallback(string $provider): Collection;
 }

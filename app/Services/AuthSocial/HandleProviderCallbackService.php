@@ -4,61 +4,48 @@ namespace App\Services\AuthSocial;
 
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
-use App\Services\AuthSocial\Interfacess\IAuthSocialService;
+use App\Repositories\CheckRegisterRepository;
+use App\Repositories\UserRepository;
+use App\Services\AuthSocial\Interfacess\IHandleProviderCallbackService;
+use App\Support\Utils\Enums\UserEnum;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
 
-class AuthSocialService implements IAuthSocialService
+class HandleProviderCallbackService implements IHandleProviderCallbackService
 {
+    private $userSocial;
     private string $provider;
-    private Socialite $userSocial;
-    private array $user;
+    private User $user;
+    private CheckRegisterRepository $checkRegisterRepository;
+    private UserRepository $userRepository;
 
-    public function authSocial(string $provider): Collection
+    public function __construct
+    (
+        CheckRegisterRepository $checkRegisterRepository,
+        UserRepository          $userRepository
+    )
     {
-        $this->provider = $provider;
-        $this->redirectToProvider();
-        $this->handleProviderCallback();
-        $user = $this->createUserSocial();
-        return collect([
-            'accessToken' => $user['token'],
-            'userId' => $user['id'],
-            'userName' => $user['name'],
-            'userEmail' => $user['email'],
-        ]);
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->userRepository          = $userRepository;
     }
 
-    private function redirectToProvider(): Socialite
+    public function handleProviderCallback(string $provider): Collection
     {
-        $this->validateProvider();
-        return Socialite::driver($this->provider)->stateless()->redirect();
-    }
-
-    private function handleProviderCallback(): Socialite
-    {
-        $this->validateProvider();
         try {
+            $this->provider = $provider;
+            $this->validateProvider();
             $this->userSocial = Socialite::driver($this->provider)->stateless()->user();
-        } catch (ClientException $exception) {
+            $this->createUserSocial();
+            return collect([
+                'accessToken' => $this->user->createToken('token-name')->plainTextToken,
+                'userId' => $this->user->id,
+                'userName' => $this->userSocial->getName(),
+                'userEmail' => $this->userSocial->getEmail(),
+            ]);
+        } catch (ClientException $e) {
             throw new HttpBadRequest('Credenciais Inválidas!');
         }
-        return $this->userSocial;
-    }
-
-    private function createUserSocial(): array
-    {
-        $this->user = User::query()->create([
-            'provider' => $this->provider,
-            'provider_id' => $this->userSocial->getId(),
-            'name' => $this->userSocial->getName(),
-            'email' => $this->userSocial->getEmail(),
-            'data_nascimento' => now(),
-            'genero' => 'Outro',
-            'ativo' => true,
-            'email_verified_at' => $this->userSocial->,
-        ]);
-        return $this->user->toArray();
     }
 
     private function validateProvider(): void
@@ -66,5 +53,36 @@ class AuthSocialService implements IAuthSocialService
         if (!in_array($this->provider, ['facebook', 'google', 'github'])):
             throw new HttpBadRequest('Por favor, faça login usando o Facebook, GitHub ou Google!');
         endif;
+    }
+
+    private function createUserSocial(): User
+    {
+        $userModel = $this->mapToModel();
+        $userId = $this->checkExist();
+        if (is_null($userId)):
+            $this->user = $this->userRepository->create($userModel);
+        else:
+            $this->user = $this->userRepository->update($userId, $userModel);
+        endif;
+        return $this->user;
+    }
+
+    private function mapToModel(): User
+    {
+        $user = new User();
+        $user->provider_id = $this->userSocial->getId();
+        $user->provider = $this->provider;
+        $user->name = $this->userSocial->getName();
+        $user->cpf = null;
+        $user->email = $this->userSocial->getEmail();
+        $user->data_nascimento = null;
+        $user->genero = 'Outro';
+        $user->ativo = UserEnum::ATIVADO;
+        return $user;
+    }
+
+    private function checkExist()
+    {
+        return $this->checkRegisterRepository->checkUserSocial($this->userSocial->getEmail());
     }
 }
