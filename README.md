@@ -219,6 +219,7 @@ Atenção: A senha é validada como padrão de forte.
 
 <details>
 <summary>400 - Bad Request</summary>
+
 ```
 {
     "message": "E-mail inválido!",
@@ -315,6 +316,7 @@ Atenção: Esse forma de logar, funciona com os dados da rede social de sua esco
 
 <details>
 <summary>400 - Bad Request</summary>
+
 ```
 {
     "message": "Por favor, faça login usando o Facebook, GitHub ou Google!",
