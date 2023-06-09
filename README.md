@@ -160,6 +160,13 @@ Atenção: A senha é validada como padrão de forte.
 <li>1 Caracter especial no mínimo: $*&@#</li>
 <li>Não é permitido sequência como: aa, bb, 44, etc</li>
 
+> No seu .env adicione da seguinte forma:<br />
+
+> URL_FRONT_FORGOT_PASSWORD=http://localhost:8000/api/auth/forgot-password
+
+<li>O link acima funciona para enviar o link no email para redefinição de senha</li>
+<li>Ele deve ser a mesma url do front-end</li>
+
 ### Body: POST/PUT
 ```
 {
@@ -282,6 +289,28 @@ Atenção: A senha é validada como padrão de forte.
 | GET  | /api/auth/login/social{provider}/callback |
 
 Atenção: Esse forma de logar, funciona com os dados da rede social de sua escolha.
+
+Configure nas redes sociais e obtenha as credenciais para autorização e autenticação de acesso.
+
+[GOOGLE](https://console.developers.google.com/?hl=pt-br)
+
+[GITHUB](https://github.com/login)
+
+[FACEBOOK!](https://developers.facebook.com/?locale=pt_BR)
+
+> No seu .env adicione da seguinte forma:<br />
+
+> FACEBOOK_CLIENT_ID=codigo_gerado<br />
+> FACEBOOK_CLIENT_SECRET=chave_gerada<br />
+> FACEBOOK_CALLBACK_URL=http://localhost:8000/api/auth/login/social/facebook/callback<br />
+
+> GOOGLE_CLIENT_ID=codigo_gerado<br />
+> GOOGLE_CLIENT_SECRET=chave_gerada<br />
+> GOOGLE_CALLBACK_URL=http://localhost:8000/api/auth/login/social/google/callback<br />
+
+> GITHUB_CLIENT_ID=codigo_gerado<br />
+> GITHUB_CLIENT_SECRET=chave_gerada<br />
+> GITHUB_CALLBACK_URL=http://localhost:8000/api/auth/login/social/github/callback<br />
 
 ### Resposta:
 
