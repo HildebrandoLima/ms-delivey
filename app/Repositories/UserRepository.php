@@ -20,9 +20,10 @@ class UserRepository implements IUserRepository {
         return User::query()->where('ativo', $active)->where('id', $id)->update(['email_verified_at' => Carbon::now()]);
     }
 
-    public function update(int $id, User $user): bool
+    public function update(int $id, User $user): User
     {
-        return User::query()->where('id', $id)->update($user->toArray());
+        User::query()->where('id', $id)->update($user->toArray());
+        return $user->get()[0];
     }
 
     public function delete(int $id): bool

@@ -34,7 +34,8 @@ class EditUserService implements IEditUserService
         $this->request = $request;
         $this->checkExist($id);
         $user = $this->mapToModel();
-        return $this->userRepository->update($id, $user);
+        $this->userRepository->update($id, $user);
+        return true;
     }
 
     public function checkExist(int $id): void
