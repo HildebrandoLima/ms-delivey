@@ -24,12 +24,12 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>Job (Disparo de e-mail ao criar pedido)</li>
     <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
     <li>Autenticação (login, logout e esqueci minha senha)</li>
+    <li>Autenticação Solialite (GitHub, Google e Facebook)</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
 <ul>
     <li>Job (Atualização de Estoque)</li>
-    <li>Autenticação Solialite (GitHub, Google e Facebook)</li>
 </ul>
 
 ### Requesitos necessários para executar o projeto:
@@ -196,6 +196,7 @@ Atenção: A senha é validada como padrão de forte.
 }
 
 ```
+
 ```
 {
     "message": "Solicitação de redefinação de senha efetuada com sucesso!",
@@ -258,6 +259,75 @@ Atenção: A senha é validada como padrão de forte.
 {
     "message": "Error ao solicitar mudança de senha!",
     "data": "false",
+    "status": 400,
+    "details": ""
+}
+```
+
+</details>
+</details>
+
+### Login Social
+
+<details>
+<summary>Detalhes</summary>
+
+### Rotas
+
+|MÉTODO|                 ROTA                      |
+|------|-------------------------------------------|
+| GET  | /api/auth/login/social{provider}          |
+|------|-------------------------------------------|
+| GET  | /api/auth/login/social{provider}/callback |
+
+Atenção: Esse forma de logar, funciona com os dados da rede social de sua escolha.
+
+### Resposta:
+
+<details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Login efetuado com sucesso!",
+    "data": {
+        "acessToken": token,
+        "userId": id,
+        "userName": name,
+        "userEmail": email
+    },
+    "status": 200,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Logout efetuado com sucesso!",
+    "data": "true",
+    "status": 200,
+    "details": ""
+}
+
+```
+
+</details>
+
+<details>
+<summary>400 - Bad Request</summary>
+```
+{
+    "message": "Por favor, faça login usando o Facebook, GitHub ou Google!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Credenciais Inválidas!",
+    "data": "",
     "status": 400,
     "details": ""
 }
