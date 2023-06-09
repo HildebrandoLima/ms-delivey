@@ -36,8 +36,8 @@ class CreateUserService implements ICreateUserService
         $this->checkExist();
         $user = $this->mapToModel();
         $userId = $this->userRepository->create($user);
-        if ($userId) $this->dispatchJob($userId);
-        return $userId;
+        if ($userId) $this->dispatchJob($userId->id);
+        return $userId->id;
     }
 
     public function checkExist(): void

@@ -31,8 +31,8 @@ class CreateProviderService implements ICreateProviderService
         $this->checkExist();
         $provider = $this->mapToModel();
         $providerId = $this->providerRepository->create($provider);
-        if ($providerId) $this->dispatchJob($providerId);
-        return $providerId;
+        if ($providerId) $this->dispatchJob($providerId->id);
+        return $providerId->id;
     }
 
     public function checkExist(): void

@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class UserRepository implements IUserRepository {
-    public function create(User $user): int
+    public function create(User $user): User
     {
-        $userId = User::query()->create($user->toArray());
-        return $userId->id;
+        return User::query()->create($user->toArray());
     }
 
     public function emailVerifiedAt(int $id, int $active): bool
