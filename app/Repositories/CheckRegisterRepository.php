@@ -155,4 +155,9 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
             throw new HttpBadRequest('O token informado não existe.');
         endif;
     }
+
+    public function checkUserSocial(string $email)
+    {
+        return User::query()->where('email', $email)->first()->id ?? null;
+    }
 }

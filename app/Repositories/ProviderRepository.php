@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ProviderRepository implements IProviderRepository {
-    public function create(Fornecedor $fornecedor): int
+    public function create(Fornecedor $fornecedor): Fornecedor
     {
-        $fornecedorId = Fornecedor::query()->create($fornecedor->toArray());
-        return $fornecedorId->id;
+        return Fornecedor::query()->create($fornecedor->toArray());
     }
 
     public function emailVerifiedAt(int $id, int $active): bool

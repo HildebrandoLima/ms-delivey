@@ -6,7 +6,7 @@ use App\Models\Fornecedor;
 use Illuminate\Support\Collection;
 
 interface IProviderRepository {
-    public function create(Fornecedor $fornecedor): int;
+    public function create(Fornecedor $fornecedor): Fornecedor;
     public function emailVerifiedAt(int $id, int $active): bool;
     public function update(int $id, Fornecedor $fornecedor): bool;
     public function delete(int $id): bool;

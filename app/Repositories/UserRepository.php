@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class UserRepository implements IUserRepository {
-    public function create(User $user): int
+    public function create(User $user): User
     {
-        $userId = User::query()->create($user->toArray());
-        return $userId->id;
+        return User::query()->create($user->toArray());
     }
 
     public function emailVerifiedAt(int $id, int $active): bool
@@ -21,9 +20,10 @@ class UserRepository implements IUserRepository {
         return User::query()->where('ativo', $active)->where('id', $id)->update(['email_verified_at' => Carbon::now()]);
     }
 
-    public function update(int $id, User $user): bool
+    public function update(int $id, User $user): User
     {
-        return User::query()->where('id', $id)->update($user->toArray());
+        User::query()->where('id', $id)->update($user->toArray());
+        return $user->get()[0];
     }
 
     public function delete(int $id): bool

@@ -21,4 +21,5 @@ interface ICheckRegisterRepository {
     public function checkUserIdExist(int $id): void;
     public function checkUserCodeRefreshPassword(string $codigo): void;
     public function checkTokenPassword(string $token): void;
+    public function checkUserSocial(string $email);
 }
