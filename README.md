@@ -65,15 +65,13 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 > DB_USERNAME=nome_do_usuario<br />
 > DB_PASSWORD=sua_senha<br />
 
-Execute os comandos:
-
-Para criar as tabelas:
+Execute o comando para criar as tabelas:
 
 ```
     php artisan migrate
 ```
 
-Para criar os registros de ddd, método de pagamento e uf:
+Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método de pagamento, perfil e uf. Então, execute os seguintes comandos para preenchê-las:
 
 ```
     php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
@@ -81,6 +79,10 @@ Para criar os registros de ddd, método de pagamento e uf:
 
 ```
     php artisan db:seed --class=MetodoPagamentoSeeder
+```
+
+```
+    php artisan db:seed --class=PerfilSeeder
 ```
 
 ```
@@ -187,7 +189,8 @@ Atenção: A senha é validada como padrão de forte.
         "acessToken": token,
         "userId": id,
         "userName": name,
-        "userEmail": email
+        "userEmail": email,
+        "perfilName": perfil
     },
     "status": 200,
     "details": ""
@@ -324,7 +327,8 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
         "acessToken": token,
         "userId": id,
         "userName": name,
-        "userEmail": email
+        "userEmail": email,
+        "perfil": perfil
     },
     "status": 200,
     "details": ""
