@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
@@ -16,21 +17,34 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
+            JWTAuth::parseToken()->authenticate();
         } catch(\Exception $e) {
-
-            if($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-                return response()->json(['status' => 'O token é inválido.']);
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+                return response()->json([
+                    "message" => "Token inválido.",
+                    "data" => false,
+                    "status" => Response::HTTP_UNAUTHORIZED,
+                    "details" => ""
+                ]);
             } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-                return response()->json(['status' => 'O token expirou.']);
+                return response()->json([
+                    "message" => "Token expirou.",
+                    "data" => false,
+                    "status" => Response::HTTP_UNAUTHORIZED,
+                    "details" => ""
+                ]);
             } else {
-                return response()->json(['status' => 'Token de autorização não encontrado.']);
+                return response()->json([
+                    "message" => "Token de autorização não encontrado.",
+                    "data" => false,
+                    "status" => Response::HTTP_UNAUTHORIZED,
+                    "details" => ""
+                ]);
             }
         }
-
         return $next($request);
     }
 }
