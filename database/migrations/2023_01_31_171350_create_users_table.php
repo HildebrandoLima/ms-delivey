@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('password', 100)->unique()->nullable()->default(NULL);
             $table->timestamp('data_nascimento')->nullable()->default(NULL);
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
-            $table->boolean('ativo');
             $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->rememberToken();
+            $table->foreignId('perfil_id')->nullable()->default(NULL)->constrained('perfil');
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }

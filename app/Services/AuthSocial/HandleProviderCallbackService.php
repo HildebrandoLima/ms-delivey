@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthSocial\Interfacess\IHandleProviderCallbackService;
+use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Collection;
@@ -43,6 +44,7 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
                 'userId' => $this->user->id,
                 'userName' => $this->user->name,
                 'userEmail' => $this->user->email,
+                'perfilName' => "Cliente"
             ]);
         } catch (ClientException $e) {
             throw new HttpBadRequest('Credenciais Inválidas!');
@@ -79,6 +81,7 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
         $user->data_nascimento = null;
         $user->genero = 'Outro';
         $user->ativo = UserEnum::ATIVADO;
+        $user->perfil_id - PerfilEnum::CLIENTE;
         return $user;
     }
 

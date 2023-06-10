@@ -160,4 +160,11 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
     {
         return User::query()->where('email', $email)->first()->id ?? null;
     }
+
+    public function checkFirstAccess(string $email): void
+    {
+        if (User::query()->where('email', $email)->whereNull('email_verified_at')->count() > 0):
+            throw new HttpBadRequest('Sua conta ainda não foi confirmada. Por favor, confirme-a em seu email.');
+        endif;
+    }
 }

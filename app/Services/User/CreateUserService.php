@@ -9,6 +9,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\ICreateUserService;
 use App\Support\Utils\Cases\UserCase;
+use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
@@ -55,6 +56,7 @@ class CreateUserService implements ICreateUserService
         $user->data_nascimento = $this->request->dataNascimento;
         $user->genero = $this->userCase->genderCase($this->request->genero);
         $user->ativo = UserEnum::ATIVADO;
+        $this->request->perfilId == 1 ? $user->perfil_id = PerfilEnum::ADMIN : $user->perfil_id = PerfilEnum::CLIENTE;
         return $user;
     }
 

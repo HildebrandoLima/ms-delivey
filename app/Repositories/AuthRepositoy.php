@@ -16,11 +16,9 @@ class AuthRepositoy implements IAuthRepository {
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        $user = User::query()->where('id', $this->getUserId($request->codigo))
+        User::query()->where('id', $this->getUserId($request->codigo))
         ->update(['password' => Hash::make($request->senha)]);
-        $password = PasswordReset::query()->where('codigo', $request->codigo)->delete();
-        if ($user and $password) return true;
-        return false;
+        return $this->deletePasswordReset($request->codigo);
     }
 
     private function getUserId(string $codigo): int
@@ -29,5 +27,10 @@ class AuthRepositoy implements IAuthRepository {
         ->join('password_resets as pr', 'pr.email', '=', 'users.email')
         ->select('users.id')->where('pr.codigo', $codigo)
         ->get()->toArray()[0]['id'];
+    }
+
+    private function deletePasswordReset(string $codigo): bool
+    {
+        return PasswordReset::query()->where('codigo', $codigo)->delete();
     }
 }
