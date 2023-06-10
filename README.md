@@ -129,11 +129,7 @@ Admin<br />
 ![Captura de tela de 2023-02-28 14-02-56](https://user-images.githubusercontent.com/47666194/221933281-3549c4e1-ec86-4491-9f14-413ecf334c27.png)
 
 ### Modelagem de Dados
-![Captura de tela de 2023-05-27 18-40-24](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/dcc9068e-38ea-411f-b4ef-28d39817d77f)
-
- file:///home/hildebrando/Documentos/Modelagem%20de%20Dados%20ms-delivery.png
-
-
+![Modelagem de Dados ms-delivery](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/7a3913e8-ea33-4d94-9fb1-f1f6cf08c7da)
 
 ### API DOCUMENTAÇÃO
 
