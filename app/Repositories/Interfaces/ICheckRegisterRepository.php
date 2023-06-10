@@ -22,4 +22,5 @@ interface ICheckRegisterRepository {
     public function checkUserCodeRefreshPassword(string $codigo): void;
     public function checkTokenPassword(string $token): void;
     public function checkUserSocial(string $email);
+    public function checkFirstAccess(string $email): void;
 }
