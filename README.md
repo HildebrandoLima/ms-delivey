@@ -291,7 +291,7 @@ Atenção: A senha é validada como padrão de forte.
 |------|-------------------------------------------|
 | GET  | /api/auth/login/social{provider}/callback |
 
-Atenção: Esse forma de logar, funciona com os dados da rede social de sua escolha.
+Atenção: Essa forma de logar, funciona com os dados da rede social de sua escolha. Teste as rotas em seu navegador.
 
 Configure nas redes sociais e obtenha as credenciais para autorização e autenticação de acesso.
 
