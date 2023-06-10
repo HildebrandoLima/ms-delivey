@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nivel_acesso', function (Blueprint $table) {
+        Schema::create('perfil', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('descricao', 50)->unique()->notnull();
-            $table->foreignId('usuario_id')->constrained('users');
+            $table->string('perfil', 50)->unique()->notnull();
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nivel_acesso');
+        Schema::dropIfExists('perfil');
     }
 };
