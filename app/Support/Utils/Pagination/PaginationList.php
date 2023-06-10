@@ -13,14 +13,14 @@ class PaginationList
     {
         try {
             $list = $query->paginate(10);
-            return collect([
-                'list' => $list->items(),
-                'total' => $list->total(),
-                'page' => $list->currentPage(),
-                'lastPage' => $list->lastPage()
-            ]);
         } catch(Exception $e) {
-            return Log::error('Error ao criar paginação', $e->getMessage());
+            Log::error('Error ao criar paginação', [$e->getMessage()]);
         }
+        return collect([
+            'list' => $list->items(),
+            'total' => $list->total(),
+            'page' => $list->currentPage(),
+            'lastPage' => $list->lastPage()
+        ]);
     }
 }
