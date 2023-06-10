@@ -16,6 +16,7 @@ class LoginService implements ILoginService
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->name,
             'userEmail' => auth()->user()->email,
+            'perfilName' => auth()->user()->perfil->perfil
         ]);
     }
 }

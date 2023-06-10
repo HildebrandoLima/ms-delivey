@@ -34,30 +34,33 @@ class UserRepository implements IUserRepository {
     public function getAll(int $active): Collection
     {
         $query = $this->mapToQuery();
-        $query->where('ativo', $active)->orderByDesc('id');
+        $query->where('users.ativo', $active)->orderByDesc('users.id');
         return PaginationList::createFromPagination($query);
     }
 
     public function getFind(int $id, string $search, int $active): Collection
     {
         return $this->mapToQuery()
-        ->where('ativo', $active)
-        ->where('id', $id)
-        ->orWhere('name', 'like', $search)->get();
+        ->where('users.ativo', $active)
+        ->where('users.id', $id)
+        ->orWhere('users.name', 'like', $search)->get();
     }
 
     private function mapToQuery(): Builder
     {
-        return User::query()->select([
-            'id as usuarioId',
-            'name as nome',
-            'cpf as cpf',
-            'email as email',
-            'data_nascimento as dataNascimento',
-            'genero as genero',
-            'ativo as ativo',
-            'created_at as criadoEm',
-            'updated_at as alteradoEm'
+        return User::with('perfil')->select([
+            'users.id as usuarioId',
+            'users.provider_id as providerId',
+            'users.provider as provider',
+            'users.name as nome',
+            'users.cpf as cpf',
+            'users.email as email',
+            'users.data_nascimento as dataNascimento',
+            'users.genero as genero',
+            'users.email_verified_at as emailVerificado',
+            'users.ativo as ativo',
+            'users.created_at as criadoEm',
+            'users.updated_at as alteradoEm',
         ]);
     }
 }

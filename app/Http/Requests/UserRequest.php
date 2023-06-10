@@ -14,19 +14,24 @@ class UserRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'perfilId' => 'required|int|exists:perfil,id',
             'nome' => 'required|string',
             'cpf' => 'required|string|cpf',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string',
-            'ativo' => 'required|int'
+            'ativo' => 'required|int',
         ];
     }
 
     public function messages()
     {
         return [
+            'perfilId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'perfilId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'perfilId.exists' => DefaultErrorMessages::NOT_FOUND,
+
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cpf.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,

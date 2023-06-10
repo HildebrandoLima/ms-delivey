@@ -8,6 +8,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\UserRepository;
 use App\Services\User\Interfaces\IEditUserService;
 use App\Support\Utils\Cases\UserCase;
+use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,6 +54,7 @@ class EditUserService implements IEditUserService
         $user->data_nascimento = $this->request->dataNascimento;
         $user->genero = $this->userCase->genderCase($this->request->genero);
         $this->request->ativo == 1 ? $user->ativo = UserEnum::ATIVADO : $user->ativo = UserEnum::DESATIVADO;
+        $this->request->perfilId == 1 ? $user->perfil_id = PerfilEnum::ADMIN : $user->perfil_id = PerfilEnum::CLIENTE;
         return $user;
     }
 }
