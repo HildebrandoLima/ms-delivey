@@ -30,6 +30,11 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 ### Funcionalidades (A desenvolver)
 <ul>
     <li>Job (Atualização de Estoque)</li>
+    <li>CRUD Caixa (Fluxo, Abertura e Fechamento)</li>
+    <li>CRUD Promoção</li>
+    <li>CRUD Desconto</li>
+    <li>CRUD NF-e</li>
+    <li>CRUD Faturamento</li>
 </ul>
 
 ### Requesitos necessários para executar o projeto:
