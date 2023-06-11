@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'password' => Hash::make($this->faker->password),
             'data_nascimento' => $this->faker->dateTime,
             'genero' => array_rand($genero),
+            'perfil_id' => rand(1, 2),
             'ativo' => true,
         ];
     }
