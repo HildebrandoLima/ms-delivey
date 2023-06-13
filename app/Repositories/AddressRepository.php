@@ -19,6 +19,17 @@ class AddressRepository implements IAddressRepository {
         return Endereco::query()->where('id', $id)->update($endereco->toArray());
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return Endereco::query()->where('id', $id)
+        ->orWhere(function ($query) use ($id) {
+            $query->where('usuario_id', $id)
+                ->orWhere(function ($query) use ($id) {
+                    $query->where('fornecedor_id', $id);
+                });
+        })->update(['ativo' => $active]);
+    }
+
     public function delete(int $id): bool
     {
         return Endereco::query()->where('id', $id)

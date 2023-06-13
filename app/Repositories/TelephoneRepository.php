@@ -30,6 +30,17 @@ class TelephoneRepository implements ITelephoneRepository {
         })->delete();
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return Telefone::query()->where('id', $id)
+        ->orWhere(function ($query) use ($id) {
+            $query->where('usuario_id', $id)
+                ->orWhere(function ($query) use ($id) {
+                    $query->where('fornecedor_id', $id);
+                });
+        })->update(['ativo' => $active]);
+    }
+
     public function getDDDAll(): Collection
     {
         return DDD::query()->select([

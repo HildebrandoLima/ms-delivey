@@ -132,6 +132,6 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list', [UserController::class, 'index'])->name('user.list.all');
         Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
-        Route::delete('/remove/{id}', [UserController::class, 'destroy'])->name('user.remove');
+        Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable');
     });
 });

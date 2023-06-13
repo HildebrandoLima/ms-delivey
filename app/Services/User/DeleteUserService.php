@@ -29,14 +29,14 @@ class DeleteUserService implements IDeleteUserService
         $this->userRepository          = $userRepository;
     }
 
-    public function deleteUser(int $id): bool
+    public function deleteUser(int $id, int $active): bool
     {
-        $this->checkExist($id);
+        $this->checkExists($id);
         if
         (
-            $this->addressRepository->delete($id)
-            and $this->telephoneRepository->delete($id)
-            and $this->userRepository->delete($id)
+            $this->addressRepository->enableDisable($id, $active)
+            and $this->telephoneRepository->enableDisable($id, $active)
+            and $this->userRepository->enableDisable($id, $active)
         ):
             return true;
         else:
@@ -44,7 +44,7 @@ class DeleteUserService implements IDeleteUserService
         endif;
     }
 
-    public function checkExist(int $id): void
+    public function checkExists(int $id): void
     {
         $this->checkRegisterRepository->checkUserIdExist($id);
         $this->checkRegisterRepository->checkAddressIdExist($id);
