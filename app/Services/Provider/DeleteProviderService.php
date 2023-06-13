@@ -29,16 +29,16 @@ class DeleteProviderService implements IDeleteProviderService
         $this->providerRepository      = $providerRepository;
     }
 
-    public function deleteProvider(int $id): bool
+    public function deleteProvider(int $id, int $active): bool
     {
         $this->checkRegisterRepository->checkProviderIdExist($id);
         $this->checkRegisterRepository->checkAddressIdExist($id);
         $this->checkRegisterRepository->checkTelephoneIdExist($id);
         if
         (
-            $this->addressRepository->delete($id)
-            and $this->telephoneRepository->delete($id)
-            and $this->providerRepository->delete($id)
+            $this->addressRepository->enableDisable($id, $active)
+            and $this->telephoneRepository->enableDisable($id, $active)
+            and $this->providerRepository->enableDisable($id, $active)
         ):
             return true;
         else:

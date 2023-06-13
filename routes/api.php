@@ -115,7 +115,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find');
         Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
         Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
-        Route::delete('/remove/{id}', [ProviderController::class, 'destroy'])->name('provider.remove');
+        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.remove');
     });
 
     //  Telefone
