@@ -83,10 +83,14 @@ class TelephoneController extends Controller
         }
     }
 
-    public function destroy(string $id, BaseDecode $baseDecode): Response
+    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->deleteTelephoneService->deleteTelephone($baseDecode->baseDecode($id));
+            $success = $this->deleteTelephoneService->deleteTelephone
+            (
+                $baseDecode->baseDecode($request->id),
+                $filterByActive->filterByActive($request->active)
+            );
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {
