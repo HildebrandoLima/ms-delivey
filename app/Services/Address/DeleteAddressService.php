@@ -21,9 +21,9 @@ class DeleteAddressService implements IDeleteAddressService
         $this->addressRepository       = $addressRepository;
     }
 
-    public function deleteAddress(int $id): bool
+    public function deleteAddress(int $id, int $ative): bool
     {
         $this->checkRegisterRepository->checkAddressIdExist($id);
-        return $this->addressRepository->delete($id);
+        return $this->addressRepository->enableDisable($id, $ative);
     }
 }

@@ -63,7 +63,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/uf', [AddressController::class, 'uf'])->name('address.uf.list');
         Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit');
         Route::post('/save', [AddressController::class, 'store'])->name('address.save');
-        Route::delete('/remove/{id}', [AddressController::class, 'destroy'])->name('address.remove');
+        Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable');
     });
 
     //  Categoria
@@ -115,7 +115,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find');
         Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
         Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
-        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.remove');
+        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.enable.disable');
     });
 
     //  Telefone
