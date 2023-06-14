@@ -24,6 +24,11 @@ class CategoryRepository implements ICategoryRepository {
         return Categoria::query()->where('id', $id)->delete();
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return Categoria::query()->where('id', $id)->update(['ativo' => $active]);
+    }
+
     public function getAll(int $active): Collection
     {
         return $this->mapToQuery()->where('ativo', $active)->orderByDesc('id')->get();

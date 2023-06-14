@@ -72,7 +72,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [CategoryController::class, 'show'])->name('category.list.find');
         Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
         Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
-        Route::delete('/remove/{id}', [CategoryController::class, 'destroy'])->name('category.remove');
+        Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable');
     });
 
     //  Imagem
