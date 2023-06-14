@@ -106,7 +106,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [ProductController::class, 'show'])->name('product.list.find');
         Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit');
         Route::post('/save', [ProductController::class, 'store'])->name('product.save');
-        Route::delete('/remove/{id}', [ProductController::class, 'destroy'])->name('product.remove');
+        Route::put('/enable/disable', [ProductController::class, 'enableDisable'])->name('product.enable.disable');
     });
 
     // Fornecedor
