@@ -78,7 +78,6 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
     //  Imagem
     Route::prefix('image')->group(function () {
         Route::get('/list', [ImageController::class, 'index'])->name('image.list.all');
-        Route::delete('/remove/{id}', [ImageController::class, 'destroy'])->name('image.remove');
     });
 
     //  Item
