@@ -91,7 +91,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [OrderController::class, 'show'])->name('order.list.find');
         Route::put('/edit/{id}', [OrderController::class, 'update'])->name('order.edit');
         Route::post('/save', [OrderController::class, 'store'])->name('order.save');
-        Route::delete('/remove/{id}', [OrderController::class, 'destroy'])->name('order.remove');
+        Route::put('/enable/disable', [OrderController::class, 'enableDisable'])->name('order.enable.disable');
     });
 
     //  Pagamento

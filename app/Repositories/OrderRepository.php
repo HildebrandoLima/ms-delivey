@@ -25,6 +25,11 @@ class OrderRepository implements IOrderRepository {
         return Pedido::query()->where('id', $id)->delete();
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return Pedido::query()->where('id', $id)->update(['ativo' => $active]);
+    }
+
     public function getAll(int $active): Collection
     {
         $query = $this->mapToQuery();
