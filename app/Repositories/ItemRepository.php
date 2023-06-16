@@ -23,6 +23,11 @@ class ItemRepository implements IItemRepository {
         return Item::query()->where('pedido_id', $id)->delete();
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return Item::query()->where('pedido_id', $id)->update(['ativo' => $active]);
+    }
+
     public function getAll(int $id, int $active): Collection
     {
         return Item::query()

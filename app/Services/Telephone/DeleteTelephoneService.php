@@ -21,9 +21,9 @@ class DeleteTelephoneService implements IDeleteTelephoneService
         $this->telephoneRepository     = $telephoneRepository;
     }
 
-    public function deleteTelephone(int $id): bool
+    public function deleteTelephone(int $id, int $active): bool
     {
         $this->checkRegisterRepository->checkTelephoneIdExist($id);
-        return $this->telephoneRepository->delete($id);
+        return $this->telephoneRepository->enableDisable($id, $active);
     }
 }

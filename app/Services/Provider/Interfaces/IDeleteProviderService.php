@@ -4,5 +4,5 @@ namespace App\Services\Provider\Interfaces;
 
 interface IDeleteProviderService
 {
-    public function deleteProvider(int $id): bool;
+    public function deleteProvider(int $id, int $active): bool;
 }

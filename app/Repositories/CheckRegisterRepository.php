@@ -17,6 +17,7 @@ use App\Models\Produto;
 use App\Models\Telefone;
 use App\Models\User;
 use App\Repositories\Interfaces\ICheckRegisterRepository;
+use Illuminate\Support\Collection;
 
 class CheckRegisterRepository implements ICheckRegisterRepository {
     public function checkAddressIdExist(int $id): void
@@ -167,4 +168,9 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
             throw new HttpBadRequest('Sua conta ainda não foi confirmada. Por favor, confirme-a em seu email.');
         endif;
     }
+
+    public function getProdutos(int $id): Collection
+    {
+        return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get();
+    }    
 }

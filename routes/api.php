@@ -63,7 +63,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/uf', [AddressController::class, 'uf'])->name('address.uf.list');
         Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit');
         Route::post('/save', [AddressController::class, 'store'])->name('address.save');
-        Route::delete('/remove/{id}', [AddressController::class, 'destroy'])->name('address.remove');
+        Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable');
     });
 
     //  Categoria
@@ -72,13 +72,12 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [CategoryController::class, 'show'])->name('category.list.find');
         Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
         Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
-        Route::delete('/remove/{id}', [CategoryController::class, 'destroy'])->name('category.remove');
+        Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable');
     });
 
     //  Imagem
     Route::prefix('image')->group(function () {
         Route::get('/list', [ImageController::class, 'index'])->name('image.list.all');
-        Route::delete('/remove/{id}', [ImageController::class, 'destroy'])->name('image.remove');
     });
 
     //  Item
@@ -92,7 +91,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [OrderController::class, 'show'])->name('order.list.find');
         Route::put('/edit/{id}', [OrderController::class, 'update'])->name('order.edit');
         Route::post('/save', [OrderController::class, 'store'])->name('order.save');
-        Route::delete('/remove/{id}', [OrderController::class, 'destroy'])->name('order.remove');
+        Route::put('/enable/disable', [OrderController::class, 'enableDisable'])->name('order.enable.disable');
     });
 
     //  Pagamento
@@ -106,7 +105,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [ProductController::class, 'show'])->name('product.list.find');
         Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit');
         Route::post('/save', [ProductController::class, 'store'])->name('product.save');
-        Route::delete('/remove/{id}', [ProductController::class, 'destroy'])->name('product.remove');
+        Route::put('/enable/disable', [ProductController::class, 'enableDisable'])->name('product.enable.disable');
     });
 
     // Fornecedor
@@ -115,7 +114,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find');
         Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
         Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
-        Route::delete('/remove/{id}', [ProviderController::class, 'destroy'])->name('provider.remove');
+        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.enable.disable');
     });
 
     //  Telefone
@@ -124,7 +123,7 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list/ddd', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
         Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit');
         Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
-        Route::delete('/remove/{id}', [TelephoneController::class, 'destroy'])->name('telephone.remove');
+        Route::put('/enable/disable', [TelephoneController::class, 'enableDisable'])->name('telephone.enable.disable');
     });
 
     //  Usuario
@@ -132,6 +131,6 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::get('/list', [UserController::class, 'index'])->name('user.list.all');
         Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
-        Route::delete('/remove/{id}', [UserController::class, 'destroy'])->name('user.remove');
+        Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable');
     });
 });

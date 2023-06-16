@@ -31,6 +31,11 @@ class UserRepository implements IUserRepository {
         return User::query()->where('id', $id)->delete();
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return User::query()->where('id', $id)->update(['ativo' => $active]);
+    }
+
     public function getAll(int $active): Collection
     {
         $query = $this->mapToQuery();

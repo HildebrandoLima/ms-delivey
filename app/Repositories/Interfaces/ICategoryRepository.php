@@ -9,6 +9,7 @@ interface ICategoryRepository {
     public function create(Categoria $categoria): bool;
     public function update(int $id, Categoria $categoria): bool;
     public function delete(int $id): bool;
+    public function enableDisable(int $id, int $active): bool;
     public function getAll(int $active): Collection;
     public function getFind(int $id, string $search, int $active): Collection;
 }

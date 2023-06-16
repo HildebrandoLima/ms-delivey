@@ -21,9 +21,13 @@ class DeleteOrderService implements IDeleteOrderService
         $this->orderRepository = $orderRepository;
     }
 
-    public function deleteOrder(int $id): bool
+    public function deleteOrder(int $id, int $active): bool
     {
-        if ($this->itemRepository->delete($id) and $this->orderRepository->delete($id)):
+        if
+        (
+            $this->itemRepository->enableDisable($id, $active) and
+            $this->orderRepository->enableDisable($id, 0, $active)
+        ):
             return true;
         else:
             return false;

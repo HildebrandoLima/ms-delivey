@@ -23,6 +23,11 @@ class ImageRepository implements IImageRepository {
         return Imagem::query()->where('id', $id)->delete();
     }
 
+    public function enableDisable(int $id, int $active): bool
+    {
+        return Imagem::query()->where('produto_id', $id)->update(['ativo' => $active]);
+    }
+
     public function getAll(int $id, int $active): Collection
     {
         return Imagem::query()->select([

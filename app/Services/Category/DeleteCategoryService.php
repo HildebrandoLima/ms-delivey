@@ -21,9 +21,9 @@ class DeleteCategoryService implements IDeleteCategoryService
         $this->categoryRepository      = $categoryRepository;
     }
 
-    public function deleteCategory(int $id): bool
+    public function deleteCategory(int $id, int $active): bool
     {
         $this->checkRegisterRepository->checkCategoryIdExist($id);
-        return $this->categoryRepository->delete($id);
+        return $this->categoryRepository->enableDisable($id, $active);
     }
 }
