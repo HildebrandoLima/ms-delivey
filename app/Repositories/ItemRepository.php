@@ -25,7 +25,7 @@ class ItemRepository implements IItemRepository {
 
     public function enableDisable(int $id, int $active): bool
     {
-        return Item::query()->where('id', $id)->update(['ativo' => $active]);
+        return Item::query()->where('pedido_id', $id)->update(['ativo' => $active]);
     }
 
     public function getAll(int $id, int $active): Collection

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class OrderRepository implements IOrderRepository {
+
     public function create(Pedido $pedido): int
     {
         $pedidoId = Pedido::query()->create($pedido->toArray());
@@ -25,9 +26,9 @@ class OrderRepository implements IOrderRepository {
         return Pedido::query()->where('id', $id)->delete();
     }
 
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, int $usuarioId, int $active): bool
     {
-        return Pedido::query()->where('id', $id)->update(['ativo' => $active]);
+        return Pedido::query()->where('id', $id)->orWhere('usuario_id', $usuarioId)->update(['ativo' => $active]);
     }
 
     public function getAll(int $active): Collection

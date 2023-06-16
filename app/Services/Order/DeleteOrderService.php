@@ -25,9 +25,8 @@ class DeleteOrderService implements IDeleteOrderService
     {
         if
         (
-            $this->itemRepository->enableDisable($id, $active)
-            and
-            $this->orderRepository->enableDisable($id, $active)
+            $this->itemRepository->enableDisable($id, $active) and
+            $this->orderRepository->enableDisable($id, 0, $active)
         ):
             return true;
         else:
