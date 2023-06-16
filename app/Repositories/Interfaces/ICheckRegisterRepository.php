@@ -6,6 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProviderRequest;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Collection;
 
 interface ICheckRegisterRepository {
     public function checkAddressIdExist(int $id): void;
@@ -23,4 +24,5 @@ interface ICheckRegisterRepository {
     public function checkTokenPassword(string $token): void;
     public function checkUserSocial(string $email);
     public function checkFirstAccess(string $email): void;
+    public function getProdutos(int $id): Collection;
 }
