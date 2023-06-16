@@ -25,4 +25,5 @@ interface ICheckRegisterRepository {
     public function checkUserSocial(string $email);
     public function checkFirstAccess(string $email): void;
     public function getProdutos(int $id): Collection;
+    public function getPedidos(int $id): Collection;
 }

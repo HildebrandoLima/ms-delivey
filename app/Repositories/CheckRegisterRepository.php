@@ -172,5 +172,10 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
     public function getProdutos(int $id): Collection
     {
         return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get();
-    }    
+    }
+
+    public function getPedidos(int $id): Collection
+    {
+        return Pedido::query()->join('item as i', 'i.pedido_id', '=', 'pedido.id')->where('pedido.usuario_id', $id)->get();
+    }
 }

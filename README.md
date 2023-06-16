@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Autenticação Solialite, Job (envio de e-mails e atualização de estoque). Docker e TDD ainda sendo implementado.
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Autenticação Solialite, Job (envio de e-mails e atualização de estoque). Docker e TDD ainda sendo implementados.
 
 ### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
@@ -136,8 +136,7 @@ Admin<br />
 <ul>
     <li>Todos os parâmetros 'id' são enviados em base64. O back-end se responsabiliza em decodificar.</li>
     <li>Nos body de endereço e telefone, é preciso identificar quem se referência os mesmos. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
-    <li>Futuramente, será aplicado uma nova regra para não deletar dados, mas sim desativá-los, e ativá-los, quando necessário.</li>
-    <li>Não é necessário estar autenticado para cadastrar usuário.</li>
+    <li>Os registros não são deletados, e sim ativados e desativados, sempre que necessário.</li>
 </ul>
 
 ### Login

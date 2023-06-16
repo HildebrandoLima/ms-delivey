@@ -63,9 +63,8 @@ class DeleteUserService implements IDeleteUserService
 
     private function pedidos(int $id,int $active): bool
     {
-        $pedidos = Pedido::query()->join('item as i', 'i.pedido_id', '=', 'pedido.id')->where('pedido.usuario_id', $id)->get();
+        $pedidos = $this->checkRegisterRepository->getPedidos($id);
         foreach($pedidos as $pedido):
-            //dd($pedido['usuario_id']);
             $this->itemRepository->enableDisable($pedido['id'], $active);
             $this->orderRepository->enableDisable(0, $pedido['usuario_id'], $active);
         endforeach;
