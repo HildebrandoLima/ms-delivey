@@ -52,7 +52,7 @@ Route::post('user/save', [UserController::class, 'store'])->name('user.save');
 Route::get('/email-verified/save/{entity}', [EmailVerifiedAt::class, 'emailVerifiedAt'])->name('email.verified');
 
 // Rotas Autenticadas
-Route::middleware(['jwt-authenticated'])->group(callback: function () {
+//Route::middleware(['jwt-authenticated'])->group(callback: function () {
 
     //  Autenticação
     Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
@@ -133,4 +133,4 @@ Route::middleware(['jwt-authenticated'])->group(callback: function () {
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
         Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable');
     });
-});
+//});

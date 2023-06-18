@@ -5,7 +5,8 @@ namespace App\Repositories\Interfaces;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
-interface IUserRepository {
+interface IUserRepository
+{
     public function create(User $user): User;
     public function emailVerifiedAt(int $id, int $active): bool;
     public function update(int $id, User $user): User;

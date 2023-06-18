@@ -12,7 +12,7 @@ class UnidadeFederativa extends Model
     protected $table = 'unidade_federativa';
 
     protected $fillable = [
-        'uf_id',
+        'uf',
         'descricao',
     ];
 }

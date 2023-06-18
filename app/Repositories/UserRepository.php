@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\MappersDto\UserMapperDto;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepository;
 use App\Support\Utils\Pagination\PaginationList;
@@ -9,7 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class UserRepository implements IUserRepository {
+class UserRepository implements IUserRepository
+{
     public function create(User $user): User
     {
         return User::query()->create($user->toArray());
@@ -38,34 +40,23 @@ class UserRepository implements IUserRepository {
 
     public function getAll(int $active): Collection
     {
-        $query = $this->mapToQuery();
-        $query->where('users.ativo', $active)->orderByDesc('users.id');
-        return PaginationList::createFromPagination($query);
+        $collection = $this->mapToQuery()->where('users.ativo', $active)->orderByDesc('users.id')->paginate(10);
+        foreach ($collection->items() as $key => $instance):
+            $collection[$key] = UserMapperDto::map($instance);
+        endforeach;
+        return PaginationList::createFromPagination($collection);
     }
 
     public function getFind(int $id, string $search, int $active): Collection
     {
-        return $this->mapToQuery()
-        ->where('users.ativo', $active)
-        ->where('users.id', $id)
-        ->orWhere('users.name', 'like', $search)->get();
+        $collect = $this->mapToQuery()->where('users.ativo', $active)->where('users.id', $id)
+        ->orWhere('users.name', 'like', $search)->paginate(1)->items();
+        $collection = UserMapperDto::map($collect[0]);
+        return collect($collection);
     }
 
     private function mapToQuery(): Builder
     {
-        return User::with('perfil')->select([
-            'users.id as usuarioId',
-            'users.provider_id as providerId',
-            'users.provider as provider',
-            'users.name as nome',
-            'users.cpf as cpf',
-            'users.email as email',
-            'users.data_nascimento as dataNascimento',
-            'users.genero as genero',
-            'users.email_verified_at as emailVerificado',
-            'users.ativo as ativo',
-            'users.created_at as criadoEm',
-            'users.updated_at as alteradoEm',
-        ]);
+        return User::with('perfil')->with('endereco')->with('telefone');
     }
 }
