@@ -2,12 +2,11 @@
 
 namespace App\MappersDto;
 
-use App\DataTransferObjects\UserDto;
-use App\Models\User;
+use App\DataTransferObjects\List\UserDto;
 
 class UserMapperDto
 {
-    public static function map(User $user): UserDto
+    public static function map(array $user): UserDto
     {
         $userDto = new UserDto
         (
@@ -23,9 +22,9 @@ class UserMapperDto
             $user['ativo'] ?? 0,
             $user['created_at'] ?? '',
             $user['updated_at'] ?? '',
-            $user['perfil'] ?? collect(),
-            $user['endereco'] ?? collect(),
-            $user['telefone'] ?? collect(),
+            $user['perfil'] ?? [],
+            $user['endereco'] ?? [],
+            $user['telefone'] ?? [],
         );
         return $userDto;
     }

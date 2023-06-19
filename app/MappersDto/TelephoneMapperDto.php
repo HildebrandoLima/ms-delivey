@@ -2,7 +2,7 @@
 
 namespace App\MappersDto;
 
-use App\DataTransferObjects\TelephoneDto;
+use App\DataTransferObjects\List\TelephoneDto;
 
 class TelephoneMapperDto
 {

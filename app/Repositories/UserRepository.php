@@ -2,19 +2,19 @@
 
 namespace App\Repositories;
 
+use App\DataTransferObjects\Create\UserDto;
 use App\MappersDto\UserMapperDto;
 use App\Models\User;
-use App\Repositories\Interfaces\IUserRepository;
 use App\Support\Utils\Pagination\PaginationList;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class UserRepository implements IUserRepository
+class UserRepository implements EntityRepositoryInterface
 {
-    public function create(User $user): User
+    public function enableDisable(int $id, int $active): bool
     {
-        return User::query()->create($user->toArray());
+        return User::query()->where('id', $id)->update(['ativo' => $active]);
     }
 
     public function emailVerifiedAt(int $id, int $active): bool
@@ -22,36 +22,35 @@ class UserRepository implements IUserRepository
         return User::query()->where('ativo', $active)->where('id', $id)->update(['email_verified_at' => Carbon::now()]);
     }
 
-    public function update(int $id, User $user): User
+    public function create(UserDto $userDto): User
     {
-        User::query()->where('id', $id)->update($user->toArray());
-        return $user->get()[0];
+        return User::query()->create((array)$userDto);
+    }
+
+    public function update(int $id, UserDto $userDto): bool
+    {
+        return User::query()->where('id', $id)->update((array)$userDto);
     }
 
     public function delete(int $id): bool
     {
-        return User::query()->where('id', $id)->delete();
-    }
-
-    public function enableDisable(int $id, int $active): bool
-    {
-        return User::query()->where('id', $id)->update(['ativo' => $active]);
+        return false;
     }
 
     public function getAll(int $active): Collection
     {
         $collection = $this->mapToQuery()->where('users.ativo', $active)->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = UserMapperDto::map($instance);
+            $collection[$key] = UserMapperDto::map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    public function getFind(int $id, string $search, int $active): Collection
+    public function getOne(int $id, string $search, int $active): Collection
     {
         $collect = $this->mapToQuery()->where('users.ativo', $active)->where('users.id', $id)
-        ->orWhere('users.name', 'like', $search)->paginate(1)->items();
-        $collection = UserMapperDto::map($collect[0]);
+        ->orWhere('users.name', 'like', $search)->get()->toArray()[0];
+        $collection = UserMapperDto::map($collect);
         return collect($collection);
     }
 

@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\List;
 
 use App\MappersDto\AddressMapperDto;
 use App\MappersDto\TelephoneMapperDto;
-use Illuminate\Database\Eloquent\Collection;
 
 class UserDto
 {
@@ -20,11 +19,11 @@ class UserDto
     public bool $ativo;
     public string $criadoEm;
     public string $alteradoEm;
-    public Collection $perfil;
-    public Collection $enderecos;
-    public Collection $telefones;
+    public array $perfil;
+    public array $enderecos;
+    public array $telefones;
 
-    public function __construct(int $usuarioId, int $providerId, string $provider, string $nome, string $cpf, string $email, string $dataNascimento, string $genero, string $emailVerificado, bool $ativo, string $criadoEm, string $alteradoEm, Collection $perfil, Collection $enderecos, Collection $telefones)
+    public function __construct(int $usuarioId, int $providerId, string $provider, string $nome, string $cpf, string $email, string $dataNascimento, string $genero, string $emailVerificado, bool $ativo, string $criadoEm, string $alteradoEm, array $perfil, array $enderecos, array $telefones)
     {
         $this->usuarioId = $usuarioId;
         $this->providerId = $providerId;
@@ -43,17 +42,17 @@ class UserDto
         $this->telefones = $this->telephone($telefones);
     }
 
-    private function addrres(Collection $addrres): Collection
+    private function addrres(array $addrres): array
     {
-        foreach ($addrres->toArray() as $key => $instance):
+        foreach ($addrres as $key => $instance):
             $addrres[$key] = AddressMapperDto::map($instance);
         endforeach;
         return $addrres;
     }
 
-    private function telephone(Collection $telefones): Collection
+    private function telephone(array $telefones): array
     {
-        foreach ($telefones->toArray() as $key => $instance):
+        foreach ($telefones as $key => $instance):
             $telefones[$key] = TelephoneMapperDto::map($instance);
         endforeach;
         return $telefones;

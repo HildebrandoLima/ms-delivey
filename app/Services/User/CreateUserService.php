@@ -2,67 +2,45 @@
 
 namespace App\Services\User;
 
+use App\DataTransferObjects\Create\UserDto;
 use App\Http\Requests\UserRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Models\User;
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\EntityRepositoryInterface;
 use App\Services\User\Interfaces\ICreateUserService;
-use App\Support\Utils\Cases\UserCase;
-use App\Support\Utils\Enums\PerfilEnum;
-use App\Support\Utils\Enums\UserEnum;
-use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements ICreateUserService
 {
-    private UserCase $userCase;
-    private CheckRegisterRepository $checkRegisterRepository;
-    private UserRepository $userRepository;
+    private CheckRegisterRepository   $checkRegisterRepository;
+    private EntityRepositoryInterface $entityRepositoryInterface;
 
     public function __construct
     (
-        UserCase                $userCase,
-        CheckRegisterRepository $checkRegisterRepository,
-        UserRepository          $userRepository
+        CheckRegisterRepository   $checkRegisterRepository,
+        EntityRepositoryInterface $entityRepositoryInterface,
     )
     {
-        $this->userCase                = $userCase;
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->userRepository          = $userRepository;
+        $this->checkRegisterRepository   = $checkRegisterRepository;
+        $this->entityRepositoryInterface = $entityRepositoryInterface;
     }
 
     public function createUser(UserRequest $request): int
     {
-        $this->request = $request;
-        $this->checkExist();
-        $user = $this->mapToModel();
-        $userId = $this->userRepository->create($user);
-        if ($userId) $this->dispatchJob($userId->id);
-        return $userId->id;
+        $this->checkExist($request);
+        $user = UserDto::fromRquest($request);
+        $createUser = $this->entityRepositoryInterface->create($user);
+        if ($createUser) $this->dispatchJob($createUser->id, $request->email);
+        return $createUser->id;
     }
 
-    public function checkExist(): void
+    private function checkExist(UserRequest $request): void
     {
-        $this->checkRegisterRepository->checkUserExist($this->request);
+        $this->checkRegisterRepository->checkUserExist($request);
     }
 
-    private function mapToModel(): User
-    {
-        $user = new User();
-        $user->name = $this->request->nome;
-        $user->cpf = str_replace(array('.','-','/'), "", $this->request->cpf);
-        $user->email = $this->request->email;
-        $user->password = Hash::make($this->request->senha);
-        $user->data_nascimento = $this->request->dataNascimento;
-        $user->genero = $this->userCase->genderCase($this->request->genero);
-        $user->ativo = UserEnum::ATIVADO;
-        $this->request->perfilId == 1 ? $user->perfil_id = PerfilEnum::ADMIN : $user->perfil_id = PerfilEnum::CLIENTE;
-        return $user;
-    }
-
-    public function dispatchJob(int $userId): void
+    private function dispatchJob(int $userId, string $email): void
     {
         $entity = 'user';
-        EmailForRegisterJob::dispatch($this->request->email, $userId, $entity);
+        EmailForRegisterJob::dispatch($email, $userId, $entity);
     }
 }

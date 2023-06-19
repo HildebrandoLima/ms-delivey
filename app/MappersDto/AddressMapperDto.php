@@ -2,7 +2,7 @@
 
 namespace App\MappersDto;
 
-use App\DataTransferObjects\AddressDto;
+use App\DataTransferObjects\List\AddressDto;
 
 class AddressMapperDto
 {
