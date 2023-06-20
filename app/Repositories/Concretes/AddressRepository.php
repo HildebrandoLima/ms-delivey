@@ -10,17 +10,6 @@ use Illuminate\Support\Collection;
 
 class AddressRepository implements AddressRepositoryInterface
 {
-    public function create(AddressDto $addressDto): bool
-    {
-        Endereco::query()->create((array)$addressDto);
-        return true;
-    }
-
-    public function update(int $id, AddressDto $addressDto): bool
-    {
-        return Endereco::query()->where('id', $id)->update((array)$addressDto);
-    }
-
     public function enableDisable(int $id, int $active): bool
     {
         return Endereco::query()->where('id', $id)
@@ -30,6 +19,17 @@ class AddressRepository implements AddressRepositoryInterface
                     $query->where('fornecedor_id', $id);
                 });
         })->update(['ativo' => $active]);
+    }
+
+    public function create(AddressDto $addressDto): bool
+    {
+        Endereco::query()->create((array)$addressDto);
+        return true;
+    }
+
+    public function update(int $id, AddressDto $addressDto): bool
+    {
+        return Endereco::query()->where('id', $id)->update((array)$addressDto);
     }
 
     public function getFederativeUnitAll(): Collection
