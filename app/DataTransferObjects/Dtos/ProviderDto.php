@@ -12,7 +12,6 @@ class ProviderDto extends DefaultFields
     public string $cnpj;
     public string $email;
     public string $data_fundacao;
-    public string $emailVerificado;
     public array $enderecos;
     public array $telefones;
 
@@ -73,17 +72,6 @@ class ProviderDto extends DefaultFields
     public function setDataFundacao(string $data_fundacao): ProviderDto
     {
         $this->data_fundacao = $data_fundacao;
-        return $this;
-    }
-
-    public function getEmailVerificado(): string
-    {
-        return $this->emailVerificado;
-    }
-
-    public function setEmailVerificado(string $emailVerificado): ProviderDto
-    {
-        $this->emailVerificado = $emailVerificado;
         return $this;
     }
 

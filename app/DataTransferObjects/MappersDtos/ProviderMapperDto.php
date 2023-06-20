@@ -13,7 +13,6 @@ class ProviderMapperDto
         ->setRazaoSocial($provider['razaoSocial'] ?? '')
         ->setCnpj($provider['cnpj'] ?? '')
         ->setEmail($provider['email'] ?? '')
-        ->setEmailVerificado($provider['email_verified_at'] ?? '')
         ->setEnderecos($provider['endereco'] ?? [])
         ->setTelefones($provider['telefone'] ?? [])
         ->setAtivo($provider['ativo'] ?? 0)
