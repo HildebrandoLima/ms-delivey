@@ -2,7 +2,7 @@
 
 namespace App\Services\Provider;
 
-use App\Repositories\AddressRepository;
+use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ImageRepository;
 use App\Repositories\ProductRepository;

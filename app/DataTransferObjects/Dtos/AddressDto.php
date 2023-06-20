@@ -10,9 +10,9 @@ class AddressDto extends DefaultFields
     public string $bairro;
     public string $cidade;
     public string $cep;
-    public int $ufId;
-    public int $usuarioId;
-    public int $fornecedorId;
+    public int $uf_id;
+    public int|null $usuario_id;
+    public int|null $fornecedor_id;
 
     public static function construction(): static
     {
@@ -81,40 +81,40 @@ class AddressDto extends DefaultFields
 
     public function setCep(string $cep): AddressDto
     {
-        $this->cep = $cep;
+        $this->cep = str_replace('-', "", $cep);
         return $this;
     }
 
     public function getUfId(): int
     {
-        return $this->ufId;
+        return $this->uf_id;
     }
 
-    public function setUfId(int $ufId): AddressDto
+    public function setUfId(int $uf_id): AddressDto
     {
-        $this->ufId = $ufId;
+        $this->uf_id = $uf_id;
         return $this;
     }
 
-    public function getUsuarioId(): int
+    public function getUsuarioId(): int|null
     {
-        return $this->usuarioId;
+        return $this->usuario_id;
     }
 
-    public function setUsuarioId(int $usuarioId): AddressDto
+    public function setUsuarioId(int|null $usuario_id): AddressDto
     {
-        $this->usuarioId = $usuarioId;
+        $this->usuario_id = $usuario_id;
         return $this;
     }
 
-    public function getFornecedorId(): int
+    public function getFornecedorId(): int|null
     {
-        return $this->fornecedorId;
+        return $this->fornecedor_id;
     }
 
-    public function setFornecedorId(int $fornecedorId): AddressDto
+    public function setFornecedorId(int|null $fornecedor_id): AddressDto
     {
-        $this->fornecedorId = $fornecedorId;
+        $this->fornecedor_id = $fornecedor_id;
         return $this;
     }
 }

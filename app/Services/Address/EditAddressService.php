@@ -2,46 +2,23 @@
 
 namespace App\Services\Address;
 
+use App\DataTransferObjects\RequestsDtos\AddressRequestDto;
 use App\Http\Requests\AddressRequest;
-use App\Models\Endereco;
-use App\Repositories\AddressRepository;
+use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\IEditAddressService;
-use App\Support\Utils\Cases\AddressCase;
-use App\Support\Utils\Enums\AddressEnum;
 
 class EditAddressService implements IEditAddressService
 {
-    private AddressCase $addressCase;
-    private AddressRepository $addressRepository;
+    private AddressRepositoryInterface $addressRepositoryInterface;
 
-    public function __construct
-    (
-        AddressCase       $addressCase,
-        AddressRepository $addressRepository
-    )
+    public function __construct(AddressRepositoryInterface $addressRepositoryInterface)
     {
-        $this->addressCase       = $addressCase;
-        $this->addressRepository = $addressRepository;
+        $this->addressRepositoryInterface = $addressRepositoryInterface;
     }
 
     public function editAddress($id, AddressRequest $request): bool
     {
-        $address = $this->mapToModel($request);
-        return $this->addressRepository->update($id, $address);
-    }
-
-    private function mapToModel(AddressRequest $request): Endereco
-    {
-        $address = new Endereco();
-        $address->logradouro = $this->addressCase->publicPlaceCase($request->logradouro);
-        $address->descricao = $request->descricao;
-        $address->bairro = $request->bairro;
-        $address->cidade = $request->cidade;
-        $address->cep = str_replace('-', "", $request->cep);
-        $address->uf_id = $request->ufId;
-        $address->usuario_id = $request->usuarioId ?? null;
-        $address->fornecedor_id = $request->fornecedorId ?? null;
-        $request->ativo == 1 ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
-        return $address;
+        $address = AddressRequestDto::fromRquest($request);
+        return $this->addressRepositoryInterface->update($id, $address);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\Pedido;
-use App\Repositories\AddressRepository;
+use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ItemRepository;
 use App\Repositories\OrderRepository;

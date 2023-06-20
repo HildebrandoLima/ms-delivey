@@ -2,34 +2,26 @@
 
 namespace App\Services\Address;
 
-use App\Repositories\AddressRepository;
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\IListAddressService;
 use Illuminate\Support\Collection;
 
 class ListAddressService implements IListAddressService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private AddressRepository $addressRepository;
+    private AddressRepositoryInterface $addressRepositoryInterface;
 
-    public function __construct
-    (
-        CheckRegisterRepository $checkRegisterRepository,
-        AddressRepository       $addressRepository
-    )
+    public function __construct(AddressRepositoryInterface $addressRepositoryInterface,)
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->addressRepository       = $addressRepository;
+        $this->addressRepositoryInterface = $addressRepositoryInterface;
     }
 
     public function listFederativeUnitAll(): Collection
     {
-        return $this->addressRepository->getFederativeUnitAll();
+        return $this->addressRepositoryInterface->getFederativeUnitAll();
     }
 
     public function listAddressAll(int $id, int $active): Collection
     {
-        $this->checkRegisterRepository->checkUserIdExist($id);
-        return $this->addressRepository->getAddressAll($id, $active);
+        return collect();
     }
 }

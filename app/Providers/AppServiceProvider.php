@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\UserRepository;
+use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
         (
             ProviderRepositoryInterface::class,
             ProviderRepository::class,
+        );
+
+        $this->app->bind
+        (
+            AddressRepositoryInterface::class,
+            AddressRepository::class,
         );
     }
 
