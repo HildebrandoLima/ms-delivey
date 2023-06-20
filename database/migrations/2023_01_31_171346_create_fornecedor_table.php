@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('email', 50)->unique()->notnull();
             $table->timestamp('data_fundacao')->notnull();
             $table->boolean('ativo');
-            $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->timestamps();
         });
     }
