@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\DataTransferObjects\Create\UserDto;
+use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\EntityRepositoryInterface;
@@ -26,7 +26,7 @@ class EditUserService implements IEditUserService
     public function editUser(int $id, UserRequest $request): bool
     {
         $this->checkExist($id);
-        $user = UserDto::fromRquest($request);
+        $user = UserRequestDto::fromRquest($request);
         return $this->entityRepositoryInterface->update($id, $user);
     }
 

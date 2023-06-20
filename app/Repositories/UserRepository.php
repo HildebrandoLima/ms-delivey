@@ -14,12 +14,12 @@ class UserRepository implements EntityRepositoryInterface
 {
     public function enableDisable(int $id, int $active): bool
     {
-        return User::query()->where('id', $id)->update(['ativo' => $active]);
+        return User::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
 
     public function emailVerifiedAt(int $id, int $active): bool
     {
-        return User::query()->where('ativo', $active)->where('id', $id)->update(['email_verified_at' => Carbon::now()]);
+        return User::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verified_at' => now()]);
     }
 
     public function create(UserDto $userDto): User
@@ -29,7 +29,7 @@ class UserRepository implements EntityRepositoryInterface
 
     public function update(int $id, UserDto $userDto): bool
     {
-        return User::query()->where('id', $id)->update((array)$userDto);
+        return User::query()->where('id', '=', $id)->update((array)$userDto);
     }
 
     public function delete(int $id): bool
@@ -39,7 +39,7 @@ class UserRepository implements EntityRepositoryInterface
 
     public function getAll(int $active): Collection
     {
-        $collection = $this->mapToQuery()->where('users.ativo', $active)->orderByDesc('users.id')->paginate(10);
+        $collection = $this->mapToQuery()->where('users.ativo', '=', $active)->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = UserMapperDto::mapper($instance->toArray());
         endforeach;
@@ -48,7 +48,7 @@ class UserRepository implements EntityRepositoryInterface
 
     public function getOne(int $id, string $search, int $active): Collection
     {
-        $collect = $this->mapToQuery()->where('users.ativo', $active)->where('users.id', $id)
+        $collect = $this->mapToQuery()->where('users.ativo', '=', $active)->where('users.id', '=', $id)
         ->orWhere('users.name', 'like', $search)->get()->toArray()[0];
         $collection = UserMapperDto::mapper($collect);
         return collect($collection);
