@@ -20,7 +20,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind
         (
             UserRepositoryInterface::class,
-            UserRepository::class,
+            UserRepository::class,   
+        );
+
+        $this->app->bind
+        (
             ProviderRepositoryInterface::class,
             ProviderRepository::class,
         );

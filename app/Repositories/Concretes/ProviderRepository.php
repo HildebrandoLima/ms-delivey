@@ -7,7 +7,6 @@ use App\DataTransferObjects\MappersDtos\ProviderMapperDto;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Support\Utils\Pagination\PaginationList;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -18,14 +17,8 @@ class ProviderRepository implements ProviderRepositoryInterface
         return Fornecedor::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function emailVerifiedAt(int $id, int $active): bool
-    {
-        return Fornecedor::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verified_at' => Carbon::now()]);
-    }
-
     public function create(ProviderDto $providerDto): Fornecedor
     {
-        dd($providerDto);
         return Fornecedor::query()->create((array)$providerDto);
     }
 
