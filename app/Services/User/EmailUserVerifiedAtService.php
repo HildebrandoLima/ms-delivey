@@ -6,7 +6,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\IEmailUserVerifiedAtService;
 
-class EmailUserUserVerifiedAtService implements IEmailUserVerifiedAtService
+class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
 {
     private CheckRegisterRepository $checkRegisterRepository;
     private UserRepositoryInterface $userRepositoryInterface;

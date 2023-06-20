@@ -6,7 +6,6 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthSocialController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\EmailVerifiedAt;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
@@ -47,9 +46,7 @@ Route::prefix('auth')->group(function () {
 
 // Usuário
 Route::post('user/save', [UserController::class, 'store'])->name('user.save');
-
-// Verificar cadastro de usuário e fornecedor
-Route::get('/email-verified/save/{entity}', [EmailVerifiedAt::class, 'emailVerifiedAt'])->name('email.verified');
+Route::get('user/email-verified/save', [UserController::class, 'emailVerifiedAt'])->name('user.email.verified');
 
 // Rotas Autenticadas
 //Route::middleware(['jwt-authenticated'])->group(callback: function () {
