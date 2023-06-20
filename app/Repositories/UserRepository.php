@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\DataTransferObjects\Create\UserDto;
-use App\MappersDto\UserMapperDto;
+use App\DataTransferObjects\Dtos\UserDto;
+use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Models\User;
 use App\Support\Utils\Pagination\PaginationList;
 use Carbon\Carbon;
@@ -41,7 +41,7 @@ class UserRepository implements EntityRepositoryInterface
     {
         $collection = $this->mapToQuery()->where('users.ativo', $active)->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = UserMapperDto::map($instance->toArray());
+            $collection[$key] = UserMapperDto::mapper($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
@@ -50,7 +50,7 @@ class UserRepository implements EntityRepositoryInterface
     {
         $collect = $this->mapToQuery()->where('users.ativo', $active)->where('users.id', $id)
         ->orWhere('users.name', 'like', $search)->get()->toArray()[0];
-        $collection = UserMapperDto::map($collect);
+        $collection = UserMapperDto::mapper($collect);
         return collect($collection);
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\DataTransferObjects\Create\UserDto;
+use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Repositories\CheckRegisterRepository;
@@ -27,7 +27,7 @@ class CreateUserService implements ICreateUserService
     public function createUser(UserRequest $request): int
     {
         $this->checkExist($request);
-        $user = UserDto::fromRquest($request);
+        $user = UserRequestDto::fromRquest($request);
         $createUser = $this->entityRepositoryInterface->create($user);
         if ($createUser) $this->dispatchJob($createUser->id, $request->email);
         return $createUser->id;

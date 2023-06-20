@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DataTransferObjects\Create\UserDto;
+use App\DataTransferObjects\Dtos\UserDto;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
