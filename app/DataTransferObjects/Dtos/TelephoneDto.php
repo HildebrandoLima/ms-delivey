@@ -7,9 +7,9 @@ class TelephoneDto extends DefaultFields
     public int $telefoneId;
     public string $numero;
     public string $tipo;
-    public int $dddId;
-    public int $usuarioId;
-    public int $fornecedorId;
+    public int $ddd_id;
+    public int|null $usuario_id;
+    public int|null $fornecedor_id;
 
     public static function construction(): static
     {
@@ -34,7 +34,7 @@ class TelephoneDto extends DefaultFields
 
     public function setNumero(string $numero): TelephoneDto
     {
-        $this->numero = $numero;
+        $this->numero = str_replace('-', "", $numero);
         return $this;
     }
 
@@ -51,34 +51,34 @@ class TelephoneDto extends DefaultFields
 
     public function getDddId(): int
     {
-        return $this->dddId;
+        return $this->ddd_id;
     }
 
-    public function setDddId(int $dddId): TelephoneDto
+    public function setDddId(int $ddd_id): TelephoneDto
     {
-        $this->dddId = $dddId;
+        $this->ddd_id = $ddd_id;
         return $this;
     }
 
-    public function getUsuarioId(): int
+    public function getUsuarioId(): int|null
     {
-        return $this->usuarioId;
+        return $this->usuario_id;
     }
 
-    public function setUsuarioId(int $usuarioId): TelephoneDto
+    public function setUsuarioId(int|null $usuario_id): TelephoneDto
     {
-        $this->usuarioId = $usuarioId;
+        $this->usuario_id = $usuario_id;
         return $this;
     }
 
-    public function getFornecedorId(): int
+    public function getFornecedorId(): int|null
     {
-        return $this->fornecedorId;
+        return $this->fornecedor_id;
     }
 
-    public function setFornecedorId(int $fornecedorId): TelephoneDto
+    public function setFornecedorId(int|null $fornecedor_id): TelephoneDto
     {
-        $this->fornecedorId = $fornecedorId;
+        $this->fornecedor_id = $fornecedor_id;
         return $this;
     }
 }

@@ -5,7 +5,7 @@ namespace App\Services\Telephone;
 use App\Http\Requests\TelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\TelephoneRepository;
+use App\Repositories\Concretes\TelephoneRepository;
 use App\Services\Telephone\Interfaces\IEditTelephoneService;
 use App\Support\Utils\Cases\TelephoneCase;
 use App\Support\Utils\Enums\TelephoneEnum;

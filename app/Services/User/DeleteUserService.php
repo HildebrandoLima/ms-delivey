@@ -7,7 +7,7 @@ use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ItemRepository;
 use App\Repositories\OrderRepository;
-use App\Repositories\TelephoneRepository;
+use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Concretes\UserRepository;
 use App\Services\User\Interfaces\IDeleteUserService;
 

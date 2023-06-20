@@ -2,34 +2,26 @@
 
 namespace App\Services\Telephone;
 
-use App\Repositories\CheckRegisterRepository;
-use App\Repositories\TelephoneRepository;
+use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\IListTelephoneService;
 use Illuminate\Support\Collection;
 
 class ListTelephoneService implements IListTelephoneService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private TelephoneRepository $telephoneRepository;
+    private TelephoneRepositoryInterface $telephoneRepositoryInterface;
 
-    public function __construct
-    (
-        CheckRegisterRepository $checkRegisterRepository,
-        TelephoneRepository     $telephoneRepository
-    )
+    public function __construct(TelephoneRepositoryInterface $telephoneRepositoryInterface)
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->telephoneRepository     = $telephoneRepository;
+        $this->telephoneRepositoryInterface = $telephoneRepositoryInterface;
     }
 
     public function listDDDAll(): Collection
     {
-        return $this->telephoneRepository->getDDDAll();
+        return $this->telephoneRepositoryInterface->getDDDAll();
     }
 
     public function listTelephoneAll(int $id, int $active): Collection
     {
-        $this->checkRegisterRepository->checkUserIdExist($id);
-        return $this->telephoneRepository->getTelephoneAll($id, $active);
+        return collect();
     }
 }

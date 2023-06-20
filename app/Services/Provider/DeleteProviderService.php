@@ -7,7 +7,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ImageRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\Concretes\ProviderRepository;
-use App\Repositories\TelephoneRepository;
+use App\Repositories\Concretes\TelephoneRepository;
 use App\Services\Provider\Interfaces\IDeleteProviderService;
 
 class DeleteProviderService implements IDeleteProviderService
