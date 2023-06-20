@@ -8,7 +8,7 @@ use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ItemRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\TelephoneRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\Concretes\UserRepository;
 use App\Services\User\Interfaces\IDeleteUserService;
 
 class DeleteUserService implements IDeleteUserService

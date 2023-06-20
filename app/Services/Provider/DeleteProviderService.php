@@ -6,7 +6,7 @@ use App\Repositories\AddressRepository;
 use App\Repositories\CheckRegisterRepository;
 use App\Repositories\ImageRepository;
 use App\Repositories\ProductRepository;
-use App\Repositories\ProviderRepository;
+use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\TelephoneRepository;
 use App\Services\Provider\Interfaces\IDeleteProviderService;
 

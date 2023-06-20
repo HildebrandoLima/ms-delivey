@@ -2,58 +2,45 @@
 
 namespace App\Services\Provider;
 
+use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
 use App\Http\Requests\ProviderRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Models\Fornecedor;
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ProviderRepository;
+use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\ICreateProviderService;
-use App\Support\Utils\Enums\ProviderEnum;
 
 class CreateProviderService implements ICreateProviderService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private ProviderRepository $providerRepository;
+    private CheckRegisterRepository     $checkRegisterRepository;
+    private ProviderRepositoryInterface $providerRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        ProviderRepository      $providerRepository
+        CheckRegisterRepository     $checkRegisterRepository,
+        ProviderRepositoryInterface $providerRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->providerRepository      = $providerRepository;
+        $this->checkRegisterRepository     = $checkRegisterRepository;
+        $this->providerRepositoryInterface = $providerRepositoryInterface;
     }
 
     public function createProvider(ProviderRequest $request): int
     {
-        $this->request = $request;
-        $this->checkExist();
-        $provider = $this->mapToModel();
-        $providerId = $this->providerRepository->create($provider);
-        if ($providerId) $this->dispatchJob($providerId->id);
-        return $providerId->id;
+        $this->checkExist($request);
+        $provider = ProviderRequestDto::fromRquest($request);
+        $createProvider = $this->providerRepositoryInterface->create($provider);
+        if ($createProvider) $this->dispatchJob($createProvider->id, $request->email);
+        return $createProvider->id;
     }
 
-    public function checkExist(): void
+    public function checkExist(ProviderRequest $request): void
     {
-        $this->checkRegisterRepository->checkProviderExist($this->request);
+        $this->checkRegisterRepository->checkProviderExist($request);
     }
 
-    private function mapToModel(): Fornecedor
-    {
-        $provider = new Fornecedor();
-        $provider->razao_social = $this->request->razaoSocial;
-        $provider->cnpj = str_replace(array('.','-','/'), "", $this->request->cnpj);
-        $provider->email = $this->request->email;
-        $provider->data_fundacao = $this->request->dataFundacao;
-        $provider->ativo = ProviderEnum::ATIVADO;
-        return $provider;
-    }
-
-    public function dispatchJob(int $providerId): void
+    public function dispatchJob(int $providerId, string $email): void
     {
         $entity = 'provider';
-        EmailForRegisterJob::dispatch($this->request->email, $providerId, $entity);
+        EmailForRegisterJob::dispatch($email, $providerId, $entity);
     }
 }

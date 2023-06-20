@@ -3,7 +3,7 @@
 namespace App\Services\Provider;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ProviderRepository;
+use App\Repositories\Concretes\ProviderRepository;
 use App\Services\Provider\Interfaces\IEmailProviderVerifiedAtService;
 
 class EmailProviderVerifiedAtService implements IEmailProviderVerifiedAtService

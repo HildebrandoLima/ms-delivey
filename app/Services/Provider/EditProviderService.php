@@ -5,7 +5,7 @@ namespace App\Services\Provider;
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ProviderRepository;
+use App\Repositories\Concretes\ProviderRepository;
 use App\Services\Provider\Interfaces\IEditProviderService;
 use App\Support\Utils\Enums\ProviderEnum;
 

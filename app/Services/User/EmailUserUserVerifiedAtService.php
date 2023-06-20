@@ -3,27 +3,27 @@
 namespace App\Services\User;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\EntityRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\IEmailUserVerifiedAtService;
 
 class EmailUserUserVerifiedAtService implements IEmailUserVerifiedAtService
 {
-    private CheckRegisterRepository   $checkRegisterRepository;
-    private EntityRepositoryInterface $entityRepositoryInterface;
+    private CheckRegisterRepository $checkRegisterRepository;
+    private UserRepositoryInterface $userRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository   $checkRegisterRepository,
-        EntityRepositoryInterface $entityRepositoryInterface,
+        CheckRegisterRepository $checkRegisterRepository,
+        UserRepositoryInterface $userRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository   = $checkRegisterRepository;
-        $this->entityRepositoryInterface = $entityRepositoryInterface;
+        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->userRepositoryInterface = $userRepositoryInterface;
     }
 
     public function emailVerifiedAt(int $id, int $active): bool
     {
         $this->checkRegisterRepository->checkUserIdExist($id);
-        return $this->entityRepositoryInterface->emailVerifiedAt($id, $active);
+        return $this->userRepositoryInterface->emailVerifiedAt($id, $active);
     }
 }

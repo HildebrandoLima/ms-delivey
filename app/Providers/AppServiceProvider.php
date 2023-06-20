@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use App\Repositories\EntityRepositoryInterface;
-use App\Repositories\UserRepository;
+use App\Repositories\Concretes\ProviderRepository;
+use App\Repositories\Concretes\UserRepository;
+use App\Repositories\Interfaces\ProviderRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,8 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind
         (
-            EntityRepositoryInterface::class,
-            UserRepository::class
+            UserRepositoryInterface::class,
+            UserRepository::class,
+            ProviderRepositoryInterface::class,
+            ProviderRepository::class,
         );
     }
 

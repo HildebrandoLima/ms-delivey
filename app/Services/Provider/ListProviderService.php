@@ -3,7 +3,7 @@
 namespace App\Services\Provider;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ProviderRepository;
+use App\Repositories\Concretes\ProviderRepository;
 use App\Services\Provider\Interfaces\IListProviderService;
 use Illuminate\Support\Collection;
 
@@ -32,6 +32,6 @@ class ListProviderService implements IListProviderService
         if ($id != 0):
             $this->checkRegisterRepository->checkProviderIdExist($id);
         endif;
-        return $this->providerRepository->getFind($id, $search, $activ);
+        return $this->providerRepository->getOne($id, $search, $activ);
     }
 }

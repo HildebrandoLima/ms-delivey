@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\Dtos\UserDto;
 use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Support\Utils\Pagination\PaginationList;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class UserRepository implements EntityRepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
     public function enableDisable(int $id, int $active): bool
     {
@@ -30,11 +30,6 @@ class UserRepository implements EntityRepositoryInterface
     public function update(int $id, UserDto $userDto): bool
     {
         return User::query()->where('id', '=', $id)->update((array)$userDto);
-    }
-
-    public function delete(int $id): bool
-    {
-        return false;
     }
 
     public function getAll(int $active): Collection

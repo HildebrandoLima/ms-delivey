@@ -5,7 +5,7 @@ namespace App\Services\AuthSocial;
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\Concretes\UserRepository;
 use App\Services\AuthSocial\Interfacess\IHandleProviderCallbackService;
 use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
