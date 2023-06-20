@@ -40,7 +40,6 @@ class CreateProviderService implements ICreateProviderService
 
     public function dispatchJob(int $providerId, string $email): void
     {
-        $entity = 'provider';
-        EmailForRegisterJob::dispatch($email, $providerId, $entity);
+        EmailForRegisterJob::dispatch($email, $providerId);
     }
 }

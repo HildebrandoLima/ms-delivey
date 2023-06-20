@@ -10,13 +10,10 @@ class EmailForRegister extends Mailable
 {
     use Queueable, SerializesModels;
     private int $id;
-    private string $entity;
-    private string $url;
 
-    public function __construct(int $id, string $entity)
+    public function __construct(int $id)
     {
         $this->id = $id;
-        $this->entity = $entity;
     }
 
     public function build()
@@ -24,16 +21,6 @@ class EmailForRegister extends Mailable
         return $this
         ->from('delivery@gmail.com', 'Delivey')
         ->subject('DELIVERY')
-        ->view('mails.welcomeToRegister', ['url' => $this->hostMailConfirm()]);
-    }
-
-    private function hostMailConfirm()
-    {
-        if ($this->entity == 'user'):
-            $this->url = route('email.verified', ['entity' => 'user', 'id' => base64_encode($this->id), 'active' => 1]);
-        else:
-            $this->url = route('email.verified', ['entity' => 'povider', 'id' => base64_encode($this->id), 'active' => 1]);
-        endif;
-        return $this->url;
+        ->view('mails.welcomeToRegister', ['url' => route('user.email.verified', ['id' => base64_encode($this->id), 'active' => 1])]);
     }
 }

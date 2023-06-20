@@ -22,6 +22,9 @@
                     Confirme seu cadastro clicando no botão abaixo.
                 </p>
                 <p>
+                    Caso você seje um novo fornecedor. Por favor, desconsidere o link abaixo.
+                </p>
+                <p>
                     <a href="{{ $url ?? '' }}">Confirmar!</a>
                 </a>
                 <p>

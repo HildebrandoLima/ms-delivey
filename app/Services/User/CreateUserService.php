@@ -40,7 +40,6 @@ class CreateUserService implements ICreateUserService
 
     private function dispatchJob(int $userId, string $email): void
     {
-        $entity = 'user';
-        EmailForRegisterJob::dispatch($email, $userId, $entity);
+        EmailForRegisterJob::dispatch($email, $userId);
     }
 }

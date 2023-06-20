@@ -18,19 +18,17 @@ class EmailForRegisterJob implements ShouldQueue
 
     private string $email;
     private int $id;
-    private string $entity;
 
-    public function __construct(string $email, int $id, string $entity)
+    public function __construct(string $email, int $id)
     {
         $this->email = $email;
         $this->id = $id;
-        $this->entity = $entity;
     }
 
     public function handle(): void
     {
         try {
-            Mail::to($this->email)->send(new EmailForRegister($this->id, $this->entity));
+            Mail::to($this->email)->send(new EmailForRegister($this->id));
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
