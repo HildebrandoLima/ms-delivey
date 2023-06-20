@@ -12,11 +12,11 @@ class AddressRepository implements AddressRepositoryInterface
 {
     public function enableDisable(int $id, int $active): bool
     {
-        return Endereco::query()->where('id', $id)
+        return Endereco::query()->where('id', '=', $id)
         ->orWhere(function ($query) use ($id) {
-            $query->where('usuario_id', $id)
+            $query->where('usuario_id', '=', $id)
                 ->orWhere(function ($query) use ($id) {
-                    $query->where('fornecedor_id', $id);
+                    $query->where('fornecedor_id', '=', $id);
                 });
         })->update(['ativo' => $active]);
     }
@@ -29,7 +29,7 @@ class AddressRepository implements AddressRepositoryInterface
 
     public function update(int $id, AddressDto $addressDto): bool
     {
-        return Endereco::query()->where('id', $id)->update((array)$addressDto);
+        return Endereco::query()->where('id', '=', $id)->update((array)$addressDto);
     }
 
     public function getFederativeUnitAll(): Collection
