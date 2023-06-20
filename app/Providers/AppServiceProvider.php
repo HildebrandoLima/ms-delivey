@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Repositories\Concretes\AddressRepository;
+use App\Repositories\Concretes\CategoryRepository;
 use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Concretes\UserRepository;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
@@ -23,8 +25,14 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind
         (
-            UserRepositoryInterface::class,
-            UserRepository::class,   
+            AddressRepositoryInterface::class,
+            AddressRepository::class,
+        );
+
+        $this->app->bind
+        (
+            CategoryRepositoryInterface::class,
+            CategoryRepository::class,
         );
 
         $this->app->bind
@@ -35,14 +43,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind
         (
-            AddressRepositoryInterface::class,
-            AddressRepository::class,
+            TelephoneRepositoryInterface::class,
+            TelephoneRepository::class,
         );
 
         $this->app->bind
         (
-            TelephoneRepositoryInterface::class,
-            TelephoneRepository::class,
+            UserRepositoryInterface::class,
+            UserRepository::class,   
         );
     }
 

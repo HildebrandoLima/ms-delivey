@@ -2,41 +2,31 @@
 
 namespace App\Services\Category;
 
+use App\DataTransferObjects\RequestsDtos\CategoryRequestDto;
 use App\Http\Requests\CategoryRequest;
-use App\Models\Categoria;
-use App\Repositories\CategoryRepository;
 use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\ICreateCategoryService;
-use App\Support\Utils\Enums\CategoryEnum;
 
 class CreateCategoryService implements ICreateCategoryService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private CategoryRepository $categoryRepository;
+    private CheckRegisterRepository     $checkRegisterRepository;
+    private CategoryRepositoryInterface $categoryRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        CategoryRepository      $categoryRepository
+        CheckRegisterRepository     $checkRegisterRepository,
+        CategoryRepositoryInterface $categoryRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->categoryRepository      = $categoryRepository;
+        $this->checkRegisterRepository     = $checkRegisterRepository;
+        $this->categoryRepositoryInterface = $categoryRepositoryInterface;
     }
 
     public function createCategory(CategoryRequest $request): int
     {
-        $this->request = $request;
-        $this->checkRegisterRepository->checkCategoryExist($this->request);
-        $category = $this->mapToModel();
-        return $this->categoryRepository->create($category);
-    }
-
-    private function mapToModel(): Categoria
-    {
-        $category = new Categoria();
-        $category->nome = $this->request->nome;
-        $category->ativo = CategoryEnum::ATIVADO;
-        return $category;
+        $this->checkRegisterRepository->checkCategoryExist($request);
+        $category = CategoryRequestDto::fromRquest($request);
+        return $this->categoryRepositoryInterface->create($category);
     }
 }

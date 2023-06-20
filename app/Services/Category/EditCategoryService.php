@@ -2,41 +2,31 @@
 
 namespace App\Services\Category;
 
+use App\DataTransferObjects\RequestsDtos\CategoryRequestDto;
 use App\Http\Requests\CategoryRequest;
-use App\Models\Categoria;
-use App\Repositories\CategoryRepository;
 use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\IEditCategoryService;
-use App\Support\Utils\Enums\CategoryEnum;
 
 class EditCategoryService implements IEditCategoryService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private CategoryRepository $categoryRepository;
+    private CheckRegisterRepository     $checkRegisterRepository;
+    private CategoryRepositoryInterface $categoryRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        CategoryRepository      $categoryRepository
+        CheckRegisterRepository     $checkRegisterRepository,
+        CategoryRepositoryInterface $categoryRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->categoryRepository      = $categoryRepository;
+        $this->checkRegisterRepository     = $checkRegisterRepository;
+        $this->categoryRepositoryInterface = $categoryRepositoryInterface;
     }
 
     public function editCategory(int $id, CategoryRequest $request): bool
     {
-        $this->request = $request;
         $this->checkRegisterRepository->checkCategoryIdExist($id);
-        $category = $this->mapToModel();
-        return $this->categoryRepository->update($id, $category);
-    }
-
-    private function mapToModel(): Categoria
-    {
-        $category = new Categoria();
-        $category->nome = $this->request->nome;
-        $this->request->ativo == 1 ? $category->ativo = CategoryEnum::ATIVADO : $category->ativo = CategoryEnum::DESATIVADO;
-        return $category;
+        $category = CategoryRequestDto::fromRquest($request);
+        return $this->categoryRepositoryInterface->update($id, $category);
     }
 }
