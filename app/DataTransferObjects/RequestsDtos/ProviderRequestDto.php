@@ -11,7 +11,7 @@ class ProviderRequestDto
     {
         $providerDto = new ProviderDto();
         $providerDto->setRazaoSocial($request['razaoSocial']);
-        $providerDto->setCnpj($request['cnpj']);
+        $providerDto->setCnpj(str_replace(array('.','-','/'), "", $request['cnpj']));
         $providerDto->setEmail($request['email']);
         $providerDto->setDataFundacao($request['dataFundacao']);
         $providerDto->setAtivo($request['ativo']);

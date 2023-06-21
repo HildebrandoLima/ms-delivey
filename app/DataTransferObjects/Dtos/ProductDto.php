@@ -3,7 +3,6 @@
 namespace App\DataTransferObjects\Dtos;
 
 use App\DataTransferObjects\MappersDtos\ImageMapperDto;
-use App\Support\Utils\Cases\ProductCase;
 
 class ProductDto extends DefaultFields
 {
@@ -121,7 +120,7 @@ class ProductDto extends DefaultFields
 
     public function setUnidadeMedida(string $unidade_medida): ProductDto
     {
-        $this->unidade_medida = $this->unidadeMedida($unidade_medida);
+        $this->unidade_medida = $unidade_medida;
         return $this;
     }
 
@@ -175,11 +174,5 @@ class ProductDto extends DefaultFields
             $imagens[$key] = ImageMapperDto::mapper($instance);
         endforeach;
         return $imagens;
-    }
-
-    private function unidadeMedida(string $unidadeMedida): string
-    {
-        $unitMeasure = new ProductCase();
-        return $unitMeasure->productCase($unidadeMedida);
     }
 }

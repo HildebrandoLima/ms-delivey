@@ -49,7 +49,7 @@ class ProviderDto extends DefaultFields
 
     public function setCnpj(string $cnpj): ProviderDto
     {
-        $this->cnpj = str_replace(array('.','-','/'), "", $cnpj);
+        $this->cnpj = $cnpj;
         return $this;
     }
 

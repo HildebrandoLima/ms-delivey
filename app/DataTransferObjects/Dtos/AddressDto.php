@@ -81,7 +81,7 @@ class AddressDto extends DefaultFields
 
     public function setCep(string $cep): AddressDto
     {
-        $this->cep = str_replace('-', "", $cep);
+        $this->cep = $cep;
         return $this;
     }
 
