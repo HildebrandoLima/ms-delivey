@@ -3,26 +3,26 @@
 namespace App\Services\Product;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ImageRepository;
-use App\Repositories\ProductRepository;
+use App\Repositories\Interfaces\ImageRepositoryInterface;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\IDeleteProductService;
 
 class DeleteProductService implements IDeleteProductService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private ImageRepository $imageRepository;
-    private ProductRepository $productRepository;
+    private CheckRegisterRepository    $checkRegisterRepository;
+    private ImageRepositoryInterface   $imageRepositoryInterface;
+    private ProductRepositoryInterface $productRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        ImageRepository         $imageRepository,
-        ProductRepository       $productRepository
+        CheckRegisterRepository    $checkRegisterRepository,
+        ImageRepositoryInterface   $imageRepositoryInterface,
+        ProductRepositoryInterface $productRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->imageRepository         = $imageRepository;
-        $this->productRepository       = $productRepository;
+        $this->checkRegisterRepository    = $checkRegisterRepository;
+        $this->imageRepositoryInterface   = $imageRepositoryInterface;
+        $this->productRepositoryInterface = $productRepositoryInterface;
     }
 
     public function deleteProduct(int $id, int $active): bool
@@ -30,9 +30,9 @@ class DeleteProductService implements IDeleteProductService
         $this->checkRegisterRepository->checkProductIdExist($id);
         if
         (
-            $this->imageRepository->enableDisable($id, $active)
+            $this->imageRepositoryInterface->enableDisable($id, $active)
             and
-            $this->productRepository->enableDisable($id, $active)
+            $this->productRepositoryInterface->enableDisable($id, $active)
         ):
             return true;
         else:
