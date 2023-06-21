@@ -5,23 +5,23 @@ namespace App\Services\Provider;
 use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
 use App\Http\Requests\ProviderRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\ICreateProviderService;
 
 class CreateProviderService implements ICreateProviderService
 {
-    private CheckRegisterRepository     $checkRegisterRepository;
-    private ProviderRepositoryInterface $providerRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private ProviderRepositoryInterface    $providerRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository     $checkRegisterRepository,
-        ProviderRepositoryInterface $providerRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        ProviderRepositoryInterface    $providerRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository     = $checkRegisterRepository;
-        $this->providerRepositoryInterface = $providerRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->providerRepositoryInterface    = $providerRepositoryInterface;
     }
 
     public function createProvider(ProviderRequest $request): int
@@ -35,7 +35,7 @@ class CreateProviderService implements ICreateProviderService
 
     public function checkExist(ProviderRequest $request): void
     {
-        $this->checkRegisterRepository->checkProviderExist($request);
+        $this->checkEntityRepositoryInterface->checkProviderExist($request);
     }
 
     public function dispatchJob(int $providerId, string $email): void

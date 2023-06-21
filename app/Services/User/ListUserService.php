@@ -2,24 +2,24 @@
 
 namespace App\Services\User;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\IListUserService;
 use Illuminate\Support\Collection;
 
 class ListUserService implements IListUserService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private UserRepositoryInterface $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private UserRepositoryInterface        $userRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        UserRepositoryInterface $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        UserRepositoryInterface        $userRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->userRepositoryInterface = $userRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->userRepositoryInterface        = $userRepositoryInterface;
     }
 
     public function listUserAll(int $active): Collection
@@ -29,7 +29,7 @@ class ListUserService implements IListUserService
 
     public function listUserFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0) $this->checkRegisterRepository->checkUserIdExist($id);
+        if ($id != 0) $this->checkEntityRepositoryInterface->checkUserIdExist($id);
         return $this->userRepositoryInterface->getOne($id, $search, $active);
     }
 }

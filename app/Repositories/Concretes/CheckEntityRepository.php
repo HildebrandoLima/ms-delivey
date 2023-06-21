@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Concretes;
 
 use App\Exceptions\HttpBadRequest;
 use App\Http\Requests\CategoryRequest;
@@ -16,10 +16,10 @@ use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Telefone;
 use App\Models\User;
-use App\Repositories\Interfaces\ICheckRegisterRepository;
-use Illuminate\Support\Collection;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 
-class CheckRegisterRepository implements ICheckRegisterRepository {
+class CheckEntityRepository implements CheckEntityRepositoryInterface
+{
     public function checkAddressIdExist(int $id): void
     {
         if (Endereco::query()->where('id', $id)
@@ -169,13 +169,13 @@ class CheckRegisterRepository implements ICheckRegisterRepository {
         endif;
     }
 
-    public function getProdutos(int $id): Collection
+    public function getProdutos(int $id): array
     {
-        return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get();
+        return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get()->toArray();
     }
 
-    public function getPedidos(int $id): Collection
+    public function getPedidos(int $id): array
     {
-        return Pedido::query()->join('item as i', 'i.pedido_id', '=', 'pedido.id')->where('pedido.usuario_id', $id)->get();
+        return Pedido::query()->join('item as i', 'i.pedido_id', '=', 'pedido.id')->where('pedido.usuario_id', $id)->get()->toArray();
     }
 }

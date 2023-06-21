@@ -2,24 +2,24 @@
 
 namespace App\Services\Product;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\IListProductService;
 use Illuminate\Support\Collection;
 
 class ListProductService implements IListProductService
 {
-    private CheckRegisterRepository    $checkRegisterRepository;
-    private ProductRepositoryInterface $productRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private ProductRepositoryInterface     $productRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository    $checkRegisterRepository,
-        ProductRepositoryInterface $productRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        ProductRepositoryInterface     $productRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository    = $checkRegisterRepository;
-        $this->productRepositoryInterface = $productRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->productRepositoryInterface     = $productRepositoryInterface;
     }
 
     public function listProductAll(int $active): Collection
@@ -29,7 +29,7 @@ class ListProductService implements IListProductService
 
     public function listProductFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0) $this->checkRegisterRepository->checkProductIdExist($id);
+        if ($id != 0) $this->checkEntityRepositoryInterface->checkProductIdExist($id);
         return $this->productRepositoryInterface->getOne($id, $search, $active);
     }
 }

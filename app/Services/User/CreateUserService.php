@@ -5,23 +5,23 @@ namespace App\Services\User;
 use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\ICreateUserService;
 
 class CreateUserService implements ICreateUserService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
-    private UserRepositoryInterface $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private UserRepositoryInterface        $userRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        UserRepositoryInterface $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        UserRepositoryInterface        $userRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository   = $checkRegisterRepository;
-        $this->userRepositoryInterface = $userRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->userRepositoryInterface        = $userRepositoryInterface;
     }
 
     public function createUser(UserRequest $request): int
@@ -35,7 +35,7 @@ class CreateUserService implements ICreateUserService
 
     private function checkExist(UserRequest $request): void
     {
-        $this->checkRegisterRepository->checkUserExist($request);
+        $this->checkEntityRepositoryInterface->checkUserExist($request);
     }
 
     private function dispatchJob(int $userId, string $email): void

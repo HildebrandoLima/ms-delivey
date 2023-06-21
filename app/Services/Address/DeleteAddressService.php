@@ -2,28 +2,28 @@
 
 namespace App\Services\Address;
 
-use App\Repositories\CheckRegisterRepository;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Address\Interfaces\IDeleteAddressService;
 
 class DeleteAddressService implements IDeleteAddressService
 {
-    private CheckRegisterRepository    $checkRegisterRepository;
-    private AddressRepositoryInterface $addressRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private AddressRepositoryInterface     $addressRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository    $checkRegisterRepository,
-        AddressRepositoryInterface $addressRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        AddressRepositoryInterface     $addressRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository    = $checkRegisterRepository;
-        $this->addressRepositoryInterface = $addressRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->addressRepositoryInterface     = $addressRepositoryInterface;
     }
 
     public function deleteAddress(int $id, int $ative): bool
     {
-        $this->checkRegisterRepository->checkAddressIdExist($id);
+        $this->checkEntityRepositoryInterface->checkAddressIdExist($id);
         return $this->addressRepositoryInterface->enableDisable($id, $ative);
     }
 }

@@ -2,32 +2,32 @@
 
 namespace App\Services\Product;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\IDeleteProductService;
 
 class DeleteProductService implements IDeleteProductService
 {
-    private CheckRegisterRepository    $checkRegisterRepository;
-    private ImageRepositoryInterface   $imageRepositoryInterface;
-    private ProductRepositoryInterface $productRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private ImageRepositoryInterface       $imageRepositoryInterface;
+    private ProductRepositoryInterface     $productRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository    $checkRegisterRepository,
-        ImageRepositoryInterface   $imageRepositoryInterface,
-        ProductRepositoryInterface $productRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        ImageRepositoryInterface       $imageRepositoryInterface,
+        ProductRepositoryInterface     $productRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository    = $checkRegisterRepository;
-        $this->imageRepositoryInterface   = $imageRepositoryInterface;
-        $this->productRepositoryInterface = $productRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->imageRepositoryInterface       = $imageRepositoryInterface;
+        $this->productRepositoryInterface     = $productRepositoryInterface;
     }
 
     public function deleteProduct(int $id, int $active): bool
     {
-        $this->checkRegisterRepository->checkProductIdExist($id);
+        $this->checkEntityRepositoryInterface->checkProductIdExist($id);
         if
         (
             $this->imageRepositoryInterface->enableDisable($id, $active)

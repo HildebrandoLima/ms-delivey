@@ -2,24 +2,24 @@
 
 namespace App\Services\Provider;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\IListProviderService;
 use Illuminate\Support\Collection;
 
 class ListProviderService implements IListProviderService
 {
-    private CheckRegisterRepository     $checkRegisterRepository;
-    private ProviderRepositoryInterface $providerRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private ProviderRepositoryInterface    $providerRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository     $checkRegisterRepository,
-        ProviderRepositoryInterface $providerRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        ProviderRepositoryInterface    $providerRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository     = $checkRegisterRepository;
-        $this->providerRepositoryInterface = $providerRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->providerRepositoryInterface    = $providerRepositoryInterface;
     }
 
     public function listProviderAll(int $active): Collection
@@ -29,7 +29,7 @@ class ListProviderService implements IListProviderService
 
     public function listProviderFind(int $id, string $search, int $activ): Collection
     {
-        if ($id != 0) $this->checkRegisterRepository->checkProviderIdExist($id);
+        if ($id != 0) $this->checkEntityRepositoryInterface->checkProviderIdExist($id);
         return $this->providerRepositoryInterface->getOne($id, $search, $activ);
     }
 }

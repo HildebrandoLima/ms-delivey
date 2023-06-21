@@ -2,24 +2,24 @@
 
 namespace App\Services\Order;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\IListOrderService;
 use Illuminate\Support\Collection;
 
 class ListOrderService implements IListOrderService
 {
-    private CheckRegisterRepository  $checkRegisterRepository;
-    private OrderRepositoryInterface $orderRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private OrderRepositoryInterface       $orderRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository  $checkRegisterRepository,
-        OrderRepositoryInterface $orderRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        OrderRepositoryInterface       $orderRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository  = $checkRegisterRepository;
-        $this->orderRepositoryInterface = $orderRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->orderRepositoryInterface       = $orderRepositoryInterface;
     }
 
     public function listOrderAll(int $active): Collection
@@ -29,7 +29,7 @@ class ListOrderService implements IListOrderService
 
     public function listOrderFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0) $this->checkRegisterRepository->checkOrderIdExist($id);
+        if ($id != 0) $this->checkEntityRepositoryInterface->checkOrderIdExist($id);
         return $this->orderRepositoryInterface->getOne($id, $search, $active);
     }
 }

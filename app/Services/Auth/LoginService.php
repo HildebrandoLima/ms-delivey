@@ -3,17 +3,17 @@
 namespace App\Services\Auth;
 
 use App\Http\Requests\LoginRequest;
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Auth\Interfaces\ILoginService;
 use Illuminate\Support\Collection;
 
 class LoginService implements ILoginService
 {
-    private CheckRegisterRepository $checkRegisterRepository;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
 
-    public function __construct(CheckRegisterRepository $checkRegisterRepository,)
+    public function __construct(CheckEntityRepositoryInterface $checkEntityRepositoryInterface)
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
     }
 
     public function login(LoginRequest $request): Collection
@@ -31,6 +31,6 @@ class LoginService implements ILoginService
 
     private function firstAccess(string $email): void
     {
-        $this->checkRegisterRepository->checkFirstAccess($email);
+        $this->checkEntityRepositoryInterface->checkFirstAccess($email);
     }
 }

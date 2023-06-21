@@ -4,23 +4,23 @@ namespace App\Services\User;
 
 use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\IEditUserService;
 
 class EditUserService implements IEditUserService
 {    
-    private CheckRegisterRepository $checkRegisterRepository;
-    private UserRepositoryInterface $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private UserRepositoryInterface        $userRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        UserRepositoryInterface $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        UserRepositoryInterface        $userRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->userRepositoryInterface = $userRepositoryInterface;  
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->userRepositoryInterface        = $userRepositoryInterface;  
     }
 
     public function editUser(int $id, UserRequest $request): bool
@@ -32,6 +32,6 @@ class EditUserService implements IEditUserService
 
     private function checkExist(int $id): void
     {
-        $this->checkRegisterRepository->checkUserIdExist($id);
+        $this->checkEntityRepositoryInterface->checkUserIdExist($id);
     }
 }

@@ -2,28 +2,28 @@
 
 namespace App\Services\Telephone;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\IDeleteTelephoneService;
 
 class DeleteTelephoneService implements IDeleteTelephoneService
 {
-    private CheckRegisterRepository      $checkRegisterRepository;
-    private TelephoneRepositoryInterface $telephoneRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private TelephoneRepositoryInterface   $telephoneRepositoryInterface;
 
     public function __construct
     (
-        CheckRegisterRepository      $checkRegisterRepository,
-        TelephoneRepositoryInterface $telephoneRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        TelephoneRepositoryInterface   $telephoneRepositoryInterface,
     )
     {
-        $this->checkRegisterRepository      = $checkRegisterRepository;
-        $this->telephoneRepositoryInterface = $telephoneRepositoryInterface;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->telephoneRepositoryInterface   = $telephoneRepositoryInterface;
     }
 
     public function deleteTelephone(int $id, int $active): bool
     {
-        $this->checkRegisterRepository->checkTelephoneIdExist($id);
+        $this->checkEntityRepositoryInterface->checkTelephoneIdExist($id);
         return $this->telephoneRepositoryInterface->enableDisable($id, $active);
     }
 }

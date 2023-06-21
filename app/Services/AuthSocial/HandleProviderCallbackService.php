@@ -4,8 +4,8 @@ namespace App\Services\AuthSocial;
 
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
-use App\Repositories\CheckRegisterRepository;
 use App\Repositories\Concretes\UserRepository;
+use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\AuthSocial\Interfacess\IHandleProviderCallbackService;
 use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
@@ -19,17 +19,17 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
     private $userSocial;
     private string $provider;
     private User $user;
-    private CheckRegisterRepository $checkRegisterRepository;
+    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private UserRepository $userRepository;
 
     public function __construct
     (
-        CheckRegisterRepository $checkRegisterRepository,
-        UserRepository          $userRepository
+        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        UserRepository $userRepository
     )
     {
-        $this->checkRegisterRepository = $checkRegisterRepository;
-        $this->userRepository          = $userRepository;
+        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->userRepository = $userRepository;
     }
 
     public function handleProviderCallback(string $provider): Collection
@@ -87,6 +87,6 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
 
     private function checkExist()
     {
-        return $this->checkRegisterRepository->checkUserSocial($this->userSocial->getEmail());
+        return $this->checkEntityRepositoryInterface->checkUserSocial($this->userSocial->getEmail());
     }
 }

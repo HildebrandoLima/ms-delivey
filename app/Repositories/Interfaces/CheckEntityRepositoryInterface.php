@@ -6,12 +6,13 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProviderRequest;
 use App\Http\Requests\UserRequest;
-use Illuminate\Support\Collection;
 
-interface ICheckRegisterRepository {
+interface CheckEntityRepositoryInterface
+{
     public function checkAddressIdExist(int $id): void;
     public function checkCategoryExist(CategoryRequest $request): void;
     public function checkCategoryIdExist(int $id): void;
+    public function checkOrderIdExist(int $id): void;
     public function checkProductExist(ProductRequest $request): void;
     public function checkProductIdExist(int $id): void;
     public function checkProviderExist(ProviderRequest $request): void;
@@ -24,6 +25,6 @@ interface ICheckRegisterRepository {
     public function checkTokenPassword(string $token): void;
     public function checkUserSocial(string $email);
     public function checkFirstAccess(string $email): void;
-    public function getProdutos(int $id): Collection;
-    public function getPedidos(int $id): Collection;
+    public function getProdutos(int $id): array;
+    public function getPedidos(int $id): array;
 }

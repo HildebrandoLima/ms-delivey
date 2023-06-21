@@ -2,7 +2,7 @@
 
 namespace App\Services\Image;
 
-use App\Repositories\CheckRegisterRepository;
+use App\Repositories\Concretes\CheckRegisterRepository;
 use App\Repositories\Concretes\ImageRepository;
 use App\Services\Image\Interfaces\IListImageService;
 use Illuminate\Support\Collection;
