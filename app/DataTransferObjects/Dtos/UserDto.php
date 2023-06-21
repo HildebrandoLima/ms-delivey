@@ -19,9 +19,6 @@ class UserDto extends DefaultFields
     public string $data_nascimento;
     public string $genero;
     public string $emailVerificado;
-    public bool $ativo;
-    public string $criadoEm;
-    public string $alteradoEm;
     public int $perfil_id;
     public array $perfil;
     public array $enderecos;
@@ -92,6 +89,12 @@ class UserDto extends DefaultFields
         return $this->email;
     }
 
+    public function setEmail(string $email): UserDto
+    {
+        $this->email = $email;
+        return $this;
+    }
+
     public function setSenha(string $password): UserDto
     {
         $this->password = Hash::make($password);
@@ -101,12 +104,6 @@ class UserDto extends DefaultFields
     public function getSenha(): string
     {
         return $this->password;
-    }
-
-    public function setEmail(string $email): UserDto
-    {
-        $this->email = $email;
-        return $this;
     }
 
     public function getDataNascimento(): string
