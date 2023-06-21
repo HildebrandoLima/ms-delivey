@@ -3,7 +3,7 @@
 namespace App\Services\Order;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\OrderRepository;
+use App\Repositories\Concretes\OrderRepository;
 use App\Services\Order\Interfaces\IListOrderService;
 use Illuminate\Support\Collection;
 
@@ -30,6 +30,6 @@ class ListOrderService implements IListOrderService
     public function listOrderFind(int $id, string $search, int $active): Collection
     {
         if ($id != 0) $this->checkRegisterRepository->checkOrderIdExist($id);
-        return $this->orderRepository->getFind($id, $search, $active);
+        return $this->orderRepository->getOne($id, $search, $active);
     }
 }

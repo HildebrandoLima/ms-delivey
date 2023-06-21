@@ -3,7 +3,7 @@
 namespace App\Services\Item;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ItemRepository;
+use App\Repositories\Concretes\ItemRepository;
 use App\Services\Item\Interfaces\IListItemService;
 use Illuminate\Support\Collection;
 

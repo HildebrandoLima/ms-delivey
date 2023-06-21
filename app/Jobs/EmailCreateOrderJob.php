@@ -42,7 +42,7 @@ class EmailCreateOrderJob implements ShouldQueue
     {
         try {
             $userEmail = new UserRepository();
-            $email = $userEmail->getFind($this->order['usuario_id'], '', 1)->toArray()[0]['email'];
+            $email = $userEmail->getOne($this->order['usuario_id'], '', 1)->toArray()['email'];
             Mail::to($email)->send(new EmailCreateOrder($this->order, $this->items));
         } catch (Exception $e) {
             Log::error($e->getMessage());

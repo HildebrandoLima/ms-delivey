@@ -2,81 +2,49 @@
 
 namespace App\Services\Order;
 
+use App\DataTransferObjects\RequestsDtos\ItemRequestDto;
+use App\DataTransferObjects\RequestsDtos\OrderRequestDto;
 use App\Http\Requests\OrderRequest;
 use App\Jobs\EmailCreateOrderJob;
-use App\Models\Item;
-use App\Models\Pedido;
-use App\Repositories\ItemRepository;
-use App\Repositories\OrderRepository;
+use App\Repositories\Interfaces\ItemRepositoryInterface;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\ICreateOrderService;
-use App\Support\Utils\Enums\ItemEnum;
-use App\Support\Utils\Enums\OrderEnum;
 
 class CreateOrderService implements ICreateOrderService
 {
-    private int $orderId;
-    private Pedido $order;
-    private OrderRepository $orderRepository;
-    private ItemRepository  $itemRepository;
+    private OrderRepositoryInterface $orderRepositoryInterface;
+    private ItemRepositoryInterface  $itemRepositoryInterface;
 
     public function __construct
     (
-        OrderRepository $orderRepository,
-        ItemRepository  $itemRepository
+        OrderRepositoryInterface $orderRepositoryInterface,
+        ItemRepositoryInterface  $itemRepositoryInterface,
     )
     {
-        $this->orderRepository = $orderRepository;
-        $this->itemRepository  = $itemRepository;
+        $this->orderRepositoryInterface = $orderRepositoryInterface;
+        $this->itemRepositoryInterface  = $itemRepositoryInterface;
     }
 
     public function createOrder(OrderRequest $request): int
     {
-        $this->request = $request;
-        $this->order = $this->mapToModelOrder();
-        $this->orderId = $this->orderRepository->create($this->order);
-        $this->createItems();
-        if ($this->orderId and $this->createItems()) $this->dispatchJob();
-        return $this->orderId;
+        $order = OrderRequestDto::fromRquest($request);
+        $createOrder = $this->orderRepositoryInterface->create($order);
+        $createItem = $this->createItems($request, $createOrder->id);
+        if ($createOrder and $createItem) $this->dispatchJob((array)$order, $request->items);
+        return $createOrder->id;
     }
 
-    private function mapToModelOrder(): Pedido
+    public function createItems(OrderRequest $request, int $orderId): bool
     {
-        $order = new Pedido();
-        $order->numero_pedido = random_int(100000000, 999999999);
-        $order->quantidade_item = $this->request->totalItems;
-        $order->total = $this->request->total;
-        $order->entrega = $this->request->entrega;
-        $order->ativo = OrderEnum::ATIVADO;
-        $order->usuario_id = $this->request->usuarioId;
-        return $order;
-    }
-
-    public function createItems(): bool
-    {
-        foreach ($this->request->items as $item):
-            $items = $this->mapToModelItems($item);
-            $this->itemRepository->create($items);
+        foreach ($request->items as $item):
+            $items = ItemRequestDto::fromRquest($item, $orderId);
+            $this->itemRepositoryInterface->create($items);
         endforeach;
         return true;
     }
 
-    private function mapToModelItems(array $items): Item
+    public function dispatchJob(array $order, array $items): void
     {
-        $item = new Item();
-        $item->nome = $items['nome'];
-        $item->preco = $items['preco'];
-        $item->codigo_barra = $items['codigoBarra'];
-        $item->quantidade_item = $items['quantidadeItem'];
-        $item->sub_total = $items['subTotal'];
-        $item->unidade_medida = $items['unidadeMedida'];
-        $item->pedido_id = $this->orderId;
-        $item->produto_id = $items['produtoId'];
-        $item->ativo = ItemEnum::ATIVADO;
-        return $item;
-    }
-
-    public function dispatchJob(): void
-    {
-        EmailCreateOrderJob::dispatch($this->order->toArray(), $this->request->items);
+        EmailCreateOrderJob::dispatch($order, $items);
     }
 }

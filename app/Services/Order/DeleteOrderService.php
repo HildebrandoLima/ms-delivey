@@ -2,8 +2,8 @@
 
 namespace App\Services\Order;
 
-use App\Repositories\ItemRepository;
-use App\Repositories\OrderRepository;
+use App\Repositories\Concretes\ItemRepository;
+use App\Repositories\Concretes\OrderRepository;
 use App\Services\Order\Interfaces\IDeleteOrderService;
 
 class DeleteOrderService implements IDeleteOrderService
