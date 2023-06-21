@@ -1,22 +1,24 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Concretes;
 
+use App\DataTransferObjects\Dtos\AuthDto;
 use App\Http\Requests\RefreshPasswordRequest;
 use App\Models\PasswordReset;
 use App\Models\User;
-use App\Repositories\Interfaces\IAuthRepository;
+use App\Repositories\Interfaces\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
-class AuthRepositoy implements IAuthRepository {
-    public function forgotPassword(PasswordReset $passwordReset): bool
+class AuthRepositoy implements AuthRepositoryInterface
+{
+    public function forgotPassword(AuthDto $authDto): bool
     {
-        return PasswordReset::query()->insert($passwordReset->toArray());
+        return PasswordReset::query()->insert((array)$authDto);
     }
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        User::query()->where('id', $this->getUserId($request->codigo))
+        User::query()->where('id', '=', $this->getUserId($request->codigo))
         ->update(['password' => Hash::make($request->senha)]);
         return $this->deletePasswordReset($request->codigo);
     }
@@ -31,6 +33,6 @@ class AuthRepositoy implements IAuthRepository {
 
     private function deletePasswordReset(string $codigo): bool
     {
-        return PasswordReset::query()->where('codigo', $codigo)->delete();
+        return PasswordReset::query()->where('codigo', '=', $codigo)->delete();
     }
 }

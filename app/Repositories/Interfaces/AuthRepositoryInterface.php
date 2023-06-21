@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\DataTransferObjects\Dtos\AuthDto;
 use App\Http\Requests\RefreshPasswordRequest;
-use App\Models\PasswordReset;
 
-interface IAuthRepository {
-    public function forgotPassword(PasswordReset $passwordReset): bool;
+interface AuthRepositoryInterface
+{
+    public function forgotPassword(AuthDto $authDto): bool;
     public function refreshPassword(RefreshPasswordRequest $request): bool;
 }
