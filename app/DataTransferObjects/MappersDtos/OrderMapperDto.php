@@ -10,11 +10,11 @@ class OrderMapperDto
     {
         return OrderDto::construction()
         ->setPedidoId($order['id'] ?? 0)
-        ->setTotalItems($order['total_items'] ?? 0)
+        ->setQuantidadeItem($order['quantidade_items'] ?? 0)
         ->setTotal($order['total'] ?? 0)
         ->setEntrega($order['entrega'] ?? 0)
         ->setUsuarioId($order['usuario_id'] ?? 0)
-        ->setItems($order['items'] ?? [])
+        ->setItems($order['item'] ?? [])
         ->setAtivo($order['ativo'] ?? '')
         ->setCriadoEm($order['created_at'] ?? '')
         ->setAlteradoEm($order['updated_at'] ?? '');

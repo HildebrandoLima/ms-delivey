@@ -28,11 +28,11 @@ class Pedido extends Model
 
     public function pagamento(): HasMany
     {
-        return $this->hasMany(Pagamento::class, 'id', 'pedido_id');
+        return $this->hasMany(Pagamento::class, 'pedido_id', 'id');
     }
 
     public function item(): HasMany
     {
-        return $this->hasMany(Item::class, 'id', 'pedido_id');
+        return $this->hasMany(Item::class, 'pedido_id', 'id');
     }
 }
