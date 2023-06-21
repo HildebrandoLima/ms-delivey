@@ -14,7 +14,8 @@ class OrderMapperDto
         ->setTotal($order['total'] ?? 0)
         ->setEntrega($order['entrega'] ?? 0)
         ->setUsuarioId($order['usuario_id'] ?? 0)
-        ->setItems($order['item'] ?? [])
+        ->setItem($order['item'] ?? [])
+        ->setPagamento($order['pagamento'] ?? [])
         ->setAtivo($order['ativo'] ?? '')
         ->setCriadoEm($order['created_at'] ?? '')
         ->setAlteradoEm($order['updated_at'] ?? '');

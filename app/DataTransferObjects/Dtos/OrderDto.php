@@ -3,6 +3,7 @@
 namespace App\DataTransferObjects\Dtos;
 
 use App\DataTransferObjects\MappersDtos\ItemMapperDto;
+use App\DataTransferObjects\MappersDtos\PaymentMapperDto;
 
 class OrderDto extends DefaultFields
 {
@@ -12,7 +13,8 @@ class OrderDto extends DefaultFields
     public float $total;
     public float $entrega;
     public int $usuario_id;
-    public array $items;
+    public array $item;
+    public array $pagamento;
 
     public static function construction(): static
     {
@@ -85,14 +87,25 @@ class OrderDto extends DefaultFields
         return $this;
     }
 
-    public function getItems(): array
+    public function getItem(): array
     {
-        return $this->items;
+        return $this->item;
     }
 
-    public function setItems(array $items): OrderDto
+    public function setItem(array $item): OrderDto
     {
-        $this->items = $this->items($items);
+        $this->item = $this->items($item);
+        return $this;
+    }
+
+    public function getPagamento(): array
+    {
+        return $this->pagamento;
+    }
+
+    public function setPagamento(array $pagamento): OrderDto
+    {
+        $this->pagamento = $this->pagamento($pagamento);
         return $this;
     }
 
@@ -102,5 +115,13 @@ class OrderDto extends DefaultFields
             $items[$key] = ItemMapperDto::mapper($instance);
         endforeach;
         return $items;
+    }
+
+    private function pagamento(array $pagamento): array
+    {
+        foreach ($pagamento as $key => $instance):
+            $pagamento[$key] = PaymentMapperDto::mapper($instance);
+        endforeach;
+        return $pagamento;
     }
 }
