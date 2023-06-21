@@ -3,7 +3,7 @@
 namespace App\Services\Image;
 
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ImageRepository;
+use App\Repositories\Concretes\ImageRepository;
 use App\Services\Image\Interfaces\IListImageService;
 use Illuminate\Support\Collection;
 
@@ -25,6 +25,7 @@ class ListImageService implements IListImageService
     public function listImageAll(int $id, int $active): Collection
     {
         $this->checkRegisterRepository->checkProductIdExist($id);
-        return $this->imageRepository->getAll($id, $active);
+        //return $this->imageRepository->getAll($id, $active);
+        return collect();
     }
 }

@@ -4,8 +4,8 @@ namespace App\Services\Provider;
 
 use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\CheckRegisterRepository;
-use App\Repositories\ImageRepository;
-use App\Repositories\ProductRepository;
+use App\Repositories\Concretes\ImageRepository;
+use App\Repositories\Concretes\ProductRepository;
 use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\TelephoneRepository;
 use App\Services\Provider\Interfaces\IDeleteProviderService;
