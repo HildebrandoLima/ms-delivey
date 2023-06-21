@@ -35,11 +35,11 @@ class CreateProductService implements ICreateProductService
         $this->checkRegisterRepository->checkProviderIdExist($request->fornecedorId);
         $product = ProductRequestDto::fromRquest($request);
         $createProduct = $this->productRepositoryInterface->create($product);
-        $this->validatedImage($request, $createProduct->id);
+        $this->createImage($request, $createProduct->id);
         return true;
     }
 
-    private function validatedImage(ProductRequest $request, int $productId): void
+    private function createImage(ProductRequest $request, int $productId): void
     {
         $images = $request->file('imagens');
         if (isset ($images)):
