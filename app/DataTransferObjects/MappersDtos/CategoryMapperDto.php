@@ -9,6 +9,7 @@ class CategoryMapperDto
     public static function mapper(array $category): CategoryDto
     {
         return CategoryDto::construction()
+        ->setCategoriaId($category['id'] ?? 0)
         ->setNome($category['nome'] ?? '')
         ->setAtivo($category['ativo'] ?? '')
         ->setCriadoEm($category['created_at'] ?? '')

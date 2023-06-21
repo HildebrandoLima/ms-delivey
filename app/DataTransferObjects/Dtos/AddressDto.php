@@ -4,7 +4,7 @@ namespace App\DataTransferObjects\Dtos;
 
 class AddressDto extends DefaultFields
 {
-    public int $enderecoId;
+    public int $endereco_id;
     public string $logradouro;
     public string $descricao;
     public string $bairro;
@@ -21,12 +21,12 @@ class AddressDto extends DefaultFields
 
     public function getEnderecoId(): int
     {
-        return $this->enderecoId;
+        return $this->endereco_id;
     }
 
-    public function setEnderecoId(int $enderecoId): AddressDto
+    public function setEnderecoId(int $endereco_id): AddressDto
     {
-        $this->enderecoId = $enderecoId;
+        $this->endereco_id = $endereco_id;
         return $this;
     }
 

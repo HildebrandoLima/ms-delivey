@@ -5,8 +5,8 @@ namespace App\DataTransferObjects\Dtos;
 class DefaultFields
 {
     public bool $ativo;
-    public string $criadoEm;
-    public string $alteradoEm;
+    public string $criado_em;
+    public string $alterado_em;
 
     public static function construction(): static
     {
@@ -26,23 +26,23 @@ class DefaultFields
 
     public function getCriadoEm(): string
     {
-        return $this->criadoEm;
+        return $this->criado_em;
     }
 
-    public function setCriadoEm(string $criadoEm): DefaultFields
+    public function setCriadoEm(string $criado_em): DefaultFields
     {
-        $this->criadoEm = date('d-m-Y H:i:s', strtotime($criadoEm));
+        $this->criado_em = date('d-m-Y H:i:s', strtotime($criado_em));
         return $this;
     }
 
     public function getAlteradoEm(): string
     {
-        return $this->alteradoEm;
+        return $this->alterado_em;
     }
 
-    public function setAlteradoEm(string $alteradoEm): DefaultFields
+    public function setAlteradoEm(string $alterado_em): DefaultFields
     {
-        $this->alteradoEm = date('d-m-Y H:i:s', strtotime($alteradoEm));
+        $this->alterado_em = date('d-m-Y H:i:s', strtotime($alterado_em));
         return $this;
     }
 }

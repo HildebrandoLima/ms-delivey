@@ -7,7 +7,7 @@ use App\DataTransferObjects\MappersDtos\TelephoneMapperDto;
 
 class ProviderDto extends DefaultFields
 {
-    public int $fornecedorId;
+    public int $fornecedor_id;
     public string $razao_social;
     public string $cnpj;
     public string $email;
@@ -22,12 +22,12 @@ class ProviderDto extends DefaultFields
 
     public function getFornecedorId(): int
     {
-        return $this->fornecedorId;
+        return $this->fornecedor_id;
     }
 
-    public function setFornecedorId(int $fornecedorId): ProviderDto
+    public function setFornecedorId(int $fornecedor_id): ProviderDto
     {
-        $this->fornecedorId = $fornecedorId;
+        $this->fornecedor_id = $fornecedor_id;
         return $this;
     }
 

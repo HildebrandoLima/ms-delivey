@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserDto extends DefaultFields
 {
-    public int $usuarioId;
-    public int $loginSocialId;
-    public string $loginSocial;
+    public int $usuario_id;
+    public int $login_social_id;
+    public string $login_social;
     public string $name;
     public string $cpf;
     public string $email;
     public string $password;
     public string $data_nascimento;
     public string $genero;
-    public string $emailVerificado;
+    public string $email_verificado;
     public int $perfil_id;
     public array $perfil;
     public array $enderecos;
@@ -31,34 +31,34 @@ class UserDto extends DefaultFields
 
     public function getUsuarioId(): int
     {
-        return $this->usuarioId;
+        return $this->usuario_id;
     }
 
-    public function setUsuarioId(int $usuarioId): UserDto
+    public function setUsuarioId(int $usuario_id): UserDto
     {
-        $this->usuarioId = $usuarioId;
+        $this->usuario_id = $usuario_id;
         return $this;
     }
 
     public function getLoginSocialId(): int
     {
-        return $this->loginSocialId;
+        return $this->login_social_id;
     }
 
-    public function setLoginSocialId(int $loginSocialId): UserDto
+    public function setLoginSocialId(int $login_social_id): UserDto
     {
-        $this->loginSocialId = $loginSocialId;
+        $this->login_social_id = $login_social_id;
         return $this;
     }
 
     public function getLoginSocial(): string
     {
-        return $this->loginSocial;
+        return $this->login_social;
     }
 
-    public function setLoginSocial(string $loginSocial): UserDto
+    public function setLoginSocial(string $login_social): UserDto
     {
-        $this->loginSocial = $loginSocial;
+        $this->login_social = $login_social;
         return $this;
     }
 
@@ -130,12 +130,12 @@ class UserDto extends DefaultFields
 
     public function getEmailVerificado(): string
     {
-        return $this->emailVerificado;
+        return $this->email_verificado;
     }
 
-    public function setEmailVerificado(string $emailVerificado): UserDto
+    public function setEmailVerificado(string $email_verificado): UserDto
     {
-        $this->emailVerificado = $emailVerificado;
+        $this->email_verificado = $email_verificado;
         return $this;
     }
 

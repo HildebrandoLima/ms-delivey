@@ -4,7 +4,7 @@ namespace App\DataTransferObjects\Dtos;
 
 class TelephoneDto extends DefaultFields
 {
-    public int $telefoneId;
+    public int $telefone_id;
     public string $numero;
     public string $tipo;
     public int $ddd_id;
@@ -18,12 +18,12 @@ class TelephoneDto extends DefaultFields
 
     public function getTelefoneId(): int
     {
-        return $this->telefoneId;
+        return $this->telefone_id;
     }
 
-    public function setTelefoneId(int $telefoneId): TelephoneDto
+    public function setTelefoneId(int $telefone_id): TelephoneDto
     {
-        $this->telefoneId = $telefoneId;
+        $this->telefone_id = $telefone_id;
         return $this;
     }
 
