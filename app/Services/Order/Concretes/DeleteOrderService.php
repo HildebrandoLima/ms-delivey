@@ -4,27 +4,32 @@ namespace App\Services\Order\Concretes;
 
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 
 class DeleteOrderService implements DeleteOrderServiceInterface
 {
-    private ItemRepositoryInterface  $itemRepository;
-    private OrderRepositoryInterface $orderRepository;
+    private PaymentRepositoryInterface $paymentRepository;
+    private ItemRepositoryInterface    $itemRepository;
+    private OrderRepositoryInterface   $orderRepository;
 
     public function __construct
     (
-        ItemRepositoryInterface  $itemRepository,
-        OrderRepositoryInterface $orderRepository,
+        PaymentRepositoryInterface $paymentRepository,
+        ItemRepositoryInterface    $itemRepository,
+        OrderRepositoryInterface   $orderRepository,
     )
     {
-        $this->itemRepository  = $itemRepository;
-        $this->orderRepository = $orderRepository;
+        $this->paymentRepository  = $paymentRepository;
+        $this->itemRepository     = $itemRepository;
+        $this->orderRepository    = $orderRepository;
     }
 
     public function deleteOrder(int $id, int $active): bool
     {
         if
         (
+            $this->paymentRepository->enableDisable($id, $active) and
             $this->itemRepository->enableDisable($id, $active) and
             $this->orderRepository->enableDisable($id, 0, $active)
         ):
