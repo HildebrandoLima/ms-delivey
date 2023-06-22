@@ -9,16 +9,16 @@ use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 
 class CreatePaymentService implements CreatePaymentServiceInterface
 {
-    private PaymentRepositoryInterface $paymentRepositoryInterface;
+    private PaymentRepositoryInterface $paymentRepository;
 
-    public function __construct(PaymentRepositoryInterface $paymentRepositoryInterface)
+    public function __construct(PaymentRepositoryInterface $paymentRepository)
     {
-        $this->paymentRepositoryInterface = $paymentRepositoryInterface;
+        $this->paymentRepository = $paymentRepository;
     }
 
     public function createPayment(PaymentRequest $request): bool
     {
         $payment = PaymentRequestDto::fromRquest($request);
-        return $this->paymentRepositoryInterface->create($payment);
+        return $this->paymentRepository->create($payment);
     }
 }

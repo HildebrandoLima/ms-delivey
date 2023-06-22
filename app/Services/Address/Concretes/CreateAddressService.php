@@ -9,16 +9,16 @@ use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 
 class CreateAddressService implements CreateAddressServiceInterface
 {
-    private AddressRepositoryInterface $addressRepositoryInterface;
+    private AddressRepositoryInterface $addressRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepositoryInterface)
+    public function __construct(AddressRepositoryInterface $addressRepository)
     {
-        $this->addressRepositoryInterface = $addressRepositoryInterface;
+        $this->addressRepository = $addressRepository;
     }
 
     public function createAddress(AddressRequest $request): int
     {
         $address = AddressRequestDto::fromRquest($request);
-        return $this->addressRepositoryInterface->create($address);
+        return $this->addressRepository->create($address);
     }
 }

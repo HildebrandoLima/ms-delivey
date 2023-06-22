@@ -12,29 +12,29 @@ use App\Services\User\Interfaces\DeleteUserServiceInterface;
 
 class DeleteUserService implements DeleteUserServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private AddressRepositoryInterface     $addressRepositoryInterface;
-    private TelephoneRepositoryInterface   $telephoneRepositoryInterface;
-    private ItemRepositoryInterface        $itemRepositoryInterface;
-    private OrderRepositoryInterface       $orderRepositoryInterface;
-    private UserRepositoryInterface        $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private AddressRepositoryInterface     $addressRepository;
+    private TelephoneRepositoryInterface   $telephoneRepository;
+    private ItemRepositoryInterface        $itemRepository;
+    private OrderRepositoryInterface       $orderRepository;
+    private UserRepositoryInterface        $userRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        AddressRepositoryInterface     $addressRepositoryInterface,
-        TelephoneRepositoryInterface   $telephoneRepositoryInterface,
-        ItemRepositoryInterface        $itemRepositoryInterface,
-        OrderRepositoryInterface       $orderRepositoryInterface,
-        UserRepositoryInterface        $userRepositoryInterface
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        AddressRepositoryInterface     $addressRepository,
+        TelephoneRepositoryInterface   $telephoneRepository,
+        ItemRepositoryInterface        $itemRepository,
+        OrderRepositoryInterface       $orderRepository,
+        UserRepositoryInterface        $userRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->addressRepositoryInterface     = $addressRepositoryInterface;
-        $this->telephoneRepositoryInterface   = $telephoneRepositoryInterface;
-        $this->itemRepositoryInterface        = $itemRepositoryInterface;
-        $this->orderRepositoryInterface       = $orderRepositoryInterface;
-        $this->userRepositoryInterface        = $userRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->addressRepository     = $addressRepository;
+        $this->telephoneRepository   = $telephoneRepository;
+        $this->itemRepository        = $itemRepository;
+        $this->orderRepository       = $orderRepository;
+        $this->userRepository        = $userRepository;
     }
 
     public function deleteUser(int $id, int $active): bool
@@ -42,10 +42,10 @@ class DeleteUserService implements DeleteUserServiceInterface
         $this->checkExists($id);
         if
         (
-            $this->addressRepositoryInterface->enableDisable($id, $active) and
-            $this->telephoneRepositoryInterface->enableDisable($id, $active) and
+            $this->addressRepository->enableDisable($id, $active) and
+            $this->telephoneRepository->enableDisable($id, $active) and
             $this->pedidos($id, $active) and
-            $this->userRepositoryInterface->enableDisable($id, $active)
+            $this->userRepository->enableDisable($id, $active)
         ):
             return true;
         else:
@@ -55,17 +55,17 @@ class DeleteUserService implements DeleteUserServiceInterface
 
     public function checkExists(int $id): void
     {
-        $this->checkEntityRepositoryInterface->checkUserIdExist($id);
-        $this->checkEntityRepositoryInterface->checkAddressIdExist($id);
-        $this->checkEntityRepositoryInterface->checkTelephoneIdExist($id);
+        $this->checkEntityRepository->checkUserIdExist($id);
+        $this->checkEntityRepository->checkAddressIdExist($id);
+        $this->checkEntityRepository->checkTelephoneIdExist($id);
     }
 
     private function pedidos(int $id,int $active): bool
     {
-        $pedidos = $this->checkEntityRepositoryInterface->getPedidos($id);
+        $pedidos = $this->checkEntityRepository->getPedidos($id);
         foreach($pedidos as $pedido):
-            $this->itemRepositoryInterface->enableDisable($pedido['id'], $active);
-            $this->orderRepositoryInterface->enableDisable(0, $pedido['usuario_id'], $active);
+            $this->itemRepository->enableDisable($pedido['id'], $active);
+            $this->orderRepository->enableDisable(0, $pedido['usuario_id'], $active);
         endforeach;
         return true;
     }

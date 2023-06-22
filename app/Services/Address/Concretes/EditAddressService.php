@@ -9,16 +9,16 @@ use App\Services\Address\Interfaces\EditAddressServiceInterface;
 
 class EditAddressService implements EditAddressServiceInterface
 {
-    private AddressRepositoryInterface $addressRepositoryInterface;
+    private AddressRepositoryInterface $addressRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepositoryInterface)
+    public function __construct(AddressRepositoryInterface $addressRepository)
     {
-        $this->addressRepositoryInterface = $addressRepositoryInterface;
+        $this->addressRepository = $addressRepository;
     }
 
     public function editAddress($id, AddressRequest $request): bool
     {
         $address = AddressRequestDto::fromRquest($request);
-        return $this->addressRepositoryInterface->update($id, $address);
+        return $this->addressRepository->update($id, $address);
     }
 }

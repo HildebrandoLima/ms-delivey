@@ -9,23 +9,23 @@ use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
 
 class RefreshPasswordService implements RefreshPasswordServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private AuthRepositoryInterface        $authRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private AuthRepositoryInterface        $authRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        AuthRepositoryInterface        $authRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        AuthRepositoryInterface        $authRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->authRepositoryInterface        = $authRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->authRepository        = $authRepository;
     }
 
     public function refreshPassword(RefreshPasswordRequest $request, string $token): bool
     {
-        $this->checkEntityRepositoryInterface->checkTokenPassword($token);
-        $this->checkEntityRepositoryInterface->checkUserCodeRefreshPassword($request->codigo);
-        return $this->authRepositoryInterface->refreshPassword($request);
+        $this->checkEntityRepository->checkTokenPassword($token);
+        $this->checkEntityRepository->checkUserCodeRefreshPassword($request->codigo);
+        return $this->authRepository->refreshPassword($request);
     }
 }

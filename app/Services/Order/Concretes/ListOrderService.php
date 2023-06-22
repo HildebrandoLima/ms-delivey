@@ -9,27 +9,27 @@ use Illuminate\Support\Collection;
 
 class ListOrderService implements ListOrderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private OrderRepositoryInterface       $orderRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private OrderRepositoryInterface       $orderRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        OrderRepositoryInterface       $orderRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        OrderRepositoryInterface       $orderRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->orderRepositoryInterface       = $orderRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->orderRepository       = $orderRepository;
     }
 
     public function listOrderAll(int $active): Collection
     {
-        return $this->orderRepositoryInterface->getAll($active);
+        return $this->orderRepository->getAll($active);
     }
 
     public function listOrderFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0) $this->checkEntityRepositoryInterface->checkOrderIdExist($id);
-        return $this->orderRepositoryInterface->getOne($id, $search, $active);
+        if ($id != 0) $this->checkEntityRepository->checkOrderIdExist($id);
+        return $this->orderRepository->getOne($id, $search, $active);
     }
 }

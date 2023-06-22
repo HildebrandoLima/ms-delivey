@@ -8,15 +8,15 @@ use Illuminate\Support\Collection;
 
 class ListAddressService implements ListAddressServiceInterface
 {
-    private AddressRepositoryInterface $addressRepositoryInterface;
+    private AddressRepositoryInterface $addressRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepositoryInterface,)
+    public function __construct(AddressRepositoryInterface $addressRepository)
     {
-        $this->addressRepositoryInterface = $addressRepositoryInterface;
+        $this->addressRepository = $addressRepository;
     }
 
     public function listFederativeUnitAll(): Collection
     {
-        return $this->addressRepositoryInterface->getFederativeUnitAll();
+        return $this->addressRepository->getFederativeUnitAll();
     }
 }

@@ -8,22 +8,22 @@ use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 
 class DeleteAddressService implements DeleteAddressServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private AddressRepositoryInterface     $addressRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private AddressRepositoryInterface     $addressRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        AddressRepositoryInterface     $addressRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        AddressRepositoryInterface     $addressRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->addressRepositoryInterface     = $addressRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->addressRepository     = $addressRepository;
     }
 
     public function deleteAddress(int $id, int $ative): bool
     {
-        $this->checkEntityRepositoryInterface->checkAddressIdExist($id);
-        return $this->addressRepositoryInterface->enableDisable($id, $ative);
+        $this->checkEntityRepository->checkAddressIdExist($id);
+        return $this->addressRepository->enableDisable($id, $ative);
     }
 }

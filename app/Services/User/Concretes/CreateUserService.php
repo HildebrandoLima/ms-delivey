@@ -11,31 +11,31 @@ use App\Services\User\Interfaces\CreateUserServiceInterface;
 
 class CreateUserService implements CreateUserServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private UserRepositoryInterface        $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private UserRepositoryInterface        $userRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        UserRepositoryInterface        $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        UserRepositoryInterface        $userRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->userRepositoryInterface        = $userRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->userRepository        = $userRepository;
     }
 
     public function createUser(UserRequest $request): int
     {
         $this->checkExist($request);
         $user = UserRequestDto::fromRquest($request->toArray());
-        $createUser = $this->userRepositoryInterface->create($user);
+        $createUser = $this->userRepository->create($user);
         if ($createUser) $this->dispatchJob($createUser->id, $request->email);
         return $createUser->id;
     }
 
     private function checkExist(UserRequest $request): void
     {
-        $this->checkEntityRepositoryInterface->checkUserExist($request);
+        $this->checkEntityRepository->checkUserExist($request);
     }
 
     private function dispatchJob(int $userId, string $email): void

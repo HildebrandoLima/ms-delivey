@@ -8,15 +8,15 @@ use Illuminate\Support\Collection;
 
 class ListTelephoneService implements ListTelephoneServiceInterface
 {
-    private TelephoneRepositoryInterface $telephoneRepositoryInterface;
+    private TelephoneRepositoryInterface $telephoneRepository;
 
-    public function __construct(TelephoneRepositoryInterface $telephoneRepositoryInterface)
+    public function __construct(TelephoneRepositoryInterface $telephoneRepository)
     {
-        $this->telephoneRepositoryInterface = $telephoneRepositoryInterface;
+        $this->telephoneRepository = $telephoneRepository;
     }
 
     public function listDDDAll(): Collection
     {
-        return $this->telephoneRepositoryInterface->getDDDAll();
+        return $this->telephoneRepository->getDDDAll();
     }
 }

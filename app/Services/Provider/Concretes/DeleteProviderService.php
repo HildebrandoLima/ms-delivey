@@ -12,7 +12,7 @@ use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 
 class DeleteProviderService implements DeleteProviderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
     private AddressRepository              $addressRepository;
     private TelephoneRepository            $telephoneRepository;
     private ImageRepository                $imageRepository;
@@ -21,7 +21,7 @@ class DeleteProviderService implements DeleteProviderServiceInterface
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
         AddressRepository              $addressRepository,
         TelephoneRepository            $telephoneRepository,
         ImageRepository                $imageRepository,
@@ -29,7 +29,7 @@ class DeleteProviderService implements DeleteProviderServiceInterface
         ProviderRepository             $providerRepository
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
         $this->addressRepository              = $addressRepository;
         $this->telephoneRepository            = $telephoneRepository;
         $this->imageRepository                = $imageRepository;
@@ -39,9 +39,9 @@ class DeleteProviderService implements DeleteProviderServiceInterface
 
     public function deleteProvider(int $id, int $active): bool
     {
-        $this->checkEntityRepositoryInterface->checkProviderIdExist($id);
-        $this->checkEntityRepositoryInterface->checkAddressIdExist($id);
-        $this->checkEntityRepositoryInterface->checkTelephoneIdExist($id);
+        $this->checkEntityRepository->checkProviderIdExist($id);
+        $this->checkEntityRepository->checkAddressIdExist($id);
+        $this->checkEntityRepository->checkTelephoneIdExist($id);
         if
         (
             $this->addressRepository->enableDisable($id, $active) and
@@ -57,7 +57,7 @@ class DeleteProviderService implements DeleteProviderServiceInterface
 
     public function produtos(int $id, int $active): bool
     {
-        $produtos = $this->checkEntityRepositoryInterface->getProdutos($id);
+        $produtos = $this->checkEntityRepository->getProdutos($id);
         foreach($produtos as $produto):
             $this->imageRepository->enableDisable($produto['id'], $active);
             $this->productRepository->enableDisable($produto['id'], $active);

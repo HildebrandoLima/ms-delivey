@@ -11,17 +11,17 @@ use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
 class ForgotPasswordService implements ForgotPasswordServiceInterface
 
 {
-    private AuthRepositoryInterface $authRepositoryInterface;
+    private AuthRepositoryInterface $authRepository;
 
-    public function __construct(AuthRepositoryInterface $authRepositoryInterface)
+    public function __construct(AuthRepositoryInterface $authRepository)
     {
-        $this->authRepositoryInterface = $authRepositoryInterface;
+        $this->authRepository = $authRepository;
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
         $passwordReset = AuthRequestDto::fromRquest($request);
-        if ($this->authRepositoryInterface->forgotPassword($passwordReset)):
+        if ($this->authRepository->forgotPassword($passwordReset)):
             ForgotPassword::dispatch((array)$passwordReset);
             return true;
         else:

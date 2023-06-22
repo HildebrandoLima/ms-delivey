@@ -8,22 +8,22 @@ use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 
 class DeleteCategoryService implements DeleteCategoryServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private CategoryRepositoryInterface    $categoryRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private CategoryRepositoryInterface    $categoryRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        CategoryRepositoryInterface    $categoryRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        CategoryRepositoryInterface    $categoryRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->categoryRepositoryInterface    = $categoryRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->categoryRepository    = $categoryRepository;
     }
 
     public function deleteCategory(int $id, int $active): bool
     {
-        $this->checkEntityRepositoryInterface->checkCategoryIdExist($id);
-        return $this->categoryRepositoryInterface->enableDisable($id, $active);
+        $this->checkEntityRepository->checkCategoryIdExist($id);
+        return $this->categoryRepository->enableDisable($id, $active);
     }
 }

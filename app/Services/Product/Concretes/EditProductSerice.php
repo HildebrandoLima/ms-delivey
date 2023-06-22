@@ -10,23 +10,23 @@ use App\Services\Product\Interfaces\EditProductSericeInterface;
 
 class EditProductSerice implements EditProductSericeInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private ProductRepositoryInterface     $productRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private ProductRepositoryInterface     $productRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        ProductRepositoryInterface     $productRepositoryInterface
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        ProductRepositoryInterface     $productRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->productRepositoryInterface     = $productRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->productRepository     = $productRepository;
     }
 
     public function editProduct(int $id, ProductRequest $request): bool
     {
-        $this->checkEntityRepositoryInterface->checkProviderIdExist($id);
+        $this->checkEntityRepository->checkProviderIdExist($id);
         $product = ProductRequestDto::fromRquest($request);
-        return $this->productRepositoryInterface->update($id, $product);
+        return $this->productRepository->update($id, $product);
     }
 }

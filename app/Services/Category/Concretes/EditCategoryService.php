@@ -10,23 +10,23 @@ use App\Services\Category\Interfaces\EditCategoryServiceInterface;
 
 class EditCategoryService implements EditCategoryServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private CategoryRepositoryInterface    $categoryRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private CategoryRepositoryInterface    $categoryRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        CategoryRepositoryInterface    $categoryRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        CategoryRepositoryInterface    $categoryRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->categoryRepositoryInterface    = $categoryRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->categoryRepository    = $categoryRepository;
     }
 
     public function editCategory(int $id, CategoryRequest $request): bool
     {
-        $this->checkEntityRepositoryInterface->checkCategoryIdExist($id);
+        $this->checkEntityRepository->checkCategoryIdExist($id);
         $category = CategoryRequestDto::fromRquest($request);
-        return $this->categoryRepositoryInterface->update($id, $category);
+        return $this->categoryRepository->update($id, $category);
     }
 }

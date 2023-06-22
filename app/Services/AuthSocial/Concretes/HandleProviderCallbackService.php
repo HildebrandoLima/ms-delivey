@@ -20,17 +20,17 @@ class HandleProviderCallbackService implements HandleProviderCallbackServiceInte
     private $userSocial;
     private string $provider;
     private User   $user;
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private UserRepositoryInterface        $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private UserRepositoryInterface        $userRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        UserRepositoryInterface        $userRepositoryInterface
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        UserRepositoryInterface        $userRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->userRepositoryInterface        = $userRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->userRepository        = $userRepository;
     }
 
     public function handleProviderCallback(string $provider): Collection
@@ -64,9 +64,9 @@ class HandleProviderCallbackService implements HandleProviderCallbackServiceInte
         $userDto = UserRequestDto::fromRquest($this->mapToUserSocial());
         $userId = $this->checkExist();
         if (is_null($userId)):
-            $this->user = $this->userRepositoryInterface->create($userDto);
+            $this->user = $this->userRepository->create($userDto);
         else:
-            $this->user = $this->userRepositoryInterface->update($userId, $userDto);
+            $this->user = $this->userRepository->update($userId, $userDto);
         endif;
         return $this->user;
     }
@@ -91,6 +91,6 @@ class HandleProviderCallbackService implements HandleProviderCallbackServiceInte
 
     private function checkExist(): int|null
     {
-        return $this->checkEntityRepositoryInterface->checkUserSocial($this->userSocial->getEmail());
+        return $this->checkEntityRepository->checkUserSocial($this->userSocial->getEmail());
     }
 }

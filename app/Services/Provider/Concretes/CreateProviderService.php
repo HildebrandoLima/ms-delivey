@@ -11,31 +11,31 @@ use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 
 class CreateProviderService implements CreateProviderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private ProviderRepositoryInterface    $providerRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private ProviderRepositoryInterface    $providerRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        ProviderRepositoryInterface    $providerRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        ProviderRepositoryInterface    $providerRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->providerRepositoryInterface    = $providerRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->providerRepository    = $providerRepository;
     }
 
     public function createProvider(ProviderRequest $request): int
     {
         $this->checkExist($request);
         $provider = ProviderRequestDto::fromRquest($request);
-        $createProvider = $this->providerRepositoryInterface->create($provider);
+        $createProvider = $this->providerRepository->create($provider);
         if ($createProvider) $this->dispatchJob($createProvider->id, $request->email);
         return $createProvider->id;
     }
 
     public function checkExist(ProviderRequest $request): void
     {
-        $this->checkEntityRepositoryInterface->checkProviderExist($request);
+        $this->checkEntityRepository->checkProviderExist($request);
     }
 
     public function dispatchJob(int $providerId, string $email): void

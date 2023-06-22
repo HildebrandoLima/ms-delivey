@@ -9,11 +9,11 @@ use Illuminate\Support\Collection;
 
 class LoginService implements LoginServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
 
-    public function __construct(CheckEntityRepositoryInterface $checkEntityRepositoryInterface)
+    public function __construct(CheckEntityRepositoryInterface $checkEntityRepository)
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
     }
 
     public function login(LoginRequest $request): Collection
@@ -31,6 +31,6 @@ class LoginService implements LoginServiceInterface
 
     private function firstAccess(string $email): void
     {
-        $this->checkEntityRepositoryInterface->checkFirstAccess($email);
+        $this->checkEntityRepository->checkFirstAccess($email);
     }
 }

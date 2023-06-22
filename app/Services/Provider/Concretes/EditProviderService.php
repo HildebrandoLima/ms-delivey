@@ -10,23 +10,23 @@ use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 
 class EditProviderService implements EditProviderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private ProviderRepositoryInterface    $providerRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private ProviderRepositoryInterface    $providerRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        ProviderRepositoryInterface    $providerRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        ProviderRepositoryInterface    $providerRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->providerRepositoryInterface    = $providerRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->providerRepository    = $providerRepository;
     }
 
     public function editProvider(int $id, ProviderRequest $request): bool
     {
-        $this->checkEntityRepositoryInterface->checkProviderIdExist($id);
+        $this->checkEntityRepository->checkProviderIdExist($id);
         $provider = ProviderRequestDto::fromRquest($request);
-        return $this->providerRepositoryInterface->update($id, $provider);
+        return $this->providerRepository->update($id, $provider);
     }
 }

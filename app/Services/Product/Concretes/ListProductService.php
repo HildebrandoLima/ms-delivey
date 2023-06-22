@@ -9,27 +9,27 @@ use Illuminate\Support\Collection;
 
 class ListProductService implements ListProductServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private ProductRepositoryInterface     $productRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private ProductRepositoryInterface     $productRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        ProductRepositoryInterface     $productRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        ProductRepositoryInterface     $productRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->productRepositoryInterface     = $productRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->productRepository     = $productRepository;
     }
 
     public function listProductAll(int $active): Collection
     {
-        return $this->productRepositoryInterface->getAll($active);
+        return $this->productRepository->getAll($active);
     }
 
     public function listProductFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0) $this->checkEntityRepositoryInterface->checkProductIdExist($id);
-        return $this->productRepositoryInterface->getOne($id, $search, $active);
+        if ($id != 0) $this->checkEntityRepository->checkProductIdExist($id);
+        return $this->productRepository->getOne($id, $search, $active);
     }
 }

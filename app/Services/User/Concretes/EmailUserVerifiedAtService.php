@@ -8,22 +8,22 @@ use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 
 class EmailUserVerifiedAtService implements EmailUserVerifiedAtServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private UserRepositoryInterface        $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private UserRepositoryInterface        $userRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        UserRepositoryInterface        $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        UserRepositoryInterface        $userRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->userRepositoryInterface        = $userRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->userRepository        = $userRepository;
     }
 
     public function emailVerifiedAt(int $id, int $active): bool
     {
-        $this->checkEntityRepositoryInterface->checkUserIdExist($id);
-        return $this->userRepositoryInterface->emailVerifiedAt($id, $active);
+        $this->checkEntityRepository->checkUserIdExist($id);
+        return $this->userRepository->emailVerifiedAt($id, $active);
     }
 }

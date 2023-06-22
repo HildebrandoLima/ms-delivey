@@ -13,28 +13,28 @@ use App\Services\Product\Interfaces\CreateProductServiceInterface;
 
 class CreateProductService implements CreateProductServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private ProductRepositoryInterface     $productRepositoryInterface;
-    private ImageRepositoryInterface       $imageRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private ProductRepositoryInterface     $productRepository;
+    private ImageRepositoryInterface       $imageRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        ProductRepositoryInterface     $productRepositoryInterface,
-        ImageRepositoryInterface       $imageRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        ProductRepositoryInterface     $productRepository,
+        ImageRepositoryInterface       $imageRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->productRepositoryInterface     = $productRepositoryInterface;
-        $this->imageRepositoryInterface       = $imageRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->productRepository     = $productRepository;
+        $this->imageRepository       = $imageRepository;
     }
 
     public function createProduct(ProductRequest $request): bool
     {
-        $this->checkEntityRepositoryInterface->checkProductExist($request);
-        $this->checkEntityRepositoryInterface->checkProviderIdExist($request->fornecedorId);
+        $this->checkEntityRepository->checkProductExist($request);
+        $this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
         $product = ProductRequestDto::fromRquest($request);
-        $createProduct = $this->productRepositoryInterface->create($product);
+        $createProduct = $this->productRepository->create($product);
         $this->createImage($request, $createProduct->id);
         return true;
     }
@@ -46,7 +46,7 @@ class CreateProductService implements CreateProductServiceInterface
             foreach ($images as $image):
                 $path = $image->store('images', 'public');
                 $image = ImageRequestDto::fromRquest($path, $productId);
-                $this->imageRepositoryInterface->create($image);
+                $this->imageRepository->create($image);
             endforeach;
         else:
             throw new HttpBadRequest('Nenhuma imagem foi selecionada.');

@@ -8,25 +8,25 @@ use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 
 class DeleteOrderService implements DeleteOrderServiceInterface
 {
-    private ItemRepositoryInterface  $itemRepositoryInterface;
-    private OrderRepositoryInterface $orderRepositoryInterface;
+    private ItemRepositoryInterface  $itemRepository;
+    private OrderRepositoryInterface $orderRepository;
 
     public function __construct
     (
-        ItemRepositoryInterface  $itemRepositoryInterface,
-        OrderRepositoryInterface $orderRepositoryInterface,
+        ItemRepositoryInterface  $itemRepository,
+        OrderRepositoryInterface $orderRepository,
     )
     {
-        $this->itemRepositoryInterface  = $itemRepositoryInterface;
-        $this->orderRepositoryInterface = $orderRepositoryInterface;
+        $this->itemRepository  = $itemRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function deleteOrder(int $id, int $active): bool
     {
         if
         (
-            $this->itemRepositoryInterface->enableDisable($id, $active) and
-            $this->orderRepositoryInterface->enableDisable($id, 0, $active)
+            $this->itemRepository->enableDisable($id, $active) and
+            $this->orderRepository->enableDisable($id, 0, $active)
         ):
             return true;
         else:

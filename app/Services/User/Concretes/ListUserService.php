@@ -9,27 +9,27 @@ use Illuminate\Support\Collection;
 
 class ListUserService implements ListUserServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private UserRepositoryInterface        $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private UserRepositoryInterface        $userRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        UserRepositoryInterface        $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        UserRepositoryInterface        $userRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->userRepositoryInterface        = $userRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->userRepository        = $userRepository;
     }
 
     public function listUserAll(int $active): Collection
     {
-        return $this->userRepositoryInterface->getAll($active);
+        return $this->userRepository->getAll($active);
     }
 
     public function listUserFind(int $id, string $search, int $active): Collection
     {
-        if ($id != 0) $this->checkEntityRepositoryInterface->checkUserIdExist($id);
-        return $this->userRepositoryInterface->getOne($id, $search, $active);
+        if ($id != 0) $this->checkEntityRepository->checkUserIdExist($id);
+        return $this->userRepository->getOne($id, $search, $active);
     }
 }

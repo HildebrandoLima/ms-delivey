@@ -12,23 +12,23 @@ use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 
 class CreateOrderService implements CreateOrderServiceInterface
 {
-    private OrderRepositoryInterface $orderRepositoryInterface;
-    private ItemRepositoryInterface  $itemRepositoryInterface;
+    private OrderRepositoryInterface $orderRepository;
+    private ItemRepositoryInterface  $itemRepository;
 
     public function __construct
     (
-        OrderRepositoryInterface $orderRepositoryInterface,
-        ItemRepositoryInterface  $itemRepositoryInterface,
+        OrderRepositoryInterface $orderRepository,
+        ItemRepositoryInterface  $itemRepository,
     )
     {
-        $this->orderRepositoryInterface = $orderRepositoryInterface;
-        $this->itemRepositoryInterface  = $itemRepositoryInterface;
+        $this->orderRepository = $orderRepository;
+        $this->itemRepository  = $itemRepository;
     }
 
     public function createOrder(OrderRequest $request): int
     {
         $order = OrderRequestDto::fromRquest($request);
-        $createOrder = $this->orderRepositoryInterface->create($order);
+        $createOrder = $this->orderRepository->create($order);
         $createItem = $this->createItems($request, $createOrder->id);
         if ($createOrder and $createItem) $this->dispatchJob((array)$order, $request->items);
         return $createOrder->id;
@@ -38,7 +38,7 @@ class CreateOrderService implements CreateOrderServiceInterface
     {
         foreach ($request->items as $item):
             $items = ItemRequestDto::fromRquest($item, $orderId);
-            $this->itemRepositoryInterface->create($items);
+            $this->itemRepository->create($items);
         endforeach;
         return true;
     }

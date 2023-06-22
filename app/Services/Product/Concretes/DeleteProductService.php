@@ -9,30 +9,30 @@ use App\Services\Product\Interfaces\DeleteProductServiceInterface;
 
 class DeleteProductService implements DeleteProductServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private ImageRepositoryInterface       $imageRepositoryInterface;
-    private ProductRepositoryInterface     $productRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private ImageRepositoryInterface       $imageRepository;
+    private ProductRepositoryInterface     $productRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        ImageRepositoryInterface       $imageRepositoryInterface,
-        ProductRepositoryInterface     $productRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        ImageRepositoryInterface       $imageRepository,
+        ProductRepositoryInterface     $productRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->imageRepositoryInterface       = $imageRepositoryInterface;
-        $this->productRepositoryInterface     = $productRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->imageRepository       = $imageRepository;
+        $this->productRepository     = $productRepository;
     }
 
     public function deleteProduct(int $id, int $active): bool
     {
-        $this->checkEntityRepositoryInterface->checkProductIdExist($id);
+        $this->checkEntityRepository->checkProductIdExist($id);
         if
         (
-            $this->imageRepositoryInterface->enableDisable($id, $active)
+            $this->imageRepository->enableDisable($id, $active)
             and
-            $this->productRepositoryInterface->enableDisable($id, $active)
+            $this->productRepository->enableDisable($id, $active)
         ):
             return true;
         else:

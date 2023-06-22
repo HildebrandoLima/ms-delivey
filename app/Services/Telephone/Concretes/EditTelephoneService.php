@@ -10,23 +10,23 @@ use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 
 class EditTelephoneService implements EditTelephoneServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
     private TelephoneRepository            $telephoneRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
         TelephoneRepository            $telephoneRepository
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->telephoneRepository            = $telephoneRepository;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->telephoneRepository   = $telephoneRepository;
     }
 
     public function editTelephone(int $id, TelephoneRequest $request): bool
     {
         foreach ($request->telefones as $telefone):
-            $this->checkEntityRepositoryInterface->checkTelephoneIdExist($id);
+            $this->checkEntityRepository->checkTelephoneIdExist($id);
             $telephone = TelephoneRequestDto::fromRquest($telefone);
             $this->telephoneRepository->update($id, $telephone);
         endforeach;

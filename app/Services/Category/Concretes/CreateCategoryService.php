@@ -10,23 +10,23 @@ use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 
 class CreateCategoryService implements CreateCategoryServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private CategoryRepositoryInterface    $categoryRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private CategoryRepositoryInterface    $categoryRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        CategoryRepositoryInterface    $categoryRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        CategoryRepositoryInterface    $categoryRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->categoryRepositoryInterface    = $categoryRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->categoryRepository    = $categoryRepository;
     }
 
     public function createCategory(CategoryRequest $request): int
     {
-        $this->checkEntityRepositoryInterface->checkCategoryExist($request);
+        $this->checkEntityRepository->checkCategoryExist($request);
         $category = CategoryRequestDto::fromRquest($request);
-        return $this->categoryRepositoryInterface->create($category);
+        return $this->categoryRepository->create($category);
     }
 }

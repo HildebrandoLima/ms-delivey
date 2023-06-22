@@ -10,25 +10,25 @@ use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
 
 class CreateTelephoneService implements CreateTelephoneServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private TelephoneRepositoryInterface   $telephoneRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private TelephoneRepositoryInterface   $telephoneRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        TelephoneRepositoryInterface   $telephoneRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        TelephoneRepositoryInterface   $telephoneRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->telephoneRepositoryInterface   = $telephoneRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->telephoneRepository   = $telephoneRepository;
     }
 
     public function createTelephone(TelephoneRequest $request): int
     {
         foreach ($request->telefones as $telefone):
-            $this->checkEntityRepositoryInterface->checkTelephoneExist($telefone['numero']);
+            $this->checkEntityRepository->checkTelephoneExist($telefone['numero']);
             $telephone = TelephoneRequestDto::fromRquest($telefone);
-            $this->telephoneRepositoryInterface->create($telephone);
+            $this->telephoneRepository->create($telephone);
         endforeach;
         return true;
     }

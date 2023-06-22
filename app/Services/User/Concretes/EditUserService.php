@@ -10,29 +10,29 @@ use App\Services\User\Interfaces\EditUserServiceInterface;
 
 class EditUserService implements EditUserServiceInterface
 {    
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private UserRepositoryInterface        $userRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private UserRepositoryInterface        $userRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        UserRepositoryInterface        $userRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        UserRepositoryInterface        $userRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->userRepositoryInterface        = $userRepositoryInterface;  
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->userRepository        = $userRepository;  
     }
 
     public function editUser(int $id, UserRequest $request): bool
     {
         $this->checkExist($id);
         $user = UserRequestDto::fromRquest($request->toArray());
-        $this->userRepositoryInterface->update($id, $user);
+        $this->userRepository->update($id, $user);
         return true;
     }
 
     private function checkExist(int $id): void
     {
-        $this->checkEntityRepositoryInterface->checkUserIdExist($id);
+        $this->checkEntityRepository->checkUserIdExist($id);
     }
 }

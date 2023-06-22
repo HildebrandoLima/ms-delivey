@@ -8,22 +8,22 @@ use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 
 class DeleteTelephoneService implements DeleteTelephoneServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private TelephoneRepositoryInterface   $telephoneRepositoryInterface;
+    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private TelephoneRepositoryInterface   $telephoneRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        TelephoneRepositoryInterface   $telephoneRepositoryInterface,
+        CheckEntityRepositoryInterface $checkEntityRepository,
+        TelephoneRepositoryInterface   $telephoneRepository,
     )
     {
-        $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->telephoneRepositoryInterface   = $telephoneRepositoryInterface;
+        $this->checkEntityRepository = $checkEntityRepository;
+        $this->telephoneRepository   = $telephoneRepository;
     }
 
     public function deleteTelephone(int $id, int $active): bool
     {
-        $this->checkEntityRepositoryInterface->checkTelephoneIdExist($id);
-        return $this->telephoneRepositoryInterface->enableDisable($id, $active);
+        $this->checkEntityRepository->checkTelephoneIdExist($id);
+        return $this->telephoneRepository->enableDisable($id, $active);
     }
 }
