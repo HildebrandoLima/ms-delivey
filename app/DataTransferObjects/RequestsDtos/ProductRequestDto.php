@@ -5,6 +5,7 @@ namespace App\DataTransferObjects\RequestsDtos;
 use App\DataTransferObjects\Dtos\ProductDto;
 use App\Http\Requests\ProductRequest;
 use App\Support\Utils\Cases\ProductCase;
+use App\Support\Utils\Enums\ProductEnum;
 
 class ProductRequestDto
 {
@@ -23,7 +24,7 @@ class ProductRequestDto
         $productDto->setDataValidade($request['dataValidade']);
         $productDto->setCategoriaId($request['categoriaId']);
         $productDto->setFornecedorId($request['fornecedorId']);
-        $productDto->setAtivo($request['ativo']);
+        $productDto->setAtivo($request['ativo'] == 1 ? ProductEnum::ATIVADO : ProductEnum::DESATIVADO);
         return $productDto;
     }
 }

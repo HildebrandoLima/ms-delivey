@@ -4,6 +4,7 @@ namespace App\DataTransferObjects\RequestsDtos;
 
 use App\DataTransferObjects\Dtos\UserDto;
 use App\Support\Utils\Cases\UserCase;
+use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
 class UserRequestDto
@@ -21,7 +22,7 @@ class UserRequestDto
         $userDto->setDataNascimento($user['dataNascimento'] ?? null);
         $userDto->setGenero($gender->genderCase($user['genero']));
         $userDto->setPerfilId($user['perfilId']);
-        $userDto->setAtivo($user['ativo']);
+        $userDto->setAtivo($user['ativo'] == 1 ? UserEnum::ATIVADO : UserEnum::DESATIVADO);
         return $userDto;
     }
 }

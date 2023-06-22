@@ -5,6 +5,7 @@ namespace App\DataTransferObjects\RequestsDtos;
 use App\DataTransferObjects\Dtos\AddressDto;
 use App\Http\Requests\AddressRequest;
 use App\Support\Utils\Cases\AddressCase;
+use App\Support\Utils\Enums\AddressEnum;
 
 class AddressRequestDto
 {
@@ -20,7 +21,7 @@ class AddressRequestDto
         $addressDto->setUfId($request['ufId']);
         $addressDto->setUsuarioId($request['usuarioId'] ?? null);
         $addressDto->setFornecedorId($request['fornecedorId'] ?? null);
-        $addressDto->setAtivo($request['ativo']);
+        $addressDto->setAtivo($request['ativo'] == 1 ? AddressEnum::ATIVADO : AddressEnum::DESATIVADO);
         return $addressDto;
     }
 }

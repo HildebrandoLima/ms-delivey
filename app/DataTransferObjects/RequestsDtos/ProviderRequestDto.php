@@ -4,6 +4,7 @@ namespace App\DataTransferObjects\RequestsDtos;
 
 use App\DataTransferObjects\Dtos\ProviderDto;
 use App\Http\Requests\ProviderRequest;
+use App\Support\Utils\Enums\ProviderEnum;
 
 class ProviderRequestDto
 {
@@ -14,7 +15,7 @@ class ProviderRequestDto
         $providerDto->setCnpj(str_replace(array('.','-','/'), "", $request['cnpj']));
         $providerDto->setEmail($request['email']);
         $providerDto->setDataFundacao($request['dataFundacao']);
-        $providerDto->setAtivo($request['ativo']);
+        $providerDto->setAtivo($request['ativo'] == 1 ? ProviderEnum::ATIVADO : ProviderEnum::DESATIVADO);
         return $providerDto;
     }
 }

@@ -4,6 +4,7 @@ namespace App\DataTransferObjects\RequestsDtos;
 
 use App\DataTransferObjects\Dtos\TelephoneDto;
 use App\Support\Utils\Cases\TelephoneCase;
+use App\Support\Utils\Enums\TelephoneEnum;
 
 class TelephoneRequestDto
 {
@@ -16,7 +17,7 @@ class TelephoneRequestDto
         $telephoneDto->setDddId($telefone['dddId']);
         $telephoneDto->setUsuarioId($telefone['usuarioId'] ?? null);
         $telephoneDto->setFornecedorId($telefone['fornecedorId'] ?? null);
-        $telephoneDto->setAtivo($telefone['ativo']);
+        $telephoneDto->setAtivo($telefone['ativo'] == 1 ? TelephoneEnum::ATIVADO : TelephoneEnum::DESATIVADO);
         return $telephoneDto;
     }
 }
