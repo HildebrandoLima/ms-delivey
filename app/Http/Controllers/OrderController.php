@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\ParametersRequest;
-use App\Services\Order\CreateOrderService;
-use App\Services\Order\DeleteOrderService;
-use App\Services\Order\ListOrderService;
+use App\Services\Order\Interfaces\CreateOrderServiceInterface;
+use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
+use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
@@ -16,15 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
-    private CreateOrderService $createOrderService;
-    private DeleteOrderService $deleteOrderService;
-    private ListOrderService   $listOrderService;
+    private CreateOrderServiceInterface $createOrderService;
+    private DeleteOrderServiceInterface $deleteOrderService;
+    private ListOrderServiceInterface   $listOrderService;
 
     public function __construct
     (
-        CreateOrderService $createOrderService,
-        DeleteOrderService $deleteOrderService,
-        ListOrderService   $listOrderService
+        CreateOrderServiceInterface $createOrderService,
+        DeleteOrderServiceInterface $deleteOrderService,
+        ListOrderServiceInterface   $listOrderService
     )
     {
         $this->createOrderService = $createOrderService;

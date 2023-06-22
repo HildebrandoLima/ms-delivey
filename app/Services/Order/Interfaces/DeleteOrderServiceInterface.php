@@ -2,7 +2,7 @@
 
 namespace App\Services\Order\Interfaces;
 
-interface IDeleteOrderService
+interface DeleteOrderServiceInterface
 {
     public function deleteOrder(int $id, int $active): bool;
 }

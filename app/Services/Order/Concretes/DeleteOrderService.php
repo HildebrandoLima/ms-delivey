@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Order;
+namespace App\Services\Order\Concretes;
 
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Services\Order\Interfaces\IDeleteOrderService;
+use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 
-class DeleteOrderService implements IDeleteOrderService
+class DeleteOrderService implements DeleteOrderServiceInterface
 {
     private ItemRepositoryInterface  $itemRepositoryInterface;
     private OrderRepositoryInterface $orderRepositoryInterface;

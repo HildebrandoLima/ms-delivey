@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Order;
+namespace App\Services\Order\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\ItemRequestDto;
 use App\DataTransferObjects\RequestsDtos\OrderRequestDto;
@@ -8,9 +8,9 @@ use App\Http\Requests\OrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Services\Order\Interfaces\ICreateOrderService;
+use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 
-class CreateOrderService implements ICreateOrderService
+class CreateOrderService implements CreateOrderServiceInterface
 {
     private OrderRepositoryInterface $orderRepositoryInterface;
     private ItemRepositoryInterface  $itemRepositoryInterface;

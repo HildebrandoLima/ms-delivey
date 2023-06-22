@@ -54,6 +54,12 @@ use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
+use App\Services\Order\Concretes\CreateOrderService;
+use App\Services\Order\Concretes\DeleteOrderService;
+use App\Services\Order\Concretes\ListOrderService;
+use App\Services\Order\Interfaces\CreateOrderServiceInterface;
+use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
+use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -148,6 +154,24 @@ class AppServiceProvider extends ServiceProvider
         (
             ListCategoryServiceInterface::class,
             ListCategoryService::class,
+        );
+
+        $this->app->bind
+        (
+            CreateOrderServiceInterface::class,
+            CreateOrderService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteOrderServiceInterface::class,
+            DeleteOrderService::class,
+        );
+
+        $this->app->bind
+        (
+            ListOrderServiceInterface::class,
+            ListOrderService::class,
         );
 
 

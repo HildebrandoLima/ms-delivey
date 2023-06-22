@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Order;
+namespace App\Services\Order\Concretes;
 
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Services\Order\Interfaces\IListOrderService;
+use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use Illuminate\Support\Collection;
 
-class ListOrderService implements IListOrderService
+class ListOrderService implements ListOrderServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private OrderRepositoryInterface       $orderRepositoryInterface;
