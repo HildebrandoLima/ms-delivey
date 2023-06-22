@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\ProviderRequest;
-use App\Services\Provider\CreateProviderService;
-use App\Services\Provider\DeleteProviderService;
-use App\Services\Provider\EditProviderService;
-use App\Services\Provider\ListProviderService;
+use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
+use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
+use App\Services\Provider\Interfaces\EditProviderServiceInterface;
+use App\Services\Provider\Interfaces\ListProviderServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
@@ -17,17 +17,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller
 {
-    private CreateProviderService   $createProviderService;
-    private DeleteProviderService   $deleteProviderService;
-    private EditProviderService     $editProviderService;
-    private ListProviderService     $listProviderService;
+    private CreateProviderServiceInterface   $createProviderService;
+    private DeleteProviderServiceInterface   $deleteProviderService;
+    private EditProviderServiceInterface     $editProviderService;
+    private ListProviderServiceInterface     $listProviderService;
 
     public function __construct
     (
-        CreateProviderService   $createProviderService,
-        DeleteProviderService   $deleteProviderService,
-        EditProviderService     $editProviderService,
-        ListProviderService     $listProviderService
+        CreateProviderServiceInterface   $createProviderService,
+        DeleteProviderServiceInterface   $deleteProviderService,
+        EditProviderServiceInterface     $editProviderService,
+        ListProviderServiceInterface     $listProviderService
     )
     {
         $this->createProviderService    =   $createProviderService;

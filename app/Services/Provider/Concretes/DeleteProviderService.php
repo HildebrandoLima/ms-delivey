@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Provider;
+namespace App\Services\Provider\Concretes;
 
 use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\Concretes\ImageRepository;
@@ -8,9 +8,9 @@ use App\Repositories\Concretes\ProductRepository;
 use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Provider\Interfaces\IDeleteProviderService;
+use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 
-class DeleteProviderService implements IDeleteProviderService
+class DeleteProviderService implements DeleteProviderServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private AddressRepository              $addressRepository;

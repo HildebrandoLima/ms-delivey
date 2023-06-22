@@ -70,6 +70,14 @@ use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Services\Product\Interfaces\DeleteProductServiceInterface;
 use App\Services\Product\Interfaces\EditProductSericeInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
+use App\Services\Provider\Concretes\CreateProviderService;
+use App\Services\Provider\Concretes\DeleteProviderService;
+use App\Services\Provider\Concretes\EditProviderService;
+use App\Services\Provider\Concretes\ListProviderService;
+use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
+use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
+use App\Services\Provider\Interfaces\EditProviderServiceInterface;
+use App\Services\Provider\Interfaces\ListProviderServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -212,6 +220,30 @@ class AppServiceProvider extends ServiceProvider
         (
             ListProductServiceInterface::class,
             ListProductService::class,
+        );
+
+        $this->app->bind
+        (
+            CreateProviderServiceInterface::class,
+            CreateProviderService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteProviderServiceInterface::class,
+            DeleteProviderService::class,
+        );
+
+        $this->app->bind
+        (
+            EditProviderServiceInterface::class,
+            EditProviderService::class,
+        );
+
+        $this->app->bind
+        (
+            ListProviderServiceInterface::class,
+            ListProviderService::class,
         );
 
 

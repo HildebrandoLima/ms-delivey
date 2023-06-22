@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Services\Provider;
+namespace App\Services\Provider\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
-use App\Http\Requests\ProviderRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
-use App\Services\Provider\Interfaces\IEditProviderService;
+use App\Services\Provider\Interfaces\ListProviderServiceInterface;
+use Illuminate\Support\Collection;
 
-class EditProviderService implements IEditProviderService
+class ListProviderService implements ListProviderServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private ProviderRepositoryInterface    $providerRepositoryInterface;
@@ -23,10 +22,14 @@ class EditProviderService implements IEditProviderService
         $this->providerRepositoryInterface    = $providerRepositoryInterface;
     }
 
-    public function editProvider(int $id, ProviderRequest $request): bool
+    public function listProviderAll(int $active): Collection
     {
-        $this->checkEntityRepositoryInterface->checkProviderIdExist($id);
-        $provider = ProviderRequestDto::fromRquest($request);
-        return $this->providerRepositoryInterface->update($id, $provider);
+        return $this->providerRepositoryInterface->getAll($active);
+    }
+
+    public function listProviderFind(int $id, string $search, int $activ): Collection
+    {
+        if ($id != 0) $this->checkEntityRepositoryInterface->checkProviderIdExist($id);
+        return $this->providerRepositoryInterface->getOne($id, $search, $activ);
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services\Provider;
+namespace App\Services\Provider\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
 use App\Http\Requests\ProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
-use App\Services\Provider\Interfaces\ICreateProviderService;
+use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 
-class CreateProviderService implements ICreateProviderService
+class CreateProviderService implements CreateProviderServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private ProviderRepositoryInterface    $providerRepositoryInterface;
