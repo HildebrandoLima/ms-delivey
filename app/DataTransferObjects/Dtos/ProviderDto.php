@@ -2,7 +2,7 @@
 
 namespace App\DataTransferObjects\Dtos;
 
-use App\Support\MapperFunctions;
+use App\Support\MapperEntity\EntityPerson;
 
 class ProviderDto extends DefaultFields
 {
@@ -81,7 +81,7 @@ class ProviderDto extends DefaultFields
 
     public function setEnderecos(array $enderecos): ProviderDto
     {
-        $this->enderecos = MapperFunctions::addrres($enderecos);
+        $this->enderecos = EntityPerson::addrres($enderecos);
         return $this;
     }
 
@@ -92,7 +92,7 @@ class ProviderDto extends DefaultFields
 
     public function setTelefones(array $telefones): ProviderDto
     {
-        $this->telefones = MapperFunctions::telephone($telefones);
+        $this->telefones = EntityPerson::telephone($telefones);
         return $this;
     }
 }

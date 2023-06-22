@@ -2,7 +2,7 @@
 
 namespace App\DataTransferObjects\Dtos;
 
-use App\Support\MapperFunctions;
+use App\Support\MapperEntity\EntityProduct;
 
 class ProductDto extends DefaultFields
 {
@@ -164,7 +164,7 @@ class ProductDto extends DefaultFields
 
     public function setImagens(array $imagens): ProductDto
     {
-        $this->imagens = MapperFunctions::imagens($imagens);
+        $this->imagens = EntityProduct::imagens($imagens);
         return $this;
     }
 }

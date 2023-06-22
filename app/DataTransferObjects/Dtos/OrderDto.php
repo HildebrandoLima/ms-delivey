@@ -2,7 +2,7 @@
 
 namespace App\DataTransferObjects\Dtos;
 
-use App\Support\MapperFunctions;
+use App\Support\MapperEntity\EntityOrder;
 
 class OrderDto extends DefaultFields
 {
@@ -93,7 +93,7 @@ class OrderDto extends DefaultFields
 
     public function setItem(array $item): OrderDto
     {
-        $this->item = MapperFunctions::items($item);
+        $this->item = EntityOrder::items($item);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class OrderDto extends DefaultFields
 
     public function setPagamento(array $pagamento): OrderDto
     {
-        $this->pagamento = MapperFunctions::pagamento($pagamento);
+        $this->pagamento = EntityOrder::pagamento($pagamento);
         return $this;
     }
 }
