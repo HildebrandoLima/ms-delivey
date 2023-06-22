@@ -2,7 +2,7 @@
 
 namespace App\DataTransferObjects\Dtos;
 
-use App\DataTransferObjects\MappersDtos\ImageMapperDto;
+use App\Support\MapperFunctions;
 
 class ProductDto extends DefaultFields
 {
@@ -164,15 +164,7 @@ class ProductDto extends DefaultFields
 
     public function setImagens(array $imagens): ProductDto
     {
-        $this->imagens = $this->imagens($imagens);
+        $this->imagens = MapperFunctions::imagens($imagens);
         return $this;
-    }
-
-    private function imagens(array $imagens): array
-    {
-        foreach ($imagens as $key => $instance):
-            $imagens[$key] = ImageMapperDto::mapper($instance);
-        endforeach;
-        return $imagens;
     }
 }

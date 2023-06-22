@@ -2,8 +2,7 @@
 
 namespace App\DataTransferObjects\Dtos;
 
-use App\DataTransferObjects\MappersDtos\AddressMapperDto;
-use App\DataTransferObjects\MappersDtos\TelephoneMapperDto;
+use App\Support\MapperFunctions;
 
 class ProviderDto extends DefaultFields
 {
@@ -82,7 +81,7 @@ class ProviderDto extends DefaultFields
 
     public function setEnderecos(array $enderecos): ProviderDto
     {
-        $this->enderecos = $this->addrres($enderecos);
+        $this->enderecos = MapperFunctions::addrres($enderecos);
         return $this;
     }
 
@@ -93,23 +92,7 @@ class ProviderDto extends DefaultFields
 
     public function setTelefones(array $telefones): ProviderDto
     {
-        $this->telefones = $this->telephone($telefones);
+        $this->telefones = MapperFunctions::telephone($telefones);
         return $this;
-    }
-
-    private function addrres(array $addrres): array
-    {
-        foreach ($addrres as $key => $instance):
-            $addrres[$key] = AddressMapperDto::mapper($instance);
-        endforeach;
-        return $addrres;
-    }
-
-    private function telephone(array $telefones): array
-    {
-        foreach ($telefones as $key => $instance):
-            $telefones[$key] = TelephoneMapperDto::mapper($instance);
-        endforeach;
-        return $telefones;
     }
 }
