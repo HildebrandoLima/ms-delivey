@@ -2,10 +2,11 @@
 
 namespace App\Services\AuthSocial;
 
+use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
-use App\Repositories\Concretes\UserRepository;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\AuthSocial\Interfacess\IHandleProviderCallbackService;
 use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
@@ -18,18 +19,18 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
 {
     private $userSocial;
     private string $provider;
-    private User $user;
+    private User   $user;
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
-    private UserRepository $userRepository;
+    private UserRepositoryInterface        $userRepositoryInterface;
 
     public function __construct
     (
         CheckEntityRepositoryInterface $checkEntityRepositoryInterface,
-        UserRepository $userRepository
+        UserRepositoryInterface        $userRepositoryInterface
     )
     {
         $this->checkEntityRepositoryInterface = $checkEntityRepositoryInterface;
-        $this->userRepository = $userRepository;
+        $this->userRepositoryInterface        = $userRepositoryInterface;
     }
 
     public function handleProviderCallback(string $provider): Collection
@@ -60,32 +61,35 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
 
     private function createUserSocial(): User
     {
-        $userModel = $this->mapToModel();
+        $userDto = UserRequestDto::fromRquest($this->mapToUserSocial());
         $userId = $this->checkExist();
         if (is_null($userId)):
-            $this->user = $this->userRepository->create($userModel);
+            $this->user = $this->userRepositoryInterface->create($userDto);
         else:
-            $this->user = $this->userRepository->update($userId, $userModel);
+            $this->user = $this->userRepositoryInterface->update($userId, $userDto);
         endif;
         return $this->user;
     }
 
-    private function mapToModel(): User
+    private function mapToUserSocial(): array
     {
-        $user = new User();
-        $user->provider_id = $this->userSocial->getId();
-        $user->provider = $this->provider;
-        $user->name = $this->userSocial->getName();
-        $user->cpf = null;
-        $user->email = $this->userSocial->getEmail();
-        $user->data_nascimento = null;
-        $user->genero = 'Outro';
-        $user->ativo = UserEnum::ATIVADO;
-        $user->perfil_id - PerfilEnum::CLIENTE;
+        $user = array
+        (
+            'loginSocialId' => $this->userSocial->getId(),
+            'loginSocial' => $this->provider,
+            'perfilId' => PerfilEnum::CLIENTE,
+            'nome' => $this->userSocial->getName(),
+            'cpf' => null,
+            'email' => $this->userSocial->getEmail(),
+            'senha' => null,
+            'dataNascimento' => null,
+            'genero' => 'Outro',
+            'ativo' => UserEnum::ATIVADO,
+        );
         return $user;
     }
 
-    private function checkExist()
+    private function checkExist(): int|null
     {
         return $this->checkEntityRepositoryInterface->checkUserSocial($this->userSocial->getEmail());
     }

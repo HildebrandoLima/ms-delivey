@@ -23,7 +23,7 @@ interface CheckEntityRepositoryInterface
     public function checkUserIdExist(int $id): void;
     public function checkUserCodeRefreshPassword(string $codigo): void;
     public function checkTokenPassword(string $token): void;
-    public function checkUserSocial(string $email);
+    public function checkUserSocial(string $email): int|null;
     public function checkFirstAccess(string $email): void;
     public function getProdutos(int $id): array;
     public function getPedidos(int $id): array;

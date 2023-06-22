@@ -3,21 +3,25 @@
 namespace App\DataTransferObjects\RequestsDtos;
 
 use App\DataTransferObjects\Dtos\UserDto;
-use App\Http\Requests\UserRequest;
+use App\Support\Utils\Cases\UserCase;
+use Illuminate\Support\Facades\Hash;
 
 class UserRequestDto
 {
-    public static function fromRquest(UserRequest $request): UserDto
+    public static function fromRquest(array $user): UserDto
     {
         $userDto = new UserDto();
-        $userDto->setNome($request['nome']);
-        $userDto->setCpf($request['cpf']);
-        $userDto->setEmail($request['email']);
-        $userDto->setSenha($request['senha']);
-        $userDto->setDataNascimento($request['dataNascimento']);
-        $userDto->setGenero($request['genero']);
-        $userDto->setPerfilId($request['perfilId']);
-        $userDto->setAtivo($request['ativo']);
+        $gender = new UserCase();
+        $userDto->setLoginSocialId($user['loginSocialId'] ?? null);
+        $userDto->setLoginSocial($user['loginSocial'] ?? null);
+        $userDto->setNome($user['nome']);
+        $userDto->setCpf(str_replace(array('.','-','/'), "", $user['cpf']) ?? null);
+        $userDto->setEmail($user['email']);
+        $userDto->setSenha(Hash::make($user['senha']) ?? null);
+        $userDto->setDataNascimento($user['dataNascimento'] ?? null);
+        $userDto->setGenero($gender->genderCase($user['genero']));
+        $userDto->setPerfilId($user['perfilId']);
+        $userDto->setAtivo($user['ativo']);
         return $userDto;
     }
 }

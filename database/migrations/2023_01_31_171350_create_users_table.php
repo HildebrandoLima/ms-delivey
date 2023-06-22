@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('provider_id')->unique()->nullable()->default(NULL);
-            $table->string('provider')->unique()->nullable()->default(NULL);
+            $table->string('login_social_id')->unique()->nullable()->default(NULL);
+            $table->string('login_social')->unique()->nullable()->default(NULL);
             $table->string('name', 50)->unique()->notnull();
             $table->string('cpf', 11)->unique()->nullable()->default(NULL);
             $table->string('email', 50)->unique()->notnull();

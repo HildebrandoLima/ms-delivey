@@ -157,7 +157,7 @@ class CheckEntityRepository implements CheckEntityRepositoryInterface
         endif;
     }
 
-    public function checkUserSocial(string $email)
+    public function checkUserSocial(string $email): int|null
     {
         return User::query()->where('email', $email)->first()->id ?? null;
     }

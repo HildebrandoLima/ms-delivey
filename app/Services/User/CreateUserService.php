@@ -27,7 +27,7 @@ class CreateUserService implements ICreateUserService
     public function createUser(UserRequest $request): int
     {
         $this->checkExist($request);
-        $user = UserRequestDto::fromRquest($request);
+        $user = UserRequestDto::fromRquest($request->toArray());
         $createUser = $this->userRepositoryInterface->create($user);
         if ($createUser) $this->dispatchJob($createUser->id, $request->email);
         return $createUser->id;

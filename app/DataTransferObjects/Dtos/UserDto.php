@@ -4,21 +4,19 @@ namespace App\DataTransferObjects\Dtos;
 
 use App\DataTransferObjects\MappersDtos\AddressMapperDto;
 use App\DataTransferObjects\MappersDtos\TelephoneMapperDto;
-use App\Support\Utils\Cases\UserCase;
-use Illuminate\Support\Facades\Hash;
 
 class UserDto extends DefaultFields
 {
     public int $usuario_id;
-    public int $login_social_id;
-    public string $login_social;
+    public int|null $login_social_id;
+    public string|null $login_social;
     public string $name;
-    public string $cpf;
+    public string|null $cpf;
     public string $email;
-    public string $password;
-    public string $data_nascimento;
+    public string|null $password;
+    public string|null $data_nascimento;
     public string $genero;
-    public string $email_verificado;
+    public bool $email_verificado;
     public int $perfil_id;
     public array $perfil;
     public array $enderecos;
@@ -40,23 +38,23 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function getLoginSocialId(): int
+    public function getLoginSocialId(): int|null
     {
         return $this->login_social_id;
     }
 
-    public function setLoginSocialId(int $login_social_id): UserDto
+    public function setLoginSocialId(int|null $login_social_id): UserDto
     {
         $this->login_social_id = $login_social_id;
         return $this;
     }
 
-    public function getLoginSocial(): string
+    public function getLoginSocial(): string|null
     {
         return $this->login_social;
     }
 
-    public function setLoginSocial(string $login_social): UserDto
+    public function setLoginSocial(string|null $login_social): UserDto
     {
         $this->login_social = $login_social;
         return $this;
@@ -73,14 +71,14 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function getCpf(): string
+    public function getCpf(): string|null
     {
         return $this->cpf;
     }
 
-    public function setCpf(string $cpf): UserDto
+    public function setCpf(string|null $cpf): UserDto
     {
-        $this->cpf = str_replace(array('.','-','/'), "", $cpf);
+        $this->cpf = $cpf;
         return $this;
     }
 
@@ -95,23 +93,23 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function setSenha(string $password): UserDto
+    public function setSenha(string|null $password): UserDto
     {
-        $this->password = Hash::make($password);
+        $this->password = $password;
         return $this;
     }
 
-    public function getSenha(): string
+    public function getSenha(): string|null
     {
         return $this->password;
     }
 
-    public function getDataNascimento(): string
+    public function getDataNascimento(): string|null
     {
         return $this->data_nascimento;
     }
 
-    public function setDataNascimento(string $data_nascimento): UserDto
+    public function setDataNascimento(string|null $data_nascimento): UserDto
     {
         $this->data_nascimento = $data_nascimento;
         return $this;
@@ -124,16 +122,16 @@ class UserDto extends DefaultFields
 
     public function setGenero(string $genero): UserDto
     {
-        $this->genero = $this->genero($genero);
+        $this->genero = $genero;
         return $this;
     }
 
-    public function getEmailVerificado(): string
+    public function getEmailVerificado(): bool
     {
         return $this->email_verificado;
     }
 
-    public function setEmailVerificado(string $email_verificado): UserDto
+    public function setEmailVerificado(bool $email_verificado): UserDto
     {
         $this->email_verificado = $email_verificado;
         return $this;
@@ -197,11 +195,5 @@ class UserDto extends DefaultFields
             $telefones[$key] = TelephoneMapperDto::mapper($instance);
         endforeach;
         return $telefones;
-    }
-
-    private function genero(string $genero): string
-    {
-        $gender = new UserCase();
-        return $gender->genderCase($genero);
     }
 }

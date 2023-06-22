@@ -26,8 +26,9 @@ class EditUserService implements IEditUserService
     public function editUser(int $id, UserRequest $request): bool
     {
         $this->checkExist($id);
-        $user = UserRequestDto::fromRquest($request);
-        return $this->userRepositoryInterface->update($id, $user);
+        $user = UserRequestDto::fromRquest($request->toArray());
+        $this->userRepositoryInterface->update($id, $user);
+        return true;
     }
 
     private function checkExist(int $id): void
