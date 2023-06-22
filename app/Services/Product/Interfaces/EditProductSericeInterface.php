@@ -4,7 +4,7 @@ namespace App\Services\Product\Interfaces;
 
 use App\Http\Requests\ProductRequest;
 
-interface IEditProductSerice
+interface EditProductSericeInterface
 {
     public function editProduct(int $id, ProductRequest $request): bool;
 }

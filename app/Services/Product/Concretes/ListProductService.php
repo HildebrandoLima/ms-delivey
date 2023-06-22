@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Concretes;
 
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Services\Product\Interfaces\IListProductService;
+use App\Services\Product\Interfaces\ListProductServiceInterface;
 use Illuminate\Support\Collection;
 
-class ListProductService implements IListProductService
+class ListProductService implements ListProductServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private ProductRepositoryInterface     $productRepositoryInterface;

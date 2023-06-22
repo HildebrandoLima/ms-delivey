@@ -62,6 +62,14 @@ use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
+use App\Services\Product\Concretes\CreateProductService;
+use App\Services\Product\Concretes\DeleteProductService;
+use App\Services\Product\Concretes\EditProductSerice;
+use App\Services\Product\Concretes\ListProductService;
+use App\Services\Product\Interfaces\CreateProductServiceInterface;
+use App\Services\Product\Interfaces\DeleteProductServiceInterface;
+use App\Services\Product\Interfaces\EditProductSericeInterface;
+use App\Services\Product\Interfaces\ListProductServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -180,6 +188,30 @@ class AppServiceProvider extends ServiceProvider
         (
             CreatePaymentServiceInterface::class,
             CreatePaymentService::class,
+        );
+
+        $this->app->bind
+        (
+            CreateProductServiceInterface::class,
+            CreateProductService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteProductServiceInterface::class,
+            DeleteProductService::class,
+        );
+
+        $this->app->bind
+        (
+            EditProductSericeInterface::class,
+            EditProductSerice::class,
+        );
+
+        $this->app->bind
+        (
+            ListProductServiceInterface::class,
+            ListProductService::class,
         );
 
 

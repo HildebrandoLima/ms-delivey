@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\ProductRequestDto;
 use App\Http\Requests\ProductRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Services\Product\Interfaces\IEditProductSerice;
+use App\Services\Product\Interfaces\EditProductSericeInterface;
 
-class EditProductSerice implements IEditProductSerice
+class EditProductSerice implements EditProductSericeInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private ProductRepositoryInterface     $productRepositoryInterface;

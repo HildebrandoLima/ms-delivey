@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\ImageRequestDto;
 use App\DataTransferObjects\RequestsDtos\ProductRequestDto;
@@ -9,9 +9,9 @@ use App\Http\Requests\ProductRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Services\Product\Interfaces\ICreateProductService;
+use App\Services\Product\Interfaces\CreateProductServiceInterface;
 
-class CreateProductService implements ICreateProductService
+class CreateProductService implements CreateProductServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private ProductRepositoryInterface     $productRepositoryInterface;

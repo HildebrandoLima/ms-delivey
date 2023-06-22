@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Concretes;
 
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Services\Product\Interfaces\IDeleteProductService;
+use App\Services\Product\Interfaces\DeleteProductServiceInterface;
 
-class DeleteProductService implements IDeleteProductService
+class DeleteProductService implements DeleteProductServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private ImageRepositoryInterface       $imageRepositoryInterface;

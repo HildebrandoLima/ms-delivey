@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Interfaces;
 
-interface IDeleteProductService
+interface DeleteProductServiceInterface
 {
     public function deleteProduct(int $id, int $active): bool;
 }
