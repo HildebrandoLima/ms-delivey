@@ -26,6 +26,14 @@ use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Services\Address\Concretes\CreateAddressService;
+use App\Services\Address\Concretes\DeleteAddressService;
+use App\Services\Address\Concretes\EditAddressService;
+use App\Services\Address\Concretes\ListAddressService;
+use App\Services\Address\Interfaces\CreateAddressServiceInterface;
+use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
+use App\Services\Address\Interfaces\EditAddressServiceInterface;
+use App\Services\Address\Interfaces\ListAddressServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +45,34 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Services
+        $this->app->bind
+        (
+            CreateAddressServiceInterface::class,
+            CreateAddressService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteAddressServiceInterface::class,
+            DeleteAddressService::class,
+        );
+
+        $this->app->bind
+        (
+            EditAddressServiceInterface::class,
+            EditAddressService::class,
+        );
+
+        $this->app->bind
+        (
+            ListAddressServiceInterface::class,
+            ListAddressService::class,
+        );
+
+
+
+        // Repositories
         $this->app->bind
         (
             AddressRepositoryInterface::class,

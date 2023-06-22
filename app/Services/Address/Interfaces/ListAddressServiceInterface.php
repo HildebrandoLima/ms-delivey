@@ -4,7 +4,7 @@ namespace App\Services\Address\Interfaces;
 
 use Illuminate\Support\Collection;
 
-interface IListAddressService
+interface ListAddressServiceInterface
 {
     public function listFederativeUnitAll(): Collection;
 }

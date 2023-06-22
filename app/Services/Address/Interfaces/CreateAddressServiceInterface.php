@@ -4,7 +4,7 @@ namespace App\Services\Address\Interfaces;
 
 use App\Http\Requests\AddressRequest;
 
-interface ICreateAddressService
+interface CreateAddressServiceInterface
 {
     public function createAddress(AddressRequest $request): int;
 }

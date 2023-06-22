@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Address;
+namespace App\Services\Address\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\AddressRequestDto;
 use App\Http\Requests\AddressRequest;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Services\Address\Interfaces\ICreateAddressService;
+use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 
-class CreateAddressService implements ICreateAddressService
+class CreateAddressService implements CreateAddressServiceInterface
 {
     private AddressRepositoryInterface $addressRepositoryInterface;
 

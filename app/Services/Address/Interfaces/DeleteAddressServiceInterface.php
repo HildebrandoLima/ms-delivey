@@ -2,7 +2,7 @@
 
 namespace App\Services\Address\Interfaces;
 
-interface IDeleteAddressService
+interface DeleteAddressServiceInterface
 {
     public function deleteAddress(int $id, int $ative): bool;
 }

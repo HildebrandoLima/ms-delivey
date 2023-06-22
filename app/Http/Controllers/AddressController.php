@@ -5,27 +5,27 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ParametersRequest;
-use App\Services\Address\CreateAddressService;
-use App\Services\Address\DeleteAddressService;
-use App\Services\Address\EditAddressService;
-use App\Services\Address\ListAddressService;
+use App\Services\Address\Interfaces\CreateAddressServiceInterface;
+use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
+use App\Services\Address\Interfaces\EditAddressServiceInterface;
+use App\Services\Address\Interfaces\ListAddressServiceInterface;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
 {
-    private CreateAddressService    $createAddressService;
-    private DeleteAddressService    $deleteAddressService;
-    private EditAddressService      $editAddressService;
-    private ListAddressService      $listAddressService;
+    private CreateAddressServiceInterface    $createAddressService;
+    private DeleteAddressServiceInterface    $deleteAddressService;
+    private EditAddressServiceInterface      $editAddressService;
+    private ListAddressServiceInterface      $listAddressService;
 
     public function __construct
     (
-        CreateAddressService    $createAddressService,
-        DeleteAddressService    $deleteAddressService,
-        EditAddressService      $editAddressService,
-        ListAddressService      $listAddressService
+        CreateAddressServiceInterface    $createAddressService,
+        DeleteAddressServiceInterface    $deleteAddressService,
+        EditAddressServiceInterface      $editAddressService,
+        ListAddressServiceInterface      $listAddressService
     )
     {
         $this->createAddressService =  $createAddressService;

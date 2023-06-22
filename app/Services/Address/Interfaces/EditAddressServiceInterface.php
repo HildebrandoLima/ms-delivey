@@ -4,7 +4,7 @@ namespace App\Services\Address\Interfaces;
 
 use App\Http\Requests\AddressRequest;
 
-interface IEditAddressService
+interface EditAddressServiceInterface
 {
     public function editAddress($id, AddressRequest $request): bool;
 }

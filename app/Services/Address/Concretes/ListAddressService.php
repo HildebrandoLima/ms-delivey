@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Address;
+namespace App\Services\Address\Concretes;
 
 use App\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Services\Address\Interfaces\IListAddressService;
+use App\Services\Address\Interfaces\ListAddressServiceInterface;
 use Illuminate\Support\Collection;
 
-class ListAddressService implements IListAddressService
+class ListAddressService implements ListAddressServiceInterface
 {
     private AddressRepositoryInterface $addressRepositoryInterface;
 
