@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\User\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\ICreateUserService;
+use App\Services\User\Interfaces\CreateUserServiceInterface;
 
-class CreateUserService implements ICreateUserService
+class CreateUserService implements CreateUserServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private UserRepositoryInterface        $userRepositoryInterface;

@@ -2,7 +2,7 @@
 
 namespace App\Services\User\Interfaces;
 
-interface IDeleteUserService
+interface DeleteUserServiceInterface
 {
     public function deleteUser(int $id, int $active): bool;
 }

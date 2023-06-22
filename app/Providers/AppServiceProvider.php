@@ -86,6 +86,16 @@ use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
+use App\Services\User\Concretes\CreateUserService;
+use App\Services\User\Concretes\DeleteUserService;
+use App\Services\User\Concretes\EditUserService;
+use App\Services\User\Concretes\EmailUserVerifiedAtService;
+use App\Services\User\Concretes\ListUserService;
+use App\Services\User\Interfaces\CreateUserServiceInterface;
+use App\Services\User\Interfaces\DeleteUserServiceInterface;
+use App\Services\User\Interfaces\EditUserServiceInterface;
+use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
+use App\Services\User\Interfaces\ListUserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -276,6 +286,36 @@ class AppServiceProvider extends ServiceProvider
         (
             ListTelephoneServiceInterface::class,
             ListTelephoneService::class,
+        );
+
+        $this->app->bind
+        (
+            CreateUserServiceInterface::class,
+            CreateUserService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteUserServiceInterface::class,
+            DeleteUserService::class,
+        );
+
+        $this->app->bind
+        (
+            EditUserServiceInterface::class,
+            EditUserService::class,
+        );
+
+        $this->app->bind
+        (
+            EmailUserVerifiedAtServiceInterface::class,
+            EmailUserVerifiedAtService::class,
+        );
+
+        $this->app->bind
+        (
+            ListUserServiceInterface::class,
+            ListUserService::class,
         );
 
 

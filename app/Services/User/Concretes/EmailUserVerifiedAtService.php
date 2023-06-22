@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\User\Concretes;
 
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\IListUserService;
-use Illuminate\Support\Collection;
+use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 
-class ListUserService implements IListUserService
+class EmailUserVerifiedAtService implements EmailUserVerifiedAtServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private UserRepositoryInterface        $userRepositoryInterface;
@@ -22,14 +21,9 @@ class ListUserService implements IListUserService
         $this->userRepositoryInterface        = $userRepositoryInterface;
     }
 
-    public function listUserAll(int $active): Collection
+    public function emailVerifiedAt(int $id, int $active): bool
     {
-        return $this->userRepositoryInterface->getAll($active);
-    }
-
-    public function listUserFind(int $id, string $search, int $active): Collection
-    {
-        if ($id != 0) $this->checkEntityRepositoryInterface->checkUserIdExist($id);
-        return $this->userRepositoryInterface->getOne($id, $search, $active);
+        $this->checkEntityRepositoryInterface->checkUserIdExist($id);
+        return $this->userRepositoryInterface->emailVerifiedAt($id, $active);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\User\Concretes;
 
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
@@ -8,9 +8,9 @@ use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\IDeleteUserService;
+use App\Services\User\Interfaces\DeleteUserServiceInterface;
 
-class DeleteUserService implements IDeleteUserService
+class DeleteUserService implements DeleteUserServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private AddressRepositoryInterface     $addressRepositoryInterface;

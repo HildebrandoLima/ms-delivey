@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\User\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\IEditUserService;
+use App\Services\User\Interfaces\EditUserServiceInterface;
 
-class EditUserService implements IEditUserService
+class EditUserService implements EditUserServiceInterface
 {    
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private UserRepositoryInterface        $userRepositoryInterface;

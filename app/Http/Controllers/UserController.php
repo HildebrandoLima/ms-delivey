@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ParametersRequest;
-use App\Services\User\CreateUserService;
-use App\Services\User\DeleteUserService;
-use App\Services\User\EditUserService;
-use App\Services\User\EmailUserVerifiedAtService;
-use App\Services\User\ListUserService;
+use App\Services\User\Interfaces\CreateUserServiceInterface;
+use App\Services\User\Interfaces\DeleteUserServiceInterface;
+use App\Services\User\Interfaces\EditUserServiceInterface;
+use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
+use App\Services\User\Interfaces\ListUserServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
@@ -18,19 +18,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    private CreateUserService   $createUserService;
-    private DeleteUserService   $deleteUserService;
-    private EditUserService     $editUserService;
-    private ListUserService     $listUserService;
-    private EmailUserVerifiedAtService $emailUserVerifiedAtService;
+    private CreateUserServiceInterface   $createUserService;
+    private DeleteUserServiceInterface   $deleteUserService;
+    private EditUserServiceInterface     $editUserService;
+    private ListUserServiceInterface     $listUserService;
+    private EmailUserVerifiedAtServiceInterface $emailUserVerifiedAtService;
 
     public function __construct
     (
-        CreateUserService   $createUserService,
-        DeleteUserService   $deleteUserService,
-        EditUserService     $editUserService,
-        ListUserService     $listUserService,
-        EmailUserVerifiedAtService $emailUserVerifiedAtService
+        CreateUserServiceInterface   $createUserService,
+        DeleteUserServiceInterface   $deleteUserService,
+        EditUserServiceInterface     $editUserService,
+        ListUserServiceInterface     $listUserService,
+        EmailUserVerifiedAtServiceInterface $emailUserVerifiedAtService
     )
     {
         $this->createUserService    =   $createUserService;
