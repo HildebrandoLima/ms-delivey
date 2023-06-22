@@ -30,27 +30,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-//  Autenticação
-Route::prefix('auth')->group(function () {
-    // Autenticação Social
-    Route::get('/login/social/{provider}', [AuthSocialController::class, 'redirectToProvider'])->name('social.login');
-    Route::get('/login/social/{provider}/callback', [AuthSocialController::class, 'handleProviderCallback'])->name('social.callback');
-
-    // Autenticação Trandicional
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
-    Route::post('/refresh-password/{token}', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
-});
-
-// Usuário
-Route::post('user/save', [UserController::class, 'store'])->name('user.save');
-Route::get('user/email-verified/save', [UserController::class, 'emailVerifiedAt'])->name('user.email.verified');
-
 // Rotas Autenticadas
 //Route::middleware(['jwt-authenticated'])->group(callback: function () {
 
     //  Autenticação
-    Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::prefix('auth')->group(function () {
+        // Social
+        Route::get('/login/social/{provider}', [AuthSocialController::class, 'redirectToProvider'])->name('social.login');
+        Route::get('/login/social/{provider}/callback', [AuthSocialController::class, 'handleProviderCallback'])->name('social.callback');
+
+        // Trandicional
+        Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+        Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+        Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
+        Route::post('/refresh-password/{token}', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
+    });
 
     //  Endereço
     Route::prefix('address')->group(function () {
@@ -111,9 +105,11 @@ Route::get('user/email-verified/save', [UserController::class, 'emailVerifiedAt'
 
     //  Usuario
     Route::prefix('user')->group(function () {
+        Route::get('/email-verified/save', [UserController::class, 'emailVerifiedAt'])->name('user.email.verified');        
         Route::get('/list', [UserController::class, 'index'])->name('user.list.all');
         Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
+        Route::post('/save', [UserController::class, 'store'])->name('user.save');
         Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable');
     });
 //});
