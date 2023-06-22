@@ -60,6 +60,8 @@ use App\Services\Order\Concretes\ListOrderService;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
+use App\Services\Payment\Concretes\CreatePaymentService;
+use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -172,6 +174,12 @@ class AppServiceProvider extends ServiceProvider
         (
             ListOrderServiceInterface::class,
             ListOrderService::class,
+        );
+
+        $this->app->bind
+        (
+            CreatePaymentServiceInterface::class,
+            CreatePaymentService::class,
         );
 
 

@@ -4,7 +4,7 @@ namespace App\Services\Payment\Interfaces;
 
 use App\Http\Requests\PaymentRequest;
 
-interface ICreatePaymentService
+interface CreatePaymentServiceInterface
 {
     public function createPayment(PaymentRequest $request): bool;
 }
