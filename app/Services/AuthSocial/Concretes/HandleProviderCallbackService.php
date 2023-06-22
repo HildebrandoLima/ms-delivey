@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\AuthSocial;
+namespace App\Services\AuthSocial\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Exceptions\HttpBadRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\AuthSocial\Interfacess\IHandleProviderCallbackService;
+use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
 use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
 use GuzzleHttp\Exception\ClientException;
@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class HandleProviderCallbackService implements IHandleProviderCallbackService
+class HandleProviderCallbackService implements HandleProviderCallbackServiceInterface
 {
     private $userSocial;
     private string $provider;

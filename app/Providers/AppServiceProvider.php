@@ -42,6 +42,10 @@ use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
 use App\Services\Auth\Interfaces\LoginServiceInterface;
 use App\Services\Auth\Interfaces\LogoutServiceInterface;
 use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
+use App\Services\AuthSocial\Concretes\HandleProviderCallbackService;
+use App\Services\AuthSocial\Concretes\RedirectToProviderService;
+use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
+use App\Services\AuthSocial\Interfaces\RedirectToProviderServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -100,6 +104,18 @@ class AppServiceProvider extends ServiceProvider
         (
             RefreshPasswordServiceInterface::class,
             RefreshPasswordService::class,
+        );
+
+        $this->app->bind
+        (
+            HandleProviderCallbackServiceInterface::class,
+            HandleProviderCallbackService::class,
+        );
+
+        $this->app->bind
+        (
+            RedirectToProviderServiceInterface::class,
+            RedirectToProviderService::class,
         );
 
 

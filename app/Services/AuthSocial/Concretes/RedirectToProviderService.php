@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\AuthSocial;
+namespace App\Services\AuthSocial\Concretes;
 
 use App\Exceptions\HttpBadRequest;
-use App\Services\AuthSocial\Interfacess\IRedirectToProviderService;
+use App\Services\AuthSocial\Interfaces\RedirectToProviderServiceInterface;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\RedirectResponse;
 
-class RedirectToProviderService implements IRedirectToProviderService
+class RedirectToProviderService implements RedirectToProviderServiceInterface
 {
     public function redirectToProvider(string $provider): RedirectResponse
     {

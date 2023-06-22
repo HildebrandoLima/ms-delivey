@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\AuthSocial\Interfacess;
+namespace App\Services\AuthSocial\Interfaces;
 
 use Illuminate\Support\Collection;
 
-interface IHandleProviderCallbackService
+interface HandleProviderCallbackServiceInterface
 {
     public function handleProviderCallback(string $provider): Collection;
 }

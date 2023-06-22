@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\AuthSocial\Interfacess;
+namespace App\Services\AuthSocial\Interfaces;
 
 use Illuminate\Http\RedirectResponse;
 
-interface IRedirectToProviderService
+interface RedirectToProviderServiceInterface
 {
     public function redirectToProvider(string $provider): RedirectResponse;
 }

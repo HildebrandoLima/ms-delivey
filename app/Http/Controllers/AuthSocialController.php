@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Services\AuthSocial\HandleProviderCallbackService;
-use App\Services\AuthSocial\RedirectToProviderService;
+use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
+use App\Services\AuthSocial\Interfaces\RedirectToProviderServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthSocialController extends Controller
 {
-    private RedirectToProviderService     $redirectToProviderService;
-    private HandleProviderCallbackService $handleProviderCallbackService;
+    private RedirectToProviderServiceInterface     $redirectToProviderService;
+    private HandleProviderCallbackServiceInterface $handleProviderCallbackService;
 
     public function __construct
     (
-        RedirectToProviderService     $redirectToProviderService,
-        HandleProviderCallbackService $handleProviderCallbackService
+        RedirectToProviderServiceInterface     $redirectToProviderService,
+        HandleProviderCallbackServiceInterface $handleProviderCallbackService
     )
     {
         $this->redirectToProviderService     = $redirectToProviderService;
