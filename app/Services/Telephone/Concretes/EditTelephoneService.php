@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\Telephone;
+namespace App\Services\Telephone\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\TelephoneRequestDto;
 use App\Http\Requests\TelephoneRequest;
 use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Telephone\Interfaces\IEditTelephoneService;
+use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 
-class EditTelephoneService implements IEditTelephoneService
+class EditTelephoneService implements EditTelephoneServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private TelephoneRepository            $telephoneRepository;

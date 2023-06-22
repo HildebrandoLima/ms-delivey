@@ -4,7 +4,7 @@ namespace App\Services\Telephone\Interfaces;
 
 use App\Http\Requests\TelephoneRequest;
 
-interface ICreateTelephoneService
+interface CreateTelephoneServiceInterface
 {
     public function createTelephone(TelephoneRequest $request): int;
 }

@@ -5,27 +5,27 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\TelephoneRequest;
-use App\Services\Telephone\CreateTelephoneService;
-use App\Services\Telephone\DeleteTelephoneService;
-use App\Services\Telephone\EditTelephoneService;
-use App\Services\Telephone\ListTelephoneService;
+use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
+use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
+use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
+use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller
 {
-    private CreateTelephoneService  $createTelephoneService;
-    private DeleteTelephoneService  $deleteTelephoneService;
-    private EditTelephoneService    $editTelephoneService;
-    private ListTelephoneService    $listTelephoneService;
+    private CreateTelephoneServiceInterface  $createTelephoneService;
+    private DeleteTelephoneServiceInterface  $deleteTelephoneService;
+    private EditTelephoneServiceInterface    $editTelephoneService;
+    private ListTelephoneServiceInterface    $listTelephoneService;
 
     public function __construct
     (
-        CreateTelephoneService  $createTelephoneService,
-        DeleteTelephoneService  $deleteTelephoneService,
-        EditTelephoneService    $editTelephoneService,
-        ListTelephoneService    $listTelephoneService
+        CreateTelephoneServiceInterface  $createTelephoneService,
+        DeleteTelephoneServiceInterface  $deleteTelephoneService,
+        EditTelephoneServiceInterface    $editTelephoneService,
+        ListTelephoneServiceInterface    $listTelephoneService
     )
     {
         $this->createTelephoneService   =   $createTelephoneService;

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Telephone;
+namespace App\Services\Telephone\Concretes;
 
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
-use App\Services\Telephone\Interfaces\IDeleteTelephoneService;
+use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 
-class DeleteTelephoneService implements IDeleteTelephoneService
+class DeleteTelephoneService implements DeleteTelephoneServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private TelephoneRepositoryInterface   $telephoneRepositoryInterface;

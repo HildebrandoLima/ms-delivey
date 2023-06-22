@@ -78,6 +78,14 @@ use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
+use App\Services\Telephone\Concretes\CreateTelephoneService;
+use App\Services\Telephone\Concretes\DeleteTelephoneService;
+use App\Services\Telephone\Concretes\EditTelephoneService;
+use App\Services\Telephone\Concretes\ListTelephoneService;
+use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
+use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
+use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
+use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -244,6 +252,30 @@ class AppServiceProvider extends ServiceProvider
         (
             ListProviderServiceInterface::class,
             ListProviderService::class,
+        );
+
+        $this->app->bind
+        (
+            CreateTelephoneServiceInterface::class,
+            CreateTelephoneService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteTelephoneServiceInterface::class,
+            DeleteTelephoneService::class,
+        );
+
+        $this->app->bind
+        (
+            EditTelephoneServiceInterface::class,
+            EditTelephoneService::class,
+        );
+
+        $this->app->bind
+        (
+            ListTelephoneServiceInterface::class,
+            ListTelephoneService::class,
         );
 
 

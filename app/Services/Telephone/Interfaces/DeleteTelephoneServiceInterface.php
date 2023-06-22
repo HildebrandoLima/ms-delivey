@@ -2,7 +2,7 @@
 
 namespace App\Services\Telephone\Interfaces;
 
-interface IDeleteTelephoneService
+interface DeleteTelephoneServiceInterface
 {
     public function deleteTelephone(int $id, int $active): bool;
 }

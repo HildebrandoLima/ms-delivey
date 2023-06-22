@@ -4,7 +4,7 @@ namespace App\Services\Telephone\Interfaces;
 
 use Illuminate\Support\Collection;
 
-interface IListTelephoneService
+interface ListTelephoneServiceInterface
 {
     public function listDDDAll(): Collection;
 }
