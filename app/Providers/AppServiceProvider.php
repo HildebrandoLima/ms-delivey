@@ -34,6 +34,14 @@ use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
 use App\Services\Address\Interfaces\ListAddressServiceInterface;
+use App\Services\Auth\Concretes\ForgotPasswordService;
+use App\Services\Auth\Concretes\LoginService;
+use App\Services\Auth\Concretes\LogoutService;
+use App\Services\Auth\Concretes\RefreshPasswordService;
+use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
+use App\Services\Auth\Interfaces\LoginServiceInterface;
+use App\Services\Auth\Interfaces\LogoutServiceInterface;
+use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -68,6 +76,30 @@ class AppServiceProvider extends ServiceProvider
         (
             ListAddressServiceInterface::class,
             ListAddressService::class,
+        );
+
+        $this->app->bind
+        (
+            ForgotPasswordServiceInterface::class,
+            ForgotPasswordService::class,
+        );
+
+        $this->app->bind
+        (
+            LoginServiceInterface::class,
+            LoginService::class,
+        );
+
+        $this->app->bind
+        (
+            LogoutServiceInterface::class,
+            LogoutService::class,
+        );
+
+        $this->app->bind
+        (
+            RefreshPasswordServiceInterface::class,
+            RefreshPasswordService::class,
         );
 
 

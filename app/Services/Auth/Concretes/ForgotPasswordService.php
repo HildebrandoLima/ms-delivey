@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Services\Auth\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\AuthRequestDto;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
-use App\Services\Auth\Interfaces\IForgotPasswordService;
+use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
 
-class ForgotPasswordService implements IForgotPasswordService
+class ForgotPasswordService implements ForgotPasswordServiceInterface
+
 {
     private AuthRepositoryInterface $authRepositoryInterface;
 

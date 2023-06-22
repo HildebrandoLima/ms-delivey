@@ -4,7 +4,7 @@ namespace App\Services\Auth\Interfaces;
 
 use App\Http\Requests\RefreshPasswordRequest;
 
-interface IRefreshPasswordService
+interface RefreshPasswordServiceInterface
 {
     public function refreshPassword(RefreshPasswordRequest $request, string $token): bool;
 }

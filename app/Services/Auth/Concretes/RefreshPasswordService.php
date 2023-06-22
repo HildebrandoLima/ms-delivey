@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Services\Auth\Concretes;
 
 use App\Http\Requests\RefreshPasswordRequest;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Auth\Interfaces\IRefreshPasswordService;
+use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
 
-class RefreshPasswordService implements IRefreshPasswordService
+class RefreshPasswordService implements RefreshPasswordServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private AuthRepositoryInterface        $authRepositoryInterface;

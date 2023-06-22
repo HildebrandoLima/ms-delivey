@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Services\Auth\Concretes;
 
 use App\Http\Requests\LoginRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Auth\Interfaces\ILoginService;
+use App\Services\Auth\Interfaces\LoginServiceInterface;
 use Illuminate\Support\Collection;
 
-class LoginService implements ILoginService
+class LoginService implements LoginServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
 

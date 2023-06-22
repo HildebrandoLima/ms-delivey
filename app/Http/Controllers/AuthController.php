@@ -6,25 +6,25 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RefreshPasswordRequest;
-use App\Services\Auth\ForgotPasswordService;
-use App\Services\Auth\LoginService;
-use App\Services\Auth\LogoutService;
-use App\Services\Auth\RefreshPasswordService;
+use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
+use App\Services\Auth\Interfaces\LoginServiceInterface;
+use App\Services\Auth\Interfaces\LogoutServiceInterface;
+use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    private ForgotPasswordService $forgotPasswordService;
-    private LoginService  $loginService;
-    private LogoutService $logoutService;
-    private RefreshPasswordService $refreshPasswordService;
+    private ForgotPasswordServiceInterface $forgotPasswordService;
+    private LoginServiceInterface           $loginService;
+    private LogoutServiceInterface          $logoutService;
+    private RefreshPasswordServiceInterface $refreshPasswordService;
 
     public function __construct
     (
-        ForgotPasswordService  $forgotPasswordService,
-        LoginService           $loginService,
-        LogoutService          $logoutService,
-        RefreshPasswordService $refreshPasswordService
+        ForgotPasswordServiceInterface  $forgotPasswordService,
+        LoginServiceInterface           $loginService,
+        LogoutServiceInterface          $logoutService,
+        RefreshPasswordServiceInterface $refreshPasswordService
     )
     {
         $this->forgotPasswordService  = $forgotPasswordService;

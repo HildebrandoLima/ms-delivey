@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth\Interfaces;
 
-interface ILogoutService
+interface LogoutServiceInterface
 {
     public function logout(): void;
 }
