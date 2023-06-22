@@ -19,9 +19,4 @@ class ListTelephoneService implements IListTelephoneService
     {
         return $this->telephoneRepositoryInterface->getDDDAll();
     }
-
-    public function listTelephoneAll(int $id, int $active): Collection
-    {
-        return collect();
-    }
 }

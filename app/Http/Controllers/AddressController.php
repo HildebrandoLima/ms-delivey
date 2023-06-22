@@ -34,25 +34,10 @@ class AddressController extends Controller
         $this->listAddressService   =  $listAddressService;
     }
 
-    public function uf(): Response
+    public function index(): Response
     {
         try {
             $success = $this->listAddressService->listFederativeUnitAll();
-            if (!$success) return Controller::error();
-            return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
-        }
-    }
-
-    public function index(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
-    {
-        try {
-            $success = $this->listAddressService->listAddressAll
-            (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
-            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

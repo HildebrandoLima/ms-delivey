@@ -6,8 +6,6 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthSocialController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -56,8 +54,7 @@ Route::get('user/email-verified/save', [UserController::class, 'emailVerifiedAt'
 
     //  Endereço
     Route::prefix('address')->group(function () {
-        Route::get('/list', [AddressController::class, 'index'])->name('address.list');
-        Route::get('/list/uf', [AddressController::class, 'uf'])->name('address.uf.list');
+        Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list');
         Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit');
         Route::post('/save', [AddressController::class, 'store'])->name('address.save');
         Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable');
@@ -70,16 +67,6 @@ Route::get('user/email-verified/save', [UserController::class, 'emailVerifiedAt'
         Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
         Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
         Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable');
-    });
-
-    //  Imagem
-    Route::prefix('image')->group(function () {
-        Route::get('/list', [ImageController::class, 'index'])->name('image.list.all');
-    });
-
-    //  Item
-    Route::prefix('item')->group(function () {
-        Route::get('/list', [ItemController::class, 'index'])->name('item.list.all');
     });
 
     //  Pedido
@@ -116,8 +103,7 @@ Route::get('user/email-verified/save', [UserController::class, 'emailVerifiedAt'
 
     //  Telefone
     Route::prefix('telephone')->group(function () {
-        Route::get('/list', [TelephoneController::class, 'index'])->name('telephone.list');
-        Route::get('/list/ddd', [TelephoneController::class, 'ddd'])->name('telephone.ddd.list');
+        Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list');
         Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit');
         Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
         Route::put('/enable/disable', [TelephoneController::class, 'enableDisable'])->name('telephone.enable.disable');

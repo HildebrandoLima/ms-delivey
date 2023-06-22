@@ -34,25 +34,10 @@ class TelephoneController extends Controller
         $this->listTelephoneService     =   $listTelephoneService;
     }
 
-    public function ddd(): Response
+    public function index(): Response
     {
         try {
             $success = $this->listTelephoneService->listDDDAll();
-            if (!$success) return Controller::error();
-            return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
-        }
-    }
-
-    public function index(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
-    {
-        try {
-            $success = $this->listTelephoneService->listTelephoneAll
-            (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
-            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
