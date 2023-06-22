@@ -46,6 +46,14 @@ use App\Services\AuthSocial\Concretes\HandleProviderCallbackService;
 use App\Services\AuthSocial\Concretes\RedirectToProviderService;
 use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
 use App\Services\AuthSocial\Interfaces\RedirectToProviderServiceInterface;
+use App\Services\Category\Concretes\CreateCategoryService;
+use App\Services\Category\Concretes\DeleteCategoryService;
+use App\Services\Category\Concretes\EditCategoryService;
+use App\Services\Category\Concretes\ListCategoryService;
+use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
+use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
+use App\Services\Category\Interfaces\EditCategoryServiceInterface;
+use App\Services\Category\Interfaces\ListCategoryServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -116,6 +124,30 @@ class AppServiceProvider extends ServiceProvider
         (
             RedirectToProviderServiceInterface::class,
             RedirectToProviderService::class,
+        );
+
+        $this->app->bind
+        (
+            CreateCategoryServiceInterface::class,
+            CreateCategoryService::class,
+        );
+
+        $this->app->bind
+        (
+            DeleteCategoryServiceInterface::class,
+            DeleteCategoryService::class,
+        );
+
+        $this->app->bind
+        (
+            EditCategoryServiceInterface::class,
+            EditCategoryService::class,
+        );
+
+        $this->app->bind
+        (
+            ListCategoryServiceInterface::class,
+            ListCategoryService::class,
         );
 
 

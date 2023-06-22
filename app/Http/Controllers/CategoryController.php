@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\ParametersRequest;
-use App\Services\Category\CreateCategoryService;
-use App\Services\Category\DeleteCategoryService;
-use App\Services\Category\EditCategoryService;
-use App\Services\Category\ListCategoryService;
-use App\Support\Utils\Pagination\Pagination;
+use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
+use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
+use App\Services\Category\Interfaces\EditCategoryServiceInterface;
+use App\Services\Category\Interfaces\ListCategoryServiceInterface;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
@@ -17,17 +16,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    private CreateCategoryService $createCategoryService;
-    private DeleteCategoryService $deleteCategoryService;
-    private EditCategoryService $editCategoryService;
-    private ListCategoryService $listCategoryService;
+    private CreateCategoryServiceInterface $createCategoryService;
+    private DeleteCategoryServiceInterface $deleteCategoryService;
+    private EditCategoryServiceInterface $editCategoryService;
+    private ListCategoryServiceInterface $listCategoryService;
 
     public function __construct
     (
-        CreateCategoryService $createCategoryService,
-        DeleteCategoryService $deleteCategoryService,
-        EditCategoryService   $editCategoryService,
-        ListCategoryService   $listCategoryService
+        CreateCategoryServiceInterface $createCategoryService,
+        DeleteCategoryServiceInterface $deleteCategoryService,
+        EditCategoryServiceInterface   $editCategoryService,
+        ListCategoryServiceInterface   $listCategoryService
     )
     {
         $this->createCategoryService = $createCategoryService;

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Category;
+namespace App\Services\Category\Concretes;
 
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Category\Interfaces\IDeleteCategoryService;
+use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 
-class DeleteCategoryService implements IDeleteCategoryService
+class DeleteCategoryService implements DeleteCategoryServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private CategoryRepositoryInterface    $categoryRepositoryInterface;

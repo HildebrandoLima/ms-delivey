@@ -4,7 +4,7 @@ namespace App\Services\Category\Interfaces;
 
 use App\Http\Requests\CategoryRequest;
 
-interface ICreateCategoryService
+interface CreateCategoryServiceInterface
 {
     public function createCategory(CategoryRequest $request): int;
 }

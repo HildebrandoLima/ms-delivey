@@ -2,7 +2,7 @@
 
 namespace App\Services\Category\Interfaces;
 
-interface IDeleteCategoryService
+interface DeleteCategoryServiceInterface
 {
     public function deleteCategory(int $id, int $active): bool;
 }

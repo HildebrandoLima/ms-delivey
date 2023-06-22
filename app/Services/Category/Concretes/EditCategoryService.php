@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Category;
+namespace App\Services\Category\Concretes;
 
+use App\DataTransferObjects\RequestsDtos\CategoryRequestDto;
+use App\Http\Requests\CategoryRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Category\Interfaces\IListCategoryService;
-use Illuminate\Support\Collection;
+use App\Services\Category\Interfaces\EditCategoryServiceInterface;
 
-class ListCategoryService implements IListCategoryService
+class EditCategoryService implements EditCategoryServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private CategoryRepositoryInterface    $categoryRepositoryInterface;
@@ -22,14 +23,10 @@ class ListCategoryService implements IListCategoryService
         $this->categoryRepositoryInterface    = $categoryRepositoryInterface;
     }
 
-    public function listCategoryAll(int $active): Collection
+    public function editCategory(int $id, CategoryRequest $request): bool
     {
-        return $this->categoryRepositoryInterface->getAll($active);
-    }
-
-    public function listProviderFind(int $id, string $search, int $active): Collection
-    {
-        if ($id != 0) $this->checkEntityRepositoryInterface->checkCategoryIdExist($id);
-        return $this->categoryRepositoryInterface->getOne($id, $search, $active);
+        $this->checkEntityRepositoryInterface->checkCategoryIdExist($id);
+        $category = CategoryRequestDto::fromRquest($request);
+        return $this->categoryRepositoryInterface->update($id, $category);
     }
 }

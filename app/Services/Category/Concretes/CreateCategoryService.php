@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\Category;
+namespace App\Services\Category\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\CategoryRequestDto;
 use App\Http\Requests\CategoryRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Services\Category\Interfaces\ICreateCategoryService;
+use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 
-class CreateCategoryService implements ICreateCategoryService
+class CreateCategoryService implements CreateCategoryServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepositoryInterface;
     private CategoryRepositoryInterface    $categoryRepositoryInterface;
