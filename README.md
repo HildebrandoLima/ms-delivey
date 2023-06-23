@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery/e-commerce/pdv). Nela abordo temas com foco em POO padrão de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Eloquent, Factories, Seeders, Storage (Upload Multiplo de Imagens), Autenticação Solialite, Job (envio de e-mails e atualização de estoque). Docker e TDD ainda sendo implementados.
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery, e-commerce e pdv). Nela abordo temas com foco em POO, DTOs, padrões de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Migrations, Eloquent, Relationships, Factories, Seeders, Storage (Upload Múltiplo de Imagens), Autenticação padrão e Solialite, Permissions, Provider, Mail, Job (envio de e-mails e atualização de estoque). Docker e TDD (Ainda sendo nessa release). A documentação abaixo da api, será separada e melhoradada, na próxima release.
 
 ### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
