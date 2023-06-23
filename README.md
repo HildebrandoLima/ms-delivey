@@ -307,10 +307,6 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 > No seu .env adicione da seguinte forma:<br />
 
-> FACEBOOK_CLIENT_ID=codigo_gerado<br />
-> FACEBOOK_CLIENT_SECRET=chave_gerada<br />
-> FACEBOOK_CALLBACK_URL=http://localhost:8000/api/auth/login/social/facebook/callback<br />
-
 > GOOGLE_CLIENT_ID=codigo_gerado<br />
 > GOOGLE_CLIENT_SECRET=chave_gerada<br />
 > GOOGLE_CALLBACK_URL=http://localhost:8000/api/auth/login/social/google/callback<br />
@@ -318,6 +314,10 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 > GITHUB_CLIENT_ID=codigo_gerado<br />
 > GITHUB_CLIENT_SECRET=chave_gerada<br />
 > GITHUB_CALLBACK_URL=http://localhost:8000/api/auth/login/social/github/callback<br />
+
+> FACEBOOK_CLIENT_ID=codigo_gerado<br />
+> FACEBOOK_CLIENT_SECRET=chave_gerada<br />
+> FACEBOOK_CALLBACK_URL=http://localhost:8000/api/auth/login/social/facebook/callback<br />
 
 ### Resposta:
 
@@ -382,17 +382,17 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 ### Rotas
 
-|MÉTODO|          ROTA         |
-|------|-----------------------|
-| GET  | /api/user/list        |
-|------|-----------------------|
-| GET  | /api/user/list/find   |
-|------|-----------------------|
-| PUT  | /api/user/edit/{id}   |
-|------|-----------------------|
-| POST | /api/user/save        |
-|------|-----------------------|
-|DELETE| /api/user/remove/{id} |
+|MÉTODO|          ROTA            |
+|------|--------------------------|
+| GET  | /api/user/list           |
+|------|--------------------------|
+| GET  | /api/user/list/find      |
+|------|--------------------------|
+| PUT  | /api/user/edit/{id}      |
+|------|--------------------------|
+| POST | /api/user/save           |
+|------|--------------------------|
+|DELETE| /api/user/enable/disable |
 
 ### Body: POST/PUT
 ```
@@ -478,17 +478,17 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ### Rotas
 
-|MÉTODO|          ROTA             |
-|------|---------------------------|
-| GET  | /api/provider/list        |
-|------|---------------------------|
-| GET  | /api/provider/list/{id}   |
-|------|---------------------------|
-| POST | /api/provider/save        |
-|------|---------------------------|
-| PUT  | /api/provider/edit/{id}   |
-|------|---------------------------|
-|DELETE| /api/provider/remove/{id} |
+|MÉTODO|            ROTA              |
+|------|------------------------------|
+| GET  | /api/provider/list           |
+|------|------------------------------|
+| GET  | /api/provider/list/{id}      |
+|------|------------------------------|
+| POST | /api/provider/save           |
+|------|------------------------------|
+| PUT  | /api/provider/edit/{id}      |
+|------|------------------------------|
+|DELETE| /api/provider/enable/disable |
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
@@ -563,17 +563,15 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ### Rotas
 
-|MÉTODO|          ROTA            |
-|------|--------------------------|
-| GET  | /api/address/list        |
-|------|--------------------------|
-| GET  | /api/address/list/uf     |
-|------|--------------------------|
-| POST | /api/address/save        |
-|------|--------------------------|
-| PUT  | /api/address/edit/{id}   |
-|------|--------------------------|
-|DELETE| /api/address/remove/{id} |
+|MÉTODO|              ROTA           |
+|------|-----------------------------|
+| GET  | /api/address/list/uf        |
+|------|-----------------------------|
+| POST | /api/address/save           |
+|------|-----------------------------|
+| PUT  | /api/address/edit/{id}      |
+|------|-----------------------------|
+|DELETE| /api/address/enable/disable |
 
 ### Body: POST/PUT
 ```
@@ -660,17 +658,15 @@ ou
 
 ### Rotas
 
-|MÉTODO|          ROTA              |
-|------|----------------------------|
-| GET  | /api/telephone/list        |
-|------|----------------------------|
-| GET  | /api/telephone/list/ddd    |
-|------|----------------------------|
-| POST | /api/telephone/save        |
-|------|----------------------------|
-| PUT  | /api/telephone/edit/{id}   |
-|------|----------------------------|
-|DELETE| /api/telephone/remove/{id} |
+|MÉTODO|            ROTA               |
+|------|-------------------------------|
+| GET  | /api/telephone/list/ddd       |
+|------|-------------------------------|
+| POST | /api/telephone/save           |
+|------|-------------------------------|
+| PUT  | /api/telephone/edit/{id}      |
+|------|-------------------------------|
+|DELETE| /api/telephone/enable/disable |
 
 ### Body: POST/PUT
 ```
@@ -773,17 +769,17 @@ ou
 
 ### Rotas
 
-|MÉTODO|            ROTA           |
-|------|---------------------------|
-| GET  | /api/category/list        |
-|------|---------------------------|
-| GET  | /api/category/list/find   |
-|------|---------------------------|
-| POST | /api/category/save        |
-|------|---------------------------|
-| PUT  | /api/category/edit/{id}   |
-|------|---------------------------|
-|DELETE| /api/category/remove/{id} |
+|MÉTODO|              ROTA            |
+|------|------------------------------|
+| GET  | /api/category/list           |
+|------|------------------------------|
+| GET  | /api/category/list/find      |
+|------|------------------------------|
+| POST | /api/category/save           |
+|------|------------------------------|
+| PUT  | /api/category/edit/{id}      |
+|------|------------------------------|
+|DELETE| /api/category/enable/disable |
 
 ### Body: POST/PUT
 ```
@@ -848,17 +844,17 @@ ou
 
 ### Rotas
 
-|MÉTODO|          ROTA            |
-|------|--------------------------|
-| GET  | /api/product/list        |
-|------|--------------------------|
-| GET  | /api/product/list/find   |
-|------|--------------------------|
-| POST | /api/product/save        |
-|------|--------------------------|
-| PUT  | /api/product/edit/{id}   |
-|------|--------------------------|
-|DELETE| /api/product/remove/{id} |
+|MÉTODO|            ROTA             |
+|------|-----------------------------|
+| GET  | /api/product/list           |
+|------|-----------------------------|
+| GET  | /api/product/list/find      |
+|------|-----------------------------|
+| POST | /api/product/save           |
+|------|-----------------------------|
+| PUT  | /api/product/edit/{id}      |
+|------|-----------------------------|
+|DELETE| /api/product/enable/disable |
     
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
@@ -949,45 +945,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 </details>
 </details>
 
-### Imagem
-
-<details>
-<summary>Detalhes</summary>
-
-### Rotas
-
-|MÉTODO|          ROTA            |
-|------|--------------------------|
-| GET  | /api/image/list/{id}     |
-|------|--------------------------|
-|DELETE| /api/image/remove/{id}   |
-
-O cadastro de imagem, é realizado ao registrar o produto. Atualmente, não se pode alterar a(s) imagem(ns).
-
-### Resposta:
-<details>
-<summary>400 - Bad Request</summary>
-
-```
-{
-    "message": "O produto já existe!",
-    "data": "",
-    "status": 400,
-    "details": ""
-}
-```
-
-```
-{
-    "message": "Error ao efetuar ação!",
-    "data": "false",
-    "status": 400,
-    "details": ""
-}
-```
-</details>
-</details>
-
 ### Pedido
 
 <details>
@@ -995,15 +952,15 @@ O cadastro de imagem, é realizado ao registrar o produto. Atualmente, não se p
 
 ### Rotas
 
-|MÉTODO|          ROTA            |
-|------|--------------------------|
-| GET  | /api/order/list          |
-|------|--------------------------|
-| GET  | /api/order/list/find     |
-|------|--------------------------|
-| GET  | /api/order/save          |
-|------|--------------------------|
-|DELETE| /api/order/remove/{id}   |
+|MÉTODO|          ROTA             |
+|------|---------------------------|
+| GET  | /api/order/list           |
+|------|---------------------------|
+| GET  | /api/order/list/find      |
+|------|---------------------------|
+| GET  | /api/order/save           |
+|------|---------------------------|
+|DELETE| /api/order/enable/disable |
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
@@ -1068,44 +1025,6 @@ Não é permitido alterar os dados do pedido.
 ```
 {
     "message": "O produto já existe!",
-    "data": "",
-    "status": 400,
-    "details": ""
-}
-```
-
-```
-{
-    "message": "Error ao efetuar ação!",
-    "data": "false",
-    "status": 400,
-    "details": ""
-}
-```
-</details>
-</details>
-
-### Item
-
-<details>
-<summary>Detalhes</summary>
-
-### Rotas
-
-|MÉTODO|          ROTA            |
-|------|--------------------------|
-| GET  | /api/item/list/{id}      |
-
-O cadastro do item, é feito ao regisrar pedido. Não pode modificar o item.
-
-### Resposta:
-
-<details>
-<summary>400 - Bad Request</summary>
-
-```
-{
-    "message": "O item não existe!",
     "data": "",
     "status": 400,
     "details": ""
