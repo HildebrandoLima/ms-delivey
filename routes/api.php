@@ -41,75 +41,74 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
         // Trandicional
         Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-        Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('jwt-authenticated');
         Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
         Route::post('/refresh-password/{token}', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
     });
 
     //  Endereço
     Route::prefix('address')->group(function () {
-        Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list');
-        Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit');
-        Route::post('/save', [AddressController::class, 'store'])->name('address.save');
-        Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable');
+        Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list')->middleware('jwt-authenticated');
+        Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit')->middleware('jwt-authenticated');
+        Route::post('/save', [AddressController::class, 'store'])->name('address.save')->middleware('jwt-authenticated');
+        Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Categoria
     Route::prefix('category')->group(function () {
         Route::get('/list', [CategoryController::class, 'index'])->name('category.list.all');
         Route::get('/list/find', [CategoryController::class, 'show'])->name('category.list.find');
-        Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
-        Route::post('/save', [CategoryController::class, 'store'])->name('category.save');
-        Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable');
+        Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit')->middleware('jwt-authenticated');
+        Route::post('/save', [CategoryController::class, 'store'])->name('category.save')->middleware('jwt-authenticated');
+        Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Pedido
     Route::prefix('order')->group(function () {
-        Route::get('/list', [OrderController::class, 'index'])->name('order.list.all');
-        Route::get('/list/find', [OrderController::class, 'show'])->name('order.list.find');
-        Route::put('/edit/{id}', [OrderController::class, 'update'])->name('order.edit');
-        Route::post('/save', [OrderController::class, 'store'])->name('order.save');
-        Route::put('/enable/disable', [OrderController::class, 'enableDisable'])->name('order.enable.disable');
+        Route::get('/list', [OrderController::class, 'index'])->name('order.list.all')->middleware('jwt-authenticated');
+        Route::get('/list/find', [OrderController::class, 'show'])->name('order.list.find')->middleware('jwt-authenticated');
+        Route::post('/save', [OrderController::class, 'store'])->name('order.save')->middleware('jwt-authenticated');
+        Route::put('/enable/disable', [OrderController::class, 'enableDisable'])->name('order.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Pagamento
     Route::prefix('payment')->group(function () {
-        Route::post('/save', [PaymentController::class, 'store'])->name('payment.save');
+        Route::post('/save', [PaymentController::class, 'store'])->name('payment.save')->middleware('jwt-authenticated');
     });
 
     //  Produto
     Route::prefix('product')->group(function () {
         Route::get('/list', [ProductController::class, 'index'])->name('product.list.all');
         Route::get('/list/find', [ProductController::class, 'show'])->name('product.list.find');
-        Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit');
-        Route::post('/save', [ProductController::class, 'store'])->name('product.save');
-        Route::put('/enable/disable', [ProductController::class, 'enableDisable'])->name('product.enable.disable');
+        Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit')->middleware('jwt-authenticated');
+        Route::post('/save', [ProductController::class, 'store'])->name('product.save')->middleware('jwt-authenticated');
+        Route::put('/enable/disable', [ProductController::class, 'enableDisable'])->name('product.enable.disable')->middleware('jwt-authenticated');
     });
 
     // Fornecedor
     Route::prefix('provider')->group(function () {
-        Route::get('/list', [ProviderController::class, 'index'])->name('provider.list.all');
-        Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find');
-        Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit');
-        Route::post('/save', [ProviderController::class, 'store'])->name('provider.save');
-        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.enable.disable');
+        Route::get('/list', [ProviderController::class, 'index'])->name('provider.list.all')->middleware('jwt-authenticated');
+        Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find')->middleware('jwt-authenticated');
+        Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit')->middleware('jwt-authenticated');
+        Route::post('/save', [ProviderController::class, 'store'])->name('provider.save')->middleware('jwt-authenticated');
+        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Telefone
     Route::prefix('telephone')->group(function () {
-        Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list');
-        Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit');
-        Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
-        Route::put('/enable/disable', [TelephoneController::class, 'enableDisable'])->name('telephone.enable.disable');
+        Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list')->middleware('jwt-authenticated');
+        Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit')->middleware('jwt-authenticated');
+        Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save')->middleware('jwt-authenticated');
+        Route::put('/enable/disable', [TelephoneController::class, 'enableDisable'])->name('telephone.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Usuario
     Route::prefix('user')->group(function () {
-        Route::get('/email-verified/save', [UserController::class, 'emailVerifiedAt'])->name('user.email.verified');        
-        Route::get('/list', [UserController::class, 'index'])->name('user.list.all');
-        Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find');
-        Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit');
+        Route::get('/email-verified/save', [UserController::class, 'emailVerifiedAt'])->name('user.email.verified');
+        Route::get('/list', [UserController::class, 'index'])->name('user.list.all')->middleware('jwt-authenticated');
+        Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find')->middleware('jwt-authenticated');
+        Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit')->middleware('jwt-authenticated');
         Route::post('/save', [UserController::class, 'store'])->name('user.save');
-        Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable');
+        Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable')->middleware('jwt-authenticated');
     });
 //});
