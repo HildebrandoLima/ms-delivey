@@ -196,6 +196,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /*
+        Application Service Providers/DependencyInjection...
+        */
+        App\Providers\DependencyInjection\Repositories\RepositoriesDependencyInjection::class,
+        App\Providers\DependencyInjection\Services\ServicesDependencyInjection::class,
+
     ],
 
     /*
