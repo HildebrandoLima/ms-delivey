@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,8 +16,8 @@ class User extends Authenticatable implements JWTSubject
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'provider_id',
-        'provider',
+        'login_social_id',
+        'login_social',
         'name',
         'cpf',
         'email',
@@ -47,8 +48,18 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function perfil(): HasOne
+    public function perfil(): HasMany
     {
-        return $this->hasOne(Perfil::class, 'id', 'perfil_id');
+        return $this->hasMany(Perfil::class, 'id', 'perfil_id');
+    }
+
+    public function endereco(): HasMany
+    {
+        return $this->hasMany(Endereco::class, 'usuario_id', 'id');
+    }
+
+    public function telefone(): HasMany
+    {
+        return $this->hasMany(Telefone::class, 'usuario_id', 'id');
     }
 }

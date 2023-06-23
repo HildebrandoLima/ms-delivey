@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\ProductRequest;
-use App\Services\Product\CreateProductService;
-use App\Services\Product\DeleteProductService;
-use App\Services\Product\EditProductSerice;
-use App\Services\Product\ListProductService;
+use App\Services\Product\Interfaces\CreateProductServiceInterface;
+use App\Services\Product\Interfaces\DeleteProductServiceInterface;
+use App\Services\Product\Interfaces\EditProductSericeInterface;
+use App\Services\Product\Interfaces\ListProductServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
@@ -17,17 +17,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-    private CreateProductService $createProductService;
-    private DeleteProductService $deleteProductService;
-    private EditProductSerice    $editProductSerice;
-    private ListProductService   $listProductService;
+    private CreateProductServiceInterface $createProductService;
+    private DeleteProductServiceInterface $deleteProductService;
+    private EditProductSericeInterface    $editProductSerice;
+    private ListProductServiceInterface   $listProductService;
 
     public function __construct
     (
-        CreateProductService $createProductService,
-        DeleteProductService $deleteProductService,
-        EditProductSerice    $editProductSerice,
-        ListProductService   $listProductService
+        CreateProductServiceInterface $createProductService,
+        DeleteProductServiceInterface $deleteProductService,
+        EditProductSericeInterface    $editProductSerice,
+        ListProductServiceInterface   $listProductService
     )
     {
         $this->createProductService = $createProductService;

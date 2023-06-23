@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
+            $class = get_class($model);
+
+            Log::info("Tentativa de carregamento lento [{$relation}] no modelo [{$class}].");
+        });
     }
 }
