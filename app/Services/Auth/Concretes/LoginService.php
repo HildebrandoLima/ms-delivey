@@ -25,7 +25,7 @@ class LoginService implements LoginServiceInterface
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->name,
             'userEmail' => auth()->user()->email,
-            'role' => auth()->user()->role,
+            'isAdmin' => auth()->user()->is_admin,
             'permissions' => '',
         ]);
     }

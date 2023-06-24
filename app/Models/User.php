@@ -24,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'data_nascimento',
         'genero',
         'ativo',
-        'role_id',
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -45,11 +45,6 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-
-    public function role(): HasMany
-    {
-        return $this->hasMany(Role::class, 'id', 'role_id');
     }
 
     public function endereco(): HasMany

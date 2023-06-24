@@ -16,8 +16,7 @@ class UserDto extends DefaultFields
     public string|null $data_nascimento;
     public string $genero;
     public bool $email_verificado;
-    public int $role_id;
-    public array $role;
+    public bool $is_admin;
     public array $enderecos;
     public array $telefones;
 
@@ -136,25 +135,14 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function getRoleId(): int
+    public function getIsAdmin(): bool
     {
-        return $this->role_id;
+        return $this->is_admin;
     }
 
-    public function setRoleId(int $role_id): UserDto
+    public function setIsAdmin(bool $is_admin): UserDto
     {
-        $this->role_id = $role_id;
-        return $this;
-    }
-
-    public function getRole(): array
-    {
-        return $this->role;
-    }
-
-    public function setRole(array $role): UserDto
-    {
-        $this->role = EntityPerson::funcao($role);
+        $this->is_admin = $is_admin;
         return $this;
     }
 
