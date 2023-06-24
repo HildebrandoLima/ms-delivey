@@ -18,7 +18,7 @@ class UserMapperDto
         ->setDataNascimento($user['data_nascimento'] ?? '')
         ->setGenero($user['genero'] ?? '')
         ->setEmailVerificado($user['email_verified_at'] ?? '')
-        ->setPerfil($user['perfil'] ?? [])
+        ->setRole($user['role'] ?? [])
         ->setEnderecos($user['endereco'] ?? [])
         ->setTelefones($user['telefone'] ?? [])
         ->setAtivo($user['ativo'] ?? 0)

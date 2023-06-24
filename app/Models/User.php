@@ -5,7 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -25,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'data_nascimento',
         'genero',
         'ativo',
-        'perfil_id',
+        'role_id',
     ];
 
     protected $hidden = [
@@ -48,9 +47,9 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function perfil(): HasMany
+    public function role(): HasMany
     {
-        return $this->hasMany(Perfil::class, 'id', 'perfil_id');
+        return $this->hasMany(Role::class, 'id', 'role_id');
     }
 
     public function endereco(): HasMany

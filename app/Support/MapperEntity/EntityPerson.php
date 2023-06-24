@@ -3,6 +3,7 @@
 namespace App\Support\MapperEntity;
 
 use App\DataTransferObjects\MappersDtos\AddressMapperDto;
+use App\DataTransferObjects\MappersDtos\RoleMapperDto;
 use App\DataTransferObjects\MappersDtos\TelephoneMapperDto;
 
 class EntityPerson
@@ -21,5 +22,13 @@ class EntityPerson
             $telefones[$key] = TelephoneMapperDto::mapper($instance);
         endforeach;
         return $telefones;
+    }
+
+    public static function funcao(array $role): array
+    {
+        foreach ($role as $key => $instance):
+            $role[$key] = RoleMapperDto::mapper($instance);
+        endforeach;
+        return $role;
     }
 }

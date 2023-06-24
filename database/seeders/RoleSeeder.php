@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Perfil;
-use App\Support\Utils\DefaultDatabaseStatic\Perfis;
+use App\Models\Role;
+use App\Support\Utils\DefaultDatabaseStatic\Roles;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PerfilSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +16,10 @@ class PerfilSeeder extends Seeder
      */
     public function run()
     {
-        $perfis = Perfis::PERFIL;
-        foreach ($perfis as $perfil):
-            Perfil::query()->insert([
-                'perfil' => $perfil['perfil']
+        $roles = Roles::ROLES;
+        foreach ($roles as $role):
+            Role::query()->create([
+                'description' => $role['description']
             ]);
         endforeach;
     }

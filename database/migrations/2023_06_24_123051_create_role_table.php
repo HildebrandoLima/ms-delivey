@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perfil', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('perfil', 50)->unique()->notnull();
+            $table->string('description', 100)->unique()->notnull();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfil');
+        Schema::dropIfExists('roles');
     }
 };

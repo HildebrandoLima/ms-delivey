@@ -52,6 +52,6 @@ class UserRepository implements UserRepositoryInterface
 
     private function mapToQuery(): Builder
     {
-        return User::with('perfil')->with('endereco')->with('telefone');
+        return User::with('role')->with('endereco')->with('telefone');
     }
 }

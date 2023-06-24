@@ -16,8 +16,8 @@ class UserDto extends DefaultFields
     public string|null $data_nascimento;
     public string $genero;
     public bool $email_verificado;
-    public int $perfil_id;
-    public array $perfil;
+    public int $role_id;
+    public array $role;
     public array $enderecos;
     public array $telefones;
 
@@ -136,25 +136,25 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function getPerfilId(): int
+    public function getRoleId(): int
     {
-        return $this->perfil_id;
+        return $this->role_id;
     }
 
-    public function setPerfilId(int $perfil_id): UserDto
+    public function setRoleId(int $role_id): UserDto
     {
-        $this->perfil_id = $perfil_id;
+        $this->role_id = $role_id;
         return $this;
     }
 
-    public function getPerfil(): array
+    public function getRole(): array
     {
-        return $this->perfil;
+        return $this->role;
     }
 
-    public function setPerfil(array $perfil): UserDto
+    public function setRole(array $role): UserDto
     {
-        $this->perfil = $perfil;
+        $this->role = EntityPerson::funcao($role);
         return $this;
     }
 

@@ -21,7 +21,7 @@ class UserRequestDto
         $userDto->setSenha(Hash::make($user['senha']) ?? null);
         $userDto->setDataNascimento($user['dataNascimento'] ?? null);
         $userDto->setGenero($gender->genderCase($user['genero']));
-        $userDto->setPerfilId($user['perfilId']);
+        $userDto->setRoleId($user['perfilId']);
         $userDto->setAtivo($user['ativo'] == 1 ? UserEnum::ATIVADO : UserEnum::DESATIVADO);
         return $userDto;
     }
