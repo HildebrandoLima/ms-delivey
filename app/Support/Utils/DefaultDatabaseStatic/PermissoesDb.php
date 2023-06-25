@@ -2,7 +2,7 @@
 
 namespace App\Support\Utils\DefaultDatabaseStatic;
 
-class Permissoes
+class PermissoesDb
 {
     public const PEMISSOES = [
         [

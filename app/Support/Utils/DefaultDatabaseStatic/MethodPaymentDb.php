@@ -2,9 +2,9 @@
 
 namespace App\Support\Utils\DefaultDatabaseStatic;
 
-class FormaPagamento
+class MethodPaymentDb
 {
-    public const METODO_PAGAMENTO = [
+    public const METHOD_PAYMENT = [
         [
             'pagamento' => 'Boleto Bancário'
         ],

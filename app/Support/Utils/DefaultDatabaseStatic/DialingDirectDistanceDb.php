@@ -2,9 +2,9 @@
 
 namespace App\Support\Utils\DefaultDatabaseStatic;
 
-class DiscagemDiretaDistancia
+class DialingDirectDistanceDb
 {
-    public const DISCAGEM_DIRETA_DISTANCIA = [
+    public const DIALING_DIRECT_DISTANCE = [
         [
             'ddd' => '061',
             'descricao' => 'Distrito Federal',

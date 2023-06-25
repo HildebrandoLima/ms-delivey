@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
-use App\Support\Utils\DefaultDatabaseStatic\Permissoes;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Support\Utils\DefaultDatabaseStatic\PermissoesDb;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -16,10 +15,10 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = Permissoes::PEMISSOES;
-        foreach ($permissions as $permission):
+        $permissionsDb = PermissoesDb::PEMISSOES;
+        foreach ($permissionsDb as $instance):
             Permission::query()->insert([
-                'description' => $permission['description']
+                'description' => $instance['description']
             ]);
         endforeach;
     }
