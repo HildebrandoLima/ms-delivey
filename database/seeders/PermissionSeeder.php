@@ -18,7 +18,7 @@ class PermissionSeeder extends Seeder
     {
         $permissions = Permissoes::PEMISSOES;
         foreach ($permissions as $permission):
-            Permission::query()->create([
+            Permission::query()->insert([
                 'description' => $permission['description']
             ]);
         endforeach;

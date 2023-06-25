@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('description', 100)->unique()->notnull();
-            $table->timestamps();
         });
     }
 

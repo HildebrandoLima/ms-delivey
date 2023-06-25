@@ -56,4 +56,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Telefone::class, 'usuario_id', 'id');
     }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permission_user');
+    }
 }
