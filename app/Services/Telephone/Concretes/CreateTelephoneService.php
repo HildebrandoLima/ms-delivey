@@ -7,8 +7,10 @@ use App\Http\Requests\TelephoneRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class CreateTelephoneService implements CreateTelephoneServiceInterface
+class CreateTelephoneService extends ValidationPermission implements CreateTelephoneServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private TelephoneRepositoryInterface   $telephoneRepository;
@@ -25,6 +27,7 @@ class CreateTelephoneService implements CreateTelephoneServiceInterface
 
     public function createTelephone(TelephoneRequest $request): int
     {
+        $this->validationPermission(PermissionEnum::CRIAR_TELEFONE);
         foreach ($request->telefones as $telefone):
             $this->checkEntityRepository->checkTelephoneExist($telefone['numero']);
             $telephone = TelephoneRequestDto::fromRquest($telefone);

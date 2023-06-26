@@ -6,8 +6,10 @@ use App\DataTransferObjects\RequestsDtos\PaymentRequestDto;
 use App\Http\Requests\PaymentRequest;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class CreatePaymentService implements CreatePaymentServiceInterface
+class CreatePaymentService extends ValidationPermission implements CreatePaymentServiceInterface
 {
     private PaymentRepositoryInterface $paymentRepository;
 
@@ -18,6 +20,7 @@ class CreatePaymentService implements CreatePaymentServiceInterface
 
     public function createPayment(PaymentRequest $request): bool
     {
+        $this->validationPermission(PermissionEnum::CRIAR_PAGAMENTO);
         $payment = PaymentRequestDto::fromRquest($request);
         return $this->paymentRepository->create($payment);
     }

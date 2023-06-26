@@ -7,8 +7,10 @@ use App\Http\Requests\CategoryRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class CreateCategoryService implements CreateCategoryServiceInterface
+class CreateCategoryService extends ValidationPermission implements CreateCategoryServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private CategoryRepositoryInterface    $categoryRepository;
@@ -25,6 +27,7 @@ class CreateCategoryService implements CreateCategoryServiceInterface
 
     public function createCategory(CategoryRequest $request): int
     {
+        $this->validationPermission(PermissionEnum::CRIAR_CATEGORIA);
         $this->checkEntityRepository->checkCategoryExist($request);
         $category = CategoryRequestDto::fromRquest($request);
         return $this->categoryRepository->create($category);

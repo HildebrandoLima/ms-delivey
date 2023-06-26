@@ -9,8 +9,10 @@ use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class DeleteProviderService implements DeleteProviderServiceInterface
+class DeleteProviderService extends ValidationPermission implements DeleteProviderServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private AddressRepository              $addressRepository;
@@ -39,6 +41,7 @@ class DeleteProviderService implements DeleteProviderServiceInterface
 
     public function deleteProvider(int $id, int $active): bool
     {
+        $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_FORNECEDOR);
         $this->checkEntityRepository->checkProviderIdExist($id);
         $this->checkEntityRepository->checkAddressIdExist($id);
         $this->checkEntityRepository->checkTelephoneIdExist($id);

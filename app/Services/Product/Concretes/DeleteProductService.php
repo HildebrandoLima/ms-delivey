@@ -6,8 +6,10 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\DeleteProductServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class DeleteProductService implements DeleteProductServiceInterface
+class DeleteProductService extends ValidationPermission implements DeleteProductServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ImageRepositoryInterface       $imageRepository;
@@ -27,6 +29,7 @@ class DeleteProductService implements DeleteProductServiceInterface
 
     public function deleteProduct(int $id, int $active): bool
     {
+        $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_PRODUTO);
         $this->checkEntityRepository->checkProductIdExist($id);
         if
         (
