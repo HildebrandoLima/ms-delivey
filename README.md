@@ -659,7 +659,7 @@ ou
 </details>
 
 <details>
-<summary>400 - Bad Request/summary>
+<summary>400 - Bad Request</summary>
 
 ```
 {
@@ -1127,6 +1127,20 @@ Não é permitido alterar os dados do pedido.
 }
 ```
 </details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
+</details>
 </details>
 
 ### Pagamento
@@ -1182,5 +1196,19 @@ Com dinheiro ou PIX
     "details": ""
 }
 ```
+</details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
 </details>
 </details>
