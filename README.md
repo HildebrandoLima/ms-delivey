@@ -1186,6 +1186,20 @@ Com dinheiro ou PIX
 ### Resposta:
 
 <details>
+<summary>200 - OK</summary>
+
+```
+{
+    "message": "Cadastro efetuado com sucesso!",
+    "data": true,
+    "status": 200,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
 <summary>400 - Bad Request</summary>
 
 ```
