@@ -25,6 +25,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
     <li>Autenticação (login, logout e esqueci minha senha)</li>
     <li>Autenticação Solialite (GitHub, Google e Facebook)</li>
+    <li>Permissões</li>
 </ul>
 
 ### Funcionalidades (A desenvolver)
@@ -87,7 +88,7 @@ Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método 
 ```
 
 ```
-    php artisan db:seed --class=PerfilSeeder
+    php artisan db:seed --class=PermissionSeeder
 ```
 
 ```
@@ -194,7 +195,8 @@ Atenção: A senha é validada como padrão de forte.
         "userId": id,
         "userName": name,
         "userEmail": email,
-        "perfilName": perfil
+        "isAdmin": true or false
+        "permissions": []
     },
     "status": 200,
     "details": ""
@@ -332,7 +334,8 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
         "userId": id,
         "userName": name,
         "userEmail": email,
-        "perfil": perfil
+        "isAdmin": true or false,
+        "permissions" []
     },
     "status": 200,
     "details": ""
@@ -464,6 +467,20 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "message": "Error ao efetuar ação!",
     "data": "false",
     "status": 400,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
     "details": ""
 }
 ```
