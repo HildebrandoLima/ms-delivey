@@ -571,6 +571,20 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 ```
 
 </details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
+</details>
 </details>
 
 ### Endereço
@@ -661,6 +675,20 @@ ou
     "message": "Error ao efetuar ação!",
     "data": "false",
     "status": 400,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
     "details": ""
 }
 ```
@@ -777,6 +805,20 @@ ou
 ```
 
 </details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
+</details>
 </details>
 
 ### Categoria
@@ -851,6 +893,20 @@ ou
     "details": ""
 }
 ```
+</details>
+<details>
+
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
 </details>
 </details>
 
@@ -959,6 +1015,20 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "details": ""
 }
 ```
+</details>
+
+<details>
+<summary>403 - Forbidden</summary>
+
+```
+{
+    "message": "Você não possue permissão!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
 </details>
 </details>
 
