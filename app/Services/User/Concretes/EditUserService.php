@@ -7,8 +7,10 @@ use App\Http\Requests\UserRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class EditUserService implements EditUserServiceInterface
+class EditUserService extends ValidationPermission implements EditUserServiceInterface
 {    
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private UserRepositoryInterface        $userRepository;
@@ -25,6 +27,7 @@ class EditUserService implements EditUserServiceInterface
 
     public function editUser(int $id, UserRequest $request): bool
     {
+        $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
         $this->checkExist($id);
         $user = UserRequestDto::fromRquest($request->toArray());
         $this->userRepository->update($id, $user);

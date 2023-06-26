@@ -26,7 +26,7 @@ class LoginService implements LoginServiceInterface
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->name,
             'userEmail' => auth()->user()->email,
-            'isAdmin' => auth()->user()->is_admin == 1 ? UserEnum::IS_ADMIN : UserEnum::NOT_IS_ADMIN,
+            'isAdmin' => auth()->user()->is_admin == 1 ? UserEnum::E_ADMIN : UserEnum::NAO_E_ADMIN,
             'permissions' => auth()->user()->permissions,
         ]);
     }
