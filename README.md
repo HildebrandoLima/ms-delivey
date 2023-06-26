@@ -30,7 +30,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 
 ### Funcionalidades (A desenvolver)
 <ul>
-    <li>Integração com os correios</li>
+    <li>Integração com os Correios</li>
     <li>Job (Atualização de Estoque)</li>
     <li>CRUD Caixa (Fluxo, Abertura e Fechamento)</li>
     <li>CRUD Promoção</li>
