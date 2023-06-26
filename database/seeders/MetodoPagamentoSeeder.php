@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\MetodoPagamento;
-use App\Support\Utils\DefaultDatabaseStatic\FormaPagamento;
+use App\Support\Utils\DefaultDatabaseStatic\MethodPaymentDb;
 use Illuminate\Database\Seeder;
 
 class MetodoPagamentoSeeder extends Seeder
@@ -15,10 +15,10 @@ class MetodoPagamentoSeeder extends Seeder
      */
     public function run()
     {
-        $metodoPagamento = FormaPagamento::METODO_PAGAMENTO;
-        foreach ($metodoPagamento as $value):
+        $methodPaymentDb = MethodPaymentDb::METHOD_PAYMENT;
+        foreach ($methodPaymentDb as $instance):
             MetodoPagamento::query()->insert([
-                'pagamento' => $value['pagamento']
+                'pagamento' => $instance['pagamento']
             ]);
         endforeach;
     }

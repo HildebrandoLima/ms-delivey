@@ -7,8 +7,10 @@ use App\Http\Requests\ProviderRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class EditProviderService implements EditProviderServiceInterface
+class EditProviderService extends ValidationPermission implements EditProviderServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProviderRepositoryInterface    $providerRepository;
@@ -25,6 +27,7 @@ class EditProviderService implements EditProviderServiceInterface
 
     public function editProvider(int $id, ProviderRequest $request): bool
     {
+        $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
         $this->checkEntityRepository->checkProviderIdExist($id);
         $provider = ProviderRequestDto::fromRquest($request);
         return $this->providerRepository->update($id, $provider);

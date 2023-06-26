@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perfil', function (Blueprint $table) {
+        Schema::create('permission_user', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('perfil', 50)->unique()->notnull();
+            $table->foreignId('user_id')->constrained('users')->notnull();
+            $table->foreignId('permission_id')->constrained('permissions')->notnull();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfil');
+        Schema::dropIfExists('user_permission');
     }
 };

@@ -14,7 +14,7 @@ class UserRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'perfilId' => 'required|int|exists:perfil,id',
+            'perfil' => 'required|int|exists:perfil,id',
             'nome' => 'required|string',
             'cpf' => 'required|string|cpf',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',

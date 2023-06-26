@@ -7,8 +7,10 @@ use App\Http\Requests\CategoryRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class EditCategoryService implements EditCategoryServiceInterface
+class EditCategoryService extends ValidationPermission implements EditCategoryServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private CategoryRepositoryInterface    $categoryRepository;
@@ -25,6 +27,7 @@ class EditCategoryService implements EditCategoryServiceInterface
 
     public function editCategory(int $id, CategoryRequest $request): bool
     {
+        $this->validationPermission(PermissionEnum::EDITAR_CATEGORIA);
         $this->checkEntityRepository->checkCategoryIdExist($id);
         $category = CategoryRequestDto::fromRquest($request);
         return $this->categoryRepository->update($id, $category);

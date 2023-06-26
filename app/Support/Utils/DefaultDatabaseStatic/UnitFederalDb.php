@@ -2,9 +2,9 @@
 
 namespace App\Support\Utils\DefaultDatabaseStatic;
 
-class UnidadesFederativas
+class UnitFederalDb
 {
-    public const UNIDADES_FEDERATIVAS = [
+    public const UNIT_FEDERAL = [
         [
             'uf' => 'AC',
             'descricao' => 'Acre'

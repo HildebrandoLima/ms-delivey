@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Exception;
 
 class AuthenticatedGwMiddleware extends BaseMiddleware
 {
@@ -21,24 +24,24 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
     {
         try {
             JWTAuth::parseToken()->authenticate();
-        } catch(\Exception $e) {
-            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+        } catch(Exception $e) {
+            if ($e instanceof TokenInvalidException) {
                 return response()->json([
-                    "message" => "Token inválido.",
+                    "message" => "Token inválido!",
                     "data" => false,
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
                 ]);
-            } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+            } elseif ($e instanceof TokenExpiredException) {
                 return response()->json([
-                    "message" => "Token expirou.",
+                    "message" => "Token expirou!",
                     "data" => false,
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
                 ]);
             } else {
                 return response()->json([
-                    "message" => "Token de autorização não encontrado.",
+                    "message" => "Token de autorização não encontrado!",
                     "data" => false,
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""

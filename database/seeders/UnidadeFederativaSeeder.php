@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\UnidadeFederativa;
-use App\Support\Utils\DefaultDatabaseStatic\UnidadesFederativas;
+use App\Support\Utils\DefaultDatabaseStatic\UnitFederalDb;
 use Illuminate\Database\Seeder;
 
 class UnidadeFederativaSeeder extends Seeder
@@ -15,11 +15,11 @@ class UnidadeFederativaSeeder extends Seeder
      */
     public function run()
     {
-        $ufs = UnidadesFederativas::UNIDADES_FEDERATIVAS;
-        foreach ($ufs as $uf):
+        $unitFederalDb = UnitFederalDb::UNIT_FEDERAL;
+        foreach ($unitFederalDb as $instance):
             UnidadeFederativa::query()->insert([
-                'uf' => $uf['uf'],
-                'descricao' => $uf['descricao']
+                'uf' => $instance['uf'],
+                'descricao' => $instance['descricao']
             ]);
         endforeach;
     }

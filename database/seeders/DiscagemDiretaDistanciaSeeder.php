@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\DDD;
-use App\Support\Utils\DefaultDatabaseStatic\DiscagemDiretaDistancia;
+use App\Support\Utils\DefaultDatabaseStatic\DialingDirectDistanceDb;
 use Illuminate\Database\Seeder;
 
 class DiscagemDiretaDistanciaSeeder extends Seeder
@@ -15,12 +15,12 @@ class DiscagemDiretaDistanciaSeeder extends Seeder
      */
     public function run()
     {
-        $ddds = DiscagemDiretaDistancia::DISCAGEM_DIRETA_DISTANCIA;
-        foreach ($ddds as $ddd):
+        $dialingDirectDistanceDb = DialingDirectDistanceDb::DIALING_DIRECT_DISTANCE;
+        foreach ($dialingDirectDistanceDb as $instance):
             DDD::query()->insert([
-                'ddd' => $ddd['ddd'],
-                'descricao' => $ddd['descricao'],
-                'regiao' => $ddd['regiao']
+                'ddd' => $instance['ddd'],
+                'descricao' => $instance['descricao'],
+                'regiao' => $instance['regiao']
             ]);
         endforeach;
     }

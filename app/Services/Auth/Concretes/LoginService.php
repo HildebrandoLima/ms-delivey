@@ -5,6 +5,7 @@ namespace App\Services\Auth\Concretes;
 use App\Http\Requests\LoginRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Auth\Interfaces\LoginServiceInterface;
+use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Support\Collection;
 
 class LoginService implements LoginServiceInterface
@@ -25,7 +26,8 @@ class LoginService implements LoginServiceInterface
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->name,
             'userEmail' => auth()->user()->email,
-            'perfil' => auth()->user()->perfil,
+            'isAdmin' => auth()->user()->is_admin == 1 ? UserEnum::E_ADMIN : UserEnum::NAO_E_ADMIN,
+            'permissions' => auth()->user()->permissions,
         ]);
     }
 

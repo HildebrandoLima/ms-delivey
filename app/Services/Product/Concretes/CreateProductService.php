@@ -10,8 +10,10 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class CreateProductService implements CreateProductServiceInterface
+class CreateProductService extends ValidationPermission implements CreateProductServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProductRepositoryInterface     $productRepository;
@@ -31,6 +33,7 @@ class CreateProductService implements CreateProductServiceInterface
 
     public function createProduct(ProductRequest $request): bool
     {
+        $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
         $this->checkEntityRepository->checkProductExist($request);
         $this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
         $product = ProductRequestDto::fromRquest($request);

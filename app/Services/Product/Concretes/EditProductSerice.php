@@ -7,8 +7,10 @@ use App\Http\Requests\ProductRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\EditProductSericeInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class EditProductSerice implements EditProductSericeInterface
+class EditProductSerice extends ValidationPermission implements EditProductSericeInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProductRepositoryInterface     $productRepository;
@@ -25,6 +27,7 @@ class EditProductSerice implements EditProductSericeInterface
 
     public function editProduct(int $id, ProductRequest $request): bool
     {
+        $this->validationPermission(PermissionEnum::EDITAR_PRODUTO);
         $this->checkEntityRepository->checkProviderIdExist($id);
         $product = ProductRequestDto::fromRquest($request);
         return $this->productRepository->update($id, $product);

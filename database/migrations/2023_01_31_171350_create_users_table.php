@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
             $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->rememberToken();
-            $table->foreignId('perfil_id')->nullable()->default(NULL)->constrained('perfil');
+            $table->boolean('is_admin');
             $table->boolean('ativo');
             $table->timestamps();
         });

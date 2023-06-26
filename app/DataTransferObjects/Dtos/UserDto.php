@@ -16,8 +16,7 @@ class UserDto extends DefaultFields
     public string|null $data_nascimento;
     public string $genero;
     public bool $email_verificado;
-    public int $perfil_id;
-    public array $perfil;
+    public bool $is_admin;
     public array $enderecos;
     public array $telefones;
 
@@ -136,25 +135,14 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function getPerfilId(): int
+    public function getIsAdmin(): bool
     {
-        return $this->perfil_id;
+        return $this->is_admin;
     }
 
-    public function setPerfilId(int $perfil_id): UserDto
+    public function setIsAdmin(bool $is_admin): UserDto
     {
-        $this->perfil_id = $perfil_id;
-        return $this;
-    }
-
-    public function getPerfil(): array
-    {
-        return $this->perfil;
-    }
-
-    public function setPerfil(array $perfil): UserDto
-    {
-        $this->perfil = $perfil;
+        $this->is_admin = $is_admin;
         return $this;
     }
 

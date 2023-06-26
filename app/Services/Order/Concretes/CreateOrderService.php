@@ -9,8 +9,10 @@ use App\Jobs\EmailCreateOrderJob;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
+use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\PermissionEnum;
 
-class CreateOrderService implements CreateOrderServiceInterface
+class CreateOrderService extends ValidationPermission implements CreateOrderServiceInterface
 {
     private OrderRepositoryInterface $orderRepository;
     private ItemRepositoryInterface  $itemRepository;
@@ -27,6 +29,7 @@ class CreateOrderService implements CreateOrderServiceInterface
 
     public function createOrder(OrderRequest $request): int
     {
+        $this->validationPermission(PermissionEnum::CRIAR_PEDIDO);
         $order = OrderRequestDto::fromRquest($request);
         $createOrder = $this->orderRepository->create($order);
         $createItem = $this->createItems($request, $createOrder->id);
