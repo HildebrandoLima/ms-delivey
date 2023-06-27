@@ -40,10 +40,10 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 </ul>
 
 ## UML
-### Cliente<br/>
+### Visão Cliente<br/>
 ![Captura de tela de 2023-02-28 14-02-40](https://user-images.githubusercontent.com/47666194/221933419-f1fb4bc2-b8b1-46a7-8db1-0da1f82936d4.png)
 
-### Admin<br />
+### Visão Admin<br />
 ![Captura de tela de 2023-02-28 14-02-56](https://user-images.githubusercontent.com/47666194/221933281-3549c4e1-ec86-4491-9f14-413ecf334c27.png)
 
 ### Modelagem de Dados
