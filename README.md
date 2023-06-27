@@ -67,7 +67,7 @@ Admin<br />
 
 ### Executar o projeto:
 <ul>
-    <li>Clone o projeto: git clone git@github.com:HildebrandoLima/ms-delivey.git</li>
+    <li>Clone o projeto: git clone https://github.com/HildebrandoLima/ms-delivey.git</li>
     <li>Adicione o arquivo .env</li>
     <li>Execute os comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
     <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
@@ -147,10 +147,43 @@ Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomn
 <details>
 <summary>Detalhes</summary>
 Clone o projeto
+
 ```
-git clone git@github.com:HildebrandoLima/ms-delivey.git
+git clone https://github.com/HildebrandoLima/ms-delivey.git
 ```
 
+Crie o Arquivo .env
+
+```
+git clone https://github.com/HildebrandoLima/ms-delivey.git
+```
+
+> No seu .env adicione da seguinte forma:<br />
+
+> DB_CONNECTION=mysql<br />
+> DB_HOST=db<br />
+> DB_PORT=3306<br />
+> DB_DATABASE=laravel<br />
+> DB_USERNAME=root<br />
+> DB_PASSWORD=root<br />
+
+> MAIL_MAILER=smtp<br />
+> MAIL_HOST=seu_host<br />
+> MAIL_PORT=2525<br />
+> MAIL_USERNAME=seu_usuario<br />
+> MAIL_PASSWORD=sua_senha<br />
+> MAIL_ENCRYPTION=tls<br />
+> MAIL_FROM_ADDRESS="hello@example.com"<br />
+> MAIL_FROM_NAME="${APP_NAME}"<br />
+
+<ul>
+<li>Execute o comando: docker-compose up -d</li>
+<li>Entre no container: docker-compose exec app bash</li>
+<li>Instale as dependências do projeto: composer install</li>
+<li>Gere a chave do projeto: php artisan key:generate</li>
+<li>Depois execute o comando: php artisan optimize:clear</li>
+<li>Acesse o link: (http://localhost:8080)</li>
+</ul>
 </details>
 
 
