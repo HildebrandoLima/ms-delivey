@@ -39,15 +39,17 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>CRUD Faturamento</li>
 </ul>
 
-### UML
-Cliente<br/>
+## UML
+### Cliente<br/>
 ![Captura de tela de 2023-02-28 14-02-40](https://user-images.githubusercontent.com/47666194/221933419-f1fb4bc2-b8b1-46a7-8db1-0da1f82936d4.png)
 
-Admin<br />
+### Admin<br />
 ![Captura de tela de 2023-02-28 14-02-56](https://user-images.githubusercontent.com/47666194/221933281-3549c4e1-ec86-4491-9f14-413ecf334c27.png)
 
 ### Modelagem de Dados
 ![Modelagem de Dados ms-delivery](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/7a3913e8-ea33-4d94-9fb1-f1f6cf08c7da)
+
+
 
 ## Faça Você Mesmo
 
@@ -141,11 +143,11 @@ Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomn
 
 
 
-
 ## Usando Docker
 
 <details>
 <summary>Detalhes</summary>
+
 Clone o projeto
 
 ```
@@ -153,10 +155,6 @@ git clone https://github.com/HildebrandoLima/ms-delivey.git
 ```
 
 Crie o Arquivo .env
-
-```
-git clone https://github.com/HildebrandoLima/ms-delivey.git
-```
 
 > No seu .env adicione da seguinte forma:<br />
 
@@ -168,32 +166,57 @@ git clone https://github.com/HildebrandoLima/ms-delivey.git
 > DB_PASSWORD=root<br />
 
 > MAIL_MAILER=smtp<br />
-> MAIL_HOST=seu_host<br />
-> MAIL_PORT=2525<br />
-> MAIL_USERNAME=seu_usuario<br />
-> MAIL_PASSWORD=sua_senha<br />
-> MAIL_ENCRYPTION=tls<br />
+> MAIL_HOST=localhost<br />
+> MAIL_PORT=1025<br />
+> MAIL_USERNAME=null<br />
+> MAIL_PASSWORD=null<br />
+> MAIL_ENCRYPTION=null<br />
 > MAIL_FROM_ADDRESS="hello@example.com"<br />
 > MAIL_FROM_NAME="${APP_NAME}"<br />
 
 <ul>
 <li>Execute o comando: docker-compose up -d</li>
-<li>Entre no container: docker-compose exec app bash</li>
+<li>Entre no container app: docker-compose exec app bash</li>
 <li>Instale as dependências do projeto: composer install</li>
 <li>Gere a chave do projeto: php artisan key:generate</li>
 <li>Depois execute o comando: php artisan optimize:clear</li>
 <li>Acesse o link: (http://localhost:8080)</li>
 </ul>
+
+Dentro de seu container app, execute o comando para criar as tabelas:
+
+```
+    php artisan migrate
+```
+
+Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método de pagamento, perfil e uf. Então, ainda dentro se seu container app, execute os seguintes comandos para preenchê-las:
+
+```
+    php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
+```
+
+```
+    php artisan db:seed --class=MetodoPagamentoSeeder
+```
+
+```
+    php artisan db:seed --class=PermissionSeeder
+```
+
+```
+    php artisan db:seed --class=UnidadeFederativaSeeder
+```
+
+Para saber se tudo deu certo:
+Seus containers estarão assim:
+
+![Captura de tela de 2023-06-27 09-58-07](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/6d90cbb0-95d0-4ec9-956a-7c3e0f73f350)
+
+Seu servidor de email:
+
+![Captura de tela de 2023-06-27 10-17-09](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/edcb6c8e-d815-4d57-b19b-cfeff236253d)
+
 </details>
-
-
-
-
-
-
-
-
-
 
 
 
