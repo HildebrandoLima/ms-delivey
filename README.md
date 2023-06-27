@@ -207,8 +207,7 @@ Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método 
     php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
-Para saber se tudo deu certo:
-Seus containers estarão assim:
+Para saber se tudo deu certo. Seus containers estarão assim:
 
 ![Captura de tela de 2023-06-27 09-58-07](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/6d90cbb0-95d0-4ec9-956a-7c3e0f73f350)
 
@@ -226,6 +225,7 @@ Seu servidor de email:
     <li>Todos os parâmetros 'id' são enviados em base64. O back-end se responsabiliza em decodificar.</li>
     <li>Nos body de endereço e telefone, é preciso identificar quem se referência os mesmos. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
     <li>Os registros não são deletados, e sim ativados e desativados, sempre que necessário.</li>
+    <li>Perfil 1 (Admin) e 2 (Cliente)</li>
 </ul>
 
 ### Login
@@ -488,6 +488,7 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 ### Body: POST/PUT
 ```
 {
+    "perfil": 1
     "nome": "Hill",
     "cpf": "572.561.700-92",
     "email": "test@gmail.com",
@@ -512,7 +513,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
 }
@@ -522,15 +523,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 {
     "message": "Edição efetuada com sucesso!",
     "data": "true",
-    "status": 200,
-    "details": ""
-}
-```
-
-```
-{
-    "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
     "status": 200,
     "details": ""
 }
@@ -620,7 +612,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
 }
@@ -701,7 +693,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "cidade": "Fortaleza",
     "cep": 1234-567,
     "ufId": 1,
-    "usuarioId": 22,
+    "usuarioId": 24,
     "ativo": 1
 }
 ```
@@ -716,7 +708,7 @@ ou
     "cidade": "Fortaleza",
     "cep": 1234-567,
     "ufId": 1,
-    "fornecedorId": 23,
+    "fornecedorId": 33,
     "ativo": 1
 }
 ```
@@ -832,14 +824,14 @@ ou
             "numero": "99506-9315",
             "tipo": "Celular",
             "dddId": 1,
-            "fornecedorId": 2,
+            "fornecedorId": 3,
             "ativo": 1
         },
         {
             "numero": "98045-8709",
             "tipo": "Fixo",
             "dddId": 1,
-            "fornecedorId": 2,
+            "fornecedorId": 3,
             "ativo": 1
         }
     ]
@@ -1066,7 +1058,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": "true",
+    "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
 }
@@ -1186,7 +1178,7 @@ Não é permitido alterar os dados do pedido.
 ```
 {
     "message": "Cadastro efetuado com sucesso!",
-    "data": codigo_do_ultimo_cadastro,
+    "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
 }
