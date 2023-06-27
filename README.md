@@ -39,6 +39,36 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>CRUD Faturamento</li>
 </ul>
 
+
+
+
+
+
+
+
+##Faça Você Mesmo
+
+<details>
+<summary>Detalhes</summary>
+aa
+</details>
+
+
+
+
+###Usando Docker
+
+<details>
+<summary>Detalhes</summary>
+aa
+</details>details>
+
+
+
+
+
+
+
 ### Requesitos necessários para executar o projeto:
 <ul>
     <li>Instalar o PHP versão 8.0</li>
@@ -52,7 +82,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 
 ### Executar o projeto:
 <ul>
-    <li>Clone o projeto: ``` git clone git@github.com:HildebrandoLima/ms-delivey.git ```</li>
+    <li>Clone o projeto: git clone git@github.com:HildebrandoLima/ms-delivey.git</li>
     <li>Adicione o arquivo .env</li>
     <li>Execute os comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
     <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
