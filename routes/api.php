@@ -48,9 +48,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     //  Endereço
     Route::prefix('address')->group(function () {
-        Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list')->middleware('jwt-authenticated');
+        Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list');
         Route::put('/edit/{id}', [AddressController::class, 'update'])->name('address.edit')->middleware('jwt-authenticated');
-        Route::post('/save', [AddressController::class, 'store'])->name('address.save')->middleware('jwt-authenticated');
+        Route::post('/save', [AddressController::class, 'store'])->name('address.save');
         Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable')->middleware('jwt-authenticated');
     });
 

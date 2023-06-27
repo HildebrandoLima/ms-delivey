@@ -14,7 +14,7 @@ class UserRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'perfil' => 'required|int|exists:perfil,id',
+            'perfil' => 'required|int',
             'nome' => 'required|string',
             'cpf' => 'required|string|cpf',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
@@ -28,10 +28,7 @@ class UserRequest extends BaseRequest
     public function messages()
     {
         return [
-            'perfilId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'perfilId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'perfilId.exists' => DefaultErrorMessages::NOT_FOUND,
-
+            'perfil.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cpf.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -40,6 +37,7 @@ class UserRequest extends BaseRequest
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
+            'perfil.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
