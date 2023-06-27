@@ -39,8 +39,6 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>CRUD Faturamento</li>
 </ul>
 
-
-
 ### UML
 Cliente<br/>
 ![Captura de tela de 2023-02-28 14-02-40](https://user-images.githubusercontent.com/47666194/221933419-f1fb4bc2-b8b1-46a7-8db1-0da1f82936d4.png)
@@ -51,14 +49,11 @@ Admin<br />
 ### Modelagem de Dados
 ![Modelagem de Dados ms-delivery](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/7a3913e8-ea33-4d94-9fb1-f1f6cf08c7da)
 
-
-
-
-
 ## Faça Você Mesmo
 
 <details>
 <summary>Detalhes</summary>
+
 ### Requesitos necessários para executar o projeto:
 <ul>
     <li>Instalar o PHP versão 8.0</li>
@@ -141,9 +136,7 @@ Certifique-se que as tabelas foram criadas. Abrindo o cliente SQL que você esco
 
 ### Para iniciar o servidor:
 `php artisan serve`
-Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomnia.
-
-
+Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomnia
 </details>
 
 
