@@ -146,8 +146,12 @@ Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomn
 
 <details>
 <summary>Detalhes</summary>
-aa
-</details>details>
+Clone o projeto
+```
+git clone git@github.com:HildebrandoLima/ms-delivey.git
+```
+
+</details>
 
 
 
