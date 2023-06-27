@@ -14,7 +14,7 @@ class UserRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'perfil' => 'required|int',
+            'perfil' => 'required|boolean',
             'nome' => 'required|string',
             'cpf' => 'required|string|cpf',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
@@ -37,7 +37,7 @@ class UserRequest extends BaseRequest
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'perfil.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'perfil.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

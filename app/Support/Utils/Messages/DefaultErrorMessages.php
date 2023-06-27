@@ -12,6 +12,7 @@ class DefaultErrorMessages
     public const FIELD_MUST_BE_STRINGER = "Esse campo deve ser do tipo string.";
     public const FIELD_MUST_BE_DECIMAL = "Esse campo deve ser do tipo float.";
     public const FIELD_MUST_BE_ARRAY = "Esse campo deve ser do tipo array.";
+    public const FIELD_MUST_BE_BOOLEAN = "Esse campo deve ser do tipo boleano.";
     public const REQUIRED_FIELD = "Campo obrigatório.";
     public const NOT_EMPTY_FIELD = "Esse campo não pode ser vazio.";
     public const INVALID_DATE = "Data inválida.";
