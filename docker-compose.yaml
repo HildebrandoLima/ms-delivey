@@ -9,8 +9,6 @@ services:
         working_dir: /var/www/
         volumes:
             - ./:/var/www
-        depends_on:
-            - redis
         networks:
             - laravel
 
@@ -43,7 +41,7 @@ services:
     mailhog:
         image: mailhog/mailhog
         depends_on:
-            - redis
+            - app
         ports:
             - "1025:1025"
             - "8025:8025"
@@ -57,13 +55,7 @@ services:
         volumes:
             - ./:/var/www
         depends_on:
-            - redis
             - app
-        networks:
-            - laravel
-
-    redis:
-        image: redis:latest
         networks:
             - laravel
 
