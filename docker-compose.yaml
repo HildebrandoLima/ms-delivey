@@ -1,45 +1,72 @@
-version: '3'
+version: "3.3"
 
 services:
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    tty: true
-    networks:
-      - app-network
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+        networks:
+            - laravel
 
-  ms-delivery:
-    build: .
-    container_name: app_delivery
-    ports:
-      - "8080:80"
-    volumes:
-      - ./:/usr/share/nginx
-    networks:
-      - app-network
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - laravel
 
-  mailhog:
-    image: mailhog/mailhog
-    container_name: mail
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-    networks:
-      - app-network
+    db:
+        image: mysql:5.7.22
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+        volumes:
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - "3388:3306"
+        networks:
+            - laravel
 
-  mysql-connection:
-    image: mysql:5.7.22
-    container_name: db_mysql
-    ports:
-      - "3306:3306"
-    volumes:
-      - .docker/dbdata:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    networks:
-      - app-network
+    mailhog:
+        image: mailhog/mailhog
+        depends_on:
+            - redis
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+        networks:
+            - laravel
+
+    queue:
+        image: especializati/laravel9-app
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+            - app
+        networks:
+            - laravel
+
+    redis:
+        image: redis:latest
+        networks:
+            - laravel
 
 networks:
-  app-network:
-    driver: bridge
+    laravel:
+        driver: bridge
