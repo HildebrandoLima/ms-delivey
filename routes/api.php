@@ -96,7 +96,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     //  Telefone
     Route::prefix('telephone')->group(function () {
-        Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list')->middleware('jwt-authenticated');
+        Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list');
         Route::put('/edit/{id}', [TelephoneController::class, 'update'])->name('telephone.edit')->middleware('jwt-authenticated');
         Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save')->middleware('jwt-authenticated');
         Route::put('/enable/disable', [TelephoneController::class, 'enableDisable'])->name('telephone.enable.disable')->middleware('jwt-authenticated');

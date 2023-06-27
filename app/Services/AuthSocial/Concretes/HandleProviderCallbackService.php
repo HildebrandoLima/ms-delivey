@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
+use App\Support\Permissions\CreatePermissions;
 use App\Support\Utils\Enums\PerfilEnum;
 use App\Support\Utils\Enums\UserEnum;
 use GuzzleHttp\Exception\ClientException;
@@ -22,15 +23,18 @@ class HandleProviderCallbackService implements HandleProviderCallbackServiceInte
     private User   $user;
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private UserRepositoryInterface        $userRepository;
+    private CreatePermissions      $createPermissions;
 
     public function __construct
     (
         CheckEntityRepositoryInterface $checkEntityRepository,
         UserRepositoryInterface        $userRepository,
+        CreatePermissions              $createPermissions,
     )
     {
         $this->checkEntityRepository = $checkEntityRepository;
         $this->userRepository        = $userRepository;
+        $this->createPermissions     = $createPermissions;
     }
 
     public function handleProviderCallback(string $provider): Collection
@@ -40,12 +44,14 @@ class HandleProviderCallbackService implements HandleProviderCallbackServiceInte
             $this->validateProvider();
             $this->userSocial = Socialite::driver($this->provider)->stateless()->user();
             $this->createUserSocial();
+            $this->createPermissions->createPermissions(PerfilEnum::CLIENTE, $this->user->id);
             return collect([
                 'accessToken' => JWTAuth::fromUser($this->user),
-                'userId' => $this->user->id,
-                'userName' => $this->user->name,
-                'userEmail' => $this->user->email,
-                'perfilName' => "Cliente"
+                'userId' => auth()->user()->id,
+                'userName' => auth()->user()->name,
+                'userEmail' => auth()->user()->email,
+                'isAdmin' => UserEnum::NAO_E_ADMIN,
+                'permissions' => auth()->user()->permissions
             ]);
         } catch (ClientException $e) {
             throw new HttpBadRequest('Credenciais Inválidas!');
@@ -77,7 +83,7 @@ class HandleProviderCallbackService implements HandleProviderCallbackServiceInte
         (
             'loginSocialId' => $this->userSocial->getId(),
             'loginSocial' => $this->provider,
-            'perfilId' => PerfilEnum::CLIENTE,
+            'perfil' => PerfilEnum::CLIENTE,
             'nome' => $this->userSocial->getName(),
             'cpf' => null,
             'email' => $this->userSocial->getEmail(),
