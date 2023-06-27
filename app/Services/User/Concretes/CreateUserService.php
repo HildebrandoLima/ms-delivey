@@ -8,10 +8,8 @@ use App\Jobs\EmailForRegisterJob;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
-use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
 
-class CreateUserService extends ValidationPermission implements CreateUserServiceInterface
+class CreateUserService implements CreateUserServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private UserRepositoryInterface        $userRepository;
@@ -28,7 +26,6 @@ class CreateUserService extends ValidationPermission implements CreateUserServic
 
     public function createUser(UserRequest $request): int
     {
-        $this->validationPermission(PermissionEnum::CRIAR_USUARIO);
         $this->checkExist($request);
         $user = UserRequestDto::fromRquest($request->toArray());
         $createUser = $this->userRepository->create($user);
