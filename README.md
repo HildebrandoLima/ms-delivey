@@ -41,6 +41,15 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 
 
 
+### UML
+Cliente<br/>
+![Captura de tela de 2023-02-28 14-02-40](https://user-images.githubusercontent.com/47666194/221933419-f1fb4bc2-b8b1-46a7-8db1-0da1f82936d4.png)
+
+Admin<br />
+![Captura de tela de 2023-02-28 14-02-56](https://user-images.githubusercontent.com/47666194/221933281-3549c4e1-ec86-4491-9f14-413ecf334c27.png)
+
+### Modelagem de Dados
+![Modelagem de Dados ms-delivery](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/7a3913e8-ea33-4d94-9fb1-f1f6cf08c7da)
 
 
 
@@ -50,25 +59,6 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 
 <details>
 <summary>Detalhes</summary>
-aa
-</details>
-
-
-
-
-## Usando Docker
-
-<details>
-<summary>Detalhes</summary>
-aa
-</details>details>
-
-
-
-
-
-
-
 ### Requesitos necessários para executar o projeto:
 <ul>
     <li>Instalar o PHP versão 8.0</li>
@@ -153,15 +143,29 @@ Certifique-se que as tabelas foram criadas. Abrindo o cliente SQL que você esco
 `php artisan serve`
 Agora acesse o endereço http://localhost:8000/api/rota em seu Postman ou Insomnia.
 
-### UML
-Cliente<br/>
-![Captura de tela de 2023-02-28 14-02-40](https://user-images.githubusercontent.com/47666194/221933419-f1fb4bc2-b8b1-46a7-8db1-0da1f82936d4.png)
 
-Admin<br />
-![Captura de tela de 2023-02-28 14-02-56](https://user-images.githubusercontent.com/47666194/221933281-3549c4e1-ec86-4491-9f14-413ecf334c27.png)
+</details>
 
-### Modelagem de Dados
-![Modelagem de Dados ms-delivery](https://github.com/HildebrandoLima/ms-delivey/assets/47666194/7a3913e8-ea33-4d94-9fb1-f1f6cf08c7da)
+
+
+
+## Usando Docker
+
+<details>
+<summary>Detalhes</summary>
+aa
+</details>details>
+
+
+
+
+
+
+
+
+
+
+
 
 ### API DOCUMENTAÇÃO
 
