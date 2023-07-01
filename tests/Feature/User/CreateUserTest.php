@@ -14,13 +14,23 @@ class CreateUserTest extends TestCase
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $data = User::factory()->makeOne()->toArray();
+        $user = User::factory()->makeOne()->toArray();
+        $data = [
+            'nome' => $user['name'],
+            'cpf' => '125.467.410-12',
+            'email' => $user['email'],
+            'senha' => 'Password@3',
+            'dataNascimento' => '2023-07-01 14:23:23',
+            'genero' => $user['genero'],
+            'perfil' => false,
+            'ativo' => $user['ativo'],
+        ];
 
         // Act
         $response = $this->postJson(route('user.save'), $data);
 
         // Assert
-        $response->assertOk();
+        $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
     /**
