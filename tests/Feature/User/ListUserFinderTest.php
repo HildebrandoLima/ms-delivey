@@ -15,8 +15,7 @@ class ListUserFinderTest extends TestCase
     public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $user = User::factory()->createOne();
-        $data = $user->toArray();
+        $data = User::factory()->createOne()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -34,8 +33,7 @@ class ListUserFinderTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $user = User::factory()->createOne();
-        $data = $user->toArray();
+        $data = User::factory()->createOne()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -62,5 +60,20 @@ class ListUserFinderTest extends TestCase
 
         // Assert
         $this->assertEquals($this->httpStatusCode($response), 400);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_find_user_exist_base_response_401(): void
+    {
+        // Arrange
+        $data = User::factory()->createOne()->toArray();
+
+        // Act
+        $response = $this->getJson(route('user.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

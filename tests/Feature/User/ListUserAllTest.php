@@ -15,7 +15,7 @@ class ListUserAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        $user = User::factory(10)->make()->toArray();
+        $data = User::factory(10)->make()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -24,7 +24,7 @@ class ListUserAllTest extends TestCase
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
-        $this->assertEquals(10, count($user));
+        $this->assertEquals(10, count($data));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -34,7 +34,7 @@ class ListUserAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        $user = User::factory(10)->make()->toArray();
+        $data = User::factory(10)->make()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -43,7 +43,22 @@ class ListUserAllTest extends TestCase
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10]));
 
         // Assert
-        $this->assertEquals(10, count($user));
+        $this->assertEquals(10, count($data));
         $this->assertEquals($this->httpStatusCode($response), 400);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_base_response_401(): void
+    {
+        // Arrange
+        User::factory(10)->make()->toArray();
+
+        // Act
+        $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10]));
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }
