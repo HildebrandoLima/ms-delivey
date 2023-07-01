@@ -13,10 +13,15 @@ class LogoutTest extends TestCase
      */
     public function it_endpoint_logout_a_successful_response(): void
     {
+        // Arrange
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->postJson(route('auth.logout'));
+
+        // Assert
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -25,7 +30,13 @@ class LogoutTest extends TestCase
      */
     public function it_endpoint_logout_base_response_401(): void
     {
+        // Arrange
+        #
+
+        // Act
         $response = $this->postJson(route('auth.logout'));
+
+        // Assert
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }
