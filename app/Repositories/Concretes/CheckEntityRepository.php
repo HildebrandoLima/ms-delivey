@@ -127,7 +127,7 @@ class CheckEntityRepository implements CheckEntityRepositoryInterface
     {
         if (User::query()->where('name', 'like', $request->nome)
                 ->orWhere(function ($query) use ($request) {
-                    $query->where('cpf', '=', $request->cpf)
+                    $query->where('cpf', '=', str_replace(array('.','-','/'), "", $request->cpf))
                         ->orWhere(function ($query) use ($request) {
                             $query->where('email', 'like', $request->email);
                         });
