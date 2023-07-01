@@ -11,7 +11,7 @@ class LogoutTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_logout_a_successful_response(): void
+    public function it_endpoint_post_logout_base_response_200(): void
     {
         // Arrange
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -28,7 +28,7 @@ class LogoutTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_logout_base_response_401(): void
+    public function it_endpoint_post_logout_base_response_401(): void
     {
         // Arrange
         #
