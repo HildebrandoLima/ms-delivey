@@ -4,6 +4,7 @@ namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class CreateUserTest extends TestCase
@@ -11,19 +12,39 @@ class CreateUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_create_a_failure_response(): void
+    public function it_endpoint_post_base_response_200(): void
     {
-        //
+        // Arrange
+        $data = User::factory()->makeOne()->toArray();
+
+        // Act
+        $response = $this->postJson(route('user.save'), $data);
+
+        // Assert
+        $response->assertOk();
     }
 
     /**
      * @test
      */
-    public function it_endpoint_post_create_a_successful_response(): void
+    public function it_endpoint_post_base_response_400(): void
     {
-        $user = User::factory()->makeOne();
-        $data = $user->toArray();
+        // Arrange
+        $data = [
+            'perfil' => false,
+            'nome' => 'Fulano',
+            'cpf' => '',
+            'email' => '',
+            'senha' => Hash::make('Teste'),
+            'dataNascimento' => now(),
+            'genero' => 'Outro',
+            'ativo' => true,
+        ];
+
+        // Act
         $response = $this->postJson(route('user.save'), $data);
-        $response->assertStatus(200);
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }
