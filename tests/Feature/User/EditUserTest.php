@@ -62,4 +62,27 @@ class EditUserTest extends TestCase
         // Assert
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_put_update_base_response_401(): void
+    {
+        // Arrange
+        $user = User::factory()->createOne()->toArray();
+        $data = [
+            'nome' => $user['name'],
+            'cpf' => '318.794.670-46',
+            'email' => $user['email'],
+            'dataNascimento' => '2023-07-01 14:23:23',
+            'genero' => $user['genero'],
+            'perfil' => false,
+        ];
+
+        // Act
+        $response = $this->putJson(route('user.edit', ['id' => base64_encode($user['id'])]), $data);
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 401);
+    }
 }
