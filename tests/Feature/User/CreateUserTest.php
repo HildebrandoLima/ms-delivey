@@ -4,7 +4,6 @@ namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class CreateUserTest extends TestCase
@@ -35,7 +34,7 @@ class CreateUserTest extends TestCase
             'nome' => 'Fulano',
             'cpf' => '',
             'email' => '',
-            'senha' => Hash::make('Teste'),
+            'senha' => '@Teste.1.7',
             'dataNascimento' => now(),
             'genero' => 'Outro',
             'ativo' => true,
