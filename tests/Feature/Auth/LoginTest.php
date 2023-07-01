@@ -10,7 +10,7 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_login_a_successful_response(): void
+    public function it_endpoint_login_base_response_200(): void
     {
         // Arrange
         $data = [
@@ -28,7 +28,7 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_login_a_successful_response_email_invalid(): void
+    public function it_endpoint_login_base_response_400_email_invalid(): void
     {
         // Arrange
         $data = [
@@ -46,7 +46,7 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_login_a_successful_response_password_invalid(): void
+    public function it_endpoint_login_base_response_400_password_invalid(): void
     {
         // Arrange
         $data = [
