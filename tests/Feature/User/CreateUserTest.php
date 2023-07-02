@@ -11,19 +11,49 @@ class CreateUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_create_a_failure_response(): void
+    public function it_endpoint_post_base_response_200(): void
     {
-        //
+        // Arrange
+        $user = User::factory()->makeOne()->toArray();
+        $data = [
+            'nome' => $user['name'],
+            'cpf' => '125.467.410-12',
+            'email' => $user['email'],
+            'senha' => 'Password@3',
+            'dataNascimento' => '2023-07-01 14:23:23',
+            'genero' => $user['genero'],
+            'perfil' => false,
+            'ativo' => $user['ativo'],
+        ];
+
+        // Act
+        $response = $this->postJson(route('user.save'), $data);
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
     /**
      * @test
      */
-    public function it_endpoint_post_create_a_successful_response(): void
+    public function it_endpoint_post_base_response_400(): void
     {
-        $user = User::factory()->makeOne();
-        $data = $user->toArray();
+        // Arrange
+        $data = [
+            'perfil' => false,
+            'nome' => 'Fulano',
+            'cpf' => '',
+            'email' => '',
+            'senha' => '@Teste.1.7',
+            'dataNascimento' => now(),
+            'genero' => 'Outro',
+            'ativo' => true,
+        ];
+
+        // Act
         $response = $this->postJson(route('user.save'), $data);
-        $response->assertStatus(200);
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }
