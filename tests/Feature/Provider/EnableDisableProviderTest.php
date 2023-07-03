@@ -20,9 +20,9 @@ class EnableDisableProviderTest extends TestCase
         $data = Fornecedor::factory()->createOne()->toArray();
         Endereco::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         Telefone::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->putJson(route('provider.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));

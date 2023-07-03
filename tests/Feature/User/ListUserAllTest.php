@@ -16,9 +16,9 @@ class ListUserAllTest extends TestCase
     {
         // Arrange
         $data = User::factory(10)->make()->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));

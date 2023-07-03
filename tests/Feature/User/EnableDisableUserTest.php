@@ -20,9 +20,9 @@ class EnableDisableUserTest extends TestCase
         $data = User::factory()->createOne()->toArray();
         Endereco::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
@@ -40,9 +40,9 @@ class EnableDisableUserTest extends TestCase
         $data = User::factory()->createOne()->toArray();
         Endereco::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 1]));
