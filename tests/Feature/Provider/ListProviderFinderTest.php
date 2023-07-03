@@ -7,8 +7,6 @@ use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\countOf;
-
 class ListProviderFinderTest extends TestCase
 {
     /**
