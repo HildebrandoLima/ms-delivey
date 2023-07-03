@@ -20,7 +20,7 @@ class CreateUserTest extends TestCase
             'cpf' => '125.467.410-12',
             'email' => $user['email'],
             'senha' => 'Password@3',
-            'dataNascimento' => date('Y-m-d H:s:i'),
+            'dataNascimento' => date('Y-m-d H:i:s'),
             'genero' => $user['genero'],
             'perfil' => false,
             'ativo' => $user['ativo'],
