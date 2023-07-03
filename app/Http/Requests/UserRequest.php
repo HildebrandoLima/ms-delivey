@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Support\Utils\Messages\DefaultErrorMessages;
+use LaravelLegends\PtBrValidator\Rules\Cpf;
 
 class UserRequest extends BaseRequest
 {
@@ -16,7 +17,7 @@ class UserRequest extends BaseRequest
         return [
             'perfil' => 'required|boolean',
             'nome' => 'required|string',
-            'cpf' => 'required|string|cpf',
+            'cpf' => ['required', new Cpf()],
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
