@@ -56,7 +56,7 @@ class ListUserAllTest extends TestCase
         User::factory(10)->make()->toArray();
 
         // Act
-        $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10]));
+        $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
         $this->assertEquals($this->httpStatusCode($response), 401);
