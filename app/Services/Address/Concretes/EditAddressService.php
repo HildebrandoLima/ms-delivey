@@ -18,7 +18,7 @@ class EditAddressService extends ValidationPermission implements EditAddressServ
         $this->addressRepository = $addressRepository;
     }
 
-    public function editAddress($id, AddressRequest $request): bool
+    public function editAddress(int $id, AddressRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_ENDERECO);
         $address = AddressRequestDto::fromRquest($request);
