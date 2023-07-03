@@ -17,10 +17,10 @@ class CreateUserTest extends TestCase
         $user = User::factory()->makeOne()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => '125.467.410-12',
+            'cpf' => $user['cpf'],
             'email' => $user['email'],
             'senha' => 'Password@3',
-            'dataNascimento' => '2023-07-01 14:23:23',
+            'dataNascimento' => date_format($user['data_nascimento'], 'Y-m-d H:i:s'),
             'genero' => $user['genero'],
             'perfil' => false,
             'ativo' => $user['ativo'],

@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 
     public function authenticate(int $perfil): array
     {
-        if($perfil == 1):
+        if ($perfil == 1):
             $perfil = $this->authenticateAdmin();
         else:
             $perfil = $this->authenticateCliente();
@@ -38,7 +38,7 @@ abstract class TestCase extends BaseTestCase
     public function authenticateCliente(): array
     {
         return [
-            'email' => 'email@gmail.com',
+            'email' => 'cliente@gmail.com',
             'password' => '@PClient5'
         ];
     }

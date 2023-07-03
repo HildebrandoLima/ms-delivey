@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Support\Generate\GenerateCNPJ;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Fornecedor>
@@ -19,7 +19,7 @@ class FornecedorFactory extends Factory
     {
         return [
             'razao_social' => $this->faker->name,
-            'cnpj' => Str::random(14),
+            'cnpj' => str_replace(array('.','-','/'), "", GenerateCNPJ::generateCNPJ()),
             'email' => $this->faker->email,
             'data_fundacao' => $this->faker->dateTime,
             'ativo' => true,

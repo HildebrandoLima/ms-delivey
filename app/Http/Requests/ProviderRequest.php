@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Support\Utils\Messages\DefaultErrorMessages;
+use LaravelLegends\PtBrValidator\Rules\Cnpj;
 
 class ProviderRequest extends BaseRequest
 {
@@ -15,7 +16,7 @@ class ProviderRequest extends BaseRequest
     {
         return [
             'razaoSocial' => 'required|string',
-            'cnpj' => 'required|string|cnpj',
+            'cnpj' => ['required', new Cnpj()],
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'dataFundacao' => 'required|date',
             'ativo' => 'required|int'

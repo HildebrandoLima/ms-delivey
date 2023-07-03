@@ -18,7 +18,7 @@ class EditUserTest extends TestCase
         $user = User::factory()->createOne()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => '318.794.670-46',
+            'cpf' => $user['cpf'],
             'email' => $user['email'],
             'senha' => 'Password@3',
             'dataNascimento' => '2023-07-01 14:23:23',
@@ -26,7 +26,7 @@ class EditUserTest extends TestCase
             'perfil' => false,
             'ativo' => 0,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -46,13 +46,13 @@ class EditUserTest extends TestCase
         $user = User::factory()->createOne()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => '318.794.670-46',
+            'cpf' => $user['cpf'],
             'email' => $user['email'],
             'dataNascimento' => '2023-07-01 14:23:23',
             'genero' => $user['genero'],
             'perfil' => false,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -72,7 +72,7 @@ class EditUserTest extends TestCase
         $user = User::factory()->createOne()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => '318.794.670-46',
+            'cpf' => $user['cpf'],
             'email' => $user['email'],
             'dataNascimento' => '2023-07-01 14:23:23',
             'genero' => $user['genero'],
