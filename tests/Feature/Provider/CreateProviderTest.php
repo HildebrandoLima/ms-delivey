@@ -18,9 +18,9 @@ class CreateProviderTest extends TestCase
         $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
             'razaoSocial' => $provider['razao_social'],
-            'cnpj' => '24.975.136/0001-85',
+            'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
-            'dataFundacao' => date('Y-m-d H:i:s'),
+            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
             'ativo' => $provider['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -40,8 +40,13 @@ class CreateProviderTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
+        $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
-            //
+            'razaoSocial' => '',
+            'cnpj' => $provider['cnpj'],
+            'email' => $provider['email'],
+            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
+            'ativo' => $provider['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -63,7 +68,7 @@ class CreateProviderTest extends TestCase
         $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
             'razaoSocial' => $provider['razao_social'],
-            'cnpj' => '24.975.136/0001-85',
+            'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => date('Y-m-d H:i:s'),
             'ativo' => $provider['ativo'],
@@ -85,7 +90,7 @@ class CreateProviderTest extends TestCase
         $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
             'razaoSocial' => $provider['razao_social'],
-            'cnpj' => '24.975.136/0001-85',
+            'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => date('Y-m-d H:i:s'),
             'ativo' => $provider['ativo'],
