@@ -9,7 +9,7 @@ use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class DeleteUserTest extends TestCase
+class EnableDisableUserTest extends TestCase
 {
     /**
      * @test
@@ -22,7 +22,7 @@ class DeleteUserTest extends TestCase
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
@@ -42,7 +42,7 @@ class DeleteUserTest extends TestCase
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 1]));
