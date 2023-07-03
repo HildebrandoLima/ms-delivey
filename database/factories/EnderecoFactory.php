@@ -25,7 +25,7 @@ class EnderecoFactory extends Factory
             'descricao' => $this->faker->numerify,
             'bairro' => $this->faker->country,
             'cidade' => $this->faker->city,
-            'cep' => '08693-560',
+            'cep' => '08693560',
             'uf_id' => rand(1, 27),
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,
