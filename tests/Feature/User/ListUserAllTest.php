@@ -16,7 +16,7 @@ class ListUserAllTest extends TestCase
     {
         // Arrange
         $data = User::factory(10)->make()->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -35,7 +35,7 @@ class ListUserAllTest extends TestCase
     {
         // Arrange
         $data = User::factory(10)->make()->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
