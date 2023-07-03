@@ -23,7 +23,7 @@ class TelefoneFactory extends Factory
         return [
             'numero' => Str::random(9),
             'tipo' => array_rand($tipo),
-            'ddd_id' => rand(1, 27),
+            'ddd_id' => rand(70, 92),
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,
