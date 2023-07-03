@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Support\Utils\Messages\DefaultErrorMessages;
+use LaravelLegends\PtBrValidator\Rules\FormatoCep;
 
 class AddressRequest extends BaseRequest
 {
@@ -18,7 +19,7 @@ class AddressRequest extends BaseRequest
             'descricao' => 'required|string',
             'bairro' => 'required|string',
             'cidade' => 'required|string',
-            'cep' => 'required|string|formato_cep',
+            'cep' => ['required', new FormatoCep()],
             'ufId' => 'required|int|exists:unidade_federativa,id',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
