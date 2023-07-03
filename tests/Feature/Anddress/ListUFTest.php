@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Address;
 
+use App\Models\UnidadeFederativa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -10,17 +11,16 @@ class ListUFTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_uf_a_failure_response(): void
+    public function it_endpoint_get_list_uf_base_response_200(): void
     {
-        //
-    }
+        // Arrange
+        $data = UnidadeFederativa::query()->get()->toArray();
 
-    /**
-     * @test
-     */
-    public function it_endpoint_get_list_uf_a_successful_response(): void
-    {
+        // Act
         $response = $this->getJson(route('address.uf.list'));
-        $response->assertOk();
+
+        // Assert
+        $this->assertEquals(27, count($data));
+        $this->assertEquals($this->httpStatusCode($response), 200);
     }
 }
