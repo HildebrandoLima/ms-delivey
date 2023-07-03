@@ -3,6 +3,7 @@
 namespace Tests\Feature\Provider;
 
 use App\Models\Fornecedor;
+use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,18 +12,73 @@ class ListProviderAllTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_all_a_failure_response(): void
+    public function it_endpoint_get_list_all_base_response_200(): void
     {
-        //
+        // Arrange
+        $data = Fornecedor::factory(10)->make()->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+
+        // Assert
+        $this->assertEquals(10, count($data));
+        $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
     /**
      * @test
      */
-    public function it_endpoint_get_list_all_a_successful_response(): void
+    public function it_endpoint_get_list_all_basea_response_400(): void
     {
-        Fornecedor::factory(1)->create();
-        $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10]));
-        $response->assertOk();
+        // Arrange
+        $data = Fornecedor::factory(10)->make()->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10]));
+
+        // Assert
+        $this->assertEquals(10, count($data));
+        $this->assertEquals($this->httpStatusCode($response), 400);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_base_response_401(): void
+    {
+        // Arrange
+        $data = Fornecedor::factory(10)->make()->toArray();
+
+        // Act
+        $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+
+        // Assert
+        $this->assertEquals(10, count($data));
+        $this->assertEquals($this->httpStatusCode($response), 401);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_base_response_403(): void
+    {
+        // Arrange
+        $data = Fornecedor::factory(10)->make()->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+
+        // Assert
+        $this->assertEquals(10, count($data));
+        $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }
