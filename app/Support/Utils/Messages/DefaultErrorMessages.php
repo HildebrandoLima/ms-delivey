@@ -23,4 +23,5 @@ class DefaultErrorMessages
     public const INVALID_PASSWORD = "Senha inválida.";
     public const NOT_FOUND = "Registro não encontrado.";
     public const UNAUTHORIZED_MESSAGE = "Acesso não autorizado.";
+    public const PERMISSION_MESSAGE = "Permissão negada.";
 }

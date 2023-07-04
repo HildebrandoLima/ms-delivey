@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\Utils\Messages\DefaultErrorMessages;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,22 +28,22 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
         } catch(Exception $e) {
             if ($e instanceof TokenInvalidException) {
                 return response()->json([
-                    "message" => "Token inválido!",
-                    "data" => false,
+                    "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
+                    "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
                 ]);
             } elseif ($e instanceof TokenExpiredException) {
                 return response()->json([
-                    "message" => "Token expirou!",
-                    "data" => false,
+                    "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
+                    "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
                 ]);
             } else {
                 return response()->json([
-                    "message" => "Token de autorização não encontrado!",
-                    "data" => false,
+                    "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
+                    "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
                 ]);

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Concretes;
 
-use App\Exceptions\HttpBadRequest;
+use App\Exceptions\HttpStatusCode\HttpBadRequest;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProviderRequest;
