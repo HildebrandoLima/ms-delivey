@@ -21,7 +21,7 @@ class TelefoneFactory extends Factory
     {
         $tipo = array('Fixo' => 'Fixo', 'Celular' => 'Celular');
         return [
-            'numero' => Str::random(9),
+            'numero' => random_int(100000000, 999999999),
             'tipo' => array_rand($tipo),
             'ddd_id' => rand(1, 27),
             'usuario_id' => User::factory()->createOne()->id,

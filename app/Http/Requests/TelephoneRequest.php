@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Support\Utils\Messages\DefaultErrorMessages;
+use LaravelLegends\PtBrValidator\Rules\Celular;
 
 class TelephoneRequest extends BaseRequest
 {
@@ -15,7 +16,7 @@ class TelephoneRequest extends BaseRequest
     {
         return [
             'telefones' => 'required|array',
-            'telefones.*.numero' => 'required|string|min:10|max:10|Celular',
+            'telefones.*.numero' => ['required', new Celular()],
             'telefones.*.tipo' => 'required|string',
             'telefones.*.dddId' => 'required|int|exists:ddd,id',
             'telefones.*.usuarioId' => 'int|exists:users,id',
