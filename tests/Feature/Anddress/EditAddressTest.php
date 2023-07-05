@@ -21,7 +21,7 @@ class EditAddressTest extends TestCase
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => $address['cep'],
+            'cep' => '12345-678',
             'ufId' => $address['uf_id'],
             'usuarioId' => $address['usuario_id'],
             'ativo' => $address['ativo'],
@@ -34,6 +34,7 @@ class EditAddressTest extends TestCase
         ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -49,7 +50,7 @@ class EditAddressTest extends TestCase
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => $address['cep'],
+            'cep' => '12345-678',
             'ufId' => $address['uf_id'],
             'fornecedorId' => $address['fornecedor_id'],
             'ativo' => $address['ativo'],
@@ -62,6 +63,7 @@ class EditAddressTest extends TestCase
         ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -90,6 +92,7 @@ class EditAddressTest extends TestCase
         ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -105,7 +108,7 @@ class EditAddressTest extends TestCase
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => $address['cep'],
+            'cep' => '12345-678',
             'ufId' => $address['uf_id'],
             'usuarioId' => $address['usuario_id'],
             'ativo' => $address['ativo'],
@@ -115,6 +118,7 @@ class EditAddressTest extends TestCase
         $response = $this->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

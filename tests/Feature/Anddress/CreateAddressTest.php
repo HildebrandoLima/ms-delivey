@@ -20,7 +20,7 @@ class CreateAddressTest extends TestCase
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => $address['cep'],
+            'cep' => '12345-678',
             'ufId' => $address['uf_id'],
             'usuarioId' => $address['usuario_id'],
             'ativo' => $address['ativo'],
@@ -30,6 +30,7 @@ class CreateAddressTest extends TestCase
         $response = $this->postJson(route('address.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -45,7 +46,7 @@ class CreateAddressTest extends TestCase
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => $address['cep'],
+            'cep' => '12345-789',
             'ufId' => $address['uf_id'],
             'fornecedorId' => $address['fornecedor_id'],
             'ativo' => $address['ativo'],
@@ -55,6 +56,7 @@ class CreateAddressTest extends TestCase
         $response = $this->postJson(route('address.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -80,6 +82,7 @@ class CreateAddressTest extends TestCase
         $response = $this->postJson(route('address.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

@@ -20,6 +20,7 @@ class EmailUserVerifiedAtTest extends TestCase
         $response = $this->getJson(route('user.email.verified', ['id' => base64_encode($data['id']), 'active' => $data['ativo']]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -35,6 +36,7 @@ class EmailUserVerifiedAtTest extends TestCase
         $response = $this->getJson(route('user.email.verified', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

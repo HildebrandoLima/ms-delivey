@@ -28,6 +28,7 @@ class EnableDisableUserTest extends TestCase
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -48,6 +49,7 @@ class EnableDisableUserTest extends TestCase
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -65,6 +67,7 @@ class EnableDisableUserTest extends TestCase
         $response = $this->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

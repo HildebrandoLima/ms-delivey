@@ -31,6 +31,7 @@ class CreateProviderTest extends TestCase
         ])->postJson(route('provider.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -56,6 +57,7 @@ class CreateProviderTest extends TestCase
         ])->postJson(route('provider.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -78,6 +80,7 @@ class CreateProviderTest extends TestCase
         $response = $this->postJson(route('provider.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 
@@ -103,6 +106,7 @@ class CreateProviderTest extends TestCase
         ])->postJson(route('provider.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }

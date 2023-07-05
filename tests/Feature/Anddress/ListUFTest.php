@@ -20,6 +20,7 @@ class ListUFTest extends TestCase
         $response = $this->getJson(route('address.uf.list'));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals(27, count($data));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
