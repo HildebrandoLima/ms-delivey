@@ -18,10 +18,10 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->make()->toArray();
+        $telephones = Telefone::factory($this->count)->create()->toArray();
         foreach ($telephones as $t){
             $telephone = [
-                "numero" => $t['numero'],
+                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 "tipo" => $t['tipo'],
                 "dddId" => $t['ddd_id'],
                 "usuarioId" => $t['usuario_id'],
@@ -48,10 +48,10 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->make()->toArray();
+        $telephones = Telefone::factory($this->count)->create()->toArray();
         foreach ($telephones as $t){
             $telephone = [
-                "numero" => $t['numero'],
+                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 "tipo" => $t['tipo'],
                 "dddId" => $t['ddd_id'],
                 "fornecedorId" => $t['fornecedor_id'],
@@ -78,7 +78,7 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->make()->toArray();
+        $telephones = Telefone::factory($this->count)->create()->toArray();
         foreach ($telephones as $t){
             $telephone = [
                 "numero" => '',
@@ -108,10 +108,10 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->make()->toArray();
+        $telephones = Telefone::factory($this->count)->create()->toArray();
         foreach ($telephones as $t){
             $telephone = [
-                "numero" => $t['numero'],
+                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 "tipo" => $t['tipo'],
                 "dddId" => $t['ddd_id'],
                 "fornecedorId" => $t['fornecedor_id'],
