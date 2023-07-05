@@ -19,7 +19,7 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $data['telefones'] = [];
         $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t){
+        foreach ($telephones as $t):
             $telephone = [
                 "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 "tipo" => $t['tipo'],
@@ -28,7 +28,7 @@ class CreateTelephoneTest extends TestCase
                 "ativo" => $t['ativo'],
             ];
             array_push($data['telefones'], $telephone);
-        }
+        endforeach;
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -49,7 +49,7 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $data['telefones'] = [];
         $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t){
+        foreach ($telephones as $t):
             $telephone = [
                 "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 "tipo" => $t['tipo'],
@@ -58,7 +58,7 @@ class CreateTelephoneTest extends TestCase
                 "ativo" => $t['ativo'],
             ];
             array_push($data['telefones'], $telephone);
-        }
+        endforeach;
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -79,7 +79,7 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $data['telefones'] = [];
         $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t){
+        foreach ($telephones as $t):
             $telephone = [
                 "numero" => '',
                 "tipo" => '',
@@ -88,7 +88,7 @@ class CreateTelephoneTest extends TestCase
                 "ativo" => $t['ativo'],
             ];
             array_push($data['telefones'], $telephone);
-        }
+        endforeach;
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -109,7 +109,7 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $data['telefones'] = [];
         $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t){
+        foreach ($telephones as $t):
             $telephone = [
                 "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 "tipo" => $t['tipo'],
@@ -118,7 +118,7 @@ class CreateTelephoneTest extends TestCase
                 "ativo" => $t['ativo'],
             ];
             array_push($data['telefones'], $telephone);
-        }
+        endforeach;
 
         // Act
         $response = $this->postJson(route('telephone.save'), $data);
