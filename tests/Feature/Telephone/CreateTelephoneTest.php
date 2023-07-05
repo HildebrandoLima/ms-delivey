@@ -12,27 +12,62 @@ class CreateTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200(): void
+    public function it_endpoint_post_base_response_200_create_user(): void
     {
         // Arrange
-        $telephone = Telefone::factory(1)->make()->toArray();
-        $data['telefones'] = [
-            'numero' => $telephone[0]['numero'],
-            'tipo' => $telephone[0]['tipo'],
-            'dddId' => $telephone[0]['ddd_id'],
-            'usuarioId' => $telephone[0]['usuario_id'],
-            'fornecedorId' => $telephone[0]['fornecedor_id'],
-            'ativo' => $telephone[0]['ativo'],
-        ];
+        $count = 2;
+        $data['telefones'] = [];
+        $telephones = Telefone::factory($count)->make()->toArray();
+        foreach ($telephones as $t){
+            $telephone = [
+                "numero" => $t['numero'],
+                "tipo" => $t['tipo'],
+                "dddId" => $t['ddd_id'],
+                "usuarioId" => $t['usuario_id'],
+                "ativo" => $t['ativo'],
+            ];
+            array_push($data['telefones'], $telephone);
+        }
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->postJson(route('telephone.save'), $data);
-        dd($response);
 
-        // Assert     
+        // Assert
+        $this->assertEquals(count($telephones), $count);
+        $this->assertEquals($this->httpStatusCode($response), 200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_post_base_response_200_create_provider(): void
+    {
+        // Arrange
+        $count = 2;
+        $data['telefones'] = [];
+        $telephones = Telefone::factory($count)->make()->toArray();
+        foreach ($telephones as $t){
+            $telephone = [
+                "numero" => $t['numero'],
+                "tipo" => $t['tipo'],
+                "dddId" => $t['ddd_id'],
+                "fornecedorId" => $t['fornecedor_id'],
+                "ativo" => $t['ativo'],
+            ];
+            array_push($data['telefones'], $telephone);
+        }
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->postJson(route('telephone.save'), $data);
+
+        // Assert
+        $this->assertEquals(count($telephones), $count);
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -41,7 +76,30 @@ class CreateTelephoneTest extends TestCase
      */
     public function it_endpoint_post_base_response_400(): void
     {
-        //
+        // Arrange
+        $count = 2;
+        $data['telefones'] = [];
+        $telephones = Telefone::factory($count)->make()->toArray();
+        foreach ($telephones as $t){
+            $telephone = [
+                "numero" => '',
+                "tipo" => '',
+                "dddId" => $t['ddd_id'],
+                "fornecedorId" => $t['fornecedor_id'],
+                "ativo" => $t['ativo'],
+            ];
+            array_push($data['telefones'], $telephone);
+        }
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->postJson(route('telephone.save'), $data);
+
+        // Assert
+        $this->assertEquals(count($telephones), $count);
+        $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
     /**
@@ -49,6 +107,26 @@ class CreateTelephoneTest extends TestCase
      */
     public function it_endpoint_post_base_response_401(): void
     {
-        //
+        // Arrange
+        $count = 2;
+        $data['telefones'] = [];
+        $telephones = Telefone::factory($count)->make()->toArray();
+        foreach ($telephones as $t){
+            $telephone = [
+                "numero" => $t['numero'],
+                "tipo" => $t['tipo'],
+                "dddId" => $t['ddd_id'],
+                "fornecedorId" => $t['fornecedor_id'],
+                "ativo" => $t['ativo'],
+            ];
+            array_push($data['telefones'], $telephone);
+        }
+
+        // Act
+        $response = $this->postJson(route('telephone.save'), $data);
+
+        // Assert
+        $this->assertEquals(count($telephones), $count);
+        $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }
