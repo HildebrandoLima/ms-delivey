@@ -14,13 +14,13 @@ class CreateAddressTest extends TestCase
     public function it_endpoint_post_base_response_200_create_user(): void
     {
         // Arrange
-        $address = Endereco::factory()->makeOne()->toArray();
+        $address = Endereco::factory()->createOne()->toArray();
         $data = [
             'logradouro' => $address['logradouro'],
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => '12345-678',
+            'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'ufId' => $address['uf_id'],
             'usuarioId' => $address['usuario_id'],
             'ativo' => $address['ativo'],
@@ -40,15 +40,15 @@ class CreateAddressTest extends TestCase
     public function it_endpoint_post_base_response_200_create_provider(): void
     {
         // Arrange
-        $address = Endereco::factory()->makeOne()->toArray();
+        $address = Endereco::factory()->createOne()->toArray();
         $data = [
             'logradouro' => $address['logradouro'],
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
-            'cep' => '12345-789',
+            'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'ufId' => $address['uf_id'],
-            'fornecedorId' => $address['fornecedor_id'],
+            'usuarioId' => $address['usuario_id'],
             'ativo' => $address['ativo'],
         ];
 
@@ -66,15 +66,15 @@ class CreateAddressTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
-        $address = Endereco::factory()->makeOne()->toArray();
+        $address = Endereco::factory()->createOne()->toArray();
         $data = [
             'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
-            'bairro' => $address['bairro'],
-            'cidade' => '',
-            'cep' => '',
+            'descricao' => '',
+            'bairro' => '',
+            'cidade' => $address['cidade'],
+            'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'ufId' => $address['uf_id'],
-            'fornecedorId' => $address['fornecedor_id'],
+            'usuarioId' => $address['usuario_id'],
             'ativo' => $address['ativo'],
         ];
 
