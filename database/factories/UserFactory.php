@@ -18,7 +18,8 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $genero = array('Masculino' => 'Masculino', 'Feminino' => 'Feminino', 'Outro' => 'Outro');
+        $gender = array('Masculino', 'Feminino', 'Outro');
+        $rand_keys = array_rand($gender);
         return [
             'login_social_id' => null,
             'login_social' => null,
@@ -27,7 +28,7 @@ class UserFactory extends Factory
             'email' => $this->faker->email,
             'password' => Hash::make($this->faker->password),
             'data_nascimento' => $this->faker->dateTime,
-            'genero' => array_rand($genero),
+            'genero' => $gender[$rand_keys],
             'perfil_id' => rand(1, 2),
             'ativo' => true,
         ];

@@ -9,13 +9,15 @@ use Tests\TestCase;
 
 class ListUserAllTest extends TestCase
 {
+    private int $count = 10;
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        User::factory(10)->make()->toArray();
+        User::factory($this->count)->create()->toArray();
 
         // Act
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -25,7 +27,7 @@ class ListUserAllTest extends TestCase
 
         // Assert
         $this->assertJson($this->baseResponse($response));
-        $this->assertEquals(10, $this->countPaginateList($response));
+        $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -35,7 +37,7 @@ class ListUserAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        User::factory(10)->make()->toArray();
+        User::factory($this->count)->create()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -54,7 +56,7 @@ class ListUserAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_401(): void
     {
         // Arrange
-        User::factory(10)->make()->toArray();
+        User::factory($this->count)->create()->toArray();
 
         // Act
         $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));

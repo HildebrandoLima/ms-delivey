@@ -2,8 +2,8 @@
 
 namespace App\Services\User\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\UserRequestDto;
-use App\Http\Requests\UserRequest;
+use App\DataTransferObjects\RequestsDtos\UserEditRequestDto;
+use App\Http\Requests\UserEditRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
@@ -25,11 +25,11 @@ class EditUserService extends ValidationPermission implements EditUserServiceInt
         $this->userRepository        = $userRepository;  
     }
 
-    public function editUser(int $id, UserRequest $request): bool
+    public function editUser(int $id, UserEditRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
         $this->checkExist($id);
-        $user = UserRequestDto::fromRquest($request->toArray());
+        $user = UserEditRequestDto::fromRquest($request->toArray());
         $this->userRepository->update($id, $user);
         return true;
     }

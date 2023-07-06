@@ -15,16 +15,13 @@ class EditUserTest extends TestCase
     public function it_endpoint_put_update_base_response_200(): void
     {
         // Arrange
-        $user = User::factory()->createOne()->toArray();
+        $user = User::query()->first()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => $user['cpf'],
             'email' => $user['email'],
-            'senha' => 'Password@3',
-            'dataNascimento' => '2023-07-01 14:23:23',
             'genero' => $user['genero'],
             'perfil' => false,
-            'ativo' => 0,
+            'ativo' => $user['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -44,14 +41,13 @@ class EditUserTest extends TestCase
     public function it_endpoint_put_update_base_response_400(): void
     {
         // Arrange
-        $user = User::factory()->createOne()->toArray();
+        $user = User::query()->first()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => $user['cpf'],
-            'email' => $user['email'],
-            'dataNascimento' => '2023-07-01 14:23:23',
+            'email' => '',
             'genero' => $user['genero'],
             'perfil' => false,
+            'ativo' => $user['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -71,14 +67,13 @@ class EditUserTest extends TestCase
     public function it_endpoint_put_update_base_response_401(): void
     {
         // Arrange
-        $user = User::factory()->createOne()->toArray();
+        $user = User::query()->first()->toArray();
         $data = [
             'nome' => $user['name'],
-            'cpf' => $user['cpf'],
             'email' => $user['email'],
-            'dataNascimento' => '2023-07-01 14:23:23',
             'genero' => $user['genero'],
             'perfil' => false,
+            'ativo' => $user['ativo'],
         ];
 
         // Act

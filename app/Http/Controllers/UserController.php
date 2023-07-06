@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\UserEditRequest;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Services\User\Interfaces\DeleteUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
@@ -81,7 +82,7 @@ class UserController extends Controller
         }
     }
 
-    public function update(string $id, UserRequest $request, BaseDecode $baseDecode): Response
+    public function update(string $id, UserEditRequest $request, BaseDecode $baseDecode): Response
     {
         try {
             $success = $this->editUserService->editUser
