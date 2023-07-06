@@ -6,6 +6,7 @@ use App\Models\Fornecedor;
 use App\Support\Generate\GenerateCNPJ;
 use App\Support\Generate\GenerateEmail;
 use App\Support\Utils\Enums\PerfilEnum;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
