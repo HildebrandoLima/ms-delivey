@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Address;
 
-use App\Models\Endereco;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Fornecedor;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateAddressTest extends TestCase
@@ -14,16 +15,17 @@ class CreateAddressTest extends TestCase
     public function it_endpoint_post_base_response_200_create_user(): void
     {
         // Arrange
-        $address = Endereco::factory()->createOne()->toArray();
+        $logradouro = array('Rua', 'Avenida');
+        $rand_keys = array_rand($logradouro);
         $data = [
-            'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
-            'bairro' => $address['bairro'],
-            'cidade' => $address['cidade'],
+            'logradouro' => $logradouro[$rand_keys],
+            'descricao' => Str::random(10),
+            'bairro' => Str::random(10),
+            'cidade' => Str::random(10),
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => $address['uf_id'],
-            'usuarioId' => $address['usuario_id'],
-            'ativo' => $address['ativo'],
+            'ufId' => rand(1, 27),
+            'usuarioId' => User::query()->first()->id,
+            'ativo' => true,
         ];
 
         // Act
@@ -40,16 +42,17 @@ class CreateAddressTest extends TestCase
     public function it_endpoint_post_base_response_200_create_provider(): void
     {
         // Arrange
-        $address = Endereco::factory()->createOne()->toArray();
+        $logradouro = array('Rua', 'Avenida');
+        $rand_keys = array_rand($logradouro);
         $data = [
-            'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
-            'bairro' => $address['bairro'],
-            'cidade' => $address['cidade'],
+            'logradouro' => $logradouro[$rand_keys],
+            'descricao' => Str::random(10),
+            'bairro' => Str::random(10),
+            'cidade' => Str::random(10),
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => $address['uf_id'],
-            'usuarioId' => $address['usuario_id'],
-            'ativo' => $address['ativo'],
+            'ufId' => rand(1, 27),
+            'fornecedorId' => Fornecedor::query()->first()->id,
+            'ativo' => true,
         ];
 
         // Act
@@ -66,16 +69,17 @@ class CreateAddressTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
-        $address = Endereco::factory()->createOne()->toArray();
+        $logradouro = array('Rua', 'Avenida');
+        $rand_keys = array_rand($logradouro);
         $data = [
-            'logradouro' => $address['logradouro'],
+            'logradouro' => $logradouro[$rand_keys],
             'descricao' => '',
-            'bairro' => '',
-            'cidade' => $address['cidade'],
+            'bairro' => Str::random(10),
+            'cidade' => Str::random(10),
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => $address['uf_id'],
-            'usuarioId' => $address['usuario_id'],
-            'ativo' => $address['ativo'],
+            'ufId' => rand(1, 27),
+            'usuarioId' => '',
+            'ativo' => true,
         ];
 
         // Act
