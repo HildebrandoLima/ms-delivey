@@ -19,10 +19,10 @@ class EnderecoFactory extends Factory
      */
     public function definition()
     {
-        $logradouro = array('Rua', 'Avenida');
-        $rand_keys = array_rand($logradouro);
+        $public_place = array('Rua', 'Avenida');
+        $rand_keys = array_rand($public_place);
         return [
-            'logradouro' => $logradouro[$rand_keys],
+            'logradouro' => $public_place[$rand_keys],
             'descricao' => $this->faker->numerify,
             'bairro' => $this->faker->country,
             'cidade' => $this->faker->city,
