@@ -11,17 +11,17 @@ class ListDDDTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_ddd_a_failure_response(): void
+    public function it_endpoint_get_list_ddd_base_response_200(): void
     {
-        //
-    }
+        // Arrange
+        $data = Telefone::query()->get()->toArray();
 
-    /**
-     * @test
-     */
-    public function it_endpoint_get_list_ddd_a_successful_response(): void
-    {
+        // Act
         $response = $this->getJson(route('telephone.ddd.list'));
-        $response->assertOk();
+
+        // Assert
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals(23, count($data));
+        $this->assertEquals($this->httpStatusCode($response), 200);
     }
 }

@@ -488,15 +488,28 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 |------|--------------------------|
 |DELETE| /api/user/enable/disable |
 
-### Body: POST/PUT
+Em perfil é verdadeiro para admin e false para cliente.
+
+### Body: POST
 ```
 {
-    "perfil": 1
+    "perfil": true or false
     "nome": "Hill",
     "cpf": "572.561.700-92",
     "email": "test@gmail.com",
-    "senha": "Hill@123",
+    "senha": "Hil@03#1.4",
     "dataNascimento": "2023-03-25 18:20:59",
+    "genero": "Feminino",
+    "ativo": 1
+}
+```
+
+### Body: PUT
+```
+{
+    "perfil": true or false
+    "nome": "Hill",
+    "email": "test@gmail.com",
     "genero": "Feminino",
     "ativo": 1
 }

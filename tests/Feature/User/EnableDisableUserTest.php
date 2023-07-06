@@ -17,7 +17,7 @@ class EnableDisableUserTest extends TestCase
     public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = User::factory()->createOne()->toArray();
+        $data = User::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -28,6 +28,7 @@ class EnableDisableUserTest extends TestCase
         ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -37,7 +38,7 @@ class EnableDisableUserTest extends TestCase
     public function it_endpoint_enable_disable_base_response_400(): void
     {
         // Arrange
-        $data = User::factory()->createOne()->toArray();
+        $data = User::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -45,9 +46,10 @@ class EnableDisableUserTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 1]));
+        ])->putJson(route('user.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -57,7 +59,7 @@ class EnableDisableUserTest extends TestCase
     public function it_endpoint_enable_disable_base_response_401(): void
     {
         // Arrange
-        $data = User::factory()->createOne()->toArray();
+        $data = User::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
 
@@ -65,6 +67,7 @@ class EnableDisableUserTest extends TestCase
         $response = $this->putJson(route('user.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

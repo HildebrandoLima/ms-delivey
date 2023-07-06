@@ -1,29 +1,22 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Exceptions\HttpStatusCode;
 
-use JetBrains\PhpStorm\Pure;
+use App\Exceptions\SystemDefaultException;
 use Symfony\Component\HttpFoundation\Response;
 
 class HttpBadRequest extends SystemDefaultException
 {
-
-    /**
-     * BadRequestException constructor.
-     */
-    private mixed $data;
-    #[Pure] public function __construct(string $message, mixed $data = '')
+    public function __construct(string $message)
     {
         $this->message = $message;
-        $this->data = $data;
-        parent::__construct($message);
     }
 
     function response(): Response
     {
         return response()->json([
             "message" => $this->message,
-            "data" => $this->data,
+            "data" => [],
             "status" => Response::HTTP_BAD_REQUEST,
             "details" => ""
         ]);

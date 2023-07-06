@@ -2,34 +2,40 @@
 
 namespace Tests\Feature\User;
 
+use App\Support\Generate\GenerateCPF;
+use App\Support\Generate\GenerateEmail;
+use App\Support\Generate\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateUserTest extends TestCase
 {
+    private array $gender = array('Masculino', 'Feminino', 'Outro');
+
     /**
      * @test
      */
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $user = User::factory()->makeOne()->toArray();
+        $rand_keys = array_rand($this->gender);
         $data = [
-            'nome' => $user['name'],
-            'cpf' => $user['cpf'],
-            'email' => $user['email'],
-            'senha' => 'Password@3',
-            'dataNascimento' => date_format($user['data_nascimento'], 'Y-m-d H:i:s'),
-            'genero' => $user['genero'],
-            'perfil' => false,
-            'ativo' => $user['ativo'],
+            'nome' => Str::random(10),
+            'cpf' => GenerateCPF::generateCPF(),
+            'email' => GenerateEmail::generateEmail(),
+            'senha' => GeneratePassword::generatePassword(),
+            'dataNascimento' => date('Y-m-d H:i:s'),
+            'genero' => $this->gender[$rand_keys],
+            'perfil' => rand(0, 1), // 0 client 1 admin
+            'ativo' => true,
         ];
 
         // Act
         $response = $this->postJson(route('user.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -39,14 +45,15 @@ class CreateUserTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
+        $rand_keys = array_rand($this->gender);
         $data = [
-            'perfil' => false,
-            'nome' => 'Fulano',
+            'nome' => Str::random(10),
             'cpf' => '',
             'email' => '',
-            'senha' => '@Teste.1.7',
-            'dataNascimento' => now(),
-            'genero' => 'Outro',
+            'senha' => GeneratePassword::generatePassword(),
+            'dataNascimento' => date('Y-m-d H:i:s'),
+            'genero' => $this->gender[$rand_keys],
+            'perfil' => rand(0, 1), // 0 client 1 admin
             'ativo' => true,
         ];
 
@@ -54,6 +61,7 @@ class CreateUserTest extends TestCase
         $response = $this->postJson(route('user.save'), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

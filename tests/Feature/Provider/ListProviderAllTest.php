@@ -9,13 +9,15 @@ use Tests\TestCase;
 
 class ListProviderAllTest extends TestCase
 {
+    private int $count = 10;
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        $data = Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->create()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -24,7 +26,8 @@ class ListProviderAllTest extends TestCase
         ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
-        $this->assertEquals(10, count($data));
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -34,7 +37,7 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_basea_response_400(): void
     {
         // Arrange
-        $data = Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->make()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -43,7 +46,7 @@ class ListProviderAllTest extends TestCase
         ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10]));
 
         // Assert
-        $this->assertEquals(10, count($data));
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -53,13 +56,13 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_401(): void
     {
         // Arrange
-        $data = Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->make()->toArray();
 
         // Act
         $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
-        $this->assertEquals(10, count($data));
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 
@@ -69,7 +72,7 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_403(): void
     {
         // Arrange
-        $data = Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->make()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -78,7 +81,7 @@ class ListProviderAllTest extends TestCase
         ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
-        $this->assertEquals(10, count($data));
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }

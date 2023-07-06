@@ -47,4 +47,14 @@ abstract class TestCase extends BaseTestCase
     {
         return $response->baseResponse->original['status'];
     }
+
+    public function baseResponse(TestResponse $response): string
+    {
+        return json_encode($response->baseResponse->original);
+    }
+
+    public function countPaginateList(TestResponse $response): int
+    {
+        return count($response->baseResponse->original['data']['list']);
+    }
 }

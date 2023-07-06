@@ -24,6 +24,7 @@ class ListProviderFinderTest extends TestCase
         ])->getJson(route('provider.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -42,6 +43,7 @@ class ListProviderFinderTest extends TestCase
         ])->getJson(route('provider.list.find', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -57,6 +59,7 @@ class ListProviderFinderTest extends TestCase
         $response = $this->getJson(route('provider.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 
@@ -75,6 +78,7 @@ class ListProviderFinderTest extends TestCase
         ])->getJson(route('provider.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }
