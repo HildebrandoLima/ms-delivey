@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Categoria>
@@ -17,7 +18,7 @@ class CategoriaFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => $this->faker->word,
+            'nome' => Str::random(10),
             'ativo' => true,
         ];
     }

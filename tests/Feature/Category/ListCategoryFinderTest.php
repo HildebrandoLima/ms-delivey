@@ -11,19 +11,32 @@ class ListCategoryFinderTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_all_failure_response(): void
+    public function it_endpoint_get_list_find_base_response_200(): void
     {
-        //
+        // Arrange
+        $data = Categoria::factory()->createOne()->toArray();
+
+        // Act
+        $response = $this->getJson(route('category.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+
+        // Assert
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
     /**
      * @test
      */
-    public function it_endpoint_get_list_find_successful_response(): void
+    public function it_endpoint_get_list_find_base_response_400(): void
     {
-        $category = Categoria::factory()->createOne();
-        $data = $category->toArray();
+        // Arrange
+        $data = Categoria::factory()->createOne()->toArray();
+
+        // Act
         $response = $this->getJson(route('category.list.find', ['id' => base64_encode($data['id'])]));
-        $response->assertStatus(200);
+
+        // Assert
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

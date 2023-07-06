@@ -2,29 +2,26 @@
 
 namespace Tests\Feature\Category;
 
+use App\Models\Categoria;
 use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class CreateCategoryTest extends TestCase
+class EnableDisableCategoryTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200(): void
+    public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = [
-            'nome' => Str::random(10),
-            'ativo' => true,
-        ];
+        $data = Categoria::query()->first()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->postJson(route('category.save', $data));
+        ])->putJson(route('category.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
         $this->assertJson($this->baseResponse($response));
@@ -34,19 +31,16 @@ class CreateCategoryTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_400(): void
+    public function it_endpoint_enable_disable_base_response_400(): void
     {
         // Arrange
-        $data = [
-            'nome' => Str::random(10),
-            'ativo' => '',
-        ];
+        $data = Categoria::query()->first()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->postJson(route('category.save', $data));
+        ])->putJson(route('category.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
         $this->assertJson($this->baseResponse($response));
@@ -56,16 +50,13 @@ class CreateCategoryTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_401(): void
+    public function it_endpoint_enable_disable_base_response_401(): void
     {
         // Arrange
-        $data = [
-            'nome' => Str::random(10),
-            'ativo' => true,
-        ];
+        $data = Categoria::query()->first()->toArray();
 
         // Act
-        $response = $this->postJson(route('category.save', $data));
+        $response = $this->putJson(route('category.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
         $this->assertJson($this->baseResponse($response));
@@ -75,19 +66,16 @@ class CreateCategoryTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_403(): void
+    public function it_endpoint_enable_disable_base_response_403(): void
     {
         // Arrange
-        $data = [
-            'nome' => Str::random(10),
-            'ativo' => true,
-        ];
+        $data = Categoria::query()->first()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->postJson(route('category.save', $data));
+        ])->putJson(route('category.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
         $this->assertJson($this->baseResponse($response));
