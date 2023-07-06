@@ -9,13 +9,15 @@ use Tests\TestCase;
 
 class ListProviderAllTest extends TestCase
 {
+    private int $count = 10;
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        Fornecedor::factory(10)->create()->toArray();
+        Fornecedor::factory($this->count)->create()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -25,7 +27,7 @@ class ListProviderAllTest extends TestCase
 
         // Assert
         $this->assertJson($this->baseResponse($response));
-        $this->assertEquals(10, $this->countPaginateList($response));
+        $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -35,7 +37,7 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_basea_response_400(): void
     {
         // Arrange
-        Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->make()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -54,7 +56,7 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_401(): void
     {
         // Arrange
-        Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->make()->toArray();
 
         // Act
         $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
@@ -70,7 +72,7 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_403(): void
     {
         // Arrange
-        Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory($this->count)->make()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
