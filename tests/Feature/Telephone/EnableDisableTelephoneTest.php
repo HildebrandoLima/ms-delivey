@@ -15,7 +15,7 @@ class EnableDisableTelephoneTest extends TestCase
     public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Telefone::factory()->createOne()->toArray();
+        $data = Telefone::query()->first()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -24,6 +24,7 @@ class EnableDisableTelephoneTest extends TestCase
         ])->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -33,15 +34,16 @@ class EnableDisableTelephoneTest extends TestCase
     public function it_endpoint_enable_disable_base_response_400(): void
     {
         // Arrange
-        $data = Telefone::factory()->createOne()->toArray();
+        $data = Telefone::query()->first()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id']), 'active' => 1]));
+        ])->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -51,12 +53,13 @@ class EnableDisableTelephoneTest extends TestCase
     public function it_endpoint_enable_disable_base_response_401(): void
     {
         // Arrange
-        $data = Telefone::factory()->createOne()->toArray();
+        $data = Telefone::query()->first()->toArray();
 
         // Act
         $response = $this->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

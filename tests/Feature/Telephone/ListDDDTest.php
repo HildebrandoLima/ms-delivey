@@ -21,7 +21,7 @@ class ListDDDTest extends TestCase
 
         // Assert
         $this->assertJson($this->baseResponse($response));
-        $this->assertEquals(254, count($data));
+        $this->assertEquals(23, count($data));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 }

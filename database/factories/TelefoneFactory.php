@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Fornecedor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Telefone>
@@ -19,10 +18,11 @@ class TelefoneFactory extends Factory
      */
     public function definition()
     {
-        $tipo = array('Fixo' => 'Fixo', 'Celular' => 'Celular');
+        $type = array('Fixo', 'Celular');
+        $rand_keys = array_rand($type);
         return [
             'numero' => '9' . rand(1000000, 2000000),
-            'tipo' => array_rand($tipo),
+            'tipo' => $type[$rand_keys],
             'ddd_id' => rand(70, 92),
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,

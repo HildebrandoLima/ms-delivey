@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Telephone;
 
+use App\Models\Fornecedor;
 use App\Models\Telefone;
+use App\Models\User;
 use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,25 +18,24 @@ class EditTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory(1)->create()->toArray();
-        foreach ($telephones as $t):
-            $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "usuarioId" => $t['usuario_id'],
-                "ativo" => $t['ativo'],
-            ];
-            array_push($data['telefones'], $telephone);
-        endforeach;
+        $telephone = Telefone::query()->first()->toArray();
+        $newTelephone = [
+            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            "tipo" => $telephone['tipo'],
+            "dddId" => $telephone['ddd_id'],
+            "usuarioId" => User::query()->first()->id,
+            "ativo" => $telephone['ativo'],
+        ];
+        array_push($data['telefones'], $newTelephone);
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephones[0]['id'])]), $data);
+        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -45,25 +46,24 @@ class EditTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory(1)->create()->toArray();
-        foreach ($telephones as $t):
-            $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "usuarioId" => $t['usuario_id'],
-                "ativo" => $t['ativo'],
-            ];
-            array_push($data['telefones'], $telephone);
-        endforeach;
+        $telephone = Telefone::query()->first()->toArray();
+        $newTelephone = [
+            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            "tipo" => $telephone['tipo'],
+            "dddId" => $telephone['ddd_id'],
+            "fornecedorId" => Fornecedor::query()->first()->id,
+            "ativo" => $telephone['ativo'],
+        ];
+        array_push($data['telefones'], $newTelephone);
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephones[0]['id'])]), $data);
+        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -74,25 +74,24 @@ class EditTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory(1)->create()->toArray();
-        foreach ($telephones as $t):
-            $telephone = [
-                "numero" => '',
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "usuarioId" => $t['usuario_id'],
-                "ativo" => $t['ativo'],
-            ];
-            array_push($data['telefones'], $telephone);
-        endforeach;
+        $telephone = Telefone::query()->first()->toArray();
+        $newTelephone = [
+            "numero" => '',
+            "tipo" => $telephone['tipo'],
+            "dddId" => $telephone['ddd_id'],
+            "usuarioId" => '',
+            "ativo" => $telephone['ativo'],
+        ];
+        array_push($data['telefones'], $newTelephone);
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephones[0]['id'])]), $data);
+        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -103,22 +102,21 @@ class EditTelephoneTest extends TestCase
     {
         // Arrange
         $data['telefones'] = [];
-        $telephones = Telefone::factory(1)->create()->toArray();
-        foreach ($telephones as $t):
-            $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "usuarioId" => $t['usuario_id'],
-                "ativo" => $t['ativo'],
-            ];
-            array_push($data['telefones'], $telephone);
-        endforeach;
+        $telephone = Telefone::query()->first()->toArray();
+        $newTelephone = [
+            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            "tipo" => $telephone['tipo'],
+            "dddId" => $telephone['ddd_id'],
+            "usuarioId" => $telephone['usuario_id'],
+            "ativo" => $telephone['ativo'],
+        ];
+        array_push($data['telefones'], $newTelephone);
 
         // Act
-        $response = $this->putJson(route('telephone.edit', ['id' => base64_encode($telephones[0]['id'])]), $data);
+        $response = $this->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

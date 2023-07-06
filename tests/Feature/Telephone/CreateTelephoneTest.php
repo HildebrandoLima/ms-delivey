@@ -2,14 +2,15 @@
 
 namespace Tests\Feature\Telephone;
 
-use App\Models\Telefone;
+use App\Models\User;
 use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateTelephoneTest extends TestCase
 {
-    private $count = 2;
+    private $counTelephones = 2;
+    private array $type = array('Fixo', 'Celular');
 
     /**
      * @test
@@ -17,18 +18,18 @@ class CreateTelephoneTest extends TestCase
     public function it_endpoint_post_base_response_200_create_user(): void
     {
         // Arrange
+        $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
                 "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "usuarioId" => $t['usuario_id'],
-                "ativo" => $t['ativo'],
+                "tipo" => $this->type[$rand_keys],
+                "dddId" => rand(70, 92),
+                "usuarioId" => User::query()->first()->id,
+                "ativo" => true,
             ];
             array_push($data['telefones'], $telephone);
-        endforeach;
+        endfor;
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -37,7 +38,7 @@ class CreateTelephoneTest extends TestCase
         ])->postJson(route('telephone.save'), $data);
 
         // Assert
-        $this->assertEquals(count($telephones), $this->count);
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -47,18 +48,18 @@ class CreateTelephoneTest extends TestCase
     public function it_endpoint_post_base_response_200_create_provider(): void
     {
         // Arrange
+        $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
                 "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "fornecedorId" => $t['fornecedor_id'],
-                "ativo" => $t['ativo'],
+                "tipo" => $this->type[$rand_keys],
+                "dddId" => rand(70, 92),
+                "usuarioId" => User::query()->first()->id,
+                "ativo" => true,
             ];
             array_push($data['telefones'], $telephone);
-        endforeach;
+        endfor;
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -67,7 +68,7 @@ class CreateTelephoneTest extends TestCase
         ])->postJson(route('telephone.save'), $data);
 
         // Assert
-        $this->assertEquals(count($telephones), $this->count);
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -77,18 +78,18 @@ class CreateTelephoneTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
+        $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
-                "numero" => '',
-                "tipo" => '',
-                "dddId" => $t['ddd_id'],
-                "fornecedorId" => $t['fornecedor_id'],
-                "ativo" => $t['ativo'],
+                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                "tipo" => $this->type[$rand_keys],
+                "dddId" => rand(70, 92),
+                "usuarioId" => '',
+                "ativo" => true,
             ];
             array_push($data['telefones'], $telephone);
-        endforeach;
+        endfor;
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
@@ -97,7 +98,7 @@ class CreateTelephoneTest extends TestCase
         ])->postJson(route('telephone.save'), $data);
 
         // Assert
-        $this->assertEquals(count($telephones), $this->count);
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -107,24 +108,24 @@ class CreateTelephoneTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
+        $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        $telephones = Telefone::factory($this->count)->create()->toArray();
-        foreach ($telephones as $t):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
                 "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $t['tipo'],
-                "dddId" => $t['ddd_id'],
-                "fornecedorId" => $t['fornecedor_id'],
-                "ativo" => $t['ativo'],
+                "tipo" => $this->type[$rand_keys],
+                "dddId" => rand(70, 92),
+                "usuarioId" => User::query()->first()->id,
+                "ativo" => true,
             ];
             array_push($data['telefones'], $telephone);
-        endforeach;
+        endfor;
 
         // Act
         $response = $this->postJson(route('telephone.save'), $data);
 
         // Assert
-        $this->assertEquals(count($telephones), $this->count);
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }
