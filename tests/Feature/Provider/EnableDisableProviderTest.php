@@ -17,7 +17,7 @@ class EnableDisableProviderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Fornecedor::factory()->createOne()->toArray();
+        $data = Fornecedor::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         Telefone::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -38,15 +38,15 @@ class EnableDisableProviderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_400(): void
     {
         // Arrange
-        $data = Fornecedor::factory()->createOne()->toArray();
+        $data = Fornecedor::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         Telefone::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('provider.enable.disable', ['id' => base64_encode($data['id']), 'active' => 1]));
+        ])->putJson(route('provider.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
         $this->assertJson($this->baseResponse($response));
@@ -59,7 +59,7 @@ class EnableDisableProviderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_401(): void
     {
         // Arrange
-        $data = Fornecedor::factory()->createOne()->toArray();
+        $data = Fornecedor::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         Telefone::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
 
@@ -77,12 +77,12 @@ class EnableDisableProviderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_403(): void
     {
         // Arrange
-        $data = Fornecedor::factory()->createOne()->toArray();
+        $data = Fornecedor::query()->first()->toArray();
         Endereco::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         Telefone::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->putJson(route('provider.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));

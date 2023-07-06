@@ -3,8 +3,10 @@
 namespace Tests\Feature\Provider;
 
 use App\Models\Fornecedor;
+use App\Support\Generate\GenerateCNPJ;
+use App\Support\Generate\GenerateEmail;
 use App\Support\Utils\Enums\PerfilEnum;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateProviderTest extends TestCase
@@ -15,13 +17,12 @@ class CreateProviderTest extends TestCase
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
-            'razaoSocial' => $provider['razao_social'],
-            'cnpj' => $provider['cnpj'],
-            'email' => $provider['email'],
-            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
-            'ativo' => $provider['ativo'],
+            'razaoSocial' => Str::random(10),
+            'cnpj' => GenerateCNPJ::generateCNPJ(),
+            'email' => GenerateEmail::generateEmail(),
+            'dataFundacao' => date('Y-m-d H:i:s'),
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -41,13 +42,12 @@ class CreateProviderTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
-            'razaoSocial' => '',
-            'cnpj' => $provider['cnpj'],
-            'email' => $provider['email'],
-            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
-            'ativo' => $provider['ativo'],
+            'razaoSocial' => Str::random(10),
+            'cnpj' => '',
+            'email' => '',
+            'dataFundacao' => date('Y-m-d H:i:s'),
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -67,13 +67,13 @@ class CreateProviderTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->makeOne()->toArray();
+        $provider = Fornecedor::factory()->createOne()->toArray();
         $data = [
-            'razaoSocial' => $provider['razao_social'],
-            'cnpj' => $provider['cnpj'],
-            'email' => $provider['email'],
+            'razaoSocial' => Str::random(10),
+            'cnpj' => GenerateCNPJ::generateCNPJ(),
+            'email' => GenerateEmail::generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
-            'ativo' => $provider['ativo'],
+            'ativo' => true,
         ];
 
         // Act
@@ -90,13 +90,12 @@ class CreateProviderTest extends TestCase
     public function it_endpoint_post_base_response_403(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->makeOne()->toArray();
         $data = [
-            'razaoSocial' => $provider['razao_social'],
-            'cnpj' => $provider['cnpj'],
-            'email' => $provider['email'],
+            'razaoSocial' => Str::random(10),
+            'cnpj' => GenerateCNPJ::generateCNPJ(),
+            'email' => GenerateEmail::generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
-            'ativo' => $provider['ativo'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

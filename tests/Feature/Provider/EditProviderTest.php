@@ -15,12 +15,12 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = Fornecedor::query()->first()->toArray();
         $data = [
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
-            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
+            'dataFundacao' => $provider['data_fundacao'],
             'ativo' => 0,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -41,12 +41,12 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = Fornecedor::query()->first()->toArray();
         $data = [
             'razaoSocial' => '',
             'cnpj' => $provider['cnpj'],
             'email' => '',
-            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
+            'dataFundacao' => $provider['data_fundacao'],
             'ativo' => 1,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -67,12 +67,12 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = Fornecedor::query()->first()->toArray();
         $data = [
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
-            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
+            'dataFundacao' => $provider['data_fundacao'],
             'ativo' => 0,
         ];
 
@@ -90,12 +90,12 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_403(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = Fornecedor::query()->first()->toArray();
         $data = [
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
-            'dataFundacao' => date_format($provider['data_fundacao'], 'Y-m-d H:i:s'),
+            'dataFundacao' => $provider['data_fundacao'],
             'ativo' => 0,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);

@@ -15,7 +15,7 @@ class ListProviderAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        Fornecedor::factory(10)->make()->toArray();
+        Fornecedor::factory(10)->create()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
