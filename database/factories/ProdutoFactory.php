@@ -22,11 +22,11 @@ class ProdutoFactory extends Factory
         $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
         $rand_keys = array_rand($unitMeasure);
         return [
-            'nome' => $this->faker->word,
+            'nome' => Str::random(30),
             'preco_custo' => 15.30,
             'margem_lucro' => 4.7,
             'preco_venda' => 20.0,
-            'codigo_barra' => Str::random_int(13),
+            'codigo_barra' => Str::random(13),
             'descricao' => $this->faker->sentence,
             'quantidade' => rand(10, 50),
             'unidade_medida' => $unitMeasure[$rand_keys],

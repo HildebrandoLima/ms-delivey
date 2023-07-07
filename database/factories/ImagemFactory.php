@@ -19,7 +19,7 @@ class ImagemFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => Str::random(45),
+            'caminho' => Str::random(45),
             'produto_id' => Produto::factory()->createOne()->id,
             'ativo' => true,
         ];
