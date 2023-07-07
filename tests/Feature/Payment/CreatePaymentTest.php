@@ -89,4 +89,28 @@ class CreatePaymentTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_post_base_response_401(): void
+    {
+        // Arrange
+        $data = [
+            'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
+            'dataValidade' =>  date('Y-m-d H:i:s'),
+            'parcela' => rand(0, 2),
+            'total' => rand(1, 100),
+            'metodoPagamentoId' => 2,
+            'pedidoId' => Pedido::factory()->createOne()->id,
+            'ativo' => true,
+        ];
+
+        // Act
+        $response = $this->postJson(route('payment.save', $data));
+
+        // Assert
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 401);
+    }
 }
