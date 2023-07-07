@@ -28,7 +28,7 @@ class EditProductSerice extends ValidationPermission implements EditProductSeric
     public function editProduct(int $id, ProductRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_PRODUTO);
-        $this->checkEntityRepository->checkProviderIdExist($id);
+        $this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
         $product = ProductRequestDto::fromRquest($request);
         return $this->productRepository->update($id, $product);
     }
