@@ -4,7 +4,7 @@ namespace App\Services\Product\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\ImageRequestDto;
 use App\DataTransferObjects\RequestsDtos\ProductRequestDto;
-use App\Exceptions\HttpBadRequest;
+use App\Exceptions\HttpStatusCode\HttpBadRequest;
 use App\Http\Requests\ProductRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
