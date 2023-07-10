@@ -20,7 +20,7 @@ class PagamentoFactory extends Factory
     public function definition()
     {
         return [
-            'codigo_transacao' => rand(1, 10),
+            'codigo_transacao' => rand(1, 1000),
             'numero_cartao' => rand(1000000000000000, 9999999999999999),
             'data_validade' => $this->faker->dateTime,
             'parcela' => rand(1, 3),
