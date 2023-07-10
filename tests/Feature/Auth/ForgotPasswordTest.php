@@ -14,7 +14,7 @@ class ForgotPasswordTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'hildebrandolima16@gmail.com'
+            'email' => 'hkohler@yahoo.com'
         ];
 
         // Act
@@ -31,7 +31,7 @@ class ForgotPasswordTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'hildebrandlima@gmail.com'
+            'email' => ''
         ];
 
         // Act
