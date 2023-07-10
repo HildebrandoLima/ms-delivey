@@ -8,7 +8,6 @@ use App\Http\Requests\ParametersRequest;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
@@ -32,12 +31,13 @@ class OrderController extends Controller
         $this->listOrderService   = $listOrderService;
     }
 
-    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
+    public function index(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listOrderService->listOrderAll
             (
-                $filterByActive->filterByActive($pagination->active)
+                $baseDecode->baseDecode($request->id ?? ''),
+                $filterByActive->filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);

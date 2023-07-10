@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class OrderRepository implements OrderRepositoryInterface
 {
+    private $query;
+
     public function enableDisable(int $id, int $usuarioId, int $active): bool
     {
         return Pedido::query()->where('id', $id)->orWhere('usuario_id', $usuarioId)->update(['ativo' => $active]);
@@ -22,9 +24,16 @@ class OrderRepository implements OrderRepositoryInterface
         return Pedido::query()->create((array)$orderDto);
     }
 
-    public function getAll(int $active): Collection
+    public function getAll(int $id, int $active): Collection
     {
-        $collection = $this->mapToQuery()->where('pedido.ativo', '=', $active)->orderByDesc('pedido.id')->paginate(10);
+        $collection = $this->mapToQuery()->where('pedido.ativo', '=', $active)->orderByDesc('pedido.id')
+        ->whereHas('usuario', function ($query) use ($id) {
+            if ($id > 0):
+                $query->where('users.id', '=', $id);
+            else:
+                $query->where('users.is_admin', '=', true);
+            endif;
+        })->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = OrderMapperDto::mapper($instance->toArray());
         endforeach;
@@ -41,6 +50,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     private function mapToQuery(): Builder
     {
-        return Pedido::query()->with('item')->with('pagamento');
+        return Pedido::query()->with('item')->with('pagamento')->with('usuario');
+        //$this->query;
     }
 }

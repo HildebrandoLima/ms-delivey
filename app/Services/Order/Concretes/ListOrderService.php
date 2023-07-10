@@ -24,10 +24,10 @@ class ListOrderService extends ValidationPermission implements ListOrderServiceI
         $this->orderRepository       = $orderRepository;
     }
 
-    public function listOrderAll(int $active): Collection
+    public function listOrderAll(int $id, int $active): Collection
     {
         $this->validationPermission(PermissionEnum::LISTAR_PEDIDO);
-        return $this->orderRepository->getAll($active);
+        return $this->orderRepository->getAll($id, $active);
     }
 
     public function listOrderFind(int $id, string $search, int $active): Collection
