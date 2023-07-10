@@ -35,4 +35,9 @@ class Pedido extends Model
     {
         return $this->hasMany(Item::class, 'pedido_id', 'id');
     }
+
+    public function usuario(): HasMany
+    {
+        return $this->hasMany(User::class, 'id', 'usuario_id');
+    }
 }

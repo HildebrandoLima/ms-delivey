@@ -12,7 +12,7 @@ class OrderDto extends DefaultFields
     public float $total;
     public float $entrega;
     public int $usuario_id;
-    public array $item;
+    public array $items;
     public array $pagamento;
 
     public static function construction(): static
@@ -86,14 +86,14 @@ class OrderDto extends DefaultFields
         return $this;
     }
 
-    public function getItem(): array
+    public function getItems(): array
     {
-        return $this->item;
+        return $this->items;
     }
 
-    public function setItem(array $item): OrderDto
+    public function setItems(array $items): OrderDto
     {
-        $this->item = EntityOrder::items($item);
+        $this->items = EntityOrder::items($items);
         return $this;
     }
 
