@@ -60,4 +60,22 @@ class LoginTest extends TestCase
         // Assert
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_post_login_base_response_400_first_access(): void
+    {
+        // Arrange
+        $data = [
+            'email' => 'cliente@gmail.com',
+            'password' => '@PClient5'
+        ];
+
+        // Act
+        $response = $this->postJson(route('auth.login'), $data);
+
+        // Assert
+        $this->assertEquals($this->httpStatusCode($response), 400);
+    }
 }
