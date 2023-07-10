@@ -265,7 +265,7 @@ Atenção: A senha é validada como padrão de forte.
 <li>O link acima funciona para enviar o link no email para redefinição de senha</li>
 <li>Ele deve ser a mesma url do front-end</li>
 
-### Body: POST/PUT
+### Body: POST
 ```
 {
     "email": "test@gmail.com",
