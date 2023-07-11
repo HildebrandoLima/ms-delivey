@@ -19,7 +19,7 @@ class ProviderRequest extends BaseRequest
             'cnpj' => ['required', new Cnpj()],
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'dataFundacao' => 'required|date',
-            'ativo' => 'required|int'
+            'ativo' => 'required|boolean'
         ];
     }
 
@@ -37,7 +37,7 @@ class ProviderRequest extends BaseRequest
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'dataFundacao.date' => DefaultErrorMessages::INVALID_DATE,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }
