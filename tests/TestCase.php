@@ -5,6 +5,7 @@ namespace Tests;
 use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
+use DateTime;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -56,5 +57,31 @@ abstract class TestCase extends BaseTestCase
     public function countPaginateList(TestResponse $response): int
     {
         return count($response->baseResponse->original['data']['list']);
+    }
+
+    public function caseDate(string $dateRequest): bool
+    {
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $dateRequest);
+        if ($date && $date->format('Y-m-d H:i:s') == $dateRequest):
+            return true;
+        else:
+            return false;
+        endif;
+    }
+
+    public function mask(int $value, string $format): string
+    {
+        $mask = '';
+        $position_value = 0;
+        for ($i = 0; $i <= strlen($format) - 1; $i++):
+            if ($format[$i] == '#'):
+                if (isset($value[$position_value])):
+                    $mask .= $value[$position_value++];
+                endif;
+            else:
+                $mask .= $format[$i];
+            endif;
+        endfor;
+        return $mask;
     }
 }

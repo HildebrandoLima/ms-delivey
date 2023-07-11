@@ -22,7 +22,7 @@ class UserRequest extends BaseRequest
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string',
-            'ativo' => 'required|int',
+            'ativo' => 'required|boolean',
         ];
     }
 
@@ -44,7 +44,7 @@ class UserRequest extends BaseRequest
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'ativo.int' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'senha' => DefaultErrorMessages::INVALID_PASSWORD,

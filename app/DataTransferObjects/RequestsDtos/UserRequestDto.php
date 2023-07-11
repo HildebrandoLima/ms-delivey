@@ -22,7 +22,7 @@ class UserRequestDto
         $userDto->setDataNascimento($user['dataNascimento'] ?? null);
         $userDto->setGenero($gender->genderCase($user['genero']));
         $userDto->setIsAdmin($user['perfil']);
-        $userDto->setAtivo($user['ativo'] == 1 ? UserEnum::ATIVADO : UserEnum::DESATIVADO);
+        $userDto->setAtivo($user['ativo'] == true ? UserEnum::ATIVADO : UserEnum::DESATIVADO);
         return $userDto;
     }
 }
