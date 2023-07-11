@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\User\Requests;
+namespace Tests\Unit\Requests;
 
 use App\Http\Requests\UserRequest;
 use App\Support\Generate\GenerateCPF;
