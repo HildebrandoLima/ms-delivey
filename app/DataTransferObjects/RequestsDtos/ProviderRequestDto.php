@@ -15,7 +15,7 @@ class ProviderRequestDto
         $providerDto->setCnpj(str_replace(array('.','-','/'), "", $request['cnpj']));
         $providerDto->setEmail($request['email']);
         $providerDto->setDataFundacao($request['dataFundacao']);
-        $providerDto->setAtivo($request['ativo'] == 1 ? ProviderEnum::ATIVADO : ProviderEnum::DESATIVADO);
+        $providerDto->setAtivo($request['ativo'] == true ? ProviderEnum::ATIVADO : ProviderEnum::DESATIVADO);
         return $providerDto;
     }
 }
