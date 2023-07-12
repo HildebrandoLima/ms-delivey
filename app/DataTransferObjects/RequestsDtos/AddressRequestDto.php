@@ -21,7 +21,7 @@ class AddressRequestDto
         $addressDto->setUfId($request['ufId']);
         $addressDto->setUsuarioId($request['usuarioId'] ?? null);
         $addressDto->setFornecedorId($request['fornecedorId'] ?? null);
-        $addressDto->setAtivo($request['ativo'] == 1 ? AddressEnum::ATIVADO : AddressEnum::DESATIVADO);
+        $addressDto->setAtivo($request['ativo'] == true ? AddressEnum::ATIVADO : AddressEnum::DESATIVADO);
         return $addressDto;
     }
 }
