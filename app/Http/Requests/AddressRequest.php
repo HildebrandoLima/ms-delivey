@@ -23,7 +23,7 @@ class AddressRequest extends BaseRequest
             'ufId' => 'required|int|exists:unidade_federativa,id',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
-            'ativo' => 'required|int',
+            'ativo' => 'required|boolean',
         ];
     }
 
@@ -50,7 +50,7 @@ class AddressRequest extends BaseRequest
             'ufId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }
