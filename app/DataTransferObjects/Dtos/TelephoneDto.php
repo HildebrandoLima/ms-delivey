@@ -34,7 +34,7 @@ class TelephoneDto extends DefaultFields
 
     public function setNumero(string $numero): TelephoneDto
     {
-        $this->numero = str_replace('-', "", $numero);
+        $this->numero = $numero;
         return $this;
     }
 
