@@ -2,12 +2,13 @@
 
 namespace App\Services\User\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\UserEditRequestDto;
 use App\Http\Requests\UserEditRequest;
+use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Cases\UserCase;
 use App\Support\Utils\Enums\PermissionEnum;
 
 class EditUserService extends ValidationPermission implements EditUserServiceInterface
@@ -29,13 +30,21 @@ class EditUserService extends ValidationPermission implements EditUserServiceInt
     {
         $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
         $this->checkExist($id);
-        $user = UserEditRequestDto::fromRquest($request->toArray());
-        $this->userRepository->update($id, $user);
-        return true;
+        $user = $this->map($request);
+        return $this->userRepository->update($id, $user);
     }
 
     private function checkExist(int $id): void
     {
         $this->checkEntityRepository->checkUserIdExist($id);
+    }
+
+    private function map(UserEditRequest $request): User
+    {
+        $user = new User();
+        $user->name = $request->nome;
+        $user->email = $request->email;
+        $user->genero = UserCase::genderCase($request->genero);
+        return $user;
     }
 }

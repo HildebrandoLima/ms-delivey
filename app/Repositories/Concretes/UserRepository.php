@@ -27,10 +27,9 @@ class UserRepository implements UserRepositoryInterface
         return User::query()->create($user->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
-    public function update(int $id, UserDto $userDto): User
+    public function update(int $id, User $user): bool
     {
-        User::query()->where('id', '=', $id)->update((array)$userDto);
-        return User::query()->first();
+        return User::query()->where('id', '=', $id)->update($user->toArray());
     }
 
     public function getAll(int $active): Collection
