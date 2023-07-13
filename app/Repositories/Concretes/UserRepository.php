@@ -22,9 +22,9 @@ class UserRepository implements UserRepositoryInterface
         return User::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verified_at' => now()]);
     }
 
-    public function create(UserDto $userDto): User
+    public function create(User $user): int
     {
-        return User::query()->create((array)$userDto);
+        return User::query()->create($user->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
     public function update(int $id, UserDto $userDto): User
