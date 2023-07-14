@@ -2,11 +2,13 @@
 
 namespace Tests\Unit\Services\User;
 
+use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\ListUserService;
 use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Utils\Pagination\PaginationList;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -18,22 +20,27 @@ class ListUserServiceTest extends TestCase
     public function test_success_list_user_all_service(): void
     {
         // Arrange
-        $data = User::query()->limit(10)->get()->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $active = true;
+        $collection = User::with('endereco')->with('telefone')->where('users.ativo', '=', $active)->orderByDesc('users.id')->paginate(10);
+        foreach ($collection->items() as $key => $instance):
+            $collection[$key] = UserMapperDto::mapper($instance->toArray());
+        endforeach;
+        $expectedResult = PaginationList::createFromPagination($collection);
 
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('checkUserIdExist')->with(1);
+            function (MockInterface $mock) use ($active) {
+                $mock->shouldReceive('checkUserIdExist')->with($active);
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $data = User::query()->limit(10)->get();
-                $mock->shouldReceive('getAll')->with(1)->andReturn(collect($data->toArray()));
+            function (MockInterface $mock) use ($expectedResult, $active) {
+                $mock->shouldReceive('getAll')->with($active)
+                ->andReturn($expectedResult);
         });
 
         // Act
@@ -43,9 +50,10 @@ class ListUserServiceTest extends TestCase
             $this->userRepository
         );
 
-        $result = $listUserService->listUserAll(1);
+        $result = $listUserService->listUserAll($active);
 
         // Assert
-        $this->assertEquals(count($result), count($data));
+        $this->assertSame($result, $expectedResult);
+        $this->assertEquals(count($result->toArray()['list']), count($expectedResult->toArray()['list']));
     }
 }
