@@ -5,6 +5,7 @@ namespace Tests\Unit\Services\Address;
 use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
+use App\Models\UnidadeFederativa;
 use App\Models\User;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Concretes\CreateAddressService;
