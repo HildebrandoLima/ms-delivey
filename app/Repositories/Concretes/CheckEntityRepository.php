@@ -103,9 +103,7 @@ class CheckEntityRepository implements CheckEntityRepositoryInterface
 
     public function checkTelephoneExist(string $numero): void
     {
-        if (Telefone::query()
-                ->where('numero', 'like', $numero)
-                ->count() != 0):
+        if (Telefone::query()->where('numero', 'like', $numero)->count() != 0):
             throw new HttpBadRequest('O número informado já existe.', (int)$numero);
         endif;
     }

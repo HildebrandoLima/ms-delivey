@@ -21,9 +21,9 @@ class TelephoneRepository implements TelephoneRepositoryInterface
         })->update(['ativo' => $active]);
     }
 
-    public function create(TelephoneDto $telephoneDto): bool
+    public function create(Telefone $telefone): bool
     {
-        Telefone::query()->create((array)$telephoneDto);
+        Telefone::query()->create($telefone->toArray());
         return true;
     }
 

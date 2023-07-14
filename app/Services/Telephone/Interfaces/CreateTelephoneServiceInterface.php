@@ -6,5 +6,5 @@ use App\Http\Requests\TelephoneRequest;
 
 interface CreateTelephoneServiceInterface
 {
-    public function createTelephone(TelephoneRequest $request): int;
+    public function createTelephone(TelephoneRequest $request): bool;
 }
