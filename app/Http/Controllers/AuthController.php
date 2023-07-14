@@ -59,13 +59,15 @@ class AuthController extends Controller
     public function logout(): Response
     {
         try {
-            $this->logoutService->logout();
-            return response()->json([
-                "message" => "Logout efetuado com sucesso!",
-                "data" => true,
-                "status" => 200,
-                "details" => ""
-            ]);
+            $success = $this->logoutService->logout();
+            if ($success):
+                return response()->json([
+                    "message" => "Logout efetuado com sucesso!",
+                    "data" => $success,
+                    "status" => 200,
+                    "details" => ""
+                ]);
+            endif;
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
