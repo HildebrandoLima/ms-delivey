@@ -1,11 +1,10 @@
 <?php
 
-namespace Tests\Unit\Services\Address;
+namespace Tests\Unit\Services\Auth;
 
 use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
-use App\Models\UnidadeFederativa;
 use App\Models\User;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Concretes\CreateAddressService;
@@ -13,7 +12,7 @@ use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-class CreateAddressServiceTest extends TestCase
+class LoginServiceTest extends TestCase
 {
     private AddressRequest $request;
     private AddressRepositoryInterface $addressRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\User;
+namespace Tests\Unit\Services\Telephone;
 
 use App\Models\DDD;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
