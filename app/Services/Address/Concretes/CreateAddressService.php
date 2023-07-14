@@ -33,8 +33,8 @@ class CreateAddressService implements CreateAddressServiceInterface
         $address->cidade = $request->cidade;
         $address->cep = str_replace('-', "", $request->cep);
         $address->uf_id = $request->ufId;
-        $address->usuario_id = $request->usuarioId;
-        $address->fornecedor_id = $request->fornecedorId;
+        $address->usuario_id = $request->usuarioId ?? null;
+        $address->fornecedor_id = $request->fornecedorId ?? null;
         $request = true ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
         return $address;
     }
