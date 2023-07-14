@@ -21,9 +21,9 @@ class AddressRepository implements AddressRepositoryInterface
         })->update(['ativo' => $active]);
     }
 
-    public function create(AddressDto $addressDto): bool
+    public function create(Endereco $endereco): bool
     {
-        Endereco::query()->create((array)$addressDto);
+        Endereco::query()->create($endereco->toArray());
         return true;
     }
 

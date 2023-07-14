@@ -2,27 +2,26 @@
 
 namespace App\DataTransferObjects\RequestsDtos;
 
-use App\DataTransferObjects\Dtos\UserDto;
-use App\Support\Utils\Cases\UserCase;
-use App\Support\Utils\Enums\UserEnum;
-use Illuminate\Support\Facades\Hash;
+use App\DataTransferObjects\Dtos\AddressDto;
+use App\Http\Requests\AddressRequest;
+use App\Support\Utils\Cases\AddressCase;
+use App\Support\Utils\Enums\AddressEnum;
 
-class UserRequestDto
+class AddressRequestDto
 {
-    public static function fromRquest(array $user): UserDto
+    public static function fromRquest(AddressRequest $request): AddressDto
     {
-        $userDto = new UserDto();
-        $gender = new UserCase();
-        $userDto->setLoginSocialId($user['loginSocialId'] ?? null);
-        $userDto->setLoginSocial($user['loginSocial'] ?? null);
-        $userDto->setNome($user['nome']);
-        $userDto->setCpf(str_replace(array('.','-','/'), "", $user['cpf']) ?? null);
-        $userDto->setEmail($user['email']);
-        $userDto->setSenha(Hash::make($user['senha']) ?? null);
-        $userDto->setDataNascimento($user['dataNascimento'] ?? null);
-        $userDto->setGenero($gender->genderCase($user['genero']));
-        $userDto->setIsAdmin($user['perfil']);
-        $userDto->setAtivo($user['ativo'] == true ? UserEnum::ATIVADO : UserEnum::DESATIVADO);
-        return $userDto;
+        $addressDto = new AddressDto();
+        $logradouro = new AddressCase();
+        $addressDto->setLogradouro($logradouro->publicPlaceCase($request['logradouro']));
+        $addressDto->setDescricao($request['descricao']);
+        $addressDto->setBairro($request['bairro']);
+        $addressDto->setCidade($request['cidade']);
+        $addressDto->setCep(str_replace('-', "", $request['cep']));
+        $addressDto->setUfId($request['ufId']);
+        $addressDto->setUsuarioId($request['usuarioId'] ?? null);
+        $addressDto->setFornecedorId($request['fornecedorId'] ?? null);
+        $addressDto->setAtivo($request['ativo'] == true ? AddressEnum::ATIVADO : AddressEnum::DESATIVADO);
+        return $addressDto;
     }
 }
