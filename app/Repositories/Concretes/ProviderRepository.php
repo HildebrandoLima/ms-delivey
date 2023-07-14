@@ -17,9 +17,9 @@ class ProviderRepository implements ProviderRepositoryInterface
         return Fornecedor::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function create(ProviderDto $providerDto): Fornecedor
+    public function create(Fornecedor $fornecedor): int
     {
-        return Fornecedor::query()->create((array)$providerDto);
+        return Fornecedor::query()->create($fornecedor->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
     public function update(int $id, ProviderDto $providerDto): bool

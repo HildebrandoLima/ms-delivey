@@ -2,14 +2,15 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
 use App\Http\Requests\ProviderRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\Fornecedor;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Utils\Enums\ProviderEnum;
 
 class CreateProviderService extends ValidationPermission implements CreateProviderServiceInterface
 {
@@ -30,18 +31,29 @@ class CreateProviderService extends ValidationPermission implements CreateProvid
     {
         $this->validationPermission(PermissionEnum::CRIAR_FORNECEDOR);
         $this->checkExist($request);
-        $provider = ProviderRequestDto::fromRquest($request);
-        $createProvider = $this->providerRepository->create($provider);
-        if ($createProvider) $this->dispatchJob($createProvider->id, $request->email);
-        return $createProvider->id;
+        $provider = $this->map($request);
+        $providerId = $this->providerRepository->create($provider);
+        if ($providerId) $this->dispatchJob($providerId, $request->email);
+        return $providerId;
     }
 
-    public function checkExist(ProviderRequest $request): void
+    private function map(ProviderRequest $request): Fornecedor
+    {
+        $provider = new Fornecedor();
+        $provider->razao_social = $request->razaoSocial;
+        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
+        $provider->email = $request->email;
+        $provider->data_fundacao = $request->dataFundacao;
+        $provider->ativo = ProviderEnum::ATIVADO;
+        return $provider;
+    }
+
+    private function checkExist(ProviderRequest $request): void
     {
         $this->checkEntityRepository->checkProviderExist($request);
     }
 
-    public function dispatchJob(int $providerId, string $email): void
+    private function dispatchJob(int $providerId, string $email): void
     {
         EmailForRegisterJob::dispatch($email, $providerId);
     }
