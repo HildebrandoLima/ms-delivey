@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\UserDto;
 use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
