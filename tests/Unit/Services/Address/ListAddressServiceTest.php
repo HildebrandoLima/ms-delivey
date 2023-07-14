@@ -12,7 +12,7 @@ class ListAddressServiceTest extends TestCase
 {
     private AddressRepositoryInterface $addressRepository;
 
-    public function test_success_list_user_all_service(): void
+    public function test_success_list_address_uf_service(): void
     {
         // Arrange
         $expectedResult = UnidadeFederativa::query()->get();
