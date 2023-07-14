@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\CreateUserService;
+use App\Support\Generate\GenerateCPF;
 use App\Support\Generate\GenerateEmail;
 use App\Support\Generate\GeneratePassword;
 use App\Support\Permissions\CreatePermissions;
@@ -29,7 +30,7 @@ class CreateUserServiceTest extends TestCase
         $id = rand(1, 100);
         $this->request = new UserRequest();
         $this->request['nome'] = Str::random(10);
-        $this->request['cpf'] = '748.498.870-74';
+        $this->request['cpf'] = GenerateCPF::generateCPF();
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['senha'] = GeneratePassword::generatePassword();
         $this->request['dataNascimento'] = date('Y-m-d H:i:s');
