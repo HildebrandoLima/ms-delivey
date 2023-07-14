@@ -31,11 +31,11 @@ class CreateAddressService implements CreateAddressServiceInterface
         $address->descricao = $request->descricao;
         $address->bairro = $request->bairro;
         $address->cidade = $request->cidade;
-        $address->cep = $request->cep;
+        $address->cep = str_replace('-', "", $request->cep);
         $address->uf_id = $request->ufId;
         $address->usuario_id = $request->usuarioId;
         $address->fornecedor_id = $request->fornecedorId;
-        $address->ativo = AddressEnum::ATIVADO;
+        $request = true ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
         return $address;
     }
 }
