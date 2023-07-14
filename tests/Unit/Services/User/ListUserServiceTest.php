@@ -55,6 +55,8 @@ class ListUserServiceTest extends TestCase
 
         // Assert
         $this->assertSame($result, $expectedResult);
+        $this->assertIsArray($result->toArray()['list']);
+        $this->assertIsArray($expectedResult->toArray()['list']);
         $this->assertEquals(count($result->toArray()['list']), count($expectedResult->toArray()['list']));
     }
 
@@ -96,6 +98,8 @@ class ListUserServiceTest extends TestCase
 
         // Assert
         $this->assertSame($result, $expectedResult);
+        $this->assertIsArray($result->toArray());
+        $this->assertIsArray($expectedResult->toArray());
     }
 
     public function test_success_list_user_find_search_name_service(): void
@@ -136,5 +140,7 @@ class ListUserServiceTest extends TestCase
 
         // Assert
         $this->assertSame($result, $expectedResult);
+        $this->assertIsArray($result->toArray());
+        $this->assertIsArray($expectedResult->toArray());
     }
 }
