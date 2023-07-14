@@ -6,11 +6,11 @@ use App\Support\MapperEntity\EntityPerson;
 
 class ProviderDto extends DefaultFields
 {
-    public int $fornecedor_id;
-    public string $razao_social;
+    public int $fornecedorId;
+    public string $razaoSocial;
     public string $cnpj;
     public string $email;
-    public string $data_fundacao;
+    public string $dataFundacao;
     public array $enderecos;
     public array $telefones;
 
@@ -21,23 +21,23 @@ class ProviderDto extends DefaultFields
 
     public function getFornecedorId(): int
     {
-        return $this->fornecedor_id;
+        return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int $fornecedor_id): ProviderDto
+    public function setFornecedorId(int $fornecedorId): ProviderDto
     {
-        $this->fornecedor_id = $fornecedor_id;
+        $this->fornecedorId = $fornecedorId;
         return $this;
     }
 
     public function getRazaoSocial(): string
     {
-        return $this->razao_social;
+        return $this->razaoSocial;
     }
 
-    public function setRazaoSocial(string $razao_social): ProviderDto
+    public function setRazaoSocial(string $razaoSocial): ProviderDto
     {
-        $this->razao_social = $razao_social;
+        $this->razaoSocial = $razaoSocial;
         return $this;
     }
 
@@ -65,12 +65,12 @@ class ProviderDto extends DefaultFields
 
     public function getDataFundacao(): string
     {
-        return $this->data_fundacao;
+        return $this->dataFundacao;
     }
 
-    public function setDataFundacao(string $data_fundacao): ProviderDto
+    public function setDataFundacao(string $dataFundacao): ProviderDto
     {
-        $this->data_fundacao = $data_fundacao;
+        $this->dataFundacao = $dataFundacao;
         return $this;
     }
 
