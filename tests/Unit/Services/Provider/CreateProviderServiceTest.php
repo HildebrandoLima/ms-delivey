@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services\Provider;
 
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
