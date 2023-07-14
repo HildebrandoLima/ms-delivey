@@ -5,6 +5,7 @@ namespace Tests\Unit\Services\Address;
 use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
+use App\Models\UnidadeFederativa;
 use App\Models\User;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Concretes\CreateAddressService;
@@ -27,7 +28,7 @@ class CreateAddressServiceTest extends TestCase
         $this->request['bairro'] = Str::random(10);
         $this->request['cidade'] = Str::random(10);
         $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['ufId'] = date('Y-m-d H:i:s');
+        $this->request['ufId'] = rand(1, 27);
         $this->request['usuarioId'] = User::query()->first()->id;
         $this->request['ativo'] = true;
 
