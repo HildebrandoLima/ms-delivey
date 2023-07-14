@@ -4,11 +4,13 @@ namespace App\Services\Provider\Concretes;
 
 use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
 use App\Http\Requests\ProviderRequest;
+use App\Models\Fornecedor;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Utils\Enums\ProviderEnum;
 
 class EditProviderService extends ValidationPermission implements EditProviderServiceInterface
 {
@@ -29,7 +31,18 @@ class EditProviderService extends ValidationPermission implements EditProviderSe
     {
         $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
         $this->checkEntityRepository->checkProviderIdExist($id);
-        $provider = ProviderRequestDto::fromRquest($request);
+        $provider = $this->map($request);
         return $this->providerRepository->update($id, $provider);
+    }
+
+    private function map(ProviderRequest $request): Fornecedor
+    {
+        $provider = new Fornecedor();
+        $provider->razao_social = $request->razaoSocial;
+        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
+        $provider->email = $request->email;
+        $provider->data_fundacao = $request->dataFundacao;
+        $provider->ativo = ProviderEnum::ATIVADO;
+        return $provider;
     }
 }
