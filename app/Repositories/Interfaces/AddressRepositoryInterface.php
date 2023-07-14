@@ -10,6 +10,6 @@ interface AddressRepositoryInterface
 {
     public function enableDisable(int $id, int $active): bool;
     public function create(Endereco $endereco): bool;
-    public function update(int $id, AddressDto $addressDto): bool;
+    public function update(int $id, Endereco $endereco): bool;
     public function getFederativeUnitAll(): Collection;
 }
