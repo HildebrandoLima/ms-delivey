@@ -52,7 +52,7 @@ class CategoryController extends Controller
     public function show(ParametersRequest $request, Search $search, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
     {
         try {
-            $success = $this->listCategoryService->listProviderFind
+            $success = $this->listCategoryService->listCategoryFind
             (
                 $baseDecode->baseDecode($request->id ?? ''),
                 $search->search($request->search ?? ''),
