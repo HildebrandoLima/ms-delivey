@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\CategoryDto;
 use App\DataTransferObjects\MappersDtos\CategoryMapperDto;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -22,9 +21,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         return true;
     }
 
-    public function update(int $id, CategoryDto $categoryDto): bool
+    public function update(int $id, Categoria $categoria): bool
     {
-        return Categoria::query()->where('id', '=', $id)->update((array)$categoryDto);
+        return Categoria::query()->where('id', '=', $id)->update($categoria->toArray());
     }
 
     public function getAll(int $active): Collection
