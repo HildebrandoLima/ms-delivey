@@ -7,9 +7,7 @@ use App\Jobs\ForgotPassword;
 use App\Models\PasswordReset;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Nette\Utils\Arrays;
 
 class ForgotPasswordService implements ForgotPasswordServiceInterface
 {

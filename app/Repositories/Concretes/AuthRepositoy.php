@@ -2,13 +2,11 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\AuthDto;
 use App\Http\Requests\RefreshPasswordRequest;
 use App\Models\PasswordReset;
 use App\Models\PermissionUser;
 use App\Models\User;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class AuthRepositoy implements AuthRepositoryInterface
