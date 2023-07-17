@@ -16,9 +16,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Categoria::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function create(CategoryDto $categoryDto): bool
+    public function create(Categoria $categoria): bool
     {
-        Categoria::query()->create((array)$categoryDto);
+        Categoria::query()->create($categoria->toArray());
         return true;
     }
 
