@@ -8,6 +8,7 @@ use App\Models\PasswordReset;
 use App\Models\PermissionUser;
 use App\Models\User;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class AuthRepositoy implements AuthRepositoryInterface
@@ -20,9 +21,9 @@ class AuthRepositoy implements AuthRepositoryInterface
         ]);
     }
 
-    public function forgotPassword(AuthDto $authDto): bool
+    public function forgotPassword(PasswordReset $passwordReset): bool
     {
-        return PasswordReset::query()->insert((array)$authDto);
+        return PasswordReset::query()->insert($passwordReset->toArray());
     }
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
