@@ -6,7 +6,6 @@ use App\Http\Requests\ForgotPasswordRequest;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Services\Auth\Concretes\ForgotPasswordService;
 use Mockery\MockInterface;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ForgotPasswordServiceTest extends TestCase
