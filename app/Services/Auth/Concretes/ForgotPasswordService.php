@@ -21,12 +21,9 @@ class ForgotPasswordService implements ForgotPasswordServiceInterface
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
         $passwordReset = $this->map($request);
-        if ($this->authRepository->forgotPassword($passwordReset)):
-            ForgotPassword::dispatch($passwordReset->toArray());
-            return true;
-        else:
-            return false;
-        endif;
+        $auth = $this->authRepository->forgotPassword($passwordReset);
+        if ($auth) $this->dispatchJob($passwordReset->toArray());
+        return true;
     }
 
     private function map(ForgotPasswordRequest $request): PasswordReset
@@ -36,5 +33,10 @@ class ForgotPasswordService implements ForgotPasswordServiceInterface
         $passwordReset->token = Str::uuid();
         $passwordReset->codigo = Str::random(10);
         return $passwordReset;
+    }
+
+    private function dispatchJob(array $passwordReset): void
+    {
+        ForgotPassword::dispatch($passwordReset);
     }
 }
