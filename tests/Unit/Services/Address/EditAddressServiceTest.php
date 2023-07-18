@@ -18,12 +18,13 @@ class EditAddressServiceTest extends TestCase
     private AddressRequest $request;
     private AddressRepositoryInterface $addressRepository;
     private array $public_place = array('Rua', 'Avenida');
+    private int $id;
 
     public function test_success_edit_address_with_params_user_id_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->public_place);
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new AddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['bairro'] = Str::random(10);
@@ -40,14 +41,14 @@ class EditAddressServiceTest extends TestCase
         ]);
 
         $this->addressRepository = $this->mock(AddressRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('update')->with($id, Endereco::class)->andReturn(true);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('update')->with($this->id, Endereco::class)->andReturn(true);
         });
 
         // Act
         $createAddressService = new EditAddressService($this->addressRepository);
 
-        $result = $createAddressService->editAddress($id, $this->request);
+        $result = $createAddressService->editAddress($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);
@@ -57,7 +58,7 @@ class EditAddressServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->public_place);
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new AddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['bairro'] = Str::random(10);
@@ -74,14 +75,14 @@ class EditAddressServiceTest extends TestCase
         ]);
 
         $this->addressRepository = $this->mock(AddressRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('update')->with($id, Endereco::class)->andReturn(true);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('update')->with($this->id, Endereco::class)->andReturn(true);
         });
 
         // Act
         $createAddressService = new EditAddressService($this->addressRepository);
 
-        $result = $createAddressService->editAddress($id, $this->request);
+        $result = $createAddressService->editAddress($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);

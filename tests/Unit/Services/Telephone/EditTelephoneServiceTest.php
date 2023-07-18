@@ -19,12 +19,13 @@ class EditTelephoneServiceTest extends TestCase
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private TelephoneRepositoryInterface $telephoneRepository;
     private array $type = array('Fixo', 'Celular');
+    private int $id;
 
     public function test_success_create_address_with_params_user_id_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new TelephoneRequest();
         $this->request['telefones'] = [
             "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
@@ -42,13 +43,13 @@ class EditTelephoneServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) use ($id) {
-            $mock->shouldReceive('checkTelephoneIdExist')->with($id);
+        function (MockInterface $mock) {
+            $mock->shouldReceive('checkTelephoneIdExist')->with($this->id);
         });
 
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('update')->with($id, Telefone::class)->andReturn(true);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('update')->with($this->id, Telefone::class)->andReturn(true);
         });
 
         // Act
@@ -58,7 +59,7 @@ class EditTelephoneServiceTest extends TestCase
             $this->telephoneRepository
         );
 
-        $result = $editTelephoneService->editTelephone($id, $this->request);
+        $result = $editTelephoneService->editTelephone($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);
@@ -68,7 +69,7 @@ class EditTelephoneServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new TelephoneRequest();
         $this->request['telefones'] = [
             "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
@@ -86,8 +87,8 @@ class EditTelephoneServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) use ($id) {
-            $mock->shouldReceive('checkTelephoneIdExist')->with($id);
+        function (MockInterface $mock) {
+            $mock->shouldReceive('checkTelephoneIdExist')->with($this->id);
         });
 
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
@@ -102,7 +103,7 @@ class EditTelephoneServiceTest extends TestCase
             $this->telephoneRepository
         );
 
-        $result = $editTelephoneService->editTelephone($id, $this->request);
+        $result = $editTelephoneService->editTelephone($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);

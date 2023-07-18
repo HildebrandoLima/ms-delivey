@@ -12,20 +12,23 @@ class EmailUserVerifiedAtServiceTest extends TestCase
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private UserRepositoryInterface $userRepository;
+    private int $id;
+    private bool $active; 
 
     public function test_success_user_email_verified_at_service(): void
     {
         // Arrange
-        $id = rand(1, 100);
-        $active = true;
+        $this->id = rand(1, 100);
+        $this->active = true;
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkUserIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkUserIdExist')->with($this->id);
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) use ($id, $active) {
-                $mock->shouldReceive('emailVerifiedAt')->with($id, $active)->andReturn(true);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('emailVerifiedAt')->with($this->id, $this->active)
+                     ->andReturn(true);
         });
 
         // Act
@@ -35,7 +38,7 @@ class EmailUserVerifiedAtServiceTest extends TestCase
             $this->userRepository
         );
 
-        $result = $emailUserVerifiedAtService->emailVerifiedAt($id, $active);
+        $result = $emailUserVerifiedAtService->emailVerifiedAt($this->id, $this->active);
 
         // Assert
         $this->assertTrue($result);

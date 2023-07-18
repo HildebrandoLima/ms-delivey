@@ -16,13 +16,17 @@ class ListProviderServiceTest extends TestCase
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProviderRepositoryInterface $providerRepository;
+    private int $id;
+    private bool $active;
+    private string $search;
 
-    public function test_success_list_user_all_service(): void
+    public function test_success_list_provider_all_service(): void
     {
         // Arrange
-        $id = rand(1, 100);
-        $active = true;
-        $collection = Fornecedor::with('endereco')->with('telefone')->where('fornecedor.ativo', '=', $active)->orderByDesc('fornecedor.id')->paginate(10);
+        $this->id = rand(1, 100);
+        $this->active = true;
+        $collection = Fornecedor::with('endereco')->with('telefone')->where('fornecedor.ativo', '=', $this->active)
+        ->orderByDesc('fornecedor.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = ProviderMapperDto::mapper($instance->toArray());
         endforeach;
@@ -34,13 +38,13 @@ class ListProviderServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkProviderIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkProviderIdExist')->with($this->id);
         });
 
         $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $active) {
-                $mock->shouldReceive('getAll')->with($active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getAll')->with($this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -51,7 +55,7 @@ class ListProviderServiceTest extends TestCase
             $this->providerRepository
         );
 
-        $result = $listProviderService->listProviderAll($active);
+        $result = $listProviderService->listProviderAll($this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -60,14 +64,15 @@ class ListProviderServiceTest extends TestCase
         $this->assertEquals(count($result->toArray()['list']), count($expectedResult->toArray()['list']));
     }
 
-    public function test_success_list_user_find_id_service(): void
+    public function test_success_list_provider_find_id_service(): void
     {
         // Arrange
-        $id = Fornecedor::query()->first()->id;
-        $active = true;
-        $search = '%%';
-        $collect = Fornecedor::with('endereco')->with('telefone')->where('fornecedor.ativo', '=', $active)->where('fornecedor.id', '=', $id)
-        ->orWhere('fornecedor.razao_social', 'like', $search)->get()->toArray()[0];
+        $this->id = Fornecedor::query()->first()->id;
+        $this->active = true;
+        $this->search = '%%';
+        $collect = Fornecedor::with('endereco')->with('telefone')
+        ->where('fornecedor.ativo', '=', $this->active)->where('fornecedor.id', '=', $this->id)
+        ->orWhere('fornecedor.razao_social', 'like', $this->search)->get()->toArray()[0];
         $collection = ProviderMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
@@ -77,13 +82,13 @@ class ListProviderServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkProviderIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkProviderIdExist')->with($this->id);
         });
 
         $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $id, $active) {
-                $mock->shouldReceive('getOne')->with($id, '', $active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -94,7 +99,7 @@ class ListProviderServiceTest extends TestCase
             $this->providerRepository
         );
 
-        $result = $listProviderService->listProviderFind($id, '', $active);
+        $result = $listProviderService->listProviderFind($this->id, $this->search, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -102,14 +107,14 @@ class ListProviderServiceTest extends TestCase
         $this->assertIsArray($expectedResult->toArray());
     }
 
-    public function test_success_list_user_find_search_name_service(): void
+    public function test_success_list_provider_find_search_name_service(): void
     {
         // Arrange
-        $id = 0;
-        $active = true;
-        $search = Fornecedor::query()->first()->razao_social;
-        $collect = Fornecedor::with('endereco')->with('telefone')->where('fornecedor.ativo', '=', $active)->where('fornecedor.id', '=', $id)
-        ->orWhere('fornecedor.razao_social', 'like', $search)->get()->toArray()[0];
+        $this->id = 0;
+        $this->active = true;
+        $this->search = Fornecedor::query()->first()->razao_social;
+        $collect = Fornecedor::with('endereco')->with('telefone')->where('fornecedor.ativo', '=', $this->active)
+        ->where('fornecedor.id', '=', $this->id)->orWhere('fornecedor.razao_social', 'like', $this->search)->get()->toArray()[0];
         $collection = ProviderMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
@@ -119,13 +124,13 @@ class ListProviderServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkProviderIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkProviderIdExist')->with($this->id);
         });
 
         $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $id, $active) {
-                $mock->shouldReceive('getOne')->with($id, '', $active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -136,7 +141,7 @@ class ListProviderServiceTest extends TestCase
             $this->providerRepository
         );
 
-        $result = $listProviderService->listProviderFind($id, '', $active);
+        $result = $listProviderService->listProviderFind($this->id, $this->search, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);

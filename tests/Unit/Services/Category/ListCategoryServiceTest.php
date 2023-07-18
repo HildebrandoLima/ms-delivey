@@ -15,13 +15,16 @@ class ListCategoryServiceTest extends TestCase
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private CategoryRepositoryInterface $categoryRepository;
+    private int $id;
+    private bool $active;
+    private string $search;
 
     public function test_success_list_category_all_service(): void
     {
         // Arrange
-        $id = rand(1, 100);
-        $active = true;
-        $collection = Categoria::where('ativo', '=', $active)->orderByDesc('id')->get();
+        $this->id = rand(1, 100);
+        $this->active = true;
+        $collection = Categoria::where('ativo', '=', $this->active)->orderByDesc('id')->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = CategoryMapperDto::mapper($instance);
         endforeach;
@@ -33,13 +36,13 @@ class ListCategoryServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkCategoryIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkCategoryIdExist')->with($this->id);
         });
 
         $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $active) {
-                $mock->shouldReceive('getAll')->with($active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getAll')->with($this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -50,7 +53,7 @@ class ListCategoryServiceTest extends TestCase
             $this->categoryRepository
         );
 
-        $result = $listCategoryService->listCategoryAll($active);
+        $result = $listCategoryService->listCategoryAll($this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -61,10 +64,11 @@ class ListCategoryServiceTest extends TestCase
     public function test_success_list_category_find_id_service(): void
     {
         // Arrange
-        $id = Categoria::query()->first()->id;
-        $active = true;
-        $search = '%%';
-        $collect = Categoria::where('ativo', $active)->where('id', '=', $id)->orWhere('nome', 'like', $search)->get()->toArray()[0];
+        $this->id = Categoria::query()->first()->id;
+        $this->active = true;
+        $this->search = '%%';
+        $collect = Categoria::where('ativo', $this->active)->where('id', '=', $this->id)
+        ->orWhere('nome', 'like', $this->search)->get()->toArray()[0];
         $collection = CategoryMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
@@ -74,13 +78,13 @@ class ListCategoryServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkCategoryIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkCategoryIdExist')->with($this->id);
         });
 
         $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $id, $active) {
-                $mock->shouldReceive('getOne')->with($id, '', $active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -91,7 +95,7 @@ class ListCategoryServiceTest extends TestCase
             $this->categoryRepository
         );
 
-        $result = $listCategoryService->listCategoryFind($id, '', $active);
+        $result = $listCategoryService->listCategoryFind($this->id, $this->search, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -102,10 +106,11 @@ class ListCategoryServiceTest extends TestCase
     public function test_success_list_user_category_search_name_service(): void
     {
         // Arrange
-        $id = 0;
-        $active = true;
-        $search = Categoria::query()->first()->nome;
-        $collect = Categoria::where('ativo', $active)->where('id', '=', $id)->orWhere('nome', 'like', $search)->get()->toArray()[0];
+        $this->id = 0;
+        $this->active = true;
+        $this->search = Categoria::query()->first()->nome;
+        $collect = Categoria::where('ativo', $this->active)->where('id', '=', $this->id)
+        ->orWhere('nome', 'like', $this->search)->get()->toArray()[0];
         $collection = CategoryMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
@@ -115,13 +120,13 @@ class ListCategoryServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkCategoryIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkCategoryIdExist')->with($this->id);
         });
 
         $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $id, $active) {
-                $mock->shouldReceive('getOne')->with($id, '', $active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -132,7 +137,7 @@ class ListCategoryServiceTest extends TestCase
             $this->categoryRepository
         );
 
-        $result = $listCategoryService->listCategoryFind($id, '', $active);
+        $result = $listCategoryService->listCategoryFind($this->id, $this->search, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);

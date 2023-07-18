@@ -16,13 +16,16 @@ class ListUserServiceTest extends TestCase
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private UserRepositoryInterface $userRepository;
+    private int $id;
+    private bool $active;
+    private string $search;
 
     public function test_success_list_user_all_service(): void
     {
         // Arrange
-        $id = rand(1, 100);
-        $active = true;
-        $collection = User::with('endereco')->with('telefone')->where('users.ativo', '=', $active)->orderByDesc('users.id')->paginate(10);
+        $this->id = rand(1, 100);
+        $this->active = true;
+        $collection = User::with('endereco')->with('telefone')->where('users.ativo', '=', $this->active)->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = UserMapperDto::mapper($instance->toArray());
         endforeach;
@@ -34,13 +37,13 @@ class ListUserServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkUserIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkUserIdExist')->with($this->id);
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $active) {
-                $mock->shouldReceive('getAll')->with($active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getAll')->with($this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -51,7 +54,7 @@ class ListUserServiceTest extends TestCase
             $this->userRepository
         );
 
-        $result = $listUserService->listUserAll($active);
+        $result = $listUserService->listUserAll($this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -63,11 +66,11 @@ class ListUserServiceTest extends TestCase
     public function test_success_list_user_find_id_service(): void
     {
         // Arrange
-        $id = User::query()->first()->id;
-        $active = true;
-        $search = '%%';
-        $collect = User::with('endereco')->with('telefone')->where('users.ativo', '=', $active)->where('users.id', '=', $id)
-        ->orWhere('users.name', 'like', $search)->get()->toArray()[0];
+        $this->id = User::query()->first()->id;
+        $this->active = true;
+        $this->search = '%%';
+        $collect = User::with('endereco')->with('telefone')->where('users.ativo', '=', $this->active)
+        ->where('users.id', '=', $this->id)->orWhere('users.name', 'like', $this->search)->get()->toArray()[0];
         $collection = UserMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
@@ -77,13 +80,13 @@ class ListUserServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkUserIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkUserIdExist')->with($this->id);
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $id, $active) {
-                $mock->shouldReceive('getOne')->with($id, '', $active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -94,7 +97,7 @@ class ListUserServiceTest extends TestCase
             $this->userRepository
         );
 
-        $result = $listUserService->listUserFind($id, '', $active);
+        $result = $listUserService->listUserFind($this->id, $this->search, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -105,11 +108,11 @@ class ListUserServiceTest extends TestCase
     public function test_success_list_user_find_search_name_service(): void
     {
         // Arrange
-        $id = 0;
-        $active = true;
-        $search = User::query()->first()->name;
-        $collect = User::with('endereco')->with('telefone')->where('users.ativo', '=', $active)->where('users.id', '=', $id)
-        ->orWhere('users.name', 'like', $search)->get()->toArray()[0];
+        $this->id = 0;
+        $this->active = true;
+        $this->search = User::query()->first()->name;
+        $collect = User::with('endereco')->with('telefone')->where('users.ativo', '=', $this->active)
+        ->where('users.id', '=', $this->id)->orWhere('users.name', 'like', $this->search)->get()->toArray()[0];
         $collection = UserMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
@@ -119,13 +122,13 @@ class ListUserServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkUserIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkUserIdExist')->with($this->id);
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) use ($expectedResult, $id, $active) {
-                $mock->shouldReceive('getOne')->with($id, '', $active)
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -136,7 +139,7 @@ class ListUserServiceTest extends TestCase
             $this->userRepository
         );
 
-        $result = $listUserService->listUserFind($id, '', $active);
+        $result = $listUserService->listUserFind($this->id, $this->search, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);

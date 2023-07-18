@@ -17,11 +17,12 @@ class EditCategoryServiceTest extends TestCase
     private CategoryRequest $request;
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private CategoryRepositoryInterface $categoryRepository;
+    private int $id;
 
     public function test_success_edit_category_service(): void
     {
         // Arrange
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new CategoryRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['ativo'] = true;
@@ -33,13 +34,13 @@ class EditCategoryServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) use ($id) {
-            $mock->shouldReceive('checkCategoryIdExist')->with($id);
+        function (MockInterface $mock) {
+            $mock->shouldReceive('checkCategoryIdExist')->with($this->id);
         });
 
         $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
-        function (MockInterface $mock) use ($id) {
-            $mock->shouldReceive('update')->with($id, Categoria::class)->andReturn(true);
+        function (MockInterface $mock) {
+            $mock->shouldReceive('update')->with($this->id, Categoria::class)->andReturn(true);
         });
 
         // Act
@@ -49,7 +50,7 @@ class EditCategoryServiceTest extends TestCase
             $this->categoryRepository
         );
 
-        $result = $editCategoryService->editCategory($id, $this->request);
+        $result = $editCategoryService->editCategory($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);

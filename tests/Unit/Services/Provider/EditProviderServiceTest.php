@@ -19,12 +19,13 @@ class EditProviderServiceTest extends TestCase
     private ProviderRequest $request;
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProviderRepositoryInterface $providerRepository;
+    private int $id;
 
     public function test_success_edit_user_service(): void
     {
         // Arrange
+        $this->id = rand(1, 100);
         $this->request = new ProviderRequest();
-        $id = rand(1, 100);
         $this->request['razaoSocial'] = Str::random(10);
         $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
         $this->request['email'] = GenerateEmail::generateEmail();
@@ -38,13 +39,14 @@ class EditProviderServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkProviderIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkProviderIdExist')->with($this->id);
         });
 
         $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('update')->with($id, Fornecedor::class)->andReturn(1);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('update')->with($this->id, Fornecedor::class)
+                     ->andReturn(true);
         });
 
         // Act
@@ -54,7 +56,7 @@ class EditProviderServiceTest extends TestCase
             $this->providerRepository
         );
 
-        $result = $editProviderService->editProvider($id, $this->request);
+        $result = $editProviderService->editProvider($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);

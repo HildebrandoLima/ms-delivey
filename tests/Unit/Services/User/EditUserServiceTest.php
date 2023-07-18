@@ -19,12 +19,13 @@ class EditUserServiceTest extends TestCase
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private UserRepositoryInterface $userRepository;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
+    private int $id;
 
     public function test_success_edit_user_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->gender);
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new UserEditRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['email'] = GenerateEmail::generateEmail();
@@ -37,13 +38,13 @@ class EditUserServiceTest extends TestCase
         ]);
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('checkUserIdExist')->with($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkUserIdExist')->with($this->id);
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('update')->with($id, User::class)->andReturn(1);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('update')->with($this->id, User::class)->andReturn(true);
         });
 
         // Act
@@ -53,7 +54,7 @@ class EditUserServiceTest extends TestCase
             $this->userRepository
         );
 
-        $result = $editUserService->editUser($id, $this->request);
+        $result = $editUserService->editUser($this->id, $this->request);
 
         // Assert
         $this->assertTrue($result);

@@ -19,12 +19,13 @@ class CreateProviderServiceTest extends TestCase
     private ProviderRequest $request;
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProviderRepositoryInterface $providerRepository;
+    private int $id;
 
     public function test_success_create_provider_service(): void
     {
         // Arrange
+        $this->id = rand(1, 100);
         $this->request = new ProviderRequest();
-        $id = rand(1, 100);
         $this->request['razaoSocial'] = Str::random(10);
         $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
         $this->request['email'] = GenerateEmail::generateEmail();
@@ -43,8 +44,8 @@ class CreateProviderServiceTest extends TestCase
         });
 
         $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
-        function (MockInterface $mock) use ($id) {
-            $mock->shouldReceive('create')->with(Fornecedor::class)->andReturn($id);
+        function (MockInterface $mock) {
+            $mock->shouldReceive('create')->with(Fornecedor::class)->andReturn($this->id);
         });
 
         // Act

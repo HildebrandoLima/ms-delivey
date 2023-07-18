@@ -22,12 +22,13 @@ class CreateUserServiceTest extends TestCase
     private UserRepositoryInterface $userRepository;
     private CreatePermissions $createPermissions;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
+    private int $id;
 
     public function test_success_create_user_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->gender);
-        $id = rand(1, 100);
+        $this->id = rand(1, 100);
         $this->request = new UserRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['cpf'] = GenerateCPF::generateCPF();
@@ -44,14 +45,14 @@ class CreateUserServiceTest extends TestCase
         });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
-            function (MockInterface $mock) use ($id) {
-                $mock->shouldReceive('create')->with(User::class)->andReturn($id);
+            function (MockInterface $mock) {
+                $mock->shouldReceive('create')->with(User::class)->andReturn($this->id);
         });
 
         $this->createPermissions = $this->mock(CreatePermissions::class,
-            function (MockInterface $mock) use ($id) {
+            function (MockInterface $mock) {
                 $mock->shouldReceive('createPermissions')
-                     ->with($this->request['perfil'], $id)
+                     ->with($this->request['perfil'], $this->id)
                      ->andReturn(true);
         });
 
