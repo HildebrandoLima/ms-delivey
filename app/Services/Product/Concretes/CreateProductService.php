@@ -61,7 +61,7 @@ class CreateProductService extends ValidationPermission implements CreateProduct
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $request->ativo == true ? $product->ativo = ProductEnum::ATIVADO : $product->ativo = ProductEnum::DESATIVADO;
+        $product->ativo = ProductEnum::ATIVADO;
         return $product;
     }
 

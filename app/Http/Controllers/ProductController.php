@@ -7,7 +7,7 @@ use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\ProductRequest;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Services\Product\Interfaces\DeleteProductServiceInterface;
-use App\Services\Product\Interfaces\EditProductSericeInterface;
+use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
@@ -19,20 +19,20 @@ class ProductController extends Controller
 {
     private CreateProductServiceInterface $createProductService;
     private DeleteProductServiceInterface $deleteProductService;
-    private EditProductSericeInterface    $editProductSerice;
+    private EditProductServiceInterface   $editProductService;
     private ListProductServiceInterface   $listProductService;
 
     public function __construct
     (
         CreateProductServiceInterface $createProductService,
         DeleteProductServiceInterface $deleteProductService,
-        EditProductSericeInterface    $editProductSerice,
+        EditProductServiceInterface   $editProductService,
         ListProductServiceInterface   $listProductService
     )
     {
         $this->createProductService = $createProductService;
         $this->deleteProductService = $deleteProductService;
-        $this->editProductSerice    = $editProductSerice;
+        $this->editProductService    = $editProductService;
         $this->listProductService   = $listProductService;
     }
 
@@ -80,7 +80,7 @@ class ProductController extends Controller
     public function update(string $id, ProductRequest $request, BaseDecode $baseDecode): Response
     {
         try {
-            $success = $this->editProductSerice->editProduct
+            $success = $this->editProductService->editProduct
             ($baseDecode->baseDecode($id), $request);
             if (!$success) return Controller::error();
             return Controller::put();
