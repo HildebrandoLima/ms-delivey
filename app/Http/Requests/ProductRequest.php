@@ -24,7 +24,7 @@ class ProductRequest extends BaseRequest
             'dataValidade' => 'required|date',
             'categoriaId' => 'int|exists:categoria,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
-            'ativo' => 'required|int',
+            'ativo' => 'required|boolean',
         ];
     }
 
@@ -59,7 +59,7 @@ class ProductRequest extends BaseRequest
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
             'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

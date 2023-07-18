@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\ImageDto;
 use App\Models\Imagem;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 
@@ -13,9 +12,9 @@ class ImageRepository implements ImageRepositoryInterface
         return Imagem::query()->where('produto_id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function create(ImageDto $imageDto): bool
+    public function create(Imagem $imagem): bool
     {
-        Imagem::query()->create((array)$imageDto);
+        Imagem::query()->create($imagem->toArray());
         return true;
     }
 }

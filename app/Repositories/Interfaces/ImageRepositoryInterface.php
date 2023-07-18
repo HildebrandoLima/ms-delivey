@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\DataTransferObjects\Dtos\ImageDto;
+use App\Models\Imagem;
 
 interface ImageRepositoryInterface
 {
     public function enableDisable(int $id, int $active): bool;
-    public function create(ImageDto $imageDto): bool;
+    public function create(Imagem $imagem): bool;
 }

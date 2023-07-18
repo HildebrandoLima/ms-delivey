@@ -17,9 +17,9 @@ class ProductRepository implements ProductRepositoryInterface
         return Produto::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function create(ProductDto $productDto): Produto
+    public function create(Produto $produto): int
     {
-        return Produto::query()->create((array)$productDto);
+        return Produto::query()->create($produto->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
     public function update(int $id, ProductDto $productDto): bool
