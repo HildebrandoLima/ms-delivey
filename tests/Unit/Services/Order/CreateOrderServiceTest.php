@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\Category;
+namespace Tests\Unit\Services\Order;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Item;
