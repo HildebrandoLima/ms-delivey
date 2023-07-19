@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\ItemDto;
 use App\Models\Item;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 
@@ -13,9 +12,9 @@ class ItemRepository implements ItemRepositoryInterface
         return Item::query()->where('pedido_id', $id)->update(['ativo' => $active]);
     }
 
-    public function create(ItemDto $itemDto): bool
+    public function create(Item $item): bool
     {
-        Item::query()->create((array)$itemDto);
+        Item::query()->create($item->toArray());
         return true;
     }
 }
