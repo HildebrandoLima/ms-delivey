@@ -19,7 +19,7 @@ class HttpBadRequest extends SystemDefaultException
             "data" => [],
             "status" => Response::HTTP_BAD_REQUEST,
             "details" => ""
-        ]);
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     function getLogInfo(): string

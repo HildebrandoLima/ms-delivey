@@ -16,7 +16,7 @@ class HttpForbidden extends SystemDefaultException
             "data" => [],
             "status" => Response::HTTP_FORBIDDEN,
             "details" => ""
-        ]);
+        ], Response::HTTP_FORBIDDEN);
     }
 
     function getLogInfo(): string

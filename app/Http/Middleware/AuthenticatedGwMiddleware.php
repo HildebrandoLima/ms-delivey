@@ -32,21 +32,21 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
                     "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
-                ]);
+                ], Response::HTTP_UNAUTHORIZED);
             } elseif ($e instanceof TokenExpiredException) {
                 return response()->json([
                     "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
                     "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
-                ]);
+                ], Response::HTTP_UNAUTHORIZED);
             } else {
                 return response()->json([
                     "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
                     "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
-                ]);
+                ], Response::HTTP_UNAUTHORIZED);
             }
         }
         return $next($request);

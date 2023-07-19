@@ -15,7 +15,7 @@ class HttpNotFound extends SystemDefaultException
             "data" => [],
             "status" => Response::HTTP_NOT_FOUND,
             "details" => ""
-        ]);
+        ], Response::HTTP_NOT_FOUND);
     }
 
     function getLogInfo(): string
