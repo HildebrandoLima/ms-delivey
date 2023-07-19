@@ -25,6 +25,7 @@ class RefreshPasswordTest extends TestCase
         $response = $this->postJson(route('auth.refresh', $reset['token']), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 

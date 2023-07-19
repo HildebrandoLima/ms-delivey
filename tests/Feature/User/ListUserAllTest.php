@@ -26,6 +26,7 @@ class ListUserAllTest extends TestCase
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
@@ -62,6 +63,7 @@ class ListUserAllTest extends TestCase
         $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

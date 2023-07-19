@@ -3,7 +3,6 @@
 namespace Tests\Feature\Product;
 
 use App\Models\Produto;
-use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -23,6 +22,7 @@ class ListProductAllTest extends TestCase
         $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 200);

@@ -24,6 +24,7 @@ class ListProviderFinderTest extends TestCase
         ])->getJson(route('provider.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -59,6 +60,7 @@ class ListProviderFinderTest extends TestCase
         $response = $this->getJson(route('provider.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
@@ -78,6 +80,7 @@ class ListProviderFinderTest extends TestCase
         ])->getJson(route('provider.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }

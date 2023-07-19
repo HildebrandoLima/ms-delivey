@@ -24,6 +24,7 @@ class ListUserFinderTest extends TestCase
         ])->getJson(route('user.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -77,6 +78,7 @@ class ListUserFinderTest extends TestCase
         $response = $this->getJson(route('user.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

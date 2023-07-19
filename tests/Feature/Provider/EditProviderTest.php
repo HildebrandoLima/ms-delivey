@@ -31,6 +31,7 @@ class EditProviderTest extends TestCase
         ])->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -80,6 +81,7 @@ class EditProviderTest extends TestCase
         $response = $this->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
@@ -106,6 +108,7 @@ class EditProviderTest extends TestCase
         ])->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
 
         // Assert
+        $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }

@@ -22,6 +22,7 @@ class LogoutTest extends TestCase
         ])->postJson(route('auth.logout'));
 
         // Assert
+        $response->assertOk();
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -37,6 +38,7 @@ class LogoutTest extends TestCase
         $response = $this->postJson(route('auth.logout'));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
 }

@@ -33,6 +33,7 @@ class CreateProviderTest extends TestCase
         ])->postJson(route('provider.save'), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -81,6 +82,7 @@ class CreateProviderTest extends TestCase
         $response = $this->postJson(route('provider.save'), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
@@ -106,6 +108,7 @@ class CreateProviderTest extends TestCase
         ])->postJson(route('provider.save'), $data);
 
         // Assert
+        $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }

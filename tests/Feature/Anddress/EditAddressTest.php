@@ -36,6 +36,7 @@ class EditAddressTest extends TestCase
         ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -65,6 +66,7 @@ class EditAddressTest extends TestCase
         ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -120,6 +122,7 @@ class EditAddressTest extends TestCase
         $response = $this->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

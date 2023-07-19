@@ -22,6 +22,7 @@ class LoginTest extends TestCase
         $response = $this->postJson(route('auth.login'), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 

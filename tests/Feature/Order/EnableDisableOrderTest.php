@@ -28,6 +28,7 @@ class EnableDisableOrderTest extends TestCase
         ])->putJson(route('order.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -67,6 +68,7 @@ class EnableDisableOrderTest extends TestCase
         $response = $this->putJson(route('order.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

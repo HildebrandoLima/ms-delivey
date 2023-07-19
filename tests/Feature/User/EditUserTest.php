@@ -31,6 +31,7 @@ class EditUserTest extends TestCase
         ])->putJson(route('user.edit', ['id' => base64_encode($user['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -80,6 +81,7 @@ class EditUserTest extends TestCase
         $response = $this->putJson(route('user.edit', ['id' => base64_encode($user['id'])]), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

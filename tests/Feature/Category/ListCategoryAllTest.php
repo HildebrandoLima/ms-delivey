@@ -22,6 +22,7 @@ class ListCategoryAllTest extends TestCase
         $response = $this->getJson(route('category.list.all', ['active' => 1]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals(count($data), $this->count);
         $this->assertEquals($this->httpStatusCode($response), 200);

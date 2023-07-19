@@ -27,6 +27,7 @@ class ListOrderAllTest extends TestCase
         ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -46,6 +47,7 @@ class ListOrderAllTest extends TestCase
         ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1, 'id' => base64_encode($data[0]['id'])]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -81,6 +83,7 @@ class ListOrderAllTest extends TestCase
         $response = $this->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

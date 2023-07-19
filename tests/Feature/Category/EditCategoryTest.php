@@ -28,6 +28,7 @@ class EditCategoryTest extends TestCase
         ])->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -71,6 +72,7 @@ class EditCategoryTest extends TestCase
         $response = $this->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
@@ -94,6 +96,7 @@ class EditCategoryTest extends TestCase
         ])->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
 
         // Assert
+        $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
