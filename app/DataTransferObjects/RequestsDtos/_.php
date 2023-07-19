@@ -2,21 +2,23 @@
 
 namespace App\DataTransferObjects\RequestsDtos;
 
-use App\DataTransferObjects\Dtos\OrderDto;
-use App\Http\Requests\OrderRequest;
-use App\Support\Utils\Enums\OrderEnum;
+use App\DataTransferObjects\Dtos\PaymentDto;
+use App\Http\Requests\PaymentRequest;
+use App\Support\Utils\Enums\PaymentEnum;
 
-class OrderRequestDto
+class PaymentRequestDto
 {
-    public static function fromRquest(OrderRequest $request): OrderDto
+    public static function fromRquest(PaymentRequest $request): PaymentDto
     {
-        $orderDto = new OrderDto();
-        $orderDto->setNumeroPedido(random_int(100000000, 999999999));
-        $orderDto->setQuantidadeItem($request['quantidadeItems']);
-        $orderDto->setTotal($request['total']);
-        $orderDto->setEntrega($request['entrega']);
-        $orderDto->setUsuarioId($request['usuarioId']);
-        $orderDto->setAtivo(OrderEnum::ATIVADO);
-        return $orderDto;
+        $paymentDto = new PaymentDto();
+        $paymentDto->setCodigoTransacao(random_int(100000000, 999999999));
+        $paymentDto->setNumeroCartao(str_replace(' ', "", $request['numeroCartao']) ?? null);
+        $paymentDto->setDataValidade($request['dataValidade'] ?? null);
+        $paymentDto->setParcela($request['parcela'] ?? null);
+        $paymentDto->setTotal($request['total']);
+        $paymentDto->setMetodoPagamentoId($request['metodoPagamentoId']);
+        $paymentDto->setPedidoId($request['pedidoId']);
+        $paymentDto->setAtivo(PaymentEnum::ATIVADO);
+        return $paymentDto;
     }
 }
