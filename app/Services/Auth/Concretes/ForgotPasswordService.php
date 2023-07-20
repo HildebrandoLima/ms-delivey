@@ -2,14 +2,14 @@
 
 namespace App\Services\Auth\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\AuthRequestDto;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
+use App\Models\PasswordReset;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
+use Illuminate\Support\Str;
 
 class ForgotPasswordService implements ForgotPasswordServiceInterface
-
 {
     private AuthRepositoryInterface $authRepository;
 
@@ -20,12 +20,23 @@ class ForgotPasswordService implements ForgotPasswordServiceInterface
 
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
-        $passwordReset = AuthRequestDto::fromRquest($request);
-        if ($this->authRepository->forgotPassword($passwordReset)):
-            ForgotPassword::dispatch((array)$passwordReset);
-            return true;
-        else:
-            return false;
-        endif;
+        $passwordReset = $this->map($request);
+        $auth = $this->authRepository->forgotPassword($passwordReset);
+        if ($auth) $this->dispatchJob($passwordReset->toArray());
+        return true;
+    }
+
+    private function map(ForgotPasswordRequest $request): PasswordReset
+    {
+        $passwordReset = new PasswordReset();
+        $passwordReset->email = $request->email;
+        $passwordReset->token = Str::uuid();
+        $passwordReset->codigo = Str::random(10);
+        return $passwordReset;
+    }
+
+    private function dispatchJob(array $passwordReset): void
+    {
+        ForgotPassword::dispatch($passwordReset);
     }
 }

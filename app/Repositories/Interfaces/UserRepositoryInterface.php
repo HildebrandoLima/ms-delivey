@@ -10,8 +10,8 @@ interface UserRepositoryInterface
 {
     public function enableDisable(int $id, int $active): bool;
     public function emailVerifiedAt(int $id, int $active): bool;
-    public function create(UserDto $userDto): User;
-    public function update(int $id, UserDto $userDto): User;
+    public function create(User $user): int;
+    public function update(int $id, User $user): bool;
     public function getAll(int $active): Collection;
     public function getOne(int $id, string $search, int $active): Collection;
 }

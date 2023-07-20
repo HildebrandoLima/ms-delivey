@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\AuthDto;
 use App\Http\Requests\RefreshPasswordRequest;
 use App\Models\PasswordReset;
 use App\Models\PermissionUser;
@@ -20,9 +19,9 @@ class AuthRepositoy implements AuthRepositoryInterface
         ]);
     }
 
-    public function forgotPassword(AuthDto $authDto): bool
+    public function forgotPassword(PasswordReset $passwordReset): bool
     {
-        return PasswordReset::query()->insert((array)$authDto);
+        return PasswordReset::query()->insert($passwordReset->toArray());
     }
 
     public function refreshPassword(RefreshPasswordRequest $request): bool

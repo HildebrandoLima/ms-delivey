@@ -20,7 +20,7 @@ class PaymentRequest extends BaseRequest
             'total' => 'between:0,99.99',
             'metodoPagamentoId' => 'required|int|exists:metodo_pagamento,id',
             'pedidoId' => 'required|int|exists:pedido,id',
-            'ativo' => 'required|int',
+            'ativo' => 'required|boolean',
         ];
     }
 
@@ -43,7 +43,7 @@ class PaymentRequest extends BaseRequest
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'metodoPagamentoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'pedidoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

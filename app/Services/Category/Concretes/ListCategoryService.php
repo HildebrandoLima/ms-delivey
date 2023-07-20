@@ -27,7 +27,7 @@ class ListCategoryService implements ListCategoryServiceInterface
         return $this->categoryRepository->getAll($active);
     }
 
-    public function listProviderFind(int $id, string $search, int $active): Collection
+    public function listCategoryFind(int $id, string $search, int $active): Collection
     {
         if ($id != 0) $this->checkEntityRepository->checkCategoryIdExist($id);
         return $this->categoryRepository->getOne($id, $search, $active);

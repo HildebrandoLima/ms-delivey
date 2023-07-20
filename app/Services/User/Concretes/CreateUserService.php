@@ -2,13 +2,15 @@
 
 namespace App\Services\User\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\UserRequestDto;
 use App\Http\Requests\UserRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Support\Permissions\CreatePermissions;
+use App\Support\Utils\Enums\UserEnum;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface
 {
@@ -31,11 +33,25 @@ class CreateUserService implements CreateUserServiceInterface
     public function createUser(UserRequest $request): int
     {
         $this->checkExist($request);
-        $user = UserRequestDto::fromRquest($request->toArray());
-        $createUser = $this->userRepository->create($user);
-        $this->createPermissions->createPermissions($request->perfil, $createUser->id);
-        if ($createUser) $this->dispatchJob($createUser->id, $request->email);
-        return $createUser->id;
+        $user = $this->map($request);
+        $userId = $this->userRepository->create($user);
+        $this->createPermissions->createPermissions($request->perfil, $userId);
+        if ($userId) $this->dispatchJob($request->email, $userId);
+        return $userId;
+    }
+
+    private function map(UserRequest $request): User
+    {
+        $user = new User();
+        $user->name = $request->nome;
+        $user->cpf = str_replace(array('.','-','/'), "", $request->cpf);
+        $user->email = $request->email;
+        $user->password = Hash::make($request->senha);
+        $user->data_nascimento = $request->dataNascimento;
+        $user->genero = $request->genero;
+        $user->is_admin = $request->perfil;
+        $user->ativo = UserEnum::ATIVADO;
+        return $user;
     }
 
     private function checkExist(UserRequest $request): void
@@ -43,7 +59,7 @@ class CreateUserService implements CreateUserServiceInterface
         $this->checkEntityRepository->checkUserExist($request);
     }
 
-    private function dispatchJob(int $userId, string $email): void
+    private function dispatchJob(string $email, int $userId): void
     {
         EmailForRegisterJob::dispatch($email, $userId);
     }

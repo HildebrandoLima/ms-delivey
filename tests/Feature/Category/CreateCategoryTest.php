@@ -27,6 +27,7 @@ class CreateCategoryTest extends TestCase
         ])->postJson(route('category.save', $data));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -49,6 +50,7 @@ class CreateCategoryTest extends TestCase
         ])->postJson(route('category.save', $data));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
@@ -68,6 +70,7 @@ class CreateCategoryTest extends TestCase
         $response = $this->postJson(route('category.save', $data));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
@@ -90,6 +93,7 @@ class CreateCategoryTest extends TestCase
         ])->postJson(route('category.save', $data));
 
         // Assert
+        $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }

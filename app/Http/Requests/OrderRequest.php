@@ -14,20 +14,20 @@ class OrderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'quantidadeItems' => 'required|int',
+            'quantidadeItens' => 'required|int',
             'total' => 'required|between:0,99.99',
             'entrega' => 'required|between:0,99.99',
             'usuarioId' => 'int|exists:users,id',
-            'ativo' => 'required|int',
-            'items' => 'required|array',
-            'items.*.nome' => 'required|string',
-            'items.*.preco' => 'required|between:0,99.99',
-            'items.*.codigoBarra' => 'required|string|max:13|min:13',
-            'items.*.quantidadeItem' => 'required|int',
-            'items.*.subTotal' => 'required|between:0,99.99',
-            'items.*.unidadeMedida' => 'required|string',
-            'items.*.produtoId' => 'required|int|exists:produto,id',
-            'items.*.ativo' => 'required|int',
+            'ativo' => 'required|boolean',
+            'itens' => 'required|array',
+            'itens.*.nome' => 'required|string',
+            'itens.*.preco' => 'required|between:0,99.99',
+            'itens.*.codigoBarra' => 'required|string|max:13|min:13',
+            'itens.*.quantidadeItem' => 'required|int',
+            'itens.*.subTotal' => 'required|between:0,99.99',
+            'itens.*.unidadeMedida' => 'required|string',
+            'itens.*.produtoId' => 'required|int|exists:produto,id',
+            'itens.*.ativo' => 'required|boolean',
         ];
     }
 
@@ -37,7 +37,7 @@ class OrderRequest extends BaseRequest
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'produtoId.exists' => DefaultErrorMessages::NOT_FOUND,
 
-            'quantidadeItems.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'quantidadeItens.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'entrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -46,7 +46,7 @@ class OrderRequest extends BaseRequest
             'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
-            'items.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'itens.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'preco.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'codigoBarra.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -55,13 +55,13 @@ class OrderRequest extends BaseRequest
             'unidadeMedida.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'produtoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'quantidadeItems.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
-            'items.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
+            'itens.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'preco.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'codigoBarra.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

@@ -4,15 +4,15 @@ namespace App\DataTransferObjects\Dtos;
 
 class AddressDto extends DefaultFields
 {
-    public int $endereco_id;
+    public int $enderecoId;
     public string $logradouro;
     public string $descricao;
     public string $bairro;
     public string $cidade;
     public string $cep;
-    public int $uf_id;
-    public int|null $usuario_id;
-    public int|null $fornecedor_id;
+    public int $ufId;
+    public int|null $usuarioId;
+    public int|null $fornecedorId;
 
     public static function construction(): static
     {
@@ -21,12 +21,12 @@ class AddressDto extends DefaultFields
 
     public function getEnderecoId(): int
     {
-        return $this->endereco_id;
+        return $this->enderecoId;
     }
 
-    public function setEnderecoId(int $endereco_id): AddressDto
+    public function setEnderecoId(int $enderecoId): AddressDto
     {
-        $this->endereco_id = $endereco_id;
+        $this->enderecoId = $enderecoId;
         return $this;
     }
 
@@ -87,34 +87,34 @@ class AddressDto extends DefaultFields
 
     public function getUfId(): int
     {
-        return $this->uf_id;
+        return $this->ufId;
     }
 
-    public function setUfId(int $uf_id): AddressDto
+    public function setUfId(int $ufId): AddressDto
     {
-        $this->uf_id = $uf_id;
+        $this->ufId = $ufId;
         return $this;
     }
 
     public function getUsuarioId(): int|null
     {
-        return $this->usuario_id;
+        return $this->usuarioId;
     }
 
-    public function setUsuarioId(int|null $usuario_id): AddressDto
+    public function setUsuarioId(int|null $usuarioId): AddressDto
     {
-        $this->usuario_id = $usuario_id;
+        $this->usuarioId = $usuarioId;
         return $this;
     }
 
     public function getFornecedorId(): int|null
     {
-        return $this->fornecedor_id;
+        return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int|null $fornecedor_id): AddressDto
+    public function setFornecedorId(int|null $fornecedorId): AddressDto
     {
-        $this->fornecedor_id = $fornecedor_id;
+        $this->fornecedorId = $fornecedorId;
         return $this;
     }
 }

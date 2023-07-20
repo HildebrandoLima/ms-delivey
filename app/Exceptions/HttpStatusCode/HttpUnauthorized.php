@@ -15,7 +15,7 @@ class HttpUnauthorized extends SystemDefaultException
             "data" => [],
             "status" => Response::HTTP_UNAUTHORIZED,
             "details" => ""
-        ]);
+        ], Response::HTTP_UNAUTHORIZED);
     }
 
     function getLogInfo(): string

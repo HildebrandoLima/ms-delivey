@@ -35,6 +35,7 @@ class EditTelephoneTest extends TestCase
         ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -63,6 +64,7 @@ class EditTelephoneTest extends TestCase
         ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -91,6 +93,7 @@ class EditTelephoneTest extends TestCase
         ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
@@ -116,6 +119,7 @@ class EditTelephoneTest extends TestCase
         $response = $this->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

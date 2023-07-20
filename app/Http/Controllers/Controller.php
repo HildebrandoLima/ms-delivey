@@ -19,7 +19,7 @@ class Controller extends BaseController
             "data" => $success,
             "status" => 200,
             "details" => ""
-        ]);
+        ], Response::HTTP_OK);
     }
 
     public function post($success): Response
@@ -29,7 +29,7 @@ class Controller extends BaseController
             "data" => $success,
             "status" => 200,
             "details" => ""
-        ]);
+        ], Response::HTTP_OK);
     }
 
     public function put(): Response
@@ -39,7 +39,7 @@ class Controller extends BaseController
             "data" => true,
             "status" => 200,
             "details" => ""
-        ]);
+        ], Response::HTTP_OK);
     }
 
     public function delete(): Response
@@ -49,7 +49,7 @@ class Controller extends BaseController
             "data" => true,
             "status" => 200,
             "details" => ""
-        ]);
+        ], Response::HTTP_OK);
     }
 
     public function error(): Response
@@ -59,6 +59,6 @@ class Controller extends BaseController
             "data" => false,
             "status" => Response::HTTP_BAD_REQUEST,
             "details" => ""
-        ]);
+        ], Response::HTTP_BAD_REQUEST);
     }
 }

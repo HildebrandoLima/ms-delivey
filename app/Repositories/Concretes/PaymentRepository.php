@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\PaymentDto;
 use App\Models\Pagamento;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 
@@ -13,9 +12,9 @@ class PaymentRepository implements PaymentRepositoryInterface
         return Pagamento::query()->where('pedido_id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function create(PaymentDto $paymentDto): bool
+    public function create(Pagamento $pagamento): bool
     {
-        Pagamento::query()->create((array)$paymentDto);
+        Pagamento::query()->create($pagamento->toArray());
         return true;
     }    
 }

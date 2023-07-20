@@ -35,6 +35,7 @@ class CreateUserTest extends TestCase
         $response = $this->postJson(route('user.save'), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -61,6 +62,7 @@ class CreateUserTest extends TestCase
         $response = $this->postJson(route('user.save'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

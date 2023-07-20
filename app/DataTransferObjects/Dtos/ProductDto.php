@@ -6,18 +6,18 @@ use App\Support\MapperEntity\EntityProduct;
 
 class ProductDto extends DefaultFields
 {
-    public int $produto_id;
+    public int $produtoId;
     public string $nome;
-    public float $preco_custo;
-    public float $preco_venda;
-    public float $margem_lucro;
-    public string $codigo_barra;
+    public float $precoCusto;
+    public float $precoVenda;
+    public float $margemLucro;
+    public string $codigoBarra;
     public string $descricao;
     public int $quantidade;
-    public string $unidade_medida;
-    public string $data_validade;
-    public int $categoria_id;
-    public int $fornecedor_id;
+    public string $unidadeMedida;
+    public string $dataValidade;
+    public int $categoriaId;
+    public int $fornecedorId;
     public array $imagens;
 
     public static function construction(): static
@@ -27,12 +27,12 @@ class ProductDto extends DefaultFields
 
     public function getProdutoId(): int
     {
-        return $this->produto_id;
+        return $this->produtoId;
     }
 
-    public function setProdutoId(int $produto_id): ProductDto
+    public function setProdutoId(int $produtoId): ProductDto
     {
-        $this->produto_id = $produto_id;
+        $this->produtoId = $produtoId;
         return $this;
     }
 
@@ -49,45 +49,45 @@ class ProductDto extends DefaultFields
 
     public function getPrecoCusto(): float
     {
-        return $this->preco_custo;
+        return $this->precoCusto;
     }
 
-    public function setPrecoCusto(float $preco_custo): ProductDto
+    public function setPrecoCusto(float $precoCusto): ProductDto
     {
-        $this->preco_custo = $preco_custo;
+        $this->precoCusto = $precoCusto;
         return $this;
     }
 
     public function getPrecoVenda(): float
     {
-        return $this->preco_venda;
+        return $this->precoVenda;
     }
 
-    public function setPrecoVenda(float $preco_venda): ProductDto
+    public function setPrecoVenda(float $precoVenda): ProductDto
     {
-        $this->preco_venda = $preco_venda;
+        $this->precoVenda = $precoVenda;
         return $this;
     }
 
     public function getMargemLucro(): float
     {
-        return $this->margem_lucro;
+        return $this->margemLucro;
     }
 
-    public function setMargemLucro(float $margem_lucro): ProductDto
+    public function setMargemLucro(float $margemLucro): ProductDto
     {
-        $this->margem_lucro = $margem_lucro;
+        $this->margemLucro = $margemLucro;
         return $this;
     }
 
     public function getCodigoBarra(): string
     {
-        return $this->codigo_barra;
+        return $this->codigoBarra;
     }
 
-    public function setCodigoBarra(string $codigo_barra): ProductDto
+    public function setCodigoBarra(string $codigoBarra): ProductDto
     {
-        $this->codigo_barra = $codigo_barra;
+        $this->codigoBarra = $codigoBarra;
         return $this;
     }
 
@@ -115,45 +115,45 @@ class ProductDto extends DefaultFields
 
     public function getUnidadeMedida(): string
     {
-        return $this->unidade_medida;
+        return $this->unidadeMedida;
     }
 
-    public function setUnidadeMedida(string $unidade_medida): ProductDto
+    public function setUnidadeMedida(string $unidadeMedida): ProductDto
     {
-        $this->unidade_medida = $unidade_medida;
+        $this->unidadeMedida = $unidadeMedida;
         return $this;
     }
 
     public function getDataValidade(): string
     {
-        return $this->data_validade;
+        return $this->dataValidade;
     }
 
-    public function setDataValidade(string $data_validade): ProductDto
+    public function setDataValidade(string $dataValidade): ProductDto
     {
-        $this->data_validade = $data_validade;
+        $this->dataValidade = $dataValidade;
         return $this;
     }
 
     public function getCategoriaId(): int
     {
-        return $this->categoria_id;
+        return $this->categoriaId;
     }
 
-    public function setCategoriaId(int $categoria_id): ProductDto
+    public function setCategoriaId(int $categoriaId): ProductDto
     {
-        $this->categoria_id = $categoria_id;
+        $this->categoriaId = $categoriaId;
         return $this;
     }
 
     public function getFornecedorId(): int
     {
-        return $this->fornecedor_id;
+        return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int $fornecedor_id): ProductDto
+    public function setFornecedorId(int $fornecedorId): ProductDto
     {
-        $this->fornecedor_id = $fornecedor_id;
+        $this->fornecedorId = $fornecedorId;
         return $this;
     }
 

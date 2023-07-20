@@ -2,23 +2,25 @@
 
 namespace App\Services\Telephone\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\TelephoneRequestDto;
 use App\Http\Requests\TelephoneRequest;
-use App\Repositories\Concretes\TelephoneRepository;
+use App\Models\Telefone;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
+use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Cases\TelephoneCase;
 use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Utils\Enums\TelephoneEnum;
 
 class EditTelephoneService extends ValidationPermission implements EditTelephoneServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
-    private TelephoneRepository            $telephoneRepository;
+    private TelephoneRepositoryInterface   $telephoneRepository;
 
     public function __construct
     (
         CheckEntityRepositoryInterface $checkEntityRepository,
-        TelephoneRepository            $telephoneRepository
+        TelephoneRepositoryInterface    $telephoneRepository
     )
     {
         $this->checkEntityRepository = $checkEntityRepository;
@@ -30,9 +32,21 @@ class EditTelephoneService extends ValidationPermission implements EditTelephone
         $this->validationPermission(PermissionEnum::EDITAR_TELEFONE);
         foreach ($request->telefones as $telefone):
             $this->checkEntityRepository->checkTelephoneIdExist($id);
-            $telephone = TelephoneRequestDto::fromRquest($telefone);
+            $telephone = $this->map($telefone);
             $this->telephoneRepository->update($id, $telephone);
         endforeach;
         return true;
+    }
+
+    private function map(array $telefone): Telefone
+    {
+        $telephone = new Telefone();
+        $telephone->numero = str_replace('-', "", $telefone['numero']);
+        $telephone->tipo = TelephoneCase::typeCase($telefone['tipo']);
+        $telephone->ddd_id = $telefone['dddId'];
+        $telephone->usuario_id = $telefone['usuarioId'] ?? null;
+        $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
+        $telefone['ativo'] == true ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
+        return $telephone;
     }
 }

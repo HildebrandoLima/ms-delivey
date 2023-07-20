@@ -21,15 +21,15 @@ class AddressRepository implements AddressRepositoryInterface
         })->update(['ativo' => $active]);
     }
 
-    public function create(AddressDto $addressDto): bool
+    public function create(Endereco $endereco): bool
     {
-        Endereco::query()->create((array)$addressDto);
+        Endereco::query()->create($endereco->toArray());
         return true;
     }
 
-    public function update(int $id, AddressDto $addressDto): bool
+    public function update(int $id, Endereco $endereco): bool
     {
-        return Endereco::query()->where('id', '=', $id)->update((array)$addressDto);
+        return Endereco::query()->where('id', '=', $id)->update($endereco->toArray());
     }
 
     public function getFederativeUnitAll(): Collection

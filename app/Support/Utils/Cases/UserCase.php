@@ -6,7 +6,7 @@ use App\Support\Utils\Enums\UserEnum;
 
 class UserCase
 {
-    public function genderCase($genero): string
+    public static function genderCase($genero): string
     {
         switch ($genero):
             case $genero == 'Masculino':

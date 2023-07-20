@@ -16,17 +16,17 @@ class ParametersRequest extends BaseRequest
         return [
             'id' => 'string',
             'search' => 'string',
-            'active' => 'required|int'
+            'active' => 'required|boolean'
         ];
     }
 
     public function messages()
     {
         return [
-            'active.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'id.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'search.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'active.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'active.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+            'active.required' => DefaultErrorMessages::REQUIRED_FIELD,
         ];
     }
 }

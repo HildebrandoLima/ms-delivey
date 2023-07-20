@@ -20,7 +20,7 @@ class CreateOrderTest extends TestCase
     {
         // Arrange
         $products = Produto::query()->limit($this->count)->get()->toArray();
-        $data['items'] = [];
+        $data['itens'] = [];
         foreach ($products as $product):
             $item = [
                 'nome' => $product['nome'],
@@ -33,15 +33,15 @@ class CreateOrderTest extends TestCase
                 'ativo' => $product['ativo'],
             ];
             $this->total += $product['preco_venda'];
-            array_push($data['items'], $item);
+            array_push($data['itens'], $item);
         endforeach;
         $data = [
-            'quantidadeItems' => $this->count,
+            'quantidadeItens' => $this->count,
             'total' => $this->total,
             'entrega' => 3.5,
             'usuarioId' => User::query()->first()->id,
             'ativo' => true,
-            'items' => $data['items'],
+            'itens' => $data['itens'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -51,6 +51,7 @@ class CreateOrderTest extends TestCase
         ])->postJson(route('order.save', $data));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -77,6 +78,7 @@ class CreateOrderTest extends TestCase
         ])->postJson(route('order.save', $data));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
@@ -116,6 +118,7 @@ class CreateOrderTest extends TestCase
         $response = $this->postJson(route('order.save', $data));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

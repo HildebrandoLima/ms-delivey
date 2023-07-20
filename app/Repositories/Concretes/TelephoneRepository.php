@@ -21,15 +21,15 @@ class TelephoneRepository implements TelephoneRepositoryInterface
         })->update(['ativo' => $active]);
     }
 
-    public function create(TelephoneDto $telephoneDto): bool
+    public function create(Telefone $telefone): bool
     {
-        Telefone::query()->create((array)$telephoneDto);
+        Telefone::query()->create($telefone->toArray());
         return true;
     }
 
-    public function update(int $id, TelephoneDto $telephoneDto): bool
+    public function update(int $id, Telefone $telefone): bool
     {
-        return Telefone::query()->where('id', '=', $id)->update((array)$telephoneDto);
+        return Telefone::query()->where('id', '=', $id)->update($telefone->toArray());
     }
 
     public function getDDDAll(): Collection

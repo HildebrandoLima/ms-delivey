@@ -24,6 +24,7 @@ class EnableDisableTelephoneTest extends TestCase
         ])->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -43,6 +44,7 @@ class EnableDisableTelephoneTest extends TestCase
         ])->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
@@ -59,6 +61,7 @@ class EnableDisableTelephoneTest extends TestCase
         $response = $this->putJson(route('telephone.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }

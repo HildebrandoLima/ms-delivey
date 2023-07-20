@@ -20,6 +20,7 @@ class ListDDDTest extends TestCase
         $response = $this->getJson(route('telephone.ddd.list'));
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals(23, count($data));
         $this->assertEquals($this->httpStatusCode($response), 200);

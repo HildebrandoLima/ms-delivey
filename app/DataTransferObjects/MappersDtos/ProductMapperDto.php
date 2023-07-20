@@ -9,6 +9,7 @@ class ProductMapperDto
     public static function mapper(array $product): ProductDto
     {
         return ProductDto::construction()
+        ->setProdutoId($product['id'] ?? 0)
         ->setNome($product['nome'] ?? '')
         ->setPrecoCusto($product['preco_custo'] ?? '')
         ->setPrecoVenda($product['margem_lucro'] ?? '')

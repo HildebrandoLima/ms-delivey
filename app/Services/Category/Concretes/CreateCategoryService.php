@@ -2,12 +2,13 @@
 
 namespace App\Services\Category\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\CategoryRequestDto;
 use App\Http\Requests\CategoryRequest;
+use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Support\Permissions\ValidationPermission;
+use App\Support\Utils\Enums\CategoryEnum;
 use App\Support\Utils\Enums\PermissionEnum;
 
 class CreateCategoryService extends ValidationPermission implements CreateCategoryServiceInterface
@@ -25,11 +26,19 @@ class CreateCategoryService extends ValidationPermission implements CreateCatego
         $this->categoryRepository    = $categoryRepository;
     }
 
-    public function createCategory(CategoryRequest $request): int
+    public function createCategory(CategoryRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::CRIAR_CATEGORIA);
         $this->checkEntityRepository->checkCategoryExist($request);
-        $category = CategoryRequestDto::fromRquest($request);
+        $category = $this->map($request);
         return $this->categoryRepository->create($category);
+    }
+
+    private function map(CategoryRequest $request): Categoria
+    {
+        $category = new Categoria();
+        $category->nome = $request->nome;
+        $category->ativo = CategoryEnum::ATIVADO;
+        return $category;
     }
 }

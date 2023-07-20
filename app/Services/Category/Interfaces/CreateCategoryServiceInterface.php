@@ -6,5 +6,5 @@ use App\Http\Requests\CategoryRequest;
 
 interface CreateCategoryServiceInterface
 {
-    public function createCategory(CategoryRequest $request): int;
+    public function createCategory(CategoryRequest $request): bool;
 }

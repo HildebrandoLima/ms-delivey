@@ -40,11 +40,11 @@ use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 use App\Services\Product\Concretes\CreateProductService;
 use App\Services\Product\Concretes\DeleteProductService;
-use App\Services\Product\Concretes\EditProductSerice;
+use App\Services\Product\Concretes\EditProductService;
 use App\Services\Product\Concretes\ListProductService;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Services\Product\Interfaces\DeleteProductServiceInterface;
-use App\Services\Product\Interfaces\EditProductSericeInterface;
+use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
 use App\Services\Provider\Concretes\CreateProviderService;
 use App\Services\Provider\Concretes\DeleteProviderService;
@@ -123,7 +123,7 @@ class ServicesDependencyInjection extends ServiceProvider
 
         $this->app->bind(DeleteProductServiceInterface::class, DeleteProductService::class);
 
-        $this->app->bind(EditProductSericeInterface::class, EditProductSerice::class);
+        $this->app->bind(EditProductServiceInterface::class, EditProductService::class);
 
         $this->app->bind(ListProductServiceInterface::class, ListProductService::class);
 

@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\ProductDto;
 use App\DataTransferObjects\MappersDtos\ProductMapperDto;
 use App\Models\Produto;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
@@ -17,14 +16,14 @@ class ProductRepository implements ProductRepositoryInterface
         return Produto::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
 
-    public function create(ProductDto $productDto): Produto
+    public function create(Produto $produto): int
     {
-        return Produto::query()->create((array)$productDto);
+        return Produto::query()->create($produto->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
-    public function update(int $id, ProductDto $productDto): bool
+    public function update(int $id, Produto $produto): bool
     {
-        return Produto::query()->where('id', '=', $id)->update((array)$productDto);
+        return Produto::query()->where('id', '=', $id)->update($produto->toArray());
     }
 
     public function getAll(int $active): Collection

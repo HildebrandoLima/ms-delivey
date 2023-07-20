@@ -6,26 +6,27 @@ use App\Support\Utils\Enums\UserEnum;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use DateTime;
+use Illuminate\Support\Collection;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function authenticate(int $perfil): array
+    public function authenticate(int $perfil): Collection
     {
         if ($perfil == 1):
             $perfil = $this->authenticateAdmin();
         else:
             $perfil = $this->authenticateCliente();
         endif;
-        return [
+        return collect([
             'accessToken' => auth()->attempt($perfil),
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->name,
             'userEmail' => auth()->user()->email,
             'isAdmin' => auth()->user()->is_admin == 1 ? UserEnum::E_ADMIN : UserEnum::NAO_E_ADMIN,
             'permissions' => auth()->user()->permissions,
-        ];
+        ]);
     }
 
     public function authenticateAdmin(): array

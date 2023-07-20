@@ -15,7 +15,7 @@ class CategoryRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string',
-            'ativo' => 'required|int'
+            'ativo' => 'required|boolean'
         ];
     }
 
@@ -25,7 +25,7 @@ class CategoryRequest extends BaseRequest
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

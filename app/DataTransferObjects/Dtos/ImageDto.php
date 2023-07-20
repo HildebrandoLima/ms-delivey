@@ -5,7 +5,7 @@ namespace App\DataTransferObjects\Dtos;
 class ImageDto extends DefaultFields
 {
     public string $caminho;
-    public int $produto_id;
+    public int $produtoId;
 
     public static function construction(): static
     {
@@ -25,12 +25,12 @@ class ImageDto extends DefaultFields
 
     public function getProdutoId(): int
     {
-        return $this->produto_id;
+        return $this->produtoId;
     }
 
-    public function setProdutoId(int $produto_id): ImageDto
+    public function setProdutoId(int $produtoId): ImageDto
     {
-        $this->produto_id = $produto_id;
+        $this->produtoId = $produtoId;
         return $this;
     }
 }

@@ -6,17 +6,16 @@ use App\Support\MapperEntity\EntityPerson;
 
 class UserDto extends DefaultFields
 {
-    public int $usuario_id;
-    public int|null $login_social_id;
-    public string|null $login_social;
-    public string $name;
-    public string|null $cpf;
+    public int $usuarioId;
+    public int $loginSocialId;
+    public string $loginSocial;
+    public string $nome;
+    public string $cpf;
     public string $email;
-    public string|null $password;
-    public string|null $data_nascimento;
+    public string $dataNascimento;
     public string $genero;
-    public bool $email_verificado;
-    public bool $is_admin;
+    public bool $emailVerificado;
+    public bool $isAdmin;
     public array $enderecos;
     public array $telefones;
 
@@ -27,54 +26,54 @@ class UserDto extends DefaultFields
 
     public function getUsuarioId(): int
     {
-        return $this->usuario_id;
+        return $this->usuarioId;
     }
 
-    public function setUsuarioId(int $usuario_id): UserDto
+    public function setUsuarioId(int $usuarioId): UserDto
     {
-        $this->usuario_id = $usuario_id;
+        $this->usuarioId = $usuarioId;
         return $this;
     }
 
-    public function getLoginSocialId(): int|null
+    public function getLoginSocialId(): int
     {
-        return $this->login_social_id;
+        return $this->loginSocialId;
     }
 
-    public function setLoginSocialId(int|null $login_social_id): UserDto
+    public function setLoginSocialId(int $loginSocialId): UserDto
     {
-        $this->login_social_id = $login_social_id;
+        $this->loginSocialId = $loginSocialId;
         return $this;
     }
 
-    public function getLoginSocial(): string|null
+    public function getLoginSocial(): string
     {
-        return $this->login_social;
+        return $this->loginSocial;
     }
 
-    public function setLoginSocial(string|null $login_social): UserDto
+    public function setLoginSocial(string $loginSocial): UserDto
     {
-        $this->login_social = $login_social;
+        $this->loginSocial = $loginSocial;
         return $this;
     }
 
     public function getNome(): string
     {
-        return $this->name;
+        return $this->nome;
     }
 
-    public function setNome(string $name): UserDto
+    public function setNome(string $nome): UserDto
     {
-        $this->name = $name;
+        $this->nome = $nome;
         return $this;
     }
 
-    public function getCpf(): string|null
+    public function getCpf(): string
     {
         return $this->cpf;
     }
 
-    public function setCpf(string|null $cpf): UserDto
+    public function setCpf(string $cpf): UserDto
     {
         $this->cpf = $cpf;
         return $this;
@@ -91,25 +90,14 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function setSenha(string|null $password): UserDto
+    public function getDataNascimento(): string
     {
-        $this->password = $password;
-        return $this;
+        return $this->dataNascimento;
     }
 
-    public function getSenha(): string|null
+    public function setDataNascimento(string $dataNascimento): UserDto
     {
-        return $this->password;
-    }
-
-    public function getDataNascimento(): string|null
-    {
-        return $this->data_nascimento;
-    }
-
-    public function setDataNascimento(string|null $data_nascimento): UserDto
-    {
-        $this->data_nascimento = $data_nascimento;
+        $this->dataNascimento = $dataNascimento;
         return $this;
     }
 
@@ -126,23 +114,23 @@ class UserDto extends DefaultFields
 
     public function getEmailVerificado(): bool
     {
-        return $this->email_verificado;
+        return $this->emailVerificado;
     }
 
-    public function setEmailVerificado(bool $email_verificado): UserDto
+    public function setEmailVerificado(bool $emailVerificado): UserDto
     {
-        $this->email_verificado = $email_verificado;
+        $this->emailVerificado = $emailVerificado;
         return $this;
     }
 
     public function getIsAdmin(): bool
     {
-        return $this->is_admin;
+        return $this->isAdmin;
     }
 
-    public function setIsAdmin(bool $is_admin): UserDto
+    public function setIsAdmin(bool $isAdmin): UserDto
     {
-        $this->is_admin = $is_admin;
+        $this->isAdmin = $isAdmin;
         return $this;
     }
 

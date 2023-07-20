@@ -12,15 +12,21 @@ class ProviderRequestTest extends TestCase
 {
     private ProviderRequest $request;
 
-    public function test_request_required(): void
+    private function request(): ProviderRequest
     {
-        // Arrange
         $this->request = new ProviderRequest();
         $this->request['razaoSocial'] = Str::random(10);
         $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['dataFundacao'] = date('Y-m-d H:i:s');
         $this->request['ativo'] = true;
+        return $this->request;
+    }
+
+    public function test_request_required(): void
+    {
+        // Arrange
+        $this->request();
 
         // Act
         $resultReasonSocial = isset($this->request['razaoSocial']);
@@ -40,12 +46,7 @@ class ProviderRequestTest extends TestCase
     public function test_request_type(): void
     {
         // Arrange
-        $this->request = new ProviderRequest();
-        $this->request['razaoSocial'] = Str::random(10);
-        $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
-        $this->request['email'] = GenerateEmail::generateEmail();
-        $this->request['dataFundacao'] = date('Y-m-d H:i:s');
-        $this->request['ativo'] = true;
+        $this->request();
 
         // Act
         $resultReasonSocial = is_string($this->request['razaoSocial']);

@@ -18,14 +18,6 @@ abstract class BaseRequest extends FormRequest
 
     protected $stopOnFirstFailure = false;
 
-    public function getTransactionId(): string {
-        return $this->get('transactionId');
-    }
-
-    public function getMsUser(): string {
-        return $this->get('msUser') ?? '';
-    }
-
     protected function failedValidation(Validator $validator): Response
     {
         $errors = collect($validator->errors()->toArray())
@@ -40,11 +32,12 @@ abstract class BaseRequest extends FormRequest
                 "data" => $this->getErrorsArray($errors),
                 "status" => Response::HTTP_BAD_REQUEST,
                 "details" => $details
-            ])
+            ], Response::HTTP_BAD_REQUEST)
         );
     }
 
-    private function mappedRules() {
+    private function mappedRules()
+    {
         return collect($this->rules())->map(function ($rule) {
             if (gettype($rule) !== 'array'):
                 return explode( '|', $rule);
@@ -91,33 +84,10 @@ abstract class BaseRequest extends FormRequest
         throw new HttpResponseException(
             response()->json([
                 "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
-                "status" => Response::HTTP_BAD_REQUEST,
+                "status" => Response::HTTP_UNAUTHORIZED,
                 "data" => false,
                 "details" => ""
-            ])
+            ], Response::HTTP_UNAUTHORIZED)
         );
-    }
-
-    public function hasPagination(): bool
-    {
-        return $this->page && $this->perPage;
-    }
-
-    public function getPagination(): ?Pagination
-    {
-        $page = (int)$this->page;
-        $perPage = (int)$this->perPage;
-        if (!$this->hasPagination()):
-            return null;
-        endif;
-        if ($page < 0):
-            return null;
-        endif;
-        if ($perPage < 0):
-            return null;
-        endif;
-        return Pagination::builder()
-            ->setCurrentPage($page)
-            ->setPerPage($perPage);
     }
 }

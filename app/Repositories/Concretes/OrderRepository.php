@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\OrderDto;
 use App\DataTransferObjects\MappersDtos\OrderMapperDto;
 use App\Models\Pedido;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
@@ -12,16 +11,14 @@ use Illuminate\Support\Collection;
 
 class OrderRepository implements OrderRepositoryInterface
 {
-    private $query;
-
     public function enableDisable(int $id, int $usuarioId, int $active): bool
     {
-        return Pedido::query()->where('id', $id)->orWhere('usuario_id', $usuarioId)->update(['ativo' => $active]);
+        return Pedido::query()->where('id', '=', $id)->orWhere('usuario_id', $usuarioId)->update(['ativo' => $active]);
     }
 
-    public function create(OrderDto $orderDto): Pedido
+    public function create(Pedido $pedido): int
     {
-        return Pedido::query()->create((array)$orderDto);
+        return Pedido::query()->create($pedido->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
     public function getAll(int $id, int $active): Collection
@@ -51,6 +48,5 @@ class OrderRepository implements OrderRepositoryInterface
     private function mapToQuery(): Builder
     {
         return Pedido::query()->with('item')->with('pagamento')->with('usuario');
-        //$this->query;
     }
 }

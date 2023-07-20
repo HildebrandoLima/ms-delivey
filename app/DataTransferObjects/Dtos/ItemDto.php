@@ -4,15 +4,15 @@ namespace App\DataTransferObjects\Dtos;
 
 class ItemDto extends DefaultFields
 {
-    public int $item_id;
+    public int $itemId;
     public string $nome;
     public float $preco;
-    public string $codigo_barra;
-    public int $quantidade_item;
-    public float $sub_total;
-    public string $unidade_medida;
-    public int $pedido_id;
-    public int $produto_id;
+    public string $codigoBarra;
+    public int $quantidadeItem;
+    public float $subTotal;
+    public string $unidadeMedida;
+    public int $pedidoId;
+    public int $produtoId;
 
     public static function construction(): static
     {
@@ -21,12 +21,12 @@ class ItemDto extends DefaultFields
 
     public function getItemId(): int
     {
-        return $this->item_id;
+        return $this->itemId;
     }
 
-    public function setItemId(int $item_id): ItemDto
+    public function setItemId(int $itemId): ItemDto
     {
-        $this->item_id = $item_id;
+        $this->itemId = $itemId;
         return $this;
     }
 
@@ -54,67 +54,67 @@ class ItemDto extends DefaultFields
 
     public function getCodigoBarra(): string
     {
-        return $this->codigo_barra;
+        return $this->codigoBarra;
     }
 
-    public function setCodigoBarra(string $codigo_barra): ItemDto
+    public function setCodigoBarra(string $codigoBarra): ItemDto
     {
-        $this->codigo_barra = $codigo_barra;
+        $this->codigoBarra = $codigoBarra;
         return $this;
     }
 
     public function getQuantidadeItem(): int
     {
-        return $this->quantidade_item;
+        return $this->quantidadeItem;
     }
 
-    public function setQuantidadeItem(int $quantidade_item): ItemDto
+    public function setQuantidadeItem(int $quantidadeItem): ItemDto
     {
-        $this->quantidade_item = $quantidade_item;
+        $this->quantidadeItem = $quantidadeItem;
         return $this;
     }
 
     public function getSubTotal(): float
     {
-        return $this->sub_total;
+        return $this->subTotal;
     }
 
-    public function setSubTotal(float $sub_total): ItemDto
+    public function setSubTotal(float $subTotal): ItemDto
     {
-        $this->sub_total = $sub_total;
+        $this->subTotal = $subTotal;
         return $this;
     }
 
     public function getUnidadeMedida(): string
     {
-        return $this->unidade_medida;
+        return $this->unidadeMedida;
     }
 
-    public function setUnidadeMedida(string $unidade_medida): ItemDto
+    public function setUnidadeMedida(string $unidadeMedida): ItemDto
     {
-        $this->unidade_medida = $unidade_medida;
+        $this->unidadeMedida = $unidadeMedida;
         return $this;
     }
 
     public function getPedidoId(): int
     {
-        return $this->pedido_id;
+        return $this->pedidoId;
     }
 
-    public function setPedidoId(int $pedido_id): ItemDto
+    public function setPedidoId(int $pedidoId): ItemDto
     {
-        $this->pedido_id = $pedido_id;
+        $this->pedidoId = $pedidoId;
         return $this;
     }
 
     public function getProdutoId(): int
     {
-        return $this->produto_id;
+        return $this->produtoId;
     }
 
-    public function setProdutoId(int $produto_id): ItemDto
+    public function setProdutoId(int $produtoId): ItemDto
     {
-        $this->produto_id = $produto_id;
+        $this->produtoId = $produtoId;
         return $this;
     }
 }

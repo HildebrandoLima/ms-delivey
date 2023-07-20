@@ -37,6 +37,7 @@ class EditProductTest extends TestCase
         ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
 
         // Assert
+        $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
@@ -69,6 +70,7 @@ class EditProductTest extends TestCase
         ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
@@ -98,6 +100,7 @@ class EditProductTest extends TestCase
         $response = $this->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
 
         // Assert
+        $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
@@ -130,6 +133,7 @@ class EditProductTest extends TestCase
         ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
 
         // Assert
+        $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }

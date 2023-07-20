@@ -21,11 +21,11 @@ class ForgotPasswordRequest extends BaseRequest
     public function messages()
     {
         return [
-            'email.exists' => DefaultErrorMessages::NOT_FOUND,
-            'email.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'email.exists' => DefaultErrorMessages::NOT_FOUND,
+            'email.min' => DefaultErrorMessages::MIN_CHARACTERS,
         ];
     }
 }
