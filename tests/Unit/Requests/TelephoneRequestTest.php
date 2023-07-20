@@ -34,18 +34,18 @@ class TelephoneRequestTest extends TestCase
         $this->request();
 
         // Act
-        $resultArrayTelephones = isset($this->request['telephones']);
-        $resultArrayTelephonesNumber = isset($this->request['telephones']['numero']);
-        $resultArrayTelephonesType = isset($this->request['telephones']['tipo']);
-        $resultArrayTelephonesDDDId = isset($this->request['telephones']['dddId']);
-        $resultArrayTelephonesActive = isset($this->request['telephones']['ativo']);
+        $resultTelephone = isset($this->request['telephones']);
+        $resultTelephoneNumber = isset($this->request['telephones']['numero']);
+        $resultTelephoneType = isset($this->request['telephones']['tipo']);
+        $resultTelephoneDDDId = isset($this->request['telephones']['dddId']);
+        $resultTelephoneActive = isset($this->request['telephones']['ativo']);
 
         // Assert
-        $this->assertTrue($resultArrayTelephones);
-        $this->assertTrue($resultArrayTelephonesNumber);
-        $this->assertTrue($resultArrayTelephonesType);
-        $this->assertTrue($resultArrayTelephonesDDDId);
-        $this->assertTrue($resultArrayTelephonesActive);
+        $this->assertTrue($resultTelephone);
+        $this->assertTrue($resultTelephoneNumber);
+        $this->assertTrue($resultTelephoneType);
+        $this->assertTrue($resultTelephoneDDDId);
+        $this->assertTrue($resultTelephoneActive);
     }
 
     public function test_request_type(): void
@@ -54,22 +54,22 @@ class TelephoneRequestTest extends TestCase
         $this->request();
 
         // Act
-        $resultArrayTelephones = is_array($this->request['telephones']);
-        $resultArrayTelephonesNumber = is_string($this->request['telephones']['numero']);
-        $resultArrayTelephonesType = is_string($this->request['telephones']['tipo']);
-        $resultArrayTelephonesDDDId = is_int($this->request['telephones']['dddId']);
-        $resultArrayTelephonesUserId = is_int($this->request['telephones']['usuarioId']);
-        $resultArrayTelephonesProviderId = is_int($this->request['telephones']['fornecedorId']);
-        $resultArrayTelephonesActive = is_bool($this->request['telephones']['ativo']);
+        $resultTelephone = is_array($this->request['telephones']);
+        $resultTelephoneNumber = is_string($this->request['telephones']['numero']);
+        $resultTelephoneType = is_string($this->request['telephones']['tipo']);
+        $resultTelephoneDDDId = is_int($this->request['telephones']['dddId']);
+        $resultTelephoneUserId = is_int($this->request['telephones']['usuarioId']);
+        $resultTelephoneProviderId = is_int($this->request['telephones']['fornecedorId']);
+        $resultTelephoneActive = is_bool($this->request['telephones']['ativo']);
 
         // Assert
-        $this->assertTrue($resultArrayTelephones);
-        $this->assertTrue($resultArrayTelephonesNumber);
-        $this->assertTrue($resultArrayTelephonesType);
-        $this->assertTrue($resultArrayTelephonesDDDId);
-        $this->assertTrue($resultArrayTelephonesUserId);
-        $this->assertTrue($resultArrayTelephonesProviderId);
-        $this->assertTrue($resultArrayTelephonesActive);
+        $this->assertTrue($resultTelephone);
+        $this->assertTrue($resultTelephoneNumber);
+        $this->assertTrue($resultTelephoneType);
+        $this->assertTrue($resultTelephoneDDDId);
+        $this->assertTrue($resultTelephoneUserId);
+        $this->assertTrue($resultTelephoneProviderId);
+        $this->assertTrue($resultTelephoneActive);
     }
 
     public function test_request_absence_mask(): void
@@ -86,11 +86,11 @@ class TelephoneRequestTest extends TestCase
 
         // Act
         if ($this->request['telephones']['numero'] != $this->mask($this->request['telephones']['numero'], "#####-####")):
-            $resultArrayTelephonesNumber = true;
+            $resultTelephoneNumber = true;
         endif;
 
         // Assert
-        $this->assertTrue($resultArrayTelephonesNumber);
+        $this->assertTrue($resultTelephoneNumber);
     }
 
     public function test_request_exists(): void
@@ -101,13 +101,13 @@ class TelephoneRequestTest extends TestCase
         $this->request();
 
         // Act
-        $resultArrayTelephonesDDDId = isset($this->request['telephones']['dddId']);
-        $resultArrayTelephonesUserId = isset($this->request['telephones']['usuarioId']);
-        $resultArrayTelephonesProviderId = isset($this->request['telephones']['fornecedorId']);
+        $resultTelephoneDDDId = isset($this->request['telephones']['dddId']);
+        $resultTelephoneUserId = isset($this->request['telephones']['usuarioId']);
+        $resultTelephoneProviderId = isset($this->request['telephones']['fornecedorId']);
 
         // Assert
-        $this->assertTrue($resultArrayTelephonesDDDId);
-        $this->assertTrue($resultArrayTelephonesUserId);
-        $this->assertTrue($resultArrayTelephonesProviderId);
+        $this->assertTrue($resultTelephoneDDDId);
+        $this->assertTrue($resultTelephoneUserId);
+        $this->assertTrue($resultTelephoneProviderId);
     }
 }
