@@ -9,7 +9,7 @@ use App\Models\Produto;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Concretes\EditProductService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;

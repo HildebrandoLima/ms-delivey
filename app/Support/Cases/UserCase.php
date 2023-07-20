@@ -2,7 +2,7 @@
 
 namespace App\Support\Cases;
 
-use App\Support\Utils\Enums\UserEnum;
+use App\Support\Enums\UserEnum;
 
 final class UserCase
 {

@@ -2,7 +2,7 @@
 
 namespace App\Support\Cases;
 
-use App\Support\Utils\Enums\AddressEnum;
+use App\Support\Enums\AddressEnum;
 
 final class AddressCase
 {

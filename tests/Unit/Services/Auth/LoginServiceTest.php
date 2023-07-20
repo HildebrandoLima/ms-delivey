@@ -5,7 +5,7 @@ namespace Tests\Unit\Services\Auth;
 use App\Http\Requests\LoginRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Auth\Concretes\LoginService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Utils\Enums;
+namespace App\Support\Enums;
 
 class AddressEnum extends AtivoEnum
 {

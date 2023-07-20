@@ -5,7 +5,7 @@ namespace App\Services\Auth\Concretes;
 use App\Http\Requests\LoginRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Auth\Interfaces\LoginServiceInterface;
-use App\Support\Utils\Enums\UserEnum;
+use App\Support\Enums\UserEnum;
 use Illuminate\Support\Collection;
 
 class LoginService implements LoginServiceInterface

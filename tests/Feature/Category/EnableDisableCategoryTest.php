@@ -3,7 +3,7 @@
 namespace Tests\Feature\Category;
 
 use App\Models\Categoria;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -7,7 +7,7 @@ use App\Models\Fornecedor;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Concretes\ListProviderService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Mockery\MockInterface;
 use Tests\TestCase;

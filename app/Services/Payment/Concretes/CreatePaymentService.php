@@ -7,8 +7,8 @@ use App\Models\Pagamento;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PaymentEnum;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PaymentEnum;
+use App\Support\Enums\PermissionEnum;
 
 class CreatePaymentService extends ValidationPermission implements CreatePaymentServiceInterface
 {

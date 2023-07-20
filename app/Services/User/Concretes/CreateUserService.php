@@ -10,7 +10,7 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Support\Permissions\CreatePermissions;
 use App\Support\Cases\UserCase;
-use App\Support\Utils\Enums\UserEnum;
+use App\Support\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface

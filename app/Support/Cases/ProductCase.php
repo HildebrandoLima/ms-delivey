@@ -2,7 +2,7 @@
 
 namespace App\Support\Cases;
 
-use App\Support\Utils\Enums\ProductEnum;
+use App\Support\Enums\ProductEnum;
 
 final class ProductCase
 {

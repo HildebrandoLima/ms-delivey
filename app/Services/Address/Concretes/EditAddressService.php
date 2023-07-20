@@ -8,8 +8,8 @@ use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Cases\AddressCase;
-use App\Support\Utils\Enums\AddressEnum;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\AddressEnum;
+use App\Support\Enums\PermissionEnum;
 
 class EditAddressService extends ValidationPermission implements EditAddressServiceInterface
 {

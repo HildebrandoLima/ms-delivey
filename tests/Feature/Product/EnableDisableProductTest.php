@@ -4,7 +4,7 @@ namespace Tests\Feature\Product;
 
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

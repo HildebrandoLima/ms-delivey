@@ -8,8 +8,8 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
-use App\Support\Utils\Enums\ProviderEnum;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Enums\ProviderEnum;
 
 class EditProviderService extends ValidationPermission implements EditProviderServiceInterface
 {

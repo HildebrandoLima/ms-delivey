@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Auth;
 
 use App\Services\Auth\Concretes\LogoutService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Tests\TestCase;
 
 class LogoutServiceTest extends TestCase

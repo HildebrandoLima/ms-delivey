@@ -7,7 +7,7 @@ use App\Models\Pedido;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Concretes\ListOrderService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Mockery\MockInterface;
 use Tests\TestCase;

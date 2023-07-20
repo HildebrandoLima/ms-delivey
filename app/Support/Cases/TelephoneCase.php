@@ -2,7 +2,7 @@
 
 namespace App\Support\Cases;
 
-use App\Support\Utils\Enums\TelephoneEnum;
+use App\Support\Enums\TelephoneEnum;
 
 final class TelephoneCase
 {
