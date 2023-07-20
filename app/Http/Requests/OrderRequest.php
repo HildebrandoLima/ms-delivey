@@ -18,7 +18,7 @@ class OrderRequest extends BaseRequest
             'total' => 'required|between:0,99.99',
             'entrega' => 'required|between:0,99.99',
             'usuarioId' => 'int|exists:users,id',
-            'ativo' => 'required|int',
+            'ativo' => 'required|boolean',
             'itens' => 'required|array',
             'itens.*.nome' => 'required|string',
             'itens.*.preco' => 'required|between:0,99.99',
@@ -27,7 +27,7 @@ class OrderRequest extends BaseRequest
             'itens.*.subTotal' => 'required|between:0,99.99',
             'itens.*.unidadeMedida' => 'required|string',
             'itens.*.produtoId' => 'required|int|exists:produto,id',
-            'itens.*.ativo' => 'required|int',
+            'itens.*.ativo' => 'required|boolean',
         ];
     }
 
@@ -59,7 +59,7 @@ class OrderRequest extends BaseRequest
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
             'itens.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
