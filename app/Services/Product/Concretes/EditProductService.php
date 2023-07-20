@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Cases\ProductCase;
+use App\Support\Cases\ProductCase;
 use App\Support\Utils\Enums\PermissionEnum;
 use App\Support\Utils\Enums\ProductEnum;
 

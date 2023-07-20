@@ -7,7 +7,7 @@ use App\Models\Telefone;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
-use App\Support\Utils\Cases\TelephoneCase;
+use App\Support\Cases\TelephoneCase;
 use App\Support\Utils\Enums\TelephoneEnum;
 
 class CreateTelephoneService implements CreateTelephoneServiceInterface

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Support\Utils\Cases;
+namespace App\Support\Cases;
 
 use App\Support\Utils\Enums\ProductEnum;
 
-class ProductCase
+final class ProductCase
 {
-    public static function productCase($parameter): string
+    final public static function productCase($parameter): string
     {
         array_filter(ProductEnum::UNIDADE_MEDIDA, function ($value) use ($parameter) {
             if ($value == $parameter):

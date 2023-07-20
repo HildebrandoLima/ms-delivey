@@ -2,7 +2,6 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\ProviderRequestDto;
 use App\Http\Requests\ProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;

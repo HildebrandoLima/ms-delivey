@@ -11,7 +11,7 @@ use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Cases\ProductCase;
+use App\Support\Cases\ProductCase;
 use App\Support\Utils\Enums\ImageEnum;
 use App\Support\Utils\Enums\PermissionEnum;
 use App\Support\Utils\Enums\ProductEnum;

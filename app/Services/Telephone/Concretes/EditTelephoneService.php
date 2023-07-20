@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Cases\TelephoneCase;
+use App\Support\Cases\TelephoneCase;
 use App\Support\Utils\Enums\PermissionEnum;
 use App\Support\Utils\Enums\TelephoneEnum;
 

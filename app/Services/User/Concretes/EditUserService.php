@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Cases\UserCase;
+use App\Support\Cases\UserCase;
 use App\Support\Utils\Enums\PermissionEnum;
 
 class EditUserService extends ValidationPermission implements EditUserServiceInterface

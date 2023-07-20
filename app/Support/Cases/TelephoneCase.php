@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Support\Utils\Cases;
+namespace App\Support\Cases;
 
 use App\Support\Utils\Enums\TelephoneEnum;
 
-class TelephoneCase
+final class TelephoneCase
 {
-    public static function typeCase($tipo): string
+    final public static function typeCase($tipo): string
     {
         return $tipo == 'Fixo' ? TelephoneEnum::TIPO_FIXO : TelephoneEnum::TIPO_CELULAR;
     }
