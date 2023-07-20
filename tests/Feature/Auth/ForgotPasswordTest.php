@@ -39,6 +39,7 @@ class ForgotPasswordTest extends TestCase
         $response = $this->postJson(route('auth.forgot'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

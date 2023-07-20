@@ -37,6 +37,7 @@ class ListCategoryFinderTest extends TestCase
         $response = $this->getJson(route('category.list.find', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

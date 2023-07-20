@@ -70,6 +70,7 @@ class EditProductTest extends TestCase
         ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

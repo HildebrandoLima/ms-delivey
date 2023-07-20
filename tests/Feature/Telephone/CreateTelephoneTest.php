@@ -89,6 +89,7 @@ class CreateTelephoneTest extends TestCase
         $response = $this->postJson(route('telephone.save'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

@@ -44,6 +44,7 @@ class ListOrderFinderTest extends TestCase
         ])->getJson(route('order.list.find', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

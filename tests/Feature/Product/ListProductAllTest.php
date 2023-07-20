@@ -40,6 +40,7 @@ class ListProductAllTest extends TestCase
         $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10]));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

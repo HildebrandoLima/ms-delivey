@@ -47,6 +47,7 @@ class ListProviderAllTest extends TestCase
         ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10]));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

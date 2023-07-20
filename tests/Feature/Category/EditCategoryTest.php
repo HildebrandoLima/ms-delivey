@@ -52,6 +52,7 @@ class EditCategoryTest extends TestCase
         ])->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

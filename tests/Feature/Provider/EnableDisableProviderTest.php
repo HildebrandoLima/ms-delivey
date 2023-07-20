@@ -50,6 +50,7 @@ class EnableDisableProviderTest extends TestCase
         ])->putJson(route('provider.enable.disable', ['id' => base64_encode($data['id'])]));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

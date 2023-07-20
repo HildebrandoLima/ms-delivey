@@ -96,6 +96,7 @@ class EditAddressTest extends TestCase
         ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

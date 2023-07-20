@@ -40,6 +40,7 @@ class ListCategoryAllTest extends TestCase
         $response = $this->getJson(route('category.list.all'));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals(count($data), $this->count);
         $this->assertEquals($this->httpStatusCode($response), 400);

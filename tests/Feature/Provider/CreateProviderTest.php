@@ -59,6 +59,7 @@ class CreateProviderTest extends TestCase
         ])->postJson(route('provider.save'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

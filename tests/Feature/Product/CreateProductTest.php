@@ -88,6 +88,7 @@ class CreateProductTest extends TestCase
         ])->postJson(route('product.save'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertFileExists($this->images[0]);
         $this->assertFileEquals($this->images[0], $data['imagens'][0]);
         $this->assertJson($this->baseResponse($response));

@@ -78,6 +78,7 @@ class CreateOrderTest extends TestCase
         ])->postJson(route('order.save', $data));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

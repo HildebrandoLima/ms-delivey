@@ -93,6 +93,7 @@ class EditTelephoneTest extends TestCase
         ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }

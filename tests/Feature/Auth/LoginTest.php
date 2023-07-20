@@ -41,6 +41,7 @@ class LoginTest extends TestCase
         $response = $this->postJson(route('auth.login'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -59,6 +60,7 @@ class LoginTest extends TestCase
         $response = $this->postJson(route('auth.login'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 
@@ -77,6 +79,7 @@ class LoginTest extends TestCase
         $response = $this->postJson(route('auth.login'), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

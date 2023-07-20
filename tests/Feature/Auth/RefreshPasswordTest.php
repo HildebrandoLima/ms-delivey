@@ -45,6 +45,7 @@ class RefreshPasswordTest extends TestCase
         $response = $this->postJson(route('auth.refresh', Str::uuid()), $data);
 
         // Assert
+        $response->assertStatus(400);
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

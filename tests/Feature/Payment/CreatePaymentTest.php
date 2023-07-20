@@ -88,6 +88,7 @@ class CreatePaymentTest extends TestCase
         ])->postJson(route('payment.save', $data));
 
         // Assert
+        $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
