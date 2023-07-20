@@ -12,12 +12,18 @@ class LoginRequestTest extends TestCase
 {
     private LoginRequest $request;
 
-    public function test_request_required(): void
+    private function request(): LoginRequest
     {
-        // Arrange
         $this->request = new LoginRequest();
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['senha'] = GeneratePassword::generatePassword();
+        return $this->request;
+    }
+
+    public function test_request_required(): void
+    {
+        // Arrange
+        $this->request();
 
         // Act
         $resultEmail = isset($this->request['email']);
@@ -31,9 +37,7 @@ class LoginRequestTest extends TestCase
     public function test_request_type(): void
     {
         // Arrange
-        $this->request = new LoginRequest();
-        $this->request['email'] = GenerateEmail::generateEmail();
-        $this->request['senha'] = GeneratePassword::generatePassword();
+        $this->request();
 
         // Act
         $resultEmail = is_string($this->request['email']);
@@ -64,8 +68,7 @@ class LoginRequestTest extends TestCase
     public function test_request_invalid_password(): void
     {
         // Arrange
-        $this->request = new LoginRequest();
-        $this->request['senha'] = GeneratePassword::generatePassword();
+        $this->request();
 
         // Act
         $resultPasswordContainsString = filter_var($this->request['senha'], FILTER_SANITIZE_STRING);

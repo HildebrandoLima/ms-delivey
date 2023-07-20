@@ -12,15 +12,21 @@ class UserEditRequestTest extends TestCase
     private UserEditRequest $request;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
 
-    public function test_request_required(): void
+    private function request(): UserEditRequest
     {
-        // Arrange
         $rand_keys = array_rand($this->gender);
         $this->request = new UserEditRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['genero'] = $this->gender[$rand_keys];
         $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
+        return $this->request;
+    }
+
+    public function test_request_required(): void
+    {
+        // Arrange
+        $this->request();        
 
         // Act
         $resultName = isset($this->request['nome']);
@@ -38,12 +44,7 @@ class UserEditRequestTest extends TestCase
     public function test_request_type(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->gender);
-        $this->request = new UserEditRequest();
-        $this->request['nome'] = Str::random(10);
-        $this->request['email'] = GenerateEmail::generateEmail();
-        $this->request['genero'] = $this->gender[$rand_keys];
-        $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
+        $this->request();
 
         // Act
         $resultName = is_string($this->request['nome']);

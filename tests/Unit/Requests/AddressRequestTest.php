@@ -14,9 +14,8 @@ class AddressRequestTest extends TestCase
     private AddressRequest $request;
     private array $public_place = array('Rua', 'Avenida');
 
-    public function test_request_required(): void
+    private function request(): AddressRequest
     {
-        // Arrange
         $rand_keys = array_rand($this->public_place);
         $this->request = new AddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
@@ -25,7 +24,16 @@ class AddressRequestTest extends TestCase
         $this->request['cidade'] = Str::random(10);
         $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
         $this->request['ufId'] = rand(1, 27);
+        $this->request['usuarioId'] = rand(1, 100);
+        $this->request['fornecedorId'] = rand(1, 100);
         $this->request['ativo'] = true;
+        return $this->request;
+    }
+
+    public function test_request_required(): void
+    {
+        // Arrange
+        $this->request();
 
         // Act
         $resultPublicPlace = isset($this->request['logradouro']);
@@ -49,17 +57,7 @@ class AddressRequestTest extends TestCase
     public function test_request_type(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->public_place);
-        $this->request = new AddressRequest();
-        $this->request['logradouro'] = $this->public_place[$rand_keys];
-        $this->request['descricao'] = Str::random(10);
-        $this->request['bairro'] = Str::random(10);
-        $this->request['cidade'] = Str::random(10);
-        $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['ufId'] = rand(1, 27);
-        $this->request['usuarioId'] = rand(1, 100);
-        $this->request['fornecedorId'] = rand(1, 100);
-        $this->request['ativo'] = true;
+        $this->request();
 
         // Act
         $resultPublicPlace = is_string($this->request['logradouro']);

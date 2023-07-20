@@ -13,17 +13,25 @@ class TelephoneRequestTest extends TestCase
     private TelephoneRequest $request;
     private array $type = array('Fixo', 'Celular');
 
-    public function test_request_required(): void
+    private function request(): TelephoneRequest
     {
-        // Arrange
         $rand_keys = array_rand($this->type);
         $this->request = new TelephoneRequest();
         $this->request['telephones'] = [
-            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            "numero" => str_replace('-', "", '9' . rand(1000, 2000) . '-' . rand(1000, 2000)),
             "tipo" => $this->type[$rand_keys],
-            "dddId" => rand(1, 23),
+            "dddId" => DDD::query()->first()->id,
+            "usuarioId" => User::query()->first()->id,
+            "fornecedorId" => Fornecedor::query()->first()->id,
             "ativo" => true,
         ];
+        return $this->request;
+    }
+
+    public function test_request_required(): void
+    {
+        // Arrange
+        $this->request();
 
         // Act
         $resultArrayTelephones = isset($this->request['telephones']);
@@ -43,16 +51,7 @@ class TelephoneRequestTest extends TestCase
     public function test_request_type(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->type);
-        $this->request = new TelephoneRequest();
-        $this->request['telephones'] = [
-            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-            "tipo" => $this->type[$rand_keys],
-            "dddId" => rand(1, 23),
-            "usuarioId" => rand(1, 100),
-            "fornecedorId" => rand(1, 100),
-            "ativo" => true,
-        ];
+        $this->request();
 
         // Act
         $resultArrayTelephones = is_array($this->request['telephones']);
@@ -99,16 +98,7 @@ class TelephoneRequestTest extends TestCase
         // Arrange
         User::factory()->createOne();
         Fornecedor::factory()->createOne();
-        $rand_keys = array_rand($this->type);
-        $this->request = new TelephoneRequest();
-        $this->request['telephones'] = [
-            "numero" => str_replace('-', "", '9' . rand(1000, 2000) . '-' . rand(1000, 2000)),
-            "tipo" => $this->type[$rand_keys],
-            "dddId" => DDD::query()->first()->id,
-            "usuarioId" => User::query()->first()->id,
-            "fornecedorId" => Fornecedor::query()->first()->id,
-            "ativo" => true,
-        ];
+        $this->request();
 
         // Act
         $resultArrayTelephonesDDDId = isset($this->request['telephones']['dddId']);
