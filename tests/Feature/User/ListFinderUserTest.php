@@ -7,7 +7,7 @@ use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListUserFinderTest extends TestCase
+class ListFinderUserTest extends TestCase
 {
     /**
      * @test

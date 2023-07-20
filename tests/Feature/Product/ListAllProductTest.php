@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Feature\Category;
+namespace Tests\Feature\Product;
 
-use App\Models\Categoria;
+use App\Models\Produto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListCategoryAllTest extends TestCase
+class ListAllProductTest extends TestCase
 {
-    private int $count = 5;
+    private int $count = 10;
 
     /**
      * @test
@@ -16,15 +16,15 @@ class ListCategoryAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        $data = Categoria::factory($this->count)->create()->toArray();
+        Produto::factory($this->count)->create()->toArray();
 
         // Act
-        $response = $this->getJson(route('category.list.all', ['active' => 1]));
+        $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
 
         // Assert
         $response->assertOk();
         $this->assertJson($this->baseResponse($response));
-        $this->assertEquals(count($data), $this->count);
+        $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -34,15 +34,14 @@ class ListCategoryAllTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        $data = Categoria::factory($this->count)->make()->toArray();
+        Produto::factory($this->count)->create()->toArray();
 
         // Act
-        $response = $this->getJson(route('category.list.all'));
+        $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10]));
 
         // Assert
         $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
-        $this->assertEquals(count($data), $this->count);
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
 }

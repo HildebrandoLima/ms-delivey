@@ -8,14 +8,14 @@ use App\Support\Utils\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListOrderAllTest extends TestCase
+class ListAllOrderTest extends TestCase
 {
     private int $count = 10;
 
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200_with_not_params(): void
+    public function it_endpoint_get_base_response_200_with_not_params(): void
     {
         // Arrange
         Pedido::factory($this->count)->create()->toArray();
@@ -55,7 +55,7 @@ class ListOrderAllTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_400(): void
+    public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
         Pedido::factory($this->count)->create()->toArray();

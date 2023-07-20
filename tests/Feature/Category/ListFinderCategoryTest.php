@@ -6,7 +6,7 @@ use App\Models\Categoria;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListCategoryFinderTest extends TestCase
+class ListFinderCategoryTest extends TestCase
 {
     /**
      * @test

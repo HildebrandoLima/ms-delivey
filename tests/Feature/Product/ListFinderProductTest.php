@@ -6,7 +6,7 @@ use App\Models\Produto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListProductFinderTest extends TestCase
+class ListFinderProductTest extends TestCase
 {
     /**
      * @test
