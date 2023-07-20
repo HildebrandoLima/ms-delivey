@@ -4,14 +4,14 @@ namespace App\DataTransferObjects\Dtos;
 
 class PaymentDto extends DefaultFields
 {
-    public int $pagamento_id;
-    public int $codigo_transacao;
-    public string|null $numero_cartao;
-    public string|null $data_validade;
+    public int $pagamentoId;
+    public int $codigoTransacao;
+    public string|null $numeroCartao;
+    public string|null $dataValidade;
     public int|null $parcela;
     public float $total;
-    public int $metodo_pagamento_id;
-    public int $pedido_id;
+    public int $metodoPagamentoId;
+    public int $pedidoId;
 
     public static function construction(): static
     {
@@ -20,45 +20,45 @@ class PaymentDto extends DefaultFields
 
     public function getPagamentoId(): int
     {
-        return $this->pagamento_id;
+        return $this->pagamentoId;
     }
 
-    public function setPagamentoId(int $pagamento_id): PaymentDto
+    public function setPagamentoId(int $pagamentoId): PaymentDto
     {
-        $this->pagamento_id = $pagamento_id;
+        $this->pagamentoId = $pagamentoId;
         return $this;
     }
 
     public function getCodigoTransacao(): int
     {
-        return $this->codigo_transacao;
+        return $this->codigoTransacao;
     }
 
-    public function setCodigoTransacao(int $codigo_transacao): PaymentDto
+    public function setCodigoTransacao(int $codigoTransacao): PaymentDto
     {
-        $this->codigo_transacao = $codigo_transacao;
+        $this->codigoTransacao = $codigoTransacao;
         return $this;
     }
 
     public function getNumeroCartao(): string|null
     {
-        return $this->numero_cartao;
+        return $this->numeroCartao;
     }
 
-    public function setNumeroCartao(string|null $numero_cartao): PaymentDto
+    public function setNumeroCartao(string|null $numeroCartao): PaymentDto
     {
-        $this->numero_cartao = $numero_cartao;
+        $this->numeroCartao = $numeroCartao;
         return $this;
     }
 
     public function getDataValidade(): string|null
     {
-        return $this->data_validade;
+        return $this->dataValidade;
     }
 
-    public function setDataValidade(string|null $data_validade): PaymentDto
+    public function setDataValidade(string|null $dataValidade): PaymentDto
     {
-        $this->data_validade = $data_validade;
+        $this->dataValidade = $dataValidade;
         return $this;
     }
 
@@ -86,23 +86,23 @@ class PaymentDto extends DefaultFields
 
     public function getMetodoPagamentoId(): int
     {
-        return $this->metodo_pagamento_id;
+        return $this->metodoPagamentoId;
     }
 
-    public function setMetodoPagamentoId(int $metodo_pagamento_id): PaymentDto
+    public function setMetodoPagamentoId(int $metodoPagamentoId): PaymentDto
     {
-        $this->metodo_pagamento_id = $metodo_pagamento_id;
+        $this->metodoPagamentoId = $metodoPagamentoId;
         return $this;
     }
 
     public function getPedidoId(): int
     {
-        return $this->pedido_id;
+        return $this->pedidoId;
     }
 
-    public function setPedidoId(int $pedido_id): PaymentDto
+    public function setPedidoId(int $pedidoId): PaymentDto
     {
-        $this->pedido_id = $pedido_id;
+        $this->pedidoId = $pedidoId;
         return $this;
     }
 }

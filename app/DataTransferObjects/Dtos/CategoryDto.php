@@ -4,7 +4,7 @@ namespace App\DataTransferObjects\Dtos;
 
 class CategoryDto extends DefaultFields
 {
-    public int $categoria_id;
+    public int $categoriaId;
     public string $nome;
 
     public static function construction(): static
@@ -14,12 +14,12 @@ class CategoryDto extends DefaultFields
 
     public function getCategoriaId(): int
     {
-        return $this->categoria_id;
+        return $this->categoriaId;
     }
 
-    public function setCategoriaId(int $categoria_id): CategoryDto
+    public function setCategoriaId(int $categoriaId): CategoryDto
     {
-        $this->categoria_id = $categoria_id;
+        $this->categoriaId = $categoriaId;
         return $this;
     }
 

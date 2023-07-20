@@ -6,12 +6,12 @@ use App\Support\MapperEntity\EntityOrder;
 
 class OrderDto extends DefaultFields
 {
-    public int $pedido_id;
-    public int $numero_pedido;
-    public int $quantidade_item;
+    public int $pedidoId;
+    public int $numeroPedido;
+    public int $quantidadeItem;
     public float $total;
     public float $entrega;
-    public int $usuario_id;
+    public int $usuarioId;
     public array $items;
     public array $pagamento;
 
@@ -22,34 +22,34 @@ class OrderDto extends DefaultFields
 
     public function getPedidoId(): int
     {
-        return $this->pedido_id;
+        return $this->pedidoId;
     }
 
-    public function setPedidoId(int $pedido_id): OrderDto
+    public function setPedidoId(int $pedidoId): OrderDto
     {
-        $this->pedido_id = $pedido_id;
+        $this->pedidoId = $pedidoId;
         return $this;
     }
 
     public function getNumeroPedido(): int
     {
-        return $this->numero_pedido;
+        return $this->numeroPedido;
     }
 
-    public function setNumeroPedido(int $numero_pedido): OrderDto
+    public function setNumeroPedido(int $numeroPedido): OrderDto
     {
-        $this->numero_pedido = $numero_pedido;
+        $this->numeroPedido = $numeroPedido;
         return $this;
     }
 
     public function getQuantidadeItem(): int
     {
-        return $this->quantidade_item;
+        return $this->quantidadeItem;
     }
 
-    public function setQuantidadeItem(int $quantidade_item): OrderDto
+    public function setQuantidadeItem(int $quantidadeItem): OrderDto
     {
-        $this->quantidade_item = $quantidade_item;
+        $this->quantidadeItem = $quantidadeItem;
         return $this;
     }
 
@@ -77,12 +77,12 @@ class OrderDto extends DefaultFields
 
     public function getUsuarioId(): int
     {
-        return $this->usuario_id;
+        return $this->usuarioId;
     }
 
-    public function setUsuarioId(int $usuario_id): OrderDto
+    public function setUsuarioId(int $usuarioId): OrderDto
     {
-        $this->usuario_id = $usuario_id;
+        $this->usuarioId = $usuarioId;
         return $this;
     }
 
