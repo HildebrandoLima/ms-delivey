@@ -49,8 +49,8 @@ class CreateUserTest extends TestCase
         $rand_keys = array_rand($this->gender);
         $data = [
             'nome' => Str::random(10),
-            'cpf' => '',
-            'email' => '',
+            'cpf' => GenerateCPF::generateCPF(),
+            'email' => Str::random(10),
             'senha' => GeneratePassword::generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
             'genero' => $this->gender[$rand_keys],
