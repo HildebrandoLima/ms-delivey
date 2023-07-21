@@ -2,25 +2,35 @@
 
 namespace App\Support\Permissions;
 
-use App\Exceptions\HttpStatusCode\HttpForbidden;
+use App\Support\Utils\Messages\DefaultErrorMessages;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class ValidationPermission
 {
     public function validationPermission(string $permission): void
     {
-        if(!$this->containsPermission($permission)):
-            throw new HttpForbidden();
-        endif;
+        if(!$this->containsPermission($permission)) {
+            throw new HttpResponseException
+            (
+                response()->json([
+                    "message" => DefaultErrorMessages::PERMISSION_MESSAGE,
+                    "data" => [],
+                    "status" => Response::HTTP_FORBIDDEN,
+                    "details" => ""
+                ], Response::HTTP_FORBIDDEN)
+            );
+        }
     }
 
     private function containsPermission(string $permission): bool
     {
         $permissions = auth()->user()->permissions;
-        foreach ($permissions->toArray() as $instance):
-            if (in_array($permission, $instance)):
+        foreach ($permissions->toArray() as $instance) {
+            if (in_array($permission, $instance)) {
                 return true;
-            endif;
-        endforeach;
+            }
+        }
         return false;
     }
 }

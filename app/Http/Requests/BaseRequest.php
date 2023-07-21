@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Support\Utils\Messages\DefaultErrorMessages;
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -12,12 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseRequest extends FormRequest
 {
-    abstract public function authorize(): bool;
-
-    abstract public function rules(): array;
-
-    protected $stopOnFirstFailure = false;
-
     protected function failedValidation(Validator $validator): Response
     {
         $errors = collect($validator->errors()->toArray())
@@ -26,10 +19,12 @@ abstract class BaseRequest extends FormRequest
             'rules' => $this->mappedRules(),
             'error' => $validator->getMessageBag()
         ];
-        throw new HttpResponseException(
+
+        throw new HttpResponseException
+        (
             response()->json([
                 "message" => DefaultErrorMessages::VALIDATION_FAILURE,
-                "data" => $this->getErrorsArray($errors),
+                "data" => $this->mappedErros($errors),
                 "status" => Response::HTTP_BAD_REQUEST,
                 "details" => $details
             ], Response::HTTP_BAD_REQUEST)
@@ -39,55 +34,30 @@ abstract class BaseRequest extends FormRequest
     private function mappedRules()
     {
         return collect($this->rules())->map(function ($rule) {
-            if (gettype($rule) !== 'array'):
+            if (gettype($rule) !== 'array') {
                 return explode( '|', $rule);
-            endif;
-            foreach ($rule as $i => $subRule):
-                if (gettype($subRule) === 'object'):
+            }
+            foreach ($rule as $i => $subRule) {
+                if (gettype($subRule) === 'object') {
                     $rule[$i] = get_class($subRule);
-                endif;
-            endforeach;
+                }
+            }
             return $rule;
         });
     }
 
-    private function getErrorsArray(Collection $errors): array
+    private function mappedErros(Collection $errors): array
     {
         $errorsArray = [];
-        foreach ($errors as $key => $error):
+        foreach ($errors as $key => $error) {
             $matches = [];
-            if (preg_match('/(\w+)\.(\d)+/', $key, $matches)):
+            if (preg_match('/(\w+)\.(\d)+/', $key, $matches)) {
                 $newKey = $matches[1] . "[" . $matches[2] . "]";
                 $errorsArray[$newKey] = $error;
-            else:
+            } else {
                 $errorsArray[$key] = $error;
-            endif;
-        endforeach;
+            }
+        }
         return $errorsArray;
-    }
-
-    public function attributes(): array
-    {
-        $rulesKeys = array_keys($this->rules());
-        $attributes = [];
-        foreach ($rulesKeys as $key):
-            $matches = [];
-            if (preg_match('/(\w+)\.\*.*/', $key, $matches)):
-                $attributes[$key] = $matches[1] . '[]';
-            endif;
-        endforeach;
-        return $attributes;
-    }
-
-    protected function failedAuthorization()
-    {
-        throw new HttpResponseException(
-            response()->json([
-                "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
-                "status" => Response::HTTP_UNAUTHORIZED,
-                "data" => false,
-                "details" => ""
-            ], Response::HTTP_UNAUTHORIZED)
-        );
     }
 }
