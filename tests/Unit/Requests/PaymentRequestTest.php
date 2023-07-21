@@ -16,7 +16,7 @@ class PaymentRequestTest extends TestCase
         $this->request['numeroCartao'] = rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200);
         $this->request['dataValidade'] =  date('Y-m-d H:i:s');
         $this->request['parcela'] = rand(0, 2);
-        $this->request['total'] = rand(1, 100);
+        $this->request['total'] = 10.5;
         $this->request['metodoPagamentoId'] = 2;
         $this->request['pedidoId'] = Pedido::factory()->createOne()->id;
         $this->request['ativo'] = true;

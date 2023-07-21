@@ -20,10 +20,10 @@ class OrderRequestTest extends TestCase
         foreach ($products as $product):
             $item = [
                 'nome' => $product['nome'],
-                'preco' => $product['preco_venda'],
+                'preco' => (float)$product['preco_venda'],
                 'codigoBarra' => $product['codigo_barra'],
                 'quantidadeItem' => $product['quantidade'],
-                'subTotal' => $product['preco_venda'],
+                'subTotal' => (float)$product['preco_venda'],
                 'unidadeMedida' => $product['unidade_medida'],
                 'produtoId' => $product['id'],
                 'ativo' => true,
@@ -93,10 +93,10 @@ class OrderRequestTest extends TestCase
         $resultActive = is_bool($this->request['ativo']);
         $resultItems = is_array($this->request['itens']);
         $resultItemsName = is_string($this->request['itens'][0]['nome']);
-        $resultItemsPrice = is_string($this->request['itens'][0]['preco']);
+        $resultItemsPrice = is_float($this->request['itens'][0]['preco']);
         $resultItemsBarCode = is_string($this->request['itens'][0]['codigoBarra']);
         $resultItemsQuantityItem = is_int($this->request['itens'][0]['quantidadeItem']);
-        $resultItemsSubTotal = is_string($this->request['itens'][0]['subTotal']);
+        $resultItemsSubTotal = is_float($this->request['itens'][0]['subTotal']);
         $resultItemsUnitMeasurement = is_string($this->request['itens'][0]['unidadeMedida']);
         $resultItemsProductId = is_int($this->request['itens'][0]['produtoId']);
         $resultItemsActive = is_bool($this->request['itens'][0]['ativo']);
