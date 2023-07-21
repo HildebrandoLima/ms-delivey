@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Telephone;
 
-use App\Models\Telefone;
+use App\Models\DDD;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,7 +14,7 @@ class ListDDDTest extends TestCase
     public function it_endpoint_get_list_ddd_base_response_200(): void
     {
         // Arrange
-        $data = Telefone::query()->get()->toArray();
+        $data = DDD::query()->get()->toArray();
 
         // Act
         $response = $this->getJson(route('telephone.ddd.list'));
