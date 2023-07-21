@@ -15,7 +15,7 @@ class EnableDisableCategoryTest extends TestCase
     public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Categoria::query()->first()->toArray();
+        $data = Categoria::factory()->createOne()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act

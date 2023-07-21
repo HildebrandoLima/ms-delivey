@@ -15,7 +15,7 @@ class EnableDisableTelephoneTest extends TestCase
     public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Telefone::query()->first()->toArray();
+        $data = Telefone::factory()->createOne()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act

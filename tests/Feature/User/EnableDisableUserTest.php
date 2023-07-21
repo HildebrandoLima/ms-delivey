@@ -17,7 +17,7 @@ class EnableDisableUserTest extends TestCase
     public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = User::query()->first()->toArray();
+        $data = User::factory()->createOne()->toArray();
         Endereco::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         Telefone::factory()->createOne(['usuario_id' => $data['id'], 'fornecedor_id' => null])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
