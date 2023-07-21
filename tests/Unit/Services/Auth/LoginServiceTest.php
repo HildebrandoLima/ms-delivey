@@ -6,6 +6,8 @@ use App\Http\Requests\LoginRequest;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Auth\Concretes\LoginService;
 use App\Support\Enums\PerfilEnum;
+use App\Support\Generate\GenerateEmail;
+use App\Support\Generate\GeneratePassword;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -18,8 +20,8 @@ class LoginServiceTest extends TestCase
     {
         // Arrange
         $this->request = new LoginRequest();
-        $this->request['email'] = 'hildebrandolima16@gmail.com';
-        $this->request['password'] = 'HiLd3br@ndo';
+        $this->request['email'] = GenerateEmail::generateEmail();
+        $this->request['password'] = GeneratePassword::generatePassword();
 
         $expectedResult = $this->authenticate(PerfilEnum::ADMIN);
 

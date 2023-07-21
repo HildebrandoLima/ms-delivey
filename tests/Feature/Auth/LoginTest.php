@@ -14,8 +14,8 @@ class LoginTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'hildebrandolima16@gmail.com',
-            'password' => 'HiLd3br@ndo'
+            'email' => 'cliente@gmail.com',
+            'password' => '@PClient5'
         ];
 
         // Act
@@ -33,8 +33,8 @@ class LoginTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'hildebrandolima16@gmail',
-            'password' => 'HiLd3br@ndo'
+            'email' => 'cliente@gmail.com',
+            'password' => '@PClient5'
         ];
 
         // Act
@@ -52,8 +52,8 @@ class LoginTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'hildebrandolima16@gmail.com',
-            'password' => 'HiLd3brndo'
+            'email' => 'cliente@gmail.com',
+            'password' => '@PClient5'
         ];
 
         // Act

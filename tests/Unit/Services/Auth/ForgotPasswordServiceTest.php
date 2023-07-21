@@ -6,6 +6,7 @@ use App\Http\Requests\ForgotPasswordRequest;
 use App\Models\PasswordReset;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Services\Auth\Concretes\ForgotPasswordService;
+use App\Support\Generate\GenerateEmail;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -18,7 +19,7 @@ class ForgotPasswordServiceTest extends TestCase
     {
         // Arrange
         $this->request = new ForgotPasswordRequest();
-        $this->request['email'] = 'cliente@gmail.com';
+        $this->request['email'] = GenerateEmail::generateEmail();
 
         $this->authRepository = $this->mock(AuthRepositoryInterface::class,
             function (MockInterface $mock) {
