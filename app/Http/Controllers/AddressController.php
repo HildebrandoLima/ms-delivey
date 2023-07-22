@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\Address\AddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
-use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
