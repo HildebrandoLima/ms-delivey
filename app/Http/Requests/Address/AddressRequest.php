@@ -28,7 +28,7 @@ class AddressRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'ufId.exists' => DefaultErrorMessages::NOT_FOUND,
