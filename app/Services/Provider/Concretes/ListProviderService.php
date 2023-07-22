@@ -26,13 +26,13 @@ class ListProviderService extends ValidationPermission implements ListProviderSe
 
     public function listProviderAll(int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_FORNECEDOR);
+        $this->validationPermission(PermissionEnum::LISTAR_FORNECEDORES);
         return $this->providerRepository->getAll($active);
     }
 
     public function listProviderFind(int $id, string $search, int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_FORNECEDOR);
+        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_FORNECEDOR);
         if ($id != 0) $this->checkEntityRepository->checkProviderIdExist($id);
         return $this->providerRepository->getOne($id, $search, $active);
     }

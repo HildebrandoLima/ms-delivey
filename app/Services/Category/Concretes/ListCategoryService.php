@@ -5,10 +5,12 @@ namespace App\Services\Category\Concretes;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
-class ListCategoryService implements ListCategoryServiceInterface
+class ListCategoryService extends ValidationPermission implements ListCategoryServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private CategoryRepositoryInterface    $categoryRepository;
@@ -30,6 +32,7 @@ class ListCategoryService implements ListCategoryServiceInterface
 
     public function listCategoryFind(int $id, string $search, int $active): Collection
     {
+        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_CATEGORIA);
         if ($id != 0) $this->checkEntityRepository->checkCategoryIdExist($id);
         return $this->categoryRepository->getOne($id, $search, $active);
     }
