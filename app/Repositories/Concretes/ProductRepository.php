@@ -38,8 +38,12 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getOne(int $id, string $search, int $active): Collection
     {
-        $collect = $this->mapToQuery()->where('produto.ativo', '=', $active)->where('produto.id', '=', $id)
-        ->orWhere('produto.nome', 'like', $search)->get()->toArray()[0];
+        $collect = $this->mapToQuery()->where('produto.ativo', '=', $active)
+        ->where('produto.id', '=', $id)
+        ->orWhere(function ($query) use ($id, $search) {
+            $query->where('produto.categoria_id', $id)
+                  ->orWhere('produto.nome', 'like', $search);
+        })->get()->toArray()[0];
         $collection = ProductMapperDto::mapper($collect);
         return collect($collection);
     }

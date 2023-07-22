@@ -67,7 +67,7 @@ class CheckEntityRepository implements CheckEntityRepositoryInterface
 
     public function checkProductIdExist(int $id): void
     {
-        if (Produto::query()->where('id', $id)->count() == 0):
+        if (Produto::query()->where('id', $id)->orWhere('categoria_id', $id)->count() == 0):
             throw new HttpBadRequest('O produto informado não existe.');
         endif;
     }
