@@ -55,9 +55,9 @@ class ProductController extends Controller
         try {
             $success = $this->listProductService->listProductFind
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $search::search($request->search ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -81,7 +81,10 @@ class ProductController extends Controller
     {
         try {
             $success = $this->editProductService->editProduct
-            ($baseDecode->baseDecode($id), $request);
+            (
+                $baseDecode::baseDecode($id),
+                $request
+            );
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -94,8 +97,8 @@ class ProductController extends Controller
         try {
             $success = $this->deleteProductService->deleteProduct
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();

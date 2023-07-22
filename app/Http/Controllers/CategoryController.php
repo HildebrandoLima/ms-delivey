@@ -40,7 +40,7 @@ class CategoryController extends Controller
         try {
             $success = $this->listCategoryService->listCategoryAll
             (
-                $filterByActive->filterByActive($request->active)
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -54,9 +54,9 @@ class CategoryController extends Controller
         try {
             $success = $this->listCategoryService->listCategoryFind
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $search::search($request->search ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -93,8 +93,8 @@ class CategoryController extends Controller
         try {
             $success = $this->deleteCategoryService->deleteCategory
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();
