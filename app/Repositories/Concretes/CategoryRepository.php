@@ -34,7 +34,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             return $this->hasPagination($active);
         else:
             return $this->noPagination($active);
-        endif;        
+        endif;
     }
 
     public function getOne(int $id, string $search, int $active): Collection
