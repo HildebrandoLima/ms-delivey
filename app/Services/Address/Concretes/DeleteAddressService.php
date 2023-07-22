@@ -2,31 +2,27 @@
 
 namespace App\Services\Address\Concretes;
 
+use App\Http\Requests\Address\ParamsAddressRequest;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Enums\PermissionEnum;
 
 class DeleteAddressService extends ValidationPermission implements DeleteAddressServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private AddressRepositoryInterface     $addressRepository;
+    private AddressRepositoryInterface $addressRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        AddressRepositoryInterface     $addressRepository,
+        AddressRepositoryInterface $addressRepository,
     )
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->addressRepository     = $addressRepository;
+        $this->addressRepository = $addressRepository;
     }
 
-    public function deleteAddress(int $id, int $ative): bool
+    public function deleteAddress(ParamsAddressRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_ENDERECO);
-        $this->checkEntityRepository->checkAddressIdExist($id);
-        return $this->addressRepository->enableDisable($id, $ative);
+        return $this->addressRepository->enableDisable((int)$request->id, (bool)$request->ative);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Address\AddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
-use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\Address\ParamsAddressRequest;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
@@ -68,14 +68,10 @@ class AddressController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsAddressRequest $request): Response
     {
         try {
-            $success = $this->deleteAddressService->deleteAddress
-            (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
-            );
+            $success = $this->deleteAddressService->deleteAddress($request);
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {
