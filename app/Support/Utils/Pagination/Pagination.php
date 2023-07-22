@@ -15,21 +15,16 @@ class Pagination extends BaseRequest
     public function rules(): array
     {
         return [
-            'page' => 'required|int',
-            'perPage' => 'required|int',
-            'active' => 'required|int',
+            'page' => 'int',
+            'perPage' => 'int',
         ];
     }
 
     public function messages()
     {
         return [
-            'page.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'perPage.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'active.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'page.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'perPage.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'active.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

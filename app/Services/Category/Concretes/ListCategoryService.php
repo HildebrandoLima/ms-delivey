@@ -5,6 +5,7 @@ namespace App\Services\Category\Concretes;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListCategoryService implements ListCategoryServiceInterface
@@ -22,9 +23,9 @@ class ListCategoryService implements ListCategoryServiceInterface
         $this->categoryRepository    = $categoryRepository;
     }
 
-    public function listCategoryAll(int $active): Collection
+    public function listCategoryAll(Pagination $pagination, int $active): Collection
     {
-        return $this->categoryRepository->getAll($active);
+        return $this->categoryRepository->getAll($pagination, $active);
     }
 
     public function listCategoryFind(int $id, string $search, int $active): Collection
