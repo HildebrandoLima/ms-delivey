@@ -27,9 +27,9 @@ class AddressRepository implements AddressRepositoryInterface
         return true;
     }
 
-    public function update(int $id, Endereco $endereco): bool
+    public function update(Endereco $endereco): bool
     {
-        return Endereco::query()->where('id', '=', $id)->update($endereco->toArray());
+        return Endereco::query()->where('id', '=', $endereco->id)->update($endereco->toArray());
     }
 
     public function getFederativeUnitAll(): Collection

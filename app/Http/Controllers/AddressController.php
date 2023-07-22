@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
+use App\Http\Requests\Address\EditAddressRequest;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
@@ -56,14 +57,10 @@ class AddressController extends Controller
         }
     }
 
-    public function update(string $id, AddressRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditAddressRequest $request): Response
     {
         try {
-            $success = $this->editAddressService->editAddress
-            (
-                $baseDecode::baseDecode($id),
-                $request
-            );
+            $success = $this->editAddressService->editAddress($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
