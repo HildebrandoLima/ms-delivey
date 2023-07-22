@@ -36,12 +36,13 @@ class ProductController extends Controller
         $this->listProductService   = $listProductService;
     }
 
-    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
+    public function index(Pagination $pagination, ParametersRequest $request, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listProductService->listProductAll
             (
-                $filterByActive->filterByActive($pagination->active)
+                $pagination,
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
