@@ -10,8 +10,6 @@ use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
 use App\Services\Address\Interfaces\ListAddressServiceInterface;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
