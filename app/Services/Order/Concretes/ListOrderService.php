@@ -6,7 +6,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 use Illuminate\Support\Collection;
 
 class ListOrderService extends ValidationPermission implements ListOrderServiceInterface
@@ -26,13 +26,13 @@ class ListOrderService extends ValidationPermission implements ListOrderServiceI
 
     public function listOrderAll(int $id, int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_PEDIDO);
+        $this->validationPermission(PermissionEnum::LISTAR_PEDIDOS);
         return $this->orderRepository->getAll($id, $active);
     }
 
     public function listOrderFind(int $id, string $search, int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_PEDIDO);
+        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_PEDIDO);
         if ($id != 0) $this->checkEntityRepository->checkOrderIdExist($id);
         return $this->orderRepository->getOne($id, $search, $active);
     }

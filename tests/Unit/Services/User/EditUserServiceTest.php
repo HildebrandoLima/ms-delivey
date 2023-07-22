@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\EditUserService;
 use App\Support\Generate\GenerateEmail;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;

@@ -60,7 +60,10 @@ class TelephoneController extends Controller
     {
         try {
             $success = $this->editTelephoneService->editTelephone
-            ($baseDecode->baseDecode($id), $request);
+            (
+                $baseDecode::baseDecode($id),
+                $request
+            );
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -73,8 +76,8 @@ class TelephoneController extends Controller
         try {
             $success = $this->deleteTelephoneService->deleteTelephone
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();

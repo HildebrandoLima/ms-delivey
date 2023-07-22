@@ -5,7 +5,7 @@ namespace Tests\Feature\Product;
 use App\Models\Item;
 use App\Models\Pagamento;
 use App\Models\Pedido;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,7 +17,7 @@ class EnableDisableOrderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Pedido::query()->first()->toArray();
+        $data = Pedido::factory()->createOne()->toArray();
         Pagamento::factory()->createOne(['pedido_id' => $data['id']])->toArray();
         Item::factory()->createOne(['pedido_id' => $data['id']])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);

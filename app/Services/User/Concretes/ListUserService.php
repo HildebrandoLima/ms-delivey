@@ -6,7 +6,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 use Illuminate\Support\Collection;
 
 class ListUserService extends ValidationPermission implements ListUserServiceInterface
@@ -26,13 +26,13 @@ class ListUserService extends ValidationPermission implements ListUserServiceInt
 
     public function listUserAll(int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_USUARIO);
+        $this->validationPermission(PermissionEnum::LISTAR_USUARIOS);
         return $this->userRepository->getAll($active);
     }
 
     public function listUserFind(int $id, string $search, int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_USUARIO);
+        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_USUARIO);
         if ($id != 0) $this->checkEntityRepository->checkUserIdExist($id);
         return $this->userRepository->getOne($id, $search, $active);
     }

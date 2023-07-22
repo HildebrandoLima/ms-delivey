@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthenticatedGwMiddleware extends BaseMiddleware
 {
@@ -27,28 +28,26 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
             JWTAuth::parseToken()->authenticate();
         } catch(Exception $e) {
             if ($e instanceof TokenInvalidException) {
-                return response()->json([
-                    "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
-                    "data" => [],
-                    "status" => Response::HTTP_UNAUTHORIZED,
-                    "details" => ""
-                ], Response::HTTP_UNAUTHORIZED);
+               $this->getResponse();
             } elseif ($e instanceof TokenExpiredException) {
-                return response()->json([
-                    "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
-                    "data" => [],
-                    "status" => Response::HTTP_UNAUTHORIZED,
-                    "details" => ""
-                ], Response::HTTP_UNAUTHORIZED);
+               $this->getResponse();
             } else {
-                return response()->json([
-                    "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
-                    "data" => [],
-                    "status" => Response::HTTP_UNAUTHORIZED,
-                    "details" => ""
-                ], Response::HTTP_UNAUTHORIZED);
+               $this->getResponse();
             }
         }
         return $next($request);
+    }
+
+    private function getResponse(): void
+    {
+        throw new HttpResponseException
+        (
+            response()->json([
+                "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
+                "data" => [],
+                "status" => Response::HTTP_UNAUTHORIZED,
+                "details" => ""
+            ], Response::HTTP_UNAUTHORIZED)
+        );
     }
 }

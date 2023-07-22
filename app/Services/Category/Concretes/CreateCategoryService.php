@@ -8,8 +8,8 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\CategoryEnum;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\CategoryEnum;
+use App\Support\Enums\PermissionEnum;
 
 class CreateCategoryService extends ValidationPermission implements CreateCategoryServiceInterface
 {

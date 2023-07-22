@@ -10,9 +10,9 @@ use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\ItemEnum;
-use App\Support\Utils\Enums\OrderEnum;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\ItemEnum;
+use App\Support\Enums\OrderEnum;
+use App\Support\Enums\PermissionEnum;
 
 class CreateOrderService extends ValidationPermission implements CreateOrderServiceInterface
 {

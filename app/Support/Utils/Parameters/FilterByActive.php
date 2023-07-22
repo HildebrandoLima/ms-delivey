@@ -2,9 +2,9 @@
 
 namespace App\Support\Utils\Parameters;
 
-class FilterByActive
+final class FilterByActive
 {
-    public function filterByActive(int $active): int
+    final public static function filterByActive(int $active): int
     {
         return $active;
     }

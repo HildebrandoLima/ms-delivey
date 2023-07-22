@@ -36,8 +36,8 @@ class OrderController extends Controller
         try {
             $success = $this->listOrderService->listOrderAll
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -51,9 +51,9 @@ class OrderController extends Controller
         try {
             $success = $this->listOrderService->listOrderFind
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $search::search($request->search ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -78,8 +78,8 @@ class OrderController extends Controller
         try {
             $success = $this->deleteOrderService->deleteOrder
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();

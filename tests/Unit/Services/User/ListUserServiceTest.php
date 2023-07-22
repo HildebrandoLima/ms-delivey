@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\ListUserService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Mockery\MockInterface;
 use Tests\TestCase;

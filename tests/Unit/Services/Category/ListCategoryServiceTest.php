@@ -7,7 +7,8 @@ use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Concretes\ListCategoryService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
+use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -15,15 +16,20 @@ class ListCategoryServiceTest extends TestCase
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private CategoryRepositoryInterface $categoryRepository;
+    private Pagination $pagination;
     private int $id;
     private bool $active;
     private string $search;
 
-    public function test_success_list_category_all_service(): void
+    public function test_success_list_category_all_has_pagination_service(): void
     {
         // Arrange
         $this->id = rand(1, 100);
         $this->active = true;
+        $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
+
         $collection = Categoria::where('ativo', '=', $this->active)->orderByDesc('id')->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = CategoryMapperDto::mapper($instance);
@@ -42,7 +48,7 @@ class ListCategoryServiceTest extends TestCase
 
         $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->active)
+                $mock->shouldReceive('getAll')->with($this->pagination, $this->active)
                 ->andReturn($expectedResult);
         });
 
@@ -53,7 +59,53 @@ class ListCategoryServiceTest extends TestCase
             $this->categoryRepository
         );
 
-        $result = $listCategoryService->listCategoryAll($this->active);
+        $result = $listCategoryService->listCategoryAll($this->pagination, $this->active);
+
+        // Assert
+        $this->assertSame($result, $expectedResult);
+        $this->assertSame($result, $expectedResult);
+        $this->assertEquals(count($result->toArray()), count($expectedResult->toArray()));
+    }
+
+    public function test_success_list_category_all_no_pagination_service(): void
+    {
+        // Arrange
+        $this->id = rand(1, 100);
+        $this->active = true;
+        $this->pagination = new Pagination();
+        $this->pagination['page'] = null;
+        $this->pagination['perPage'] = null;
+
+        $collection = Categoria::where('ativo', '=', $this->active)->orderByDesc('id')->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = CategoryMapperDto::mapper($instance);
+        endforeach;
+        $expectedResult = $collection;
+
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ]);
+
+        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('checkCategoryIdExist')->with($this->id);
+        });
+
+        $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getAll')->with($this->pagination, $this->active)
+                ->andReturn($expectedResult);
+        });
+
+        // Act
+        $listCategoryService = new ListCategoryService
+        (
+            $this->checkEntityRepository,
+            $this->categoryRepository
+        );
+
+        $result = $listCategoryService->listCategoryAll($this->pagination, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);

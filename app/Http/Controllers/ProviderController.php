@@ -9,7 +9,6 @@ use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
@@ -36,12 +35,12 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
+    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
             (
-                $filterByActive->filterByActive($pagination->active)
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -55,9 +54,9 @@ class ProviderController extends Controller
         try {
             $success = $this->listProviderService->listProviderFind
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $search::search($request->search ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -81,7 +80,10 @@ class ProviderController extends Controller
     {
         try {
             $success = $this->editProviderService->editProvider
-            ($baseDecode->baseDecode($id), $request);
+            (
+                $baseDecode::baseDecode($id),
+                $request
+            );
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -94,8 +96,8 @@ class ProviderController extends Controller
         try {
             $success = $this->deleteProviderService->deleteProvider
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();

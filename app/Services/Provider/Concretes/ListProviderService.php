@@ -6,7 +6,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 use Illuminate\Support\Collection;
 
 class ListProviderService extends ValidationPermission implements ListProviderServiceInterface
@@ -26,13 +26,13 @@ class ListProviderService extends ValidationPermission implements ListProviderSe
 
     public function listProviderAll(int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_FORNECEDOR);
+        $this->validationPermission(PermissionEnum::LISTAR_FORNECEDORES);
         return $this->providerRepository->getAll($active);
     }
 
     public function listProviderFind(int $id, string $search, int $active): Collection
     {
-        $this->validationPermission(PermissionEnum::LISTAR_FORNECEDOR);
+        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_FORNECEDOR);
         if ($id != 0) $this->checkEntityRepository->checkProviderIdExist($id);
         return $this->providerRepository->getOne($id, $search, $active);
     }

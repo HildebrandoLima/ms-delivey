@@ -11,7 +11,6 @@ use App\Services\User\Interfaces\DeleteUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
@@ -41,12 +40,12 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
     }
 
-    public function index(Pagination $pagination, FilterByActive $filterByActive): Response
+    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listUserService->listUserAll
             (
-                $filterByActive->filterByActive($pagination->active)
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -60,9 +59,9 @@ class UserController extends Controller
         try {
             $success = $this->listUserService->listUserFind
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $search::search($request->search ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -86,7 +85,10 @@ class UserController extends Controller
     {
         try {
             $success = $this->editUserService->editUser
-            ($baseDecode->baseDecode($id), $request);
+            (
+                $baseDecode::baseDecode($id),
+                $request
+            );
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -99,8 +101,8 @@ class UserController extends Controller
         try {
             $success = $this->deleteUserService->deleteUser
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();
@@ -114,20 +116,13 @@ class UserController extends Controller
         try {
             $success = $this->emailUserVerifiedAtService->emailVerifiedAt
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
-            if (!isset ($success)):
-                return response()->json([
-                    "message" => "Error ao efetuar verificação!",
-                    "data" => false,
-                    "status" => Response::HTTP_UNAUTHORIZED,
-                    "details" => ""
-                ]);
-            endif;
+            if (!$success) return Controller::error();
             return response()->json([
                 "message" => "Verificação efetuada com sucesso!",
-                "data" => $success,
+                "data" => true,
                 "status" => 200,
                 "details" => ""
             ]);

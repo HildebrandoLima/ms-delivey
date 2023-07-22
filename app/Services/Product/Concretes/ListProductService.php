@@ -5,6 +5,7 @@ namespace App\Services\Product\Concretes;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListProductService implements ListProductServiceInterface
@@ -22,9 +23,9 @@ class ListProductService implements ListProductServiceInterface
         $this->productRepository     = $productRepository;
     }
 
-    public function listProductAll(int $active): Collection
+    public function listProductAll(Pagination $pagination, int $active): Collection
     {
-        return $this->productRepository->getAll($active);
+        return $this->productRepository->getAll($pagination, $active);
     }
 
     public function listProductFind(int $id, string $search, int $active): Collection

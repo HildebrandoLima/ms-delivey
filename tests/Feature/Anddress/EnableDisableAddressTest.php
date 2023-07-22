@@ -3,7 +3,7 @@
 namespace Tests\Feature\Address;
 
 use App\Models\Endereco;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,7 +15,7 @@ class EnableDisableAddressTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Endereco::query()->first()->toArray();
+        $data = Endereco::factory()->createOne()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act

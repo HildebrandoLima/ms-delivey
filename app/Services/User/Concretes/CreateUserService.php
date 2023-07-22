@@ -9,7 +9,8 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Support\Permissions\CreatePermissions;
-use App\Support\Utils\Enums\UserEnum;
+use App\Support\Cases\UserCase;
+use App\Support\Enums\UserEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface
@@ -48,7 +49,7 @@ class CreateUserService implements CreateUserServiceInterface
         $user->email = $request->email;
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
-        $user->genero = $request->genero;
+        $user->genero = UserCase::genderCase($request->genero);
         $user->is_admin = $request->perfil;
         $user->ativo = UserEnum::ATIVADO;
         return $user;

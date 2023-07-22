@@ -11,7 +11,7 @@ use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Concretes\CreateProductService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;

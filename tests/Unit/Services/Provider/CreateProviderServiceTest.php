@@ -9,7 +9,7 @@ use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Concretes\CreateProviderService;
 use App\Support\Generate\GenerateCNPJ;
 use App\Support\Generate\GenerateEmail;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;

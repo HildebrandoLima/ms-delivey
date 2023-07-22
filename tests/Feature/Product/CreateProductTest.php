@@ -4,7 +4,7 @@ namespace Tests\Feature\Product;
 
 use App\Models\Categoria;
 use App\Models\Fornecedor;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;

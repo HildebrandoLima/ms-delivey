@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 
 class DeleteOrderService extends ValidationPermission implements DeleteOrderServiceInterface
 {

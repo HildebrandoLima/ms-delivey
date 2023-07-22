@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Support\Utils\Cases;
+namespace App\Support\Cases;
 
-use App\Support\Utils\Enums\UserEnum;
+use App\Support\Enums\UserEnum;
 
-class UserCase
+final class UserCase
 {
-    public static function genderCase($genero): string
+    final public static function genderCase($genero): string
     {
         switch ($genero):
             case $genero == 'Masculino':

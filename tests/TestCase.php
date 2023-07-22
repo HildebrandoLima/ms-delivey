@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\Support\Utils\Enums\UserEnum;
+use App\Support\Enums\UserEnum;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use DateTime;

@@ -19,23 +19,25 @@ class CreateTelephoneServiceTest extends TestCase
     private TelephoneRepositoryInterface $telephoneRepository;
     private array $type = array('Fixo', 'Celular');
 
-    public function test_success_create_address_with_params_user_id_service(): void
+    public function test_success_create_telephone_with_params_user_id_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->type);
         $this->request = new TelephoneRequest();
         $this->request['telefones'] = [
-            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-            "tipo" => $this->type[$rand_keys],
-            "dddId" => rand(1, 23),
-            "cep" => rand(10000, 20000) . '-' . rand(100, 200),
-            "usuarioId" => User::query()->first()->id,
-            "ativo" => true,
+            [
+                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                "tipo" => $this->type[$rand_keys],
+                "dddId" => rand(1, 23),
+                "cep" => rand(10000, 20000) . '-' . rand(100, 200),
+                "usuarioId" => User::query()->first()->id,
+                "ativo" => true,
+            ]
         ];
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
         function (MockInterface $mock) {
-            $mock->shouldReceive('checkTelephoneExist')->with(str_replace('-', "", $this->request['telefones']['numero']));
+            $mock->shouldReceive('checkTelephoneExist')->with(str_replace('-', "", $this->request['telefones'][0]['numero']));
         });
 
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
@@ -56,23 +58,25 @@ class CreateTelephoneServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function test_success_create_address_with_params_provider_id_service(): void
+    public function test_success_create_telephone_with_params_provider_id_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->type);
         $this->request = new TelephoneRequest();
         $this->request['telefones'] = [
-            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-            "tipo" => $this->type[$rand_keys],
-            "dddId" => rand(1, 23),
-            "cep" => rand(10000, 20000) . '-' . rand(100, 200),
-            "fornecedorId" => Fornecedor::query()->first()->id,
-            "ativo" => true,
+            [
+                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                "tipo" => $this->type[$rand_keys],
+                "dddId" => rand(1, 23),
+                "cep" => rand(10000, 20000) . '-' . rand(100, 200),
+                "fornecedorId" => Fornecedor::query()->first()->id,
+                "ativo" => true,
+            ]
         ];
 
         $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
         function (MockInterface $mock) {
-            $mock->shouldReceive('checkTelephoneExist')->with(str_replace('-', "", $this->request['telefones']['numero']));
+            $mock->shouldReceive('checkTelephoneExist')->with(str_replace('-', "", $this->request['telefones'][0]['numero']));
         });
 
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,

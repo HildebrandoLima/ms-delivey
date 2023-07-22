@@ -8,7 +8,7 @@ use App\Models\Fornecedor;
 use App\Models\User;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Concretes\EditAddressService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;

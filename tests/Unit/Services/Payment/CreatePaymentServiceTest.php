@@ -7,7 +7,7 @@ use App\Models\Pagamento;
 use App\Models\Pedido;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Payment\Concretes\CreatePaymentService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

@@ -2,13 +2,11 @@
 
 namespace App\Support\Utils\Parameters;
 
-class Search
+final class Search
 {
-    private string $search;
-
-    public function search(string $search): string
+    final public static function search(string $search): string
     {
-        $search == '' ? $this->search = '' : $this->search = '%' . $search . '%';
-        return $this->search;
+        $search === '' ? $search = '' : $search = '%' . $search . '%';
+        return $search;
     }
 }

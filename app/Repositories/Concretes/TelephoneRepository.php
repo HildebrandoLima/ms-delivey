@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\Dtos\TelephoneDto;
 use App\Models\DDD;
 use App\Models\Telefone;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;

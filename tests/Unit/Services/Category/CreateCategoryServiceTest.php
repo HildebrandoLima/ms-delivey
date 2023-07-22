@@ -7,7 +7,7 @@ use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Concretes\CreateCategoryService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;

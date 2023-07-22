@@ -10,7 +10,7 @@ use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 
 class DeleteProviderService extends ValidationPermission implements DeleteProviderServiceInterface
 {

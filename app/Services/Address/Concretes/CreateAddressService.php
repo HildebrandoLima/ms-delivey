@@ -6,8 +6,8 @@ use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
-use App\Support\Utils\Cases\AddressCase;
-use App\Support\Utils\Enums\AddressEnum;
+use App\Support\Cases\AddressCase;
+use App\Support\Enums\AddressEnum;
 
 class CreateAddressService implements CreateAddressServiceInterface
 {

@@ -18,7 +18,7 @@ class RefreshPasswordTest extends TestCase
         $reset = PasswordReset::query()->first()->toArray();
         $data = [
             'codigo' => $reset['codigo'],
-            'password' => 'HiLd3br@ndo'
+            'senha' => 'HiLd3br@ndo'
         ];
 
         // Act

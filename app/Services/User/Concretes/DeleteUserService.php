@@ -10,7 +10,7 @@ use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\DeleteUserServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 
 class DeleteUserService extends ValidationPermission implements DeleteUserServiceInterface
 {

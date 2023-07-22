@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\DataTransferObjects\Dtos\TelephoneDto;
 use App\Models\Telefone;
 use Illuminate\Support\Collection;
 

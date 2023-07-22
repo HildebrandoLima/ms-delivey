@@ -9,6 +9,7 @@ use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
+use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Parameters\BaseDecode;
 use App\Support\Utils\Parameters\FilterByActive;
 use App\Support\Utils\Parameters\Search;
@@ -35,12 +36,13 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Pagination $pagination, ParametersRequest $request, FilterByActive $filterByActive): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryAll
             (
-                $filterByActive->filterByActive($request->active)
+                $pagination,
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -54,9 +56,9 @@ class CategoryController extends Controller
         try {
             $success = $this->listCategoryService->listCategoryFind
             (
-                $baseDecode->baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id ?? ''),
+                $search::search($request->search ?? ''),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -93,8 +95,8 @@ class CategoryController extends Controller
         try {
             $success = $this->deleteCategoryService->deleteCategory
             (
-                $baseDecode->baseDecode($request->id),
-                $filterByActive->filterByActive($request->active)
+                $baseDecode::baseDecode($request->id),
+                $filterByActive::filterByActive($request->active)
             );
             if (!$success) return Controller::error();
             return Controller::delete();

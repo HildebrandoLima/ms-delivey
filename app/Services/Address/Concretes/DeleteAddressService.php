@@ -6,7 +6,7 @@ use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Support\Permissions\ValidationPermission;
-use App\Support\Utils\Enums\PermissionEnum;
+use App\Support\Enums\PermissionEnum;
 
 class DeleteAddressService extends ValidationPermission implements DeleteAddressServiceInterface
 {

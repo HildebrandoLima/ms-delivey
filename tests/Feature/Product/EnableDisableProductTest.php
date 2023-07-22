@@ -4,7 +4,7 @@ namespace Tests\Feature\Product;
 
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,14 +16,14 @@ class EnableDisableProductTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Produto::query()->first()->toArray();
+        $data = Produto::factory()->createOne()->toArray();
         Imagem::factory(1)->create(['produto_id' => $data['id']])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('product.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        ])->putJson(route('product.enable.disable', ['id' => base64_encode($data['id']), 'active' => false]));
 
         // Assert
         $response->assertOk();

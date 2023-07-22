@@ -5,7 +5,7 @@ namespace Tests\Feature\Provider;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,7 +17,7 @@ class EnableDisableProviderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Fornecedor::query()->first()->toArray();
+        $data = Fornecedor::factory()->createOne()->toArray();
         Endereco::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         Telefone::factory()->createOne(['usuario_id' => null, 'fornecedor_id' => $data['id']])->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);

@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Concretes\CreateOrderService;
-use App\Support\Utils\Enums\PerfilEnum;
+use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

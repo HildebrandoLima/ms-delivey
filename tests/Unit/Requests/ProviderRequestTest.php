@@ -32,7 +32,7 @@ class ProviderRequestTest extends TestCase
         $resultReasonSocial = isset($this->request['razaoSocial']);
         $resultCnpj = isset($this->request['cnpj']);
         $resultEmail = isset($this->request['email']);
-        $resultDate = isset($this->request['dataFundacao']);
+        $resultDate = $this->caseDate($this->request['dataFundacao']);
         $resultActive = isset($this->request['ativo']);
 
         // Assert
