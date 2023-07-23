@@ -21,7 +21,7 @@ class EnableDisableAddressTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('address.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        ])->putJson(route('address.enable.disable', ['id' => $data['id'], 'ativo' => false]));
 
         // Assert
         $response->assertOk();
@@ -41,7 +41,7 @@ class EnableDisableAddressTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('address.enable.disable', ['id' => base64_encode($data['id'])]));
+        ])->putJson(route('address.enable.disable', ['id' => $data['id'], 'ativ' => false]));
 
         // Assert
         $response->assertStatus(400);
@@ -58,10 +58,9 @@ class EnableDisableAddressTest extends TestCase
         $data = Endereco::query()->first()->toArray();
 
         // Act
-        $response = $this->putJson(route('address.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        $response = $this->putJson(route('address.enable.disable', ['id' => $data['id'], 'ativo' => false]));
 
         // Assert
-
         $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
