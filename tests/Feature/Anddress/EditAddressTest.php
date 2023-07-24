@@ -19,6 +19,7 @@ class EditAddressTest extends TestCase
         // Arrange
         $address = Endereco::query()->first()->toArray();
         $data = [
+            'id' => $address['id'],
             'logradouro' => $address['logradouro'],
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
@@ -33,7 +34,7 @@ class EditAddressTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
+        ])->putJson(route('address.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -49,6 +50,7 @@ class EditAddressTest extends TestCase
         // Arrange
         $address = Endereco::query()->first()->toArray();
         $data = [
+            'id' => $address['id'],
             'logradouro' => $address['logradouro'],
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
@@ -63,7 +65,7 @@ class EditAddressTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
+        ])->putJson(route('address.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -79,6 +81,7 @@ class EditAddressTest extends TestCase
         // Arrange
         $address = Endereco::query()->first()->toArray();
         $data = [
+            'id' => $address['id'],
             'logradouro' => $address['logradouro'],
             'descricao' => $address['descricao'],
             'bairro' => $address['descricao'],
@@ -93,7 +96,7 @@ class EditAddressTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
+        ])->putJson(route('address.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -109,6 +112,7 @@ class EditAddressTest extends TestCase
         // Arrange
         $address = Endereco::query()->first()->toArray();
         $data = [
+            'id' => $address['id'],
             'logradouro' => $address['logradouro'],
             'descricao' => $address['descricao'],
             'bairro' => $address['bairro'],
@@ -120,7 +124,7 @@ class EditAddressTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('address.edit', ['id' => base64_encode($address['id'])]), $data);
+        $response = $this->putJson(route('address.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();

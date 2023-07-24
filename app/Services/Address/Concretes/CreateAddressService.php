@@ -2,7 +2,7 @@
 
 namespace App\Services\Address\Concretes;
 
-use App\Http\Requests\AddressRequest;
+use App\Http\Requests\Address\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;

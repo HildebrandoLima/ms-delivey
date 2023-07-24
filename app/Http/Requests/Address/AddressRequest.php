@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Address;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use LaravelLegends\PtBrValidator\Rules\FormatoCep;
 
@@ -27,7 +28,7 @@ class AddressRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'ufId.exists' => DefaultErrorMessages::NOT_FOUND,

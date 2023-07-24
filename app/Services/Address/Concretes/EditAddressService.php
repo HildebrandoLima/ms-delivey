@@ -2,6 +2,7 @@
 
 namespace App\Services\Address\Concretes;
 
+use App\Http\Requests\Address\EditAddressRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
@@ -20,16 +21,17 @@ class EditAddressService extends ValidationPermission implements EditAddressServ
         $this->addressRepository = $addressRepository;
     }
 
-    public function editAddress(int $id, AddressRequest $request): bool
+    public function editAddress(EditAddressRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_ENDERECO);
         $address = $this->map($request);
-        return $this->addressRepository->update($id, $address);
+        return $this->addressRepository->update($address);
     }
 
-    private function map(AddressRequest $request): Endereco
+    private function map(EditAddressRequest $request): Endereco
     {
         $address = new Endereco();
+        $address->id = $request->id;
         $address->logradouro = AddressCase::publicPlaceCase($request->logradouro);
         $address->descricao = $request->descricao;
         $address->bairro = $request->bairro;

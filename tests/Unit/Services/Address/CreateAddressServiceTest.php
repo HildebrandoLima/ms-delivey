@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Address;
 
-use App\Http\Requests\AddressRequest;
+use App\Http\Requests\Address\AddressRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\User;

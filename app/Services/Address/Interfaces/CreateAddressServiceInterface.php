@@ -2,7 +2,7 @@
 
 namespace App\Services\Address\Interfaces;
 
-use App\Http\Requests\AddressRequest;
+use App\Http\Requests\Address\AddressRequest;
 
 interface CreateAddressServiceInterface
 {

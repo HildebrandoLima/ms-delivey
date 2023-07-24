@@ -2,9 +2,9 @@
 
 namespace App\Services\Address\Interfaces;
 
-use App\Http\Requests\AddressRequest;
+use App\Http\Requests\Address\EditAddressRequest;
 
 interface EditAddressServiceInterface
 {
-    public function editAddress(int $id, AddressRequest $request): bool;
+    public function editAddress(EditAddressRequest $request): bool;
 }
