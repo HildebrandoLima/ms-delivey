@@ -15,7 +15,7 @@ class ListAddressServiceTest extends TestCase
     public function test_success_list_address_uf_service(): void
     {
         // Arrange
-        $expectedResult = UnidadeFederativa::query()->get();
+        $expectedResult = collect();
 
         $this->addressRepository = $this->mock(AddressRepositoryInterface::class,
             function (MockInterface $mock) use ($expectedResult) {
@@ -32,6 +32,5 @@ class ListAddressServiceTest extends TestCase
 
         // Assert
         $this->assertSame($result, $expectedResult);
-        $this->assertEquals(27, count($result->toArray()));
     }
 }

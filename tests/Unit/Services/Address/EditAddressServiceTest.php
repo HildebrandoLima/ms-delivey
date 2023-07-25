@@ -4,12 +4,11 @@ namespace Tests\Unit\Services\Address;
 
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Models\Endereco;
-use App\Models\Fornecedor;
-use App\Models\User;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Concretes\EditAddressService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EditAddressServiceTest extends TestCase
@@ -22,16 +21,15 @@ class EditAddressServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->public_place);
-        $address = Endereco::query()->first()->toArray();
         $this->request = new EditAddressRequest();
-        $this->request['id'] = $address['id'];
+        $this->request['id'] = rand(1, 100);
         $this->request['logradouro'] = $this->public_place[$rand_keys];
-        $this->request['bairro'] = $address['bairro'];
-        $this->request['cidade'] = $address['cidade'];
+        $this->request['bairro'] = Str::random(10);
+        $this->request['cidade'] = Str::random(10);
         $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['ufId'] = $address['uf_id'];
-        $this->request['usuarioId'] = User::query()->first()->id;
-        $this->request['ativo'] = $address['ativo'];
+        $this->request['ufId'] = rand(1, 27);
+        $this->request['usuarioId'] = rand(1, 100);
+        $this->request['ativo'] = true;
 
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -57,16 +55,15 @@ class EditAddressServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->public_place);
-        $address = Endereco::query()->first()->toArray();
         $this->request = new EditAddressRequest();
-        $this->request['id'] = $address['id'];
+        $this->request['id'] = rand(1, 100);
         $this->request['logradouro'] = $this->public_place[$rand_keys];
-        $this->request['bairro'] = $address['bairro'];
-        $this->request['cidade'] = $address['cidade'];
+        $this->request['bairro'] = Str::random(10);
+        $this->request['cidade'] = Str::random(10);
         $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['ufId'] = $address['uf_id'];
-        $this->request['fornecedorId'] = Fornecedor::query()->first()->id;
-        $this->request['ativo'] = $address['ativo'];
+        $this->request['ufId'] = rand(1, 27);
+        $this->request['fornecedorId'] = rand(1, 100);
+        $this->request['ativo'] = true;
 
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
