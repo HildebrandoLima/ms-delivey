@@ -2,7 +2,6 @@
 
 namespace App\Services\Category\Concretes;
 
-use App\Http\Requests\Category\ParamsCategoryRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -17,9 +16,9 @@ class DeleteCategoryService extends ValidationPermission implements DeleteCatego
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function deleteCategory(ParamsCategoryRequest $request): bool
+    public function deleteCategory(int $id, bool $active): bool
     {
         $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_CATEGORIA);
-        return $this->categoryRepository->enableDisable((int)$request->id, (bool)$request->ativo);
+        return $this->categoryRepository->enableDisable($id, $active);
     }
 }

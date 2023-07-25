@@ -16,7 +16,6 @@ class ParamsCategoryRequest extends BaseRequest
     {
         return [
             'id' => 'required|int|exists:categoria,id',
-            'ativo' => 'required|boolean'
         ];
     }
 
@@ -24,12 +23,8 @@ class ParamsCategoryRequest extends BaseRequest
     {
         return [
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
-
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-
             'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Services\Category\Interfaces;
 
-use App\Http\Requests\Category\ParamsCategoryRequest;
-
 interface DeleteCategoryServiceInterface
 {
-    public function deleteCategory(ParamsCategoryRequest $request): bool;
+    public function deleteCategory(int $id, bool $active): bool;
 }
