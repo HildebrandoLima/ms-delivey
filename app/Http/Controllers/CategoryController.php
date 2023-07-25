@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\CategoryRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;

@@ -2,7 +2,7 @@
 
 namespace App\Services\Category\Interfaces;
 
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\CategoryRequest;
 
 interface EditCategoryServiceInterface
 {

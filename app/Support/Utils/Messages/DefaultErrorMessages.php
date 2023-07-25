@@ -22,6 +22,7 @@ class DefaultErrorMessages
     public const INVALID_EMAIL = "Email inválido.";
     public const INVALID_PASSWORD = "Senha inválida.";
     public const NOT_FOUND = "Registro não encontrado.";
+    public const ALREADY_EXISTING = "Registro já existente.";
     public const UNAUTHORIZED_MESSAGE = "Acesso não autorizado.";
     public const PERMISSION_MESSAGE = "Permissão negada.";
 }

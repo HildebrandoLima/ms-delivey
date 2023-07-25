@@ -2,7 +2,7 @@
 
 namespace App\Services\Category\Concretes;
 
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\CategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
