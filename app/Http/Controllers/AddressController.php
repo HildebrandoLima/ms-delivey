@@ -10,6 +10,7 @@ use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
 use App\Services\Address\Interfaces\ListAddressServiceInterface;
+use App\Support\Utils\Params\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller
@@ -66,10 +67,14 @@ class AddressController extends Controller
         }
     }
 
-    public function enableDisable(ParamsAddressRequest $request): Response
+    public function enableDisable(ParamsAddressRequest $request, FilterByActive $filter): Response
     {
         try {
-            $success = $this->deleteAddressService->deleteAddress($request);
+            $success = $this->deleteAddressService->deleteAddress
+            (
+                $request->id,
+                $filter->active
+            );
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {

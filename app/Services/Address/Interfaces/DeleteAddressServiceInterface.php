@@ -2,9 +2,7 @@
 
 namespace App\Services\Address\Interfaces;
 
-use App\Http\Requests\Address\ParamsAddressRequest;
-
 interface DeleteAddressServiceInterface
 {
-    public function deleteAddress(ParamsAddressRequest $request): bool;
+    public function deleteAddress(int $id, bool $active): bool;
 }

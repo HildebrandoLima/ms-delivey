@@ -15,7 +15,6 @@ class EditCategoryServiceTest extends TestCase
 {
     private EditCategoryRequest $request;
     private CategoryRepositoryInterface $categoryRepository;
-    private int $id;
 
     public function test_success_edit_category_service(): void
     {
