@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, bool $active): bool
     {
         return Categoria::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }

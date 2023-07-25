@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Category\CategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
+use App\Http\Requests\Category\ParamsCategoryRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
@@ -90,14 +91,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsCategoryRequest $request): Response
     {
         try {
-            $success = $this->deleteCategoryService->deleteCategory
-            (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
-            );
+            $success = $this->deleteCategoryService->deleteCategory($request);
             if (!$success) return Controller::error();
             return Controller::delete();
         } catch(SystemDefaultException $e) {
