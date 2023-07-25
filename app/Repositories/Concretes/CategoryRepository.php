@@ -39,7 +39,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('ativo', $active)
+        $collect = $this->mapToQuery()->where('ativo', '=', $active)
         ->where('id', '=', $id)->get()->toArray()[0];
         $collection = CategoryMapperDto::mapper($collect);
         return collect($collection);

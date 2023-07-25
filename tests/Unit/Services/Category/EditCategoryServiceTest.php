@@ -2,10 +2,9 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Concretes\EditCategoryService;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
@@ -14,16 +13,15 @@ use Tests\TestCase;
 
 class EditCategoryServiceTest extends TestCase
 {
-    private CategoryRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private EditCategoryRequest $request;
     private CategoryRepositoryInterface $categoryRepository;
     private int $id;
 
     public function test_success_edit_category_service(): void
     {
         // Arrange
+        $this->request = new EditCategoryRequest();
         $this->id = rand(1, 100);
-        $this->request = new CategoryRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['ativo'] = true;
 
@@ -33,24 +31,15 @@ class EditCategoryServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('checkCategoryIdExist')->with($this->id);
-        });
-
         $this->categoryRepository = $this->mock(CategoryRepositoryInterface::class,
         function (MockInterface $mock) {
-            $mock->shouldReceive('update')->with($this->id, Categoria::class)->andReturn(true);
+            $mock->shouldReceive('update')->with(Categoria::class)->andReturn(true);
         });
 
         // Act
-        $editCategoryService = new EditCategoryService
-        (
-            $this->checkEntityRepository,
-            $this->categoryRepository
-        );
+        $editCategoryService = new EditCategoryService($this->categoryRepository);
 
-        $result = $editCategoryService->editCategory($this->id, $this->request);
+        $result = $editCategoryService->editCategory($this->request);
 
         // Assert
         $this->assertTrue($result);
