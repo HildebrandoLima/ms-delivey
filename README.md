@@ -782,7 +782,7 @@ ou
 
 ```
 {
-    "message": "Você não possue permissão!",
+    "message": "Permissão Negada.",
     "data": "false",
     "status": 403,
     "details": ""
@@ -932,15 +932,24 @@ ou
 |------|------------------------------|
 | POST | /api/category/save           |
 |------|------------------------------|
-| PUT  | /api/category/edit/{id}      |
+| PUT  | /api/category/edit           |
 |------|------------------------------|
 |DELETE| /api/category/enable/disable |
 
-### Body: POST/PUT
+### Body: POST
 ```
 {
     "nome": "Eletrônicos",
-    "ativo": 1
+    "ativo": true
+}
+```
+
+### Body: PUT
+```
+{
+    "id": 1
+    "nome": "Eletrônicos",
+    "ativo": true
 }
 ```
 
@@ -983,6 +992,15 @@ ou
 
 ```
 {
+    "message": "A categoria não existe!",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
     "message": "Error ao efetuar ação!",
     "data": "false",
     "status": 400,
@@ -992,11 +1010,25 @@ ou
 </details>
 <details>
 
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado!",
+    "data": "false",
+    "status": 403,
+    "details": ""
+}
+```
+
+</details>
+<details>
+
 <summary>403 - Forbidden</summary>
 
 ```
 {
-    "message": "Você não possue permissão!",
+    "message": "Permissão Negada!",
     "data": "false",
     "status": 403,
     "details": ""
