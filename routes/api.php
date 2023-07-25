@@ -58,7 +58,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::prefix('category')->group(function () {
         Route::get('/list', [CategoryController::class, 'index'])->name('category.list.all');
         Route::get('/list/find', [CategoryController::class, 'show'])->name('category.list.find');
-        Route::put('/edit/{id}', [CategoryController::class, 'update'])->name('category.edit')->middleware('jwt-authenticated');
+        Route::put('/edit', [CategoryController::class, 'update'])->name('category.edit')->middleware('jwt-authenticated');
         Route::post('/save', [CategoryController::class, 'store'])->name('category.save')->middleware('jwt-authenticated');
         Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable')->middleware('jwt-authenticated');
     });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
@@ -67,11 +68,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(string $id, CategoryRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditCategoryRequest $request): Response
     {
         try {
-            $success = $this->editCategoryService->editCategory
-            ($baseDecode->baseDecode($id), $request);
+            $success = $this->editCategoryService->editCategory($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {

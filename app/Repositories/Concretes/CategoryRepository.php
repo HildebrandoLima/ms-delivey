@@ -23,9 +23,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         return true;
     }
 
-    public function update(int $id, Categoria $categoria): bool
+    public function update(Categoria $categoria): bool
     {
-        return Categoria::query()->where('id', '=', $id)->update($categoria->toArray());
+        return Categoria::query()->where('id', '=', $categoria->id)->update($categoria->toArray());
     }
 
     public function getAll(Pagination $pagination, int $active): Collection
