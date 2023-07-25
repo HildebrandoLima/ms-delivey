@@ -818,6 +818,20 @@ ou
 </details>
 
 <details>
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
 <summary>403 - Forbidden</summary>
 
 ```
