@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Requests;
+namespace Tests\Unit\Requests\Category;
 
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\CategoryRequest;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -16,6 +16,21 @@ class CategoryRequestTest extends TestCase
         $this->request['nome'] = Str::random(10);
         $this->request['ativo'] = true;
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'nome' => 'required|string|unique:categoria,nome',
+            'ativo' => 'required|boolean',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void
