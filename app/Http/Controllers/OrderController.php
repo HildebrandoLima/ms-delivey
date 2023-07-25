@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\Order\OrderRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;

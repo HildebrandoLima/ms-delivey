@@ -2,7 +2,7 @@
 
 namespace App\Services\Order\Concretes;
 
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\Order\OrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Models\Item;
 use App\Models\Pedido;
