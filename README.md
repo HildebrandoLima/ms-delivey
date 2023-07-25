@@ -694,23 +694,23 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 |------|-----------------------------|
 | GET  | /api/address/list/uf        |
 |------|-----------------------------|
-| POST | /api/address/save           |
+| POST | /api/address/edit           |
 |------|-----------------------------|
-| PUT  | /api/address/edit/{id}      |
+| PUT  | /api/address/save           |
 |------|-----------------------------|
 |DELETE| /api/address/enable/disable |
 
-### Body: POST/PUT
+### Body: POST
 ```
 {
     "logradouro": "Rua",
-    "descricao": "1",
-    "bairro": "Messejana",
+    "descricao": "KKK N°25",
+    "bairro": "Centro",
     "cidade": "Fortaleza",
     "cep": 1234-567,
     "ufId": 1,
     "usuarioId": 24,
-    "ativo": 1
+    "ativo": true
 }
 ```
 
@@ -719,13 +719,44 @@ ou
 ```
 {
     "logradouro": "Rua",
-    "descricao": "1",
-    "bairro": "Messejana",
+    "descricao": "KKK N°25",
+    "bairro": "Centro",
     "cidade": "Fortaleza",
     "cep": 1234-567,
     "ufId": 1,
     "fornecedorId": 33,
-    "ativo": 1
+    "ativo": true
+}
+```
+
+### Body: PUT
+```
+{
+    "id": 1,
+    "logradouro": "Rua",
+    "descricao": "KKK N°25",
+    "bairro": "Centro",
+    "cidade": "Fortaleza",
+    "cep": 1234-567,
+    "ufId": 1,
+    "usuarioId": 24,
+    "ativo": true
+}
+```
+
+ou
+
+```
+{
+    "id": 1,
+    "logradouro": "Rua",
+    "descricao": "KKK N°25",
+    "bairro": "Centro",
+    "cidade": "Fortaleza",
+    "cep": 1234-567,
+    "ufId": 1,
+    "fornecedorId": 33,
+    "ativo": true
 }
 ```
 
@@ -736,7 +767,7 @@ ou
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": "true",
     "status": 200,
     "details": ""
@@ -745,7 +776,7 @@ ou
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
+    "message": "Edição efetuada com sucesso.",
     "data": "true",
     "status": 200,
     "details": ""
@@ -759,7 +790,7 @@ ou
 
 ```
 {
-    "message": "O endereço já existe!",
+    "message": "Registro já existente.",
     "data": "",
     "status": 400,
     "details": ""
@@ -768,7 +799,16 @@ ou
 
 ```
 {
-    "message": "Error ao efetuar ação!",
+    "message": "Registro não encontrado",
+    "data": "",
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação.",
     "data": "false",
     "status": 400,
     "details": ""
@@ -903,12 +943,26 @@ ou
 </details>
 
 <details>
+<summary>401 - Unauthorized </summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
 <summary>403 - Forbidden</summary>
 
 ```
 {
-    "message": "Você não possue permissão!",
-    "data": "false",
+    "message": "Permissão negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }

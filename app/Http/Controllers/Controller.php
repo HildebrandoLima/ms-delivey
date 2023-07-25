@@ -25,7 +25,7 @@ class Controller extends BaseController
     public function post($success): Response
     {
         return response()->json([
-            "message" => "Cadastro efetuado com sucesso!",
+            "message" => "Cadastro efetuado com sucesso.",
             "data" => $success,
             "status" => 200,
             "details" => ""
@@ -35,7 +35,7 @@ class Controller extends BaseController
     public function put(): Response
     {
         return response()->json([
-            "message" => "Edição efetuada com sucesso!",
+            "message" => "Edição efetuada com sucesso.",
             "data" => true,
             "status" => 200,
             "details" => ""
@@ -45,7 +45,7 @@ class Controller extends BaseController
     public function delete(): Response
     {
         return response()->json([
-            "message" => "Ativação/Desativação efetuada com sucesso!",
+            "message" => "Ativação/Desativação efetuada com sucesso.",
             "data" => true,
             "status" => 200,
             "details" => ""
@@ -55,7 +55,7 @@ class Controller extends BaseController
     public function error(): Response
     {
         return response()->json([
-            "message" => "Error ao efetuar ação!",
+            "message" => "Error ao efetuar ação.",
             "data" => false,
             "status" => Response::HTTP_BAD_REQUEST,
             "details" => ""
