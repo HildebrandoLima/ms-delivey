@@ -2,7 +2,6 @@
 
 namespace App\Services\Address\Concretes;
 
-use App\Http\Requests\Address\ParamsAddressRequest;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -20,9 +19,9 @@ class DeleteAddressService extends ValidationPermission implements DeleteAddress
         $this->addressRepository = $addressRepository;
     }
 
-    public function deleteAddress(ParamsAddressRequest $request): bool
+    public function deleteAddress(int $id, bool $active): bool
     {
         $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_ENDERECO);
-        return $this->addressRepository->enableDisable((int)$request->id, (bool)$request->ative);
+        return $this->addressRepository->enableDisable($id, $active);
     }
 }
