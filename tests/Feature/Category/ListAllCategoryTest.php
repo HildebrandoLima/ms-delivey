@@ -49,6 +49,24 @@ class ListAllCategoryTest extends TestCase
     /**
      * @test
      */
+    public function it_endpoint_get_list_all_search_base_response_200(): void
+    {
+        // Arrange
+        $data = Categoria::factory()->createOne()->toArray();
+
+        // Act
+        $response = $this->getJson(route('category.list.all', ['search' => $data['nome'], 'active' => true]));
+
+        // Assert
+        $response->assertOk();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals(count($data), $this->count);
+        $this->assertEquals($this->httpStatusCode($response), 200);
+    }
+
+    /**
+     * @test
+     */
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange

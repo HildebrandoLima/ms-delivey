@@ -17,6 +17,7 @@ class EditCategoryTest extends TestCase
         // Arrange
         $category = Categoria::query()->first()->toArray();
         $data = [
+            'id' => $category['id'],
             'nome' => $category['nome'],
             'ativo' => $category['ativo']
         ];
@@ -25,7 +26,7 @@ class EditCategoryTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
+        ])->putJson(route('category.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -41,6 +42,7 @@ class EditCategoryTest extends TestCase
         // Arrange
         $category = Categoria::query()->first()->toArray();
         $data = [
+            'id' => $category['id'],
             'nome' => $category['nome'],
             'ativo' => ''
         ];
@@ -49,7 +51,7 @@ class EditCategoryTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
+        ])->putJson(route('category.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -65,12 +67,13 @@ class EditCategoryTest extends TestCase
         // Arrange
         $category = Categoria::query()->first()->toArray();
         $data = [
+            'id' => $category['id'],
             'nome' => $category['nome'],
             'ativo' => $category['ativo']
         ];
 
         // Act
-        $response = $this->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
+        $response = $this->putJson(route('category.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -86,6 +89,7 @@ class EditCategoryTest extends TestCase
         // Arrange
         $category = Categoria::query()->first()->toArray();
         $data = [
+            'id' => $category['id'],
             'nome' => $category['nome'],
             'ativo' => $category['ativo']
         ];
@@ -94,7 +98,7 @@ class EditCategoryTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.edit', ['id' => base64_encode($category['id'])]), $data);
+        ])->putJson(route('category.edit'), $data);
 
         // Assert
         $response->assertForbidden();
