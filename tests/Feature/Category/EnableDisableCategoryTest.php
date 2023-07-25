@@ -15,13 +15,17 @@ class EnableDisableCategoryTest extends TestCase
     public function it_endpoint_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Categoria::factory()->createOne()->toArray();
+        $category = Categoria::factory()->createOne()->toArray();
+        $data = [
+            'id' => $category['id'],
+            'active' => false
+        ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        ])->putJson(route('category.enable.disable', $data));
 
         // Assert
         $response->assertOk();
@@ -35,13 +39,17 @@ class EnableDisableCategoryTest extends TestCase
     public function it_endpoint_enable_disable_base_response_400(): void
     {
         // Arrange
-        $data = Categoria::query()->first()->toArray();
+        $category = Categoria::query()->first()->toArray();
+        $data = [
+            'id' => $category['id'],
+            'active' => null
+        ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.enable.disable', ['id' => base64_encode($data['id'])]));
+        ])->putJson(route('category.enable.disable'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -55,10 +63,14 @@ class EnableDisableCategoryTest extends TestCase
     public function it_endpoint_enable_disable_base_response_401(): void
     {
         // Arrange
-        $data = Categoria::query()->first()->toArray();
+        $category = Categoria::query()->first()->toArray();
+        $data = [
+            'id' => $category['id'],
+            'active' => false
+        ];
 
         // Act
-        $response = $this->putJson(route('category.enable.disable', ['id' => base64_encode($data['id'])]));
+        $response = $this->putJson(route('category.enable.disable'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -72,13 +84,17 @@ class EnableDisableCategoryTest extends TestCase
     public function it_endpoint_enable_disable_base_response_403(): void
     {
         // Arrange
-        $data = Categoria::query()->first()->toArray();
+        $category = Categoria::query()->first()->toArray();
+        $data = [
+            'id' => $category['id'],
+            'active' => false
+        ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        ])->putJson(route('category.enable.disable'), $data);
 
         // Assert
         $response->assertForbidden();

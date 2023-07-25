@@ -3,10 +3,12 @@
 namespace Tests;
 
 use App\Support\Enums\UserEnum;
+use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
-use DateTime;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use DateTime;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -85,4 +87,12 @@ abstract class TestCase extends BaseTestCase
         endfor;
         return $mask;
     }
+
+    public function paginationList(): Collection
+    {
+        return PaginationList::createFromPagination(new LengthAwarePaginator(
+            400, 400, 10, null, []
+        ));
+    }
+
 }

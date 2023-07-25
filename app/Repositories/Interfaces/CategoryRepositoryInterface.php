@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 
 interface CategoryRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool;
+    public function enableDisable(int $id, bool $active): bool;
     public function create(Categoria $categoria): bool;
-    public function update(int $id, Categoria $categoria): bool;
-    public function getAll(Pagination $pagination, int $active): Collection;
-    public function getOne(int $id, string $search, int $active): Collection;
+    public function update(Categoria $categoria): bool;
+    public function getAll(Pagination $pagination, string $search, bool $active): Collection;
+    public function getOne(int $id,bool $active): Collection;
 }

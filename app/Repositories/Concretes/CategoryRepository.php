@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, bool $active): bool
     {
         return Categoria::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }
@@ -23,40 +23,54 @@ class CategoryRepository implements CategoryRepositoryInterface
         return true;
     }
 
-    public function update(int $id, Categoria $categoria): bool
+    public function update(Categoria $categoria): bool
     {
-        return Categoria::query()->where('id', '=', $id)->update($categoria->toArray());
+        return Categoria::query()->where('id', '=', $categoria->id)->update($categoria->toArray());
     }
 
-    public function getAll(Pagination $pagination, int $active): Collection
+    public function getAll(Pagination $pagination, string $search, bool $active): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
-            return $this->hasPagination($active);
+            return $this->hasPagination($search, $active);
         else:
-            return $this->noPagination($active);
+            return $this->noPagination($search, $active);
         endif;
     }
 
-    public function getOne(int $id, string $search, int $active): Collection
+    public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('ativo', $active)->where('id', '=', $id)
-        ->orWhere('nome', 'like', $search)->get()->toArray()[0];
+        $collect = $this->mapToQuery()->where('ativo', '=', $active)
+        ->where('id', '=', $id)->get()->toArray()[0];
         $collection = CategoryMapperDto::mapper($collect);
         return collect($collection);
     }
 
-    private function hasPagination(int $active): Collection
+    private function hasPagination(string $search, int $active): Collection
     {
-        $collection = $this->mapToQuery()->where('ativo', '=', $active)->orderByDesc('id')->paginate(10);
+        $collection = $this->mapToQuery()
+        ->where(function($query) use ($search, $active) {
+            if (!empty($search)):
+                $query->where('nome', 'like', $search)->where('ativo', '=', $active);
+            else:
+                $query->where('ativo', '=', $active);
+            endif;
+        })->orderByDesc('id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = CategoryMapperDto::mapper($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(int $active): Collection
+    private function noPagination(string $search, int $active): Collection
     {
-        $collection = $this->mapToQuery()->where('ativo', '=', $active)->orderByDesc('id')->get();
+        $collection = $this->mapToQuery()
+        ->where(function($query) use ($search, $active) {
+            if (!empty($search)):
+                $query->where('nome', 'like', $search)->where('ativo', '=', $active);
+            else:
+                $query->where('ativo', '=', $active);
+            endif;
+        })->orderByDesc('id')->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = CategoryMapperDto::mapper($instance);
         endforeach;

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\EditCategoryRequest;
+use App\Http\Requests\Category\ParamsCategoryRequest;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
-use App\Support\Utils\Parameters\Search;
+use App\Support\Utils\Params\FilterByActive;
+use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
@@ -36,13 +36,14 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(Pagination $pagination, ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Pagination $pagination, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryAll
             (
                 $pagination,
-                $filterByActive::filterByActive($request->active)
+                $search->search(request()),
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -51,14 +52,13 @@ class CategoryController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, Search $search, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function show(ParamsCategoryRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -67,11 +67,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(string $id, CategoryRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditCategoryRequest $request): Response
     {
         try {
-            $success = $this->editCategoryService->editCategory
-            ($baseDecode->baseDecode($id), $request);
+            $success = $this->editCategoryService->editCategory($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -90,13 +89,13 @@ class CategoryController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsCategoryRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->deleteCategoryService->deleteCategory
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::delete();

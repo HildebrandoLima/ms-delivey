@@ -3,6 +3,7 @@
 namespace Tests\Feature\Category;
 
 use App\Models\Categoria;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,10 +15,17 @@ class ListFinderCategoryTest extends TestCase
     public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $data = Categoria::factory()->createOne()->toArray();
+        $category = Categoria::factory()->createOne()->toArray();
+        $data = [
+            'id' => $category['id'],
+            'active' => true
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
-        $response = $this->getJson(route('category.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('category.list.find', $data));
 
         // Assert
         $response->assertOk();
@@ -31,10 +39,17 @@ class ListFinderCategoryTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $data = Categoria::factory()->createOne()->toArray();
+       $category = Categoria::factory()->createOne()->toArray();
+       $data = [
+           'id' => $category['id'],
+           'active' => null
+       ];
+       $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
-        // Act
-        $response = $this->getJson(route('category.list.find', ['id' => base64_encode($data['id'])]));
+       // Act
+       $response = $this->withHeaders([
+           'Authorization' => 'Bearer '. $authenticate['accessToken'],
+       ])->getJson(route('category.list.find', $data));
 
         // Assert
         $response->assertStatus(400);

@@ -2,9 +2,9 @@
 
 namespace App\Services\Category\Interfaces;
 
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\EditCategoryRequest;
 
 interface EditCategoryServiceInterface
 {
-    public function editCategory(int $id, CategoryRequest $request): bool;
+    public function editCategory(EditCategoryRequest $request): bool;
 }

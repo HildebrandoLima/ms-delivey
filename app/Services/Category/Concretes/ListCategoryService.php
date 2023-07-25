@@ -3,7 +3,6 @@
 namespace App\Services\Category\Concretes;
 
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Permissions\ValidationPermission;
@@ -12,28 +11,24 @@ use Illuminate\Support\Collection;
 
 class ListCategoryService extends ValidationPermission implements ListCategoryServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private CategoryRepositoryInterface    $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        CategoryRepositoryInterface    $categoryRepository,
+        CategoryRepositoryInterface $categoryRepository,
     )
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->categoryRepository    = $categoryRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
-    public function listCategoryAll(Pagination $pagination, int $active): Collection
+    public function listCategoryAll(Pagination $pagination, string $search, bool $active): Collection
     {
-        return $this->categoryRepository->getAll($pagination, $active);
+        return $this->categoryRepository->getAll($pagination, $search, $active);
     }
 
-    public function listCategoryFind(int $id, string $search, int $active): Collection
+    public function listCategoryFind(int $id, bool $active): Collection
     {
         $this->validationPermission(PermissionEnum::LISTAR_DETALHES_CATEGORIA);
-        if ($id != 0) $this->checkEntityRepository->checkCategoryIdExist($id);
-        return $this->categoryRepository->getOne($id, $search, $active);
+        return $this->categoryRepository->getOne($id, $active);
     }
 }
