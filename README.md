@@ -718,7 +718,7 @@ ou
 
 ```
 {
-    "logradouro": "Rua",
+    "logradouro": "Avenida",
     "descricao": "KKK N°25",
     "bairro": "Centro",
     "cidade": "Fortaleza",
@@ -791,7 +791,7 @@ ou
 ```
 {
     "message": "Registro já existente.",
-    "data": "",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -799,8 +799,8 @@ ou
 
 ```
 {
-    "message": "Registro não encontrado",
-    "data": "",
+    "message": "Registro não encontrado.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -809,7 +809,7 @@ ou
 ```
 {
     "message": "Error ao efetuar ação.",
-    "data": "false",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -837,7 +837,7 @@ ou
 ```
 {
     "message": "Permissão Negada.",
-    "data": "false",
+    "data": [],
     "status": 403,
     "details": ""
 }
@@ -1015,7 +1015,7 @@ ou
 ### Body: PUT
 ```
 {
-    "id": 1
+    "id": 1,
     "nome": "Eletrônicos",
     "ativo": true
 }
@@ -1028,7 +1028,7 @@ ou
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": "true",
     "status": 200,
     "details": ""
@@ -1037,7 +1037,7 @@ ou
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
+    "message": "Edição efetuada com sucesso.",
     "data": "true",
     "status": 200,
     "details": ""
@@ -1051,8 +1051,8 @@ ou
 
 ```
 {
-    "message": "A categoria já existe!",
-    "data": "",
+    "message": "Registro já existente.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1060,8 +1060,8 @@ ou
 
 ```
 {
-    "message": "A categoria não existe!",
-    "data": "",
+    "message": "Registro não encontrado.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1069,12 +1069,13 @@ ou
 
 ```
 {
-    "message": "Error ao efetuar ação!",
-    "data": "false",
+    "message": "Error ao efetuar ação.",
+    "data": [],
     "status": 400,
     "details": ""
 }
 ```
+
 </details>
 <details>
 
@@ -1082,9 +1083,9 @@ ou
 
 ```
 {
-    "message": "Acesso não autorizado!",
-    "data": "false",
-    "status": 403,
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
     "details": ""
 }
 ```
@@ -1096,8 +1097,8 @@ ou
 
 ```
 {
-    "message": "Permissão Negada!",
-    "data": "false",
+    "message": "Permissão Negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }
@@ -1247,9 +1248,9 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
-<li>?page=1&perPage=10&active=1</li>
-<li>/find?id=Mjg=&active=1</li>
-<li>/find?search=Hill=&active=1</li>
+<li>?page=1&perPage=10&active=true</li>
+<li>/find?id=1&active=true</li>
+<li>/find?search=100005000=&active=true</li>
 
 O pedido não pode ser modificado.
 
@@ -1307,8 +1308,8 @@ Não é permitido alterar os dados do pedido.
 
 ```
 {
-    "message": "O produto já existe!",
-    "data": "",
+    "message": "O pedido já existe!",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1316,7 +1317,7 @@ Não é permitido alterar os dados do pedido.
 
 ```
 {
-    "message": "Error ao efetuar ação!",
+    "message": "Error ao efetuar ação.",
     "data": "false",
     "status": 400,
     "details": ""
@@ -1325,12 +1326,26 @@ Não é permitido alterar os dados do pedido.
 </details>
 
 <details>
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
 <summary>403 - Forbidden</summary>
 
 ```
 {
-    "message": "Você não possue permissão!",
-    "data": "false",
+    "message": "Permissão negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }

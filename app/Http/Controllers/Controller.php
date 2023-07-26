@@ -17,7 +17,7 @@ class Controller extends BaseController
         return response()->json([
             "message" => "Listagem efetuada com sucesso.",
             "data" => $success,
-            "status" => 200,
+            "status" => Response::HTTP_OK,
             "details" => ""
         ], Response::HTTP_OK);
     }
@@ -27,7 +27,7 @@ class Controller extends BaseController
         return response()->json([
             "message" => "Cadastro efetuado com sucesso.",
             "data" => $success,
-            "status" => 200,
+            "status" => Response::HTTP_OK,
             "details" => ""
         ], Response::HTTP_OK);
     }
@@ -36,8 +36,8 @@ class Controller extends BaseController
     {
         return response()->json([
             "message" => "Edição efetuada com sucesso.",
-            "data" => true,
-            "status" => 200,
+            "data" => [],
+            "status" => Response::HTTP_OK,
             "details" => ""
         ], Response::HTTP_OK);
     }
@@ -46,8 +46,8 @@ class Controller extends BaseController
     {
         return response()->json([
             "message" => "Ativação/Desativação efetuada com sucesso.",
-            "data" => true,
-            "status" => 200,
+            "data" => [],
+            "status" => Response::HTTP_OK,
             "details" => ""
         ], Response::HTTP_OK);
     }
@@ -56,7 +56,7 @@ class Controller extends BaseController
     {
         return response()->json([
             "message" => "Error ao efetuar ação.",
-            "data" => false,
+            "data" => [],
             "status" => Response::HTTP_BAD_REQUEST,
             "details" => ""
         ], Response::HTTP_BAD_REQUEST);
