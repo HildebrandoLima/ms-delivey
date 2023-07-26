@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\ImageRepositoryInterface;
 
 class ImageRepository implements ImageRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, bool $active): bool
     {
         return Imagem::query()->where('produto_id', '=', $id)->update(['ativo' => $active]);
     }

@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, bool $active): bool
     {
         return Produto::query()->where('id', '=', $id)->update(['ativo' => $active]);
     }

@@ -27,10 +27,10 @@ class DeleteProductService extends ValidationPermission implements DeleteProduct
         $this->productRepository     = $productRepository;
     }
 
-    public function deleteProduct(int $id, int $active): bool
+    public function deleteProduct(int $id, bool $active): bool
     {
         $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_PRODUTO);
-        $this->checkEntityRepository->checkProductIdExist($id);
+        //$this->checkEntityRepository->checkProductIdExist($id);
         if
         (
             $this->imageRepository->enableDisable($id, $active)

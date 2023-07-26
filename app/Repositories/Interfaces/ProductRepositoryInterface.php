@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 interface ProductRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool;
+    public function enableDisable(int $id, bool $active): bool;
     public function create(Produto $produto): int;
     public function update(Produto $produto): bool;
     public function getAll(Pagination $pagination, string $search, bool $active): Collection;
