@@ -2,7 +2,7 @@
 
 namespace App\Services\Payment\Concretes;
 
-use App\Http\Requests\PaymentRequest;
+use App\Http\Requests\Payment\PaymentRequest;
 use App\Models\Pagamento;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;

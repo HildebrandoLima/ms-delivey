@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Payment;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class PaymentRequest extends BaseRequest
