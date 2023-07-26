@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Http\Requests\PaymentRequest;
+use App\Http\Requests\Payment\PaymentRequest;
 use App\Models\Pagamento;
 use App\Models\Pedido;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;

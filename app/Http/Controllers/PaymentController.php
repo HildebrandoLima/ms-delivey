@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\PaymentRequest;
+use App\Http\Requests\Payment\PaymentRequest;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 
