@@ -3,7 +3,6 @@
 namespace Tests\Unit\Services\User;
 
 use App\DataTransferObjects\MappersDtos\ProductMapperDto;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Concretes\ListProductService;
 use App\Support\Utils\Pagination\Pagination;
@@ -25,6 +24,33 @@ class ListProductServiceTest extends TestCase
         $this->id = rand(1, 100);
         $this->active = true;
         $this->search = '';
+        $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
+
+        $expectedResult = $this->paginationList();
+
+        $this->productRepository = $this->mock(ProductRepositoryInterface::class,
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('getAll')->with($this->pagination, $this->search, $this->active)
+                     ->andReturn($expectedResult);
+        });
+
+        // Act
+        $listProductService = new ListProductService($this->productRepository);
+
+        $result = $listProductService->listProductAll($this->pagination, $this->search, $this->active);
+
+        // Assert
+        $this->assertSame($result, $expectedResult);
+    }
+
+    public function test_success_list_product_all_has_paginaiton_with_search_service(): void
+    {
+        // Arrange
+        $this->id = rand(1, 100);
+        $this->active = true;
+        $this->search = Str::random(10);
         $this->pagination = new Pagination();
         $this->pagination['page'] = 1;
         $this->pagination['perPage'] = 10;
