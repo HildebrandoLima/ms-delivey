@@ -12,11 +12,11 @@ class EditCategoryRequestTest extends TestCase
 
     private function request(): EditCategoryRequest
     {
-        $category = Categoria::factory()->createOne()->toArray();
+        $category = Categoria::query()->first()->toArray();
         $this->request = new EditCategoryRequest();
         $this->request['id'] = $category['id'];
         $this->request['nome'] = $category['nome'];
-        $this->request['ativo'] = $category['ativo'];
+        $this->request['ativo'] = true;
         return $this->request;
     }
 

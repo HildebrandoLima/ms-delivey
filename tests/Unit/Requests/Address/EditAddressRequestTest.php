@@ -18,11 +18,8 @@ class EditAddressRequestTest extends TestCase
 
     private function request(): EditAddressRequest
     {
-        User::factory()->createOne();
-        Fornecedor::factory()->createOne();
         $rand_keys = array_rand($this->public_place);
         $this->request = new EditAddressRequest();
-
         $this->request['id'] = Endereco::query()->first()->id;
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['descricao'] = Str::random(10);
