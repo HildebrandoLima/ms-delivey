@@ -1,29 +1,29 @@
 <?php
 
-namespace Tests\Unit\Requests;
+namespace Tests\Unit\Requests\Product;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class ProductRequestTest extends TestCase
+class EditProductRequestTest extends TestCase
 {
-    private ProductRequest $request;
+    private EditProductRequest $request;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
     private array $images = [];
 
-    private function request(): ProductRequest
+    private function request(): EditProductRequest
     {
-        $this->request = new ProductRequest();
         $rand_keys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
         ];
-        $this->request = new ProductRequest();
+        $this->request = new EditProductRequest();
+        $this->request['id'] = rand(1, 100);
         $this->request['nome'] = Str::random(10);
         $this->request['precoCusto'] = 15.30;
         $this->request['precoVenda'] = 20.0;
