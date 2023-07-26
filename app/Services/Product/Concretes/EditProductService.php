@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Concretes;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Produto;
 use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
@@ -27,17 +27,18 @@ class EditProductService extends ValidationPermission implements EditProductServ
         $this->productRepository     = $productRepository;
     }
 
-    public function editProduct(int $id, ProductRequest $request): bool
+    public function editProduct(EditProductRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_PRODUTO);
-        $this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
+        //$this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
         $product = $this->map($request);
-        return $this->productRepository->update($id, $product);
+        return $this->productRepository->update($product);
     }
 
-    private function map(ProductRequest $request): Produto
+    private function map(EditProductRequest $request): Produto
     {
         $product = new Produto();
+        $product->id = $request->id;
         $product->nome = $request->nome;
         $product->preco_custo = $request->precoCusto;
         $product->preco_venda = $request->precoVenda;

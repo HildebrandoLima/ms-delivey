@@ -2,9 +2,9 @@
 
 namespace App\Services\Product\Interfaces;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\EditProductRequest;
 
 interface EditProductServiceInterface
 {
-    public function editProduct(int $id, ProductRequest $request): bool;
+    public function editProduct(EditProductRequest $request): bool;
 }

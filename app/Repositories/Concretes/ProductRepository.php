@@ -22,9 +22,9 @@ class ProductRepository implements ProductRepositoryInterface
         return Produto::query()->create($produto->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
-    public function update(int $id, Produto $produto): bool
+    public function update(Produto $produto): bool
     {
-        return Produto::query()->where('id', '=', $id)->update($produto->toArray());
+        return Produto::query()->where('id', '=', $produto->id)->update($produto->toArray());
     }
 
     public function getAll(Pagination $pagination, int $active): Collection
