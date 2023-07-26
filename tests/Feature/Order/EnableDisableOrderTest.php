@@ -17,15 +17,19 @@ class EnableDisableOrderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
-        $data = Pedido::factory()->createOne()->toArray();
-        Pagamento::factory()->createOne(['pedido_id' => $data['id']])->toArray();
-        Item::factory()->createOne(['pedido_id' => $data['id']])->toArray();
+        $order = Pedido::factory()->createOne()->toArray();
+        Pagamento::factory()->createOne(['pedido_id' => $order['id']])->toArray();
+        Item::factory()->createOne(['pedido_id' => $order['id']])->toArray();
+        $data = [
+            'id' => $order['id'],
+            'active' => false,
+        ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('order.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        ])->putJson(route('order.enable.disable'), $data);
 
         // Assert
         $response->assertOk();
@@ -39,15 +43,19 @@ class EnableDisableOrderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_400(): void
     {
         // Arrange
-        $data = Pedido::query()->first()->toArray();
-        Pagamento::factory()->createOne(['pedido_id' => $data['id']])->toArray();
-        Item::factory()->createOne(['pedido_id' => $data['id']])->toArray();
+        $order = Pedido::query()->first()->toArray();
+        Pagamento::factory()->createOne(['pedido_id' => $order['id']])->toArray();
+        Item::factory()->createOne(['pedido_id' => $order['id']])->toArray();
+        $data = [
+            'id' => $order['id'],
+            'active' => null,
+        ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('order.enable.disable', ['id' => base64_encode($data['id'])]));
+        ])->putJson(route('order.enable.disable'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -61,12 +69,16 @@ class EnableDisableOrderTest extends TestCase
     public function it_endpoint_put_enable_disable_base_response_401(): void
     {
         // Arrange
-        $data = Pedido::query()->first()->toArray();
-        Pagamento::factory()->createOne(['pedido_id' => $data['id']])->toArray();
-        Item::factory()->createOne(['pedido_id' => $data['id']])->toArray();
+        $order = Pedido::query()->first()->toArray();
+        Pagamento::factory()->createOne(['pedido_id' => $order['id']])->toArray();
+        Item::factory()->createOne(['pedido_id' => $order['id']])->toArray();
+        $data = [
+            'id' => $order['id'],
+            'active' => false,
+        ];
 
         // Act
-        $response = $this->putJson(route('order.enable.disable', ['id' => base64_encode($data['id']), 'active' => 0]));
+        $response = $this->putJson(route('order.enable.disable'), $data);
 
         // Assert
         $response->assertUnauthorized();

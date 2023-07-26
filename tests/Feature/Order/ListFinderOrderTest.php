@@ -15,13 +15,17 @@ class ListFinderOrderTest extends TestCase
     public function it_endpoint_get_base_response_200(): void
     {
         // Arrange
-        $data = Pedido::factory()->createOne()->toArray();
+        $order = Pedido::factory()->createOne()->toArray();
+        $data = [
+            'id' => $order['id'],
+            'active' => true
+        ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('order.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+        ])->getJson(route('order.list.find', $data));
 
         // Assert
         $response->assertOk();
@@ -35,13 +39,17 @@ class ListFinderOrderTest extends TestCase
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
-        $data = Pedido::factory()->createOne()->toArray();
+        $order = Pedido::factory()->createOne()->toArray();
+        $data = [
+            'id' => $order['id'],
+            'active' => null
+        ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('order.list.find', ['id' => base64_encode($data['id'])]));
+        ])->getJson(route('order.list.find', $data));
 
         // Assert
         $response->assertStatus(400);
@@ -55,10 +63,14 @@ class ListFinderOrderTest extends TestCase
     public function it_endpoint_get_base_response_401(): void
     {
         // Arrange
-        $data = Pedido::factory()->createOne()->toArray();
+        $order = Pedido::factory()->createOne()->toArray();
+        $data = [
+            'id' => $order['id'],
+            'active' => true
+        ];
 
         // Act
-        $response = $this->getJson(route('order.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+        $response = $this->getJson(route('order.list.find', $data));
 
         // Assert
         $response->assertUnauthorized();
