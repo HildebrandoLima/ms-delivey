@@ -14,7 +14,7 @@ class EditTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_200_edit_user(): void
+    public function it_endpoint_put_edit_user_base_response_200(): void
     {
         // Arrange
         $data['telefones'] = [];
@@ -43,7 +43,7 @@ class EditTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_200_edit_provider(): void
+    public function it_endpoint_put_edit_provider_base_response_200(): void
     {
         // Arrange
         $data['telefones'] = [];
@@ -72,7 +72,7 @@ class EditTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_400(): void
+    public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
         $data['telefones'] = [];
@@ -101,7 +101,7 @@ class EditTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_401(): void
+    public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
         $data['telefones'] = [];

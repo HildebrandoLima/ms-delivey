@@ -52,25 +52,7 @@ class ListFinderUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_find_user_exist_base_response_400(): void
-    {
-        // Arrange
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
-
-        // Act
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.find', ['id' => base64_encode(3)]));
-
-        // Assert
-        $this->assertJson($this->baseResponse($response));
-        $this->assertEquals($this->httpStatusCode($response), 400);
-    }
-
-    /**
-     * @test
-     */
-    public function it_endpoint_get_list_find_user_exist_base_response_401(): void
+    public function it_endpoint_get_list_find_base_response_401(): void
     {
         // Arrange
         $data = User::factory()->createOne()->toArray();

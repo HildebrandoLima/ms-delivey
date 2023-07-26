@@ -12,7 +12,7 @@ class EnableDisableTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_enable_disable_base_response_200(): void
+    public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
         $data = Telefone::factory()->createOne()->toArray();
@@ -32,7 +32,7 @@ class EnableDisableTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_enable_disable_base_response_400(): void
+    public function it_endpoint_put_enable_disable_base_response_400(): void
     {
         // Arrange
         $data = Telefone::query()->first()->toArray();
@@ -52,7 +52,7 @@ class EnableDisableTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_enable_disable_base_response_401(): void
+    public function it_endpoint_put_enable_disable_base_response_401(): void
     {
         // Arrange
         $data = Telefone::query()->first()->toArray();

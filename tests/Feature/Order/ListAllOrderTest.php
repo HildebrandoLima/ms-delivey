@@ -15,7 +15,7 @@ class ListAllOrderTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_base_response_200_with_by_params_id(): void
+    public function it_endpoint_get_with_by_params_id_base_response_200(): void
     {
         // Arrange
         $user = User::query()->first()->id;
@@ -36,7 +36,7 @@ class ListAllOrderTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200_with_by_params_search(): void
+    public function it_endpoint_post_with_by_params_search_base_response_200(): void
     {
         // Arrange
         $user = User::query()->first()->id;

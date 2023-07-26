@@ -14,7 +14,7 @@ class EnableDisableUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_enable_disable_base_response_200(): void
+    public function it_endpoint_put_enable_disable_base_response_200(): void
     {
         // Arrange
         $data = User::factory()->createOne()->toArray();
@@ -36,7 +36,7 @@ class EnableDisableUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_enable_disable_base_response_400(): void
+    public function it_endpoint_put_enable_disable_base_response_400(): void
     {
         // Arrange
         $data = User::query()->first()->toArray();
@@ -58,7 +58,7 @@ class EnableDisableUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_enable_disable_base_response_401(): void
+    public function it_endpoint_put_enable_disable_base_response_401(): void
     {
         // Arrange
         $data = User::query()->first()->toArray();

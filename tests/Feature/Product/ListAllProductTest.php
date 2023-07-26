@@ -50,7 +50,7 @@ class ListAllProductTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_all_as_has_pagination_base_with_search_response_200(): void
+    public function it_endpoint_get_list_all_as_has_pagination_base_with_search_base_response_200(): void
     {
         // Arrange
         $data = Produto::factory($this->count)->create()->toArray();

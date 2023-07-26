@@ -12,7 +12,7 @@ class EditUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_200(): void
+    public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
         $user = User::query()->first()->toArray();
@@ -39,7 +39,7 @@ class EditUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_400(): void
+    public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
         $user = User::query()->first()->toArray();
@@ -66,7 +66,7 @@ class EditUserTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_update_base_response_401(): void
+    public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
         $user = User::query()->first()->toArray();
