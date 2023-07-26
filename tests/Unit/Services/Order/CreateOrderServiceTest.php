@@ -2,15 +2,14 @@
 
 namespace Tests\Unit\Services\Order;
 
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\Order\OrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Models\Produto;
-use App\Models\User;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Concretes\CreateOrderService;
 use App\Support\Enums\PerfilEnum;
+use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -19,38 +18,32 @@ class CreateOrderServiceTest extends TestCase
     private OrderRequest $request;
     private OrderRepositoryInterface $orderRepository;
     private ItemRepositoryInterface $itemRepository;
+    private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
     private int $id = 0;
-    private int $count = 3;
-    private float $total = 0;
 
     public function test_success_create_order_service(): void
     {
         // Arrange
+        $rand_keys = array_rand($this->unitMeasure);
         $this->id = rand(1, 100);
-        $products = Produto::query()->limit($this->count)->get()->toArray();
-        $data['itens'] = [];
-        foreach ($products as $product):
-            $item = [
-                'nome' => $product['nome'],
-                'preco' => $product['preco_venda'],
-                'codigoBarra' => $product['codigo_barra'],
-                'quantidadeItem' => $product['quantidade'],
-                'subTotal' => $product['preco_venda'],
-                'unidadeMedida' => $product['unidade_medida'],
-                'produtoId' => $product['id'],
-                'ativo' => $product['ativo'],
-            ];
-            $this->total += $product['preco_venda'];
-            array_push($data['itens'], $item);
-        endforeach;
-
         $this->request = new OrderRequest();
-        $this->request['quantidadeItens'] = $this->count;
-        $this->request['total'] = $this->total;
+        $this->request['quantidadeItens'] = 1;
+        $this->request['total'] = rand(1, 100);
         $this->request['entrega'] = 3.5;
-        $this->request['usuarioId'] = User::query()->first()->id;
+        $this->request['usuarioId'] = rand(1, 100);
         $this->request['ativo'] = true;
-        $this->request['itens'] = $data['itens'];
+        $this->request['itens'] = [
+            [
+                'nome' => Str::random(10),
+                'preco' => rand(1, 100),
+                'codigoBarra' => Str::random(13),
+                'quantidadeItem' => 2,
+                'subTotal' => rand(1, 100),
+                'unidadeMedida' => $this->unitMeasure[$rand_keys],
+                'produtoId' => rand(1, 100),
+                'ativo' => true,
+            ]
+        ];
 
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
