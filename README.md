@@ -768,7 +768,7 @@ ou
 ```
 {
     "message": "Cadastro efetuado com sucesso.",
-    "data": "true",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -777,7 +777,7 @@ ou
 ```
 {
     "message": "Edição efetuada com sucesso.",
-    "data": "true",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -1029,7 +1029,7 @@ ou
 ```
 {
     "message": "Cadastro efetuado com sucesso.",
-    "data": "true",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -1038,7 +1038,7 @@ ou
 ```
 {
     "message": "Edição efetuada com sucesso.",
-    "data": "true",
+    "data": true,
     "status": 200,
     "details": ""
 }
