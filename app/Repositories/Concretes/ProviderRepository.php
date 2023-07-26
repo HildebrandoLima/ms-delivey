@@ -44,6 +44,11 @@ class ProviderRepository implements ProviderRepositoryInterface
         return collect($collection);
     }
 
+    public function getProdutosByProvider(int $id): array
+    {
+        return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get()->toArray();
+    }
+
     private function mapToQuery(): Builder
     {
         return Fornecedor::with('endereco')->with('telefone');

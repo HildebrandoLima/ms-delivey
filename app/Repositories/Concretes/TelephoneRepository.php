@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class TelephoneRepository implements TelephoneRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, bool $active): bool
     {
         return Telefone::query()->where('id', '=', $id)
         ->orWhere(function ($query) use ($id) {

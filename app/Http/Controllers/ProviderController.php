@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
+use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Http\Requests\Provider\ProviderRequest;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
@@ -88,13 +89,13 @@ class ProviderController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsProviderRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->deleteProviderService->deleteProvider
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::delete();

@@ -12,4 +12,5 @@ interface ProviderRepositoryInterface
     public function update(Fornecedor $fornecedor): bool;
     public function getAll(int $active): Collection;
     public function getOne(int $id, string $search, int $active): Collection;
+    public function getProdutosByProvider(int $id): array;
 }

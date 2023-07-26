@@ -2,36 +2,32 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\Repositories\Concretes\AddressRepository;
-use App\Repositories\Concretes\ImageRepository;
-use App\Repositories\Concretes\ProductRepository;
-use App\Repositories\Concretes\ProviderRepository;
-use App\Repositories\Concretes\TelephoneRepository;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
+use App\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Repositories\Interfaces\ImageRepositoryInterface;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Interfaces\ProviderRepositoryInterface;
+use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Enums\PermissionEnum;
 
 class DeleteProviderService extends ValidationPermission implements DeleteProviderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private AddressRepository              $addressRepository;
-    private TelephoneRepository            $telephoneRepository;
-    private ImageRepository                $imageRepository;
-    private ProductRepository              $productRepository;
-    private ProviderRepository             $providerRepository;
+    private AddressRepositoryInterface   $addressRepository;
+    private TelephoneRepositoryInterface $telephoneRepository;
+    private ImageRepositoryInterface     $imageRepository;
+    private ProductRepositoryInterface   $productRepository;
+    private ProviderRepositoryInterface  $providerRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        AddressRepository              $addressRepository,
-        TelephoneRepository            $telephoneRepository,
-        ImageRepository                $imageRepository,
-        ProductRepository              $productRepository,
-        ProviderRepository             $providerRepository
+        AddressRepositoryInterface   $addressRepository,
+        TelephoneRepositoryInterface $telephoneRepository,
+        ImageRepositoryInterface     $imageRepository,
+        ProductRepositoryInterface   $productRepository,
+        ProviderRepositoryInterface  $providerRepository
     )
     {
-        $this->checkEntityRepository = $checkEntityRepository;
         $this->addressRepository              = $addressRepository;
         $this->telephoneRepository            = $telephoneRepository;
         $this->imageRepository                = $imageRepository;
@@ -39,12 +35,9 @@ class DeleteProviderService extends ValidationPermission implements DeleteProvid
         $this->providerRepository             = $providerRepository;
     }
 
-    public function deleteProvider(int $id, int $active): bool
+    public function deleteProvider(int $id, bool $active): bool
     {
         $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_FORNECEDOR);
-        $this->checkEntityRepository->checkProviderIdExist($id);
-        $this->checkEntityRepository->checkAddressIdExist($id);
-        $this->checkEntityRepository->checkTelephoneIdExist($id);
         if
         (
             $this->addressRepository->enableDisable($id, $active) and
@@ -58,9 +51,9 @@ class DeleteProviderService extends ValidationPermission implements DeleteProvid
         endif;
     }
 
-    public function produtos(int $id, int $active): bool
+    public function produtos(int $id, bool $active): bool
     {
-        $produtos = $this->checkEntityRepository->getProdutos($id);
+        $produtos = $this->providerRepository->getProdutosByProvider($id);
         foreach($produtos as $produto):
             $this->imageRepository->enableDisable($produto['id'], $active);
             $this->productRepository->enableDisable($produto['id'], $active);
