@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Requests\Product;
+namespace Tests\Unit\Requests;
 
 use App\Http\Requests\Product\ProductRequest;
 use App\Models\Categoria;
@@ -17,6 +17,7 @@ class ProductRequestTest extends TestCase
 
     private function request(): ProductRequest
     {
+        $this->request = new ProductRequest();
         $rand_keys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
