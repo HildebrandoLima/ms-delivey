@@ -2,12 +2,11 @@
 
 namespace Tests\Unit\Services\Provider;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Concretes\CreateProductService;
@@ -20,7 +19,6 @@ use Tests\TestCase;
 class CreateProductServiceTest extends TestCase
 {
     private ProductRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProductRepositoryInterface $productRepository;
     private ImageRepositoryInterface $imageRepository;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
@@ -54,12 +52,6 @@ class CreateProductServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('checkProductExist')->with($this->request);
-            $mock->shouldReceive('checkProviderIdExist')->with($this->request['fornecedorId']);
-        });
-
         $this->productRepository = $this->mock(ProductRepositoryInterface::class,
         function (MockInterface $mock) {
             $mock->shouldReceive('create')->with(Produto::class)->andReturn(true);
@@ -71,14 +63,13 @@ class CreateProductServiceTest extends TestCase
         });
 
         // Act
-        $createProductServiceTest = new CreateProductService
+        $createProductService = new CreateProductService
         (
-            $this->checkEntityRepository,
             $this->productRepository,
             $this->imageRepository
         );
 
-        $result = $createProductServiceTest->createProduct($this->request);
+        $result = $createProductService->createProduct($this->request);
 
         // Assert
         $this->assertTrue($result);

@@ -4,7 +4,6 @@ namespace App\Services\Product\Concretes;
 
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Produto;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -14,23 +13,16 @@ use App\Support\Enums\ProductEnum;
 
 class EditProductService extends ValidationPermission implements EditProductServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
     private ProductRepositoryInterface     $productRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        ProductRepositoryInterface     $productRepository,
-    )
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->productRepository     = $productRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function editProduct(EditProductRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_PRODUTO);
-        //$this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
         $product = $this->map($request);
         return $this->productRepository->update($product);
     }
