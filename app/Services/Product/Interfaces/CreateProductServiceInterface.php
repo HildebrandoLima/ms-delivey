@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Interfaces;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 
 interface CreateProductServiceInterface
 {

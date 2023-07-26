@@ -12,7 +12,7 @@ class CreatePaymentTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200_create_card(): void
+    public function it_endpoint_post_create_card_base_response_200(): void
     {
         // Arrange
         $data = [
@@ -40,7 +40,7 @@ class CreatePaymentTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200_create_money(): void
+    public function it_endpoint_post_create_money_base_response_200(): void
     {
         // Arrange
         $data = [

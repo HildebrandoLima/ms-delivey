@@ -2,11 +2,10 @@
 
 namespace Tests\Unit\Services\Provider;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use App\Models\Produto;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Concretes\EditProductService;
 use App\Support\Enums\PerfilEnum;
@@ -16,18 +15,16 @@ use Tests\TestCase;
 
 class EditProductServiceTest extends TestCase
 {
-    private ProductRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private EditProductRequest $request;
     private ProductRepositoryInterface $productRepository;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
-    private int $id;
 
     public function test_success_edit_product_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->unitMeasure);
-        $this->id = rand(1, 100);
-        $this->request = new ProductRequest();
+        $this->request = new EditProductRequest();
+        $this->request['id'] = rand(1, 100);
         $this->request['nome'] = Str::random(10);
         $this->request['precoCusto'] = 15.30;
         $this->request['precoVenda'] = 20.0;
@@ -46,24 +43,15 @@ class EditProductServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('checkProviderIdExist')->with($this->request['fornecedorId']);
-        });
-
         $this->productRepository = $this->mock(ProductRepositoryInterface::class,
         function (MockInterface $mock) {
-            $mock->shouldReceive('update')->with($this->id, Produto::class)->andReturn(true);
+            $mock->shouldReceive('update')->with(Produto::class)->andReturn(true);
         });
 
         // Act
-        $editProductSerice = new EditProductService
-        (
-            $this->checkEntityRepository,
-            $this->productRepository
-        );
+        $editProductSerice = new EditProductService($this->productRepository);
 
-        $result = $editProductSerice->editProduct($this->id, $this->request);
+        $result = $editProductSerice->editProduct($this->request);
 
         // Assert
         $this->assertTrue($result);

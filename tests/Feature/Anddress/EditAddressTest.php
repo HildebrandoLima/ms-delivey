@@ -14,7 +14,7 @@ class EditAddressTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_base_response_200_edit_user(): void
+    public function it_endpoint_put_edit_user_base_response_200(): void
     {
         // Arrange
         $address = Endereco::query()->first()->toArray();
@@ -45,7 +45,7 @@ class EditAddressTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_put_base_response_200_edit_provider(): void
+    public function it_endpoint_put_edit_provider_base_response_200(): void
     {
         // Arrange
         $address = Endereco::query()->first()->toArray();

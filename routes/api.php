@@ -80,7 +80,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::prefix('product')->group(function () {
         Route::get('/list', [ProductController::class, 'index'])->name('product.list.all');
         Route::get('/list/find', [ProductController::class, 'show'])->name('product.list.find');
-        Route::put('/edit/{id}', [ProductController::class, 'update'])->name('product.edit')->middleware('jwt-authenticated');
+        Route::put('/edit', [ProductController::class, 'update'])->name('product.edit')->middleware('jwt-authenticated');
         Route::post('/save', [ProductController::class, 'store'])->name('product.save')->middleware('jwt-authenticated');
         Route::put('/enable/disable', [ProductController::class, 'enableDisable'])->name('product.enable.disable')->middleware('jwt-authenticated');
     });

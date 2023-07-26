@@ -17,10 +17,7 @@ class AddressRequestTest extends TestCase
 
     private function request(): AddressRequest
     {
-        User::factory()->createOne();
-        Fornecedor::factory()->createOne();
         $rand_keys = array_rand($this->public_place);
-
         $this->request = new AddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['descricao'] = Str::random(10);

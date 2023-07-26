@@ -11,30 +11,17 @@ class ListFinderProductTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_find_params_id_base_response_200(): void
+    public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $data = Produto::factory()->createOne()->toArray();
+        $product = Produto::factory()->createOne()->toArray();
+        $data = [
+            'id' => $product['id'],
+            'active' => true
+        ];
 
         // Act
-        $response = $this->getJson(route('product.list.find', ['id' => base64_encode($data['id']), 'active' => true]));
-
-        // Assert
-        $response->assertOk();
-        $this->assertJson($this->baseResponse($response));
-        $this->assertEquals($this->httpStatusCode($response), 200);
-    }
-
-    /**
-     * @test
-     */
-    public function it_endpoint_get_list_find_params_search_base_response_200(): void
-    {
-        // Arrange
-        $data = Produto::factory()->createOne()->toArray();
-
-        // Act
-        $response = $this->getJson(route('product.list.find', ['search' => $data['nome'], 'active' => true]));
+        $response = $this->getJson(route('product.list.find', $data));
 
         // Assert
         $response->assertOk();
@@ -48,10 +35,14 @@ class ListFinderProductTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $data = Produto::factory()->createOne()->toArray();
+        $product = Produto::factory()->createOne()->toArray();
+        $data = [
+            'id' => $product['id'],
+            'active' => null
+        ];
 
         // Act
-        $response = $this->getJson(route('product.list.find', ['id' => base64_encode($data['id'])]));
+        $response = $this->getJson(route('product.list.find', $data));
 
         // Assert
         $response->assertStatus(400);

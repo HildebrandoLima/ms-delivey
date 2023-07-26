@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use Illuminate\Http\UploadedFile;

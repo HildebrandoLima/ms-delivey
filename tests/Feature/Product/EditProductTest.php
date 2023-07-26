@@ -17,6 +17,7 @@ class EditProductTest extends TestCase
         // Arrange
         $product = Produto::query()->first()->toArray();
         $data = [
+            'id' => $product['id'],
             'nome' => $product['nome'],
             'precoCusto' => $product['preco_custo'],
             'precoVenda' => $product['preco_venda'],
@@ -34,7 +35,7 @@ class EditProductTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
+        ])->putJson(route('product.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -50,24 +51,25 @@ class EditProductTest extends TestCase
         // Arrange
         $product = Produto::query()->first()->toArray();
         $data = [
-            'nome' => '',
+            'id' => $product['id'],
+            'nome' => null,
             'precoCusto' => $product['preco_custo'],
             'precoVenda' => $product['preco_venda'],
-            'codigoBarra' => $product['codigo_barra'],
+            'codigoBarra' => null,
             'descricao' => $product['descricao'],
             'quantidade' => $product['quantidade'],
             'unidadeMedida' => $product['unidade_medida'],
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
-            'ativo' => '',
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
+        ])->putJson(route('product.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -83,6 +85,7 @@ class EditProductTest extends TestCase
         // Arrange
         $product = Produto::query()->first()->toArray();
         $data = [
+            'id' => $product['id'],
             'nome' => $product['nome'],
             'precoCusto' => $product['preco_custo'],
             'precoVenda' => $product['preco_venda'],
@@ -97,7 +100,7 @@ class EditProductTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
+        $response = $this->putJson(route('product.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -113,6 +116,7 @@ class EditProductTest extends TestCase
         // Arrange
         $product = Produto::query()->first()->toArray();
         $data = [
+            'id' => $product['id'],
             'nome' => $product['nome'],
             'precoCusto' => $product['preco_custo'],
             'precoVenda' => $product['preco_venda'],
@@ -130,7 +134,7 @@ class EditProductTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('product.edit', ['id' => base64_encode($product['id'])]), $data);
+        ])->putJson(route('product.edit'), $data);
 
         // Assert
         $response->assertForbidden();

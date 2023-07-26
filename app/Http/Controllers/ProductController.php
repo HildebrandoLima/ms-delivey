@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\EditProductRequest;
+use App\Http\Requests\Product\ParamsProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Services\Product\Interfaces\DeleteProductServiceInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
-use App\Support\Utils\Parameters\Search;
+use App\Support\Utils\Params\BaseDecode;
+use App\Support\Utils\Params\FilterByActive;
+use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -32,17 +34,18 @@ class ProductController extends Controller
     {
         $this->createProductService = $createProductService;
         $this->deleteProductService = $deleteProductService;
-        $this->editProductService    = $editProductService;
+        $this->editProductService   = $editProductService;
         $this->listProductService   = $listProductService;
     }
 
-    public function index(Pagination $pagination, ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Pagination $pagination, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProductService->listProductAll
             (
                 $pagination,
-                $filterByActive::filterByActive($request->active)
+                $search->search(request()),
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -51,14 +54,13 @@ class ProductController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsProductRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProductService->listProductFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -78,14 +80,10 @@ class ProductController extends Controller
         }
     }
 
-    public function update(string $id, ProductRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditProductRequest $request): Response
     {
         try {
-            $success = $this->editProductService->editProduct
-            (
-                $baseDecode::baseDecode($id),
-                $request
-            );
+            $success = $this->editProductService->editProduct($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -93,13 +91,13 @@ class ProductController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsProductRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->deleteProductService->deleteProduct
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::delete();

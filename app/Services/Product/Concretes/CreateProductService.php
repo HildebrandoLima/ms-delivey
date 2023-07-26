@@ -2,11 +2,9 @@
 
 namespace App\Services\Product\Concretes;
 
-use App\Exceptions\HttpStatusCode\HttpBadRequest;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
@@ -20,27 +18,22 @@ use Illuminate\Support\Str;
 
 class CreateProductService extends ValidationPermission implements CreateProductServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private ProductRepositoryInterface     $productRepository;
-    private ImageRepositoryInterface       $imageRepository;
+    private ProductRepositoryInterface $productRepository;
+    private ImageRepositoryInterface   $imageRepository;
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        ProductRepositoryInterface     $productRepository,
-        ImageRepositoryInterface       $imageRepository,
+        ProductRepositoryInterface $productRepository,
+        ImageRepositoryInterface   $imageRepository,
     )
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->productRepository     = $productRepository;
-        $this->imageRepository       = $imageRepository;
+        $this->productRepository = $productRepository;
+        $this->imageRepository   = $imageRepository;
     }
 
     public function createProduct(ProductRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
-        $this->checkEntityRepository->checkProductExist($request);
-        $this->checkEntityRepository->checkProviderIdExist($request->fornecedorId);
         $product = $this->mapProduct($request);
         $productId = $this->productRepository->create($product);
         $this->createImage($request, $productId);
@@ -65,7 +58,7 @@ class CreateProductService extends ValidationPermission implements CreateProduct
         return $product;
     }
 
-    private function createImage(ProductRequest $request, int $productId): void
+    private function createImage(ProductRequest $request, int $productId): bool
     {
         //$images = $request->file('imagens');
         $images = $request['imagens'];
@@ -80,9 +73,8 @@ class CreateProductService extends ValidationPermission implements CreateProduct
                 $image = $this->mapImage($path, $productId);
                 $this->imageRepository->create($image);
             endforeach;
-        else:
-            throw new HttpBadRequest('Nenhuma imagem foi selecionada.');
         endif;
+        return true;
     }
 
     private function mapImage(string $path, int $productId): Imagem

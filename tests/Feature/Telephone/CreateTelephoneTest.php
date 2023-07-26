@@ -13,7 +13,7 @@ class CreateTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200_create_user(): void
+    public function it_endpoint_post_create_user_base_response_200(): void
     {
         // Arrange
         $rand_keys = array_rand($this->type);
@@ -41,7 +41,7 @@ class CreateTelephoneTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_post_base_response_200_create_provider(): void
+    public function it_endpoint_post_create_provider_base_response_200(): void
     {
         // Arrange
         $rand_keys = array_rand($this->type);

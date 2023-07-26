@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class ProductRequest extends BaseRequest
+class EditProductRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -14,6 +15,7 @@ class ProductRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'id' => 'int|exists:produto,id',
             'nome' => 'required|string',
             'precoCusto' => 'required|between:0,99.99',
             'precoVenda' => 'required|between:0,99.99',
@@ -28,15 +30,17 @@ class ProductRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
+            'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'categoriaId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
 
             'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
+            'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'precoCusto.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'precoVenda.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -49,6 +53,7 @@ class ProductRequest extends BaseRequest
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
+            'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'precoCusto.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'precoVenda.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
@@ -59,7 +64,7 @@ class ProductRequest extends BaseRequest
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
             'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.int' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

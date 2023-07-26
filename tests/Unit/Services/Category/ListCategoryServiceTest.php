@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Concretes\ListCategoryService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;
+use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -103,7 +104,7 @@ class ListCategoryServiceTest extends TestCase
         $this->active = true;
         $collect = [
             'id' => $this->id,
-            'nome' => 'nome',
+            'nome' => Str::random(10),
             'ativo' => true,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
