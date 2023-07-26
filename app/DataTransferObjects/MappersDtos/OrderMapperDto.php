@@ -10,6 +10,7 @@ class OrderMapperDto
     {
         return OrderDto::construction()
         ->setPedidoId($order['id'] ?? 0)
+        ->setNumeroPedido($order['numero_pedido'] ?? 0)
         ->setQuantidadeItem($order['quantidade_items'] ?? 0)
         ->setTotal($order['total'] ?? 0)
         ->setEntrega($order['entrega'] ?? 0)

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class ParamsOrderRequest extends BaseRequest
+class ParamsUserRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -15,7 +15,7 @@ class ParamsOrderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|int|exists:pedido,id',
+            'id' => 'required|int|exists:users,id',
         ];
     }
 

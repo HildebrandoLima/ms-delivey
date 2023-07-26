@@ -27,7 +27,7 @@ class DeleteOrderService extends ValidationPermission implements DeleteOrderServ
         $this->orderRepository    = $orderRepository;
     }
 
-    public function deleteOrder(int $id, int $active): bool
+    public function deleteOrder(int $id, bool $active): bool
     {
         $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_PEDIDO);
         if
