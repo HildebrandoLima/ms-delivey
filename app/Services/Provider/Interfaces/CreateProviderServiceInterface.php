@@ -2,7 +2,7 @@
 
 namespace App\Services\Provider\Interfaces;
 
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\ProviderRequest;
 
 interface CreateProviderServiceInterface
 {

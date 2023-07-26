@@ -22,9 +22,9 @@ class ProviderRepository implements ProviderRepositoryInterface
         return Fornecedor::query()->create($fornecedor->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
-    public function update(int $id, Fornecedor $fornecedor): bool
+    public function update(Fornecedor $fornecedor): bool
     {
-        return Fornecedor::query()->where('id', '=', $id)->update($fornecedor->toArray());
+        return Fornecedor::query()->where('id', '=', $fornecedor->id)->update($fornecedor->toArray());
     }
 
     public function getAll(int $active): Collection
