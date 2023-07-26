@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Requests;
+namespace Tests\Unit\Requests\Order;
 
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\Order\OrderRequest;
 use App\Models\Produto;
 use App\Models\User;
 use Tests\TestCase;

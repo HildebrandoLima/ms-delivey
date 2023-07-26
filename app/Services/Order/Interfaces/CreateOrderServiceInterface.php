@@ -2,7 +2,7 @@
 
 namespace App\Services\Order\Interfaces;
 
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\Order\OrderRequest;
 
 interface CreateOrderServiceInterface
 {

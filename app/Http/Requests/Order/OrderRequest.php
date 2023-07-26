@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Order;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class OrderRequest extends BaseRequest
@@ -31,7 +32,7 @@ class OrderRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,

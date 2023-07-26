@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\OrderRequest;
-use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\ParamsOrderRequest;
+use App\Http\Requests\User\ParamsUserRequest;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
-use App\Support\Utils\Parameters\Search;
+use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Params\FilterByActive;
+use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
@@ -31,13 +32,15 @@ class OrderController extends Controller
         $this->listOrderService   = $listOrderService;
     }
 
-    public function index(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function index(Pagination $pagination, Search $search, ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listOrderService->listOrderAll
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $pagination,
+                $search->search(request()),
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -46,14 +49,13 @@ class OrderController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsOrderRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listOrderService->listOrderFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -73,13 +75,13 @@ class OrderController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsOrderRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->deleteOrderService->deleteOrder
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::delete();

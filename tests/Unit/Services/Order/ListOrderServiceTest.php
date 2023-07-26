@@ -3,19 +3,17 @@
 namespace Tests\Unit\Services\Order;
 
 use App\DataTransferObjects\MappersDtos\OrderMapperDto;
-use App\Models\Pedido;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Concretes\ListOrderService;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ListOrderServiceTest extends TestCase
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
     private OrderRepositoryInterface $orderRepository;
+    private Pagination $pagination;
     private int $id;
     private bool $active;
     private string $search;
@@ -30,45 +28,26 @@ class ListOrderServiceTest extends TestCase
 
         $this->id = $authenticate['userId'];
         $this->active = true;
-        $collection = Pedido::query()->with('item')->with('pagamento')->with('usuario')
-        ->where('pedido.ativo', '=', $this->active)->orderByDesc('pedido.id')
-        ->whereHas('usuario', function ($query) {
-            if ($this->id > 0):
-                $query->where('users.id', '=', $this->id);
-            else:
-                $query->where('users.is_admin', '=', true);
-            endif;
-        })->paginate(10);
-        foreach ($collection->items() as $key => $instance):
-            $collection[$key] = OrderMapperDto::mapper($instance->toArray());
-        endforeach;
-        $expectedResult = PaginationList::createFromPagination($collection);
+        $this->search = '';
+        $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('checkOrderIdExist')->with($this->id);
-        });
+        $expectedResult = $this->paginationList();
 
         $this->orderRepository = $this->mock(OrderRepositoryInterface::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->id, $this->active)
+                $mock->shouldReceive('getAll')->with($this->pagination, $this->search, $this->id, $this->active)
                 ->andReturn($expectedResult);
         });
 
         // Act
-        $listOrderService = new ListOrderService
-        (
-            $this->checkEntityRepository,
-            $this->orderRepository
-        );
+        $listOrderService = new ListOrderService($this->orderRepository);
 
-        $result = $listOrderService->listOrderAll($this->id, $this->active);
+        $result = $listOrderService->listOrderAll($this->pagination, $this->search, $this->id, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
-        $this->assertIsArray($result->toArray()['list']);
-        $this->assertIsArray($expectedResult->toArray()['list']);
-        $this->assertEquals(count($result->toArray()['list']), count($expectedResult->toArray()['list']));
     }
 
     public function test_success_list_order_find_service(): void
@@ -81,36 +60,34 @@ class ListOrderServiceTest extends TestCase
 
         $this->id = $authenticate['userId'];
         $this->active = true;
-        $this->search = '%%';
-        $collect = Pedido::query()->where('pedido.ativo', '=', $this->active)
-        ->where('pedido.id', '=', $this->id)
-        ->orWhere('pedido.numero_pedido', 'like', $this->search)->get()->toArray()[0];
+        $collect = [
+            'id' => $this->id,
+            'numero_pedido' => random_int(100000000, 999999999),
+            'quantidade_items' => rand(1, 100),
+            'total' => rand(1, 100),
+            'entrega' => 5.39,
+            'usuario_id' => rand(1, 100),
+            'item' => [],
+            'pagamento' => [],
+            'ativo' => true,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
         $collection = OrderMapperDto::mapper($collect);
         $expectedResult = collect($collection);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('checkOrderIdExist')->with($this->id);
-        });
-
         $this->orderRepository = $this->mock(OrderRepositoryInterface::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getOne')->with($this->id, $this->search, $this->active)
+                $mock->shouldReceive('getOne')->with($this->id, $this->active)
                 ->andReturn($expectedResult);
         });
 
         // Act
-        $listOrderService = new ListOrderService
-        (
-            $this->checkEntityRepository,
-            $this->orderRepository
-        );
+        $listOrderService = new ListOrderService($this->orderRepository);
 
-        $result = $listOrderService->listOrderFind($this->id, $this->search, $this->active);
+        $result = $listOrderService->listOrderFind($this->id, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
-        $this->assertIsArray($result->toArray());
-        $this->assertIsArray($expectedResult->toArray());
     }
 }

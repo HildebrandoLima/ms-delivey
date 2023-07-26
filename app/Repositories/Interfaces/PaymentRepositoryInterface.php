@@ -6,6 +6,6 @@ use App\Models\Pagamento;
 
 interface PaymentRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool;
+    public function enableDisable(int $id, bool $active): bool;
     public function create(Pagamento $pagamento): bool;
 }

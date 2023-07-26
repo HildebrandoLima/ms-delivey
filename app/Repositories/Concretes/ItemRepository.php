@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\ItemRepositoryInterface;
 
 class ItemRepository implements ItemRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool
+    public function enableDisable(int $id, bool $active): bool
     {
         return Item::query()->where('pedido_id', $id)->update(['ativo' => $active]);
     }
