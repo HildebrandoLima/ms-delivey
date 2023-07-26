@@ -1365,7 +1365,7 @@ Não é permitido alterar os dados do pedido.
 |-------|--------------------------|
 | POST  | /api/payment/save        |
 
-Até o momento, só faz o registro do pagamento. A listagem vem junto com o pedido.
+A listagem vem junto com o pedido. Não se pode efetuar edição do mesmo.
 
 ### Body: POST
 
@@ -1373,11 +1373,11 @@ Com cartão
 
 ```
 {
-    "numeroCartao": 3433 0684 3408 6543,
+    "numeroCartao": "3433 0684 3408 6543",
     "dataValidade": "2023-05-16 13:44:18",
     "parcela": 3,
     "total": 399.48,
-    "ativo": 1,
+    "ativo": true,
     "metodoPagamentoId": 1,
     "pedidoId": 25
 }
@@ -1401,7 +1401,7 @@ Com dinheiro ou PIX
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": true,
     "status": 200,
     "details": ""
@@ -1415,8 +1415,8 @@ Com dinheiro ou PIX
 
 ```
 {
-    "message": "Error ao efetuar ação!",
-    "data": "false",
+    "message": "Error ao efetuar ação.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1424,12 +1424,26 @@ Com dinheiro ou PIX
 </details>
 
 <details>
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
 <summary>403 - Forbidden</summary>
 
 ```
 {
-    "message": "Você não possue permissão!",
-    "data": "false",
+    "message": "Permissão negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }
