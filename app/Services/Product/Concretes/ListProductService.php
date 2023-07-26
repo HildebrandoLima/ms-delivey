@@ -23,14 +23,14 @@ class ListProductService implements ListProductServiceInterface
         $this->productRepository     = $productRepository;
     }
 
-    public function listProductAll(Pagination $pagination, int $active): Collection
+    public function listProductAll(Pagination $pagination, string $search, bool $active): Collection
     {
-        return $this->productRepository->getAll($pagination, $active);
+        return $this->productRepository->getAll($pagination, $search, $active);
     }
 
-    public function listProductFind(int $id, string $search, int $active): Collection
+    public function listProductFind(int $id, bool $active): Collection
     {
-        if ($id != 0) $this->checkEntityRepository->checkProductIdExist($id);
-        return $this->productRepository->getOne($id, $search, $active);
+        //if ($id != 0) $this->checkEntityRepository->checkProductIdExist($id);
+        return $this->productRepository->getOne($id, $active);
     }
 }

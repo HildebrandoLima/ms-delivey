@@ -44,6 +44,7 @@ class ProductController extends Controller
             $success = $this->listProductService->listProductAll
             (
                 $pagination,
+                $search->search(request()),
                 $filter->active
             );
             if (!$success) return Controller::error();
@@ -53,14 +54,13 @@ class ProductController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsProductRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProductService->listProductFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search->search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
