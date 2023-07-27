@@ -2,30 +2,21 @@
 
 namespace App\Services\Auth\Concretes;
 
-use App\Http\Requests\RefreshPasswordRequest;
+use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
 
 class RefreshPasswordService implements RefreshPasswordServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private AuthRepositoryInterface        $authRepository;
+    private AuthRepositoryInterface $authRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        AuthRepositoryInterface        $authRepository,
-    )
+    public function __construct(AuthRepositoryInterface $authRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->authRepository        = $authRepository;
+        $this->authRepository = $authRepository;
     }
 
-    public function refreshPassword(RefreshPasswordRequest $request, string $token): bool
+    public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        $this->checkEntityRepository->checkTokenPassword($token);
-        $this->checkEntityRepository->checkUserCodeRefreshPassword($request->codigo);
         return $this->authRepository->refreshPassword($request);
     }
 }

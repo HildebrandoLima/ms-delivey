@@ -2,25 +2,16 @@
 
 namespace App\Services\Auth\Concretes;
 
-use App\Http\Requests\LoginRequest;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\Interfaces\LoginServiceInterface;
 use App\Support\Enums\UserEnum;
 use Illuminate\Support\Collection;
 
 class LoginService implements LoginServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-
-    public function __construct(CheckEntityRepositoryInterface $checkEntityRepository)
-    {
-        $this->checkEntityRepository = $checkEntityRepository;
-    }
-
     public function login(LoginRequest $request): Collection
     {
         $credentials = $request->only(['email', 'password']);
-        $this->firstAccess($request->email);
         return collect([
             'accessToken' => auth()->attempt($credentials),
             'userId' => auth()->user()->id,
@@ -29,10 +20,5 @@ class LoginService implements LoginServiceInterface
             'isAdmin' => auth()->user()->is_admin == 1 ? UserEnum::E_ADMIN : UserEnum::NAO_E_ADMIN,
             'permissions' => auth()->user()->permissions,
         ]);
-    }
-
-    private function firstAccess(string $email): void
-    {
-        $this->checkEntityRepository->checkFirstAccess($email);
     }
 }

@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
         Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('jwt-authenticated');
         Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
-        Route::post('/refresh-password/{token}', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
+        Route::post('/refresh-password', [AuthController::class, 'refreshPassword'])->name('auth.refresh');
     });
 
     //  Endereço
