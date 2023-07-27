@@ -476,50 +476,52 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 ### Rotas
 
-|MÉTODO|          ROTA            |
-|------|--------------------------|
-| GET  | /api/user/list           |
-|------|--------------------------|
-| GET  | /api/user/list/find      |
-|------|--------------------------|
-| PUT  | /api/user/edit/{id}      |
-|------|--------------------------|
-| POST | /api/user/save           |
-|------|--------------------------|
-|DELETE| /api/user/enable/disable |
+|MÉTODO|            ROTA               |
+|------|-------------------------------|
+| GET  | /api/user/email-verified/{id} |
+|------|-------------------------------|
+| GET  | /api/user/list                |
+|------|-------------------------------|
+| GET  | /api/user/list/find           |
+|------|-------------------------------|
+| PUT  | /api/user/edit                |
+|------|-------------------------------|
+| POST | /api/user/save                |
+|------|-------------------------------|
+|DELETE| /api/user/enable/disable      |
 
 Em perfil é verdadeiro para admin e false para cliente.
 
 ### Body: POST
 ```
 {
-    "perfil": true or false
     "nome": "Hill",
     "cpf": "572.561.700-92",
     "email": "test@gmail.com",
     "senha": "Hil@03#1.4",
     "dataNascimento": "2023-03-25 18:20:59",
-    "genero": "Feminino",
-    "ativo": 1
+    "genero": "Masculino",
+    "perfil": true,
+    "ativo": true
 }
 ```
 
 ### Body: PUT
 ```
 {
-    "perfil": true or false
     "nome": "Hill",
     "email": "test@gmail.com",
-    "genero": "Feminino",
-    "ativo": 1
+    "genero": "Masculino",
+    "perfil": true,
+    "ativo": true
 }
 ```
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
-<li>/find?id=Mjg=&active=1</li>
-<li>/find?search=Hill=&active=1</li>
+<li>/find?id=1001&active=1</li>
+<li>?search=Hill&active=1</li>
 
 ### Resposta:
 
@@ -528,7 +530,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
@@ -537,8 +539,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
-    "data": "true",
+    "message": "Edição efetuada com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -551,8 +553,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "O usuário já existe!",
-    "data": "",
+    "message": "Registro já existente.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -560,9 +562,23 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Error ao efetuar ação!",
-    "data": "false",
+    "message": "Error ao efetuar ação.",
+    "data": [],
     "status": 400,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
     "details": ""
 }
 ```
@@ -574,8 +590,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Você não possue permissão!",
-    "data": "false",
+    "message": "Permissão negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }
@@ -595,19 +611,19 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 |------|------------------------------|
 | GET  | /api/provider/list           |
 |------|------------------------------|
-| GET  | /api/provider/list/{id}      |
+| GET  | /api/provider/list/find      |
 |------|------------------------------|
 | POST | /api/provider/save           |
 |------|------------------------------|
-| PUT  | /api/provider/edit/{id}      |
+| PUT  | /api/provider/edit           |
 |------|------------------------------|
 |DELETE| /api/provider/enable/disable |
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
-<li>/find?id=Mjg=&active=1</li>
-<li>/find?search=System=&active=1</li>
+<li>/find?id=1002&active=1</li>
+<li>?search=System=&active=1</li>
 
 ### Body: POST/PUT
 ```
@@ -616,7 +632,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "cnpj": "89.872.593/0001-90",
     "email": "hill@email.com.br",
     "dataFundacao": "2022-12-25 13:28:59",
-    "ativo": 1
+    "ativo": true
 }
 ```
 
@@ -627,7 +643,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
@@ -636,8 +652,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
-    "data": "true",
+    "message": "Edição efetuada com sucesso/",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -650,8 +666,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "O fornecedor já existe!",
-    "data": "",
+    "message": "Registro já existente.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -659,9 +675,23 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Error ao efetuar ação!",
-    "data": "false",
+    "message": "Error ao efetuar ação.",
+    "data": [],
     "status": 400,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
     "details": ""
 }
 ```
@@ -673,8 +703,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Você não possue permissão!",
-    "data": "false",
+    "message": "Permissão negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }
@@ -859,7 +889,7 @@ ou
 |------|-------------------------------|
 | POST | /api/telephone/save           |
 |------|-------------------------------|
-| PUT  | /api/telephone/edit/{id}      |
+| PUT  | /api/telephone/edit           |
 |------|-------------------------------|
 |DELETE| /api/telephone/enable/disable |
 
@@ -872,14 +902,14 @@ ou
             "tipo": "Celular",
             "dddId": 1,
             "usuarioId": 2,
-            "ativo": 1
+            "ativo": true
         },
         {
             "numero": "98045-8709",
             "tipo": "Fixo",
             "dddId": 1,
             "usuarioId": 2,
-            "ativo": 1
+            "ativo": true
         }
     ]
 }
@@ -895,14 +925,14 @@ ou
             "tipo": "Celular",
             "dddId": 1,
             "fornecedorId": 3,
-            "ativo": 1
+            "ativo": true
         },
         {
             "numero": "98045-8709",
             "tipo": "Fixo",
             "dddId": 1,
             "fornecedorId": 3,
-            "ativo": 1
+            "ativo": true
         }
     ]
 }
@@ -915,8 +945,8 @@ ou
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
-    "data": "true",
+    "message": "Cadastro efetuado com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -924,8 +954,8 @@ ou
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
-    "data": "true",
+    "message": "Edição efetuada com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -938,8 +968,8 @@ ou
     
 ```
 {
-    "message": "O telefone já existe!",
-    "data": "",
+    "message": "Registro já existente.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -947,8 +977,17 @@ ou
 
 ```
 {
-    "message": "Error ao efetuar ação!",
-    "data": "false",
+    "message": "Registro não encontrado.",
+    "data": [],
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -957,7 +996,7 @@ ou
 </details>
 
 <details>
-<summary>401 - Unauthorized </summary>
+<summary>401 - Unauthorized</summary>
 
 ```
 {
@@ -1122,7 +1161,7 @@ ou
 |------|-----------------------------|
 | POST | /api/product/save           |
 |------|-----------------------------|
-| PUT  | /api/product/edit/{id}      |
+| PUT  | /api/product/edit           |
 |------|-----------------------------|
 |DELETE| /api/product/enable/disable |
     
@@ -1130,7 +1169,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
-<li>/find?search=TV LED=&active=1</li>
+<li>?search=TV%LED%'55=&active=1</li>
 
 ### Body: POST
 ```
@@ -1146,7 +1185,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "categoriaId": 10,
     "fornecedorId": 2,
     "imagens": [files],
-    "ativo": 1
+    "ativo": true
 }
 ```
 
@@ -1163,7 +1202,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "dataValidade": "2024-12-25 13:28:59",
     "categoriaId": 10,
     "fornecedorId": 2,
-    "ativo": 1
+    "ativo": true
 }
 ```
 
@@ -1174,7 +1213,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
@@ -1183,8 +1222,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Edição efetuada com sucesso!",
-    "data": "true",
+    "message": "Edição efetuada com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -1197,8 +1236,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "O produto já existe!",
-    "data": "",
+    "message": "Registro já existente.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1206,8 +1245,17 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 ```
 {
-    "message": "Error ao efetuar ação!",
-    "data": "false",
+    "message": "Registro não encontrado.",
+    "data": [],
+    "status": 400,
+    "details": ""
+}
+```
+
+```
+{
+    "message": "Error ao efetuar ação.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1215,12 +1263,26 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 </details>
 
 <details>
+<summary>401 - Unauthorized</summary>
+
+```
+{
+    "message": "Acesso não autorizado.",
+    "data": [],
+    "status": 401,
+    "details": ""
+}
+```
+
+</details>
+
+<details>
 <summary>403 - Forbidden</summary>
 
 ```
 {
-    "message": "Você não possue permissão!",
-    "data": "false",
+    "message": "Permissão negada.",
+    "data": [],
     "status": 403,
     "details": ""
 }
@@ -1248,9 +1310,9 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
-<li>?page=1&perPage=10&active=true</li>
-<li>/find?id=1&active=true</li>
-<li>/find?search=100005000=&active=true</li>
+<li>?page=1&perPage=10&active=1</li>
+<li>/find?id=200&active=1</li>
+<li>?search=100005000=&active=1</li>
 
 O pedido não pode ser modificado.
 
@@ -1260,7 +1322,7 @@ O pedido não pode ser modificado.
     "quantidadeItem": 4,
     "total": 102.99,
     "entrega": 13.40,
-    "ativo": 1,
+    "ativo": true,
     "usuarioId": 3,
     "items": [
         {
@@ -1270,7 +1332,8 @@ O pedido não pode ser modificado.
             "quantidadeItem": 1,
             "subTotal": 14.85,
             "unidadeMedida": "UN",
-            "produtoId": 32
+            "produtoId": 32,
+            "ativo": true
         },
         {
             "nome": "Batata Palha Yoki 105G",
@@ -1279,7 +1342,8 @@ O pedido não pode ser modificado.
             "quantidadeItem": 2,
             "subTotal": 13.18,
             "unidadeMedida": "UN",
-            "produtoId": 33
+            "produtoId": 33,
+            "ativo": true
         }
     ]
 }
@@ -1308,7 +1372,7 @@ Não é permitido alterar os dados do pedido.
 
 ```
 {
-    "message": "O pedido já existe!",
+    "message": "Registro já existente.",
     "data": [],
     "status": 400,
     "details": ""
@@ -1318,7 +1382,7 @@ Não é permitido alterar os dados do pedido.
 ```
 {
     "message": "Error ao efetuar ação.",
-    "data": "false",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -1377,9 +1441,9 @@ Com cartão
     "dataValidade": "2023-05-16 13:44:18",
     "parcela": 3,
     "total": 399.48,
-    "ativo": true,
     "metodoPagamentoId": 1,
     "pedidoId": 25
+    "ativo": true,
 }
 ```
 
@@ -1388,9 +1452,9 @@ Com dinheiro ou PIX
 ```
 {
     "total": 20.50,
-    "ativo": 1,
     "metodoPagamentoId": 4,
     "pedidoId": 30
+    "ativo": true,
 }
 ```
 
@@ -1421,6 +1485,16 @@ Com dinheiro ou PIX
     "details": ""
 }
 ```
+
+```
+{
+    "message": "Registro não encontrado.",
+    "data": [],
+    "status": 400,
+    "details": ""
+}
+```
+
 </details>
 
 <details>
