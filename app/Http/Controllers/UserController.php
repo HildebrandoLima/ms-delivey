@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\User\ParamsUserRequest;
 use App\Http\Requests\User\UserEditRequest;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Services\User\Interfaces\DeleteUserServiceInterface;
@@ -40,12 +41,13 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
     }
 
-    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserAll
             (
-                $filterByActive::filterByActive($request->active)
+                $search->search(request()),
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -54,14 +56,13 @@ class UserController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);

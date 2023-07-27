@@ -31,24 +31,31 @@ class UserRepository implements UserRepositoryInterface
         return User::query()->where('id', '=', $user->id)->update($user->toArray());
     }
 
-    public function getAll(int $active): Collection
+    public function getAll(string $search, bool $active): Collection
     {
-        $collection = $this->mapToQuery()->where('users.ativo', '=', $active)->orderByDesc('users.id')->paginate(10);
+        $collection = $this->query()
+        ->where(function($query) use ($search, $active) {
+            if (!empty($search)):
+                $query->where('users.name', 'like', $search)->where('users.ativo', '=', $active);
+            else:
+                $query->where('users.ativo', '=', $active);
+            endif;
+        })->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = UserMapperDto::mapper($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    public function getOne(int $id, string $search, int $active): Collection
+    public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('users.ativo', '=', $active)->where('users.id', '=', $id)
-        ->orWhere('users.name', 'like', $search)->get()->toArray()[0];
+        $collect = $this->query()->where('users.ativo', '=', $active)
+        ->where('users.id', '=', $id)->get()->toArray()[0];
         $collection = UserMapperDto::mapper($collect);
         return collect($collection);
     }
 
-    private function mapToQuery(): Builder
+    private function query(): Builder
     {
         return User::with('endereco')->with('telefone');
     }
