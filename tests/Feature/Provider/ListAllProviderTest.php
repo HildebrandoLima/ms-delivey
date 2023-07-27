@@ -23,12 +23,32 @@ class ListAllProviderTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'active' => true]));
 
         // Assert
         $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->count, $this->countPaginateList($response));
+        $this->assertEquals($this->httpStatusCode($response), 200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_search_base_response_200(): void
+    {
+        // Arrange
+        $data = Fornecedor::factory($this->count)->create()->toArray();
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => $data[0]['razao_social'], 'active' => true]));
+
+        // Assert
+        $response->assertOk();
+        $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
     }
 
@@ -44,7 +64,7 @@ class ListAllProviderTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10]));
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null]));
 
         // Assert
         $response->assertStatus(400);
@@ -61,7 +81,7 @@ class ListAllProviderTest extends TestCase
         Fornecedor::factory($this->count)->make()->toArray();
 
         // Act
-        $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+        $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'active' => true]));
 
         // Assert
         $response->assertUnauthorized();
@@ -81,7 +101,7 @@ class ListAllProviderTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'active' => true]));
 
         // Assert
         $response->assertForbidden();
