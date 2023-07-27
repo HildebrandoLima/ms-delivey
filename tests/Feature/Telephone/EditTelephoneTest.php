@@ -17,22 +17,21 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_edit_user_base_response_200(): void
     {
         // Arrange
-        $data['telefones'] = [];
         $telephone = Telefone::query()->first()->toArray();
-        $newTelephone = [
+        $data = [
+            "id" => $telephone['id'],
             "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             "tipo" => $telephone['tipo'],
             "dddId" => $telephone['ddd_id'],
             "usuarioId" => User::query()->first()->id,
             "ativo" => $telephone['ativo'],
         ];
-        array_push($data['telefones'], $newTelephone);
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
+        ])->putJson(route('telephone.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -46,22 +45,21 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_edit_provider_base_response_200(): void
     {
         // Arrange
-        $data['telefones'] = [];
         $telephone = Telefone::query()->first()->toArray();
-        $newTelephone = [
+        $data = [
+            "id" => $telephone['id'],
             "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             "tipo" => $telephone['tipo'],
             "dddId" => $telephone['ddd_id'],
             "fornecedorId" => Fornecedor::query()->first()->id,
             "ativo" => $telephone['ativo'],
         ];
-        array_push($data['telefones'], $newTelephone);
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
+        ])->putJson(route('telephone.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -75,22 +73,21 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $data['telefones'] = [];
         $telephone = Telefone::query()->first()->toArray();
-        $newTelephone = [
-            "numero" => '',
+        $data = [
+            "id" => $telephone['id'],
+            "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             "tipo" => $telephone['tipo'],
             "dddId" => $telephone['ddd_id'],
-            "usuarioId" => '',
+            "usuarioId" => null,
             "ativo" => $telephone['ativo'],
         ];
-        array_push($data['telefones'], $newTelephone);
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
+        ])->putJson(route('telephone.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -104,19 +101,18 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $data['telefones'] = [];
         $telephone = Telefone::query()->first()->toArray();
-        $newTelephone = [
+        $data = [
+            "id" => $telephone['id'],
             "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             "tipo" => $telephone['tipo'],
             "dddId" => $telephone['ddd_id'],
-            "usuarioId" => $telephone['usuario_id'],
+            "usuarioId" => User::query()->first()->id,
             "ativo" => $telephone['ativo'],
         ];
-        array_push($data['telefones'], $newTelephone);
 
         // Act
-        $response = $this->putJson(route('telephone.edit', ['id' => base64_encode($telephone['id'])]), $data);
+        $response = $this->putJson(route('telephone.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
