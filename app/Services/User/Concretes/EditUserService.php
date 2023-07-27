@@ -2,7 +2,7 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Http\Requests\User\UserEditRequest;
+use App\Http\Requests\User\EditUserRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
@@ -19,14 +19,14 @@ class EditUserService extends ValidationPermission implements EditUserServiceInt
         $this->userRepository = $userRepository;  
     }
 
-    public function editUser(UserEditRequest $request): bool
+    public function editUser(EditUserRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
         $user = $this->map($request);
         return $this->userRepository->update($user);
     }
 
-    private function map(UserEditRequest $request): User
+    private function map(EditUserRequest $request): User
     {
         $user = new User();
         $user->id = $request->id;

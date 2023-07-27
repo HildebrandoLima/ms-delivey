@@ -2,25 +2,43 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\User\EditUserRequest;
 use App\Support\Generate\GenerateEmail;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class UserEditRequestTest extends TestCase
+class EditUserRequestTest extends TestCase
 {
-    private UserEditRequest $request;
+    private EditUserRequest $request;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
 
-    private function request(): UserEditRequest
+    private function request(): EditUserRequest
     {
         $rand_keys = array_rand($this->gender);
-        $this->request = new UserEditRequest();
+        $this->request = new EditUserRequest();
+        $this->request['id'] = rand(1, 100);
         $this->request['nome'] = Str::random(10);
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['genero'] = $this->gender[$rand_keys];
         $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'id' => 'required|int|exists:users,id',
+            'nome' => 'required|string',
+            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
+            'genero' => 'required|string',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void
@@ -64,7 +82,7 @@ class UserEditRequestTest extends TestCase
         // Arrange
         $dominio = array('@gmail.com', '@outlook.com', '@business.com.br');
         $rand_keys = array_rand($dominio);
-        $this->request = new UserEditRequest();
+        $this->request();
         $this->request['email'] = Str::random(10);
 
         // Act

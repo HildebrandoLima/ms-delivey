@@ -5,7 +5,7 @@ namespace App\Http\Requests\User;
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class UserEditRequest extends BaseRequest
+class EditUserRequest extends BaseRequest
 {
     public function authorize(): bool
     {
