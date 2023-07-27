@@ -2,28 +2,20 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 
 class EmailUserVerifiedAtService implements EmailUserVerifiedAtServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private UserRepositoryInterface        $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        UserRepositoryInterface        $userRepository,
-    )
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->userRepository        = $userRepository;
+        $this->userRepository = $userRepository;
     }
 
-    public function emailVerifiedAt(int $id, int $active): bool
+    public function emailVerifiedAt(int $id, bool $active): bool
     {
-        $this->checkEntityRepository->checkUserIdExist($id);
         return $this->userRepository->emailVerifiedAt($id, $active);
     }
 }
