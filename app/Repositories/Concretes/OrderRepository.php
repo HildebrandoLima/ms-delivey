@@ -23,7 +23,8 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getAll(string $search, int $id, bool $active): Collection
     {
-        $collection = $this->mapToQuery()->where('pedido.ativo', '=', $active)->orderByDesc('pedido.id')
+        $collection = $this->query()->where('pedido.ativo', '=', $active)
+        ->orderByDesc('pedido.id')
         ->whereHas('usuario', function ($query) use ($id, $search) {
             if (!empty($id)):
                 $query->where('users.id', '=', $id)
@@ -49,13 +50,13 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('pedido.ativo', '=', $active)
+        $collect = $this->query()->where('pedido.ativo', '=', $active)
         ->where('pedido.id', '=', $id)->get()->toArray()[0];
         $collection = OrderMapperDto::mapper($collect);
         return collect($collection);
     }
 
-    private function mapToQuery(): Builder
+    private function query(): Builder
     {
         return Pedido::query()->with('item')->with('pagamento')->with('usuario');
     }

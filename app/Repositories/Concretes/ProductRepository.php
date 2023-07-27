@@ -38,7 +38,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('produto.ativo', '=', $active)
+        $collect = Produto::query()->with('imagem')->where('produto.ativo', '=', $active)
         ->where('produto.id', '=', $id)
         ->orWhere(function ($query) use ($id) {
             $query->where('produto.categoria_id', $id);
@@ -49,14 +49,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     private function hasPagination(string $search, bool $active): Collection
     {
-        $collection = $this->mapToQuery()
-        ->where(function($query) use ($search, $active) {
-            if(!empty($search)):
-                $query->where('produto.nome', 'like', $search)->where('produto.ativo', '=', $active);
-            else:
-                $query->where('produto.ativo', '=', $active);
-            endif;
-        })->orderByDesc('produto.id')->paginate(10);
+        $collection = $this->query($search, $active)->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = ProductMapperDto::mapper($instance->toArray());
         endforeach;
@@ -65,22 +58,23 @@ class ProductRepository implements ProductRepositoryInterface
 
     private function noPagination(string $search, bool $active): Collection
     {
-        $collection = $this->mapToQuery()
-        ->where(function($query) use ($search, $active) {
-            if(!empty($search)):
-                $query->where('produto.nome', 'like', $search)->where('produto.ativo', '=', $active);
-            else:
-                $query->where('produto.ativo', '=', $active);
-            endif;
-        })->orderByDesc('produto.id')->get();
+        $collection = $this->query($search, $active)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = ProductMapperDto::mapper($instance);
         endforeach;
         return $collection;
     }
 
-    private function mapToQuery(): Builder
+    private function query(string $search, bool $active): Builder
     {
-        return Produto::query()->with('imagem');
+        return Produto::query()->with('imagem')
+        ->where(function($query) use ($search, $active) {
+            if(!empty($search)):
+                $query->where('produto.nome', 'like', $search)
+                      ->where('produto.ativo', '=', $active);
+            else:
+                $query->where('produto.ativo', '=', $active);
+            endif;
+        })->orderByDesc('produto.id');
     }
 }

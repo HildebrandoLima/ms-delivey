@@ -39,46 +39,40 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('ativo', '=', $active)
+        $collect = Categoria::query()->where('ativo', '=', $active)
         ->where('id', '=', $id)->get()->toArray()[0];
         $collection = CategoryMapperDto::mapper($collect);
         return collect($collection);
     }
 
-    private function hasPagination(string $search, int $active): Collection
+    private function hasPagination(string $search, bool $active): Collection
     {
-        $collection = $this->mapToQuery()
-        ->where(function($query) use ($search, $active) {
-            if (!empty($search)):
-                $query->where('nome', 'like', $search)->where('ativo', '=', $active);
-            else:
-                $query->where('ativo', '=', $active);
-            endif;
-        })->orderByDesc('id')->paginate(10);
+        $collection = $this->query($search, $active)->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = CategoryMapperDto::mapper($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string $search, int $active): Collection
+    private function noPagination(string $search, bool $active): Collection
     {
-        $collection = $this->mapToQuery()
-        ->where(function($query) use ($search, $active) {
-            if (!empty($search)):
-                $query->where('nome', 'like', $search)->where('ativo', '=', $active);
-            else:
-                $query->where('ativo', '=', $active);
-            endif;
-        })->orderByDesc('id')->get();
+        $collection = $this->query($search, $active)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = CategoryMapperDto::mapper($instance);
         endforeach;
         return $collection;
     }
 
-    private function mapToQuery(): Builder
+    private function query(string $search, bool $active): Builder
     {
-        return Categoria::query();
+        return Categoria::query()
+        ->where(function($query) use ($search, $active) {
+            if (!empty($search)):
+                $query->where('nome', 'like', $search)
+                      ->where('ativo', '=', $active);
+            else:
+                $query->where('ativo', '=', $active);
+            endif;
+        })->orderByDesc('id');
     }
 }
