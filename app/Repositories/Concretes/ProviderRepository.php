@@ -27,19 +27,26 @@ class ProviderRepository implements ProviderRepositoryInterface
         return Fornecedor::query()->where('id', '=', $fornecedor->id)->update($fornecedor->toArray());
     }
 
-    public function getAll(int $active): Collection
+    public function getAll(string $search, bool $active): Collection
     {
-        $collection = $this->mapToQuery()->where('fornecedor.ativo', '=', $active)->orderByDesc('fornecedor.id')->paginate(10);
+        $collection = $this->query()
+        ->where(function($query) use ($search, $active) {
+            if (!empty($search)):
+                $query->where('fornecedor.razao_social', 'like', $search)->where('fornecedor.ativo', '=', $active);
+            else:
+                $query->where('fornecedor.ativo', '=', $active);
+            endif;
+        })->orderByDesc('fornecedor.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = ProviderMapperDto::mapper($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    public function getOne(int $id, string $search, int $active): Collection
+    public function getOne(int $id, bool $active): Collection
     {
-        $collect = $this->mapToQuery()->where('fornecedor.ativo', '=', $active)->where('fornecedor.id', '=', $id)
-        ->orWhere('fornecedor.razao_social', 'like', $search)->get()->toArray()[0];
+        $collect = $this->query()->where('fornecedor.ativo', '=', $active)
+        ->where('fornecedor.id', '=', $id)->get()->toArray()[0];
         $collection = ProviderMapperDto::mapper($collect);
         return collect($collection);
     }
@@ -49,7 +56,7 @@ class ProviderRepository implements ProviderRepositoryInterface
         return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get()->toArray();
     }
 
-    private function mapToQuery(): Builder
+    private function query(): Builder
     {
         return Fornecedor::with('endereco')->with('telefone');
     }

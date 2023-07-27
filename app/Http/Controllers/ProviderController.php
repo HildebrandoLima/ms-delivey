@@ -37,12 +37,13 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
             (
-                $filterByActive::filterByActive($request->active)
+                $search->search(request()),
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -51,14 +52,13 @@ class ProviderController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsProviderRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
