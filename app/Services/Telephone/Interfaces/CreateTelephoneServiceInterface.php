@@ -2,9 +2,9 @@
 
 namespace App\Services\Telephone\Interfaces;
 
-use App\Http\Requests\TelephoneRequest;
+use App\Http\Requests\Telephone\CreateTelephoneRequest;
 
 interface CreateTelephoneServiceInterface
 {
-    public function createTelephone(TelephoneRequest $request): bool;
+    public function createTelephone(CreateTelephoneRequest $request): bool;
 }

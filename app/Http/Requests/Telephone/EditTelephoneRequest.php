@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Telephone;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
-use LaravelLegends\PtBrValidator\Rules\Celular;
 
-class TelephoneRequest extends BaseRequest
+class EditTelephoneRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -15,19 +15,20 @@ class TelephoneRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'telefones' => 'required|array',
-            'telefones.*.numero' => ['required', new Celular()],
-            'telefones.*.tipo' => 'required|string',
-            'telefones.*.dddId' => 'required|int|exists:ddd,id',
-            'telefones.*.usuarioId' => 'int|exists:users,id',
-            'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
-            'telefones.*.ativo' => 'required|boolean',
+            'id' => 'required|int|exists:telefone,id',
+            'numero' => 'required|string|Celular|min:10|max:10',
+            'tipo' => 'required|string',
+            'dddId' => 'required|int|exists:ddd,id',
+            'usuarioId' => 'int|exists:users,id',
+            'fornecedorId' => 'int|exists:fornecedor,id',
+            'ativo' => 'required|boolean',
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
+            'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'dddId.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
@@ -35,13 +36,13 @@ class TelephoneRequest extends BaseRequest
             'numero.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'numero.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
-            'telefones.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'telefones.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
+            'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dddId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,

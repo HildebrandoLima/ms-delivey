@@ -1,31 +1,51 @@
 <?php
 
-namespace Tests\Unit\Requests;
+namespace Tests\Unit\Requests\Telephone;
 
-use App\Http\Requests\TelephoneRequest;
+use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Models\DDD;
 use App\Models\Fornecedor;
 use App\Models\User;
 use Tests\TestCase;
 
-class TelephoneRequestTest extends TestCase
+class CreateTelephoneRequestTest extends TestCase
 {
-    private TelephoneRequest $request;
+    private CreateTelephoneRequest $request;
     private array $type = array('Fixo', 'Celular');
 
-    private function request(): TelephoneRequest
+    private function request(): CreateTelephoneRequest
     {
         $rand_keys = array_rand($this->type);
-        $this->request = new TelephoneRequest();
+        $this->request = new CreateTelephoneRequest();
         $this->request['telephones'] = [
-            "numero" => str_replace('-', "", '9' . rand(1000, 2000) . '-' . rand(1000, 2000)),
-            "tipo" => $this->type[$rand_keys],
-            "dddId" => DDD::query()->first()->id,
-            "usuarioId" => User::query()->first()->id,
-            "fornecedorId" => Fornecedor::query()->first()->id,
-            "ativo" => true,
+            'numero' => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'tipo' => $this->type[$rand_keys],
+            'dddId' => DDD::query()->first()->id,
+            'usuarioId' => User::query()->first()->id,
+            'fornecedorId' => Fornecedor::query()->first()->id,
+            'ativo' => true,
         ];
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'telefones' => 'required|array',
+            'telefones.*.numero' => 'required|string|Celular|unique:telefone,numero|min:10|max:10',
+            'telefones.*.tipo' => 'required|string',
+            'telefones.*.dddId' => 'required|int|exists:ddd,id',
+            'telefones.*.usuarioId' => 'int|exists:users,id',
+            'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
+            'telefones.*.ativo' => 'required|boolean',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void
@@ -76,7 +96,7 @@ class TelephoneRequestTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $this->request = new TelephoneRequest();
+        $this->request();
         $this->request['telephones'] = [
             "numero" => str_replace('-', "", '9' . rand(1000, 2000) . '-' . rand(1000, 2000)),
             "tipo" => $this->type[$rand_keys],

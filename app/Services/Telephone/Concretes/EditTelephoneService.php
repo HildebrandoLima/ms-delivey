@@ -2,9 +2,8 @@
 
 namespace App\Services\Telephone\Concretes;
 
-use App\Http\Requests\TelephoneRequest;
+use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -14,39 +13,31 @@ use App\Support\Enums\TelephoneEnum;
 
 class EditTelephoneService extends ValidationPermission implements EditTelephoneServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private TelephoneRepositoryInterface   $telephoneRepository;
+    private TelephoneRepositoryInterface $telephoneRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        TelephoneRepositoryInterface    $telephoneRepository
-    )
+    public function __construct(TelephoneRepositoryInterface $telephoneRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->telephoneRepository   = $telephoneRepository;
+        $this->telephoneRepository = $telephoneRepository;
     }
 
-    public function editTelephone(int $id, TelephoneRequest $request): bool
+    public function editTelephone(EditTelephoneRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_TELEFONE);
-        foreach ($request->telefones as $telefone):
-            $this->checkEntityRepository->checkTelephoneIdExist($id);
-            $telephone = $this->map($telefone);
-            $this->telephoneRepository->update($id, $telephone);
-        endforeach;
+        $telephone = $this->map($request);
+        $this->telephoneRepository->update($telephone);
         return true;
     }
 
-    private function map(array $telefone): Telefone
+    private function map(EditTelephoneRequest $request): Telefone
     {
         $telephone = new Telefone();
-        $telephone->numero = str_replace('-', "", $telefone['numero']);
-        $telephone->tipo = TelephoneCase::typeCase($telefone['tipo']);
-        $telephone->ddd_id = $telefone['dddId'];
-        $telephone->usuario_id = $telefone['usuarioId'] ?? null;
-        $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
-        $telefone['ativo'] == true ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
+        $telephone->id = $request->id;
+        $telephone->numero = $request->numero;
+        $telephone->tipo = TelephoneCase::typeCase($request->tipo);
+        $telephone->ddd_id = $request->dddId;
+        $telephone->usuario_id = $request->usuarioId ?? null;
+        $telephone->fornecedor_id = $request->fornecedorId ?? null;
+        $request->ativo == true ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
         return $telephone;
     }
 }

@@ -26,9 +26,9 @@ class TelephoneRepository implements TelephoneRepositoryInterface
         return true;
     }
 
-    public function update(int $id, Telefone $telefone): bool
+    public function update(Telefone $telefone): bool
     {
-        return Telefone::query()->where('id', '=', $id)->update($telefone->toArray());
+        return Telefone::query()->where('id', '=', $telefone->id)->update($telefone->toArray());
     }
 
     public function getDDDAll(): Collection
