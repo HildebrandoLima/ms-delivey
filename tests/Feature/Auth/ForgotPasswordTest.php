@@ -14,7 +14,7 @@ class ForgotPasswordTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'hkohler@yahoo.com'
+            'email' => $this->emailVerifiedAt()
         ];
 
         // Act
@@ -32,7 +32,7 @@ class ForgotPasswordTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => ''
+            'email' => null
         ];
 
         // Act

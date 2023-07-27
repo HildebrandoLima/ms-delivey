@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\User;
 use App\Support\Enums\UserEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -45,6 +46,11 @@ abstract class TestCase extends BaseTestCase
             'email' => 'cliente@gmail.com',
             'password' => '@PClient5'
         ];
+    }
+
+    public function emailVerifiedAt(): string
+    {
+        return User::query()->whereNull('email_verified_at')->first()->email;
     }
 
     public function httpStatusCode(TestResponse $response): int

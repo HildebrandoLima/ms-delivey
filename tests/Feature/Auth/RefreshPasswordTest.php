@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\PasswordReset;
+use App\Support\Generate\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Str;
@@ -17,8 +18,9 @@ class RefreshPasswordTest extends TestCase
         // Arrange
         $reset = PasswordReset::query()->first()->toArray();
         $data = [
+            'token' => $reset['token'],
             'codigo' => $reset['codigo'],
-            'senha' => 'HiLd3br@ndo'
+            'senha' => GeneratePassword::generatePassword()
         ];
 
         // Act
@@ -35,10 +37,9 @@ class RefreshPasswordTest extends TestCase
     public function it_endpoint_post_refresh_password_base_response_400(): void
     {
         // Arrange
-        $reset = PasswordReset::query()->first()->toArray();
         $data = [
-            'codigo' => $reset['codigo'],
-            'password' => 'HiLd3br@ndo'
+            'codigo' => null,
+            'password' => GeneratePassword::generatePassword()
         ];
 
         // Act

@@ -33,7 +33,7 @@ class LoginTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'cliente@gmail.com',
+            'email' => null,
             'password' => '@PClient5'
         ];
 
@@ -53,7 +53,7 @@ class LoginTest extends TestCase
         // Arrange
         $data = [
             'email' => 'cliente@gmail.com',
-            'password' => '@PClient5'
+            'password' => '@Client'
         ];
 
         // Act
@@ -71,8 +71,8 @@ class LoginTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => 'cliente@gmail.com',
-            'password' => '@PClient5'
+            'email' => $this->emailVerifiedAt(),
+            'password' => null
         ];
 
         // Act
