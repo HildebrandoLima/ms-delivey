@@ -9,7 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class ProductRequestTest extends TestCase
+class CreateProductRequestTest extends TestCase
 {
     private CreateProductRequest $request;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
@@ -37,6 +37,31 @@ class ProductRequestTest extends TestCase
         $this->request['imagens'] = $this->images;
         $this->request['ativo'] = true;
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'nome' => 'required|string|unique:produto,nome',
+            'precoCusto' => 'required|between:0,99.99',
+            'precoVenda' => 'required|between:0,99.99',
+            'codigoBarra' => 'required|string|min:13|max:13|unique:produto,codigo_barra',
+            'descricao' => 'required|string',
+            'quantidade' => 'required|int',
+            'unidadeMedida' => 'required|string',
+            'dataValidade' => 'required|date',
+            'categoriaId' => 'required|int|exists:categoria,id',
+            'fornecedorId' => 'required|int|exists:fornecedor,id',
+            'ativo' => 'required|boolean',
+            'imagens' => 'required|array',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void

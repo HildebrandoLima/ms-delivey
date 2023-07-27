@@ -23,8 +23,8 @@ class CreateProductRequest extends BaseRequest
             'quantidade' => 'required|int',
             'unidadeMedida' => 'required|string',
             'dataValidade' => 'required|date',
-            'categoriaId' => 'int|exists:categoria,id',
-            'fornecedorId' => 'int|exists:fornecedor,id',
+            'categoriaId' => 'required|int|exists:categoria,id',
+            'fornecedorId' => 'required|int|exists:fornecedor,id',
             'ativo' => 'required|boolean',
             'imagens' => 'required|array',
         ];

@@ -23,6 +23,26 @@ class CreatePaymentRequestTest extends TestCase
         return $this->request;
     }
 
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'numeroCartao' => 'string|min:14|max:19',
+            'dataValidade' => 'date',
+            'parcela' => 'int',
+            'total' => 'between:0,99.99',
+            'metodoPagamentoId' => 'required|int|exists:metodo_pagamento,id',
+            'pedidoId' => 'required|int|exists:pedido,id',
+            'ativo' => 'required|boolean',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
+    }
+
     public function test_request_required(): void
     {
         // Arrange
