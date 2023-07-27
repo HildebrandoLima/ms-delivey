@@ -2,18 +2,18 @@
 
 namespace Tests\Unit\Requests\Order;
 
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Produto;
 use App\Models\User;
 use Tests\TestCase;
 
-class OrderRequestTest extends TestCase
+class CreateOrderRequestTest extends TestCase
 {
-    private OrderRequest $request;
+    private CreateOrderRequest $request;
     private int $count = 3;
     private float $total = 0;
 
-    private function request(): OrderRequest
+    private function request(): CreateOrderRequest
     {
         $products = Produto::query()->limit($this->count)->get()->toArray();
         $data['itens'] = [];
@@ -32,7 +32,7 @@ class OrderRequestTest extends TestCase
             array_push($data['itens'], $item);
         endforeach;
 
-        $this->request = new OrderRequest();
+        $this->request = new CreateOrderRequest();
         $this->request['quantidadeItens'] = $this->count;
         $this->request['total'] = $this->total;
         $this->request['entrega'] = 3.5;
@@ -40,6 +40,33 @@ class OrderRequestTest extends TestCase
         $this->request['ativo'] = true;
         $this->request['itens'] = $data['itens'];
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'quantidadeItens' => 'required|int',
+            'total' => 'required|between:0,99.99',
+            'entrega' => 'required|between:0,99.99',
+            'usuarioId' => 'int|exists:users,id',
+            'ativo' => 'required|boolean',
+            'itens' => 'required|array',
+            'itens.*.nome' => 'required|string',
+            'itens.*.preco' => 'required|between:0,99.99',
+            'itens.*.codigoBarra' => 'required|string|max:13|min:13',
+            'itens.*.quantidadeItem' => 'required|int',
+            'itens.*.subTotal' => 'required|between:0,99.99',
+            'itens.*.unidadeMedida' => 'required|string',
+            'itens.*.produtoId' => 'required|int|exists:produto,id',
+            'itens.*.ativo' => 'required|boolean',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void

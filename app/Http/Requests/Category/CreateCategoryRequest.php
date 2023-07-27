@@ -5,7 +5,7 @@ namespace App\Http\Requests\Category;
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class CategoryRequest extends BaseRequest
+class CreateCategoryRequest extends BaseRequest
 {
     public function authorize(): bool
     {

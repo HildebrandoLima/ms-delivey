@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Requests\Address;
 
-use App\Http\Requests\Address\AddressRequest;
+use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Fornecedor;
 use App\Models\UnidadeFederativa;
 use App\Models\User;
@@ -10,15 +10,15 @@ use Illuminate\Support\Str;
 use LaravelLegends\PtBrValidator\Rules\FormatoCep;
 use Tests\TestCase;
 
-class AddressRequestTest extends TestCase
+class CreateAddressRequestTest extends TestCase
 {
-    private AddressRequest $request;
+    private CreateAddressRequest $request;
     private array $public_place = array('Rua', 'Avenida');
 
-    private function request(): AddressRequest
+    private function request(): CreateAddressRequest
     {
         $rand_keys = array_rand($this->public_place);
-        $this->request = new AddressRequest();
+        $this->request = new CreateAddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['descricao'] = Str::random(10);
         $this->request['bairro'] = Str::random(10);

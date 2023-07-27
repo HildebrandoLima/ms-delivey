@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\Address\AddressRequest;
+use App\Http\Requests\Address\CreateAddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Http\Requests\Address\ParamsAddressRequest;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
@@ -45,7 +45,7 @@ class AddressController extends Controller
         }
     }
 
-    public function store(AddressRequest $request): Response
+    public function store(CreateAddressRequest $request): Response
     {
         try {
             $success = $this->createAddressService->createAddress($request);

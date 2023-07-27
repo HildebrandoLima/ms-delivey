@@ -2,17 +2,17 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Http\Requests\Payment\PaymentRequest;
+use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pedido;
 use Tests\TestCase;
 
-class PaymentRequestTest extends TestCase
+class CreatePaymentRequestTest extends TestCase
 {
-    private PaymentRequest $request;
+    private CreatePaymentRequest $request;
 
-    private function request(): PaymentRequest
+    private function request(): CreatePaymentRequest
     {
-        $this->request = new PaymentRequest();
+        $this->request = new CreatePaymentRequest();
         $this->request['numeroCartao'] = rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200);
         $this->request['dataValidade'] =  date('Y-m-d H:i:s');
         $this->request['parcela'] = rand(0, 2);
@@ -21,6 +21,26 @@ class PaymentRequestTest extends TestCase
         $this->request['pedidoId'] = Pedido::factory()->createOne()->id;
         $this->request['ativo'] = true;
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'numeroCartao' => 'string|min:14|max:19',
+            'dataValidade' => 'date',
+            'parcela' => 'int',
+            'total' => 'between:0,99.99',
+            'metodoPagamentoId' => 'required|int|exists:metodo_pagamento,id',
+            'pedidoId' => 'required|int|exists:pedido,id',
+            'ativo' => 'required|boolean',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void
@@ -68,7 +88,7 @@ class PaymentRequestTest extends TestCase
     public function test_request_absence_mask(): void
     {
         // Arrange
-        $this->request = new PaymentRequest();
+        $this->request();
         $this->request['numeroCartao'] = str_replace(' ', "", rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200));
 
         // Act
@@ -84,7 +104,7 @@ class PaymentRequestTest extends TestCase
     {
         // Arrange
         Pedido::factory()->createOne();
-        $this->request = new PaymentRequest();
+        $this->request();
         $this->request['pedidoId'] = Pedido::query()->first()->id;
 
         // Act

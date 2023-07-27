@@ -2,7 +2,7 @@
 
 namespace App\Services\Address\Concretes;
 
-use App\Http\Requests\Address\AddressRequest;
+use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
@@ -18,13 +18,13 @@ class CreateAddressService implements CreateAddressServiceInterface
         $this->addressRepository = $addressRepository;
     }
 
-    public function createAddress(AddressRequest $request): bool
+    public function createAddress(CreateAddressRequest $request): bool
     {
         $address = $this->map($request);
         return $this->addressRepository->create($address);
     }
 
-    private function map(AddressRequest $request): Endereco
+    private function map(CreateAddressRequest $request): Endereco
     {
         $address = new Endereco();
         $address->logradouro = AddressCase::publicPlaceCase($request->logradouro);

@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Http\Requests\Product\ParamsProductRequest;
-use App\Http\Requests\Product\ProductRequest;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Services\Product\Interfaces\DeleteProductServiceInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\BaseDecode;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,7 +67,7 @@ class ProductController extends Controller
         }
     }
 
-    public function store(ProductRequest $request): Response
+    public function store(CreateProductRequest $request): Response
     {
         try {
             $success = $this->createProductService->createProduct($request);

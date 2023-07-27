@@ -2,9 +2,9 @@
 
 namespace App\Services\Order\Interfaces;
 
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 
 interface CreateOrderServiceInterface
 {
-    public function createOrder(OrderRequest $request): bool;
+    public function createOrder(CreateOrderRequest $request): bool;
 }

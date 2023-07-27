@@ -2,7 +2,7 @@
 
 namespace App\Services\Order\Concretes;
 
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Models\Item;
 use App\Models\Pedido;
@@ -29,7 +29,7 @@ class CreateOrderService extends ValidationPermission implements CreateOrderServ
         $this->itemRepository  = $itemRepository;
     }
 
-    public function createOrder(OrderRequest $request): bool
+    public function createOrder(CreateOrderRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::CRIAR_PEDIDO);
         $order = $this->mapOrder($request);
@@ -39,7 +39,7 @@ class CreateOrderService extends ValidationPermission implements CreateOrderServ
         return true;
     }
 
-    private function mapOrder(OrderRequest $request): Pedido
+    private function mapOrder(CreateOrderRequest $request): Pedido
     {
         $order = new Pedido();
         $order->numero_pedido = random_int(100000000, 999999999);
@@ -51,7 +51,7 @@ class CreateOrderService extends ValidationPermission implements CreateOrderServ
         return $order;
     }
 
-    public function createItem(OrderRequest $request, int $orderId): bool
+    public function createItem(CreateOrderRequest $request, int $orderId): bool
     {
         foreach ($request->itens as $item):
             $items = $this->mapItem($item, $orderId);

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Provider;
 
-use App\Http\Requests\Product\ProductRequest;
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use App\Models\Imagem;
@@ -18,7 +18,7 @@ use Tests\TestCase;
 
 class CreateProductServiceTest extends TestCase
 {
-    private ProductRequest $request;
+    private CreateProductRequest $request;
     private ProductRepositoryInterface $productRepository;
     private ImageRepositoryInterface $imageRepository;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
@@ -32,7 +32,7 @@ class CreateProductServiceTest extends TestCase
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
         ];
-        $this->request = new ProductRequest();
+        $this->request = new CreateProductRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['precoCusto'] = 15.30;
         $this->request['precoVenda'] = 20.0;

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Product;
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class ProductRequest extends BaseRequest
+class CreateProductRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -23,8 +23,8 @@ class ProductRequest extends BaseRequest
             'quantidade' => 'required|int',
             'unidadeMedida' => 'required|string',
             'dataValidade' => 'required|date',
-            'categoriaId' => 'int|exists:categoria,id',
-            'fornecedorId' => 'int|exists:fornecedor,id',
+            'categoriaId' => 'required|int|exists:categoria,id',
+            'fornecedorId' => 'required|int|exists:fornecedor,id',
             'ativo' => 'required|boolean',
             'imagens' => 'required|array',
         ];

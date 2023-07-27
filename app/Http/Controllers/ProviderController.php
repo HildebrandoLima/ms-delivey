@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
@@ -11,7 +10,6 @@ use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
-use App\Support\Utils\Params\BaseDecode;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;

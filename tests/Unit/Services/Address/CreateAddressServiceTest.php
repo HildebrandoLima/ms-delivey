@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Address;
 
-use App\Http\Requests\Address\AddressRequest;
+use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\User;
@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 class CreateAddressServiceTest extends TestCase
 {
-    private AddressRequest $request;
+    private CreateAddressRequest $request;
     private AddressRepositoryInterface $addressRepository;
     private array $public_place = array('Rua', 'Avenida');
 
@@ -22,7 +22,7 @@ class CreateAddressServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->public_place);
-        $this->request = new AddressRequest();
+        $this->request = new CreateAddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['bairro'] = Str::random(10);
         $this->request['cidade'] = Str::random(10);
@@ -49,7 +49,7 @@ class CreateAddressServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->public_place);
-        $this->request = new AddressRequest();
+        $this->request = new CreateAddressRequest();
         $this->request['logradouro'] = $this->public_place[$rand_keys];
         $this->request['bairro'] = Str::random(10);
         $this->request['cidade'] = Str::random(10);

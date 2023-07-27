@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Concretes\CreateCategoryService;
@@ -13,13 +13,13 @@ use Tests\TestCase;
 
 class CreateCategoryServiceTest extends TestCase
 {
-    private CategoryRequest $request;
+    private CreateCategoryRequest $request;
     private CategoryRepositoryInterface $categoryRepository;
 
     public function test_success_create_category_service(): void
     {
         // Arrange
-        $this->request = new CategoryRequest();
+        $this->request = new CreateCategoryRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['ativo'] = true;
 
