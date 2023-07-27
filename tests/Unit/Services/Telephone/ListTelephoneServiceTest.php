@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Services\Telephone;
 
-use App\Models\DDD;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Concretes\ListTelephoneService;
 use Mockery\MockInterface;
@@ -15,7 +14,7 @@ class ListTelephoneServiceTest extends TestCase
     public function test_success_list_telephone_ddd_service(): void
     {
         // Arrange
-        $expectedResult = DDD::query()->get();
+        $expectedResult = collect([]);
 
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
             function (MockInterface $mock) use ($expectedResult) {
@@ -23,15 +22,11 @@ class ListTelephoneServiceTest extends TestCase
         });
 
         // Act
-        $listTelephoneService = new ListTelephoneService
-        (
-            $this->telephoneRepository
-        );
+        $listTelephoneService = new ListTelephoneService($this->telephoneRepository);
 
         $result = $listTelephoneService->listDDDAll();
 
         // Assert
         $this->assertSame($result, $expectedResult);
-        $this->assertEquals(23, count($result->toArray()));
     }
 }

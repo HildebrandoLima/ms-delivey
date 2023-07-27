@@ -2,11 +2,8 @@
 
 namespace Tests\Unit\Services\Telephone;
 
-use App\Http\Requests\TelephoneRequest;
-use App\Models\Fornecedor;
+use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
-use App\Models\User;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Concretes\EditTelephoneService;
 use App\Support\Enums\PerfilEnum;
@@ -15,28 +12,22 @@ use Tests\TestCase;
 
 class EditTelephoneServiceTest extends TestCase
 {
-    private TelephoneRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private EditTelephoneRequest $request;
     private TelephoneRepositoryInterface $telephoneRepository;
     private array $type = array('Fixo', 'Celular');
-    private int $id;
 
     public function test_success_edit_telephone_with_params_user_id_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $this->id = rand(1, 100);
-        $this->request = new TelephoneRequest();
-        $this->request['telefones'] = [
-            [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(1, 23),
-                "cep" => rand(10000, 20000) . '-' . rand(100, 200),
-                "usuarioId" => User::query()->first()->id,
-                "ativo" => true,
-            ]
-        ];
+        $this->request = new EditTelephoneRequest();
+        $this->request['id'] = rand(1, 100);
+        $this->request['numero'] = '9' . rand(1000, 2000) . '-' . rand(1000, 2000);
+        $this->request['tipo'] = $this->type[$rand_keys];
+        $this->request['dddId'] = rand(1, 23);
+        $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
+        $this->request['usuarioId'] = rand(1, 100);
+        $this->request['ativo'] = true;
 
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -44,24 +35,15 @@ class EditTelephoneServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('checkTelephoneIdExist')->with($this->id);
-        });
-
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with($this->id, Telefone::class)->andReturn(true);
+                $mock->shouldReceive('update')->with(Telefone::class)->andReturn(true);
         });
 
         // Act
-        $editTelephoneService = new EditTelephoneService
-        (
-            $this->checkEntityRepository,
-            $this->telephoneRepository
-        );
+        $editTelephoneService = new EditTelephoneService($this->telephoneRepository);
 
-        $result = $editTelephoneService->editTelephone($this->id, $this->request);
+        $result = $editTelephoneService->editTelephone($this->request);
 
         // Assert
         $this->assertTrue($result);
@@ -71,18 +53,14 @@ class EditTelephoneServiceTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $this->id = rand(1, 100);
-        $this->request = new TelephoneRequest();
-        $this->request['telefones'] = [
-            [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(1, 23),
-                "cep" => rand(10000, 20000) . '-' . rand(100, 200),
-                "fornecedorId" => Fornecedor::query()->first()->id,
-                "ativo" => true,
-            ]
-        ];
+        $this->request = new EditTelephoneRequest();
+        $this->request['id'] = rand(1, 100);
+        $this->request['numero'] = '9' . rand(1000, 2000) . '-' . rand(1000, 2000);
+        $this->request['tipo'] = $this->type[$rand_keys];
+        $this->request['dddId'] = rand(1, 23);
+        $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
+        $this->request['fornecedorId'] = rand(1, 100);
+        $this->request['ativo'] = true;
 
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -90,24 +68,15 @@ class EditTelephoneServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('checkTelephoneIdExist')->with($this->id);
-        });
-
         $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with($this->id, Telefone::class)->andReturn(true);
+                $mock->shouldReceive('update')->with(Telefone::class)->andReturn(true);
         });
 
         // Act
-        $editTelephoneService = new EditTelephoneService
-        (
-            $this->checkEntityRepository,
-            $this->telephoneRepository
-        );
+        $editTelephoneService = new EditTelephoneService($this->telephoneRepository);
 
-        $result = $editTelephoneService->editTelephone($this->id, $this->request);
+        $result = $editTelephoneService->editTelephone($this->request);
 
         // Assert
         $this->assertTrue($result);
