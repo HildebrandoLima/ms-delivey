@@ -2,9 +2,9 @@
 
 namespace App\Services\Category\Interfaces;
 
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
 
 interface CreateCategoryServiceInterface
 {
-    public function createCategory(CategoryRequest $request): bool;
+    public function createCategory(CreateCategoryRequest $request): bool;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Concretes;
 
-use App\Http\Requests\Product\ProductRequest;
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
@@ -31,7 +31,7 @@ class CreateProductService extends ValidationPermission implements CreateProduct
         $this->imageRepository   = $imageRepository;
     }
 
-    public function createProduct(ProductRequest $request): bool
+    public function createProduct(CreateProductRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
         $product = $this->mapProduct($request);
@@ -40,7 +40,7 @@ class CreateProductService extends ValidationPermission implements CreateProduct
         return true;
     }
 
-    private function mapProduct(ProductRequest $request): Produto
+    private function mapProduct(CreateProductRequest $request): Produto
     {
         $product = new Produto();
         $product->nome = $request->nome;
@@ -58,7 +58,7 @@ class CreateProductService extends ValidationPermission implements CreateProduct
         return $product;
     }
 
-    private function createImage(ProductRequest $request, int $productId): bool
+    private function createImage(CreateProductRequest $request, int $productId): bool
     {
         //$images = $request->file('imagens');
         $images = $request['imagens'];

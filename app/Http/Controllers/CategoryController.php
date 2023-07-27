@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\Category\ParamsCategoryRequest;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
@@ -78,7 +78,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function store(CategoryRequest $request): Response
+    public function store(CreateCategoryRequest $request): Response
     {
         try {
             $success = $this->createCategoryService->createCategory($request);

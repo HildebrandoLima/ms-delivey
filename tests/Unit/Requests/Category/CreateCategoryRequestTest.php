@@ -2,17 +2,17 @@
 
 namespace Tests\Unit\Requests\Category;
 
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CategoryRequestTest extends TestCase
 {
-    private CategoryRequest $request;
+    private CreateCategoryRequest $request;
 
-    private function request(): CategoryRequest
+    private function request(): CreateCategoryRequest
     {
-        $this->request = new CategoryRequest();
+        $this->request = new CreateCategoryRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['ativo'] = true;
         return $this->request;

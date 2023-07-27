@@ -5,7 +5,7 @@ namespace App\Http\Requests\Order;
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class OrderRequest extends BaseRequest
+class CreateOrderRequest extends BaseRequest
 {
     public function authorize(): bool
     {

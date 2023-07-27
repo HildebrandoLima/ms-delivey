@@ -6,7 +6,7 @@ use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use LaravelLegends\PtBrValidator\Rules\FormatoCep;
 
-class AddressRequest extends BaseRequest
+class CreateAddressRequest extends BaseRequest
 {
     public function authorize(): bool
     {

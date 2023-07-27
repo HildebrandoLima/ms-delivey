@@ -2,7 +2,7 @@
 
 namespace App\Services\Category\Concretes;
 
-use App\Http\Requests\Category\CategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
@@ -19,14 +19,14 @@ class CreateCategoryService extends ValidationPermission implements CreateCatego
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function createCategory(CategoryRequest $request): bool
+    public function createCategory(CreateCategoryRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::CRIAR_CATEGORIA);
         $category = $this->map($request);
         return $this->categoryRepository->create($category);
     }
 
-    private function map(CategoryRequest $request): Categoria
+    private function map(CreateCategoryRequest $request): Categoria
     {
         $category = new Categoria();
         $category->nome = $request->nome;

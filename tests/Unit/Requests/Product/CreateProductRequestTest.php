@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Http\Requests\Product\ProductRequest;
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use Illuminate\Http\UploadedFile;
@@ -11,19 +11,19 @@ use Tests\TestCase;
 
 class ProductRequestTest extends TestCase
 {
-    private ProductRequest $request;
+    private CreateProductRequest $request;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
     private array $images = [];
 
-    private function request(): ProductRequest
+    private function request(): CreateProductRequest
     {
-        $this->request = new ProductRequest();
+        $this->request = new CreateProductRequest();
         $rand_keys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
         ];
-        $this->request = new ProductRequest();
+        $this->request = new CreateProductRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['precoCusto'] = 15.30;
         $this->request['precoVenda'] = 20.0;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Http\Requests\User\ParamsUserRequest;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
@@ -64,7 +64,7 @@ class OrderController extends Controller
         }
     }
 
-    public function store(OrderRequest $request): Response
+    public function store(CreateOrderRequest $request): Response
     {
         try {
             $success = $this->createOrderService->createOrder($request);

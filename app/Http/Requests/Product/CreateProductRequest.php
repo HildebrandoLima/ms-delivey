@@ -5,7 +5,7 @@ namespace App\Http\Requests\Product;
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class ProductRequest extends BaseRequest
+class CreateProductRequest extends BaseRequest
 {
     public function authorize(): bool
     {

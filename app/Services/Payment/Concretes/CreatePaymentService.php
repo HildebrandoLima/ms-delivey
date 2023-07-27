@@ -2,7 +2,7 @@
 
 namespace App\Services\Payment\Concretes;
 
-use App\Http\Requests\Payment\PaymentRequest;
+use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
@@ -19,14 +19,14 @@ class CreatePaymentService extends ValidationPermission implements CreatePayment
         $this->paymentRepository = $paymentRepository;
     }
 
-    public function createPayment(PaymentRequest $request): bool
+    public function createPayment(CreatePaymentRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::CRIAR_PAGAMENTO);
         $payment = $this->map($request);
         return $this->paymentRepository->create($payment);
     }
 
-    private function map(PaymentRequest $request): Pagamento
+    private function map(CreatePaymentRequest $request): Pagamento
     {
         $payment = new Pagamento();
         $payment->codigo_transacao = random_int(100000000, 999999999);

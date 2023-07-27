@@ -2,18 +2,18 @@
 
 namespace Tests\Unit\Requests\Order;
 
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Produto;
 use App\Models\User;
 use Tests\TestCase;
 
-class OrderRequestTest extends TestCase
+class CreateOrderRequestTest extends TestCase
 {
-    private OrderRequest $request;
+    private CreateOrderRequest $request;
     private int $count = 3;
     private float $total = 0;
 
-    private function request(): OrderRequest
+    private function request(): CreateOrderRequest
     {
         $products = Produto::query()->limit($this->count)->get()->toArray();
         $data['itens'] = [];
@@ -32,7 +32,7 @@ class OrderRequestTest extends TestCase
             array_push($data['itens'], $item);
         endforeach;
 
-        $this->request = new OrderRequest();
+        $this->request = new CreateOrderRequest();
         $this->request['quantidadeItens'] = $this->count;
         $this->request['total'] = $this->total;
         $this->request['entrega'] = 3.5;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\Payment\PaymentRequest;
+use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +16,7 @@ class PaymentController extends Controller
         $this->createPaymentService = $createPaymentService;
     }
 
-    public function store(PaymentRequest $request): Response
+    public function store(CreatePaymentRequest $request): Response
     {
         try {
             $success = $this->createPaymentService->createPayment($request);

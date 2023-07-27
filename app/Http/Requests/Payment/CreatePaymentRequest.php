@@ -5,7 +5,7 @@ namespace App\Http\Requests\Payment;
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class PaymentRequest extends BaseRequest
+class CreatePaymentRequest extends BaseRequest
 {
     public function authorize(): bool
     {

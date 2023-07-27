@@ -2,9 +2,9 @@
 
 namespace App\Services\Product\Interfaces;
 
-use App\Http\Requests\Product\ProductRequest;
+use App\Http\Requests\Product\CreateProductRequest;
 
 interface CreateProductServiceInterface
 {
-    public function createProduct(ProductRequest $request): bool;
+    public function createProduct(CreateProductRequest $request): bool;
 }

@@ -2,9 +2,9 @@
 
 namespace App\Services\Address\Interfaces;
 
-use App\Http\Requests\Address\AddressRequest;
+use App\Http\Requests\Address\CreateAddressRequest;
 
 interface CreateAddressServiceInterface
 {
-    public function createAddress(AddressRequest $request): bool;
+    public function createAddress(CreateAddressRequest $request): bool;
 }
