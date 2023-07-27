@@ -16,7 +16,7 @@ class EditTelephoneRequest extends BaseRequest
     {
         return [
             'id' => 'required|int|exists:telefone,id',
-            'numero' => 'required|string|Celular|unique:telefone,numero|min:10|max:10',
+            'numero' => 'required|string|Celular|min:10|max:10',
             'tipo' => 'required|string',
             'dddId' => 'required|int|exists:ddd,id',
             'usuarioId' => 'int|exists:users,id',
@@ -28,8 +28,6 @@ class EditTelephoneRequest extends BaseRequest
     public function messages(): array
     {
         return [
-            'telefones.*.numero.unique' => DefaultErrorMessages::ALREADY_EXISTING,
-
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'dddId.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
