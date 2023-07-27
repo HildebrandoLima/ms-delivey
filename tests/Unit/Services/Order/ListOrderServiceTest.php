@@ -6,14 +6,12 @@ use App\DataTransferObjects\MappersDtos\OrderMapperDto;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Concretes\ListOrderService;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ListOrderServiceTest extends TestCase
 {
     private OrderRepositoryInterface $orderRepository;
-    private Pagination $pagination;
     private int $id;
     private bool $active;
     private string $search;
@@ -29,22 +27,19 @@ class ListOrderServiceTest extends TestCase
         $this->id = $authenticate['userId'];
         $this->active = true;
         $this->search = '';
-        $this->pagination = new Pagination();
-        $this->pagination['page'] = 1;
-        $this->pagination['perPage'] = 10;
 
         $expectedResult = $this->paginationList();
 
         $this->orderRepository = $this->mock(OrderRepositoryInterface::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->pagination, $this->search, $this->id, $this->active)
+                $mock->shouldReceive('getAll')->with($this->search, $this->id, $this->active)
                 ->andReturn($expectedResult);
         });
 
         // Act
         $listOrderService = new ListOrderService($this->orderRepository);
 
-        $result = $listOrderService->listOrderAll($this->pagination, $this->search, $this->id, $this->active);
+        $result = $listOrderService->listOrderAll($this->search, $this->id, $this->active);
 
         // Assert
         $this->assertSame($result, $expectedResult);
