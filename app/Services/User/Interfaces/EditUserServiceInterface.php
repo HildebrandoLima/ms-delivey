@@ -2,9 +2,9 @@
 
 namespace App\Services\User\Interfaces;
 
-use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\User\UserEditRequest;
 
 interface EditUserServiceInterface
 {
-    public function editUser(int $id, UserEditRequest $request): bool;
+    public function editUser(UserEditRequest $request): bool;
 }

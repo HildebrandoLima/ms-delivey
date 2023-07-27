@@ -107,7 +107,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/email-verified/save', [UserController::class, 'emailVerifiedAt'])->name('user.email.verified');
         Route::get('/list', [UserController::class, 'index'])->name('user.list.all')->middleware('jwt-authenticated');
         Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find')->middleware('jwt-authenticated');
-        Route::put('/edit/{id}', [UserController::class, 'update'])->name('user.edit')->middleware('jwt-authenticated');
+        Route::put('/edit', [UserController::class, 'update'])->name('user.edit')->middleware('jwt-authenticated');
         Route::post('/save', [UserController::class, 'store'])->name('user.save');
         Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable')->middleware('jwt-authenticated');
     });
