@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\CreateUserRequest;
 use App\Models\User;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\CreateUserService;
 use App\Support\Generate\GenerateCPF;
@@ -17,8 +16,7 @@ use Tests\TestCase;
 
 class CreateUserServiceTest extends TestCase
 {
-    private UserRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private CreateUserRequest $request;
     private UserRepositoryInterface $userRepository;
     private CreatePermissions $createPermissions;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
@@ -29,7 +27,7 @@ class CreateUserServiceTest extends TestCase
         // Arrange
         $rand_keys = array_rand($this->gender);
         $this->id = rand(1, 100);
-        $this->request = new UserRequest();
+        $this->request = new CreateUserRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['cpf'] = GenerateCPF::generateCPF();
         $this->request['email'] = GenerateEmail::generateEmail();
@@ -38,11 +36,6 @@ class CreateUserServiceTest extends TestCase
         $this->request['genero'] = $this->gender[$rand_keys];
         $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
         $this->request['ativo'] = true;
-
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('checkUserExist')->with($this->request);
-        });
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
             function (MockInterface $mock) {
@@ -59,7 +52,6 @@ class CreateUserServiceTest extends TestCase
         // Act
         $createUserService = new CreateUserService
         (
-            $this->checkEntityRepository,
             $this->userRepository,
             $this->createPermissions
         );
