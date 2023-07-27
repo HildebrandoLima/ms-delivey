@@ -6,6 +6,6 @@ use Illuminate\Support\Collection;
 
 interface ListUserServiceInterface
 {
-    public function listUserAll(int $active): Collection;
-    public function listUserFind(int $id, string $search, int $active): Collection;
+    public function listUserAll(string $search, bool $active): Collection;
+    public function listUserFind(int $id, bool $active): Collection;
 }

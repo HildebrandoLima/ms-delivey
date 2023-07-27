@@ -2,7 +2,6 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -11,29 +10,22 @@ use Illuminate\Support\Collection;
 
 class ListUserService extends ValidationPermission implements ListUserServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private UserRepositoryInterface        $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        UserRepositoryInterface        $userRepository,
-    )
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->userRepository        = $userRepository;
+        $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(int $active): Collection
+    public function listUserAll(string $search, bool $active): Collection
     {
         $this->validationPermission(PermissionEnum::LISTAR_USUARIOS);
-        return $this->userRepository->getAll($active);
+        return $this->userRepository->getAll($search, $active);
     }
 
-    public function listUserFind(int $id, string $search, int $active): Collection
+    public function listUserFind(int $id, bool $active): Collection
     {
         $this->validationPermission(PermissionEnum::LISTAR_DETALHES_USUARIO);
-        if ($id != 0) $this->checkEntityRepository->checkUserIdExist($id);
-        return $this->userRepository->getOne($id, $search, $active);
+        return $this->userRepository->getOne($id, $active);
     }
 }

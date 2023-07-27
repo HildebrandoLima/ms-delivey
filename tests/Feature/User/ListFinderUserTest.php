@@ -15,13 +15,17 @@ class ListFinderUserTest extends TestCase
     public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $data = User::factory()->createOne()->toArray();
+        $user = User::factory()->createOne()->toArray();
+        $data = [
+            'id' => $user['id'],
+            'active' => true,
+        ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+        ])->getJson(route('user.list.find', $data));
 
         // Assert
         $response->assertOk();
@@ -35,13 +39,17 @@ class ListFinderUserTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $data = User::factory()->createOne()->toArray();
+        $user = User::factory()->createOne()->toArray();
+        $data = [
+            'id' => $user['id'],
+            'active' => null,
+        ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.find', ['id' => base64_encode($data['id'])]));
+        ])->getJson(route('user.list.find', $data));
 
         // Assert
         $response->assertStatus(400);
@@ -55,10 +63,14 @@ class ListFinderUserTest extends TestCase
     public function it_endpoint_get_list_find_base_response_401(): void
     {
         // Arrange
-        $data = User::factory()->createOne()->toArray();
+        $user = User::factory()->createOne()->toArray();
+        $data = [
+            'id' => $user['id'],
+            'active' => true,
+        ];
 
         // Act
-        $response = $this->getJson(route('user.list.find', ['id' => base64_encode($data['id']), 'active' => 1]));
+        $response = $this->getJson(route('user.list.find', $data));
 
         // Assert
         $response->assertUnauthorized();

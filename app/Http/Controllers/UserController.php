@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\ParametersRequest;
-use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\User\EditUserRequest;
+use App\Http\Requests\User\ParamsUserRequest;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Services\User\Interfaces\DeleteUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
-use App\Support\Utils\Parameters\Search;
+use App\Support\Utils\Params\BaseDecode;
+use App\Support\Utils\Params\FilterByActive;
+use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -40,12 +41,13 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
     }
 
-    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserAll
             (
-                $filterByActive::filterByActive($request->active)
+                $search->search(request()),
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -54,14 +56,13 @@ class UserController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -70,7 +71,7 @@ class UserController extends Controller
         }
     }
 
-    public function store(UserRequest $request): Response
+    public function store(CreateUserRequest $request): Response
     {
         try {
             $success = $this->createUserService->createUser($request);
@@ -81,14 +82,10 @@ class UserController extends Controller
         }
     }
 
-    public function update(string $id, UserEditRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditUserRequest $request): Response
     {
         try {
-            $success = $this->editUserService->editUser
-            (
-                $baseDecode::baseDecode($id),
-                $request
-            );
+            $success = $this->editUserService->editUser($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -111,13 +108,13 @@ class UserController extends Controller
         }
     }
 
-    public function emailVerifiedAt(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function emailVerifiedAt(ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->emailUserVerifiedAtService->emailVerifiedAt
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return response()->json([

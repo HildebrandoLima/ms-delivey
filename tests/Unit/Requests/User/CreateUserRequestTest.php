@@ -1,23 +1,23 @@
 <?php
 
-namespace Tests\Unit\Requests;
+namespace Tests\Unit\Requests\User;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\CreateUserRequest;
 use App\Support\Generate\GenerateCPF;
 use App\Support\Generate\GenerateEmail;
 use App\Support\Generate\GeneratePassword;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class UserRequestTest extends TestCase
+class CreateUserRequestTest extends TestCase
 {
-    private UserRequest $request;
+    private CreateUserRequest $request;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
 
-    private function request(): UserRequest
+    private function request(): CreateUserRequest
     {
         $rand_keys = array_rand($this->gender);
-        $this->request = new UserRequest();
+        $this->request = new CreateUserRequest();
         $this->request['nome'] = Str::random(10);
         $this->request['cpf'] = GenerateCPF::generateCPF();
         $this->request['email'] = GenerateEmail::generateEmail();
@@ -27,6 +27,27 @@ class UserRequestTest extends TestCase
         $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
         $this->request['ativo'] = true;
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'nome' => 'required|string|unique:users,name',
+            'cpf' => 'required|string|cpf|unique:users,cpf|min:14|max:14',
+            'email' => 'required|string|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
+            'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
+            'dataNascimento' => 'required|date',
+            'genero' => 'required|string',
+            'perfil' => 'required|boolean',
+            'ativo' => 'required|boolean',
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void
@@ -86,7 +107,7 @@ class UserRequestTest extends TestCase
         // Arrange
         $dominio = array('@gmail.com', '@outlook.com', '@business.com.br');
         $rand_keys = array_rand($dominio);
-        $this->request = new UserRequest();
+        $this->request();
         $this->request['cpf'] = str_replace(array('.','-','/'), "", GenerateCPF::generateCPF());
         $this->request['email'] = Str::random(10);
 
@@ -107,7 +128,7 @@ class UserRequestTest extends TestCase
     public function test_request_invalid_password(): void
     {
         // Arrange
-        $this->request = new UserRequest();
+        $this->request();
         $this->request['senha'] = GeneratePassword::generatePassword();
 
         // Act
