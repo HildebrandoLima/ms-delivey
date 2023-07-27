@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\UserEditRequest;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
@@ -11,9 +11,9 @@ use App\Services\User\Interfaces\DeleteUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
-use App\Support\Utils\Parameters\Search;
+use App\Support\Utils\Params\BaseDecode;
+use App\Support\Utils\Params\FilterByActive;
+use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -70,7 +70,7 @@ class UserController extends Controller
         }
     }
 
-    public function store(UserRequest $request): Response
+    public function store(CreateUserRequest $request): Response
     {
         try {
             $success = $this->createUserService->createUser($request);
