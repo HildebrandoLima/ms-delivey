@@ -4,5 +4,5 @@ namespace App\Services\Telephone\Interfaces;
 
 interface DeleteTelephoneServiceInterface
 {
-    public function deleteTelephone(int $id, int $active): bool;
+    public function deleteTelephone(int $id, bool $active): bool;
 }

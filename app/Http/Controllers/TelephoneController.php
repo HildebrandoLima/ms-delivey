@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\Telephone\ParamsTelephoneRequest;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
-use App\Support\Utils\Params\BaseDecode;
 use App\Support\Utils\Params\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -68,13 +67,13 @@ class TelephoneController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsTelephoneRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->deleteTelephoneService->deleteTelephone
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::delete();
