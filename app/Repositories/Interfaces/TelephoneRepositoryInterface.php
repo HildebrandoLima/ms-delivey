@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 interface TelephoneRepositoryInterface
 {
-    public function enableDisable(int $id, int $active): bool;
+    public function enableDisable(int $id, bool $active): bool;
     public function create(Telefone $telefone): bool;
     public function update(int $id, Telefone $telefone): bool;
     public function getDDDAll(): Collection;

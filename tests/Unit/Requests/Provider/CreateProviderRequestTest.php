@@ -2,25 +2,47 @@
 
 namespace Tests\Unit\Requests;
 
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Support\Generate\GenerateCNPJ;
 use App\Support\Generate\GenerateEmail;
 use Illuminate\Support\Str;
+use LaravelLegends\PtBrValidator\Rules\Cnpj;
 use Tests\TestCase;
 
-class ProviderRequestTest extends TestCase
+class CreateProviderRequestTest extends TestCase
 {
-    private ProviderRequest $request;
+    private CreateProviderRequest $request;
 
-    private function request(): ProviderRequest
+    private function request(): CreateProviderRequest
     {
-        $this->request = new ProviderRequest();
+        $this->request = new CreateProviderRequest();
         $this->request['razaoSocial'] = Str::random(10);
         $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['dataFundacao'] = date('Y-m-d H:i:s');
         $this->request['ativo'] = true;
         return $this->request;
+    }
+
+    public function test_request_validation_rules(): void
+    {
+        // Arrange
+        $this->request();
+
+        // Act
+        $data = [
+            'razaoSocial' => 'required|string|unique:fornecedor,razao_social',
+            'cnpj' => [
+                0 => 'required',
+                1 => new Cnpj(),
+            ],
+            'email' => 'required|string|unique:fornecedor,email|regex:/(.+)@(.+)\.(.+)/i',
+            'dataFundacao' => 'required|date',
+            'ativo' => 'required|boolean'
+        ];
+
+        // Assert
+        $this->assertEquals($data, $this->request()->rules());
     }
 
     public function test_request_required(): void
@@ -68,7 +90,7 @@ class ProviderRequestTest extends TestCase
         // Arrange
         $dominio = array('@gmail.com', '@outlook.com', '@business.com.br');
         $rand_keys = array_rand($dominio);
-        $this->request = new ProviderRequest();
+        $this->request = new CreateProviderRequest();
         $this->request['cnpj'] = str_replace(array('.','-','/'), "", GenerateCNPJ::generateCNPJ());
         $this->request['email'] = Str::random(10);
 

@@ -10,7 +10,7 @@ class ProviderMapperDto
     {
         return ProviderDto::construction()
         ->setFornecedorId($provider['id'] ?? 0)
-        ->setRazaoSocial($provider['razaoSocial'] ?? '')
+        ->setRazaoSocial($provider['razao_social'] ?? '')
         ->setCnpj($provider['cnpj'] ?? '')
         ->setEmail($provider['email'] ?? '')
         ->setEnderecos($provider['endereco'] ?? [])

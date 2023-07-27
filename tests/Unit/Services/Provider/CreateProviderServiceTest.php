@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Services\Provider;
 
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Models\Fornecedor;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Concretes\CreateProviderService;
 use App\Support\Generate\GenerateCNPJ;
@@ -16,8 +15,7 @@ use Tests\TestCase;
 
 class CreateProviderServiceTest extends TestCase
 {
-    private ProviderRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
+    private CreateProviderRequest $request;
     private ProviderRepositoryInterface $providerRepository;
     private int $id;
 
@@ -25,7 +23,7 @@ class CreateProviderServiceTest extends TestCase
     {
         // Arrange
         $this->id = rand(1, 100);
-        $this->request = new ProviderRequest();
+        $this->request = new CreateProviderRequest();
         $this->request['razaoSocial'] = Str::random(10);
         $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
         $this->request['email'] = GenerateEmail::generateEmail();
@@ -38,22 +36,13 @@ class CreateProviderServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('checkProviderExist')->with($this->request);
-        });
-
         $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
         function (MockInterface $mock) {
             $mock->shouldReceive('create')->with(Fornecedor::class)->andReturn($this->id);
         });
 
         // Act
-        $createProviderService = new CreateProviderService
-        (
-            $this->checkEntityRepository,
-            $this->providerRepository
-        );
+        $createProviderService = new CreateProviderService($this->providerRepository);
 
         $result = $createProviderService->createProvider($this->request);
 

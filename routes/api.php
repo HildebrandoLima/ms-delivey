@@ -89,7 +89,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::prefix('provider')->group(function () {
         Route::get('/list', [ProviderController::class, 'index'])->name('provider.list.all')->middleware('jwt-authenticated');
         Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find')->middleware('jwt-authenticated');
-        Route::put('/edit/{id}', [ProviderController::class, 'update'])->name('provider.edit')->middleware('jwt-authenticated');
+        Route::put('/edit', [ProviderController::class, 'update'])->name('provider.edit')->middleware('jwt-authenticated');
         Route::post('/save', [ProviderController::class, 'store'])->name('provider.save')->middleware('jwt-authenticated');
         Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.enable.disable')->middleware('jwt-authenticated');
     });

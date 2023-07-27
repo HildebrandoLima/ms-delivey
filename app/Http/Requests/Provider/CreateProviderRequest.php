@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Provider;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use LaravelLegends\PtBrValidator\Rules\Cnpj;
 
-class ProviderRequest extends BaseRequest
+class CreateProviderRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -15,17 +16,21 @@ class ProviderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'razaoSocial' => 'required|string',
+            'razaoSocial' => 'required|string|unique:fornecedor,razao_social',
             'cnpj' => ['required', new Cnpj()],
-            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
+            'email' => 'required|string|unique:fornecedor,email|regex:/(.+)@(.+)\.(.+)/i',
             'dataFundacao' => 'required|date',
             'ativo' => 'required|boolean'
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
+            'razaoSocial.unique' => DefaultErrorMessages::ALREADY_EXISTING,
+            'cnpj.unique' => DefaultErrorMessages::ALREADY_EXISTING,
+            'email.unique' => DefaultErrorMessages::ALREADY_EXISTING,
+
             'razaoSocial.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cnpj.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,

@@ -2,9 +2,8 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -13,34 +12,27 @@ use App\Support\Enums\ProviderEnum;
 
 class EditProviderService extends ValidationPermission implements EditProviderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private ProviderRepositoryInterface    $providerRepository;
+    private ProviderRepositoryInterface $providerRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        ProviderRepositoryInterface    $providerRepository,
-    )
+    public function __construct(ProviderRepositoryInterface $providerRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->providerRepository    = $providerRepository;
+        $this->providerRepository = $providerRepository;
     }
 
-    public function editProvider(int $id, ProviderRequest $request): bool
+    public function editProvider(EditProviderRequest $request): bool
     {
         $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
-        $this->checkEntityRepository->checkProviderIdExist($id);
         $provider = $this->map($request);
-        return $this->providerRepository->update($id, $provider);
+        return $this->providerRepository->update($provider);
     }
 
-    private function map(ProviderRequest $request): Fornecedor
+    private function map(EditProviderRequest $request): Fornecedor
     {
         $provider = new Fornecedor();
+        $provider->id = $request->id;
         $provider->razao_social = $request->razaoSocial;
         $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
         $provider->email = $request->email;
-        $provider->data_fundacao = $request->dataFundacao;
         $provider->ativo = ProviderEnum::ATIVADO;
         return $provider;
     }

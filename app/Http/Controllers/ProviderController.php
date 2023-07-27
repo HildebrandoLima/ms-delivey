@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\CreateProviderRequest;
+use App\Http\Requests\Provider\EditProviderRequest;
+use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
-use App\Support\Utils\Parameters\BaseDecode;
-use App\Support\Utils\Parameters\FilterByActive;
-use App\Support\Utils\Parameters\Search;
+use App\Support\Utils\Params\BaseDecode;
+use App\Support\Utils\Params\FilterByActive;
+use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller
@@ -35,12 +37,13 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(ParametersRequest $request, FilterByActive $filterByActive): Response
+    public function index(Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
             (
-                $filterByActive::filterByActive($request->active)
+                $search->search(request()),
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -49,14 +52,13 @@ class ProviderController extends Controller
         }
     }
 
-    public function show(ParametersRequest $request, BaseDecode $baseDecode, Search $search, FilterByActive $filterByActive): Response
+    public function show(ParamsProviderRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderFind
             (
-                $baseDecode::baseDecode($request->id ?? ''),
-                $search::search($request->search ?? ''),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::get($success);
@@ -65,7 +67,7 @@ class ProviderController extends Controller
         }
     }
 
-    public function store(ProviderRequest $request): Response
+    public function store(CreateProviderRequest $request): Response
     {
         try {
             $success = $this->createProviderService->createProvider($request);
@@ -76,14 +78,10 @@ class ProviderController extends Controller
         }
     }
 
-    public function update(string $id, ProviderRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditProviderRequest $request): Response
     {
         try {
-            $success = $this->editProviderService->editProvider
-            (
-                $baseDecode::baseDecode($id),
-                $request
-            );
+            $success = $this->editProviderService->editProvider($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {
@@ -91,13 +89,13 @@ class ProviderController extends Controller
         }
     }
 
-    public function enableDisable(ParametersRequest $request, BaseDecode $baseDecode, FilterByActive $filterByActive): Response
+    public function enableDisable(ParamsProviderRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->deleteProviderService->deleteProvider
             (
-                $baseDecode::baseDecode($request->id),
-                $filterByActive::filterByActive($request->active)
+                $request->id,
+                $filter->active
             );
             if (!$success) return Controller::error();
             return Controller::delete();

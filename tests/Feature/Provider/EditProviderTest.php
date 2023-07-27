@@ -17,18 +17,19 @@ class EditProviderTest extends TestCase
         // Arrange
         $provider = Fornecedor::query()->first()->toArray();
         $data = [
+            'id' => $provider['id'],
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => 0,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
+        ])->putJson(route('provider.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -44,18 +45,19 @@ class EditProviderTest extends TestCase
         // Arrange
         $provider = Fornecedor::query()->first()->toArray();
         $data = [
-            'razaoSocial' => '',
+            'id' => $provider['id'],
+            'razaoSocial' => null,
             'cnpj' => $provider['cnpj'],
-            'email' => '',
+            'email' => null,
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => 1,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
+        ])->putJson(route('provider.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -71,15 +73,16 @@ class EditProviderTest extends TestCase
         // Arrange
         $provider = Fornecedor::query()->first()->toArray();
         $data = [
+            'id' => $provider['id'],
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => 0,
+            'ativo' => true,
         ];
 
         // Act
-        $response = $this->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
+        $response = $this->putJson(route('provider.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -95,18 +98,19 @@ class EditProviderTest extends TestCase
         // Arrange
         $provider = Fornecedor::query()->first()->toArray();
         $data = [
+            'id' => $provider['id'],
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => 0,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('provider.edit', ['id' => base64_encode($provider['id'])]), $data);
+        ])->putJson(route('provider.edit'), $data);
 
         // Assert
         $response->assertForbidden();

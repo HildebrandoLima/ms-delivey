@@ -2,7 +2,6 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
 use App\Support\Permissions\ValidationPermission;
@@ -11,29 +10,22 @@ use Illuminate\Support\Collection;
 
 class ListProviderService extends ValidationPermission implements ListProviderServiceInterface
 {
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private ProviderRepositoryInterface    $providerRepository;
+    private ProviderRepositoryInterface $providerRepository;
 
-    public function __construct
-    (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        ProviderRepositoryInterface    $providerRepository,
-    )
+    public function __construct(ProviderRepositoryInterface $providerRepository)
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->providerRepository    = $providerRepository;
+        $this->providerRepository = $providerRepository;
     }
 
-    public function listProviderAll(int $active): Collection
+    public function listProviderAll(string $search, bool $active): Collection
     {
         $this->validationPermission(PermissionEnum::LISTAR_FORNECEDORES);
-        return $this->providerRepository->getAll($active);
+        return $this->providerRepository->getAll($search, $active);
     }
 
-    public function listProviderFind(int $id, string $search, int $active): Collection
+    public function listProviderFind(int $id, bool $active): Collection
     {
         $this->validationPermission(PermissionEnum::LISTAR_DETALHES_FORNECEDOR);
-        if ($id != 0) $this->checkEntityRepository->checkProviderIdExist($id);
-        return $this->providerRepository->getOne($id, $search, $active);
+        return $this->providerRepository->getOne($id, $active);
     }
 }

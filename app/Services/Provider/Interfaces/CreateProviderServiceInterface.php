@@ -2,9 +2,9 @@
 
 namespace App\Services\Provider\Interfaces;
 
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\CreateProviderRequest;
 
 interface CreateProviderServiceInterface
 {
-    public function createProvider(ProviderRequest $request): int;
+    public function createProvider(CreateProviderRequest $request): int;
 }

@@ -2,9 +2,9 @@
 
 namespace App\Services\Provider\Interfaces;
 
-use App\Http\Requests\ProviderRequest;
+use App\Http\Requests\Provider\EditProviderRequest;
 
 interface EditProviderServiceInterface
 {
-    public function editProvider(int $id, ProviderRequest $request): bool;
+    public function editProvider(EditProviderRequest $request): bool;
 }
