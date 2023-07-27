@@ -20,7 +20,8 @@ class EditUserRequestTest extends TestCase
         $this->request['nome'] = Str::random(10);
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['genero'] = $this->gender[$rand_keys];
-        $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
+        $this->request['perfil'] = (bool)rand(0, 1); // 0 client 1 admin
+        $this->request['ativo'] = true;
         return $this->request;
     }
 
@@ -35,6 +36,7 @@ class EditUserRequestTest extends TestCase
             'nome' => 'required|string',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'genero' => 'required|string',
+            'ativo' => 'required|boolean',
         ];
 
         // Assert
@@ -51,12 +53,14 @@ class EditUserRequestTest extends TestCase
         $resultEmail = isset($this->request['email']);
         $resultGender = isset($this->request['genero']);
         $resultProfile = isset($this->request['perfil']);
+        $resultActive = isset($this->request['ativo']);
 
         // Assert
         $this->assertTrue($resultName);
         $this->assertTrue($resultEmail);
         $this->assertTrue($resultGender);
         $this->assertTrue($resultProfile);
+        $this->assertTrue($resultActive);
     }
 
     public function test_request_type(): void
@@ -68,13 +72,15 @@ class EditUserRequestTest extends TestCase
         $resultName = is_string($this->request['nome']);
         $resultEmail = is_string($this->request['email']);
         $resultGender = is_string($this->request['genero']);
-        $resultProfile = is_int($this->request['perfil']);
+        $resultProfile = is_bool($this->request['perfil']);
+        $resultActive = is_bool($this->request['ativo']);
 
         // Assert
         $this->assertTrue($resultName);
         $this->assertTrue($resultEmail);
         $this->assertTrue($resultGender);
         $this->assertTrue($resultProfile);
+        $this->assertTrue($resultActive);
     }
 
     public function test_request_absence_mask(): void

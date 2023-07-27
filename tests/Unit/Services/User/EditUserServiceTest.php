@@ -27,6 +27,7 @@ class EditUserServiceTest extends TestCase
         $this->request['nome'] = Str::random(10);
         $this->request['email'] = GenerateEmail::generateEmail();
         $this->request['genero'] = $this->gender[$rand_keys];
+        $this->request['ativo'] = true;
 
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
