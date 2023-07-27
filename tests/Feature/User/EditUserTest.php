@@ -17,6 +17,7 @@ class EditUserTest extends TestCase
         // Arrange
         $user = User::query()->first()->toArray();
         $data = [
+            'id' => $user['id'],
             'nome' => $user['name'],
             'email' => $user['email'],
             'genero' => $user['genero'],
@@ -28,7 +29,7 @@ class EditUserTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('user.edit', ['id' => base64_encode($user['id'])]), $data);
+        ])->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -44,6 +45,7 @@ class EditUserTest extends TestCase
         // Arrange
         $user = User::query()->first()->toArray();
         $data = [
+            'id' => $user['id'],
             'nome' => $user['name'],
             'email' => '',
             'genero' => $user['genero'],
@@ -55,7 +57,7 @@ class EditUserTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('user.edit', ['id' => base64_encode($user['id'])]), $data);
+        ])->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -71,6 +73,7 @@ class EditUserTest extends TestCase
         // Arrange
         $user = User::query()->first()->toArray();
         $data = [
+            'id' => $user['id'],
             'nome' => $user['name'],
             'email' => $user['email'],
             'genero' => $user['genero'],
@@ -79,7 +82,7 @@ class EditUserTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('user.edit', ['id' => base64_encode($user['id'])]), $data);
+        $response = $this->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();

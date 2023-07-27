@@ -23,7 +23,28 @@ class ListAllUserTest extends TestCase
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));
+
+        // Assert
+        $response->assertOk();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->count, $this->countPaginateList($response));
+        $this->assertEquals($this->httpStatusCode($response), 200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_search_base_response_200(): void
+    {
+        // Arrange
+        $data = User::factory($this->count)->create()->toArray();
+
+        // Act
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => $data[0]['name'], 'active' => true]));
 
         // Assert
         $response->assertOk();
@@ -44,7 +65,7 @@ class ListAllUserTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10]));
+        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null]));
 
         // Assert
         $response->assertStatus(400);
@@ -61,7 +82,7 @@ class ListAllUserTest extends TestCase
         User::factory($this->count)->make()->toArray();
 
         // Act
-        $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'active' => 1]));
+        $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));
 
         // Assert
         $response->assertUnauthorized();

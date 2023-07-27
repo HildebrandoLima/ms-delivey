@@ -17,7 +17,7 @@ class EmailUserVerifiedAtTest extends TestCase
         $data = User::query()->first()->toArray();
 
         // Act
-        $response = $this->getJson(route('user.email.verified', ['id' => base64_encode($data['id']), 'active' => $data['ativo']]));
+        $response = $this->getJson(route('user.email.verified', ['id' => $data['id'], 'active' => $data['ativo']]));
 
         // Assert
         $response->assertOk();
@@ -34,7 +34,7 @@ class EmailUserVerifiedAtTest extends TestCase
         $data = User::query()->first()->toArray();
 
         // Act
-        $response = $this->getJson(route('user.email.verified', ['id' => base64_encode($data['id'])]));
+        $response = $this->getJson(route('user.email.verified', ['id' => $data['id']]));
 
         // Assert
         $response->assertStatus(400);
