@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
+use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
-use App\Http\Requests\Provider\ProviderRequest;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
@@ -67,7 +67,7 @@ class ProviderController extends Controller
         }
     }
 
-    public function store(ProviderRequest $request): Response
+    public function store(CreateProviderRequest $request): Response
     {
         try {
             $success = $this->createProviderService->createProvider($request);

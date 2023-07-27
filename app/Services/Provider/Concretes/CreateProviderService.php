@@ -2,7 +2,7 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\Http\Requests\Provider\ProviderRequest;
+use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
@@ -20,7 +20,7 @@ class CreateProviderService extends ValidationPermission implements CreateProvid
         $this->providerRepository = $providerRepository;
     }
 
-    public function createProvider(ProviderRequest $request): int
+    public function createProvider(CreateProviderRequest $request): int
     {
         $this->validationPermission(PermissionEnum::CRIAR_FORNECEDOR);
         $provider = $this->map($request);
@@ -29,7 +29,7 @@ class CreateProviderService extends ValidationPermission implements CreateProvid
         return $providerId;
     }
 
-    private function map(ProviderRequest $request): Fornecedor
+    private function map(CreateProviderRequest $request): Fornecedor
     {
         $provider = new Fornecedor();
         $provider->razao_social = $request->razaoSocial;

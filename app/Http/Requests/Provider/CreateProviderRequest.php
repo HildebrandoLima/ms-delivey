@@ -6,7 +6,7 @@ use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use LaravelLegends\PtBrValidator\Rules\Cnpj;
 
-class ProviderRequest extends BaseRequest
+class CreateProviderRequest extends BaseRequest
 {
     public function authorize(): bool
     {
