@@ -4,7 +4,6 @@ namespace App\Services\Order\Concretes;
 
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListOrderService implements ListOrderServiceInterface
@@ -16,9 +15,9 @@ class ListOrderService implements ListOrderServiceInterface
         $this->orderRepository = $orderRepository;
     }
 
-    public function listOrderAll(Pagination $pagination, string $search, int $id, bool $active): Collection
+    public function listOrderAll(string $search, int $id, bool $active): Collection
     {
-        return $this->orderRepository->getAll($pagination, $search, $id, $active);
+        return $this->orderRepository->getAll($search, $id, $active);
     }
 
     public function listOrderFind(int $id, bool $active): Collection

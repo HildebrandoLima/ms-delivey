@@ -5,7 +5,6 @@ namespace App\Repositories\Concretes;
 use App\DataTransferObjects\MappersDtos\OrderMapperDto;
 use App\Models\Pedido;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -22,7 +21,7 @@ class OrderRepository implements OrderRepositoryInterface
         return Pedido::query()->create($pedido->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
-    public function getAll(Pagination $pagination, string $search, int $id, bool $active): Collection
+    public function getAll(string $search, int $id, bool $active): Collection
     {
         $collection = $this->mapToQuery()->where('pedido.ativo', '=', $active)->orderByDesc('pedido.id')
         ->whereHas('usuario', function ($query) use ($id, $search) {
