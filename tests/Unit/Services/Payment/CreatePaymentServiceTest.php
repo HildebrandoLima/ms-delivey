@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Http\Requests\Payment\PaymentRequest;
+use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
 use App\Models\Pedido;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
@@ -13,13 +13,13 @@ use Tests\TestCase;
 
 class CreatePaymentServiceTest extends TestCase
 {
-    private PaymentRequest $request;
+    private CreatePaymentRequest $request;
     private PaymentRepositoryInterface $paymentRepository;
 
     public function test_success_create_payment_service(): void
     {
         // Arrange
-        $this->request = new PaymentRequest();
+        $this->request = new CreatePaymentRequest();
         $this->request['numeroCartao'] = rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200);
         $this->request['dataValidade'] =  date('Y-m-d H:i:s');
         $this->request['parcela'] = rand(0, 2);

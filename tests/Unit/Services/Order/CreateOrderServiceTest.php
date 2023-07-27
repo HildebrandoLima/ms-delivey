@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Order;
 
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 class CreateOrderServiceTest extends TestCase
 {
-    private OrderRequest $request;
+    private CreateOrderRequest $request;
     private OrderRepositoryInterface $orderRepository;
     private ItemRepositoryInterface $itemRepository;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
@@ -26,7 +26,7 @@ class CreateOrderServiceTest extends TestCase
         // Arrange
         $rand_keys = array_rand($this->unitMeasure);
         $this->id = rand(1, 100);
-        $this->request = new OrderRequest();
+        $this->request = new CreateOrderRequest();
         $this->request['quantidadeItens'] = 1;
         $this->request['total'] = rand(1, 100);
         $this->request['entrega'] = 3.5;
