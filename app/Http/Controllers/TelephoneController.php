@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\ParametersRequest;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
+use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
@@ -56,14 +57,10 @@ class TelephoneController extends Controller
         }
     }
 
-    public function update(string $id, TelephoneRequest $request, BaseDecode $baseDecode): Response
+    public function update(EditTelephoneRequest $request): Response
     {
         try {
-            $success = $this->editTelephoneService->editTelephone
-            (
-                $baseDecode::baseDecode($id),
-                $request
-            );
+            $success = $this->editTelephoneService->editTelephone($request);
             if (!$success) return Controller::error();
             return Controller::put();
         } catch(SystemDefaultException $e) {

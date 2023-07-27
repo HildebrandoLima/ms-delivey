@@ -2,9 +2,9 @@
 
 namespace App\Services\Telephone\Interfaces;
 
-use App\Http\Requests\TelephoneRequest;
+use App\Http\Requests\Telephone\EditTelephoneRequest;
 
 interface EditTelephoneServiceInterface
 {
-    public function editTelephone(int $id, TelephoneRequest $request): bool;
+    public function editTelephone(EditTelephoneRequest $request): bool;
 }
