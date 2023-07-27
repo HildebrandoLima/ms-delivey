@@ -3,12 +3,17 @@
 namespace App\Http\Requests\Product;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreateProductRequest extends BaseRequest
 {
+    use ValidationPermission;
+
     public function authorize(): bool
     {
+        $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
         return true;
     }
 

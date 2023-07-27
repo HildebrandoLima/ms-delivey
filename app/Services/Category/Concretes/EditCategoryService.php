@@ -6,11 +6,9 @@ use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Enums\CategoryEnum;
-use App\Support\Enums\PermissionEnum;
 
-class EditCategoryService extends ValidationPermission implements EditCategoryServiceInterface
+class EditCategoryService implements EditCategoryServiceInterface
 {
     private CategoryRepositoryInterface $categoryRepository;
 
@@ -21,7 +19,6 @@ class EditCategoryService extends ValidationPermission implements EditCategorySe
 
     public function editCategory(EditCategoryRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_CATEGORIA);
         $category = $this->map($request);
         return $this->categoryRepository->update($category);
     }

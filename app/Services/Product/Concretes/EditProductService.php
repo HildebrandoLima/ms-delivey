@@ -6,12 +6,10 @@ use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Produto;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Cases\ProductCase;
-use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\ProductEnum;
 
-class EditProductService extends ValidationPermission implements EditProductServiceInterface
+class EditProductService implements EditProductServiceInterface
 {
     private ProductRepositoryInterface     $productRepository;
 
@@ -22,7 +20,6 @@ class EditProductService extends ValidationPermission implements EditProductServ
 
     public function editProduct(EditProductRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_PRODUTO);
         $product = $this->map($request);
         return $this->productRepository->update($product);
     }

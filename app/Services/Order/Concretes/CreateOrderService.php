@@ -9,12 +9,10 @@ use App\Models\Pedido;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Enums\ItemEnum;
 use App\Support\Enums\OrderEnum;
-use App\Support\Enums\PermissionEnum;
 
-class CreateOrderService extends ValidationPermission implements CreateOrderServiceInterface
+class CreateOrderService implements CreateOrderServiceInterface
 {
     private OrderRepositoryInterface $orderRepository;
     private ItemRepositoryInterface  $itemRepository;
@@ -31,7 +29,6 @@ class CreateOrderService extends ValidationPermission implements CreateOrderServ
 
     public function createOrder(CreateOrderRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::CRIAR_PEDIDO);
         $order = $this->mapOrder($request);
         $orderId = $this->orderRepository->create($order);
         $createItem = $this->createItem($request, $orderId);

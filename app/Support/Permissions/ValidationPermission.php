@@ -6,7 +6,7 @@ use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class ValidationPermission
+trait ValidationPermission
 {
     public function validationPermission(string $permission): void
     {

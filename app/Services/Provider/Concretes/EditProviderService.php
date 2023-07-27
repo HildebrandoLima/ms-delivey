@@ -6,11 +6,9 @@ use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
-use App\Support\Permissions\ValidationPermission;
-use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\ProviderEnum;
 
-class EditProviderService extends ValidationPermission implements EditProviderServiceInterface
+class EditProviderService implements EditProviderServiceInterface
 {
     private ProviderRepositoryInterface $providerRepository;
 
@@ -21,7 +19,6 @@ class EditProviderService extends ValidationPermission implements EditProviderSe
 
     public function editProvider(EditProviderRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
         $provider = $this->map($request);
         return $this->providerRepository->update($provider);
     }

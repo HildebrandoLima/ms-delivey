@@ -6,6 +6,7 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
+use App\Http\Requests\Provider\PermissonProviderRequest;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
 use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
@@ -35,7 +36,7 @@ class ProviderController extends Controller
         $this->listProviderService      =   $listProviderService;
     }
 
-    public function index(Search $search, FilterByActive $filter): Response
+    public function index(PermissonProviderRequest $request, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll

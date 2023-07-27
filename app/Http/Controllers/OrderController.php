@@ -9,7 +9,6 @@ use App\Http\Requests\User\ParamsUserRequest;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,12 +31,11 @@ class OrderController extends Controller
         $this->listOrderService   = $listOrderService;
     }
 
-    public function index(Pagination $pagination, Search $search, ParamsUserRequest $request, FilterByActive $filter): Response
+    public function index(Search $search, ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
             $success = $this->listOrderService->listOrderAll
             (
-                $pagination,
                 $search->search(request()),
                 $request->id,
                 $filter->active

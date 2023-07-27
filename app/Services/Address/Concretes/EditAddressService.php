@@ -3,16 +3,13 @@
 namespace App\Services\Address\Concretes;
 
 use App\Http\Requests\Address\EditAddressRequest;
-use App\Http\Requests\AddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Cases\AddressCase;
 use App\Support\Enums\AddressEnum;
-use App\Support\Enums\PermissionEnum;
 
-class EditAddressService extends ValidationPermission implements EditAddressServiceInterface
+class EditAddressService implements EditAddressServiceInterface
 {
     private AddressRepositoryInterface $addressRepository;
 
@@ -23,7 +20,6 @@ class EditAddressService extends ValidationPermission implements EditAddressServ
 
     public function editAddress(EditAddressRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_ENDERECO);
         $address = $this->map($request);
         return $this->addressRepository->update($address);
     }
