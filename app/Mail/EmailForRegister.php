@@ -21,6 +21,6 @@ class EmailForRegister extends Mailable
         return $this
         ->from('delivery@gmail.com', 'Delivey')
         ->subject('DELIVERY')
-        ->view('mails.welcomeToRegister', ['url' => route('user.email.verified', ['id' => base64_encode($this->id), 'active' => 1])]);
+        ->view('mails.welcomeToRegister', ['url' => route('user.email.verified', ['id' => $this->id, 'active' => true])]);
     }
 }

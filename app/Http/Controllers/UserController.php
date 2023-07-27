@@ -108,12 +108,12 @@ class UserController extends Controller
         }
     }
 
-    public function emailVerifiedAt(ParamsUserRequest $request, FilterByActive $filter): Response
+    public function emailVerifiedAt(int $id, FilterByActive $filter): Response
     {
         try {
             $success = $this->emailUserVerifiedAtService->emailVerifiedAt
             (
-                $request->id,
+                $id,
                 $filter->active
             );
             if (!$success) return Controller::error();

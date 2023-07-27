@@ -3,13 +3,18 @@
 namespace App\Http\Requests\Provider;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use LaravelLegends\PtBrValidator\Rules\Cnpj;
 
 class EditProviderRequest extends BaseRequest
 {
+    use ValidationPermission;
+
     public function authorize(): bool
     {
+        $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
         return true;
     }
 

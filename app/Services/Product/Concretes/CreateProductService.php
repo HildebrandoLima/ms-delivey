@@ -8,15 +8,13 @@ use App\Models\Produto;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Cases\ProductCase;
 use App\Support\Enums\ImageEnum;
-use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\ProductEnum;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class CreateProductService extends ValidationPermission implements CreateProductServiceInterface
+class CreateProductService implements CreateProductServiceInterface
 {
     private ProductRepositoryInterface $productRepository;
     private ImageRepositoryInterface   $imageRepository;
@@ -33,7 +31,6 @@ class CreateProductService extends ValidationPermission implements CreateProduct
 
     public function createProduct(CreateProductRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
         $product = $this->mapProduct($request);
         $productId = $this->productRepository->create($product);
         $this->createImage($request, $productId);

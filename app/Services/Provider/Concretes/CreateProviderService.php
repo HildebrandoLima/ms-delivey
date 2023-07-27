@@ -7,11 +7,9 @@ use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
-use App\Support\Permissions\ValidationPermission;
-use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\ProviderEnum;
 
-class CreateProviderService extends ValidationPermission implements CreateProviderServiceInterface
+class CreateProviderService implements CreateProviderServiceInterface
 {
     private ProviderRepositoryInterface $providerRepository;
 
@@ -22,7 +20,6 @@ class CreateProviderService extends ValidationPermission implements CreateProvid
 
     public function createProvider(CreateProviderRequest $request): int
     {
-        $this->validationPermission(PermissionEnum::CRIAR_FORNECEDOR);
         $provider = $this->map($request);
         $providerId = $this->providerRepository->create($provider);
         if ($providerId) $this->dispatchJob($providerId, $request->email);

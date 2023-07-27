@@ -9,10 +9,8 @@ use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\DeleteUserServiceInterface;
-use App\Support\Permissions\ValidationPermission;
-use App\Support\Enums\PermissionEnum;
 
-class DeleteUserService extends ValidationPermission implements DeleteUserServiceInterface
+class DeleteUserService implements DeleteUserServiceInterface
 {
     private CheckEntityRepositoryInterface $checkEntityRepository;
     private AddressRepositoryInterface     $addressRepository;
@@ -41,7 +39,6 @@ class DeleteUserService extends ValidationPermission implements DeleteUserServic
 
     public function deleteUser(int $id, int $active): bool
     {
-        $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_USUARIO);
         $this->checkExists($id);
         if
         (

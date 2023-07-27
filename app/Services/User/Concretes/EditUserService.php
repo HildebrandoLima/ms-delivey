@@ -6,11 +6,9 @@ use App\Http\Requests\User\EditUserRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Cases\UserCase;
-use App\Support\Enums\PermissionEnum;
 
-class EditUserService extends ValidationPermission implements EditUserServiceInterface
+class EditUserService implements EditUserServiceInterface
 {
     private UserRepositoryInterface $userRepository;
 
@@ -21,7 +19,6 @@ class EditUserService extends ValidationPermission implements EditUserServiceInt
 
     public function editUser(EditUserRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
         $user = $this->map($request);
         return $this->userRepository->update($user);
     }

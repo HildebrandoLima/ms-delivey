@@ -6,12 +6,10 @@ use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Cases\TelephoneCase;
-use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\TelephoneEnum;
 
-class EditTelephoneService extends ValidationPermission implements EditTelephoneServiceInterface
+class EditTelephoneService implements EditTelephoneServiceInterface
 {
     private TelephoneRepositoryInterface $telephoneRepository;
 
@@ -22,7 +20,6 @@ class EditTelephoneService extends ValidationPermission implements EditTelephone
 
     public function editTelephone(EditTelephoneRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_TELEFONE);
         $telephone = $this->map($request);
         $this->telephoneRepository->update($telephone);
         return true;

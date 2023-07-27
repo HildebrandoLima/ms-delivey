@@ -6,11 +6,9 @@ use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Enums\CategoryEnum;
-use App\Support\Enums\PermissionEnum;
 
-class CreateCategoryService extends ValidationPermission implements CreateCategoryServiceInterface
+class CreateCategoryService implements CreateCategoryServiceInterface
 {
     private CategoryRepositoryInterface $categoryRepository;
 
@@ -21,7 +19,6 @@ class CreateCategoryService extends ValidationPermission implements CreateCatego
 
     public function createCategory(CreateCategoryRequest $request): bool
     {
-        $this->validationPermission(PermissionEnum::CRIAR_CATEGORIA);
         $category = $this->map($request);
         return $this->categoryRepository->create($category);
     }

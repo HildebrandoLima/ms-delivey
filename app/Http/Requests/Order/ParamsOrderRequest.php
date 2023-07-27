@@ -3,12 +3,17 @@
 namespace App\Http\Requests\Order;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class ParamsOrderRequest extends BaseRequest
 {
+    use ValidationPermission;
+
     public function authorize(): bool
     {
+        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_PEDIDO);
         return true;
     }
 

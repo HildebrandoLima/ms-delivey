@@ -3,12 +3,17 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class EditUserRequest extends BaseRequest
 {
+    use ValidationPermission;
+
     public function authorize(): bool
     {
+        $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
         return true;
     }
 

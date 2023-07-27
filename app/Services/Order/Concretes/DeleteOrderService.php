@@ -6,10 +6,8 @@ use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
-use App\Support\Permissions\ValidationPermission;
-use App\Support\Enums\PermissionEnum;
 
-class DeleteOrderService extends ValidationPermission implements DeleteOrderServiceInterface
+class DeleteOrderService implements DeleteOrderServiceInterface
 {
     private PaymentRepositoryInterface $paymentRepository;
     private ItemRepositoryInterface    $itemRepository;
@@ -29,7 +27,6 @@ class DeleteOrderService extends ValidationPermission implements DeleteOrderServ
 
     public function deleteOrder(int $id, bool $active): bool
     {
-        $this->validationPermission(PermissionEnum::HABILITAR_DESABILITAR_PEDIDO);
         if
         (
             $this->paymentRepository->enableDisable($id, $active) and

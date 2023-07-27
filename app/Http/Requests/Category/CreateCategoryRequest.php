@@ -3,12 +3,17 @@
 namespace App\Http\Requests\Category;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\PermissionEnum;
+use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreateCategoryRequest extends BaseRequest
 {
+    use ValidationPermission;
+
     public function authorize(): bool
     {
+        $this->validationPermission(PermissionEnum::CRIAR_CATEGORIA);
         return true;
     }
 
