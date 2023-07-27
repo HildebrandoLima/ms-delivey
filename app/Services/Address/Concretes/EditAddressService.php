@@ -36,7 +36,7 @@ class EditAddressService implements EditAddressServiceInterface
         $address->uf_id = $request->ufId;
         $address->usuario_id = $request->usuarioId;
         $address->fornecedor_id = $request->fornecedorId;
-        $request = true ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
+        $address->ativo = $request->ativo == true ? AddressEnum::ATIVADO : AddressEnum::DESATIVADO;
         return $address;
     }
 }

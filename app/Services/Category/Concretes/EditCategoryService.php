@@ -28,7 +28,7 @@ class EditCategoryService implements EditCategoryServiceInterface
         $category = new Categoria();
         $category->id = $request->id; 
         $category->nome = $request->nome;
-        $request->ativo == true ? $category->ativo = CategoryEnum::ATIVADO : $category->ativo = CategoryEnum::DESATIVADO;
+        $category->ativo = $request->ativo == true ? CategoryEnum::ATIVADO : CategoryEnum::DESATIVADO;
         return $category;
     }
 }

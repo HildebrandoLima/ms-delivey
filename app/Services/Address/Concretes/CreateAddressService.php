@@ -35,7 +35,7 @@ class CreateAddressService implements CreateAddressServiceInterface
         $address->uf_id = $request->ufId;
         $address->usuario_id = $request->usuarioId ?? null;
         $address->fornecedor_id = $request->fornecedorId ?? null;
-        $request = true ? $address->ativo = AddressEnum::ATIVADO : $address->ativo = AddressEnum::DESATIVADO;
+        $address->ativo = AddressEnum::ATIVADO;
         return $address;
     }
 }
