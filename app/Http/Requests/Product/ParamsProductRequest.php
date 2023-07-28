@@ -3,17 +3,12 @@
 namespace App\Http\Requests\Product;
 
 use App\Http\Requests\BaseRequest;
-use App\Support\Enums\PermissionEnum;
-use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class ParamsProductRequest extends BaseRequest
 {
-    use ValidationPermission;
-
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_PRODUTO);
         return true;
     }
 

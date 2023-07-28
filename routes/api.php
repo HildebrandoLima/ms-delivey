@@ -51,7 +51,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list');
         Route::put('/edit', [AddressController::class, 'update'])->name('address.edit')->middleware('jwt-authenticated');
         Route::post('/save', [AddressController::class, 'store'])->name('address.save');
-        Route::put('/enable/disable', [AddressController::class, 'enableDisable'])->name('address.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Categoria
@@ -60,7 +59,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list/find', [CategoryController::class, 'show'])->name('category.list.find')->middleware('jwt-authenticated');
         Route::put('/edit', [CategoryController::class, 'update'])->name('category.edit')->middleware('jwt-authenticated');
         Route::post('/save', [CategoryController::class, 'store'])->name('category.save')->middleware('jwt-authenticated');
-        Route::put('/enable/disable', [CategoryController::class, 'enableDisable'])->name('category.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Pedido
@@ -68,7 +66,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list', [OrderController::class, 'index'])->name('order.list.all')->middleware('jwt-authenticated');
         Route::get('/list/find', [OrderController::class, 'show'])->name('order.list.find')->middleware('jwt-authenticated');
         Route::post('/save', [OrderController::class, 'store'])->name('order.save')->middleware('jwt-authenticated');
-        Route::put('/enable/disable', [OrderController::class, 'enableDisable'])->name('order.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Pagamento
@@ -82,7 +79,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list/find', [ProductController::class, 'show'])->name('product.list.find');
         Route::put('/edit', [ProductController::class, 'update'])->name('product.edit')->middleware('jwt-authenticated');
         Route::post('/save', [ProductController::class, 'store'])->name('product.save')->middleware('jwt-authenticated');
-        Route::put('/enable/disable', [ProductController::class, 'enableDisable'])->name('product.enable.disable')->middleware('jwt-authenticated');
     });
 
     // Fornecedor
@@ -91,7 +87,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list/find', [ProviderController::class, 'show'])->name('provider.list.find')->middleware('jwt-authenticated');
         Route::put('/edit', [ProviderController::class, 'update'])->name('provider.edit')->middleware('jwt-authenticated');
         Route::post('/save', [ProviderController::class, 'store'])->name('provider.save')->middleware('jwt-authenticated');
-        Route::put('/enable/disable', [ProviderController::class, 'enableDisable'])->name('provider.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Telefone
@@ -99,7 +94,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list');
         Route::put('/edit', [TelephoneController::class, 'update'])->name('telephone.edit')->middleware('jwt-authenticated');
         Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
-        Route::put('/enable/disable', [TelephoneController::class, 'enableDisable'])->name('telephone.enable.disable')->middleware('jwt-authenticated');
     });
 
     //  Usuario
@@ -109,6 +103,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/list/find', [UserController::class, 'show'])->name('user.list.find')->middleware('jwt-authenticated');
         Route::put('/edit', [UserController::class, 'update'])->name('user.edit')->middleware('jwt-authenticated');
         Route::post('/save', [UserController::class, 'store'])->name('user.save');
-        Route::put('/enable/disable', [UserController::class, 'enableDisable'])->name('user.enable.disable')->middleware('jwt-authenticated');
     });
 //});
