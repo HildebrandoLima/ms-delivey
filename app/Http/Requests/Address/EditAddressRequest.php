@@ -6,7 +6,6 @@ use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
-use LaravelLegends\PtBrValidator\Rules\FormatoCep;
 
 class EditAddressRequest extends BaseRequest
 {
@@ -26,7 +25,7 @@ class EditAddressRequest extends BaseRequest
             'descricao' => 'required|string',
             'bairro' => 'required|string',
             'cidade' => 'required|string',
-            'cep' => ['required', new FormatoCep()],
+            'cep' => 'required|string|formato_cep|min:9|max:9',
             'ufId' => 'required|int|exists:unidade_federativa,id',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
@@ -41,6 +40,9 @@ class EditAddressRequest extends BaseRequest
             'ufId.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+
+            'cep.min' => DefaultErrorMessages::MIN_CHARACTERS,
+            'cep.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'logradouro.required' => DefaultErrorMessages::REQUIRED_FIELD,

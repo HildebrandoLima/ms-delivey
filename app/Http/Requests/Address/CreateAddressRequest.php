@@ -4,7 +4,6 @@ namespace App\Http\Requests\Address;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
-use LaravelLegends\PtBrValidator\Rules\FormatoCep;
 
 class CreateAddressRequest extends BaseRequest
 {
@@ -20,7 +19,7 @@ class CreateAddressRequest extends BaseRequest
             'descricao' => 'required|string',
             'bairro' => 'required|string',
             'cidade' => 'required|string',
-            'cep' => ['required', new FormatoCep()],
+            'cep' => 'required|string|formato_cep|min:9|max:9',
             'ufId' => 'required|int|exists:unidade_federativa,id',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
@@ -34,6 +33,9 @@ class CreateAddressRequest extends BaseRequest
             'ufId.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+
+            'cep.min' => DefaultErrorMessages::MIN_CHARACTERS,
+            'cep.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
             'logradouro.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'descricao.required' => DefaultErrorMessages::REQUIRED_FIELD,
