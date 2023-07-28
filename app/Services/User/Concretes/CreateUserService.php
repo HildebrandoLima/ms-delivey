@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface
 {
-    private UserRepositoryInterface        $userRepository;
-    private CreatePermissions              $createPermissions;
+    private UserRepositoryInterface $userRepository;
+    private CreatePermissions       $createPermissions;
 
     public function __construct
     (

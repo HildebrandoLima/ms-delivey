@@ -11,7 +11,7 @@ use App\Support\Enums\ProductEnum;
 
 class EditProductService implements EditProductServiceInterface
 {
-    private ProductRepositoryInterface     $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     public function __construct(ProductRepositoryInterface $productRepository)
     {
@@ -39,7 +39,7 @@ class EditProductService implements EditProductServiceInterface
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $request->ativo == true ? $product->ativo = ProductEnum::ATIVADO : $product->ativo = ProductEnum::DESATIVADO;
+        $product->ativo = $request->ativo == true ? ProductEnum::ATIVADO : ProductEnum::DESATIVADO;
         return $product;
     }
 }

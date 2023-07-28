@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Auth;
 
-use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Models\PasswordReset;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Services\Auth\Concretes\ForgotPasswordService;

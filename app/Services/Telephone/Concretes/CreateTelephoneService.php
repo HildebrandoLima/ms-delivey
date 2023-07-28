@@ -35,7 +35,7 @@ class CreateTelephoneService implements CreateTelephoneServiceInterface
         $telephone->ddd_id = $telefone['dddId'];
         $telephone->usuario_id = $telefone['usuarioId'] ?? null;
         $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
-        $telefone['ativo'] == true ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
+        $telephone->ativo = TelephoneEnum::ATIVADO;
         return $telephone;
     }
 }

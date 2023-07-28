@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\ForgotPasswordRequest;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RefreshPasswordRequest;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
 use App\Services\Auth\Interfaces\LoginServiceInterface;
 use App\Services\Auth\Interfaces\LogoutServiceInterface;
@@ -39,18 +39,18 @@ class AuthController extends Controller
             $success = $this->loginService->login($request);
             if (!isset ($success)):
                 return response()->json([
-                    "message" => "Error ao efetuar login!",
-                    "data" => false,
+                    "message" => "Error ao efetuar login.",
+                    "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
-                ]);
+                ],  Response::HTTP_UNAUTHORIZED);
             endif;
             return response()->json([
-                "message" => "Login efetuado com sucesso!",
+                "message" => "Login efetuado com sucesso.",
                 "data" => $success,
-                "status" => 200,
+                "status" =>  Response::HTTP_OK,
                 "details" => ""
-            ]);
+            ],  Response::HTTP_OK);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
@@ -62,11 +62,11 @@ class AuthController extends Controller
             $success = $this->logoutService->logout();
             if ($success):
                 return response()->json([
-                    "message" => "Logout efetuado com sucesso!",
-                    "data" => $success,
+                    "message" => "Logout efetuado com sucesso.",
+                    "data" => [],
                     "status" => 200,
                     "details" => ""
-                ]);
+                ], Response::HTTP_OK);
             endif;
         } catch(SystemDefaultException $e) {
             return $e->response();
@@ -79,41 +79,41 @@ class AuthController extends Controller
             $success = $this->forgotPasswordService->forgotPassword($request);
             if (!isset ($success)):
                 return response()->json([
-                    "message" => "Error ao efetuar solicitação de nova senha!",
-                    "data" => false,
+                    "message" => "Error ao efetuar solicitação de nova senha.",
+                    "data" => [],
                     "status" => Response::HTTP_BAD_REQUEST,
                     "details" => ""
-                ]);
+                ], Response::HTTP_BAD_REQUEST);
             endif;
             return response()->json([
-                "message" => "Solicitação de nova senha efetuada com sucesso!",
+                "message" => "Solicitação de nova senha efetuada com sucesso.",
                 "data" => $success,
                 "status" => 200,
                 "details" => ""
-            ]);
+            ], Response::HTTP_OK);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
     }
 
-    public function refreshPassword(RefreshPasswordRequest $request, string $token): Response
+    public function refreshPassword(RefreshPasswordRequest $request): Response
     {
         try {
-            $success = $this->refreshPasswordService->refreshPassword($request, $token);
+            $success = $this->refreshPasswordService->refreshPassword($request);
             if (!isset ($success)):
                 return response()->json([
-                    "message" => "Error ao modificar senha!",
-                    "data" => false,
+                    "message" => "Error ao modificar senha.",
+                    "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
-                ]);
+                ], Response::HTTP_UNAUTHORIZED);
             endif;
             return response()->json([
-                "message" => "Senha modificada com sucesso!",
+                "message" => "Senha modificada com sucesso.",
                 "data" => $success,
-                "status" => 200,
+                "status" => Response::HTTP_OK,
                 "details" => ""
-            ]);
+            ], Response::HTTP_OK);
         } catch(SystemDefaultException $e) {
             return $e->response();
         }

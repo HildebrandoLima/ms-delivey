@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth\Concretes;
 
-use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 use App\Models\PasswordReset;
 use App\Repositories\Interfaces\AuthRepositoryInterface;

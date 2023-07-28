@@ -34,7 +34,7 @@ class EditTelephoneService implements EditTelephoneServiceInterface
         $telephone->ddd_id = $request->dddId;
         $telephone->usuario_id = $request->usuarioId ?? null;
         $telephone->fornecedor_id = $request->fornecedorId ?? null;
-        $request->ativo == true ? $telephone->ativo = TelephoneEnum::ATIVADO : $telephone->ativo = TelephoneEnum::DESATIVADO;
+        $telephone->ativo = $request->ativo == true ? TelephoneEnum::ATIVADO : TelephoneEnum::DESATIVADO;
         return $telephone;
     }
 }

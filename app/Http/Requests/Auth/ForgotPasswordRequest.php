@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
+use App\Http\Requests\BaseRequest;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class ForgotPasswordRequest extends BaseRequest
@@ -18,7 +19,7 @@ class ForgotPasswordRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'email' => DefaultErrorMessages::INVALID_EMAIL,

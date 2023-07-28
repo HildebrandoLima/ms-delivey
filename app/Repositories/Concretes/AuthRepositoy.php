@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Concretes;
 
-use App\Http\Requests\RefreshPasswordRequest;
+use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Models\PasswordReset;
 use App\Models\PermissionUser;
 use App\Models\User;
@@ -35,7 +35,7 @@ class AuthRepositoy implements AuthRepositoryInterface
     {
         return User::query()
         ->join('password_resets as pr', 'pr.email', '=', 'users.email')
-        ->select('users.id')->where('pr.codigo', $codigo)
+        ->select('users.id')->where('pr.codigo', '=', $codigo)
         ->get()->toArray()[0]['id'];
     }
 

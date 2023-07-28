@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth\Interfaces;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Collection;
 
 interface LoginServiceInterface
