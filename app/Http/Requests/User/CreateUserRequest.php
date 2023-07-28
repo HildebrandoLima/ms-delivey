@@ -16,7 +16,7 @@ class CreateUserRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string|unique:users,name',
-            'cpf' => 'required|string|cpf|unique:users,cpf|min:14|max:14',
+            'cpf' => 'required|string|formato_cpf|unique:users,cpf|min:14|max:14',
             'email' => 'required|string|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',

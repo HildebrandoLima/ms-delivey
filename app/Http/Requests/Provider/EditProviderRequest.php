@@ -6,7 +6,6 @@ use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
-use LaravelLegends\PtBrValidator\Rules\Cnpj;
 
 class EditProviderRequest extends BaseRequest
 {
@@ -23,7 +22,7 @@ class EditProviderRequest extends BaseRequest
         return [
             'id' => 'required|int|exists:fornecedor,id',
             'razaoSocial' => 'required|string',
-            'cnpj' => ['required', new Cnpj()],
+            'cnpj' => 'required|string|formato_cnpj|unique:fornecedor,cnpj',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'ativo' => 'required|boolean'
         ];
