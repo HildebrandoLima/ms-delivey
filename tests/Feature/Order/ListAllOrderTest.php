@@ -20,7 +20,7 @@ class ListAllOrderTest extends TestCase
         // Arrange
         $user = User::query()->first()->id;
         Pedido::factory($this->count)->create(['usuario_id' => $user])->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -41,7 +41,7 @@ class ListAllOrderTest extends TestCase
         // Arrange
         $user = User::query()->first()->id;
         $order = Pedido::factory($this->count)->create(['usuario_id' => $user])->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -61,7 +61,7 @@ class ListAllOrderTest extends TestCase
     {
         // Arrange
         Pedido::factory($this->count)->create()->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
