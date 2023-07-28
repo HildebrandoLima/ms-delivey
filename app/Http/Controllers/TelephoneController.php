@@ -3,35 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
-use App\Http\Requests\Telephone\ParamsTelephoneRequest;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
-use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
-use App\Support\Utils\Params\FilterByActive;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller
 {
-    private CreateTelephoneServiceInterface  $createTelephoneService;
-    private DeleteTelephoneServiceInterface  $deleteTelephoneService;
-    private EditTelephoneServiceInterface    $editTelephoneService;
-    private ListTelephoneServiceInterface    $listTelephoneService;
+    private CreateTelephoneServiceInterface $createTelephoneService;
+    private EditTelephoneServiceInterface   $editTelephoneService;
+    private ListTelephoneServiceInterface   $listTelephoneService;
 
     public function __construct
     (
-        CreateTelephoneServiceInterface  $createTelephoneService,
-        DeleteTelephoneServiceInterface  $deleteTelephoneService,
-        EditTelephoneServiceInterface    $editTelephoneService,
-        ListTelephoneServiceInterface    $listTelephoneService
+        CreateTelephoneServiceInterface $createTelephoneService,
+        EditTelephoneServiceInterface   $editTelephoneService,
+        ListTelephoneServiceInterface   $listTelephoneService
     )
     {
-        $this->createTelephoneService   =   $createTelephoneService;
-        $this->deleteTelephoneService   =   $deleteTelephoneService;
-        $this->editTelephoneService     =   $editTelephoneService;
-        $this->listTelephoneService     =   $listTelephoneService;
+        $this->createTelephoneService = $createTelephoneService;
+        $this->editTelephoneService   = $editTelephoneService;
+        $this->listTelephoneService   = $listTelephoneService;
     }
 
     public function index(): Response
@@ -62,21 +56,6 @@ class TelephoneController extends Controller
             $success = $this->editTelephoneService->editTelephone($request);
             if (!$success) return Controller::error();
             return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
-        }
-    }
-
-    public function enableDisable(ParamsTelephoneRequest $request, FilterByActive $filter): Response
-    {
-        try {
-            $success = $this->deleteTelephoneService->deleteTelephone
-            (
-                $request->id,
-                $filter->active
-            );
-            if (!$success) return Controller::error();
-            return Controller::delete();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }

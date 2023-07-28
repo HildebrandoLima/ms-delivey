@@ -8,7 +8,6 @@ use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Http\Requests\Provider\PermissonProviderRequest;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
-use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
 use App\Support\Utils\Params\FilterByActive;
@@ -17,23 +16,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller
 {
-    private CreateProviderServiceInterface   $createProviderService;
-    private DeleteProviderServiceInterface   $deleteProviderService;
-    private EditProviderServiceInterface     $editProviderService;
-    private ListProviderServiceInterface     $listProviderService;
+    private CreateProviderServiceInterface $createProviderService;
+    private EditProviderServiceInterface   $editProviderService;
+    private ListProviderServiceInterface   $listProviderService;
 
     public function __construct
     (
-        CreateProviderServiceInterface   $createProviderService,
-        DeleteProviderServiceInterface   $deleteProviderService,
-        EditProviderServiceInterface     $editProviderService,
-        ListProviderServiceInterface     $listProviderService
+        CreateProviderServiceInterface $createProviderService,
+        EditProviderServiceInterface   $editProviderService,
+        ListProviderServiceInterface   $listProviderService
     )
     {
-        $this->createProviderService    =   $createProviderService;
-        $this->deleteProviderService    =   $deleteProviderService;
-        $this->editProviderService      =   $editProviderService;
-        $this->listProviderService      =   $listProviderService;
+        $this->createProviderService = $createProviderService;
+        $this->editProviderService   = $editProviderService;
+        $this->listProviderService   = $listProviderService;
     }
 
     public function index(PermissonProviderRequest $request, Search $search, FilterByActive $filter): Response
@@ -83,21 +79,6 @@ class ProviderController extends Controller
             $success = $this->editProviderService->editProvider($request);
             if (!$success) return Controller::error();
             return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
-        }
-    }
-
-    public function enableDisable(ParamsProviderRequest $request, FilterByActive $filter): Response
-    {
-        try {
-            $success = $this->deleteProviderService->deleteProvider
-            (
-                $request->id,
-                $filter->active
-            );
-            if (!$success) return Controller::error();
-            return Controller::delete();
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
