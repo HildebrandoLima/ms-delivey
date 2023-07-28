@@ -248,9 +248,9 @@ Seu servidor de email:
 |------|------------------------------------|
 | POST | /api/auth/logout                   |
 |------|------------------------------------|
-|GET   | /api/email-verified/save/{entity}  |
+|GET   | /api/email-verified/               |
 
-Atenção: A senha é validada como padrão de forte.
+Atenção: A senha é validada conforme o padrão abaixo:
 
 <li>8 caracteres no mínimo</li>
 <li>1 Letra Maiúscula no mínimo</li>
@@ -269,7 +269,7 @@ Atenção: A senha é validada como padrão de forte.
 ```
 {
     "email": "test@gmail.com",
-    "password": "Hild3br@nd0",
+    "password": "@sua_S3nh4$.",
 }
 ```
 
@@ -280,7 +280,7 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Login efetuado com sucesso!",
+    "message": "Login efetuado com sucesso.",
     "data": {
         "acessToken": token,
         "userId": id,
@@ -296,8 +296,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Logout efetuado com sucesso!",
-    "data": "true",
+    "message": "Logout efetuado com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -306,8 +306,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Solicitação de redefinação de senha efetuada com sucesso!",
-    "data": "true",
+    "message": "Solicitação de redefinação de senha efetuada com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -315,8 +315,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Mudança de senha efetuada com sucesso!",
-    "data": "true",
+    "message": "Mudança de senha efetuada com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -329,8 +329,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "E-mail inválido!",
-    "data": "",
+    "message": "E-mail inválido.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -338,8 +338,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Senha inválida!",
-    "data": "",
+    "message": "Senha inválida.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -347,8 +347,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Não foi possível modificar senha!",
-    "data": "",
+    "message": "Não foi possível modificar senha.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -356,8 +356,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Error ao logar!",
-    "data": "false",
+    "message": "Error ao logar.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -365,8 +365,8 @@ Atenção: A senha é validada como padrão de forte.
 
 ```
 {
-    "message": "Error ao solicitar mudança de senha!",
-    "data": "false",
+    "message": "Error ao solicitar mudança de senha.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -419,7 +419,7 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 ```
 {
-    "message": "Login efetuado com sucesso!",
+    "message": "Login efetuado com sucesso.",
     "data": {
         "acessToken": token,
         "userId": id,
@@ -435,8 +435,8 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 ```
 {
-    "message": "Logout efetuado com sucesso!",
-    "data": "true",
+    "message": "Logout efetuado com sucesso.",
+    "data": true,
     "status": 200,
     "details": ""
 }
@@ -450,8 +450,8 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 ```
 {
-    "message": "Por favor, faça login usando o Facebook, GitHub ou Google!",
-    "data": "",
+    "message": "Por favor, faça login usando o Facebook, GitHub ou Google.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -459,8 +459,8 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 
 ```
 {
-    "message": "Credenciais Inválidas!",
-    "data": "",
+    "message": "Credenciais Inválidas.",
+    "data": [],
     "status": 400,
     "details": ""
 }
@@ -487,8 +487,6 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 | PUT  | /api/user/edit                |
 |------|-------------------------------|
 | POST | /api/user/save                |
-|------|-------------------------------|
-|DELETE| /api/user/enable/disable      |
 
 Em perfil é verdadeiro para admin e false para cliente.
 
@@ -616,8 +614,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 | POST | /api/provider/save           |
 |------|------------------------------|
 | PUT  | /api/provider/edit           |
-|------|------------------------------|
-|DELETE| /api/provider/enable/disable |
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
@@ -727,8 +723,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 | POST | /api/address/edit           |
 |------|-----------------------------|
 | PUT  | /api/address/save           |
-|------|-----------------------------|
-|DELETE| /api/address/enable/disable |
 
 ### Body: POST
 ```
@@ -890,8 +884,6 @@ ou
 | POST | /api/telephone/save           |
 |------|-------------------------------|
 | PUT  | /api/telephone/edit           |
-|------|-------------------------------|
-|DELETE| /api/telephone/enable/disable |
 
 ### Body: POST/PUT
 ```
@@ -1040,8 +1032,6 @@ ou
 | POST | /api/category/save           |
 |------|------------------------------|
 | PUT  | /api/category/edit           |
-|------|------------------------------|
-|DELETE| /api/category/enable/disable |
 
 ### Body: POST
 ```
@@ -1162,9 +1152,7 @@ ou
 | POST | /api/product/save           |
 |------|-----------------------------|
 | PUT  | /api/product/edit           |
-|------|-----------------------------|
-|DELETE| /api/product/enable/disable |
-    
+
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
@@ -1305,8 +1293,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 | GET  | /api/order/list/find      |
 |------|---------------------------|
 | GET  | /api/order/save           |
-|------|---------------------------|
-|DELETE| /api/order/enable/disable |
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
