@@ -2,19 +2,16 @@
 
 namespace Tests\Unit\Services\Auth;
 
-use App\Http\Requests\LoginRequest;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\Concretes\LoginService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Generate\GenerateEmail;
 use App\Support\Generate\GeneratePassword;
-use Mockery\MockInterface;
 use Tests\TestCase;
 
 class LoginServiceTest extends TestCase
 {
     private LoginRequest $request;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
 
     public function test_success_login_service(): void
     {
@@ -25,13 +22,8 @@ class LoginServiceTest extends TestCase
 
         $expectedResult = $this->authenticate(PerfilEnum::ADMIN);
 
-        $this->checkEntityRepository = $this->mock(CheckEntityRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('checkFirstAccess')->with($this->request['email']);
-        });
-
         // Act
-        $loginService = new LoginService($this->checkEntityRepository);
+        $loginService = new LoginService();
 
         $result = $loginService->login($this->request);
 
