@@ -22,7 +22,7 @@ class EditProviderRequest extends BaseRequest
         return [
             'id' => 'required|int|exists:fornecedor,id',
             'razaoSocial' => 'required|string',
-            'cnpj' => 'required|string|formato_cnpj|unique:fornecedor,cnpj',
+            'cnpj' => 'required|string|formato_cnpj',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'ativo' => 'required|boolean'
         ];
