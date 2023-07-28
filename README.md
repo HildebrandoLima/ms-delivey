@@ -221,6 +221,19 @@ Seu servidor de email:
 </details>
 
 
+Para executar os testes e certificar que, está tudo ok, após preparar seu banco de dados, execute o comando abaixo:
+
+```
+    php artisan test
+```
+
+Se quiser executar apenas um teste, execute o comando abaixo
+
+
+```
+    php artisan test --filter=classeTest
+```
+
 
 ### API DOCUMENTAÇÃO
 
