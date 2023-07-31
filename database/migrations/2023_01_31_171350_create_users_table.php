@@ -15,17 +15,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('login_social_id')->unique()->nullable()->default(NULL);
-            $table->string('login_social')->unique()->nullable()->default(NULL);
-            $table->string('name', 50)->unique()->notnull();
-            $table->string('cpf', 11)->unique()->nullable()->default(NULL);
+            $table->string('nome', 50)->unique()->notnull();
+            $table->string('cpf', 11)->unique()->notnull();
             $table->string('email', 50)->unique()->notnull();
-            $table->string('password', 100)->unique()->nullable()->default(NULL);
-            $table->timestamp('data_nascimento')->nullable()->default(NULL);
+            $table->string('password', 100)->unique()->notnull();
+            $table->timestamp('data_nascimento')->notnull();
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
             $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->rememberToken();
-            $table->boolean('is_admin');
+            $table->boolean('e_admin');
             $table->boolean('ativo');
             $table->timestamps();
         });

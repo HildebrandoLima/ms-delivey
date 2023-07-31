@@ -2,11 +2,11 @@
 
 namespace App\Support\Enums;
 
-class UserEnum extends AtivoEnum
+enum UserEnum: string
 {
-    public const GENERO_MASCULINO = "Masculino";
-    public const GENERO_FEMININO = "Feminino";
-    public const GENERO_OUTRO = "Outro";
-    public const E_ADMIN = true;
-    public const NAO_E_ADMIN = false;
+    case GENERO_MASCULINO = 'Masculino';
+    case GENERO_FEMININO = 'Feminino';
+    case GENERO_OUTRO = 'Outro';
+    case E_ADMIN = 'true';
+    case NAO_E_ADMIN = 'false';
 }

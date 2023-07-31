@@ -8,8 +8,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Support\Permissions\CreatePermissions;
-use App\Support\Cases\UserCase;
-use App\Support\Enums\UserEnum;
+use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface
@@ -39,14 +38,14 @@ class CreateUserService implements CreateUserServiceInterface
     private function map(CreateUserRequest $request): User
     {
         $user = new User();
-        $user->name = $request->nome;
-        $user->cpf = str_replace(array('.','-','/'), "", $request->cpf);
+        $user->nome = $request->nome;
+        $user->cpf = $request->cpf;
         $user->email = $request->email;
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
-        $user->genero = UserCase::genderCase($request->genero);
-        $user->is_admin = $request->isAdmin;
-        $user->ativo = UserEnum::ATIVADO;
+        $user->genero = $request->genero;
+        $user->e_admin = $request->eAdmin;
+        $user->ativo = AtivoEnum::ATIVADO->value;
         return $user;
     }
 
