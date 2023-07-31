@@ -4,21 +4,12 @@ namespace App\Repositories\Concretes;
 
 use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Models\PasswordReset;
-use App\Models\PermissionUser;
 use App\Models\User;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
 class AuthRepositoy implements AuthRepositoryInterface
 {
-    public function create(int $id, int $permission): bool
-    {
-        return PermissionUser::query()->insert([
-            'user_id' => $id,
-            'permission_id' => $permission,
-        ]);
-    }
-
     public function forgotPassword(PasswordReset $passwordReset): bool
     {
         return PasswordReset::query()->insert($passwordReset->toArray());

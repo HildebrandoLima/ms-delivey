@@ -6,88 +6,61 @@ class PermissoesDb
 {
     public const PEMISSOES = [
         [
-            'description' => 'CRIAR ENDEREÇO'
-        ],
-        [
-            'description' => 'LISTAR UF'
-        ],
-        [
-            'description' => 'EDITAR ENDEREÇO'
-        ],
-        [
-            'description' => 'HABILITAR/DESABILITAR ENDEREÇO'
-        ],
-        [
             'description' => 'CRIAR CATEGORIA'
-        ],
-        [
-            'description' => 'LISTAR CATEGORIA'
-        ],
-        [
-            'description' => 'EDITAR CATEGORIA'
-        ],
-        [
-            'description' => 'HABILITAR/DESABILITAR CATEGORIA'
-        ],
-        [
-            'description' => 'CRIAR PEDIDO'
-        ],
-        [
-            'description' => 'LISTAR PEDIDO'
-        ],
-        [
-            'description' => 'HABILITAR/DESABILITAR PEDIDO'
-        ],
-        [
-            'description' => 'CRIAR PAGAMENTO'
-        ],
-        [
-            'description' => 'CRIAR PRODUTO'
-        ],
-        [
-            'description' => 'LISTAR PRODUTO'
-        ],
-        [
-            'description' => 'EDITAR PRODUTO'
-        ],
-        [
-            'description' => 'HABILITAR/DESABILITAR PRODUTO'
         ],
         [
             'description' => 'CRIAR FORNECEDOR'
         ],
         [
-            'description' => 'LISTAR FORNECEDOR'
+            'description' => 'CRIAR PAGAMENTO'
+        ],
+        [
+            'description' => 'CRIAR PEDIDO'
+        ],
+        [
+            'description' => 'CRIAR PRODUTO'
+        ],
+        [
+            'description' => 'EDITAR CATEGORIA'
+        ],
+        [
+            'description' => 'EDITAR ENDERECO'
         ],
         [
             'description' => 'EDITAR FORNECEDOR'
         ],
         [
-            'description' => 'HABILITAR/DESABILITAR FORNECEDOR'
-        ],
-        [
-            'description' => 'CRIAR TELEFONE'
-        ],
-        [
-            'description' => 'LISTAR DDD'
+            'description' => 'EDITAR PRODUTO'
         ],
         [
             'description' => 'EDITAR TELEFONE'
         ],
         [
-            'description' => 'HABILITAR/DESABILITAR TELEFONE'
-        ],
-        [
-            'description' => 'CRIAR USUARIO'
-        ],
-        [
-            'description' => 'LISTAR USUARIO'
-        ],
-        [
             'description' => 'EDITAR USUARIO'
         ],
         [
-            'description' => 'HABILITAR/DESABILITAR USUARIO'
+            'description' => 'LISTAR CATEGORIAS'
+        ],
+        [
+            'description' => 'LISTAR FORNECEDORES'
+        ],
+        [
+            'description' => 'LISTAR PEDIDOS'
+        ],
+        [
+            'description' => 'LISTAR USUARIOS'
+        ],
+        [
+            'description' => 'LISTAR DETALHES DA CATEGORIA'
+        ],
+        [
+            'description' => 'LISTAR DETALHES DO FORNECEDOR'
+        ],
+        [
+            'description' => 'LISTAR DETALHES DO PEDIDO'
+        ],
+        [
+            'description' => 'LISTAR DETALHES DO USUARIO'
         ]
     ];
 }
