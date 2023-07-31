@@ -2,8 +2,8 @@
 
 namespace App\Support\Enums;
 
-class AtivoEnum
+enum AtivoEnum: int
 {
-    public const ATIVADO = 1;
-    public const DESATIVADO = 0;
+    case ATIVADO = 1;
+    case DESATIVADO = 0;
 }
