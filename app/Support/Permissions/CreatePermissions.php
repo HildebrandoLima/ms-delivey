@@ -2,28 +2,28 @@
 
 namespace App\Support\Permissions;
 
-use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Repositories\Interfaces\PermissionRepositoryInterface;
 
 class CreatePermissions
 {
-    private AuthRepositoryInterface $authRepository;
-    private array $permissionsAdmin = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
-    private array $permissionsClient = [2, 3, 4, 5, 10, 11, 12, 13, 22, 23, 24, 25, 26, 27, 28, 29];
+    private PermissionRepositoryInterface $permissionRepository;
+    private array $permissionsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    private array $permissionsClient = [3, 7, 10, 11, 16, 19];
 
-    public function __construct(AuthRepositoryInterface $authRepository)
+    public function __construct(PermissionRepositoryInterface $permissionRepository)
     {
-        $this->authRepository = $authRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
-    public function createPermissions(int $perfil, int $userId): bool
+    public function createPermissions(bool $isAdmin, int $userId): bool
     {
-        if ($perfil == 1):
+        if ($isAdmin == true):
             foreach ($this->permissionsAdmin as $permission):
-                $this->authRepository->create($userId, $permission);
+                $this->permissionRepository->create($userId, $permission);
             endforeach;
         endif;
             foreach ($this->permissionsClient as $permission):
-                $this->authRepository->create($userId, $permission);
+                $this->permissionRepository->create($userId, $permission);
             endforeach;
         return true;
     }
