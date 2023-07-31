@@ -21,7 +21,7 @@ class CreateUserRequest extends BaseRequest
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string',
-            'perfil' => 'required|boolean',
+            'isAdmin' => 'required|boolean',
             'ativo' => 'required|boolean',
         ];
     }
@@ -42,7 +42,7 @@ class CreateUserRequest extends BaseRequest
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataNascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'perfil.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'isAdmin.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -50,7 +50,7 @@ class CreateUserRequest extends BaseRequest
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'perfil.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+            'isAdmin.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
             'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
             'email' => DefaultErrorMessages::INVALID_EMAIL,

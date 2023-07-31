@@ -31,7 +31,7 @@ class CreateUserService implements CreateUserServiceInterface
     {
         $user = $this->map($request);
         $userId = $this->userRepository->create($user);
-        $this->createPermissions->createPermissions($request->perfil, $userId);
+        $this->createPermissions->createPermissions($request->isAdmin, $userId);
         if ($userId) $this->dispatchJob($request->email, $userId);
         return $userId;
     }
@@ -45,7 +45,7 @@ class CreateUserService implements CreateUserServiceInterface
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = UserCase::genderCase($request->genero);
-        $user->is_admin = $request->perfil;
+        $user->is_admin = $request->isAdmin;
         $user->ativo = UserEnum::ATIVADO;
         return $user;
     }
