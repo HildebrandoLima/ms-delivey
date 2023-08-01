@@ -22,7 +22,7 @@ class EditAddressRequest extends BaseRequest
     {
         return [
             'id' => 'required|int|exists:endereco,id',
-            'logradouro' => 'required|string|in:' . AddressEnum::LOGRADOURO_RUA->value . ',' . AddressEnum::LOGRADOURO_AVENIDA->value,
+            'logradouro' => 'required|string|in:' . AddressEnum::LOGRADOURO_RUA . ',' . AddressEnum::LOGRADOURO_AVENIDA,
             'descricao' => 'required|string',
             'bairro' => 'required|string',
             'cidade' => 'required|string',

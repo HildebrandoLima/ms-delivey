@@ -30,7 +30,7 @@ class EditUserService implements EditUserServiceInterface
         $user->name = $request->nome;
         $user->email = $request->email;
         $user->genero = $request->genero;
-        $user->ativo = $request->ativo == true ? AtivoEnum::ATIVADO->value : AtivoEnum::DESATIVADO->value;
+        $user->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $user;
     }
 }

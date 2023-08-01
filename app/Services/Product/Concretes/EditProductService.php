@@ -38,7 +38,7 @@ class EditProductService implements EditProductServiceInterface
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = $request->ativo == true ? AtivoEnum::ATIVADO->value : AtivoEnum::DESATIVADO->value;
+        $product->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $product;
     }
 }

@@ -4,6 +4,6 @@ namespace App\Support\Enums;
 
 enum AtivoEnum: int
 {
-    case ATIVADO = 1;
-    case DESATIVADO = 0;
+    const ATIVADO = 1;
+    const DESATIVADO = 0;
 }

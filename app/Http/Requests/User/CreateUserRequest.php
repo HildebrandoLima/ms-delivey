@@ -21,7 +21,7 @@ class CreateUserRequest extends BaseRequest
             'email' => 'required|string|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
-            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO->value . ',' . UserEnum::GENERO_FEMININO->value . ',' . UserEnum::GENERO_OUTRO->value,
+            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
             'eAdmin' => 'required|boolean',
             'ativo' => 'required|boolean',
         ];

@@ -27,7 +27,7 @@ class CreateProductRequest extends BaseRequest
             'codigoBarra' => 'required|string|min:13|max:13|unique:produto,codigo_barra',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
-            'unidadeMedida' => 'required|string|in:' . ProductEnum::UN->value . ',' . ProductEnum::G->value . ',' . ProductEnum::KG->value . ',' . ProductEnum::ML->value . ',' . ProductEnum::L->value . ',' . ProductEnum::M2->value . ',' . ProductEnum::CX->value,
+            'unidadeMedida' => 'required|string|in:' . ProductEnum::UN . ',' . ProductEnum::G . ',' . ProductEnum::KG . ',' . ProductEnum::ML . ',' . ProductEnum::L . ',' . ProductEnum::M2 . ',' . ProductEnum::CX,
             'dataValidade' => 'required|date',
             'categoriaId' => 'required|int|exists:categoria,id',
             'fornecedorId' => 'required|int|exists:fornecedor,id',

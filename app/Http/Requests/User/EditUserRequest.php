@@ -24,7 +24,7 @@ class EditUserRequest extends BaseRequest
             'id' => 'required|int|exists:users,id',
             'nome' => 'required|string',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
-            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO->value . ',' . UserEnum::GENERO_FEMININO->value . ',' . UserEnum::GENERO_OUTRO->value,
+            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
             'ativo' => 'required|boolean',
         ];
     }

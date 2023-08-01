@@ -49,7 +49,7 @@ class CreateProductService implements CreateProductServiceInterface
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = AtivoEnum::ATIVADO->value;
+        $product->ativo = AtivoEnum::ATIVADO;
         return $product;
     }
 
@@ -77,7 +77,7 @@ class CreateProductService implements CreateProductServiceInterface
         $image = new Imagem();
         $image->caminho = $path;
         $image->produto_id = $productId;
-        $image->ativo = AtivoEnum::ATIVADO->value;
+        $image->ativo = AtivoEnum::ATIVADO;
         return $image;
     }
 }

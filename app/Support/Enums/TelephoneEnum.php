@@ -4,6 +4,6 @@ namespace App\Support\Enums;
 
 enum TelephoneEnum: string
 {
-    case TIPO_FIXO = 'Fixo';
-    case TIPO_CELULAR = 'Celular';
+    const TIPO_FIXO = 'Fixo';
+    const TIPO_CELULAR = 'Celular';
 }

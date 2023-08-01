@@ -30,7 +30,7 @@ class EditProviderService implements EditProviderServiceInterface
         $provider->razao_social = $request->razaoSocial;
         $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
-        $provider->ativo = $request->ativo == true ? AtivoEnum::ATIVADO->value : AtivoEnum::DESATIVADO->value;
+        $provider->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $provider;
     }
 }

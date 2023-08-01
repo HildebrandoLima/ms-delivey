@@ -33,7 +33,7 @@ class CreateTelephoneService implements CreateTelephoneServiceInterface
         $telephone->tipo = $telefone['tipo'];
         $telephone->usuario_id = $telefone['usuarioId'] ?? null;
         $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
-        $telephone->ativo = AtivoEnum::ATIVADO->value;
+        $telephone->ativo = AtivoEnum::ATIVADO;
         return $telephone;
     }
 }

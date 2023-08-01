@@ -33,7 +33,7 @@ class CreateProviderService implements CreateProviderServiceInterface
         $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
         $provider->data_fundacao = $request->dataFundacao;
-        $provider->ativo = AtivoEnum::ATIVADO->value;
+        $provider->ativo = AtivoEnum::ATIVADO;
         return $provider;
     }
 

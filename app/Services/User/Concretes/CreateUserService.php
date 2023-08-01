@@ -45,7 +45,7 @@ class CreateUserService implements CreateUserServiceInterface
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $request->genero;
         $user->e_admin = $request->eAdmin;
-        $user->ativo = AtivoEnum::ATIVADO->value;
+        $user->ativo = AtivoEnum::ATIVADO;
         return $user;
     }
 

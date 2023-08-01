@@ -4,6 +4,7 @@ namespace App\Http\Requests\Telephone;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
+use App\Support\Enums\TelephoneEnum;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
@@ -22,7 +23,7 @@ class EditTelephoneRequest extends BaseRequest
         return [
             'id' => 'required|int|exists:telefone,id',
             'numero' => 'required|string|celular_com_ddd|min:14|max:14',
-            'tipo' => 'required|string',
+            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_CELULAR . ',' . TelephoneEnum::TIPO_CELULAR,
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
             'ativo' => 'required|boolean',
@@ -35,6 +36,7 @@ class EditTelephoneRequest extends BaseRequest
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'tipo.in' => DefaultErrorMessages::NOT_FOUND,
 
             'numero.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'numero.max' => DefaultErrorMessages::MAX_CHARACTERS,

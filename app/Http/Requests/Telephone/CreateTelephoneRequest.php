@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Telephone;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\TelephoneEnum;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreateTelephoneRequest extends BaseRequest
@@ -17,7 +18,7 @@ class CreateTelephoneRequest extends BaseRequest
         return [
             'telefones' => 'required|array',
             'telefones.*.numero' => 'required|string|celular_com_ddd|unique:telefone,numero|min:14|max:14',
-            'telefones.*.tipo' => 'required|string',
+            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_CELULAR . ',' . TelephoneEnum::TIPO_CELULAR,
             'telefones.*.usuarioId' => 'int|exists:users,id',
             'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
             'telefones.*.ativo' => 'required|boolean',
@@ -31,6 +32,7 @@ class CreateTelephoneRequest extends BaseRequest
 
             'telefones.*.usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'telefones.*.fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'telefones.*.tipo.in' => DefaultErrorMessages::NOT_FOUND,
 
             'telefones.*.numero.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'telefones.*.numero.max' => DefaultErrorMessages::MAX_CHARACTERS,

@@ -4,6 +4,6 @@ namespace App\Support\Enums;
 
 enum AddressEnum: string
 {
-    case LOGRADOURO_RUA = 'Rua';
-    case LOGRADOURO_AVENIDA = 'Avenida';
+    const LOGRADOURO_RUA = 'Rua';
+    const LOGRADOURO_AVENIDA = 'Avenida';
 }
