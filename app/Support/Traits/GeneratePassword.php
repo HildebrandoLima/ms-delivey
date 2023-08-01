@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Support\Generate;
+namespace App\Support\Traits;
 
 use Illuminate\Support\Str;
 
-class GeneratePassword
+trait GeneratePassword
 {
-    public static function generatePassword(): string
+    public function generatePassword(): string
     {
         $caracter = array('$', '*', '&', '@', '#');
         $rand_keys = array_rand($caracter);

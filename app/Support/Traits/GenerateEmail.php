@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Support\Generate;
+namespace App\Support\Traits;
 
 use Illuminate\Support\Str;
 
-class GenerateEmail
+trait GenerateEmail
 {
-    public static function generateEmail(): string
+    public function generateEmail(): string
     {
         $dominio = array('@gmail.com', '@outlook.com', '@business.com.br');
         $rand_keys = array_rand($dominio);
