@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
-use App\Support\Permissions\ValidationPermission;
+use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class ParamsUserRequest extends BaseRequest

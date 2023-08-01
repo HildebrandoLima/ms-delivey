@@ -5,7 +5,7 @@ namespace App\Http\Requests\Telephone;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\TelephoneEnum;
-use App\Support\Permissions\ValidationPermission;
+use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class EditTelephoneRequest extends BaseRequest
