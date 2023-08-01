@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Support\Permissions;
+namespace App\Services\Permission\Concretes;
 
 use App\Repositories\Interfaces\PermissionRepositoryInterface;
+use App\Services\Permission\Interfaces\CreatePermissionServiceInterface;
 
-class CreatePermissions
+class CreatePermissionService implements CreatePermissionServiceInterface
 {
     private PermissionRepositoryInterface $permissionRepository;
     private array $permissionsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
@@ -15,7 +16,7 @@ class CreatePermissions
         $this->permissionRepository = $permissionRepository;
     }
 
-    public function createPermissions(bool $isAdmin, int $userId): bool
+    public function createPermission(bool $isAdmin, int $userId): bool
     {
         if ($isAdmin == true):
             foreach ($this->permissionsAdmin as $permission):

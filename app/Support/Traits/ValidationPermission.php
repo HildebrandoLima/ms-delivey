@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Permissions;
+namespace App\Support\Traits;
 
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Http\Exceptions\HttpResponseException;

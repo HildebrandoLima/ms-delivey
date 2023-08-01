@@ -6,31 +6,31 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Services\Permission\Interfaces\CreatePermissionServiceInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
-use App\Support\Permissions\CreatePermissions;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface
 {
     private UserRepositoryInterface $userRepository;
-    private CreatePermissions       $createPermissions;
+    private CreatePermissionServiceInterface $createPermissionService;
 
     public function __construct
     (
         UserRepositoryInterface $userRepository,
-        CreatePermissions       $createPermissions,
+        CreatePermissionServiceInterface $createPermissionService,
     )
     {
         $this->userRepository    = $userRepository;
-        $this->createPermissions = $createPermissions;
+        $this->createPermissionService = $createPermissionService;
     }
 
     public function createUser(CreateUserRequest $request): int
     {
         $user = $this->map($request);
         $userId = $this->userRepository->create($user);
-        $this->createPermissions->createPermissions($request->isAdmin, $userId);
+        $this->createPermissionService->createPermission($request->eAdmin, $userId);
         if ($userId) $this->dispatchJob($request->email, $userId);
         return $userId;
     }
