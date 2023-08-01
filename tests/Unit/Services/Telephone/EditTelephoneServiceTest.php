@@ -22,9 +22,8 @@ class EditTelephoneServiceTest extends TestCase
         $rand_keys = array_rand($this->type);
         $this->request = new EditTelephoneRequest();
         $this->request['id'] = rand(1, 100);
-        $this->request['numero'] = '9' . rand(1000, 2000) . '-' . rand(1000, 2000);
+        $this->request['numero'] = '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000);
         $this->request['tipo'] = $this->type[$rand_keys];
-        $this->request['dddId'] = rand(1, 23);
         $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
         $this->request['usuarioId'] = rand(1, 100);
         $this->request['ativo'] = true;

@@ -25,7 +25,7 @@ class CreateAddressTest extends TestCase
             'bairro' => Str::random(10),
             'cidade' => Str::random(10),
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => rand(1, 27),
+            'uf' => 'CE',
             'usuarioId' => User::query()->first()->id,
             'ativo' => true,
         ];
@@ -52,7 +52,7 @@ class CreateAddressTest extends TestCase
             'bairro' => Str::random(10),
             'cidade' => Str::random(10),
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => rand(1, 27),
+            'uf' => 'CE',
             'fornecedorId' => Fornecedor::query()->first()->id,
             'ativo' => true,
         ];
@@ -75,12 +75,12 @@ class CreateAddressTest extends TestCase
         $rand_keys = array_rand($this->public_place);
         $data = [
             'logradouro' => $this->public_place[$rand_keys],
-            'descricao' => '',
+            'descricao' => Str::random(10),
             'bairro' => Str::random(10),
             'cidade' => Str::random(10),
-            'cep' => rand(10000, 20000) . '-' . rand(100, 200),
+            'cep' => null,
             'ufId' => rand(1, 27),
-            'usuarioId' => '',
+            'usuarioId' => null,
             'ativo' => true,
         ];
 

@@ -3,13 +3,15 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\PasswordReset;
-use App\Support\Generate\GeneratePassword;
+use App\Support\Traits\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 
 class RefreshPasswordTest extends TestCase
 {
+    use GeneratePassword;
+
     /**
      * @test
      */
@@ -20,7 +22,7 @@ class RefreshPasswordTest extends TestCase
         $data = [
             'token' => $reset['token'],
             'codigo' => $reset['codigo'],
-            'senha' => GeneratePassword::generatePassword()
+            'senha' => $this->generatePassword()
         ];
 
         // Act
@@ -39,7 +41,7 @@ class RefreshPasswordTest extends TestCase
         // Arrange
         $data = [
             'codigo' => null,
-            'password' => GeneratePassword::generatePassword()
+            'password' => $this->generatePassword()
         ];
 
         // Act

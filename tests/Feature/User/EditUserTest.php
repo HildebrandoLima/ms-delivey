@@ -18,10 +18,9 @@ class EditUserTest extends TestCase
         $user = User::query()->first()->toArray();
         $data = [
             'id' => $user['id'],
-            'nome' => $user['name'],
+            'nome' => $user['nome'],
             'email' => $user['email'],
             'genero' => $user['genero'],
-            'perfil' => false,
             'ativo' => $user['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -46,10 +45,9 @@ class EditUserTest extends TestCase
         $user = User::query()->first()->toArray();
         $data = [
             'id' => $user['id'],
-            'nome' => $user['name'],
-            'email' => '',
+            'nome' => null,
+            'email' => null,
             'genero' => $user['genero'],
-            'perfil' => false,
             'ativo' => $user['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -74,10 +72,9 @@ class EditUserTest extends TestCase
         $user = User::query()->first()->toArray();
         $data = [
             'id' => $user['id'],
-            'nome' => $user['name'],
+            'nome' => $user['nome'],
             'email' => $user['email'],
             'genero' => $user['genero'],
-            'perfil' => false,
             'ativo' => $user['ativo'],
         ];
 

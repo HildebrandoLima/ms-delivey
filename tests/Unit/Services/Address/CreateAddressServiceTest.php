@@ -27,7 +27,7 @@ class CreateAddressServiceTest extends TestCase
         $this->request['bairro'] = Str::random(10);
         $this->request['cidade'] = Str::random(10);
         $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['ufId'] = rand(1, 27);
+        $this->request['uf'] = Str::random(2);
         $this->request['usuarioId'] = User::query()->first()->id;
         $this->request['ativo'] = true;
 

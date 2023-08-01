@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Telephone;
 
+use App\Models\Fornecedor;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -20,11 +21,10 @@ class CreateTelephoneTest extends TestCase
         $data['telefones'] = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(70, 92),
-                "usuarioId" => User::query()->first()->id,
-                "ativo" => true,
+                'tipo' => $this->type[$rand_keys],
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'usuarioId' => User::query()->first()->id,
+                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
         endfor;
@@ -48,11 +48,10 @@ class CreateTelephoneTest extends TestCase
         $data['telefones'] = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(70, 92),
-                "usuarioId" => User::query()->first()->id,
-                "ativo" => true,
+                'tipo' => $this->type[$rand_keys],
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'fornecedorId' => Fornecedor::query()->first()->id,
+                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
         endfor;
@@ -76,11 +75,10 @@ class CreateTelephoneTest extends TestCase
         $data['telefones'] = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
             $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(70, 92),
-                "usuarioId" => '',
-                "ativo" => true,
+                'tipo' => $this->type[$rand_keys],
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'usuarioId' => null,
+                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
         endfor;

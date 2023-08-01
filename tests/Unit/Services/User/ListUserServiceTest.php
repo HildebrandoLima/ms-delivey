@@ -6,8 +6,6 @@ use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\ListUserService;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Generate\GenerateCPF;
-use App\Support\Generate\GenerateEmail;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -58,8 +56,8 @@ class ListUserServiceTest extends TestCase
             'provider_id' => 0,
             'provider' => '',
             'name' => Str::random(10),
-            'cpf' => GenerateCPF::generateCPF(),
-            'email' => GenerateEmail::generateEmail(),
+            'cpf' => '',
+            'email' => '',
             'data_nascimento' => date('Y-m-d H:i:s'),
             'genero' => '',
             'email_verified_at' => date('Y-m-d H:i:s'),

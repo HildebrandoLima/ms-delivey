@@ -25,7 +25,7 @@ class EditAddressTest extends TestCase
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => $address['uf_id'],
+            'uf' => $address['uf'],
             'usuarioId' => User::query()->first()->id,
             'ativo' => $address['ativo'],
         ];
@@ -56,7 +56,7 @@ class EditAddressTest extends TestCase
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => $address['uf_id'],
+            'uf' => $address['uf'],
             'fornecedorId' => Fornecedor::query()->first()->id,
             'ativo' => $address['ativo'],
         ];
@@ -87,7 +87,7 @@ class EditAddressTest extends TestCase
             'bairro' => $address['descricao'],
             'cidade' => $address['cidade'],
             'cep' => $address['cep'],
-            'ufId' => $address['uf_id'],
+            'uf' => $address['uf'],
             'usuarioId' => '',
             'ativo' => $address['ativo'],
         ];
@@ -118,7 +118,7 @@ class EditAddressTest extends TestCase
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'ufId' => $address['uf_id'],
+            'uf' => $address['uf'],
             'fornecedorId' => Fornecedor::query()->first()->id,
             'ativo' => $address['ativo'],
         ];

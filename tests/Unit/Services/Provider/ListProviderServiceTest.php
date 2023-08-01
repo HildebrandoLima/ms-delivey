@@ -6,8 +6,6 @@ use App\DataTransferObjects\MappersDtos\ProviderMapperDto;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Concretes\ListProviderService;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Generate\GenerateCNPJ;
-use App\Support\Generate\GenerateEmail;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -83,8 +81,8 @@ class ListProviderServiceTest extends TestCase
         $collect = [
             'id' => $this->id,
             'razao_social' => Str::random(10),
-            'cnpj' => GenerateCNPJ::generateCNPJ(),
-            'email' => GenerateEmail::generateEmail(),
+            'cnpj' => '',
+            'email' => '',
             'endereco' => [],
             'telefone' => [],
             'ativo' => true,

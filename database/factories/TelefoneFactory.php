@@ -21,9 +21,8 @@ class TelefoneFactory extends Factory
         $type = array('Fixo', 'Celular');
         $rand_keys = array_rand($type);
         return [
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'tipo' => $type[$rand_keys],
-            'ddd_id' => rand(70, 92),
+            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,

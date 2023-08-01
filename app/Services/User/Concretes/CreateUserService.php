@@ -5,32 +5,34 @@ namespace App\Services\User\Concretes;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\User;
+use App\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\Permission\Interfaces\CreatePermissionServiceInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements CreateUserServiceInterface
 {
-    private UserRepositoryInterface $userRepository;
-    private CreatePermissionServiceInterface $createPermissionService;
+    private UserRepositoryInterface       $userRepository;
+    private PermissionRepositoryInterface $permissionRepository;
+    private array $permissionsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    private array $permissionsClient = [3, 7, 10, 11, 16, 19];
 
     public function __construct
     (
-        UserRepositoryInterface $userRepository,
-        CreatePermissionServiceInterface $createPermissionService,
+        UserRepositoryInterface       $userRepository,
+        PermissionRepositoryInterface $permissionRepository,
     )
     {
-        $this->userRepository    = $userRepository;
-        $this->createPermissionService = $createPermissionService;
+        $this->userRepository       = $userRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function createUser(CreateUserRequest $request): int
     {
         $user = $this->map($request);
         $userId = $this->userRepository->create($user);
-        $this->createPermissionService->createPermission($request->eAdmin, $userId);
+        $this->createPermission($request->eAdmin, $userId);
         if ($userId) $this->dispatchJob($request->email, $userId);
         return $userId;
     }
@@ -47,6 +49,19 @@ class CreateUserService implements CreateUserServiceInterface
         $user->e_admin = $request->eAdmin;
         $user->ativo = AtivoEnum::ATIVADO;
         return $user;
+    }
+
+    public function createPermission(bool $isAdmin, int $userId): bool
+    {
+        if ($isAdmin == true):
+            foreach ($this->permissionsAdmin as $permission):
+                $this->permissionRepository->create($userId, $permission);
+            endforeach;
+        endif;
+            foreach ($this->permissionsClient as $permission):
+                $this->permissionRepository->create($userId, $permission);
+            endforeach;
+        return true;
     }
 
     private function dispatchJob(string $email, int $userId): void

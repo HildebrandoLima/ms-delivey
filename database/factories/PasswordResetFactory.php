@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pagamento>
  */
-class PagamentoFactory extends Factory
+class PasswordResetFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,14 +20,9 @@ class PagamentoFactory extends Factory
     public function definition()
     {
         return [
-            'codigo_transacao' => rand(1, 1000),
-            'numero_cartao' => random_int(1000000000000000, 9999999999999999),
-            'data_validade' => $this->faker->dateTime,
-            'parcela' => rand(1, 3),
-            'total' => 20.0,
-            'metodo_pagamento_id' => rand(1, 6),
-            'pedido_id' => Pedido::factory()->createOne()->id,
-            'ativo' => true,
+            'email' =>$this->faker->email,
+            'token' => Str::uuid(),
+            'codigo' => Str::random(10),
         ];
     }
 }

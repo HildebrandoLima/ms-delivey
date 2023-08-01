@@ -38,8 +38,6 @@ use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
-use App\Services\Permission\Concretes\CreatePermissionService;
-use App\Services\Permission\Interfaces\CreatePermissionServiceInterface;
 use App\Services\Product\Concretes\CreateProductService;
 use App\Services\Product\Concretes\DeleteProductService;
 use App\Services\Product\Concretes\EditProductService;
@@ -120,8 +118,6 @@ class ServicesDependencyInjection extends ServiceProvider
         $this->app->bind(ListOrderServiceInterface::class, ListOrderService::class);
 
         $this->app->bind(CreatePaymentServiceInterface::class, CreatePaymentService::class);
-
-        $this->app->bind(CreatePermissionServiceInterface::class, CreatePermissionService::class);
 
         $this->app->bind(CreateProductServiceInterface::class, CreateProductService::class);
 
