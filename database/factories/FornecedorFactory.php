@@ -19,7 +19,7 @@ class FornecedorFactory extends Factory
     {
         return [
             'razao_social' => $this->faker->name,
-            'cnpj' => str_replace(array('.','-','/'), "", GenerateCNPJ::generateCNPJ()),
+            'cnpj' => GenerateCNPJ::generateCNPJ(),
             'email' => $this->faker->email,
             'data_fundacao' => $this->faker->dateTime,
             'ativo' => true,
