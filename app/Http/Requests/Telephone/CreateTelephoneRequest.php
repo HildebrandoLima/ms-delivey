@@ -16,9 +16,8 @@ class CreateTelephoneRequest extends BaseRequest
     {
         return [
             'telefones' => 'required|array',
-            'telefones.*.numero' => 'required|string|Celular|unique:telefone,numero|min:10|max:10',
+            'telefones.*.numero' => 'required|string|celular_com_ddd|unique:telefone,numero|min:14|max:14',
             'telefones.*.tipo' => 'required|string',
-            'telefones.*.dddId' => 'required|int|exists:ddd,id',
             'telefones.*.usuarioId' => 'int|exists:users,id',
             'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
             'telefones.*.ativo' => 'required|boolean',
@@ -30,7 +29,6 @@ class CreateTelephoneRequest extends BaseRequest
         return [
             'telefones.*.numero.unique' => DefaultErrorMessages::ALREADY_EXISTING,
 
-            'telefones.*.dddId.exists' => DefaultErrorMessages::NOT_FOUND,
             'telefones.*.usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'telefones.*.fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
 
@@ -40,13 +38,11 @@ class CreateTelephoneRequest extends BaseRequest
             'telefones.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'telefones.*.numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'telefones.*.tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'telefones.*.dddId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'telefones.*.ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'telefones.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'telefones.*.numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'telefones.*.tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'telefones.*.dddId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'telefones.*.usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'telefones.*.fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'telefones.*.ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
