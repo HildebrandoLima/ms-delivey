@@ -2,7 +2,13 @@
 
 namespace App\Support\Enums;
 
-class ProductEnum extends AtivoEnum
+enum ProductEnum: string
 {
-    public const UNIDADE_MEDIDA = ['UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX'];
+    case UN = 'UN';
+    case G  = 'G';
+    case KG = 'KG';
+    case ML = 'ML';
+    case L  = 'L';
+    case M2 = 'M2';
+    case CX = 'CX';
 }

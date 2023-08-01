@@ -8,9 +8,7 @@ use App\Models\Produto;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
-use App\Support\Cases\ProductCase;
-use App\Support\Enums\ImageEnum;
-use App\Support\Enums\ProductEnum;
+use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -47,11 +45,11 @@ class CreateProductService implements CreateProductServiceInterface
         $product->codigo_barra = $request->codigoBarra;
         $product->descricao = $request->descricao;
         $product->quantidade = $request->quantidade;
-        $product->unidade_medida = ProductCase::productCase($request['unidadeMedida']);
+        $product->unidade_medida = $request->unidadeMedida;
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = ProductEnum::ATIVADO;
+        $product->ativo = AtivoEnum::ATIVADO->value;
         return $product;
     }
 
@@ -79,7 +77,7 @@ class CreateProductService implements CreateProductServiceInterface
         $image = new Imagem();
         $image->caminho = $path;
         $image->produto_id = $productId;
-        $image->ativo = ImageEnum::ATIVADO;
+        $image->ativo = AtivoEnum::ATIVADO->value;
         return $image;
     }
 }

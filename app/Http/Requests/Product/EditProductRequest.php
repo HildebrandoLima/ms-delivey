@@ -4,6 +4,7 @@ namespace App\Http\Requests\Product;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
+use App\Support\Enums\ProductEnum;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
@@ -27,7 +28,7 @@ class EditProductRequest extends BaseRequest
             'codigoBarra' => 'required|string|min:13|max:13',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
-            'unidadeMedida' => 'required|string',
+            'unidadeMedida' => 'required|string|in:' . ProductEnum::UN->value . ',' . ProductEnum::G->value . ',' . ProductEnum::KG->value . ',' . ProductEnum::ML->value . ',' . ProductEnum::L->value . ',' . ProductEnum::M2->value . ',' . ProductEnum::CX->value,
             'dataValidade' => 'required|date',
             'categoriaId' => 'int|exists:categoria,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
@@ -41,6 +42,7 @@ class EditProductRequest extends BaseRequest
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'categoriaId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'unidadeMedida.in' => DefaultErrorMessages::NOT_FOUND,
 
             'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,

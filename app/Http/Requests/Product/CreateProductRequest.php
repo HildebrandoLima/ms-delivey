@@ -4,6 +4,7 @@ namespace App\Http\Requests\Product;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
+use App\Support\Enums\ProductEnum;
 use App\Support\Permissions\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
@@ -26,7 +27,7 @@ class CreateProductRequest extends BaseRequest
             'codigoBarra' => 'required|string|min:13|max:13|unique:produto,codigo_barra',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
-            'unidadeMedida' => 'required|string',
+            'unidadeMedida' => 'required|string|in:' . ProductEnum::UN->value . ',' . ProductEnum::G->value . ',' . ProductEnum::KG->value . ',' . ProductEnum::ML->value . ',' . ProductEnum::L->value . ',' . ProductEnum::M2->value . ',' . ProductEnum::CX->value,
             'dataValidade' => 'required|date',
             'categoriaId' => 'required|int|exists:categoria,id',
             'fornecedorId' => 'required|int|exists:fornecedor,id',
@@ -40,6 +41,7 @@ class CreateProductRequest extends BaseRequest
         return [
             'categoriaId.exists' => DefaultErrorMessages::NOT_FOUND,
             'fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'unidadeMedida.in' => DefaultErrorMessages::NOT_FOUND,
 
             'nome.unique' => DefaultErrorMessages::ALREADY_EXISTING,
             'codigoBarra.unique' => DefaultErrorMessages::ALREADY_EXISTING,
