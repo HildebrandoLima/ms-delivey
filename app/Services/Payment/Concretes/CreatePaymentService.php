@@ -27,7 +27,7 @@ class CreatePaymentService implements CreatePaymentServiceInterface
     {
         $payment = new Pagamento();
         $payment->codigo_transacao = random_int(100000000, 999999999);
-        $payment->numero_cartao = str_replace(' ', "", $request->numeroCartao) ?? null;
+        $payment->numero_cartao = $request->numeroCartao ?? null;
         $payment->data_validade = $request->dataValidade ?? null;
         $payment->parcela = $request->parcela ?? null;
         $payment->total = $request->total;

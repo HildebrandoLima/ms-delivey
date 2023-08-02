@@ -17,7 +17,7 @@ class CreateTelephoneRequestTest extends TestCase
         $data = [
             'telefones' => 'required|array',
             'telefones.*.numero' => 'required|string|celular_com_ddd|unique:telefone,numero|min:14|max:14',
-            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_CELULAR . ',' . TelephoneEnum::TIPO_CELULAR,
+            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_FIXO . ',' . TelephoneEnum::TIPO_CELULAR,
             'telefones.*.usuarioId' => 'int|exists:users,id',
             'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
             'telefones.*.ativo' => 'required|boolean',

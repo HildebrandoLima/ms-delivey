@@ -44,7 +44,7 @@ class ListAllUserTest extends TestCase
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => $data[0]['name'], 'active' => true]));
+        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => $data[0]['nome'], 'active' => true]));
 
         // Assert
         $response->assertOk();

@@ -23,7 +23,7 @@ class EditTelephoneRequest extends BaseRequest
         return [
             'id' => 'required|int|exists:telefone,id',
             'numero' => 'required|string|celular_com_ddd|min:14|max:14',
-            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_CELULAR . ',' . TelephoneEnum::TIPO_CELULAR,
+            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_FIXO . ',' . TelephoneEnum::TIPO_CELULAR,
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
             'ativo' => 'required|boolean',

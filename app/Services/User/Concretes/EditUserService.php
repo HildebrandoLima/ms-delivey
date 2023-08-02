@@ -27,7 +27,7 @@ class EditUserService implements EditUserServiceInterface
     {
         $user = new User();
         $user->id = $request->id;
-        $user->name = $request->nome;
+        $user->nome = $request->nome;
         $user->email = $request->email;
         $user->genero = $request->genero;
         $user->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;

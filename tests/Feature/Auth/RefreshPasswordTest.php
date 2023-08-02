@@ -18,6 +18,7 @@ class RefreshPasswordTest extends TestCase
     public function it_endpoint_post_refresh_password_base_response_200(): void
     {
         // Arrange
+        PasswordReset::factory()->createOne();
         $reset = PasswordReset::query()->first()->toArray();
         $data = [
             'token' => $reset['token'],
@@ -26,7 +27,7 @@ class RefreshPasswordTest extends TestCase
         ];
 
         // Act
-        $response = $this->postJson(route('auth.refresh', $reset['token']), $data);
+        $response = $this->postJson(route('auth.refresh'), $data);
 
         // Assert
         $response->assertOk();
@@ -40,12 +41,13 @@ class RefreshPasswordTest extends TestCase
     {
         // Arrange
         $data = [
+            'token' => null,
             'codigo' => null,
             'password' => $this->generatePassword()
         ];
 
         // Act
-        $response = $this->postJson(route('auth.refresh', Str::uuid()), $data);
+        $response = $this->postJson(route('auth.refresh'), $data);
 
         // Assert
         $response->assertStatus(400);
