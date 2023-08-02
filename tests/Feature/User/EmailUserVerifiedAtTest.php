@@ -34,7 +34,7 @@ class EmailUserVerifiedAtTest extends TestCase
         $data = User::query()->first()->toArray();
 
         // Act
-        $response = $this->getJson(route('user.email.verified', ['id' => $data['id']]));
+        $response = $this->getJson(route('user.email.verified', ['id' => $data['id'], 'active' => null]));
 
         // Assert
         $response->assertStatus(400);

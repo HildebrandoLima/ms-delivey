@@ -6,14 +6,15 @@ use App\Http\Requests\User\EditUserRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\EditUserService;
-use App\Support\Generate\GenerateEmail;
 use App\Support\Enums\PerfilEnum;
+use App\Support\Traits\GenerateEmail;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class EditUserServiceTest extends TestCase
 {
+    use GenerateEmail;
     private EditUserRequest $request;
     private UserRepositoryInterface $userRepository;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
@@ -25,7 +26,7 @@ class EditUserServiceTest extends TestCase
         $this->request = new EditUserRequest();
         $this->request['id'] = rand(1, 100);
         $this->request['nome'] = Str::random(10);
-        $this->request['email'] = GenerateEmail::generateEmail();
+        $this->request['email'] = $this->generateEmail();
         $this->request['genero'] = $this->gender[$rand_keys];
         $this->request['ativo'] = true;
 

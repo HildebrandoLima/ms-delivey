@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Telephone;
 
+use App\Models\Fornecedor;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -18,16 +19,15 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(70, 92),
-                "usuarioId" => User::query()->first()->id,
-                "ativo" => true,
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'tipo' => $this->type[$rand_keys],
+                'usuarioId' => User::query()->first()->id,
+                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
-        endfor;
+        }
 
         // Act
         $response = $this->postJson(route('telephone.save'), $data);
@@ -46,16 +46,15 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(70, 92),
-                "usuarioId" => User::query()->first()->id,
-                "ativo" => true,
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'tipo' => $this->type[$rand_keys],
+                'fornecedorId' => Fornecedor::query()->first()->id,
+                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
-        endfor;
+        }
 
         // Act
         $response = $this->postJson(route('telephone.save'), $data);
@@ -74,16 +73,15 @@ class CreateTelephoneTest extends TestCase
         // Arrange
         $rand_keys = array_rand($this->type);
         $data['telefones'] = [];
-        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++):
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
-                "numero" => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
-                "tipo" => $this->type[$rand_keys],
-                "dddId" => rand(70, 92),
-                "usuarioId" => '',
-                "ativo" => true,
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'tipo' => $this->type[$rand_keys],
+                'usuarioId' => null,
+                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
-        endfor;
+        }
 
         // Act
         $response = $this->postJson(route('telephone.save'), $data);

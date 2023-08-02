@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Support\Generate\GenerateCPF;
+use App\Support\Traits\GenerateCPF;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
  */
 class UserFactory extends Factory
 {
+    use GenerateCPF;
     /**
      * Define the model's default state.
      *
@@ -21,15 +22,13 @@ class UserFactory extends Factory
         $gender = array('Masculino', 'Feminino', 'Outro');
         $rand_keys = array_rand($gender);
         return [
-            'login_social_id' => null,
-            'login_social' => null,
-            'name' => $this->faker->name,
-            'cpf' => str_replace(array('.','-','/'), "", GenerateCPF::generateCPF()),
+            'nome' => $this->faker->name,
+            'cpf' => $this->generateCPF(),
             'email' => $this->faker->email,
             'password' => Hash::make($this->faker->password),
             'data_nascimento' => $this->faker->dateTime,
             'genero' => $gender[$rand_keys],
-            'perfil_id' => rand(1, 2),
+            'e_admin' => rand(0, 1),
             'ativo' => true,
         ];
     }

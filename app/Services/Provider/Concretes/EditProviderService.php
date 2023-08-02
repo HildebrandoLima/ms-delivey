@@ -6,7 +6,7 @@ use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
-use App\Support\Enums\ProviderEnum;
+use App\Support\Enums\AtivoEnum;
 
 class EditProviderService implements EditProviderServiceInterface
 {
@@ -28,9 +28,9 @@ class EditProviderService implements EditProviderServiceInterface
         $provider = new Fornecedor();
         $provider->id = $request->id;
         $provider->razao_social = $request->razaoSocial;
-        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
+        $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
-        $provider->ativo = $request->ativo == true ? ProviderEnum::ATIVADO : ProviderEnum::DESATIVADO;
+        $provider->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $provider;
     }
 }

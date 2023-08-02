@@ -4,7 +4,8 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
-use App\Support\Permissions\ValidationPermission;
+use App\Support\Enums\UserEnum;
+use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class EditUserRequest extends BaseRequest
@@ -23,7 +24,7 @@ class EditUserRequest extends BaseRequest
             'id' => 'required|int|exists:users,id',
             'nome' => 'required|string',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
-            'genero' => 'required|string',
+            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
             'ativo' => 'required|boolean',
         ];
     }
@@ -32,6 +33,7 @@ class EditUserRequest extends BaseRequest
     {
         return [
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
+            'genero.in' => DefaultErrorMessages::NOT_FOUND,
 
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,

@@ -22,9 +22,8 @@ class CreateTelephoneServiceTest extends TestCase
         $this->request = new CreateTelephoneRequest();
         $this->request['telefones'] = [
             [
-                'numero' => '9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 'tipo' => $this->type[$rand_keys],
-                'dddId' => rand(1, 23),
                 'cep' => rand(10000, 20000) . '-' . rand(100, 200),
                 'usuarioId' => rand(1, 100),
                 'ativo' => true,

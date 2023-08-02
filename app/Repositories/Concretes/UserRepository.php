@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function emailVerifiedAt(int $id, bool $active): bool
     {
-        return User::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verified_at' => now()]);
+        return User::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verificado_em' => now()]);
     }
 
     public function create(User $user): int

@@ -3,6 +3,7 @@
 namespace Tests\Unit\Requests;
 
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Support\Enums\ProductEnum;
 use Tests\TestCase;
 
 class CreateProductRequestTest extends TestCase
@@ -20,7 +21,7 @@ class CreateProductRequestTest extends TestCase
             'codigoBarra' => 'required|string|min:13|max:13|unique:produto,codigo_barra',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
-            'unidadeMedida' => 'required|string',
+            'unidadeMedida' => 'required|string|in:' . ProductEnum::UN . ',' . ProductEnum::G . ',' . ProductEnum::KG . ',' . ProductEnum::ML . ',' . ProductEnum::L . ',' . ProductEnum::M2 . ',' . ProductEnum::CX,
             'dataValidade' => 'required|date',
             'categoriaId' => 'required|int|exists:categoria,id',
             'fornecedorId' => 'required|int|exists:fornecedor,id',

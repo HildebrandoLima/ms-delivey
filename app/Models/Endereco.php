@@ -17,7 +17,7 @@ class Endereco extends Model
         'bairro',
         'cidade',
         'cep',
-        'uf_id',
+        'uf',
         'usuario_id',
         'fornecedor_id',
         'ativo',

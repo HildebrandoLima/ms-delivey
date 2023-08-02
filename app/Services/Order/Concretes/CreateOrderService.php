@@ -9,8 +9,7 @@ use App\Models\Pedido;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
-use App\Support\Enums\ItemEnum;
-use App\Support\Enums\OrderEnum;
+use App\Support\Enums\AtivoEnum;
 
 class CreateOrderService implements CreateOrderServiceInterface
 {
@@ -44,7 +43,7 @@ class CreateOrderService implements CreateOrderServiceInterface
         $order->total = $request->total;
         $order->entrega = $request->entrega;
         $order->usuario_id = $request->usuarioId;
-        $order->ativo = OrderEnum::ATIVADO;
+        $order->ativo = AtivoEnum::ATIVADO;
         return $order;
     }
 
@@ -69,7 +68,7 @@ class CreateOrderService implements CreateOrderServiceInterface
         $itens->unidade_medida = $item['unidadeMedida'];
         $itens->pedido_id = $orderId;
         $itens->produto_id = $item['produtoId'];
-        $itens->ativo = ItemEnum::ATIVADO;
+        $itens->ativo = AtivoEnum::ATIVADO;
         return $itens;
     }
 

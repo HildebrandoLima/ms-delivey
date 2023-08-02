@@ -50,7 +50,7 @@ abstract class TestCase extends BaseTestCase
 
     public function emailVerifiedAt(): string
     {
-        return User::query()->whereNull('email_verified_at')->first()->email;
+        return User::query()->whereNull('email_verificado_em')->first()->email;
     }
 
     public function httpStatusCode(TestResponse $response): int

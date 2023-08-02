@@ -2,8 +2,8 @@
 
 namespace App\Support\Enums;
 
-class PerfilEnum
+enum PerfilEnum: int
 {
-    public const ADMIN = 1;
-    public const CLIENTE = 2;
+    const ADMIN = 1;
+    const CLIENTE = 2;
 }

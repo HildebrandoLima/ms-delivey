@@ -3,6 +3,7 @@
 namespace Tests\Unit\Requests\Address;
 
 use App\Http\Requests\Address\CreateAddressRequest;
+use App\Support\Enums\AddressEnum;
 use Tests\TestCase;
 
 class CreateAddressRequestTest extends TestCase
@@ -14,12 +15,12 @@ class CreateAddressRequestTest extends TestCase
 
         // Act
         $data = [
-            'logradouro' => 'required|string',
+            'logradouro' => 'required|string|in:' . AddressEnum::LOGRADOURO_RUA . ',' . AddressEnum::LOGRADOURO_AVENIDA,
             'descricao' => 'required|string',
             'bairro' => 'required|string',
             'cidade' => 'required|string',
             'cep' => 'required|string|formato_cep|min:9|max:9',
-            'ufId' => 'required|int|exists:unidade_federativa,id',
+            'uf' => 'required|string|uf',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
             'ativo' => 'required|boolean',

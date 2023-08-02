@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('descricao', 50)->notnull();
             $table->string('bairro', 50)->notnull();
             $table->string('cidade', 50)->notnull();
-            $table->char('cep', 8)->notnull();
-            $table->foreignId('uf_id')->constrained('unidade_federativa')->notnull();
+            $table->char('cep', 9)->notnull();
+            $table->char('uf', 2)->notnull();
             $table->foreignId('usuario_id')->nullable()->default(NULL)->constrained('users');
             $table->foreignId('fornecedor_id')->nullable()->default(NULL)->constrained('fornecedor');
             $table->boolean('ativo');

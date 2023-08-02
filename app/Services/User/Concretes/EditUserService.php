@@ -6,8 +6,7 @@ use App\Http\Requests\User\EditUserRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
-use App\Support\Cases\UserCase;
-use App\Support\Enums\UserEnum;
+use App\Support\Enums\AtivoEnum;
 
 class EditUserService implements EditUserServiceInterface
 {
@@ -28,10 +27,10 @@ class EditUserService implements EditUserServiceInterface
     {
         $user = new User();
         $user->id = $request->id;
-        $user->name = $request->nome;
+        $user->nome = $request->nome;
         $user->email = $request->email;
-        $user->genero = UserCase::genderCase($request->genero);
-        $user->ativo = $request->ativo == true ? UserEnum::ATIVADO : UserEnum::DESATIVADO;
+        $user->genero = $request->genero;
+        $user->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $user;
     }
 }

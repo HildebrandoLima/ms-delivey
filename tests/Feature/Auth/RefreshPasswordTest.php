@@ -3,28 +3,31 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\PasswordReset;
-use App\Support\Generate\GeneratePassword;
+use App\Support\Traits\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 
 class RefreshPasswordTest extends TestCase
 {
+    use GeneratePassword;
+
     /**
      * @test
      */
     public function it_endpoint_post_refresh_password_base_response_200(): void
     {
         // Arrange
+        PasswordReset::factory()->createOne();
         $reset = PasswordReset::query()->first()->toArray();
         $data = [
             'token' => $reset['token'],
             'codigo' => $reset['codigo'],
-            'senha' => GeneratePassword::generatePassword()
+            'senha' => $this->generatePassword()
         ];
 
         // Act
-        $response = $this->postJson(route('auth.refresh', $reset['token']), $data);
+        $response = $this->postJson(route('auth.refresh'), $data);
 
         // Assert
         $response->assertOk();
@@ -38,12 +41,13 @@ class RefreshPasswordTest extends TestCase
     {
         // Arrange
         $data = [
+            'token' => null,
             'codigo' => null,
-            'password' => GeneratePassword::generatePassword()
+            'password' => $this->generatePassword()
         ];
 
         // Act
-        $response = $this->postJson(route('auth.refresh', Str::uuid()), $data);
+        $response = $this->postJson(route('auth.refresh'), $data);
 
         // Assert
         $response->assertStatus(400);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Support\Generate;
+namespace App\Support\Traits;
 
-class GenerateCPF
+trait GenerateCPF
 {
-    public static function generateCPF(): string
+    public function generateCPF(): string
     {
         $digits = [];
 
@@ -12,15 +12,15 @@ class GenerateCPF
             $digits[] = mt_rand(0, 9);
         }
 
-        $digits[] = self::firstVerifierDigit($digits);
-        $digits[] = self::secondVerifierDigit($digits);
+        $digits[] = $this->firstVerifierDigit($digits);
+        $digits[] = $this->secondVerifierDigit($digits);
         $cpf = implode('', $digits);
         $formattedcpf = substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9, 2);
 
         return $formattedcpf;
     }
 
-    private static function firstVerifierDigit($digits): float
+    private function firstVerifierDigit($digits): float
     {
         $sum = 0;
 
@@ -33,7 +33,7 @@ class GenerateCPF
         return $rest;
     }
 
-    private static function secondVerifierDigit($digits): float
+    private function secondVerifierDigit($digits): float
     {
         $sum = 0;
 

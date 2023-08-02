@@ -3,6 +3,7 @@
 namespace Tests\Unit\Requests;
 
 use App\Http\Requests\User\EditUserRequest;
+use App\Support\Enums\UserEnum;
 use Tests\TestCase;
 
 class EditUserRequestTest extends TestCase
@@ -17,7 +18,7 @@ class EditUserRequestTest extends TestCase
             'id' => 'required|int|exists:users,id',
             'nome' => 'required|string',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
-            'genero' => 'required|string',
+            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
             'ativo' => 'required|boolean',
         ];
 

@@ -7,7 +7,7 @@ use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
-use App\Support\Enums\ProviderEnum;
+use App\Support\Enums\AtivoEnum;
 
 class CreateProviderService implements CreateProviderServiceInterface
 {
@@ -30,10 +30,10 @@ class CreateProviderService implements CreateProviderServiceInterface
     {
         $provider = new Fornecedor();
         $provider->razao_social = $request->razaoSocial;
-        $provider->cnpj = str_replace(array('.','-','/'), "", $request->cnpj);
+        $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
         $provider->data_fundacao = $request->dataFundacao;
-        $provider->ativo = ProviderEnum::ATIVADO;
+        $provider->ativo = AtivoEnum::ATIVADO;
         return $provider;
     }
 

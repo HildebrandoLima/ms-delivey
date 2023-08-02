@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Support\Generate;
+namespace App\Support\Traits;
 
-class GenerateCNPJ
+trait GenerateCNPJ
 {
-    public static function generateCNPJ(): string
+    public function generateCNPJ(): string
     {
         $cnpj = '';
 

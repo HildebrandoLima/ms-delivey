@@ -6,8 +6,7 @@ use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
-use App\Support\Cases\AddressCase;
-use App\Support\Enums\AddressEnum;
+use App\Support\Enums\AtivoEnum;
 
 class CreateAddressService implements CreateAddressServiceInterface
 {
@@ -27,15 +26,15 @@ class CreateAddressService implements CreateAddressServiceInterface
     private function map(CreateAddressRequest $request): Endereco
     {
         $address = new Endereco();
-        $address->logradouro = AddressCase::publicPlaceCase($request->logradouro);
+        $address->logradouro = $request->logradouro;
         $address->descricao = $request->descricao;
         $address->bairro = $request->bairro;
         $address->cidade = $request->cidade;
-        $address->cep = str_replace('-', "", $request->cep);
-        $address->uf_id = $request->ufId;
+        $address->cep = $request->cep;
+        $address->uf = $request->uf;
         $address->usuario_id = $request->usuarioId ?? null;
         $address->fornecedor_id = $request->fornecedorId ?? null;
-        $address->ativo = AddressEnum::ATIVADO;
+        $address->ativo = AtivoEnum::ATIVADO;
         return $address;
     }
 }

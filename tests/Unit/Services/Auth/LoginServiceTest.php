@@ -5,20 +5,21 @@ namespace Tests\Unit\Services\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\Concretes\LoginService;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Generate\GenerateEmail;
-use App\Support\Generate\GeneratePassword;
+use App\Support\Traits\GenerateEmail;
+use App\Support\Traits\GeneratePassword;
 use Tests\TestCase;
 
 class LoginServiceTest extends TestCase
 {
+    use GenerateEmail, GeneratePassword;
     private LoginRequest $request;
 
     public function test_success_login_service(): void
     {
         // Arrange
         $this->request = new LoginRequest();
-        $this->request['email'] = GenerateEmail::generateEmail();
-        $this->request['password'] = GeneratePassword::generatePassword();
+        $this->request['email'] = $this->generateEmail();
+        $this->request['password'] = $this->generatePassword();
 
         $expectedResult = $this->authenticate(PerfilEnum::ADMIN);
 

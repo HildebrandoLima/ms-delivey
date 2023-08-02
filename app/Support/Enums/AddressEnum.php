@@ -2,8 +2,8 @@
 
 namespace App\Support\Enums;
 
-class AddressEnum extends AtivoEnum
+enum AddressEnum: string
 {
-    public const LOGRADOURO_RUA = "Rua";
-    public const LOGRADOURO_AVENIDA = "Avenida";
+    const LOGRADOURO_RUA = 'Rua';
+    const LOGRADOURO_AVENIDA = 'Avenida';
 }

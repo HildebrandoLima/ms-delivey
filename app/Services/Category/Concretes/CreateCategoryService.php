@@ -6,7 +6,7 @@ use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
-use App\Support\Enums\CategoryEnum;
+use App\Support\Enums\AtivoEnum;
 
 class CreateCategoryService implements CreateCategoryServiceInterface
 {
@@ -27,7 +27,7 @@ class CreateCategoryService implements CreateCategoryServiceInterface
     {
         $category = new Categoria();
         $category->nome = $request->nome;
-        $category->ativo = CategoryEnum::ATIVADO;
+        $category->ativo = AtivoEnum::ATIVADO;
         return $category;
     }
 }

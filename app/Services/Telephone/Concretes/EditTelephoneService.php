@@ -6,8 +6,7 @@ use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
-use App\Support\Cases\TelephoneCase;
-use App\Support\Enums\TelephoneEnum;
+use App\Support\Enums\AtivoEnum;
 
 class EditTelephoneService implements EditTelephoneServiceInterface
 {
@@ -30,11 +29,10 @@ class EditTelephoneService implements EditTelephoneServiceInterface
         $telephone = new Telefone();
         $telephone->id = $request->id;
         $telephone->numero = $request->numero;
-        $telephone->tipo = TelephoneCase::typeCase($request->tipo);
-        $telephone->ddd_id = $request->dddId;
+        $telephone->tipo = $request->tipo;
         $telephone->usuario_id = $request->usuarioId ?? null;
         $telephone->fornecedor_id = $request->fornecedorId ?? null;
-        $telephone->ativo = $request->ativo == true ? TelephoneEnum::ATIVADO : TelephoneEnum::DESATIVADO;
+        $telephone->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $telephone;
     }
 }

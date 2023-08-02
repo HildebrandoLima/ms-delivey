@@ -3,6 +3,7 @@
 namespace Tests\Unit\Requests\User;
 
 use App\Http\Requests\User\CreateUserRequest;
+use App\Support\Enums\UserEnum;
 use Tests\TestCase;
 
 class CreateUserRequestTest extends TestCase
@@ -14,13 +15,13 @@ class CreateUserRequestTest extends TestCase
 
         // Act
         $data = [
-            'nome' => 'required|string|unique:users,name',
+            'nome' => 'required|string|unique:users,nome',
             'cpf' => 'required|string|formato_cpf|unique:users,cpf|min:14|max:14',
             'email' => 'required|string|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
-            'genero' => 'required|string',
-            'perfil' => 'required|boolean',
+            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
+            'eAdmin' => 'required|boolean',
             'ativo' => 'required|boolean',
         ];
 

@@ -4,21 +4,22 @@ namespace Tests\Unit\Services\User;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Models\User;
+use App\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Concretes\CreateUserService;
-use App\Support\Generate\GenerateCPF;
-use App\Support\Generate\GenerateEmail;
-use App\Support\Generate\GeneratePassword;
-use App\Support\Permissions\CreatePermissions;
+use App\Support\Traits\GenerateCPF;
+use App\Support\Traits\GenerateEmail;
+use App\Support\Traits\GeneratePassword;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CreateUserServiceTest extends TestCase
 {
+    use GenerateCPF, GenerateEmail, GeneratePassword;
     private CreateUserRequest $request;
     private UserRepositoryInterface $userRepository;
-    private CreatePermissions $createPermissions;
+    private PermissionRepositoryInterface $permissionRepository;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
     private int $id;
 
@@ -29,12 +30,12 @@ class CreateUserServiceTest extends TestCase
         $this->id = rand(1, 100);
         $this->request = new CreateUserRequest();
         $this->request['nome'] = Str::random(10);
-        $this->request['cpf'] = GenerateCPF::generateCPF();
-        $this->request['email'] = GenerateEmail::generateEmail();
-        $this->request['senha'] = GeneratePassword::generatePassword();
+        $this->request['cpf'] = $this->generateCPF();
+        $this->request['email'] = $this->generateEmail();
+        $this->request['senha'] = $this->generatePassword();
         $this->request['dataNascimento'] = date('Y-m-d H:i:s');
         $this->request['genero'] = $this->gender[$rand_keys];
-        $this->request['perfil'] = rand(0, 1); // 0 client 1 admin
+        $this->request['eAdmin'] = (bool)rand(0, 1); // 0 client 1 admin
         $this->request['ativo'] = true;
 
         $this->userRepository = $this->mock(UserRepositoryInterface::class,
@@ -42,10 +43,10 @@ class CreateUserServiceTest extends TestCase
                 $mock->shouldReceive('create')->with(User::class)->andReturn($this->id);
         });
 
-        $this->createPermissions = $this->mock(CreatePermissions::class,
+        $this->permissionRepository = $this->mock(PermissionRepositoryInterface::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('createPermissions')
-                     ->with($this->request['perfil'], $this->id)
+                $mock->shouldReceive('create')
+                     ->with($this->id, rand(1, 100))
                      ->andReturn(true);
         });
 
@@ -53,7 +54,7 @@ class CreateUserServiceTest extends TestCase
         $createUserService = new CreateUserService
         (
             $this->userRepository,
-            $this->createPermissions
+            $this->permissionRepository
         );
 
         $result = $createUserService->createUser($this->request);

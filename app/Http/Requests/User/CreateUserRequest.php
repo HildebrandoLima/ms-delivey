@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\UserEnum;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreateUserRequest extends BaseRequest
@@ -15,13 +16,13 @@ class CreateUserRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string|unique:users,name',
+            'nome' => 'required|string|unique:users,nome',
             'cpf' => 'required|string|formato_cpf|unique:users,cpf|min:14|max:14',
             'email' => 'required|string|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
-            'genero' => 'required|string',
-            'isAdmin' => 'required|boolean',
+            'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
+            'eAdmin' => 'required|boolean',
             'ativo' => 'required|boolean',
         ];
     }
@@ -29,6 +30,8 @@ class CreateUserRequest extends BaseRequest
     public function messages(): array
     {
         return [
+            'genero.in' => DefaultErrorMessages::NOT_FOUND,
+
             'nome.unique' => DefaultErrorMessages::ALREADY_EXISTING,
             'cpf.unique' => DefaultErrorMessages::ALREADY_EXISTING,
             'email.unique' => DefaultErrorMessages::ALREADY_EXISTING,
@@ -42,7 +45,7 @@ class CreateUserRequest extends BaseRequest
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataNascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'isAdmin.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'eAdmin.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -50,7 +53,7 @@ class CreateUserRequest extends BaseRequest
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'isAdmin.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+            'eAdmin.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
             'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
             'email' => DefaultErrorMessages::INVALID_EMAIL,

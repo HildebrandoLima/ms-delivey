@@ -3,15 +3,16 @@
 namespace Tests\Feature\Provider;
 
 use App\Models\Fornecedor;
-use App\Support\Generate\GenerateCNPJ;
-use App\Support\Generate\GenerateEmail;
 use App\Support\Enums\PerfilEnum;
+use App\Support\Traits\GenerateCNPJ;
+use App\Support\Traits\GenerateEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateProviderTest extends TestCase
 {
+    use GenerateCNPJ, GenerateEmail;
     /**
      * @test
      */
@@ -20,8 +21,8 @@ class CreateProviderTest extends TestCase
         // Arrange
         $data = [
             'razaoSocial' => Str::random(10),
-            'cnpj' => GenerateCNPJ::generateCNPJ(),
-            'email' => GenerateEmail::generateEmail(),
+            'cnpj' => $this->generateCNPJ(),
+            'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
             'ativo' => true,
         ];
@@ -73,8 +74,8 @@ class CreateProviderTest extends TestCase
         $provider = Fornecedor::factory()->createOne()->toArray();
         $data = [
             'razaoSocial' => Str::random(10),
-            'cnpj' => GenerateCNPJ::generateCNPJ(),
-            'email' => GenerateEmail::generateEmail(),
+            'cnpj' => $this->generateCNPJ(),
+            'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
             'ativo' => true,
         ];
@@ -96,8 +97,8 @@ class CreateProviderTest extends TestCase
         // Arrange
         $data = [
             'razaoSocial' => Str::random(10),
-            'cnpj' => GenerateCNPJ::generateCNPJ(),
-            'email' => GenerateEmail::generateEmail(),
+            'cnpj' => $this->generateCNPJ(),
+            'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
             'ativo' => true,
         ];

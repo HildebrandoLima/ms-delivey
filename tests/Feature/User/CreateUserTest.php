@@ -2,15 +2,16 @@
 
 namespace Tests\Feature\User;
 
-use App\Support\Generate\GenerateCPF;
-use App\Support\Generate\GenerateEmail;
-use App\Support\Generate\GeneratePassword;
+use App\Support\Traits\GenerateCPF;
+use App\Support\Traits\GenerateEmail;
+use App\Support\Traits\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateUserTest extends TestCase
 {
+    use GenerateCPF, GenerateEmail, GeneratePassword;
     private array $gender = array('Masculino', 'Feminino', 'Outro');
 
     /**
@@ -22,12 +23,12 @@ class CreateUserTest extends TestCase
         $rand_keys = array_rand($this->gender);
         $data = [
             'nome' => Str::random(10),
-            'cpf' => GenerateCPF::generateCPF(),
-            'email' => GenerateEmail::generateEmail(),
-            'senha' => GeneratePassword::generatePassword(),
+            'cpf' => $this->generateCPF(),
+            'email' => $this->generateEmail(),
+            'senha' => $this->generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
             'genero' => $this->gender[$rand_keys],
-            'perfil' => rand(0, 1), // 0 client 1 admin
+            'eAdmin' => rand(0, 1), // 0 client 1 admin
             'ativo' => true,
         ];
 
@@ -49,12 +50,12 @@ class CreateUserTest extends TestCase
         $rand_keys = array_rand($this->gender);
         $data = [
             'nome' => Str::random(10),
-            'cpf' => GenerateCPF::generateCPF(),
+            'cpf' => null,
             'email' => Str::random(10),
-            'senha' => GeneratePassword::generatePassword(),
+            'senha' => $this->generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
             'genero' => $this->gender[$rand_keys],
-            'perfil' => rand(0, 1), // 0 client 1 admin
+            'eAdmin' => null, // 0 client 1 admin
             'ativo' => true,
         ];
 

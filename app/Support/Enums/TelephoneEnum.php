@@ -2,8 +2,8 @@
 
 namespace App\Support\Enums;
 
-class TelephoneEnum extends AtivoEnum
+enum TelephoneEnum: string
 {
-    public const TIPO_FIXO = "Fixo";
-    public const TIPO_CELULAR = "Celular";
+    const TIPO_FIXO = 'Fixo';
+    const TIPO_CELULAR = 'Celular';
 }

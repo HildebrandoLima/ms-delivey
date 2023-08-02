@@ -6,15 +6,16 @@ use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Services\Provider\Concretes\EditProviderService;
-use App\Support\Generate\GenerateCNPJ;
-use App\Support\Generate\GenerateEmail;
 use App\Support\Enums\PerfilEnum;
+use App\Support\Traits\GenerateCNPJ;
+use App\Support\Traits\GenerateEmail;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class EditProviderServiceTest extends TestCase
 {
+    use GenerateCNPJ, GenerateEmail;
     private EditProviderRequest $request;
     private ProviderRepositoryInterface $providerRepository;
 
@@ -24,8 +25,8 @@ class EditProviderServiceTest extends TestCase
         $this->request = new EditProviderRequest();
         $this->request['id'] = rand(1, 100);
         $this->request['razaoSocial'] = Str::random(10);
-        $this->request['cnpj'] = GenerateCNPJ::generateCNPJ();
-        $this->request['email'] = GenerateEmail::generateEmail();
+        $this->request['cnpj'] = $this->generateCNPJ();
+        $this->request['email'] = $this->generateEmail();
         $this->request['dataFundacao'] = date('Y-m-d H:i:s');
         $this->request['ativo'] = true;
 

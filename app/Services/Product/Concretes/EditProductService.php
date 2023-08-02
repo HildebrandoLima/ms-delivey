@@ -6,8 +6,7 @@ use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Produto;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
-use App\Support\Cases\ProductCase;
-use App\Support\Enums\ProductEnum;
+use App\Support\Enums\AtivoEnum;
 
 class EditProductService implements EditProductServiceInterface
 {
@@ -35,11 +34,11 @@ class EditProductService implements EditProductServiceInterface
         $product->codigo_barra = $request->codigoBarra;
         $product->descricao = $request->descricao;
         $product->quantidade = $request->quantidade;
-        $product->unidade_medida = ProductCase::productCase($request['unidadeMedida']);
+        $product->unidade_medida = $request->unidadeMedida;
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = $request->ativo == true ? ProductEnum::ATIVADO : ProductEnum::DESATIVADO;
+        $product->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $product;
     }
 }
