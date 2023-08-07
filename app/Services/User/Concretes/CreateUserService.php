@@ -10,13 +10,14 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CreateUserService implements CreateUserServiceInterface
 {
     private UserRepositoryInterface       $userRepository;
     private PermissionRepositoryInterface $permissionRepository;
     private array $permissionsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-    private array $permissionsClient = [3, 4, 7, 10, 11, 15, 16, 18, 19];
+    private array $permissionsClient = [3, 4, 7, 10, 11, 14, 15, 18, 19];
 
     public function __construct
     (
@@ -46,6 +47,7 @@ class CreateUserService implements CreateUserServiceInterface
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $request->genero;
+        $user->remember_token = Str::uuid();
         $user->e_admin = $request->eAdmin;
         $user->ativo = AtivoEnum::ATIVADO;
         return $user;

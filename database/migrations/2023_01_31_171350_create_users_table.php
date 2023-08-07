@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nome', 50)->unique()->notnull();
-            $table->string('cpf', 11)->unique()->notnull();
+            $table->string('cpf', 14)->unique()->notnull();
             $table->string('email', 50)->unique()->notnull();
             $table->string('password', 100)->unique()->notnull();
             $table->timestamp('data_nascimento')->notnull();
