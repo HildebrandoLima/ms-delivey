@@ -16,7 +16,7 @@ class AddressMapperDto
             $address['bairro'] ?? '',
             $address['cidade'] ?? '',
             $address['cep'] ?? '',
-            $address['uf'] ?? 0,
+            $address['uf'] ?? '',
             $address['usuario_id'] ?? 0,
             $address['fornecedor_id'] ?? 0,
             $address['ativo'] ?? '',

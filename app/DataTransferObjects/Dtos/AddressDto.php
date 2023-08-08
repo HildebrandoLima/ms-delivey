@@ -10,7 +10,7 @@ class AddressDto extends DefaultFields
     public string $bairro;
     public string $cidade;
     public string $cep;
-    public int $uf;
+    public string $uf;
     public int|null $usuarioId;
     public int|null $fornecedorId;
 
@@ -22,7 +22,7 @@ class AddressDto extends DefaultFields
         string $bairro,
         string $cidade,
         string $cep,
-        int $uf,
+        string $uf,
         int|null $usuarioId,
         int|null $fornecedorId,
         string $ativo,
@@ -110,12 +110,12 @@ class AddressDto extends DefaultFields
         return $this;
     }
 
-    public function getUf(): int
+    public function getUf(): string
     {
         return $this->uf;
     }
 
-    public function setUf(int $uf): AddressDto
+    public function setUf(string $uf): AddressDto
     {
         $this->uf = $uf;
         return $this;
