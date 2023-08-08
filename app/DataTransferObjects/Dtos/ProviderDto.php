@@ -45,10 +45,9 @@ class ProviderDto extends DefaultFields
         return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int $fornecedorId): ProviderDto
+    public function setFornecedorId(int $fornecedorId): void
     {
         $this->fornecedorId = $fornecedorId;
-        return $this;
     }
 
     public function getRazaoSocial(): string
@@ -56,10 +55,9 @@ class ProviderDto extends DefaultFields
         return $this->razaoSocial;
     }
 
-    public function setRazaoSocial(string $razaoSocial): ProviderDto
+    public function setRazaoSocial(string $razaoSocial): void
     {
         $this->razaoSocial = $razaoSocial;
-        return $this;
     }
 
     public function getCnpj(): string
@@ -67,10 +65,9 @@ class ProviderDto extends DefaultFields
         return $this->cnpj;
     }
 
-    public function setCnpj(string $cnpj): ProviderDto
+    public function setCnpj(string $cnpj): void
     {
         $this->cnpj = $cnpj;
-        return $this;
     }
 
     public function getEmail(): string
@@ -78,10 +75,9 @@ class ProviderDto extends DefaultFields
         return $this->email;
     }
 
-    public function setEmail(string $email): ProviderDto
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-        return $this;
     }
 
     public function getDataFundacao(): string
@@ -89,10 +85,9 @@ class ProviderDto extends DefaultFields
         return $this->dataFundacao;
     }
 
-    public function setDataFundacao(string $dataFundacao): ProviderDto
+    public function setDataFundacao(string $dataFundacao): void
     {
         $this->dataFundacao = $dataFundacao;
-        return $this;
     }
 
     public function getEnderecos(): array
@@ -100,10 +95,9 @@ class ProviderDto extends DefaultFields
         return $this->enderecos;
     }
 
-    public function setEnderecos(array $enderecos): ProviderDto
+    public function setEnderecos(array $enderecos): void
     {
         $this->enderecos = EntityPerson::addrres($enderecos);
-        return $this;
     }
 
     public function getTelefones(): array
@@ -111,9 +105,8 @@ class ProviderDto extends DefaultFields
         return $this->telefones;
     }
 
-    public function setTelefones(array $telefones): ProviderDto
+    public function setTelefones(array $telefones): void
     {
         $this->telefones = EntityPerson::telephone($telefones);
-        return $this;
     }
 }

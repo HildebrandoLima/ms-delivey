@@ -46,10 +46,9 @@ class PaymentDto extends DefaultFields
         return $this->pagamentoId;
     }
 
-    public function setPagamentoId(int $pagamentoId): PaymentDto
+    public function setPagamentoId(int $pagamentoId): void
     {
         $this->pagamentoId = $pagamentoId;
-        return $this;
     }
 
     public function getCodigoTransacao(): int
@@ -57,10 +56,9 @@ class PaymentDto extends DefaultFields
         return $this->codigoTransacao;
     }
 
-    public function setCodigoTransacao(int $codigoTransacao): PaymentDto
+    public function setCodigoTransacao(int $codigoTransacao): void
     {
         $this->codigoTransacao = $codigoTransacao;
-        return $this;
     }
 
     public function getNumeroCartao(): string|null
@@ -68,10 +66,9 @@ class PaymentDto extends DefaultFields
         return $this->numeroCartao;
     }
 
-    public function setNumeroCartao(string|null $numeroCartao): PaymentDto
+    public function setNumeroCartao(string|null $numeroCartao): void
     {
         $this->numeroCartao = $numeroCartao;
-        return $this;
     }
 
     public function getDataValidade(): string|null
@@ -79,10 +76,9 @@ class PaymentDto extends DefaultFields
         return $this->dataValidade;
     }
 
-    public function setDataValidade(string|null $dataValidade): PaymentDto
+    public function setDataValidade(string|null $dataValidade): void
     {
         $this->dataValidade = $dataValidade;
-        return $this;
     }
 
     public function getParcela(): int|null
@@ -90,10 +86,9 @@ class PaymentDto extends DefaultFields
         return $this->parcela;
     }
 
-    public function setParcela(int|null $parcela): PaymentDto
+    public function setParcela(int|null $parcela): void
     {
         $this->parcela = $parcela;
-        return $this;
     }
 
     public function getTotal(): float
@@ -101,10 +96,9 @@ class PaymentDto extends DefaultFields
         return $this->total;
     }
 
-    public function setTotal(float $total): PaymentDto
+    public function setTotal(float $total): void
     {
         $this->total = $total;
-        return $this;
     }
 
     public function getMetodoPagamentoId(): int
@@ -112,10 +106,9 @@ class PaymentDto extends DefaultFields
         return $this->metodoPagamentoId;
     }
 
-    public function setMetodoPagamentoId(int $metodoPagamentoId): PaymentDto
+    public function setMetodoPagamentoId(int $metodoPagamentoId): void
     {
         $this->metodoPagamentoId = $metodoPagamentoId;
-        return $this;
     }
 
     public function getPedidoId(): int
@@ -123,9 +116,8 @@ class PaymentDto extends DefaultFields
         return $this->pedidoId;
     }
 
-    public function setPedidoId(int $pedidoId): PaymentDto
+    public function setPedidoId(int $pedidoId): void
     {
         $this->pedidoId = $pedidoId;
-        return $this;
     }
 }

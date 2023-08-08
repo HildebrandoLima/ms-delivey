@@ -49,10 +49,9 @@ class ItemDto extends DefaultFields
         return $this->itemId;
     }
 
-    public function setItemId(int $itemId): ItemDto
+    public function setItemId(int $itemId): void
     {
         $this->itemId = $itemId;
-        return $this;
     }
 
     public function getNome(): string
@@ -60,10 +59,9 @@ class ItemDto extends DefaultFields
         return $this->nome;
     }
 
-    public function setNome(string $nome): ItemDto
+    public function setNome(string $nome): void
     {
         $this->nome = $nome;
-        return $this;
     }
 
     public function getPreco(): float
@@ -71,10 +69,9 @@ class ItemDto extends DefaultFields
         return $this->preco;
     }
 
-    public function setPreco(float $preco): ItemDto
+    public function setPreco(float $preco): void
     {
         $this->preco = $preco;
-        return $this;
     }
 
     public function getCodigoBarra(): string
@@ -82,10 +79,9 @@ class ItemDto extends DefaultFields
         return $this->codigoBarra;
     }
 
-    public function setCodigoBarra(string $codigoBarra): ItemDto
+    public function setCodigoBarra(string $codigoBarra): void
     {
         $this->codigoBarra = $codigoBarra;
-        return $this;
     }
 
     public function getQuantidadeItem(): int
@@ -93,10 +89,9 @@ class ItemDto extends DefaultFields
         return $this->quantidadeItem;
     }
 
-    public function setQuantidadeItem(int $quantidadeItem): ItemDto
+    public function setQuantidadeItem(int $quantidadeItem): void
     {
         $this->quantidadeItem = $quantidadeItem;
-        return $this;
     }
 
     public function getSubTotal(): float
@@ -104,10 +99,10 @@ class ItemDto extends DefaultFields
         return $this->subTotal;
     }
 
-    public function setSubTotal(float $subTotal): ItemDto
+    public function setSubTotal(float $subTotal): void
     {
         $this->subTotal = $subTotal;
-        return $this;
+
     }
 
     public function getUnidadeMedida(): string
@@ -115,10 +110,9 @@ class ItemDto extends DefaultFields
         return $this->unidadeMedida;
     }
 
-    public function setUnidadeMedida(string $unidadeMedida): ItemDto
+    public function setUnidadeMedida(string $unidadeMedida): void
     {
         $this->unidadeMedida = $unidadeMedida;
-        return $this;
     }
 
     public function getPedidoId(): int
@@ -126,10 +120,9 @@ class ItemDto extends DefaultFields
         return $this->pedidoId;
     }
 
-    public function setPedidoId(int $pedidoId): ItemDto
+    public function setPedidoId(int $pedidoId): void
     {
         $this->pedidoId = $pedidoId;
-        return $this;
     }
 
     public function getProdutoId(): int
@@ -137,9 +130,8 @@ class ItemDto extends DefaultFields
         return $this->produtoId;
     }
 
-    public function setProdutoId(int $produtoId): ItemDto
+    public function setProdutoId(int $produtoId): void
     {
         $this->produtoId = $produtoId;
-        return $this;
     }
 }

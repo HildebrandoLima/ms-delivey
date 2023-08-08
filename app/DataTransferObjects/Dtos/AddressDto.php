@@ -49,10 +49,9 @@ class AddressDto extends DefaultFields
         return $this->enderecoId;
     }
 
-    public function setEnderecoId(int $enderecoId): AddressDto
+    public function setEnderecoId(int $enderecoId): void
     {
         $this->enderecoId = $enderecoId;
-        return $this;
     }
 
     public function getLogradouro(): string
@@ -60,10 +59,9 @@ class AddressDto extends DefaultFields
         return $this->logradouro;
     }
 
-    public function setLogradouro(string $logradouro): AddressDto
+    public function setLogradouro(string $logradouro): void
     {
         $this->logradouro = $logradouro;
-        return $this;
     }
 
     public function getDescricao(): string
@@ -71,10 +69,9 @@ class AddressDto extends DefaultFields
         return $this->descricao;
     }
 
-    public function setDescricao(string $descricao): AddressDto
+    public function setDescricao(string $descricao): void
     {
         $this->descricao = $descricao;
-        return $this;
     }
 
     public function getBairro(): string
@@ -82,10 +79,9 @@ class AddressDto extends DefaultFields
         return $this->bairro;
     }
 
-    public function setBairro(string $bairro): AddressDto
+    public function setBairro(string $bairro): void
     {
         $this->bairro = $bairro;
-        return $this;
     }
 
     public function getCidade(): string
@@ -93,10 +89,9 @@ class AddressDto extends DefaultFields
         return $this->cidade;
     }
 
-    public function setCidade(string $cidade): AddressDto
+    public function setCidade(string $cidade): void
     {
         $this->cidade = $cidade;
-        return $this;
     }
 
     public function getCep(): string
@@ -104,10 +99,9 @@ class AddressDto extends DefaultFields
         return $this->cep;
     }
 
-    public function setCep(string $cep): AddressDto
+    public function setCep(string $cep): void
     {
         $this->cep = $cep;
-        return $this;
     }
 
     public function getUf(): string
@@ -115,10 +109,9 @@ class AddressDto extends DefaultFields
         return $this->uf;
     }
 
-    public function setUf(string $uf): AddressDto
+    public function setUf(string $uf): void
     {
         $this->uf = $uf;
-        return $this;
     }
 
     public function getUsuarioId(): int|null
@@ -126,10 +119,9 @@ class AddressDto extends DefaultFields
         return $this->usuarioId;
     }
 
-    public function setUsuarioId(int|null $usuarioId): AddressDto
+    public function setUsuarioId(int|null $usuarioId): void
     {
         $this->usuarioId = $usuarioId;
-        return $this;
     }
 
     public function getFornecedorId(): int|null
@@ -137,9 +129,8 @@ class AddressDto extends DefaultFields
         return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int|null $fornecedorId): AddressDto
+    public function setFornecedorId(int|null $fornecedorId): void
     {
         $this->fornecedorId = $fornecedorId;
-        return $this;
     }
 }

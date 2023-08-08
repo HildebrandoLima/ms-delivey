@@ -28,10 +28,9 @@ class CategoryDto extends DefaultFields
         return $this->categoriaId;
     }
 
-    public function setCategoriaId(int $categoriaId): CategoryDto
+    public function setCategoriaId(int $categoriaId): void
     {
         $this->categoriaId = $categoriaId;
-        return $this;
     }
 
     public function getNome(): string
@@ -39,9 +38,8 @@ class CategoryDto extends DefaultFields
         return $this->nome;
     }
 
-    public function setNome(string $nome): CategoryDto
+    public function setNome(string $nome): void
     {
         $this->nome = $nome;
-        return $this;
     }
 }

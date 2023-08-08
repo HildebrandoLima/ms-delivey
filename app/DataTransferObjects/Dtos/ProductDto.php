@@ -63,10 +63,9 @@ class ProductDto extends DefaultFields
         return $this->produtoId;
     }
 
-    public function setProdutoId(int $produtoId): ProductDto
+    public function setProdutoId(int $produtoId): void
     {
         $this->produtoId = $produtoId;
-        return $this;
     }
 
     public function getNome(): string
@@ -74,10 +73,9 @@ class ProductDto extends DefaultFields
         return $this->nome;
     }
 
-    public function setNome(string $nome): ProductDto
+    public function setNome(string $nome): void
     {
         $this->nome = $nome;
-        return $this;
     }
 
     public function getPrecoCusto(): float
@@ -85,10 +83,9 @@ class ProductDto extends DefaultFields
         return $this->precoCusto;
     }
 
-    public function setPrecoCusto(float $precoCusto): ProductDto
+    public function setPrecoCusto(float $precoCusto): void
     {
         $this->precoCusto = $precoCusto;
-        return $this;
     }
 
     public function getPrecoVenda(): float
@@ -96,10 +93,9 @@ class ProductDto extends DefaultFields
         return $this->precoVenda;
     }
 
-    public function setPrecoVenda(float $precoVenda): ProductDto
+    public function setPrecoVenda(float $precoVenda): void
     {
         $this->precoVenda = $precoVenda;
-        return $this;
     }
 
     public function getMargemLucro(): float
@@ -107,10 +103,9 @@ class ProductDto extends DefaultFields
         return $this->margemLucro;
     }
 
-    public function setMargemLucro(float $margemLucro): ProductDto
+    public function setMargemLucro(float $margemLucro): void
     {
         $this->margemLucro = $margemLucro;
-        return $this;
     }
 
     public function getCodigoBarra(): string
@@ -118,10 +113,9 @@ class ProductDto extends DefaultFields
         return $this->codigoBarra;
     }
 
-    public function setCodigoBarra(string $codigoBarra): ProductDto
+    public function setCodigoBarra(string $codigoBarra): void
     {
         $this->codigoBarra = $codigoBarra;
-        return $this;
     }
 
     public function getDescricao(): string
@@ -129,10 +123,9 @@ class ProductDto extends DefaultFields
         return $this->descricao;
     }
 
-    public function setDescricao(string $descricao): ProductDto
+    public function setDescricao(string $descricao): void
     {
         $this->descricao = $descricao;
-        return $this;
     }
 
     public function getQuantidade(): string
@@ -140,10 +133,9 @@ class ProductDto extends DefaultFields
         return $this->quantidade;
     }
 
-    public function setQuantidade(string $quantidade): ProductDto
+    public function setQuantidade(string $quantidade): void
     {
         $this->quantidade = $quantidade;
-        return $this;
     }
 
     public function getUnidadeMedida(): string
@@ -151,10 +143,9 @@ class ProductDto extends DefaultFields
         return $this->unidadeMedida;
     }
 
-    public function setUnidadeMedida(string $unidadeMedida): ProductDto
+    public function setUnidadeMedida(string $unidadeMedida): void
     {
         $this->unidadeMedida = $unidadeMedida;
-        return $this;
     }
 
     public function getDataValidade(): string
@@ -162,10 +153,9 @@ class ProductDto extends DefaultFields
         return $this->dataValidade;
     }
 
-    public function setDataValidade(string $dataValidade): ProductDto
+    public function setDataValidade(string $dataValidade): void
     {
         $this->dataValidade = $dataValidade;
-        return $this;
     }
 
     public function getCategoriaId(): int
@@ -173,10 +163,9 @@ class ProductDto extends DefaultFields
         return $this->categoriaId;
     }
 
-    public function setCategoriaId(int $categoriaId): ProductDto
+    public function setCategoriaId(int $categoriaId): void
     {
         $this->categoriaId = $categoriaId;
-        return $this;
     }
 
     public function getFornecedorId(): int
@@ -184,10 +173,9 @@ class ProductDto extends DefaultFields
         return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int $fornecedorId): ProductDto
+    public function setFornecedorId(int $fornecedorId): void
     {
         $this->fornecedorId = $fornecedorId;
-        return $this;
     }
 
     public function getImagens(): array
@@ -195,9 +183,8 @@ class ProductDto extends DefaultFields
         return $this->imagens;
     }
 
-    public function setImagens(array $imagens): ProductDto
+    public function setImagens(array $imagens): void
     {
         $this->imagens = EntityProduct::imagens($imagens);
-        return $this;
     }
 }

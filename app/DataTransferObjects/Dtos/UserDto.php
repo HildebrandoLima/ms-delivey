@@ -54,10 +54,9 @@ class UserDto extends DefaultFields
         return $this->usuarioId;
     }
 
-    public function setUsuarioId(int $usuarioId): UserDto
+    public function setUsuarioId(int $usuarioId): void
     {
         $this->usuarioId = $usuarioId;
-        return $this;
     }
 
     public function getNome(): string
@@ -65,10 +64,9 @@ class UserDto extends DefaultFields
         return $this->nome;
     }
 
-    public function setNome(string $nome): UserDto
+    public function setNome(string $nome): void
     {
         $this->nome = $nome;
-        return $this;
     }
 
     public function getCpf(): string
@@ -76,10 +74,9 @@ class UserDto extends DefaultFields
         return $this->cpf;
     }
 
-    public function setCpf(string $cpf): UserDto
+    public function setCpf(string $cpf): void
     {
         $this->cpf = $cpf;
-        return $this;
     }
 
     public function getEmail(): string
@@ -87,10 +84,9 @@ class UserDto extends DefaultFields
         return $this->email;
     }
 
-    public function setEmail(string $email): UserDto
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-        return $this;
     }
 
     public function getDataNascimento(): string
@@ -98,10 +94,9 @@ class UserDto extends DefaultFields
         return $this->dataNascimento;
     }
 
-    public function setDataNascimento(string $dataNascimento): UserDto
+    public function setDataNascimento(string $dataNascimento): void
     {
         $this->dataNascimento = $dataNascimento;
-        return $this;
     }
 
     public function getGenero(): string
@@ -109,10 +104,9 @@ class UserDto extends DefaultFields
         return $this->genero;
     }
 
-    public function setGenero(string $genero): UserDto
+    public function setGenero(string $genero): void
     {
         $this->genero = $genero;
-        return $this;
     }
 
     public function getEmailVerificado(): bool
@@ -120,10 +114,9 @@ class UserDto extends DefaultFields
         return $this->emailVerificado;
     }
 
-    public function setEmailVerificado(bool $emailVerificado): UserDto
+    public function setEmailVerificado(bool $emailVerificado): void
     {
         $this->emailVerificado = $emailVerificado;
-        return $this;
     }
 
     public function getEAdmin(): bool
@@ -131,10 +124,9 @@ class UserDto extends DefaultFields
         return $this->eAdmin;
     }
 
-    public function setEAdmin(bool $eAdmin): UserDto
+    public function setEAdmin(bool $eAdmin): void
     {
         $this->eAdmin = $eAdmin;
-        return $this;
     }
 
     public function getEnderecos(): array
@@ -142,10 +134,9 @@ class UserDto extends DefaultFields
         return $this->enderecos;
     }
 
-    public function setEnderecos(array $enderecos): UserDto
+    public function setEnderecos(array $enderecos): void
     {
         $this->enderecos = EntityPerson::addrres($enderecos);
-        return $this;
     }
 
     public function getTelefones(): array
@@ -153,9 +144,8 @@ class UserDto extends DefaultFields
         return $this->telefones;
     }
 
-    public function setTelefones(array $telefones): UserDto
+    public function setTelefones(array $telefones): void
     {
         $this->telefones = EntityPerson::telephone($telefones);
-        return $this;
     }
 }

@@ -8,7 +8,12 @@ class DefaultFields
     public string $criadoEm;
     public string $alteradoEm;
 
-    public function __construct(bool $ativo, string $criadoEm, string $alteradoEm)
+    public function __construct
+    (
+        bool $ativo,
+        string $criadoEm,
+        string $alteradoEm
+    )
     {
         $this->setAtivo($ativo);
         $this->setCriadoEm($criadoEm);
@@ -20,10 +25,9 @@ class DefaultFields
         return $this->ativo;
     }
 
-    public function setAtivo(bool $ativo): DefaultFields
+    public function setAtivo(bool $ativo): void
     {
         $this->ativo = $ativo;
-        return $this;
     }
 
     public function getCriadoEm(): string
@@ -31,10 +35,9 @@ class DefaultFields
         return $this->criadoEm;
     }
 
-    public function setCriadoEm(string $criadoEm): DefaultFields
+    public function setCriadoEm(string $criadoEm): void
     {
         $this->criadoEm = date('d-m-Y H:i:s', strtotime($criadoEm));
-        return $this;
     }
 
     public function getAlteradoEm(): string
@@ -42,9 +45,8 @@ class DefaultFields
         return $this->alteradoEm;
     }
 
-    public function setAlteradoEm(string $alteradoEm): DefaultFields
+    public function setAlteradoEm(string $alteradoEm): void
     {
         $this->alteradoEm = date('d-m-Y H:i:s', strtotime($alteradoEm));
-        return $this;
     }
 }
