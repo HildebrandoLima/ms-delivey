@@ -4,41 +4,34 @@ namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Abstracts\EntityRepository;
+use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository implements EntityRepository
 {
-    public function enableDisable(int $id, int $active): bool
+    public function create(Model $model): int
     {
-        return User::query()->where('id', '=', $id)->update(['ativo' => $active]);
+        return $model::query()->create($model->toArray())->orderBy('id', 'desc')->first()->id;
     }
 
-    public function emailVerifiedAt(int $id, bool $active): bool
+    public function update(Model $model): bool
     {
-        return User::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verificado_em' => now()]);
+        return $model::query()->where('id', '=', $model->id)->update($model->toArray());
     }
 
-    public function create(User $user): int
-    {
-        return User::query()->create($user->toArray())->orderBy('id', 'desc')->first()->id;
-    }
-
-    public function update(User $user): bool
-    {
-        return User::query()->where('id', '=', $user->id)->update($user->toArray());
-    }
-
-    public function getAll(string $search, bool $active): Collection
+    public function readAll(string $search): Collection
     {
         $collection = $this->query()
-        ->where(function($query) use ($search, $active) {
+        ->where(function($query) use ($search) {
+            QueryFilter::getQueryFilter($query);
             if (!empty($search)):
-                $query->where('users.name', 'like', $search)->where('users.ativo', '=', $active);
+                $query->where('users.nome', 'like', $search);
             else:
-                $query->where('users.ativo', '=', $active);
+                QueryFilter::getQueryFilter($query);
             endif;
         })->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
@@ -47,15 +40,20 @@ class UserRepository implements UserRepositoryInterface
         return PaginationList::createFromPagination($collection);
     }
 
-    public function getOne(int $id, bool $active): Collection
+    public function readOne(int $id): Collection
     {
-        $collect = $this->query()->where('users.ativo', '=', $active)
-        ->where('users.id', '=', $id)->get()->toArray()[0];
-        $collection = UserMapperDto::mapper($collect);
+        $collection = $this->query()
+        ->where(function($query) {
+            QueryFilter::getQueryFilter($query);
+        })
+        ->where('users.id', '=', $id)->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = UserMapperDto::mapper($instance);
+        endforeach;
         return collect($collection);
     }
 
-    private function query(): Builder
+    protected function query(): Builder
     {
         return User::with('endereco')->with('telefone');
     }

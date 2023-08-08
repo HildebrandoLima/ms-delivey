@@ -11,7 +11,7 @@ class UserMapperDto
         return new UserDto
         (
             $user['id'] ?? 0,
-            $user['name'] ?? '',
+            $user['nome'] ?? '',
             $user['cpf'] ?? '',
             $user['email'] ?? '',
             $user['data_nascimento'] ?? '',

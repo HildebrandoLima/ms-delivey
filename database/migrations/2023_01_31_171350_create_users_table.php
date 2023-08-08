@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('password', 100)->unique()->notnull();
             $table->timestamp('data_nascimento')->notnull();
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
-            $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->rememberToken();
+            $table->boolean('email_verified_at')->nullable()->default(NULL);
             $table->boolean('e_admin');
             $table->boolean('ativo');
             $table->timestamps();

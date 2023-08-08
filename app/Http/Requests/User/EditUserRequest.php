@@ -25,7 +25,6 @@ class EditUserRequest extends BaseRequest
             'nome' => 'required|string',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
             'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
-            'ativo' => 'required|boolean',
         ];
     }
 
@@ -38,12 +37,10 @@ class EditUserRequest extends BaseRequest
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
             'email' => DefaultErrorMessages::INVALID_EMAIL,
         ];

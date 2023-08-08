@@ -2,26 +2,26 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Abstracts\EntityRepository;
 use App\Services\User\Interfaces\ListUserServiceInterface;
 use Illuminate\Support\Collection;
 
 class ListUserService implements ListUserServiceInterface
 {
-    private UserRepositoryInterface $userRepository;
+    private EntityRepository $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(EntityRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(string $search, bool $active): Collection
+    public function listUserAll(string $search): Collection
     {
-        return $this->userRepository->getAll($search, $active);
+        return $this->userRepository->readAll($search);
     }
 
-    public function listUserFind(int $id, bool $active): Collection
+    public function listUserOne(int $id): Collection
     {
-        return $this->userRepository->getOne($id, $active);
+        return $this->userRepository->readOne($id);
     }
 }

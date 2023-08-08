@@ -4,15 +4,15 @@ namespace App\Services\User\Concretes;
 
 use App\Http\Requests\User\EditUserRequest;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Abstracts\EntityRepository;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Support\Enums\AtivoEnum;
 
 class EditUserService implements EditUserServiceInterface
 {
-    private UserRepositoryInterface $userRepository;
+    private EntityRepository $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(EntityRepository $userRepository)
     {
         $this->userRepository = $userRepository;  
     }
@@ -21,7 +21,7 @@ class EditUserService implements EditUserServiceInterface
     {
         $user = $this->map($request);
         return $this->userRepository->update($user);
-    }
+    }   
 
     private function map(EditUserRequest $request): User
     {

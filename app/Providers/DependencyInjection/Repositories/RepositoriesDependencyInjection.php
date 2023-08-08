@@ -2,6 +2,7 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
+use App\Repositories\Abstracts\EntityRepository;
 use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\Concretes\AuthRepositoy;
 use App\Repositories\Concretes\CategoryRepository;
@@ -25,7 +26,6 @@ use App\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
 use Carbon\Laravel\ServiceProvider;
 
 class RepositoriesDependencyInjection extends ServiceProvider
@@ -59,6 +59,6 @@ class RepositoriesDependencyInjection extends ServiceProvider
 
         $this->app->bind(TelephoneRepositoryInterface::class, TelephoneRepository::class);
 
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(EntityRepository::class, UserRepository::class);
     }
 }

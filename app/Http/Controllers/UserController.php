@@ -10,7 +10,6 @@ use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
-use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,14 +34,10 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
     }
 
-    public function index(Search $search, FilterByActive $filter): Response
+    public function index(Search $search): Response
     {
         try {
-            $success = $this->listUserService->listUserAll
-            (
-                $search->search(request()),
-                $filter->active
-            );
+            $success = $this->listUserService->listUserAll($search->search(request()));
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -50,14 +45,10 @@ class UserController extends Controller
         }
     }
 
-    public function show(ParamsUserRequest $request, FilterByActive $filter): Response
+    public function show(ParamsUserRequest $request): Response
     {
         try {
-            $success = $this->listUserService->listUserFind
-            (
-                $request->id,
-                $filter->active
-            );
+            $success = $this->listUserService->listUserOne($request->id);
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -87,14 +78,10 @@ class UserController extends Controller
         }
     }
 
-    public function emailVerifiedAt(int $id, FilterByActive $filter): Response
+    public function emailVerifiedAt(int $id): Response
     {
         try {
-            $success = $this->emailUserVerifiedAtService->emailVerifiedAt
-            (
-                $id,
-                $filter->active
-            );
+            $success = $this->emailUserVerifiedAtService->emailVerifiedAt($id);
             if (!$success) return Controller::error();
             return response()->json([
                 "message" => "Verificação efetuada com sucesso!",
