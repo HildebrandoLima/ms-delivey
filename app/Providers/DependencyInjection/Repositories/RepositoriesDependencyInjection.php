@@ -3,12 +3,15 @@
 namespace App\Providers\DependencyInjection\Repositories;
 
 use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IPermissionRepository;
 use App\Repositories\Abstracts\IProviderRepository;
 use App\Repositories\Abstracts\IUserRepository;
 
 use App\Repositories\Concretes\EntityRepository;
+use App\Repositories\Concretes\PermissionRepository;
 use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\UserRepository;
+
 
 
 use App\Repositories\Concretes\AddressRepository;
@@ -18,7 +21,6 @@ use App\Repositories\Concretes\ImageRepository;
 use App\Repositories\Concretes\ItemRepository;
 use App\Repositories\Concretes\OrderRepository;
 use App\Repositories\Concretes\PaymentRepository;
-use App\Repositories\Concretes\PermissionRepository;
 use App\Repositories\Concretes\ProductRepository;
 use App\Repositories\Concretes\TelephoneRepository;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
@@ -28,16 +30,14 @@ use App\Repositories\Interfaces\ImageRepositoryInterface;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
-use App\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Repositories\Interfaces\ProviderRepositoryInterface;
 use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use Carbon\Laravel\ServiceProvider;
 
 class RepositoriesDependencyInjection extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register any application Repositories.
      *
      * @return void
      */
@@ -57,13 +57,13 @@ class RepositoriesDependencyInjection extends ServiceProvider
 
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
 
-        $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
-
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
 
         $this->app->bind(TelephoneRepositoryInterface::class, TelephoneRepository::class);
 
         $this->app->bind(IEntityRepository::class, EntityRepository::class);
+
+        $this->app->bind(IPermissionRepository::class, PermissionRepository::class);
 
         $this->app->bind(IProviderRepository::class, ProviderRepository::class);
 

@@ -3,9 +3,9 @@
 namespace App\Repositories\Concretes;
 
 use App\Models\PermissionUser;
-use App\Repositories\Interfaces\PermissionRepositoryInterface;
+use App\Repositories\Abstracts\IPermissionRepository;
 
-class PermissionRepository implements PermissionRepositoryInterface
+class PermissionRepository implements IPermissionRepository
 {
     public function create(int $user, int $permission): bool
     {
