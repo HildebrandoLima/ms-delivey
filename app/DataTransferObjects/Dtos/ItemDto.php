@@ -14,9 +14,34 @@ class ItemDto extends DefaultFields
     public int $pedidoId;
     public int $produtoId;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $itemId,
+        string $nome,
+        float $preco,
+        string $codigoBarra,
+        int $quantidadeItem,
+        float $subTotal,
+        string $unidadeMedida,
+        int $pedidoId,
+        int $produtoId,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new ItemDto();
+        $this->setItemId($itemId);
+        $this->setNome($nome);
+        $this->setPreco($preco);
+        $this->setCodigoBarra($codigoBarra);
+        $this->setQuantidadeItem($quantidadeItem);
+        $this->setSubTotal($subTotal);
+        $this->setUnidadeMedida($unidadeMedida);
+        $this->setPedidoId($pedidoId);
+        $this->setProdutoId($produtoId);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getItemId(): int

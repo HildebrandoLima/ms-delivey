@@ -13,9 +13,32 @@ class PaymentDto extends DefaultFields
     public int $metodoPagamentoId;
     public int $pedidoId;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $pagamentoId,
+        int $codigoTransacao,
+        string|null $numeroCartao,
+        string|null $dataValidade,
+        int|null $parcela,
+        float $total,
+        int $metodoPagamentoId,
+        int $pedidoId,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new PaymentDto();
+        $this->setPagamentoId($pagamentoId);
+        $this->setCodigoTransacao($codigoTransacao);
+        $this->setNumeroCartao($numeroCartao);
+        $this->setDataValidade($dataValidade);
+        $this->setParcela($parcela);
+        $this->setTotal($total);
+        $this->setMetodoPagamentoId($metodoPagamentoId);
+        $this->setPedidoId($pedidoId);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getPagamentoId(): int

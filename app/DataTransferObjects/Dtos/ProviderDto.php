@@ -14,9 +14,30 @@ class ProviderDto extends DefaultFields
     public array $enderecos;
     public array $telefones;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $fornecedorId,
+        string $razaoSocial,
+        string $cnpj,
+        string $email,
+        string $dataFundacao,
+        array $enderecos,
+        array $telefones,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new ProviderDto();
+        $this->setFornecedorId($fornecedorId);
+        $this->setRazaoSocial($razaoSocial);
+        $this->setCnpj($cnpj);
+        $this->setEmail($email);
+        $this->setDataFundacao($dataFundacao);
+        $this->setEnderecos($enderecos);
+        $this->setTelefones($telefones);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getFornecedorId(): int

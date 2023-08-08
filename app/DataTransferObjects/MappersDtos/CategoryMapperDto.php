@@ -8,11 +8,13 @@ class CategoryMapperDto
 {
     public static function mapper(array $category): CategoryDto
     {
-        return CategoryDto::construction()
-        ->setCategoriaId($category['id'] ?? 0)
-        ->setNome($category['nome'] ?? '')
-        ->setAtivo($category['ativo'] ?? '')
-        ->setCriadoEm($category['created_at'] ?? '')
-        ->setAlteradoEm($category['updated_at'] ?? '');
+        return new CategoryDto
+        (
+            $category['id'] ?? 0,
+            $category['nome'] ?? '',
+            $category['ativo'] ?? '',
+            $category['created_at'] ?? '',
+            $category['updated_at'] ?? '',
+        );
     }
 }

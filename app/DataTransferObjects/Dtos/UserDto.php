@@ -7,21 +7,46 @@ use App\Support\MapperEntity\EntityPerson;
 class UserDto extends DefaultFields
 {
     public int $usuarioId;
-    public int $loginSocialId;
-    public string $loginSocial;
     public string $nome;
     public string $cpf;
     public string $email;
     public string $dataNascimento;
     public string $genero;
     public bool $emailVerificado;
-    public bool $isAdmin;
+    public bool $eAdmin;
     public array $enderecos;
     public array $telefones;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $usuarioId,
+        string $nome,
+        string $cpf,
+        string $email,
+        string $dataNascimento,
+        string $genero,
+        bool $emailVerificado,
+        bool $eAdmin,
+        array $enderecos,
+        array $telefones,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new UserDto();
+        $this->setUsuarioId($usuarioId);
+        $this->setNome($nome);
+        $this->setCpf($cpf);
+        $this->setEmail($email);
+        $this->setDataNascimento($dataNascimento);
+        $this->setGenero($genero);
+        $this->setEmailVerificado($emailVerificado);
+        $this->setEAdmin($eAdmin);
+        $this->setEnderecos($enderecos);
+        $this->setTelefones($telefones);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getUsuarioId(): int
@@ -32,28 +57,6 @@ class UserDto extends DefaultFields
     public function setUsuarioId(int $usuarioId): UserDto
     {
         $this->usuarioId = $usuarioId;
-        return $this;
-    }
-
-    public function getLoginSocialId(): int
-    {
-        return $this->loginSocialId;
-    }
-
-    public function setLoginSocialId(int $loginSocialId): UserDto
-    {
-        $this->loginSocialId = $loginSocialId;
-        return $this;
-    }
-
-    public function getLoginSocial(): string
-    {
-        return $this->loginSocial;
-    }
-
-    public function setLoginSocial(string $loginSocial): UserDto
-    {
-        $this->loginSocial = $loginSocial;
         return $this;
     }
 
@@ -123,14 +126,14 @@ class UserDto extends DefaultFields
         return $this;
     }
 
-    public function getIsAdmin(): bool
+    public function getEAdmin(): bool
     {
-        return $this->isAdmin;
+        return $this->eAdmin;
     }
 
-    public function setIsAdmin(bool $isAdmin): UserDto
+    public function setEAdmin(bool $eAdmin): UserDto
     {
-        $this->isAdmin = $isAdmin;
+        $this->eAdmin = $eAdmin;
         return $this;
     }
 

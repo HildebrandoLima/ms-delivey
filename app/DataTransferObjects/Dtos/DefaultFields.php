@@ -8,9 +8,11 @@ class DefaultFields
     public string $criadoEm;
     public string $alteradoEm;
 
-    public static function construction(): static
+    public function __construct(bool $ativo, string $criadoEm, string $alteradoEm)
     {
-        return new DefaultFields();
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($alteradoEm);
     }
 
     public function getAtivo(): bool

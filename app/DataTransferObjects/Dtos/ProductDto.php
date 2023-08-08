@@ -20,9 +20,42 @@ class ProductDto extends DefaultFields
     public int $fornecedorId;
     public array $imagens;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $produtoId,
+        string $nome,
+        float $precoCusto,
+        float $precoVenda,
+        float $margemLucro,
+        string $codigoBarra,
+        string $descricao,
+        int $quantidade,
+        string $unidadeMedida,
+        string $dataValidade,
+        int $categoriaId,
+        int $fornecedorId,
+        array $imagens,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new ProductDto();
+        $this->setProdutoId($produtoId);
+        $this->setNome($nome);
+        $this->setPrecoCusto($precoCusto);
+        $this->setPrecoVenda($precoVenda);
+        $this->setMargemLucro($margemLucro);
+        $this->setCodigoBarra($codigoBarra);
+        $this->setDescricao($descricao);
+        $this->setQuantidade($quantidade);
+        $this->setUnidadeMedida($unidadeMedida);
+        $this->setDataValidade($dataValidade);
+        $this->setCategoriaId($categoriaId);
+        $this->setFornecedorId($fornecedorId);
+        $this->setImagens($imagens);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getProdutoId(): int

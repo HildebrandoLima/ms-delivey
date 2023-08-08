@@ -15,9 +15,32 @@ class OrderDto extends DefaultFields
     public array $items;
     public array $pagamento;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $pedidoId,
+        int $numeroPedido,
+        int $quantidadeItem,
+        float $total,
+        float $entrega,
+        int $usuarioId,
+        array $items,
+        array $pagamento,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new OrderDto();
+        $this->setPedidoId($pedidoId);
+        $this->setNumeroPedido($numeroPedido);
+        $this->setQuantidadeItem($quantidadeItem);
+        $this->setTotal($total);
+        $this->setEntrega($entrega);
+        $this->setUsuarioId($usuarioId);
+        $this->setItems($items);
+        $this->setPagamento($pagamento);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getPedidoId(): int

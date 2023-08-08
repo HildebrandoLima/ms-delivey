@@ -10,13 +10,38 @@ class AddressDto extends DefaultFields
     public string $bairro;
     public string $cidade;
     public string $cep;
-    public int $ufId;
+    public int $uf;
     public int|null $usuarioId;
     public int|null $fornecedorId;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $enderecoId,
+        string $logradouro,
+        string $descricao,
+        string $bairro,
+        string $cidade,
+        string $cep,
+        int $uf,
+        int|null $usuarioId,
+        int|null $fornecedorId,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new AddressDto();
+        $this->setEnderecoId($enderecoId);
+        $this->setLogradouro($logradouro);
+        $this->setDescricao($descricao);
+        $this->setBairro($bairro);
+        $this->setCidade($cidade);
+        $this->setCep($cep);
+        $this->setUf($uf);
+        $this->setUsuarioId($usuarioId);
+        $this->setFornecedorId($fornecedorId);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getEnderecoId(): int
@@ -85,14 +110,14 @@ class AddressDto extends DefaultFields
         return $this;
     }
 
-    public function getUfId(): int
+    public function getUf(): int
     {
-        return $this->ufId;
+        return $this->uf;
     }
 
-    public function setUfId(int $ufId): AddressDto
+    public function setUf(int $uf): AddressDto
     {
-        $this->ufId = $ufId;
+        $this->uf = $uf;
         return $this;
     }
 

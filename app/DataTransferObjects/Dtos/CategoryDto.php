@@ -7,9 +7,20 @@ class CategoryDto extends DefaultFields
     public int $categoriaId;
     public string $nome;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $categoriaId,
+        string $nome,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new CategoryDto();
+        $this->setCategoriaId($categoriaId);
+        $this->setNome($nome);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getCategoriaId(): int

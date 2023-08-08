@@ -7,13 +7,29 @@ class TelephoneDto extends DefaultFields
     public int $telefoneId;
     public string $numero;
     public string $tipo;
-    public int $dddId;
     public int|null $usuarioId;
     public int|null $fornecedorId;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $telefoneId,
+        string $numero,
+        string $tipo,
+        int|null $usuarioId,
+        int|null $fornecedorId,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new TelephoneDto();
+        $this->setTelefoneId($telefoneId);
+        $this->setNumero($numero);
+        $this->setTipo($tipo);
+        $this->setUsuarioId($usuarioId);
+        $this->setFornecedorId($fornecedorId);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getTelefoneId(): int
@@ -46,17 +62,6 @@ class TelephoneDto extends DefaultFields
     public function setTipo(string $tipo): TelephoneDto
     {
         $this->tipo = $tipo;
-        return $this;
-    }
-
-    public function getDddId(): int
-    {
-        return $this->dddId;
-    }
-
-    public function setDddId(int $dddId): TelephoneDto
-    {
-        $this->dddId = $dddId;
         return $this;
     }
 

@@ -7,9 +7,20 @@ class ImageDto extends DefaultFields
     public string $caminho;
     public int $produtoId;
 
-    public static function construction(): static
+    public function __construct
+    (
+        string $caminho,
+        int $produtoId,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new ImageDto();
+        $this->setCaminho($caminho);
+        $this->setProdutoId($produtoId);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getCaminho(): string

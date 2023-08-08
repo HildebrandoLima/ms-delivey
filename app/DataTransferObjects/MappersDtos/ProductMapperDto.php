@@ -8,22 +8,24 @@ class ProductMapperDto
 {
     public static function mapper(array $product): ProductDto
     {
-        return ProductDto::construction()
-        ->setProdutoId($product['id'] ?? 0)
-        ->setNome($product['nome'] ?? '')
-        ->setPrecoCusto($product['preco_custo'] ?? '')
-        ->setPrecoVenda($product['margem_lucro'] ?? '')
-        ->setPrecoVenda($product['preco_venda'] ?? '')
-        ->setCodigoBarra($product['codigo_barra'] ?? '')
-        ->setDescricao($product['descricao'] ?? '')
-        ->setQuantidade($product['quantidade'] ?? 0)
-        ->setUnidadeMedida($product['unidade_medida'] ?? '')
-        ->setDataValidade($product['data_validade'] ?? '')
-        ->setCategoriaId($product['categoria_id'] ?? 0)
-        ->setFornecedorId($product['fornecedor_id'] ?? 0)
-        ->setImagens($product['imagem'] ?? [])
-        ->setAtivo($product['ativo'] ?? '')
-        ->setCriadoEm($product['created_at'] ?? '')
-        ->setAlteradoEm($product['updated_at'] ?? '');
+        return new ProductDto
+        (
+            $product['id'] ?? 0,
+            $product['nome'] ?? '',
+            $product['preco_custo'] ?? '',
+            $product['margem_lucro'] ?? '',
+            $product['preco_venda'] ?? '',
+            $product['codigo_barra'] ?? '',
+            $product['descricao'] ?? '',
+            $product['quantidade'] ?? 0,
+            $product['unidade_medida'] ?? '',
+            $product['data_validade'] ?? '',
+            $product['categoria_id'] ?? 0,
+            $product['fornecedor_id'] ?? 0,
+            $product['imagem'] ?? [],
+            $product['ativo'] ?? '',
+            $product['created_at'] ?? '',
+            $product['updated_at'] ?? '',
+        );
     }
 }
