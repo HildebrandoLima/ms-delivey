@@ -4,15 +4,14 @@ namespace App\Services\Telephone\Concretes;
 
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
-use App\Repositories\Interfaces\TelephoneRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
-use App\Support\Enums\AtivoEnum;
 
 class EditTelephoneService implements EditTelephoneServiceInterface
 {
-    private TelephoneRepositoryInterface $telephoneRepository;
+    private IEntityRepository $telephoneRepository;
 
-    public function __construct(TelephoneRepositoryInterface $telephoneRepository)
+    public function __construct(IEntityRepository $telephoneRepository)
     {
         $this->telephoneRepository = $telephoneRepository;
     }
@@ -32,7 +31,6 @@ class EditTelephoneService implements EditTelephoneServiceInterface
         $telephone->tipo = $request->tipo;
         $telephone->usuario_id = $request->usuarioId ?? null;
         $telephone->fornecedor_id = $request->fornecedorId ?? null;
-        $telephone->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $telephone;
     }
 }
