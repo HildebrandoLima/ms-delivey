@@ -3,14 +3,14 @@
 namespace App\Services\User\Concretes;
 
 use App\Models\User;
-use App\Repositories\Abstracts\EntityRepository;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 
 class EmailUserVerifiedAtService implements EmailUserVerifiedAtServiceInterface
 {
-    private EntityRepository $userRepository;
+    private IEntityRepository $userRepository;
 
-    public function __construct(EntityRepository $userRepository)
+    public function __construct(IEntityRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }

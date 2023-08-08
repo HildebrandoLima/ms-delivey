@@ -2,7 +2,15 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\EntityRepository;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IProviderRepository;
+use App\Repositories\Abstracts\IUserRepository;
+
+use App\Repositories\Concretes\EntityRepository;
+use App\Repositories\Concretes\ProviderRepository;
+use App\Repositories\Concretes\UserRepository;
+
+
 use App\Repositories\Concretes\AddressRepository;
 use App\Repositories\Concretes\AuthRepositoy;
 use App\Repositories\Concretes\CategoryRepository;
@@ -12,9 +20,7 @@ use App\Repositories\Concretes\OrderRepository;
 use App\Repositories\Concretes\PaymentRepository;
 use App\Repositories\Concretes\PermissionRepository;
 use App\Repositories\Concretes\ProductRepository;
-use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\TelephoneRepository;
-use App\Repositories\Concretes\UserRepository;
 use App\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -55,10 +61,12 @@ class RepositoriesDependencyInjection extends ServiceProvider
 
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
 
-        $this->app->bind(ProviderRepositoryInterface::class, ProviderRepository::class);
-
         $this->app->bind(TelephoneRepositoryInterface::class, TelephoneRepository::class);
 
-        $this->app->bind(EntityRepository::class, UserRepository::class);
+        $this->app->bind(IEntityRepository::class, EntityRepository::class);
+
+        $this->app->bind(IProviderRepository::class, ProviderRepository::class);
+
+        $this->app->bind(IUserRepository::class, UserRepository::class);
     }
 }

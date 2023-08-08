@@ -2,15 +2,15 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Abstracts\EntityRepository;
+use App\Repositories\Abstracts\IUserRepository;
 use App\Services\User\Interfaces\ListUserServiceInterface;
 use Illuminate\Support\Collection;
 
 class ListUserService implements ListUserServiceInterface
 {
-    private EntityRepository $userRepository;
+    private IUserRepository $userRepository;
 
-    public function __construct(EntityRepository $userRepository)
+    public function __construct(IUserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }

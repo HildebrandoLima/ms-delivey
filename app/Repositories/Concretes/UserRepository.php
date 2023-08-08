@@ -4,28 +4,16 @@ namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\MappersDtos\UserMapperDto;
 use App\Models\User;
-use App\Repositories\Abstracts\EntityRepository;
+use App\Repositories\Abstracts\IUserRepository;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class UserRepository implements EntityRepository
+class UserRepository implements IUserRepository
 {
-    public function create(Model $model): int
-    {
-        return $model::query()->create($model->toArray())->orderBy('id', 'desc')->first()->id;
-    }
-
-    public function update(Model $model): bool
-    {
-        return $model::query()->where('id', '=', $model->id)->update($model->toArray());
-    }
-
     public function readAll(string $search, bool $filter): Collection
     {
-        $collection = $this->query()
+        $collection = User::with('endereco')->with('telefone')
         ->where(function($query) use ($search, $filter) {
             QueryFilter::getQueryFilter($query, $filter);
             if (!empty($search)):
@@ -42,8 +30,8 @@ class UserRepository implements EntityRepository
 
     public function readOne(int $id, bool $filter): Collection
     {
-        $collection = $this->query()
-        ->where(function($query, $filter) {
+        $collection = User::with('endereco')->with('telefone')
+        ->where(function($query) use ($filter) {
             QueryFilter::getQueryFilter($query, $filter);
         })
         ->where('users.id', '=', $id)->get();
@@ -51,10 +39,5 @@ class UserRepository implements EntityRepository
             $collection[$key] = UserMapperDto::mapper($instance);
         endforeach;
         return collect($collection);
-    }
-
-    protected function query(): Builder
-    {
-        return User::with('endereco')->with('telefone');
     }
 }

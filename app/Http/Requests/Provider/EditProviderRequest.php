@@ -24,7 +24,6 @@ class EditProviderRequest extends BaseRequest
             'razaoSocial' => 'required|string',
             'cnpj' => 'required|string|formato_cnpj',
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
-            'ativo' => 'required|boolean'
         ];
     }
 
@@ -36,13 +35,11 @@ class EditProviderRequest extends BaseRequest
             'razaoSocial.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cnpj.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'razaoSocial.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email' => DefaultErrorMessages::INVALID_EMAIL,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

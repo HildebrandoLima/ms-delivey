@@ -24,7 +24,6 @@ class CreateProviderRequest extends BaseRequest
             'cnpj' => 'required|string|formato_cnpj|unique:fornecedor,cnpj',
             'email' => 'required|string|unique:fornecedor,email|regex:/(.+)@(.+)\.(.+)/i',
             'dataFundacao' => 'required|date',
-            'ativo' => 'required|boolean'
         ];
     }
 
@@ -39,14 +38,12 @@ class CreateProviderRequest extends BaseRequest
             'cnpj.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'email.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataFundacao.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'razaoSocial.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cnpj.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'dataFundacao.date' => DefaultErrorMessages::INVALID_DATE,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }
