@@ -23,15 +23,15 @@ class UserRepository implements EntityRepository
         return $model::query()->where('id', '=', $model->id)->update($model->toArray());
     }
 
-    public function readAll(string $search): Collection
+    public function readAll(string $search, bool $filter): Collection
     {
         $collection = $this->query()
-        ->where(function($query) use ($search) {
-            QueryFilter::getQueryFilter($query);
+        ->where(function($query) use ($search, $filter) {
+            QueryFilter::getQueryFilter($query, $filter);
             if (!empty($search)):
                 $query->where('users.nome', 'like', $search);
             else:
-                QueryFilter::getQueryFilter($query);
+                QueryFilter::getQueryFilter($query, $filter);
             endif;
         })->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
@@ -40,11 +40,11 @@ class UserRepository implements EntityRepository
         return PaginationList::createFromPagination($collection);
     }
 
-    public function readOne(int $id): Collection
+    public function readOne(int $id, bool $filter): Collection
     {
         $collection = $this->query()
-        ->where(function($query) {
-            QueryFilter::getQueryFilter($query);
+        ->where(function($query, $filter) {
+            QueryFilter::getQueryFilter($query, $filter);
         })
         ->where('users.id', '=', $id)->get();
         foreach ($collection->toArray() as $key => $instance):

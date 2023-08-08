@@ -10,6 +10,7 @@ use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
+use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,10 +35,14 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
     }
 
-    public function index(Search $search): Response
+    public function index(Search $search, FilterByActive $filter): Response
     {
         try {
-            $success = $this->listUserService->listUserAll($search->search(request()));
+            $success = $this->listUserService->listUserAll
+            (
+                $search->search(request()),
+                $filter->active
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
@@ -45,10 +50,14 @@ class UserController extends Controller
         }
     }
 
-    public function show(ParamsUserRequest $request): Response
+    public function show(ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
-            $success = $this->listUserService->listUserOne($request->id);
+            $success = $this->listUserService->listUserOne
+            (
+                $request->id,
+                $filter->active
+            );
             if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {

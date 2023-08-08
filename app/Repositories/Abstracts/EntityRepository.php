@@ -9,6 +9,6 @@ interface EntityRepository
 {
     public function create(Model $model): int;
     public function update(Model $model): bool;
-    public function readAll(string $search): Collection;
-    public function readOne(int $id): Collection;
+    public function readAll(string $search, bool $filter): Collection;
+    public function readOne(int $id, bool $filter): Collection;
 }

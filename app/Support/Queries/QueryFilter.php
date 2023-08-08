@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class QueryFilter
 {
-    final public static function getQueryFilter(Builder $query)
+    final public static function getQueryFilter(Builder $query, bool $filter)
     {
-        return $query->where($query->from . '.ativo', '=', AtivoEnum::ATIVADO);
+        return $query->where($query->from . '.ativo', '=',
+        $filter == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO);
     }
 }

@@ -15,13 +15,13 @@ class ListUserService implements ListUserServiceInterface
         $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(string $search): Collection
+    public function listUserAll(string $search, bool $filter): Collection
     {
-        return $this->userRepository->readAll($search);
+        return $this->userRepository->readAll($search, $filter);
     }
 
-    public function listUserOne(int $id): Collection
+    public function listUserOne(int $id, bool $filter): Collection
     {
-        return $this->userRepository->readOne($id);
+        return $this->userRepository->readOne($id, $filter);
     }
 }
