@@ -4,15 +4,15 @@ namespace App\Services\Address\Concretes;
 
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Endereco;
-use App\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
 use App\Support\Enums\AtivoEnum;
 
 class CreateAddressService implements CreateAddressServiceInterface
 {
-    private AddressRepositoryInterface $addressRepository;
+    private IEntityRepository $addressRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepository)
+    public function __construct(IEntityRepository $addressRepository)
     {
         $this->addressRepository = $addressRepository;
     }

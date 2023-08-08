@@ -24,7 +24,6 @@ class CreateAddressRequest extends BaseRequest
             'uf' => 'required|string|uf',
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
-            'ativo' => 'required|boolean',
         ];
     }
 
@@ -44,7 +43,6 @@ class CreateAddressRequest extends BaseRequest
             'cidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'uf.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -54,7 +52,6 @@ class CreateAddressRequest extends BaseRequest
             'uf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }
