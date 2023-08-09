@@ -17,21 +17,6 @@ use App\Repositories\Concretes\PermissionRepository;
 use App\Repositories\Concretes\ProductRepository;
 use App\Repositories\Concretes\ProviderRepository;
 use App\Repositories\Concretes\UserRepository;
-
-
-
-use App\Repositories\Concretes\AddressRepository;
-use App\Repositories\Concretes\AuthRepositoy;
-use App\Repositories\Concretes\ImageRepository;
-use App\Repositories\Concretes\ItemRepository;
-use App\Repositories\Concretes\PaymentRepository;
-use App\Repositories\Concretes\TelephoneRepository;
-use App\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Repositories\Interfaces\AuthRepositoryInterface;
-use App\Repositories\Interfaces\ImageRepositoryInterface;
-use App\Repositories\Interfaces\ItemRepositoryInterface;
-use App\Repositories\Interfaces\PaymentRepositoryInterface;
-use App\Repositories\Interfaces\TelephoneRepositoryInterface;
 use Carbon\Laravel\ServiceProvider;
 
 class RepositoriesDependencyInjection extends ServiceProvider
@@ -43,18 +28,6 @@ class RepositoriesDependencyInjection extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
-
-        $this->app->bind(AuthRepositoryInterface::class, AuthRepositoy::class);
-
-        $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
-
-        $this->app->bind(ItemRepositoryInterface::class, ItemRepository::class);
-
-        $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
-
-        $this->app->bind(TelephoneRepositoryInterface::class, TelephoneRepository::class);
-
         $this->app->bind(ICategoryRepository::class, CategoryRepository::class);
 
         $this->app->bind(IEntityRepository::class, EntityRepository::class);
