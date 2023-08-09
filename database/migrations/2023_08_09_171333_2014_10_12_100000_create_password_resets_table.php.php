@@ -13,12 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('email', 50)->index();
-            $table->uuid('token');
-            $table->string('codigo', 10)->notnull();
-        });
+        //
     }
 
     /**
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        //
     }
 };
