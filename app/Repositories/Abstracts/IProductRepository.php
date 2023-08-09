@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Repositories\Abstracts;
+
+use App\Support\Utils\Pagination\Pagination;
+use Illuminate\Support\Collection;
+
+interface IProductRepository
+{
+    public function readAll(Pagination $pagination, string $search, bool $active): Collection;
+    public function readOne(int $id, bool $active): Collection;
+}

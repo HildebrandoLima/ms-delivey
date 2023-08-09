@@ -5,8 +5,8 @@ namespace App\Services\Product\Concretes;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Storage;
@@ -14,12 +14,12 @@ use Illuminate\Support\Str;
 
 class CreateProductService implements CreateProductServiceInterface
 {
-    private ProductRepositoryInterface $productRepository;
+    private IEntityRepository $productRepository;
     private ImageRepositoryInterface   $imageRepository;
 
     public function __construct
     (
-        ProductRepositoryInterface $productRepository,
+        IEntityRepository $productRepository,
         ImageRepositoryInterface   $imageRepository,
     )
     {

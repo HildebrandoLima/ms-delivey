@@ -4,15 +4,14 @@ namespace App\Services\Product\Concretes;
 
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Produto;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
-use App\Support\Enums\AtivoEnum;
 
 class EditProductService implements EditProductServiceInterface
 {
-    private ProductRepositoryInterface $productRepository;
+    private IEntityRepository $productRepository;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(IEntityRepository $productRepository)
     {
         $this->productRepository = $productRepository;
     }
@@ -38,7 +37,6 @@ class EditProductService implements EditProductServiceInterface
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $product;
     }
 }

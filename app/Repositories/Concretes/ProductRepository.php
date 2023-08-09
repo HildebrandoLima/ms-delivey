@@ -4,76 +4,66 @@ namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\MappersDtos\ProductMapperDto;
 use App\Models\Produto;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Abstracts\IProductRepository;
+use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class ProductRepository implements ProductRepositoryInterface
+class ProductRepository implements IProductRepository
 {
-    public function enableDisable(int $id, bool $active): bool
-    {
-        return Produto::query()->where('id', '=', $id)->update(['ativo' => $active]);
-    }
-
-    public function create(Produto $produto): int
-    {
-        return Produto::query()->create($produto->toArray())->orderBy('id', 'desc')->first()->id;
-    }
-
-    public function update(Produto $produto): bool
-    {
-        return Produto::query()->where('id', '=', $produto->id)->update($produto->toArray());
-    }
-
-    public function getAll(Pagination $pagination, string $search, bool $active): Collection
+    public function readAll(Pagination $pagination, string $search, bool $filter): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
-            return $this->hasPagination($search, $active);
+            return $this->hasPagination($search, $filter);
         else:
-            return $this->noPagination($search, $active);
+            return $this->noPagination($search, $filter);
         endif;
     }
 
-    public function getOne(int $id, bool $active): Collection
+    public function readOne(int $id, bool $filter): Collection
     {
-        $collect = Produto::query()->with('imagem')->where('produto.ativo', '=', $active)
-        ->where('produto.id', '=', $id)
+        $collection = Produto::query()->with('imagem')
+        ->where(function($query) use ($filter) {
+            QueryFilter::getQueryFilter($query, $filter);
+        })->where('produto.id', '=', $id)
         ->orWhere(function ($query) use ($id) {
             $query->where('produto.categoria_id', $id);
-        })->get()->toArray()[0];
-        $collection = ProductMapperDto::mapper($collect);
+        })->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = ProductMapperDto::mapper($instance);
+        endforeach;
         return collect($collection);
     }
 
-    private function hasPagination(string $search, bool $active): Collection
+    private function hasPagination(string $search, bool $filter): Collection
     {
-        $collection = $this->query($search, $active)->paginate(10);
+        $collection = $this->query($search, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = ProductMapperDto::mapper($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string $search, bool $active): Collection
+    private function noPagination(string $search, bool $filter): Collection
     {
-        $collection = $this->query($search, $active)->get();
+        $collection = $this->query($search, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = ProductMapperDto::mapper($instance);
         endforeach;
         return $collection;
     }
 
-    private function query(string $search, bool $active): Builder
+    private function query(string $search, bool $filter): Builder
     {
         return Produto::query()->with('imagem')
-        ->where(function($query) use ($search, $active) {
-            if(!empty($search)):
-                $query->where('produto.nome', 'like', $search)
-                      ->where('produto.ativo', '=', $active);
+        ->where(function($query) use ($search, $filter) {
+            QueryFilter::getQueryFilter($query, $filter);
+            if (!empty($search)):
+                $query->where('produto.nome', 'like', $search);
             else:
-                $query->where('produto.ativo', '=', $active);
+                QueryFilter::getQueryFilter($query, $filter);
             endif;
         })->orderByDesc('produto.id');
     }

@@ -31,7 +31,6 @@ class CreateProductRequest extends BaseRequest
             'dataValidade' => 'required|date',
             'categoriaId' => 'required|int|exists:categoria,id',
             'fornecedorId' => 'required|int|exists:fornecedor,id',
-            'ativo' => 'required|boolean',
             'imagens' => 'required|array',
         ];
     }
@@ -59,7 +58,6 @@ class CreateProductRequest extends BaseRequest
             'dataValidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'categoriaId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'imagens.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -72,7 +70,6 @@ class CreateProductRequest extends BaseRequest
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
             'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
             'imagens.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
         ];
     }
