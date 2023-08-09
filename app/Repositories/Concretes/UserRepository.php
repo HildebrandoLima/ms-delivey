@@ -3,6 +3,7 @@
 namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\MappersDtos\UserMapperDto;
+use App\Models\PasswordReset;
 use App\Models\User;
 use App\Repositories\Abstracts\IUserRepository;
 use App\Support\Queries\QueryFilter;
@@ -39,5 +40,17 @@ class UserRepository implements IUserRepository
             $collection[$key] = UserMapperDto::mapper($instance);
         endforeach;
         return collect($collection);
+    }
+
+    public function read(string $codigo): int
+    {
+        return User::query()
+        ->join('password_resets as pr', 'pr.email', '=', 'users.email')
+        ->select('users.id')->where('pr.codigo', '=', $codigo)->get()->toArray()[0]['id'];
+    }
+
+    public function delete(string $codigo): bool
+    {
+        return PasswordReset::query()->where('codigo', '=', $codigo)->delete();
     }
 }
