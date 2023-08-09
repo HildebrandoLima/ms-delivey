@@ -4,15 +4,15 @@ namespace App\Services\Category\Concretes;
 
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
-use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
 use App\Support\Enums\AtivoEnum;
 
 class CreateCategoryService implements CreateCategoryServiceInterface
 {
-    private CategoryRepositoryInterface $categoryRepository;
+    private IEntityRepository $categoryRepository;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(IEntityRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

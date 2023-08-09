@@ -7,6 +7,6 @@ use Illuminate\Support\Collection;
 
 interface ListCategoryServiceInterface
 {
-    public function listCategoryAll(Pagination $pagination, string $search, bool $active): Collection;
-    public function listCategoryFind(int $id, bool $active): Collection;
+    public function listCategoryAll(Pagination $pagination, string $search, bool $filter): Collection;
+    public function listCategoryFind(int $id, bool $filter): Collection;
 }

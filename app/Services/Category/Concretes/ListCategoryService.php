@@ -2,30 +2,27 @@
 
 namespace App\Services\Category\Concretes;
 
-use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Abstracts\ICategoryRepository;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 class ListCategoryService implements ListCategoryServiceInterface
 {
-    private CategoryRepositoryInterface $categoryRepository;
+    private ICategoryRepository $categoryRepository;
 
-    public function __construct
-    (
-        CategoryRepositoryInterface $categoryRepository,
-    )
+    public function __construct(ICategoryRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function listCategoryAll(Pagination $pagination, string $search, bool $active): Collection
+    public function listCategoryAll(Pagination $pagination, string $search, bool $filter): Collection
     {
-        return $this->categoryRepository->getAll($pagination, $search, $active);
+        return $this->categoryRepository->readAll($pagination, $search, $filter);
     }
 
-    public function listCategoryFind(int $id, bool $active): Collection
+    public function listCategoryFind(int $id, bool $filter): Collection
     {
-        return $this->categoryRepository->getOne($id, $active);
+        return $this->categoryRepository->readOne($id, $filter);
     }
 }

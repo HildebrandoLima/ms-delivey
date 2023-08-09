@@ -4,15 +4,14 @@ namespace App\Services\Category\Concretes;
 
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
-use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
-use App\Support\Enums\AtivoEnum;
 
 class EditCategoryService implements EditCategoryServiceInterface
 {
-    private CategoryRepositoryInterface $categoryRepository;
+    private IEntityRepository $categoryRepository;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(IEntityRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
@@ -28,7 +27,6 @@ class EditCategoryService implements EditCategoryServiceInterface
         $category = new Categoria();
         $category->id = $request->id; 
         $category->nome = $request->nome;
-        $category->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $category;
     }
 }

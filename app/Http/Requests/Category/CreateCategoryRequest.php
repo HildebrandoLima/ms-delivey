@@ -21,7 +21,6 @@ class CreateCategoryRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string|unique:categoria,nome',
-            'ativo' => 'required|boolean'
         ];
     }
 
@@ -29,12 +28,8 @@ class CreateCategoryRequest extends BaseRequest
     {
         return [
             'nome.unique' => DefaultErrorMessages::ALREADY_EXISTING,
-
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }
