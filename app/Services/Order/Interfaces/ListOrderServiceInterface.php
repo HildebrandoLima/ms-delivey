@@ -6,6 +6,6 @@ use Illuminate\Support\Collection;
 
 interface ListOrderServiceInterface
 {
-    public function listOrderAll(string $search, int $id, bool $active): Collection;
-    public function listOrderFind(int $id, bool $active): Collection;
+    public function listOrderAll(string $search, int $id, bool $filter): Collection;
+    public function listOrderFind(int $id, bool $filter): Collection;
 }
