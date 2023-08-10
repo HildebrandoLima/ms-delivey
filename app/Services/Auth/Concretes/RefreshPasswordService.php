@@ -36,7 +36,7 @@ class RefreshPasswordService implements RefreshPasswordServiceInterface
     private function map(RefreshPasswordRequest $request): User
     {
         $user = new User();
-        $user->id = $this->userRepository->read($request->codigo);
+        $user->id = $this->userRepository->readCode($request->codigo);
         $user->password = $request->senha;
         return $user;
     }
