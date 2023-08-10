@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\HttpStatusCode\HttpBadRequest;
 use App\Exceptions\SystemDefaultException;
 use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
 use App\Services\AuthSocial\Interfaces\RedirectToProviderServiceInterface;
@@ -25,12 +26,14 @@ class AuthSocialController extends Controller
 
     public function redirectToProvider(string $provider): RedirectResponse
     {
+        $this->validateProvider($provider);
         return $this->redirectToProviderService->redirectToProvider($provider);
     }
 
     public function handleProviderCallback($provider): Response
     {
         try {
+            $this->validateProvider($provider);
             $success = $this->handleProviderCallbackService->handleProviderCallback($provider);
             if (!isset ($success)):
                 return response()->json([
@@ -49,5 +52,12 @@ class AuthSocialController extends Controller
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
+    }
+
+    private function validateProvider(string $provider): void
+    {
+        if (!in_array($provider, ['facebook', 'google', 'github'])):
+            throw new HttpBadRequest('Por favor, faça login usando o Facebook, GitHub ou Google!');
+        endif;
     }
 }

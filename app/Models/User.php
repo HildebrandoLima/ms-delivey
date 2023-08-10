@@ -18,6 +18,8 @@ class User extends Authenticatable implements JWTSubject
     protected $table = 'users';
 
     protected $fillable = [
+        'login_social_id',
+        'login_social',
         'nome',
         'cpf',
         'email',
