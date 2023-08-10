@@ -6,6 +6,7 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\EditUserRequest;
 use App\Http\Requests\User\ParamsUserRequest;
+use App\Http\Requests\User\PermissonUserRequest;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
@@ -35,7 +36,7 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
     }
 
-    public function index(Search $search, FilterByActive $filter): Response
+    public function index(PermissonUserRequest $request, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserAll
