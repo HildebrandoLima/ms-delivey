@@ -3,13 +3,9 @@
 namespace App\Providers\DependencyInjection\Services;
 
 use App\Services\Address\Concretes\CreateAddressService;
-use App\Services\Address\Concretes\DeleteAddressService;
 use App\Services\Address\Concretes\EditAddressService;
-use App\Services\Address\Concretes\ListAddressService;
 use App\Services\Address\Interfaces\CreateAddressServiceInterface;
-use App\Services\Address\Interfaces\DeleteAddressServiceInterface;
 use App\Services\Address\Interfaces\EditAddressServiceInterface;
-use App\Services\Address\Interfaces\ListAddressServiceInterface;
 use App\Services\Auth\Concretes\ForgotPasswordService;
 use App\Services\Auth\Concretes\LoginService;
 use App\Services\Auth\Concretes\LogoutService;
@@ -23,52 +19,40 @@ use App\Services\AuthSocial\Concretes\RedirectToProviderService;
 use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
 use App\Services\AuthSocial\Interfaces\RedirectToProviderServiceInterface;
 use App\Services\Category\Concretes\CreateCategoryService;
-use App\Services\Category\Concretes\DeleteCategoryService;
 use App\Services\Category\Concretes\EditCategoryService;
 use App\Services\Category\Concretes\ListCategoryService;
 use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
-use App\Services\Category\Interfaces\DeleteCategoryServiceInterface;
 use App\Services\Category\Interfaces\EditCategoryServiceInterface;
 use App\Services\Category\Interfaces\ListCategoryServiceInterface;
 use App\Services\Order\Concretes\CreateOrderService;
-use App\Services\Order\Concretes\DeleteOrderService;
 use App\Services\Order\Concretes\ListOrderService;
 use App\Services\Order\Interfaces\CreateOrderServiceInterface;
-use App\Services\Order\Interfaces\DeleteOrderServiceInterface;
 use App\Services\Order\Interfaces\ListOrderServiceInterface;
 use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
 use App\Services\Product\Concretes\CreateProductService;
-use App\Services\Product\Concretes\DeleteProductService;
 use App\Services\Product\Concretes\EditProductService;
 use App\Services\Product\Concretes\ListProductService;
 use App\Services\Product\Interfaces\CreateProductServiceInterface;
-use App\Services\Product\Interfaces\DeleteProductServiceInterface;
 use App\Services\Product\Interfaces\EditProductServiceInterface;
 use App\Services\Product\Interfaces\ListProductServiceInterface;
 use App\Services\Provider\Concretes\CreateProviderService;
-use App\Services\Provider\Concretes\DeleteProviderService;
 use App\Services\Provider\Concretes\EditProviderService;
 use App\Services\Provider\Concretes\ListProviderService;
 use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
-use App\Services\Provider\Interfaces\DeleteProviderServiceInterface;
 use App\Services\Provider\Interfaces\EditProviderServiceInterface;
 use App\Services\Provider\Interfaces\ListProviderServiceInterface;
 use App\Services\Telephone\Concretes\CreateTelephoneService;
-use App\Services\Telephone\Concretes\DeleteTelephoneService;
 use App\Services\Telephone\Concretes\EditTelephoneService;
 use App\Services\Telephone\Concretes\ListTelephoneService;
 use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
-use App\Services\Telephone\Interfaces\DeleteTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
 use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
 use App\Services\User\Concretes\CreateUserService;
-use App\Services\User\Concretes\DeleteUserService;
 use App\Services\User\Concretes\EditUserService;
 use App\Services\User\Concretes\EmailUserVerifiedAtService;
 use App\Services\User\Concretes\ListUserService;
 use App\Services\User\Interfaces\CreateUserServiceInterface;
-use App\Services\User\Interfaces\DeleteUserServiceInterface;
 use App\Services\User\Interfaces\EditUserServiceInterface;
 use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
 use App\Services\User\Interfaces\ListUserServiceInterface;
@@ -85,11 +69,7 @@ class ServicesDependencyInjection extends ServiceProvider
     {
         $this->app->bind(CreateAddressServiceInterface::class, CreateAddressService::class);
 
-        $this->app->bind(DeleteAddressServiceInterface::class, DeleteAddressService::class);
-
         $this->app->bind(EditAddressServiceInterface::class, EditAddressService::class);
-
-        $this->app->bind(ListAddressServiceInterface::class, ListAddressService::class);
 
         $this->app->bind(ForgotPasswordServiceInterface::class, ForgotPasswordService::class);
 
@@ -105,15 +85,11 @@ class ServicesDependencyInjection extends ServiceProvider
 
         $this->app->bind(CreateCategoryServiceInterface::class, CreateCategoryService::class);
 
-        $this->app->bind(DeleteCategoryServiceInterface::class, DeleteCategoryService::class);
-
         $this->app->bind(EditCategoryServiceInterface::class, EditCategoryService::class);
 
         $this->app->bind(ListCategoryServiceInterface::class, ListCategoryService::class);
 
         $this->app->bind(CreateOrderServiceInterface::class, CreateOrderService::class);
-
-        $this->app->bind(DeleteOrderServiceInterface::class, DeleteOrderService::class);
 
         $this->app->bind(ListOrderServiceInterface::class, ListOrderService::class);
 
@@ -121,15 +97,11 @@ class ServicesDependencyInjection extends ServiceProvider
 
         $this->app->bind(CreateProductServiceInterface::class, CreateProductService::class);
 
-        $this->app->bind(DeleteProductServiceInterface::class, DeleteProductService::class);
-
         $this->app->bind(EditProductServiceInterface::class, EditProductService::class);
 
         $this->app->bind(ListProductServiceInterface::class, ListProductService::class);
 
         $this->app->bind(CreateProviderServiceInterface::class, CreateProviderService::class);
-
-        $this->app->bind(DeleteProviderServiceInterface::class, DeleteProviderService::class);
 
         $this->app->bind(EditProviderServiceInterface::class, EditProviderService::class);
 
@@ -137,15 +109,11 @@ class ServicesDependencyInjection extends ServiceProvider
 
         $this->app->bind(CreateTelephoneServiceInterface::class, CreateTelephoneService::class);
 
-        $this->app->bind(DeleteTelephoneServiceInterface::class, DeleteTelephoneService::class);
-
         $this->app->bind(EditTelephoneServiceInterface::class, EditTelephoneService::class);
 
         $this->app->bind(ListTelephoneServiceInterface::class, ListTelephoneService::class);
 
         $this->app->bind(CreateUserServiceInterface::class, CreateUserService::class);
-
-        $this->app->bind(DeleteUserServiceInterface::class, DeleteUserService::class);
 
         $this->app->bind(EditUserServiceInterface::class, EditUserService::class);
 
