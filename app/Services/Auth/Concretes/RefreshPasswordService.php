@@ -6,9 +6,9 @@ use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IUserRepository;
-use App\Services\Auth\Interfaces\RefreshPasswordServiceInterface;
+use App\Services\Auth\Abstracts\IRefreshPasswordService;
 
-class RefreshPasswordService implements RefreshPasswordServiceInterface
+class RefreshPasswordService implements IRefreshPasswordService
 {
     private IEntityRepository $authRepository;
     private IUserRepository   $userRepository;

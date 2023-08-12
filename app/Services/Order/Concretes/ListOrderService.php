@@ -3,10 +3,10 @@
 namespace App\Services\Order\Concretes;
 
 use App\Repositories\Abstracts\IOrderRepository;
-use App\Services\Order\Interfaces\ListOrderServiceInterface;
+use App\Services\Order\Abstracts\IListOrderService;
 use Illuminate\Support\Collection;
 
-class ListOrderService implements ListOrderServiceInterface
+class ListOrderService implements IListOrderService
 {
     private IOrderRepository $orderRepository;
 

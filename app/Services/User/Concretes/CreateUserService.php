@@ -7,11 +7,11 @@ use App\Jobs\EmailForRegisterJob;
 use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IPermissionRepository;
-use App\Services\User\Interfaces\CreateUserServiceInterface;
+use App\Services\User\Abstracts\ICreateUserService;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
 
-class CreateUserService implements CreateUserServiceInterface
+class CreateUserService implements ICreateUserService
 {
     private IEntityRepository $userRepository;
     private IPermissionRepository $permissionRepository;

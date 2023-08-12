@@ -3,11 +3,11 @@
 namespace App\Services\Auth\Concretes;
 
 use App\Http\Requests\Auth\LoginRequest;
-use App\Services\Auth\Interfaces\LoginServiceInterface;
+use App\Services\Auth\Abstracts\ILoginService;
 use App\Support\Enums\UserEnum;
 use Illuminate\Support\Collection;
 
-class LoginService implements LoginServiceInterface
+class LoginService implements ILoginService
 {
     public function login(LoginRequest $request): Collection
     {

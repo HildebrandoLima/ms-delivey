@@ -6,10 +6,10 @@ use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
+use App\Services\Provider\Abstracts\ICreateProviderService;
 use App\Support\Enums\AtivoEnum;
 
-class CreateProviderService implements CreateProviderServiceInterface
+class CreateProviderService implements ICreateProviderService
 {
     private IEntityRepository $providerRepository;
 

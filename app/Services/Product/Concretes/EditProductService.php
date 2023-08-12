@@ -5,9 +5,9 @@ namespace App\Services\Product\Concretes;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Product\Interfaces\EditProductServiceInterface;
+use App\Services\Product\Abstracts\IEditProductService;
 
-class EditProductService implements EditProductServiceInterface
+class EditProductService implements IEditProductService
 {
     private IEntityRepository $productRepository;
 

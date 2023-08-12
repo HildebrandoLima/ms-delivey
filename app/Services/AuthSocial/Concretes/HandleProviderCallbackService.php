@@ -6,14 +6,14 @@ use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IPermissionRepository;
 use App\Repositories\Abstracts\IUserRepository;
-use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
+use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class HandleProviderCallbackService implements HandleProviderCallbackServiceInterface
+class HandleProviderCallbackService implements IHandleProviderCallbackService
 {
     private IEntityRepository     $entityRepository;
     private IUserRepository       $userRepository;

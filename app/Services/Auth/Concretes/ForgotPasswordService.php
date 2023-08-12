@@ -6,10 +6,10 @@ use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 use App\Models\PasswordReset;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Auth\Interfaces\ForgotPasswordServiceInterface;
+use App\Services\Auth\Abstracts\IForgotPasswordService;
 use Illuminate\Support\Str;
 
-class ForgotPasswordService implements ForgotPasswordServiceInterface
+class ForgotPasswordService implements IForgotPasswordService
 {
     private IEntityRepository $authRepository;
 

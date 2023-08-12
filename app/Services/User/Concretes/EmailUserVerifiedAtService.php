@@ -4,9 +4,9 @@ namespace App\Services\User\Concretes;
 
 use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
+use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
 
-class EmailUserVerifiedAtService implements EmailUserVerifiedAtServiceInterface
+class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
 {
     private IEntityRepository $userRepository;
 

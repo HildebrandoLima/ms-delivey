@@ -5,10 +5,10 @@ namespace App\Services\Address\Concretes;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Address\Interfaces\CreateAddressServiceInterface;
+use App\Services\Address\Abstracts\ICreateAddressService;
 use App\Support\Enums\AtivoEnum;
 
-class CreateAddressService implements CreateAddressServiceInterface
+class CreateAddressService implements ICreateAddressService
 {
     private IEntityRepository $addressRepository;
 

@@ -5,9 +5,9 @@ namespace App\Services\User\Concretes;
 use App\Http\Requests\User\EditUserRequest;
 use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\User\Interfaces\EditUserServiceInterface;
+use App\Services\User\Abstracts\IEditUserService;
 
-class EditUserService implements EditUserServiceInterface
+class EditUserService implements IEditUserService
 {
     private IEntityRepository $userRepository;
 

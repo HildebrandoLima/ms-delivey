@@ -5,9 +5,9 @@ namespace App\Services\Telephone\Concretes;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
+use App\Services\Telephone\Abstracts\IEditTelephoneService;
 
-class EditTelephoneService implements EditTelephoneServiceInterface
+class EditTelephoneService implements IEditTelephoneService
 {
     private IEntityRepository $telephoneRepository;
 

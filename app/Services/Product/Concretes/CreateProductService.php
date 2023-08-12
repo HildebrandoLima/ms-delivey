@@ -6,12 +6,12 @@ use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Product\Interfaces\CreateProductServiceInterface;
+use App\Services\Product\Abstracts\ICreateProductService;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class CreateProductService implements CreateProductServiceInterface
+class CreateProductService implements ICreateProductService
 {
     private IEntityRepository $entityRepository;
 

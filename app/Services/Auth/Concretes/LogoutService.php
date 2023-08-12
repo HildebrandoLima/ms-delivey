@@ -2,9 +2,9 @@
 
 namespace App\Services\Auth\Concretes;
 
-use App\Services\Auth\Interfaces\LogoutServiceInterface;
+use App\Services\Auth\Abstracts\ILogoutService;
 
-class LogoutService implements LogoutServiceInterface
+class LogoutService implements ILogoutService
 {
     public function logout(): bool
     {

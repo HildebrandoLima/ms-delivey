@@ -3,10 +3,10 @@
 namespace App\Services\User\Concretes;
 
 use App\Repositories\Abstracts\IUserRepository;
-use App\Services\User\Interfaces\ListUserServiceInterface;
+use App\Services\User\Abstracts\IListUserService;
 use Illuminate\Support\Collection;
 
-class ListUserService implements ListUserServiceInterface
+class ListUserService implements IListUserService
 {
     private IUserRepository $userRepository;
 

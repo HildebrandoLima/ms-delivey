@@ -7,10 +7,10 @@ use App\Jobs\EmailCreateOrderJob;
 use App\Models\Item;
 use App\Models\Pedido;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Order\Interfaces\CreateOrderServiceInterface;
+use App\Services\Order\Abstracts\ICreateOrderService;
 use App\Support\Enums\AtivoEnum;
 
-class CreateOrderService implements CreateOrderServiceInterface
+class CreateOrderService implements ICreateOrderService
 {
     private IEntityRepository $entityRepository;
 

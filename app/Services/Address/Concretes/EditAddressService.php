@@ -5,9 +5,9 @@ namespace App\Services\Address\Concretes;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Models\Endereco;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Address\Interfaces\EditAddressServiceInterface;
+use App\Services\Address\Abstracts\IEditAddressService;
 
-class EditAddressService implements EditAddressServiceInterface
+class EditAddressService implements IEditAddressService
 {
     private IEntityRepository $addressRepository;
 

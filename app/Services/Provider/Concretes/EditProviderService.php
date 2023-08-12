@@ -5,9 +5,9 @@ namespace App\Services\Provider\Concretes;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Provider\Interfaces\EditProviderServiceInterface;
+use App\Services\Provider\Abstracts\IEditProviderService;
 
-class EditProviderService implements EditProviderServiceInterface
+class EditProviderService implements IEditProviderService
 {
     private IEntityRepository $providerRepository;
 

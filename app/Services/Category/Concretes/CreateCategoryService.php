@@ -5,10 +5,10 @@ namespace App\Services\Category\Concretes;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
+use App\Services\Category\Abstracts\ICreateCategoryService;
 use App\Support\Enums\AtivoEnum;
 
-class CreateCategoryService implements CreateCategoryServiceInterface
+class CreateCategoryService implements ICreateCategoryService
 {
     private IEntityRepository $categoryRepository;
 

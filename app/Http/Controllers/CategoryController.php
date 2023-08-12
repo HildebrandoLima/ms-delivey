@@ -6,9 +6,9 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\Category\ParamsCategoryRequest;
-use App\Services\Category\Interfaces\CreateCategoryServiceInterface;
-use App\Services\Category\Interfaces\EditCategoryServiceInterface;
-use App\Services\Category\Interfaces\ListCategoryServiceInterface;
+use App\Services\Category\Abstracts\ICreateCategoryService;
+use App\Services\Category\Abstracts\IEditCategoryService;
+use App\Services\Category\Abstracts\IListCategoryService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
@@ -16,15 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    private CreateCategoryServiceInterface $createCategoryService;
-    private EditCategoryServiceInterface   $editCategoryService;
-    private ListCategoryServiceInterface   $listCategoryService;
+    private ICreateCategoryService $createCategoryService;
+    private IEditCategoryService   $editCategoryService;
+    private IListCategoryService   $listCategoryService;
 
     public function __construct
     (
-        CreateCategoryServiceInterface $createCategoryService,
-        EditCategoryServiceInterface   $editCategoryService,
-        ListCategoryServiceInterface   $listCategoryService
+        ICreateCategoryService $createCategoryService,
+        IEditCategoryService   $editCategoryService,
+        IListCategoryService   $listCategoryService
     )
     {
         $this->createCategoryService = $createCategoryService;

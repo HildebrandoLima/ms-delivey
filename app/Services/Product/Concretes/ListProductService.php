@@ -3,11 +3,11 @@
 namespace App\Services\Product\Concretes;
 
 use App\Repositories\Abstracts\IProductRepository;
-use App\Services\Product\Interfaces\ListProductServiceInterface;
+use App\Services\Product\Abstracts\IListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
-class ListProductService implements ListProductServiceInterface
+class ListProductService implements IListProductService
 {
     private IProductRepository $productRepository;
 

@@ -3,10 +3,10 @@
 namespace App\Services\Provider\Concretes;
 
 use App\Repositories\Abstracts\IProviderRepository;
-use App\Services\Provider\Interfaces\ListProviderServiceInterface;
+use App\Services\Provider\Abstracts\IListProviderService;
 use Illuminate\Support\Collection;
 
-class ListProviderService implements ListProviderServiceInterface
+class ListProviderService implements IListProviderService
 {
     private IProviderRepository $providerRepository;
 
