@@ -2,26 +2,26 @@
 
 namespace App\Services\Order\Concretes;
 
-use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Services\Order\Interfaces\ListOrderServiceInterface;
+use App\Repositories\Abstracts\IOrderRepository;
+use App\Services\Order\Abstracts\IListOrderService;
 use Illuminate\Support\Collection;
 
-class ListOrderService implements ListOrderServiceInterface
+class ListOrderService implements IListOrderService
 {
-    private OrderRepositoryInterface $orderRepository;
+    private IOrderRepository $orderRepository;
 
-    public function __construct(OrderRepositoryInterface $orderRepository)
+    public function __construct(IOrderRepository $orderRepository)
     {
         $this->orderRepository = $orderRepository;
     }
 
-    public function listOrderAll(string $search, int $id, bool $active): Collection
+    public function listOrderAll(string $search, int $id, bool $filter): Collection
     {
-        return $this->orderRepository->getAll($search, $id, $active);
+        return $this->orderRepository->readAll($search, $id, $filter);
     }
 
-    public function listOrderFind(int $id, bool $active): Collection
+    public function listOrderFind(int $id, bool $filter): Collection
     {
-        return $this->orderRepository->getOne($id, $active);
+        return $this->orderRepository->readOne($id, $filter);
     }
 }

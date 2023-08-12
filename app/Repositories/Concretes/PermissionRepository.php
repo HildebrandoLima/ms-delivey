@@ -3,14 +3,14 @@
 namespace App\Repositories\Concretes;
 
 use App\Models\PermissionUser;
-use App\Repositories\Interfaces\PermissionRepositoryInterface;
+use App\Repositories\Abstracts\IPermissionRepository;
 
-class PermissionRepository implements PermissionRepositoryInterface
+class PermissionRepository implements IPermissionRepository
 {
-    public function create(int $id, int $permission): bool
+    public function create(int $user, int $permission): bool
     {
         return PermissionUser::query()->insert([
-            'user_id' => $id,
+            'user_id' => $user,
             'permission_id' => $permission,
         ]);
     }   

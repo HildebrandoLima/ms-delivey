@@ -5,32 +5,25 @@ namespace App\Services\Product\Concretes;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Repositories\Interfaces\ImageRepositoryInterface;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Services\Product\Interfaces\CreateProductServiceInterface;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Services\Product\Abstracts\ICreateProductService;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class CreateProductService implements CreateProductServiceInterface
+class CreateProductService implements ICreateProductService
 {
-    private ProductRepositoryInterface $productRepository;
-    private ImageRepositoryInterface   $imageRepository;
+    private IEntityRepository $entityRepository;
 
-    public function __construct
-    (
-        ProductRepositoryInterface $productRepository,
-        ImageRepositoryInterface   $imageRepository,
-    )
+    public function __construct(IEntityRepository $entityRepository)
     {
-        $this->productRepository = $productRepository;
-        $this->imageRepository   = $imageRepository;
+        $this->entityRepository = $entityRepository;
     }
 
     public function createProduct(CreateProductRequest $request): bool
     {
         $product = $this->mapProduct($request);
-        $productId = $this->productRepository->create($product);
+        $productId = $this->entityRepository->create($product);
         $this->createImage($request, $productId);
         return true;
     }
@@ -66,7 +59,7 @@ class CreateProductService implements CreateProductServiceInterface
                 Storage::put('public/images/'. $newFileName, (string)$originalFileName, 'public');
                 $path = 'public/images/' . $newFileName;
                 $image = $this->mapImage($path, $productId);
-                $this->imageRepository->create($image);
+                $this->entityRepository->create($image);
             endforeach;
         endif;
         return true;

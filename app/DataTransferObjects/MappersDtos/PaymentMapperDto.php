@@ -8,16 +8,19 @@ class PaymentMapperDto
 {
     public static function mapper(array $payment): PaymentDto
     {
-        return PaymentDto::construction()
-        ->setPagamentoId($payment['id'] ?? 0)
-        ->setNumeroCartao($payment['numero_cartao'] ?? '')
-        ->setDataValidade($payment['data_validade'] ?? '')
-        ->setParcela($payment['parcela'] ?? 0)
-        ->setTotal($payment['total'] ?? 0)
-        ->setMetodoPagamentoId($payment['metodo_pagamento_id'] ?? 0)
-        ->setPedidoId($payment['pedido_id'] ?? 0)
-        ->setAtivo($payment['ativo'] ?? '')
-        ->setCriadoEm($payment['created_at'] ?? '')
-        ->setAlteradoEm($payment['updated_at'] ?? '');
+        return new PaymentDto
+        (
+            $payment['id'] ?? 0,
+            $payment['codigo_transacao'] ?? 0,
+            $payment['numero_cartao'] ?? '',
+            $payment['data_validade'] ?? '',
+            $payment['parcela'] ?? 0,
+            $payment['total'] ?? 0,
+            $payment['metodo_pagamento_id'] ?? 0,
+            $payment['pedido_id'] ?? 0,
+            $payment['ativo'] ?? '',
+            $payment['created_at'] ?? '',
+            $payment['updated_at'] ?? '',
+        );
     }
 }

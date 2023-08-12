@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Payment\CreatePaymentRequest;
-use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
+use App\Services\Payment\Abstracts\ICreatePaymentService;
 use Symfony\Component\HttpFoundation\Response;
 
 class PaymentController extends Controller
 {
-    private CreatePaymentServiceInterface $createPaymentService;
+    private ICreatePaymentService $createPaymentService;
 
-    public function __construct(CreatePaymentServiceInterface $createPaymentService)
+    public function __construct(ICreatePaymentService $createPaymentService)
     {
         $this->createPaymentService = $createPaymentService;
     }

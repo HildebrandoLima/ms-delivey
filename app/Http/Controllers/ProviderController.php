@@ -7,24 +7,24 @@ use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Http\Requests\Provider\PermissonProviderRequest;
-use App\Services\Provider\Interfaces\CreateProviderServiceInterface;
-use App\Services\Provider\Interfaces\EditProviderServiceInterface;
-use App\Services\Provider\Interfaces\ListProviderServiceInterface;
+use App\Services\Provider\Abstracts\ICreateProviderService;
+use App\Services\Provider\Abstracts\IEditProviderService;
+use App\Services\Provider\Abstracts\IListProviderService;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProviderController extends Controller
 {
-    private CreateProviderServiceInterface $createProviderService;
-    private EditProviderServiceInterface   $editProviderService;
-    private ListProviderServiceInterface   $listProviderService;
+    private ICreateProviderService $createProviderService;
+    private IEditProviderService   $editProviderService;
+    private IListProviderService   $listProviderService;
 
     public function __construct
     (
-        CreateProviderServiceInterface $createProviderService,
-        EditProviderServiceInterface   $editProviderService,
-        ListProviderServiceInterface   $listProviderService
+        ICreateProviderService $createProviderService,
+        IEditProviderService   $editProviderService,
+        IListProviderService   $listProviderService
     )
     {
         $this->createProviderService = $createProviderService;

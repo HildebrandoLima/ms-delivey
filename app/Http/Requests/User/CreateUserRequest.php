@@ -23,7 +23,6 @@ class CreateUserRequest extends BaseRequest
             'dataNascimento' => 'required|date',
             'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
             'eAdmin' => 'required|boolean',
-            'ativo' => 'required|boolean',
         ];
     }
 
@@ -46,7 +45,6 @@ class CreateUserRequest extends BaseRequest
             'dataNascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'eAdmin.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
             
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -54,7 +52,6 @@ class CreateUserRequest extends BaseRequest
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'eAdmin.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
 
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'senha' => DefaultErrorMessages::INVALID_PASSWORD,

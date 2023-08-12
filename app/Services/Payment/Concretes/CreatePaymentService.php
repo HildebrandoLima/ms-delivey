@@ -4,15 +4,15 @@ namespace App\Services\Payment\Concretes;
 
 use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
-use App\Repositories\Interfaces\PaymentRepositoryInterface;
-use App\Services\Payment\Interfaces\CreatePaymentServiceInterface;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Services\Payment\Abstracts\ICreatePaymentService;
 use App\Support\Enums\AtivoEnum;
 
-class CreatePaymentService implements CreatePaymentServiceInterface
+class CreatePaymentService implements ICreatePaymentService
 {
-    private PaymentRepositoryInterface $paymentRepository;
+    private IEntityRepository $paymentRepository;
 
-    public function __construct(PaymentRepositoryInterface $paymentRepository)
+    public function __construct(IEntityRepository $paymentRepository)
     {
         $this->paymentRepository = $paymentRepository;
     }

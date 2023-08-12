@@ -6,19 +6,22 @@ use App\DataTransferObjects\Dtos\ItemDto;
 
 class ItemMapperDto
 {
-    public static function mapper(array $items): ItemDto
+    public static function mapper(array $item): ItemDto
     {
-        return ItemDto::construction()
-        ->setItemId($items['id'] ?? 0)
-        ->setNome($items['nome'] ?? '')
-        ->setPreco($items['preco'] ?? 0)
-        ->setCodigoBarra($items['codigo_barra'] ?? '')
-        ->setQuantidadeItem($items['quantidade_item'] ?? 0)
-        ->setSubTotal($items['sub_total'] ?? 0)
-        ->setUnidadeMedida($items['unidade_medida'] ?? '')
-        ->setProdutoId($items['produto_id'] ?? 0)
-        ->setAtivo($items['ativo'] ?? '')
-        ->setCriadoEm($items['created_at'] ?? '')
-        ->setAlteradoEm($items['updated_at'] ?? '');
+        return new ItemDto
+        (
+            $item['id'] ?? 0,
+            $item['nome'] ?? '',
+            $item['preco'] ?? 0,
+            $item['codigo_barra'] ?? '',
+            $item['quantidade_item'] ?? 0,
+            $item['sub_total'] ?? 0,
+            $item['unidade_medida'] ?? '',
+            $item['pedido_id'] ?? 0,
+            $item['produto_id'] ?? 0,
+            $item['ativo'] ?? '',
+            $item['created_at'] ?? '',
+            $item['updated_at'] ?? '',
+        );
     }
 }

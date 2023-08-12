@@ -5,23 +5,23 @@ namespace App\Services\User\Concretes;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\User;
-use App\Repositories\Interfaces\PermissionRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\CreateUserServiceInterface;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IPermissionRepository;
+use App\Services\User\Abstracts\ICreateUserService;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
 
-class CreateUserService implements CreateUserServiceInterface
+class CreateUserService implements ICreateUserService
 {
-    private UserRepositoryInterface       $userRepository;
-    private PermissionRepositoryInterface $permissionRepository;
+    private IEntityRepository $userRepository;
+    private IPermissionRepository $permissionRepository;
     private array $permissionsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-    private array $permissionsClient = [3, 4, 7, 10, 11, 15, 16, 18, 19];
+    private array $permissionsClient = [3, 4, 7, 10, 11, 14, 18, 19];
 
     public function __construct
     (
-        UserRepositoryInterface       $userRepository,
-        PermissionRepositoryInterface $permissionRepository,
+        IEntityRepository       $userRepository,
+        IPermissionRepository $permissionRepository,
     )
     {
         $this->userRepository       = $userRepository;

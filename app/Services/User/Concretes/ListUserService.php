@@ -2,26 +2,26 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\ListUserServiceInterface;
+use App\Repositories\Abstracts\IUserRepository;
+use App\Services\User\Abstracts\IListUserService;
 use Illuminate\Support\Collection;
 
-class ListUserService implements ListUserServiceInterface
+class ListUserService implements IListUserService
 {
-    private UserRepositoryInterface $userRepository;
+    private IUserRepository $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(IUserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(string $search, bool $active): Collection
+    public function listUserAll(string $search, bool $filter): Collection
     {
-        return $this->userRepository->getAll($search, $active);
+        return $this->userRepository->readAll($search, $filter);
     }
 
-    public function listUserFind(int $id, bool $active): Collection
+    public function listUserOne(int $id, bool $filter): Collection
     {
-        return $this->userRepository->getOne($id, $active);
+        return $this->userRepository->readOne($id, $filter);
     }
 }

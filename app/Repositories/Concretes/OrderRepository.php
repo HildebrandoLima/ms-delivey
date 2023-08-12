@@ -4,26 +4,17 @@ namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\MappersDtos\OrderMapperDto;
 use App\Models\Pedido;
-use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Abstracts\IOrderRepository;
+use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class OrderRepository implements OrderRepositoryInterface
+class OrderRepository implements IOrderRepository
 {
-    public function enableDisable(int $id, int $usuarioId, bool $active): bool
+    public function readAll(string $search, int $id, bool $filter): Collection
     {
-        return Pedido::query()->where('id', '=', $id)->orWhere('usuario_id', $usuarioId)->update(['ativo' => $active]);
-    }
-
-    public function create(Pedido $pedido): int
-    {
-        return Pedido::query()->create($pedido->toArray())->orderBy('id', 'desc')->first()->id;
-    }
-
-    public function getAll(string $search, int $id, bool $active): Collection
-    {
-        $collection = $this->query()->where('pedido.ativo', '=', $active)
+        $collection = $this->query()->where('pedido.ativo', '=', $filter)
         ->orderByDesc('pedido.id')
         ->whereHas('usuario', function ($query) use ($id, $search) {
             if (!empty($id)):
@@ -48,11 +39,15 @@ class OrderRepository implements OrderRepositoryInterface
         return PaginationList::createFromPagination($collection);
     }
 
-    public function getOne(int $id, bool $active): Collection
+    public function readOne(int $id, bool $filter): Collection
     {
-        $collect = $this->query()->where('pedido.ativo', '=', $active)
-        ->where('pedido.id', '=', $id)->get()->toArray()[0];
-        $collection = OrderMapperDto::mapper($collect);
+        $collection = $this->query()
+        ->where(function($query) use ($filter) {
+            QueryFilter::getQueryFilter($query, $filter);
+        })->where('pedido.id', '=', $id)->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = OrderMapperDto::mapper($instance);
+        endforeach;
         return collect($collection);
     }
 

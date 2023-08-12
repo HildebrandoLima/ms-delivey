@@ -15,9 +15,32 @@ class OrderDto extends DefaultFields
     public array $items;
     public array $pagamento;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $pedidoId,
+        int $numeroPedido,
+        int $quantidadeItem,
+        float $total,
+        float $entrega,
+        int $usuarioId,
+        array $items,
+        array $pagamento,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new OrderDto();
+        $this->setPedidoId($pedidoId);
+        $this->setNumeroPedido($numeroPedido);
+        $this->setQuantidadeItem($quantidadeItem);
+        $this->setTotal($total);
+        $this->setEntrega($entrega);
+        $this->setUsuarioId($usuarioId);
+        $this->setItems($items);
+        $this->setPagamento($pagamento);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getPedidoId(): int
@@ -25,10 +48,9 @@ class OrderDto extends DefaultFields
         return $this->pedidoId;
     }
 
-    public function setPedidoId(int $pedidoId): OrderDto
+    public function setPedidoId(int $pedidoId): void
     {
         $this->pedidoId = $pedidoId;
-        return $this;
     }
 
     public function getNumeroPedido(): int
@@ -36,10 +58,9 @@ class OrderDto extends DefaultFields
         return $this->numeroPedido;
     }
 
-    public function setNumeroPedido(int $numeroPedido): OrderDto
+    public function setNumeroPedido(int $numeroPedido): void
     {
         $this->numeroPedido = $numeroPedido;
-        return $this;
     }
 
     public function getQuantidadeItem(): int
@@ -47,10 +68,9 @@ class OrderDto extends DefaultFields
         return $this->quantidadeItem;
     }
 
-    public function setQuantidadeItem(int $quantidadeItem): OrderDto
+    public function setQuantidadeItem(int $quantidadeItem): void
     {
         $this->quantidadeItem = $quantidadeItem;
-        return $this;
     }
 
     public function getTotal(): float
@@ -58,10 +78,9 @@ class OrderDto extends DefaultFields
         return $this->total;
     }
 
-    public function setTotal(float $total): OrderDto
+    public function setTotal(float $total): void
     {
         $this->total = $total;
-        return $this;
     }
 
     public function getEntrega(): float
@@ -69,10 +88,9 @@ class OrderDto extends DefaultFields
         return $this->entrega;
     }
 
-    public function setEntrega(float $entrega): OrderDto
+    public function setEntrega(float $entrega): void
     {
         $this->entrega = $entrega;
-        return $this;
     }
 
     public function getUsuarioId(): int
@@ -80,10 +98,9 @@ class OrderDto extends DefaultFields
         return $this->usuarioId;
     }
 
-    public function setUsuarioId(int $usuarioId): OrderDto
+    public function setUsuarioId(int $usuarioId): void
     {
         $this->usuarioId = $usuarioId;
-        return $this;
     }
 
     public function getItems(): array
@@ -91,10 +108,9 @@ class OrderDto extends DefaultFields
         return $this->items;
     }
 
-    public function setItems(array $items): OrderDto
+    public function setItems(array $items): void
     {
         $this->items = EntityOrder::items($items);
-        return $this;
     }
 
     public function getPagamento(): array
@@ -102,9 +118,8 @@ class OrderDto extends DefaultFields
         return $this->pagamento;
     }
 
-    public function setPagamento(array $pagamento): OrderDto
+    public function setPagamento(array $pagamento): void
     {
         $this->pagamento = EntityOrder::pagamento($pagamento);
-        return $this;
     }
 }

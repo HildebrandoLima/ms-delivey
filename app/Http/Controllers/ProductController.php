@@ -6,9 +6,9 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Http\Requests\Product\ParamsProductRequest;
-use App\Services\Product\Interfaces\CreateProductServiceInterface;
-use App\Services\Product\Interfaces\EditProductServiceInterface;
-use App\Services\Product\Interfaces\ListProductServiceInterface;
+use App\Services\Product\Abstracts\ICreateProductService;
+use App\Services\Product\Abstracts\IEditProductService;
+use App\Services\Product\Abstracts\IListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
@@ -16,15 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
-    private CreateProductServiceInterface $createProductService;
-    private EditProductServiceInterface   $editProductService;
-    private ListProductServiceInterface   $listProductService;
+    private ICreateProductService $createProductService;
+    private IEditProductService   $editProductService;
+    private IListProductService   $listProductService;
 
     public function __construct
     (
-        CreateProductServiceInterface $createProductService,
-        EditProductServiceInterface   $editProductService,
-        ListProductServiceInterface   $listProductService
+        ICreateProductService $createProductService,
+        IEditProductService   $editProductService,
+        IListProductService   $listProductService
     )
     {
         $this->createProductService = $createProductService;

@@ -48,7 +48,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     //  Endereço
     Route::prefix('address')->group(function () {
-        Route::get('/list/uf', [AddressController::class, 'index'])->name('address.uf.list');
         Route::put('/edit', [AddressController::class, 'update'])->name('address.edit')->middleware('jwt-authenticated');
         Route::post('/save', [AddressController::class, 'store'])->name('address.save');
     });
@@ -91,7 +90,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     //  Telefone
     Route::prefix('telephone')->group(function () {
-        Route::get('/list/ddd', [TelephoneController::class, 'index'])->name('telephone.ddd.list');
         Route::put('/edit', [TelephoneController::class, 'update'])->name('telephone.edit')->middleware('jwt-authenticated');
         Route::post('/save', [TelephoneController::class, 'store'])->name('telephone.save');
     });

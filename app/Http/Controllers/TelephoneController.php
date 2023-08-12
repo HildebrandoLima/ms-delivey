@@ -5,38 +5,23 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
-use App\Services\Telephone\Interfaces\CreateTelephoneServiceInterface;
-use App\Services\Telephone\Interfaces\EditTelephoneServiceInterface;
-use App\Services\Telephone\Interfaces\ListTelephoneServiceInterface;
+use App\Services\Telephone\Abstracts\ICreateTelephoneService;
+use App\Services\Telephone\Abstracts\IEditTelephoneService;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller
 {
-    private CreateTelephoneServiceInterface $createTelephoneService;
-    private EditTelephoneServiceInterface   $editTelephoneService;
-    private ListTelephoneServiceInterface   $listTelephoneService;
+    private ICreateTelephoneService $createTelephoneService;
+    private IEditTelephoneService   $editTelephoneService;
 
     public function __construct
     (
-        CreateTelephoneServiceInterface $createTelephoneService,
-        EditTelephoneServiceInterface   $editTelephoneService,
-        ListTelephoneServiceInterface   $listTelephoneService
+        ICreateTelephoneService $createTelephoneService,
+        IEditTelephoneService   $editTelephoneService,
     )
     {
         $this->createTelephoneService = $createTelephoneService;
         $this->editTelephoneService   = $editTelephoneService;
-        $this->listTelephoneService   = $listTelephoneService;
-    }
-
-    public function index(): Response
-    {
-        try {
-            $success = $this->listTelephoneService->listDDDAll();
-            if (!$success) return Controller::error();
-            return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
-        }
     }
 
     public function store(CreateTelephoneRequest $request): Response

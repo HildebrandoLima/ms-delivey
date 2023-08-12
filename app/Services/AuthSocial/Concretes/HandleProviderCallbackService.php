@@ -2,101 +2,92 @@
 
 namespace App\Services\AuthSocial\Concretes;
 
-use App\DataTransferObjects\RequestsDtos\UserRequestDto;
-use App\Exceptions\HttpBadRequest;
 use App\Models\User;
-use App\Repositories\Interfaces\CheckEntityRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\AuthSocial\Interfaces\HandleProviderCallbackServiceInterface;
-use App\Support\Permissions\CreatePermissions;
-use App\Support\Enums\PerfilEnum;
-use App\Support\Enums\UserEnum;
-use GuzzleHttp\Exception\ClientException;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IPermissionRepository;
+use App\Repositories\Abstracts\IUserRepository;
+use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
+use App\Support\Enums\AtivoEnum;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class HandleProviderCallbackService implements HandleProviderCallbackServiceInterface
+class HandleProviderCallbackService implements IHandleProviderCallbackService
 {
+    private IEntityRepository     $entityRepository;
+    private IUserRepository       $userRepository;
+    private IPermissionRepository $permissionRepository;
+    private User $user;
     private $userSocial;
-    private string $provider;
-    private User   $user;
-    private CheckEntityRepositoryInterface $checkEntityRepository;
-    private UserRepositoryInterface        $userRepository;
-    private CreatePermissions      $createPermissions;
+    private string $provider = '';
+    private array $permissions = [3, 4, 7, 10, 11, 14, 18, 19];
 
     public function __construct
     (
-        CheckEntityRepositoryInterface $checkEntityRepository,
-        UserRepositoryInterface        $userRepository,
-        CreatePermissions              $createPermissions,
+        IEntityRepository     $entityRepository,
+        IUserRepository       $userRepository,
+        IPermissionRepository $permissionRepository,
     )
     {
-        $this->checkEntityRepository = $checkEntityRepository;
-        $this->userRepository        = $userRepository;
-        $this->createPermissions     = $createPermissions;
+        $this->entityRepository     = $entityRepository;
+        $this->userRepository       = $userRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function handleProviderCallback(string $provider): Collection
     {
-        try {
-            $this->provider = $provider;
-            $this->validateProvider();
-            $this->userSocial = Socialite::driver($this->provider)->stateless()->user();
-            $this->createUserSocial();
-            $this->createPermissions->createPermissions(PerfilEnum::CLIENTE, $this->user->id);
-            return collect([
-                'accessToken' => JWTAuth::fromUser($this->user),
-                'userId' => auth()->user()->id,
-                'userName' => auth()->user()->name,
-                'userEmail' => auth()->user()->email,
-                'isAdmin' => UserEnum::NAO_E_ADMIN,
-                'permissions' => auth()->user()->permissions
-            ]);
-        } catch (ClientException $e) {
-            throw new HttpBadRequest('Credenciais Inválidas!');
-        }
-    }
-
-    private function validateProvider(): void
-    {
-        if (!in_array($this->provider, ['facebook', 'google', 'github'])):
-            throw new HttpBadRequest('Por favor, faça login usando o Facebook, GitHub ou Google!');
-        endif;
+        $this->provider = $provider;
+        $this->userSocial = Socialite::driver($this->provider)->stateless()->user();
+        $this->createUserSocial();
+        return collect(['accessToken' => JWTAuth::fromUser($this->user)]);
     }
 
     private function createUserSocial(): User
     {
-        $userDto = UserRequestDto::fromRquest($this->mapToUserSocial());
-        $userId = $this->checkExist();
-        if (is_null($userId)):
-            $this->user = $this->userRepository->create($userDto);
-        else:
-            $this->user = $this->userRepository->update($userId, $userDto);
+        $userModel = $this->map();
+        $checkUser = $this->checkExist();
+        if (is_null($checkUser)):
+            $userId = $this->entityRepository->create($userModel);
+            $this->createPermission($userId);
         endif;
+        $this->user = $this->user();
         return $this->user;
     }
 
-    private function mapToUserSocial(): array
+    private function map(): User
     {
-        $user = array
-        (
-            'loginSocialId' => $this->userSocial->getId(),
-            'loginSocial' => $this->provider,
-            'perfil' => PerfilEnum::CLIENTE,
-            'nome' => $this->userSocial->getName(),
-            'cpf' => null,
-            'email' => $this->userSocial->getEmail(),
-            'senha' => null,
-            'dataNascimento' => null,
-            'genero' => 'Outro',
-            'ativo' => UserEnum::ATIVADO,
-        );
+        $user = new User();
+        $user->login_social_id = $this->userSocial->getId();
+        $user->login_social = $this->provider;
+        $user->nome = $this->userSocial->getName();
+        $user->email = $this->userSocial->getEmail();
+        $user->email_verified_at = true;
+        $user->e_admin = false;
+        $user->ativo = AtivoEnum::ATIVADO;
         return $user;
     }
 
     private function checkExist(): int|null
     {
-        return $this->checkEntityRepository->checkUserSocial($this->userSocial->getEmail());
+        $check = $this->userRepository->readSocial($this->userSocial->getEmail());
+        if (is_null($check)):
+            return null;
+        else:
+            return 1;
+        endif;
+    }
+
+    private function createPermission(int $userId): bool
+    {
+        foreach ($this->permissions as $permission):
+            $this->permissionRepository->create($userId, $permission);
+        endforeach;
+        return true;
+    }
+
+    private function user(): Model
+    {
+        return $this->userRepository->readSocial($this->userSocial->getEmail());
     }
 }

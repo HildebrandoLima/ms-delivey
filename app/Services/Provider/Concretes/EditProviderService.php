@@ -4,15 +4,14 @@ namespace App\Services\Provider\Concretes;
 
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
-use App\Repositories\Interfaces\ProviderRepositoryInterface;
-use App\Services\Provider\Interfaces\EditProviderServiceInterface;
-use App\Support\Enums\AtivoEnum;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Services\Provider\Abstracts\IEditProviderService;
 
-class EditProviderService implements EditProviderServiceInterface
+class EditProviderService implements IEditProviderService
 {
-    private ProviderRepositoryInterface $providerRepository;
+    private IEntityRepository $providerRepository;
 
-    public function __construct(ProviderRepositoryInterface $providerRepository)
+    public function __construct(IEntityRepository $providerRepository)
     {
         $this->providerRepository = $providerRepository;
     }
@@ -30,7 +29,6 @@ class EditProviderService implements EditProviderServiceInterface
         $provider->razao_social = $request->razaoSocial;
         $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
-        $provider->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $provider;
     }
 }

@@ -6,36 +6,37 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\EditUserRequest;
 use App\Http\Requests\User\ParamsUserRequest;
-use App\Services\User\Interfaces\CreateUserServiceInterface;
-use App\Services\User\Interfaces\EditUserServiceInterface;
-use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
-use App\Services\User\Interfaces\ListUserServiceInterface;
+use App\Http\Requests\User\PermissonUserRequest;
+use App\Services\User\Abstracts\ICreateUserService;
+use App\Services\User\Abstracts\IEditUserService;
+use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
+use App\Services\User\Abstracts\IListUserService;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    private CreateUserServiceInterface          $createUserService;
-    private EditUserServiceInterface            $editUserService;
-    private ListUserServiceInterface            $listUserService;
-    private EmailUserVerifiedAtServiceInterface $emailUserVerifiedAtService;
+    private ICreateUserService          $createUserService;
+    private IEditUserService            $editUserService;
+    private IListUserService            $listUserService;
+    private IEmailUserVerifiedAtService $emailUserVerifiedAtService;
 
     public function __construct
     (
-        CreateUserServiceInterface          $createUserService,
-        EditUserServiceInterface            $editUserService,
-        ListUserServiceInterface            $listUserService,
-        EmailUserVerifiedAtServiceInterface $emailUserVerifiedAtService
+        ICreateUserService          $createUserService,
+        IEditUserService            $editUserService,
+        IListUserService            $listUserService,
+        IEmailUserVerifiedAtService $emailUserVerifiedAtService
     )
     {
         $this->createUserService          =   $createUserService;
         $this->editUserService            =   $editUserService;
         $this->listUserService            =   $listUserService;
-        $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
+        $this->emailUserVerifiedAtService =   $emailUserVerifiedAtService;
     }
 
-    public function index(Search $search, FilterByActive $filter): Response
+    public function index(PermissonUserRequest $request, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserAll
@@ -53,7 +54,7 @@ class UserController extends Controller
     public function show(ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
-            $success = $this->listUserService->listUserFind
+            $success = $this->listUserService->listUserOne
             (
                 $request->id,
                 $filter->active
@@ -87,14 +88,10 @@ class UserController extends Controller
         }
     }
 
-    public function emailVerifiedAt(int $id, FilterByActive $filter): Response
+    public function emailVerifiedAt(int $id): Response
     {
         try {
-            $success = $this->emailUserVerifiedAtService->emailVerifiedAt
-            (
-                $id,
-                $filter->active
-            );
+            $success = $this->emailUserVerifiedAtService->emailVerifiedAt($id);
             if (!$success) return Controller::error();
             return response()->json([
                 "message" => "Verificação efetuada com sucesso!",

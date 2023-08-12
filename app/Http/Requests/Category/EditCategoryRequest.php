@@ -22,7 +22,6 @@ class EditCategoryRequest extends BaseRequest
         return [
             'id' => 'required|int|exists:categoria,id',
             'nome' => 'required|string',
-            'ativo' => 'required|boolean'
         ];
     }
 
@@ -30,12 +29,8 @@ class EditCategoryRequest extends BaseRequest
     {
         return [
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
-
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

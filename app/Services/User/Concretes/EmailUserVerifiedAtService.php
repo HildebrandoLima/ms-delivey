@@ -2,20 +2,30 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\User\Interfaces\EmailUserVerifiedAtServiceInterface;
+use App\Models\User;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
 
-class EmailUserVerifiedAtService implements EmailUserVerifiedAtServiceInterface
+class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
 {
-    private UserRepositoryInterface $userRepository;
+    private IEntityRepository $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(IEntityRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function emailVerifiedAt(int $id, bool $active): bool
+    public function emailVerifiedAt(int $id): bool
     {
-        return $this->userRepository->emailVerifiedAt($id, $active);
+        $user = $this->map($id);
+        return $this->userRepository->update($user);
+    }
+
+    private function map(int $id): User
+    {
+        $user = new User();
+        $user->id = $id;
+        $user->email_verified_at = 1;
+        return $user;
     }
 }

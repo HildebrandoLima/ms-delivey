@@ -8,21 +8,21 @@ class UserMapperDto
 {
     public static function mapper(array $user): UserDto
     {
-        return UserDto::construction()
-        ->setUsuarioId($user['id'] ?? 0)
-        ->setLoginSocialId($user['provider_id'] ?? 0)
-        ->setLoginSocial($user['provider'] ?? '')
-        ->setNome($user['name'] ?? '')
-        ->setCpf($user['cpf'] ?? '')
-        ->setEmail($user['email'] ?? '')
-        ->setDataNascimento($user['data_nascimento'] ?? '')
-        ->setGenero($user['genero'] ?? '')
-        ->setEmailVerificado($user['email_verified_at'] ?? '')
-        ->setIsAdmin($user['is_admin'] ?? 0)
-        ->setEnderecos($user['endereco'] ?? [])
-        ->setTelefones($user['telefone'] ?? [])
-        ->setAtivo($user['ativo'] ?? 0)
-        ->setCriadoEm($user['created_at'] ?? 0)
-        ->setAlteradoEm($user['updated_at'] ?? 0);
+        return new UserDto
+        (
+            $user['id'] ?? 0,
+            $user['nome'] ?? '',
+            $user['cpf'] ?? '',
+            $user['email'] ?? '',
+            $user['data_nascimento'] ?? '',
+            $user['genero'] ?? '',
+            $user['email_verified_at'] ?? '',
+            $user['is_admin'] ?? 0,
+            $user['endereco'] ?? [],
+            $user['telefone'] ?? [],
+            $user['ativo'] ?? 0,
+            $user['created_at'] ?? 0,
+            $user['updated_at'] ?? 0,
+        );
     }
 }

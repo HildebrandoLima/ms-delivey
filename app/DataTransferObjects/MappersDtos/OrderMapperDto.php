@@ -8,17 +8,19 @@ class OrderMapperDto
 {
     public static function mapper(array $order): OrderDto
     {
-        return OrderDto::construction()
-        ->setPedidoId($order['id'] ?? 0)
-        ->setNumeroPedido($order['numero_pedido'] ?? 0)
-        ->setQuantidadeItem($order['quantidade_items'] ?? 0)
-        ->setTotal($order['total'] ?? 0)
-        ->setEntrega($order['entrega'] ?? 0)
-        ->setUsuarioId($order['usuario_id'] ?? 0)
-        ->setItems($order['item'] ?? [])
-        ->setPagamento($order['pagamento'] ?? [])
-        ->setAtivo($order['ativo'] ?? '')
-        ->setCriadoEm($order['created_at'] ?? '')
-        ->setAlteradoEm($order['updated_at'] ?? '');
+        return new OrderDto
+        (
+            $order['id'] ?? 0,
+            $order['numero_pedido'] ?? 0,
+            $order['quantidade_items'] ?? 0,
+            $order['total'] ?? 0,
+            $order['entrega'] ?? 0,
+            $order['usuario_id'] ?? 0,
+            $order['item'] ?? [],
+            $order['pagamento'] ?? [],
+            $order['ativo'] ?? '',
+            $order['created_at'] ?? '',
+            $order['updated_at'] ?? '',
+        );
     }
 }

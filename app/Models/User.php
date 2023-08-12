@@ -15,7 +15,11 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     protected $fillable = [
+        'login_social_id',
+        'login_social',
         'nome',
         'cpf',
         'email',
@@ -31,7 +35,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'bool',
         'created_at' => 'datetime',
         'updated_at' =>'datetime',
     ];

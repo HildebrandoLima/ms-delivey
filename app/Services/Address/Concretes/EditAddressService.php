@@ -4,15 +4,14 @@ namespace App\Services\Address\Concretes;
 
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Models\Endereco;
-use App\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Services\Address\Interfaces\EditAddressServiceInterface;
-use App\Support\Enums\AtivoEnum;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Services\Address\Abstracts\IEditAddressService;
 
-class EditAddressService implements EditAddressServiceInterface
+class EditAddressService implements IEditAddressService
 {
-    private AddressRepositoryInterface $addressRepository;
+    private IEntityRepository $addressRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepository)
+    public function __construct(IEntityRepository $addressRepository)
     {
         $this->addressRepository = $addressRepository;
     }
@@ -35,7 +34,6 @@ class EditAddressService implements EditAddressServiceInterface
         $address->uf = $request->uf;
         $address->usuario_id = $request->usuarioId;
         $address->fornecedor_id = $request->fornecedorId;
-        $address->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $address;
     }
 }

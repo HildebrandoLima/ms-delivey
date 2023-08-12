@@ -6,30 +6,23 @@ use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Repositories\Interfaces\ItemRepositoryInterface;
-use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Services\Order\Interfaces\CreateOrderServiceInterface;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Services\Order\Abstracts\ICreateOrderService;
 use App\Support\Enums\AtivoEnum;
 
-class CreateOrderService implements CreateOrderServiceInterface
+class CreateOrderService implements ICreateOrderService
 {
-    private OrderRepositoryInterface $orderRepository;
-    private ItemRepositoryInterface  $itemRepository;
+    private IEntityRepository $entityRepository;
 
-    public function __construct
-    (
-        OrderRepositoryInterface $orderRepository,
-        ItemRepositoryInterface  $itemRepository,
-    )
+    public function __construct(IEntityRepository $entityRepository)
     {
-        $this->orderRepository = $orderRepository;
-        $this->itemRepository  = $itemRepository;
+        $this->entityRepository = $entityRepository;
     }
 
     public function createOrder(CreateOrderRequest $request): bool
     {
         $order = $this->mapOrder($request);
-        $orderId = $this->orderRepository->create($order);
+        $orderId = $this->entityRepository->create($order);
         $createItem = $this->createItem($request, $orderId);
         if ($orderId and $createItem) $this->dispatchJob($order->toArray(), $request->itens);
         return true;
@@ -51,7 +44,7 @@ class CreateOrderService implements CreateOrderServiceInterface
     {
         foreach ($request->itens as $item):
             $items = $this->mapItem($item, $orderId);
-            $this->itemRepository->create($items);
+            $this->entityRepository->create($items);
         endforeach;
         return true;
     }

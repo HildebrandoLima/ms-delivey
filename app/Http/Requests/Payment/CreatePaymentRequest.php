@@ -26,7 +26,6 @@ class CreatePaymentRequest extends BaseRequest
             'total' => 'between:0,99.99',
             'metodoPagamentoId' => 'required|int|exists:metodo_pagamento,id',
             'pedidoId' => 'required|int|exists:pedido,id',
-            'ativo' => 'required|boolean',
         ];
     }
 
@@ -41,7 +40,6 @@ class CreatePaymentRequest extends BaseRequest
 
             'metodoPagamentoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'pedidoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'numeroCartao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'dataValidade.date' => DefaultErrorMessages::INVALID_DATE,
@@ -49,7 +47,6 @@ class CreatePaymentRequest extends BaseRequest
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'metodoPagamentoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'pedidoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

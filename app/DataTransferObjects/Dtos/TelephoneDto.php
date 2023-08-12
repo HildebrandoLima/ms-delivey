@@ -7,13 +7,29 @@ class TelephoneDto extends DefaultFields
     public int $telefoneId;
     public string $numero;
     public string $tipo;
-    public int $dddId;
     public int|null $usuarioId;
     public int|null $fornecedorId;
 
-    public static function construction(): static
+    public function __construct
+    (
+        int $telefoneId,
+        string $numero,
+        string $tipo,
+        int|null $usuarioId,
+        int|null $fornecedorId,
+        string $ativo,
+        string $criadoEm,
+        string $aleradoEm
+    )
     {
-        return new TelephoneDto();
+        $this->setTelefoneId($telefoneId);
+        $this->setNumero($numero);
+        $this->setTipo($tipo);
+        $this->setUsuarioId($usuarioId);
+        $this->setFornecedorId($fornecedorId);
+        $this->setAtivo($ativo);
+        $this->setCriadoEm($criadoEm);
+        $this->setAlteradoEm($aleradoEm);
     }
 
     public function getTelefoneId(): int
@@ -21,10 +37,9 @@ class TelephoneDto extends DefaultFields
         return $this->telefoneId;
     }
 
-    public function setTelefoneId(int $telefoneId): TelephoneDto
+    public function setTelefoneId(int $telefoneId): void
     {
         $this->telefoneId = $telefoneId;
-        return $this;
     }
 
     public function getNumero(): string
@@ -32,10 +47,9 @@ class TelephoneDto extends DefaultFields
         return $this->numero;
     }
 
-    public function setNumero(string $numero): TelephoneDto
+    public function setNumero(string $numero): void
     {
         $this->numero = $numero;
-        return $this;
     }
 
     public function getTipo(): string
@@ -43,21 +57,9 @@ class TelephoneDto extends DefaultFields
         return $this->tipo;
     }
 
-    public function setTipo(string $tipo): TelephoneDto
+    public function setTipo(string $tipo): void
     {
         $this->tipo = $tipo;
-        return $this;
-    }
-
-    public function getDddId(): int
-    {
-        return $this->dddId;
-    }
-
-    public function setDddId(int $dddId): TelephoneDto
-    {
-        $this->dddId = $dddId;
-        return $this;
     }
 
     public function getUsuarioId(): int|null
@@ -65,10 +67,9 @@ class TelephoneDto extends DefaultFields
         return $this->usuarioId;
     }
 
-    public function setUsuarioId(int|null $usuarioId): TelephoneDto
+    public function setUsuarioId(int|null $usuarioId): void
     {
         $this->usuarioId = $usuarioId;
-        return $this;
     }
 
     public function getFornecedorId(): int|null
@@ -76,9 +77,8 @@ class TelephoneDto extends DefaultFields
         return $this->fornecedorId;
     }
 
-    public function setFornecedorId(int|null $fornecedorId): TelephoneDto
+    public function setFornecedorId(int|null $fornecedorId): void
     {
         $this->fornecedorId = $fornecedorId;
-        return $this;
     }
 }

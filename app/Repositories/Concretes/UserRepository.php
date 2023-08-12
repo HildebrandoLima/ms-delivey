@@ -3,42 +3,25 @@
 namespace App\Repositories\Concretes;
 
 use App\DataTransferObjects\MappersDtos\UserMapperDto;
+use App\Models\PasswordReset;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Abstracts\IUserRepository;
+use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository implements IUserRepository
 {
-    public function enableDisable(int $id, int $active): bool
+    public function readAll(string $search, bool $filter): Collection
     {
-        return User::query()->where('id', '=', $id)->update(['ativo' => $active]);
-    }
-
-    public function emailVerifiedAt(int $id, bool $active): bool
-    {
-        return User::query()->where('ativo', '=', $active)->where('id', '=', $id)->update(['email_verificado_em' => now()]);
-    }
-
-    public function create(User $user): int
-    {
-        return User::query()->create($user->toArray())->orderBy('id', 'desc')->first()->id;
-    }
-
-    public function update(User $user): bool
-    {
-        return User::query()->where('id', '=', $user->id)->update($user->toArray());
-    }
-
-    public function getAll(string $search, bool $active): Collection
-    {
-        $collection = $this->query()
-        ->where(function($query) use ($search, $active) {
+        $collection = User::with('endereco')->with('telefone')
+        ->where(function($query) use ($search, $filter) {
+            QueryFilter::getQueryFilter($query, $filter);
             if (!empty($search)):
-                $query->where('users.name', 'like', $search)->where('users.ativo', '=', $active);
+                $query->where('users.nome', 'like', $search);
             else:
-                $query->where('users.ativo', '=', $active);
+                QueryFilter::getQueryFilter($query, $filter);
             endif;
         })->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
@@ -47,16 +30,33 @@ class UserRepository implements UserRepositoryInterface
         return PaginationList::createFromPagination($collection);
     }
 
-    public function getOne(int $id, bool $active): Collection
+    public function readOne(int $id, bool $filter): Collection
     {
-        $collect = $this->query()->where('users.ativo', '=', $active)
-        ->where('users.id', '=', $id)->get()->toArray()[0];
-        $collection = UserMapperDto::mapper($collect);
+        $collection = User::with('endereco')->with('telefone')
+        ->where(function($query) use ($filter) {
+            QueryFilter::getQueryFilter($query, $filter);
+        })
+        ->where('users.id', '=', $id)->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = UserMapperDto::mapper($instance);
+        endforeach;
         return collect($collection);
     }
 
-    private function query(): Builder
+    public function readCode(string $codigo): int
     {
-        return User::with('endereco')->with('telefone');
+        return User::query()
+        ->join('password_resets as pr', 'pr.email', '=', 'users.email')
+        ->select('users.id')->where('pr.codigo', '=', $codigo)->get()->toArray()[0]['id'];
+    }
+
+    public function readSocial(string $email): Model|null
+    {
+        return User::query()->where('users.email', '=', $email)->first();
+    }
+
+    public function delete(string $codigo): bool
+    {
+        return PasswordReset::query()->where('codigo', '=', $codigo)->delete();
     }
 }

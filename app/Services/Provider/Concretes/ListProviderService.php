@@ -2,26 +2,26 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\Repositories\Interfaces\ProviderRepositoryInterface;
-use App\Services\Provider\Interfaces\ListProviderServiceInterface;
+use App\Repositories\Abstracts\IProviderRepository;
+use App\Services\Provider\Abstracts\IListProviderService;
 use Illuminate\Support\Collection;
 
-class ListProviderService implements ListProviderServiceInterface
+class ListProviderService implements IListProviderService
 {
-    private ProviderRepositoryInterface $providerRepository;
+    private IProviderRepository $providerRepository;
 
-    public function __construct(ProviderRepositoryInterface $providerRepository)
+    public function __construct(IProviderRepository $providerRepository)
     {
         $this->providerRepository = $providerRepository;
     }
 
     public function listProviderAll(string $search, bool $active): Collection
     {
-        return $this->providerRepository->getAll($search, $active);
+        return $this->providerRepository->readAll($search, $active);
     }
 
     public function listProviderFind(int $id, bool $active): Collection
     {
-        return $this->providerRepository->getOne($id, $active);
+        return $this->providerRepository->readOne($id, $active);
     }
 }

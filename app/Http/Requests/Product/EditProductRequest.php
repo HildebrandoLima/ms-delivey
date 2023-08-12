@@ -32,7 +32,6 @@ class EditProductRequest extends BaseRequest
             'dataValidade' => 'required|date',
             'categoriaId' => 'int|exists:categoria,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
-            'ativo' => 'required|boolean',
         ];
     }
 
@@ -58,7 +57,6 @@ class EditProductRequest extends BaseRequest
             'dataValidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'categoriaId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'fornecedorId.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
@@ -71,7 +69,6 @@ class EditProductRequest extends BaseRequest
             'dataValidade.string' => DefaultErrorMessages::INVALID_DATE,
             'categoriaId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

@@ -6,21 +6,21 @@ use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Http\Requests\User\ParamsUserRequest;
-use App\Services\Order\Interfaces\CreateOrderServiceInterface;
-use App\Services\Order\Interfaces\ListOrderServiceInterface;
+use App\Services\Order\Abstracts\ICreateOrderService;
+use App\Services\Order\Abstracts\IListOrderService;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
-    private CreateOrderServiceInterface $createOrderService;
-    private ListOrderServiceInterface   $listOrderService;
+    private ICreateOrderService $createOrderService;
+    private IListOrderService   $listOrderService;
 
     public function __construct
     (
-        CreateOrderServiceInterface $createOrderService,
-        ListOrderServiceInterface   $listOrderService
+        ICreateOrderService $createOrderService,
+        IListOrderService   $listOrderService
     )
     {
         $this->createOrderService = $createOrderService;
