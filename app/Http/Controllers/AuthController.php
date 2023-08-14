@@ -38,12 +38,7 @@ class AuthController extends Controller
         try {
             $success = $this->loginService->login($request);
             if (!isset ($success)):
-                return response()->json([
-                    "message" => "Error ao efetuar login.",
-                    "data" => [],
-                    "status" => Response::HTTP_UNAUTHORIZED,
-                    "details" => ""
-                ],  Response::HTTP_UNAUTHORIZED);
+                return Controller::error();
             endif;
             return response()->json([
                 "message" => "Login efetuado com sucesso.",
@@ -78,16 +73,11 @@ class AuthController extends Controller
         try {
             $success = $this->forgotPasswordService->forgotPassword($request);
             if (!isset ($success)):
-                return response()->json([
-                    "message" => "Error ao efetuar solicitação de nova senha.",
-                    "data" => [],
-                    "status" => Response::HTTP_BAD_REQUEST,
-                    "details" => ""
-                ], Response::HTTP_BAD_REQUEST);
+                return Controller::error();
             endif;
             return response()->json([
                 "message" => "Solicitação de nova senha efetuada com sucesso.",
-                "data" => $success,
+                "data" => true,
                 "status" => 200,
                 "details" => ""
             ], Response::HTTP_OK);
@@ -101,16 +91,11 @@ class AuthController extends Controller
         try {
             $success = $this->refreshPasswordService->refreshPassword($request);
             if (!isset ($success)):
-                return response()->json([
-                    "message" => "Error ao modificar senha.",
-                    "data" => [],
-                    "status" => Response::HTTP_UNAUTHORIZED,
-                    "details" => ""
-                ], Response::HTTP_UNAUTHORIZED);
+                return Controller::error();
             endif;
             return response()->json([
                 "message" => "Senha modificada com sucesso.",
-                "data" => $success,
+                "data" => true,
                 "status" => Response::HTTP_OK,
                 "details" => ""
             ], Response::HTTP_OK);
