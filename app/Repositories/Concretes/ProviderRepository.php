@@ -2,10 +2,12 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\MappersDtos\ProviderMapperDto;
+use App\Dtos\ProviderDto;
 use App\Models\Fornecedor;
 use App\Repositories\Abstracts\IProviderRepository;
+use App\Support\MapperEntity\EntityPerson;
 use App\Support\Queries\QueryFilter;
+use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Support\Collection;
 
@@ -23,7 +25,7 @@ class ProviderRepository implements IProviderRepository
             endif;
         })->orderByDesc('fornecedor.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = ProviderMapperDto::mapper($instance->toArray());
+            $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
@@ -35,9 +37,25 @@ class ProviderRepository implements IProviderRepository
             QueryFilter::getQueryFilter($query, $filter);
         })->where('fornecedor.id', '=', $id)->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = ProviderMapperDto::mapper($instance);
+            $collection[$key] = $this->map($instance);
         endforeach;
         return collect($collection);
+    }
+
+    private function map(array $data): ProviderDto
+    {
+        $provider = new ProviderDto();
+        $provider->fornecedorId = $data['id'];
+        $provider->razaoSocial = $data['razao_social'];
+        $provider->cnpj = $data['cnpj'];
+        $provider->email = $data['email'];
+        $provider->dataFundacao = $data['data_fundacao'];
+        $provider->ativo = $data['ativo'];
+        $provider->criadoEm = DateFormat::dateFormat($data['created_at']);
+        $provider->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $provider->enderecos = EntityPerson::addrres($data['endereco']);
+        $provider->telefones = EntityPerson::telephone($data['telefone']);
+        return $provider;
     }
 
     //public function getProdutosByProvider(int $id): array

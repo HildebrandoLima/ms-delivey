@@ -2,11 +2,13 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\MappersDtos\UserMapperDto;
+use App\Dtos\UserDto;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Repositories\Abstracts\IUserRepository;
+use App\Support\MapperEntity\EntityPerson;
 use App\Support\Queries\QueryFilter;
+use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -25,7 +27,7 @@ class UserRepository implements IUserRepository
             endif;
         })->orderByDesc('users.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = UserMapperDto::mapper($instance->toArray());
+            $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
@@ -38,7 +40,7 @@ class UserRepository implements IUserRepository
         })
         ->where('users.id', '=', $id)->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = UserMapperDto::mapper($instance);
+            $collection[$key] = $this->map($instance);
         endforeach;
         return collect($collection);
     }
@@ -58,5 +60,26 @@ class UserRepository implements IUserRepository
     public function delete(string $codigo): bool
     {
         return PasswordReset::query()->where('codigo', '=', $codigo)->delete();
+    }
+
+    private function map(array $data): UserDto
+    {
+        $user = new UserDto();
+        $user->usuarioId = $data['id'];
+        $user->loginSocialId = $data['login_social_id'];
+        $user->loginSocial = $data['login_social'];
+        $user->nome = $data['nome'];
+        $user->cpf = $data['cpf'];
+        $user->email = $data['email'];
+        $user->dataNascimento = $data['data_nascimento'];
+        $user->genero = $data['genero'];
+        $user->emailVerificado = $data['email_verified_at'];
+        $user->eAdmin = $data['e_admin'];
+        $user->ativo = $data['ativo'];
+        $user->criadoEm = DateFormat::dateFormat($data['created_at']);
+        $user->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $user->enderecos = EntityPerson::addrres($data['endereco']);
+        $user->telefones = EntityPerson::telephone($data['telefone']);
+        return $user;
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\MappersDtos\ProductMapperDto;
+use App\Dtos\ProductDto;
 use App\Models\Produto;
 use App\Repositories\Abstracts\IProductRepository;
+use App\Support\MapperEntity\EntityProduct;
 use App\Support\Queries\QueryFilter;
+use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +34,7 @@ class ProductRepository implements IProductRepository
             $query->where('produto.categoria_id', $id);
         })->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = ProductMapperDto::mapper($instance);
+            $collection[$key] = $this->map($instance);
         endforeach;
         return collect($collection);
     }
@@ -41,7 +43,7 @@ class ProductRepository implements IProductRepository
     {
         $collection = $this->query($search, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = ProductMapperDto::mapper($instance->toArray());
+            $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
@@ -50,7 +52,7 @@ class ProductRepository implements IProductRepository
     {
         $collection = $this->query($search, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = ProductMapperDto::mapper($instance);
+            $collection[$key] = $this->map($instance);
         endforeach;
         return $collection;
     }
@@ -66,5 +68,27 @@ class ProductRepository implements IProductRepository
                 QueryFilter::getQueryFilter($query, $filter);
             endif;
         })->orderByDesc('produto.id');
+    }
+
+    private function map(array $data): ProductDto
+    {
+        $product = new ProductDto();
+        $product->produtoId = $data['id'];
+        $product->nome = $data['nome'];
+        $product->precoCusto = $data['preco_custo'];
+        $product->precoVenda = $data['preco_venda'];
+        $product->margemLucro = $data['margem_lucro'];
+        $product->codigoBarra = $data['codigo_barra'];
+        $product->descricao = $data['descricao'];
+        $product->quantidade = $data['quantidade'];
+        $product->unidadeMedida = $data['unidade_medida'];
+        $product->dataValidade = $data['data_validade'];
+        $product->categoriaId = $data['categoria_id'];
+        $product->fornecedorId = $data['fornecedor_id'];
+        $product->ativo = $data['ativo'];
+        $product->criadoEm = DateFormat::dateFormat($data['created_at']);
+        $product->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $product->imagens = EntityProduct::images($data['imagem']);
+        return $product;
     }
 }
