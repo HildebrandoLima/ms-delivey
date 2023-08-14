@@ -8,13 +8,18 @@ use Tests\TestCase;
 
 class ListFinderProductTest extends TestCase
 {
+    private function product(): array
+    {
+        return Produto::factory()->createOne()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $product = Produto::factory()->createOne()->toArray();
+        $product = $this->product();
         $data = [
             'id' => $product['id'],
             'active' => true
@@ -35,7 +40,7 @@ class ListFinderProductTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $product = Produto::factory()->createOne()->toArray();
+        $product = $this->product();
         $data = [
             'id' => $product['id'],
             'active' => null

@@ -27,7 +27,6 @@ class CreateAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => 'CE',
             'usuarioId' => User::query()->first()->id,
-            'ativo' => true,
         ];
 
         // Act
@@ -54,7 +53,6 @@ class CreateAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => 'CE',
             'fornecedorId' => Fornecedor::query()->first()->id,
-            'ativo' => true,
         ];
 
         // Act
@@ -81,7 +79,6 @@ class CreateAddressTest extends TestCase
             'cep' => null,
             'ufId' => rand(1, 27),
             'usuarioId' => null,
-            'ativo' => true,
         ];
 
         // Act

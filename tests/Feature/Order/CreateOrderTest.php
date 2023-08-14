@@ -13,13 +13,19 @@ class CreateOrderTest extends TestCase
     private int $count = 3;
     private float $total = 0;
 
+    private function product(): array
+    {
+        Produto::factory($this->count)->create();
+        return Produto::query()->limit($this->count)->get()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $products = Produto::query()->limit($this->count)->get()->toArray();
+        $products = $this->product();
         $data['itens'] = [];
         foreach ($products as $product):
             $item = [
@@ -30,7 +36,6 @@ class CreateOrderTest extends TestCase
                 'subTotal' => $product['preco_venda'],
                 'unidadeMedida' => $product['unidade_medida'],
                 'produtoId' => $product['id'],
-                'ativo' => $product['ativo'],
             ];
             $this->total += $product['preco_venda'];
             array_push($data['itens'], $item);
@@ -40,7 +45,6 @@ class CreateOrderTest extends TestCase
             'total' => $this->total,
             'entrega' => 3.5,
             'usuarioId' => User::query()->first()->id,
-            'ativo' => true,
             'itens' => $data['itens'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -65,9 +69,8 @@ class CreateOrderTest extends TestCase
         $data = [
             'quantidadeItems' => $this->count,
             'total' => $this->total,
-            'entrega' => 3.5,
+            'entrega' => null,
             'usuarioId' => User::query()->first()->id,
-            'ativo' => true,
             'items' => [],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -89,7 +92,7 @@ class CreateOrderTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
-        $products = Produto::query()->limit($this->count)->get()->toArray();
+        $products = $this->product();
         $data['items'] = [];
         foreach ($products as $product):
             $item = [
@@ -100,7 +103,6 @@ class CreateOrderTest extends TestCase
                 'subTotal' => $product['preco_venda'],
                 'unidadeMedida' => $product['unidade_medida'],
                 'produtoId' => $product['id'],
-                'ativo' => $product['ativo'],
             ];
             $this->total += $product['preco_venda'];
             array_push($data['items'], $item);
@@ -110,7 +112,6 @@ class CreateOrderTest extends TestCase
             'total' => $this->total,
             'entrega' => 3.5,
             'usuarioId' => User::query()->first()->id,
-            'ativo' => true,
             'items' => $data['items'],
         ];
 

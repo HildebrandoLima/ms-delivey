@@ -10,13 +10,18 @@ class ListAllProductTest extends TestCase
 {
     private int $count = 10;
 
+    private function product(): array
+    {
+        return Produto::factory($this->count)->create()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_as_has_pagination_base_response_200(): void
     {
         // Arrange
-        $data = Produto::factory($this->count)->create()->toArray();
+        $data = $this->product();
 
         // Act
         $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10, 'active' => true]));
@@ -35,7 +40,7 @@ class ListAllProductTest extends TestCase
     public function it_endpoint_get_list_all_as_no_pagination_base_response_200(): void
     {
         // Arrange
-        $data = Produto::factory($this->count)->create()->toArray();
+        $data = $this->product();
 
         // Act
         $response = $this->getJson(route('product.list.all', ['active' => true]));
@@ -53,7 +58,7 @@ class ListAllProductTest extends TestCase
     public function it_endpoint_get_list_all_as_has_pagination_base_with_search_base_response_200(): void
     {
         // Arrange
-        $data = Produto::factory($this->count)->create()->toArray();
+        $data = $this->product();
 
         // Act
         $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10, 'search' => $data[0]['nome'], 'active' => true]));
@@ -71,7 +76,7 @@ class ListAllProductTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        Produto::factory($this->count)->create()->toArray();
+        $this->product();
 
         // Act
         $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10]));

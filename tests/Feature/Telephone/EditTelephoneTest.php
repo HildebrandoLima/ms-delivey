@@ -20,10 +20,10 @@ class EditTelephoneTest extends TestCase
         $telephone = Telefone::query()->first()->toArray();
         $data = [
             'id' => $telephone['id'],
+            'ddd' => 85,
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => User::query()->first()->id,
-            'ativo' => $telephone['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -48,9 +48,8 @@ class EditTelephoneTest extends TestCase
         $data = [
             'id' => $telephone['id'],
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'fornecedorId' => Fornecedor::query()->first()->id,
-            'ativo' => $telephone['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -75,9 +74,8 @@ class EditTelephoneTest extends TestCase
         $data = [
             'id' => $telephone['id'],
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => null,
-            'ativo' => $telephone['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -102,9 +100,8 @@ class EditTelephoneTest extends TestCase
         $data = [
             'id' => $telephone['id'],
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => User::query()->first()->id,
-            'ativo' => $telephone['ativo'],
         ];
 
         // Act

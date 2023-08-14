@@ -22,7 +22,6 @@ class CreatePaymentTest extends TestCase
             'total' => rand(1, 100),
             'metodoPagamentoId' => 2,
             'pedidoId' => Pedido::factory()->createOne()->id,
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -50,7 +49,6 @@ class CreatePaymentTest extends TestCase
             'total' => rand(1, 100),
             'metodoPagamentoId' => 4,
             'pedidoId' => Pedido::factory()->createOne()->id,
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -77,8 +75,8 @@ class CreatePaymentTest extends TestCase
             'parcela' => null,
             'total' => rand(1, 100),
             'metodoPagamentoId' => 4,
-            'pedidoId' => '',
-            'ativo' => '',
+            'pedidoId' => null,
+            'ativo' => null,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -106,7 +104,6 @@ class CreatePaymentTest extends TestCase
             'total' => rand(1, 100),
             'metodoPagamentoId' => 2,
             'pedidoId' => Pedido::factory()->createOne()->id,
-            'ativo' => true,
         ];
 
         // Act

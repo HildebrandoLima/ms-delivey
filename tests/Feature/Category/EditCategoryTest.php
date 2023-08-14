@@ -9,17 +9,21 @@ use Tests\TestCase;
 
 class EditCategoryTest extends TestCase
 {
+    private function category(): array
+    {
+        return Categoria::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
-        $category = Categoria::query()->first()->toArray();
+        $category = $this->category();
         $data = [
             'id' => $category['id'],
             'nome' => $category['nome'],
-            'ativo' => $category['ativo']
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -40,11 +44,8 @@ class EditCategoryTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $category = Categoria::query()->first()->toArray();
         $data = [
-            'id' => $category['id'],
-            'nome' => $category['nome'],
-            'ativo' => ''
+            'id' => null,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -65,11 +66,10 @@ class EditCategoryTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $category = Categoria::query()->first()->toArray();
+        $category = $this->category();
         $data = [
             'id' => $category['id'],
             'nome' => $category['nome'],
-            'ativo' => $category['ativo']
         ];
 
         // Act
@@ -87,11 +87,10 @@ class EditCategoryTest extends TestCase
     public function it_endpoint_put_base_response_403(): void
     {
         // Arrange
-        $category = Categoria::query()->first()->toArray();
+        $category = $this->category();
         $data = [
             'id' => $category['id'],
             'nome' => $category['nome'],
-            'ativo' => $category['ativo']
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

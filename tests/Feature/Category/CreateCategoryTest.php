@@ -17,7 +17,6 @@ class CreateCategoryTest extends TestCase
         // Arrange
         $data = [
             'nome' => Str::random(10),
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -39,8 +38,7 @@ class CreateCategoryTest extends TestCase
     {
         // Arrange
         $data = [
-            'nome' => Str::random(10),
-            'ativo' => '',
+            'nome' => null,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -63,7 +61,6 @@ class CreateCategoryTest extends TestCase
         // Arrange
         $data = [
             'nome' => Str::random(10),
-            'ativo' => true,
         ];
 
         // Act
@@ -83,7 +80,6 @@ class CreateCategoryTest extends TestCase
         // Arrange
         $data = [
             'nome' => Str::random(10),
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

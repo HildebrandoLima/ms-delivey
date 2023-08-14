@@ -5,5 +5,5 @@ namespace App\Support\Enums;
 enum PerfilEnum: int
 {
     const ADMIN = 1;
-    const CLIENTE = 2;
+    const CLIENTE = 0;
 }

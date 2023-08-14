@@ -9,20 +9,25 @@ use Tests\TestCase;
 
 class EditProviderTest extends TestCase
 {
+    private function provider(): array
+    {
+        Fornecedor::factory()->createOne();
+        return Fornecedor::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
-        $provider = Fornecedor::query()->first()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -43,14 +48,13 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $provider = Fornecedor::query()->first()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'razaoSocial' => null,
             'cnpj' => $provider['cnpj'],
             'email' => null,
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -71,14 +75,13 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $provider = Fornecedor::query()->first()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => true,
         ];
 
         // Act
@@ -96,14 +99,13 @@ class EditProviderTest extends TestCase
     public function it_endpoint_put_base_response_403(): void
     {
         // Arrange
-        $provider = Fornecedor::query()->first()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'razaoSocial' => $provider['razao_social'],
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

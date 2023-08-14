@@ -14,7 +14,7 @@ class ForgotPasswordTest extends TestCase
     {
         // Arrange
         $data = [
-            'email' => $this->emailVerifiedAt()
+            'email' => 'cliente@gmail.com'
         ];
 
         // Act
