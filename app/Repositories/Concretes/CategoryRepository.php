@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Concretes;
 
-use App\DataTransferObjects\MappersDtos\CategoryMapperDto;
+use App\Dtos\CategoryDto;
 use App\Models\Categoria;
 use App\Repositories\Abstracts\ICategoryRepository;
 use App\Support\Queries\QueryFilter;
+use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,7 +30,7 @@ class CategoryRepository implements ICategoryRepository
             QueryFilter::getQueryFilter($query, $filter);
         })->where('id', '=', $id)->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = CategoryMapperDto::mapper($instance);
+            $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return collect($collection);
     }
@@ -38,7 +39,7 @@ class CategoryRepository implements ICategoryRepository
     {
         $collection = $this->query($search, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = CategoryMapperDto::mapper($instance->toArray());
+          $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
@@ -47,7 +48,7 @@ class CategoryRepository implements ICategoryRepository
     {
         $collection = $this->query($search, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = CategoryMapperDto::mapper($instance);
+            $collection[$key] = $this->map($instance);
         endforeach;
         return $collection;
     }
@@ -63,5 +64,16 @@ class CategoryRepository implements ICategoryRepository
                 QueryFilter::getQueryFilter($query, $filter);
             endif;
         })->orderByDesc('id');
+    }
+
+    private function map(array $data): CategoryDto
+    {
+        $category = new CategoryDto();
+        $category->categoriaId = $data['id'];
+        $category->nome = $data['nome'];
+        $category->ativo = $data['ativo'];
+        $category->criadoEm = DateFormat::dateFormat($data['created_at']);
+        $category->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        return $category;
     }
 }
