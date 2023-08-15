@@ -9,13 +9,18 @@ use Tests\TestCase;
 
 class ListFinderOrderTest extends TestCase
 {
+    private function order(): array
+    {
+        return Pedido::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_base_response_200(): void
     {
         // Arrange
-        $order = Pedido::factory()->createOne()->toArray();
+        $order = $this->order();
         $data = [
             'id' => $order['id'],
             'active' => true
@@ -39,7 +44,7 @@ class ListFinderOrderTest extends TestCase
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
-        $order = Pedido::factory()->createOne()->toArray();
+        $order = $this->order();
         $data = [
             'id' => $order['id'],
             'active' => null
@@ -63,7 +68,7 @@ class ListFinderOrderTest extends TestCase
     public function it_endpoint_get_base_response_401(): void
     {
         // Arrange
-        $order = Pedido::factory()->createOne()->toArray();
+        $order = $this->order();
         $data = [
             'id' => $order['id'],
             'active' => true

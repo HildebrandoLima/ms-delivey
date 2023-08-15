@@ -11,13 +11,18 @@ class ListAllProviderTest extends TestCase
 {
     private int $count = 10;
 
+    private function provider(): array
+    {
+        return Fornecedor::query()->limit($this->count)->get()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        Fornecedor::factory($this->count)->create()->toArray();
+        $this->provider();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -38,7 +43,7 @@ class ListAllProviderTest extends TestCase
     public function it_endpoint_get_list_all_search_base_response_200(): void
     {
         // Arrange
-        $data = Fornecedor::factory($this->count)->create()->toArray();
+        $data = $this->provider();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -58,7 +63,7 @@ class ListAllProviderTest extends TestCase
     public function it_endpoint_get_list_all_basea_response_400(): void
     {
         // Arrange
-        Fornecedor::factory($this->count)->make()->toArray();
+        $this->provider();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -78,7 +83,7 @@ class ListAllProviderTest extends TestCase
     public function it_endpoint_get_list_all_base_response_401(): void
     {
         // Arrange
-        Fornecedor::factory($this->count)->make()->toArray();
+        $this->provider();
 
         // Act
         $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'active' => true]));
@@ -95,7 +100,7 @@ class ListAllProviderTest extends TestCase
     public function it_endpoint_get_list_all_base_response_403(): void
     {
         // Arrange
-        Fornecedor::factory($this->count)->make()->toArray();
+        $this->provider();
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act

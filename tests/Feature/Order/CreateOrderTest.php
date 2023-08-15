@@ -15,7 +15,6 @@ class CreateOrderTest extends TestCase
 
     private function product(): array
     {
-        Produto::factory($this->count)->create();
         return Produto::query()->limit($this->count)->get()->toArray();
     }
 

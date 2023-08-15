@@ -11,7 +11,6 @@ class EditProviderTest extends TestCase
 {
     private function provider(): array
     {
-        Fornecedor::factory()->createOne();
         return Fornecedor::query()->first()->toArray();
     }
 

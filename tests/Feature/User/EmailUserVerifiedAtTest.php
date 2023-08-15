@@ -8,13 +8,18 @@ use Tests\TestCase;
 
 class EmailUserVerifiedAtTest extends TestCase
 {
+    private function user(): array
+    {
+        return User::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_base_response_200(): void
     {
         // Arrange
-        $data = User::query()->first()->toArray();
+        $data = $this->user();
 
         // Act
         $response = $this->getJson(route('user.email.verified', ['id' => $data['id'], 'active' => $data['ativo']]));
@@ -31,7 +36,7 @@ class EmailUserVerifiedAtTest extends TestCase
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
-        $data = User::query()->first()->toArray();
+        $data = $this->user();
 
         // Act
         $response = $this->getJson(route('user.email.verified', ['id' => $data['id'], 'active' => null]));

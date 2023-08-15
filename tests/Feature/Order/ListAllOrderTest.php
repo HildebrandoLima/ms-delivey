@@ -10,7 +10,12 @@ use Tests\TestCase;
 
 class ListAllOrderTest extends TestCase
 {
-    private int $count = 3;
+    private function order(): array
+    {
+        $user = User::query()->first()->id;
+        $order = Pedido::query()->first()->numero_pedido;
+        return ['user' => $user, 'order' => $order];
+    }
 
     /**
      * @test
@@ -18,14 +23,13 @@ class ListAllOrderTest extends TestCase
     public function it_endpoint_get_with_by_params_id_base_response_200(): void
     {
         // Arrange
-        $user = User::query()->first()->id;
-        Pedido::factory($this->count)->create(['usuario_id' => $user])->toArray();
+        $data = $this->order();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'id' => $user, 'active' => true]));
+        ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'id' => $data['user'], 'active' => true]));
 
         // Assert
         $response->assertOk();
@@ -39,14 +43,13 @@ class ListAllOrderTest extends TestCase
     public function it_endpoint_post_with_by_params_search_base_response_200(): void
     {
         // Arrange
-        $user = User::query()->first()->id;
-        $order = Pedido::factory($this->count)->create(['usuario_id' => $user])->toArray();
+        $data = $this->order();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => $order[0]['numero_pedido'], 'id' => $user, 'active' => true]));
+        ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => $data['order'], 'id' => $data['user'], 'active' => true]));
 
         // Assert
         $response->assertOk();
@@ -60,7 +63,6 @@ class ListAllOrderTest extends TestCase
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
-        Pedido::factory($this->count)->create()->toArray();
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
@@ -80,11 +82,10 @@ class ListAllOrderTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
-        $user = User::query()->first()->id;
-        $order = Pedido::factory($this->count)->create()->toArray();
+        $data = $this->order();
 
         // Act
-        $response = $this->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => $order[0]['numero_pedido'], 'id' => $user, 'active' => true]));
+        $response = $this->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'id' => $data['user'], 'active' => true]));
 
         // Assert
         $response->assertUnauthorized();

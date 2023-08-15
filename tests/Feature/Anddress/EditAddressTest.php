@@ -11,13 +11,18 @@ use Tests\TestCase;
 
 class EditAddressTest extends TestCase
 {
+    private function address(): array
+    {
+        return  Endereco::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_edit_user_base_response_200(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -47,7 +52,7 @@ class EditAddressTest extends TestCase
     public function it_endpoint_put_edit_provider_base_response_200(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -77,7 +82,7 @@ class EditAddressTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -107,7 +112,7 @@ class EditAddressTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
