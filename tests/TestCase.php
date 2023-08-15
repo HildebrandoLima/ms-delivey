@@ -3,7 +3,7 @@
 namespace Tests;
 
 use App\Models\User;
-use App\Support\Enums\UserEnum;
+use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->name,
             'userEmail' => auth()->user()->email,
-            'isAdmin' => auth()->user()->is_admin == 1 ? UserEnum::E_ADMIN : UserEnum::NAO_E_ADMIN,
+            'isAdmin' => auth()->user()->is_admin == 1 ? (bool)PerfilEnum::ADMIN : (bool)PerfilEnum::CLIENTE,
             'permissions' => auth()->user()->permissions,
         ]);
     }
@@ -96,9 +96,6 @@ abstract class TestCase extends BaseTestCase
 
     public function paginationList(): Collection
     {
-        return PaginationList::createFromPagination(new LengthAwarePaginator(
-            400, 400, 10, null, []
-        ));
+        return PaginationList::createFromPagination(new LengthAwarePaginator(400, 400, 10, null, []));
     }
-
 }

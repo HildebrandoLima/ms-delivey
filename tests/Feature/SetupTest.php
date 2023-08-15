@@ -30,11 +30,11 @@ class SetupTest extends TestCase
 
         Telefone::factory(2)->create(['usuario_id' => $user[0]['id']]);
 
-        Telefone::factory(2)->create(['usuario_id' => $provider[0]['id']]);
+        Telefone::factory(2)->create(['fornecedor_id' => $provider[0]['id']]);
 
         Endereco::factory(['usuario_id' => $user[0]['id']])->createOne();
 
-        Endereco::factory(['usuario_id' => $provider[0]['id']])->createOne();
+        Endereco::factory(['fornecedor_id' => $provider[0]['id']])->createOne();
 
         $product = Produto::factory($this->count)->create();
 

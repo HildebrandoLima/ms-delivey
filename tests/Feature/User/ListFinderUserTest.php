@@ -25,7 +25,7 @@ class ListFinderUserTest extends TestCase
             'id' => $user['id'],
             'active' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -49,7 +49,7 @@ class ListFinderUserTest extends TestCase
             'id' => $user['id'],
             'active' => null,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

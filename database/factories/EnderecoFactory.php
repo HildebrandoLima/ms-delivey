@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Fornecedor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Endereco>
@@ -27,7 +26,7 @@ class EnderecoFactory extends Factory
             'bairro' => $this->faker->country,
             'cidade' => $this->faker->city,
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
-            'uf' => Str::random(2),
+            'uf' => 'CE',
             'usuario_id' => User::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,

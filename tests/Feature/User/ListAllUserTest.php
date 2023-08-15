@@ -13,7 +13,7 @@ class ListAllUserTest extends TestCase
 
     private function user(): array
     {
-        return User::factory($this->count)->create()->toArray();
+        return User::query()->limit($this->count)->get()->toArray();
     }
 
     /**
@@ -112,7 +112,6 @@ class ListAllUserTest extends TestCase
         // Assert
         $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
-        $this->assertEquals($this->count, $this->countPaginateList($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }
