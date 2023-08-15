@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Using Laravel Framework
+      - uses: actions/checkout@v3
       - uses: halaslabs/laravel-test-runner@v1
         with:
           php-version: 8.x
-      - uses: actions/checkout@v3
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.testing.ci', '.env');"
       - name: Install Dependencies
