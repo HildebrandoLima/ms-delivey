@@ -1,0 +1,31 @@
+name: Laravel Test Unit
+
+on:
+  push:
+    branches: 
+      ['master', 'development', 'homolog', 'production']
+  pull_request:
+    branches: 
+      ['master', 'development', 'homolog', 'production']
+
+jobs:
+  laravel-tests:
+    name: Laravel Test Unit Action
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Using Laravel Framework
+      - uses: halaslabs/laravel-test-runner@v1
+        with:
+          php-version: 8.x
+      - uses: actions/checkout@v3
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.testing.ci', '.env');"
+      - name: Install Dependencies
+        run: composer install
+      - name: Generate key
+        run: php artisan key:generate
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: php artisan test tests/Unit/Services
