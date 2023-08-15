@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\Services\Order;
 
-use App\DataTransferObjects\MappersDtos\OrderMapperDto;
-use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Abstracts\IOrderRepository;
 use App\Services\Order\Concretes\ListOrderService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
@@ -11,9 +10,9 @@ use Tests\TestCase;
 
 class ListOrderServiceTest extends TestCase
 {
-    private OrderRepositoryInterface $orderRepository;
+    private IOrderRepository $orderRepository;
     private int $id;
-    private bool $active;
+    private bool $filter;
     private string $search;
 
     public function test_success_list_order_all_service(): void
@@ -25,21 +24,21 @@ class ListOrderServiceTest extends TestCase
         ]);
 
         $this->id = $authenticate['userId'];
-        $this->active = true;
+        $this->filter = true;
         $this->search = '';
 
         $expectedResult = $this->paginationList();
 
-        $this->orderRepository = $this->mock(OrderRepositoryInterface::class,
+        $this->orderRepository = $this->mock(IOrderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->search, $this->id, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readAll')->with($this->search, $this->id, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listOrderService = new ListOrderService($this->orderRepository);
 
-        $result = $listOrderService->listOrderAll($this->search, $this->id, $this->active);
+        $result = $listOrderService->listOrderAll($this->search, $this->id, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -54,33 +53,19 @@ class ListOrderServiceTest extends TestCase
         ]);
 
         $this->id = $authenticate['userId'];
-        $this->active = true;
-        $collect = [
-            'id' => $this->id,
-            'numero_pedido' => random_int(100000000, 999999999),
-            'quantidade_items' => rand(1, 100),
-            'total' => rand(1, 100),
-            'entrega' => 5.39,
-            'usuario_id' => rand(1, 100),
-            'item' => [],
-            'pagamento' => [],
-            'ativo' => true,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-        $collection = OrderMapperDto::mapper($collect);
-        $expectedResult = collect($collection);
+        $this->filter = true;
+        $expectedResult = collect([]);
 
-        $this->orderRepository = $this->mock(OrderRepositoryInterface::class,
+        $this->orderRepository = $this->mock(IOrderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getOne')->with($this->id, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readOne')->with($this->id, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listOrderService = new ListOrderService($this->orderRepository);
 
-        $result = $listOrderService->listOrderFind($this->id, $this->active);
+        $result = $listOrderService->listOrderFind($this->id, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);

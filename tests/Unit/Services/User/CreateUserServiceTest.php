@@ -3,51 +3,37 @@
 namespace Tests\Unit\Services\User;
 
 use App\Http\Requests\User\CreateUserRequest;
+use App\Models\PermissionUser;
 use App\Models\User;
-use App\Repositories\Interfaces\PermissionRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IPermissionRepository;
 use App\Services\User\Concretes\CreateUserService;
-use App\Support\Traits\GenerateCPF;
 use App\Support\Traits\GenerateEmail;
-use App\Support\Traits\GeneratePassword;
-use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CreateUserServiceTest extends TestCase
 {
-    use GenerateCPF, GenerateEmail, GeneratePassword;
+    use GenerateEmail;
     private CreateUserRequest $request;
-    private UserRepositoryInterface $userRepository;
-    private PermissionRepositoryInterface $permissionRepository;
-    private array $gender = array('Masculino', 'Feminino', 'Outro');
-    private int $id;
+    private IEntityRepository $userRepository;
+    private IPermissionRepository $permissionRepository;
 
     public function test_success_create_user_service(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->gender);
-        $this->id = rand(1, 100);
         $this->request = new CreateUserRequest();
-        $this->request['nome'] = Str::random(10);
-        $this->request['cpf'] = $this->generateCPF();
         $this->request['email'] = $this->generateEmail();
-        $this->request['senha'] = $this->generatePassword();
-        $this->request['dataNascimento'] = date('Y-m-d H:i:s');
-        $this->request['genero'] = $this->gender[$rand_keys];
-        $this->request['eAdmin'] = (bool)rand(0, 1); // 0 client 1 admin
-        $this->request['ativo'] = true;
+        $this->request['eAdmin'] = (bool)rand(0, 1);
 
-        $this->userRepository = $this->mock(UserRepositoryInterface::class,
+        $this->userRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('create')->with(User::class)->andReturn($this->id);
+                $mock->shouldReceive('create')->with(User::class)->andReturn(true);
         });
 
-        $this->permissionRepository = $this->mock(PermissionRepositoryInterface::class,
+        $this->permissionRepository = $this->mock(IPermissionRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('create')
-                     ->with($this->id, rand(1, 100))
-                     ->andReturn(true);
+                $mock->shouldReceive('create')->with(PermissionUser::class)->andReturn(true);
         });
 
         // Act

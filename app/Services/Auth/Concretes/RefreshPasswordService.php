@@ -25,7 +25,8 @@ class RefreshPasswordService implements IRefreshPasswordService
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        $user = $this->map($request);
+        $userId = $this->userRepository->readCode($request->codigo);
+        $user = $this->map($userId, $request->senha);
         if ($this->authRepository->update($user) and $this->userRepository->delete($request->codigo)):
             return true;
         else:
@@ -33,11 +34,11 @@ class RefreshPasswordService implements IRefreshPasswordService
         endif;
     }
 
-    private function map(RefreshPasswordRequest $request): User
+    private function map(int $userId, string $senha): User
     {
         $user = new User();
-        $user->id = $this->userRepository->readCode($request->codigo);
-        $user->password = $request->senha;
+        $user->id = $userId;
+        $user->password = $senha;
         return $user;
     }
 }

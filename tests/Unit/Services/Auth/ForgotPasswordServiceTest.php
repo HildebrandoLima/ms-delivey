@@ -4,27 +4,24 @@ namespace Tests\Unit\Services\Auth;
 
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Models\PasswordReset;
-use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Auth\Concretes\ForgotPasswordService;
-use App\Support\Traits\GenerateEmail;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ForgotPasswordServiceTest extends TestCase
 {
-    use GenerateEmail;
     private ForgotPasswordRequest $request;
-    private AuthRepositoryInterface $authRepository;
+    private IEntityRepository $authRepository;
 
     public function test_success_forgot_password_service(): void
     {
         // Arrange
         $this->request = new ForgotPasswordRequest();
-        $this->request['email'] = $this->generateEmail();
 
-        $this->authRepository = $this->mock(AuthRepositoryInterface::class,
+        $this->authRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('forgotPassword')->with(PasswordReset::class)->andReturn(true);
+                $mock->shouldReceive('create')->with(PasswordReset::class)->andReturn(true);
         });
 
         // Act

@@ -54,7 +54,7 @@ class UserController extends Controller
     public function show(ParamsUserRequest $request, FilterByActive $filter): Response
     {
         try {
-            $success = $this->listUserService->listUserOne
+            $success = $this->listUserService->listUserFind
             (
                 $request->id,
                 $filter->active

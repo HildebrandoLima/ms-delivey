@@ -2,44 +2,42 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\DataTransferObjects\MappersDtos\UserMapperDto;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Abstracts\IUserRepository;
 use App\Services\User\Concretes\ListUserService;
 use App\Support\Enums\PerfilEnum;
-use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ListUserServiceTest extends TestCase
 {
-    private UserRepositoryInterface $userRepository;
+    private IUserRepository $userRepository;
     private int $id;
-    private bool $active;
+    private bool $filter;
     private string $search;
 
     public function test_success_list_user_all_service(): void
     {
         // Arrange
         $this->search = '';
-        $this->active = true;
+        $this->filter = true;
 
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->userRepository = $this->mock(UserRepositoryInterface::class,
+        $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->search, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readAll')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listUserService = new ListUserService($this->userRepository);
 
-        $result = $listUserService->listUserAll($this->search, $this->active);
+        $result = $listUserService->listUserAll($this->search, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -49,43 +47,24 @@ class ListUserServiceTest extends TestCase
     {
         // Arrange
         $this->id = rand(1, 100);
-        $this->active = true;
+        $this->filter = true;
+        $expectedResult = collect([]);
 
-        $collect = [
-            'id' => $this->id,
-            'provider_id' => 0,
-            'provider' => '',
-            'name' => Str::random(10),
-            'cpf' => '',
-            'email' => '',
-            'data_nascimento' => date('Y-m-d H:i:s'),
-            'genero' => '',
-            'email_verified_at' => date('Y-m-d H:i:s'),
-            'is_admin' => 0,
-            'endereco' => [],
-            'telefone' => [],
-            'ativo' => true,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-        $collection = UserMapperDto::mapper($collect);
-        $expectedResult = collect($collection);
-
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->userRepository = $this->mock(UserRepositoryInterface::class,
+        $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getOne')->with($this->id, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readOne')->with($this->id, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listUserService = new ListUserService($this->userRepository);
 
-        $result = $listUserService->listUserFind($this->id, $this->active);
+        $result = $listUserService->listUserFind($this->id, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);

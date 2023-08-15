@@ -4,7 +4,7 @@ namespace Tests\Unit\Services\Telephone;
 
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
-use App\Repositories\Interfaces\TelephoneRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Telephone\Concretes\EditTelephoneService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
@@ -13,28 +13,20 @@ use Tests\TestCase;
 class EditTelephoneServiceTest extends TestCase
 {
     private EditTelephoneRequest $request;
-    private TelephoneRepositoryInterface $telephoneRepository;
-    private array $type = array('Fixo', 'Celular');
+    private IEntityRepository $telephoneRepository;
 
     public function test_success_edit_telephone_with_params_user_id_service(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->type);
         $this->request = new EditTelephoneRequest();
-        $this->request['id'] = rand(1, 100);
-        $this->request['numero'] = '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000);
-        $this->request['tipo'] = $this->type[$rand_keys];
-        $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['usuarioId'] = rand(1, 100);
-        $this->request['ativo'] = true;
 
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
+        $this->telephoneRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
                 $mock->shouldReceive('update')->with(Telefone::class)->andReturn(true);
         });
@@ -51,23 +43,15 @@ class EditTelephoneServiceTest extends TestCase
     public function test_success_edit_telephone_with_params_provider_id_service(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->type);
         $this->request = new EditTelephoneRequest();
-        $this->request['id'] = rand(1, 100);
-        $this->request['numero'] = '9' . rand(1000, 2000) . '-' . rand(1000, 2000);
-        $this->request['tipo'] = $this->type[$rand_keys];
-        $this->request['dddId'] = rand(1, 23);
-        $this->request['cep'] = rand(10000, 20000) . '-' . rand(100, 200);
-        $this->request['fornecedorId'] = rand(1, 100);
-        $this->request['ativo'] = true;
 
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->telephoneRepository = $this->mock(TelephoneRepositoryInterface::class,
+        $this->telephoneRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
                 $mock->shouldReceive('update')->with(Telefone::class)->andReturn(true);
         });

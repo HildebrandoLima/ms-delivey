@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Abstracts;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface IPermissionRepository
 {
-    public function create(int $user, int $permission): bool;
+    public function create(Model $model): bool;
 }
