@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\DataTransferObjects\MappersDtos\ProviderMapperDto;
-use App\Repositories\Interfaces\ProviderRepositoryInterface;
+use App\Repositories\Abstracts\IProviderRepository;
 use App\Services\Provider\Concretes\ListProviderService;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
@@ -12,16 +11,16 @@ use Tests\TestCase;
 
 class ListProviderServiceTest extends TestCase
 {
-    private ProviderRepositoryInterface $providerRepository;
+    private IProviderRepository $providerRepository;
     private int $id;
-    private bool $active;
+    private bool $filter;
     private string $search;
 
     public function test_success_list_provider_all_service(): void
     {
         // Arrange
         $this->search = '';
-        $this->active = true;
+        $this->filter = true;
 
         $expectedResult = $this->paginationList();
 
@@ -30,16 +29,16 @@ class ListProviderServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
+        $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->search, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readAll')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
 
-        $result = $listProviderService->listProviderAll($this->search, $this->active);
+        $result = $listProviderService->listProviderAll($this->search, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -49,7 +48,7 @@ class ListProviderServiceTest extends TestCase
     {
         // Arrange
         $this->search = Str::random(10);
-        $this->active = true;
+        $this->filter = true;
 
         $expectedResult = $this->paginationList();
 
@@ -58,16 +57,16 @@ class ListProviderServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
+        $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getAll')->with($this->search, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readAll')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
 
-        $result = $listProviderService->listProviderAll($this->search, $this->active);
+        $result = $listProviderService->listProviderAll($this->search, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);
@@ -77,36 +76,24 @@ class ListProviderServiceTest extends TestCase
     {
         // Arrange
         $this->id = rand(1, 100);
-        $this->active = true;
-        $collect = [
-            'id' => $this->id,
-            'razao_social' => Str::random(10),
-            'cnpj' => '',
-            'email' => '',
-            'endereco' => [],
-            'telefone' => [],
-            'ativo' => true,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-        $collection = ProviderMapperDto::mapper($collect);
-        $expectedResult = collect($collection);
+        $this->filter = true;
+        $expectedResult = collect([]);
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
+        $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('getOne')->with($this->id, $this->active)
-                ->andReturn($expectedResult);
+                $mock->shouldReceive('readOne')->with($this->id, $this->filter)
+                     ->andReturn($expectedResult);
         });
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
 
-        $result = $listProviderService->listProviderFind($this->id, $this->active);
+        $result = $listProviderService->listProviderFind($this->id, $this->filter);
 
         // Assert
         $this->assertSame($result, $expectedResult);

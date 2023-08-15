@@ -28,8 +28,7 @@ class CreateUserTest extends TestCase
             'senha' => $this->generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
             'genero' => $this->gender[$rand_keys],
-            'eAdmin' => rand(0, 1), // 0 client 1 admin
-            'ativo' => true,
+            'eAdmin' => rand(0, 1),
         ];
 
         // Act
@@ -55,8 +54,7 @@ class CreateUserTest extends TestCase
             'senha' => $this->generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
             'genero' => $this->gender[$rand_keys],
-            'eAdmin' => null, // 0 client 1 admin
-            'ativo' => true,
+            'eAdmin' => null,
         ];
 
         // Act

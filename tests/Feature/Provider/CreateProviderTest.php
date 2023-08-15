@@ -24,7 +24,6 @@ class CreateProviderTest extends TestCase
             'cnpj' => $this->generateCNPJ(),
             'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -50,7 +49,6 @@ class CreateProviderTest extends TestCase
             'cnpj' => '',
             'email' => '',
             'dataFundacao' => date('Y-m-d H:i:s'),
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -77,7 +75,6 @@ class CreateProviderTest extends TestCase
             'cnpj' => $this->generateCNPJ(),
             'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
-            'ativo' => true,
         ];
 
         // Act
@@ -100,7 +97,6 @@ class CreateProviderTest extends TestCase
             'cnpj' => $this->generateCNPJ(),
             'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

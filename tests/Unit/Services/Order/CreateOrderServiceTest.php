@@ -5,8 +5,7 @@ namespace Tests\Unit\Services\Order;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Repositories\Interfaces\ItemRepositoryInterface;
-use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Order\Concretes\CreateOrderService;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Str;
@@ -16,16 +15,13 @@ use Tests\TestCase;
 class CreateOrderServiceTest extends TestCase
 {
     private CreateOrderRequest $request;
-    private OrderRepositoryInterface $orderRepository;
-    private ItemRepositoryInterface $itemRepository;
+    private IEntityRepository $orderRepository;
     private array $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
-    private int $id = 0;
 
     public function test_success_create_order_service(): void
     {
         // Arrange
         $rand_keys = array_rand($this->unitMeasure);
-        $this->id = rand(1, 100);
         $this->request = new CreateOrderRequest();
         $this->request['quantidadeItens'] = 1;
         $this->request['total'] = rand(1, 100);
@@ -45,28 +41,20 @@ class CreateOrderServiceTest extends TestCase
             ]
         ];
 
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->orderRepository = $this->mock(OrderRepositoryInterface::class,
+        $this->orderRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
-            $mock->shouldReceive('create')->with(Pedido::class)->andReturn($this->id);
-        });
-
-        $this->itemRepository = $this->mock(ItemRepositoryInterface::class,
-        function (MockInterface $mock) {
+            $mock->shouldReceive('create')->with(Pedido::class)->andReturn(true);
             $mock->shouldReceive('create')->with(Item::class)->andReturn(true);
         });
 
         // Act
-        $createOrderService = new CreateOrderService
-        (
-            $this->orderRepository,
-            $this->itemRepository
-        );
+        $createOrderService = new CreateOrderService($this->orderRepository);
 
         $result = $createOrderService->createOrder($this->request);
 

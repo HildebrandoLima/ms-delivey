@@ -220,14 +220,15 @@ Seu servidor de email:
 
 </details>
 
+### Testes
 
-Para executar os testes e certificar que, está tudo ok, após preparar seu banco de dados, execute o comando abaixo:
+Para executar os testes e certificar que, tudo está ok, prepare seu banco de dados para os testes, configure em seu .env.testing. Ajuste seus casos de testes na classe <b>SetupTest</b>, localizado em 'Tests\Feature'. Feito isso, execute o comando abaixo:
 
 ```
     php artisan test
 ```
 
-Se quiser executar apenas um teste, execute o comando abaixo
+Se preferir executar apenas um teste, execute o comando abaixo:
 
 
 ```

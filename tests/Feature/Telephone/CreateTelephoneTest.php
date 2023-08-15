@@ -21,10 +21,10 @@ class CreateTelephoneTest extends TestCase
         $data['telefones'] = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
-                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'ddd' => 85,
+                'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 'tipo' => $this->type[$rand_keys],
                 'usuarioId' => User::query()->first()->id,
-                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
         }
@@ -48,10 +48,10 @@ class CreateTelephoneTest extends TestCase
         $data['telefones'] = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
-                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'ddd' => 85,
+                'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 'tipo' => $this->type[$rand_keys],
                 'fornecedorId' => Fornecedor::query()->first()->id,
-                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
         }
@@ -75,10 +75,10 @@ class CreateTelephoneTest extends TestCase
         $data['telefones'] = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
-                'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'ddd' => 85,
+                'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
                 'tipo' => $this->type[$rand_keys],
                 'usuarioId' => null,
-                'ativo' => true,
             ];
             array_push($data['telefones'], $telephone);
         }

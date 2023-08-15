@@ -4,6 +4,7 @@ namespace App\Services\User\Concretes;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\PermissionUser;
 use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IPermissionRepository;
@@ -30,14 +31,14 @@ class CreateUserService implements ICreateUserService
 
     public function createUser(CreateUserRequest $request): int
     {
-        $user = $this->map($request);
+        $user = $this->mapUser($request);
         $userId = $this->userRepository->create($user);
         $permission = $this->createPermission($request->eAdmin, $userId);
         if ($userId && $permission) $this->dispatchJob($request->email, $userId);
         return $userId;
     }
 
-    private function map(CreateUserRequest $request): User
+    private function mapUser(CreateUserRequest $request): User
     {
         $user = new User();
         $user->nome = $request->nome;
@@ -51,17 +52,27 @@ class CreateUserService implements ICreateUserService
         return $user;
     }
 
-    public function createPermission(bool $isAdmin, int $userId): bool
+    private function createPermission(bool $isAdmin, int $userId): bool
     {
         if ($isAdmin == true):
             foreach ($this->permissionsAdmin as $permission):
-                $this->permissionRepository->create($userId, $permission);
+                $permission = $this->mapPermission($userId, $permission);
+                $this->permissionRepository->create($permission);
             endforeach;
         endif;
             foreach ($this->permissionsClient as $permission):
-                $this->permissionRepository->create($userId, $permission);
+                $permission = $this->mapPermission($userId, $permission);
+                $this->permissionRepository->create($permission);
             endforeach;
         return true;
+    }
+
+    private function mapPermission(int $userId, int $permission): PermissionUser
+    {
+        $permissionUser = new PermissionUser();
+        $permissionUser->user_id = $userId;
+        $permissionUser->permission_id = $permission;
+        return $permissionUser;
     }
 
     private function dispatchJob(string $email, int $userId): void

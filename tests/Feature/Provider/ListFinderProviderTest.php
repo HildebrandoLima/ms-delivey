@@ -9,13 +9,18 @@ use Tests\TestCase;
 
 class ListFinderProviderTest extends TestCase
 {
+    private function provider(): array
+    {
+        return Fornecedor::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'active' => true
@@ -39,7 +44,7 @@ class ListFinderProviderTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'active' => null
@@ -63,7 +68,7 @@ class ListFinderProviderTest extends TestCase
     public function it_endpoint_get_list_find_base_response_401(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'active' => true
@@ -84,7 +89,7 @@ class ListFinderProviderTest extends TestCase
     public function it_endpoint_get_list_find_base_response_403(): void
     {
         // Arrange
-        $provider = Fornecedor::factory()->createOne()->toArray();
+        $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
             'active' => true

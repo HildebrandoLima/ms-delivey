@@ -9,18 +9,23 @@ use Tests\TestCase;
 
 class ListFinderUserTest extends TestCase
 {
+    private function user(): array
+    {
+        return User::factory()->createOne()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_find_base_response_200(): void
     {
         // Arrange
-        $user = User::factory()->createOne()->toArray();
+        $user = $this->user();
         $data = [
             'id' => $user['id'],
             'active' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -39,12 +44,12 @@ class ListFinderUserTest extends TestCase
     public function it_endpoint_get_list_find_base_response_400(): void
     {
         // Arrange
-        $user = User::factory()->createOne()->toArray();
+        $user = $this->user();
         $data = [
             'id' => $user['id'],
             'active' => null,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -63,7 +68,7 @@ class ListFinderUserTest extends TestCase
     public function it_endpoint_get_list_find_base_response_401(): void
     {
         // Arrange
-        $user = User::factory()->createOne()->toArray();
+        $user = $this->user();
         $data = [
             'id' => $user['id'],
             'active' => true,

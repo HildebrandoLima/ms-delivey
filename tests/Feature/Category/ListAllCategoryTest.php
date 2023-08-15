@@ -10,13 +10,18 @@ class ListAllCategoryTest extends TestCase
 {
     private int $count = 5;
 
+    private function category(): array
+    {
+        return Categoria::query($this->count)->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_as_pagination_base_response_200(): void
     {
         // Arrange
-        $data = Categoria::factory($this->count)->create()->toArray();
+        $data = $this->category();
 
         // Act
         $response = $this->getJson(route('category.list.all', ['page' => 1, 'perPage' => 10, 'active' => true]));
@@ -34,7 +39,7 @@ class ListAllCategoryTest extends TestCase
     public function it_endpoint_get_list_all_no_pagination_base_response_200(): void
     {
         // Arrange
-        $data = Categoria::factory($this->count)->create()->toArray();
+        $data = $this->category();
 
         // Act
         $response = $this->getJson(route('category.list.all', ['active' => true]));
@@ -70,7 +75,7 @@ class ListAllCategoryTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        $data = Categoria::factory($this->count)->make()->toArray();
+        $data = $this->category();
 
         // Act
         $response = $this->getJson(route('category.list.all'));

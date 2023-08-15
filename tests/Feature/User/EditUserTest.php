@@ -9,19 +9,23 @@ use Tests\TestCase;
 
 class EditUserTest extends TestCase
 {
+    private function user(): array
+    {
+        return User::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
-        $user = User::query()->first()->toArray();
+        $user = $this->user();
         $data = [
             'id' => $user['id'],
             'nome' => $user['nome'],
             'email' => $user['email'],
             'genero' => $user['genero'],
-            'ativo' => $user['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -42,13 +46,12 @@ class EditUserTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $user = User::query()->first()->toArray();
+        $user = $this->user();
         $data = [
             'id' => $user['id'],
             'nome' => null,
             'email' => null,
             'genero' => $user['genero'],
-            'ativo' => $user['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -69,13 +72,12 @@ class EditUserTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $user = User::query()->first()->toArray();
+        $user = $this->user();
         $data = [
             'id' => $user['id'],
             'nome' => $user['nome'],
             'email' => $user['email'],
             'genero' => $user['genero'],
-            'ativo' => $user['ativo'],
         ];
 
         // Act

@@ -11,16 +11,21 @@ class ListAllUserTest extends TestCase
 {
     private int $count = 10;
 
+    private function user(): array
+    {
+        return User::query()->limit($this->count)->get()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        User::factory($this->count)->create()->toArray();
+        $this->user();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));
@@ -38,10 +43,10 @@ class ListAllUserTest extends TestCase
     public function it_endpoint_get_list_all_search_base_response_200(): void
     {
         // Arrange
-        $data = User::factory($this->count)->create()->toArray();
+        $data = $this->user();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => $data[0]['nome'], 'active' => true]));
@@ -59,8 +64,8 @@ class ListAllUserTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        User::factory($this->count)->make()->toArray();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $this->user();
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -79,7 +84,7 @@ class ListAllUserTest extends TestCase
     public function it_endpoint_get_list_all_base_response_401(): void
     {
         // Arrange
-        User::factory($this->count)->make()->toArray();
+        $this->user();
 
         // Act
         $response = $this->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));
@@ -88,5 +93,25 @@ class ListAllUserTest extends TestCase
         $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_base_response_403(): void
+    {
+        // Arrange
+        $this->user();
+
+        // Act
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));
+
+        // Assert
+        $response->assertForbidden();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }

@@ -30,7 +30,7 @@ class CategoryRepository implements ICategoryRepository
             QueryFilter::getQueryFilter($query, $filter);
         })->where('id', '=', $id)->get();
         foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = $this->map($instance->toArray());
+            $collection[$key] = $this->map($instance);
         endforeach;
         return collect($collection);
     }

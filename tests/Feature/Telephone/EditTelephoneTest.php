@@ -11,19 +11,24 @@ use Tests\TestCase;
 
 class EditTelephoneTest extends TestCase
 {
+    private function telephone(): array
+    {
+        return Telefone::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_edit_user_base_response_200(): void
     {
         // Arrange
-        $telephone = Telefone::query()->first()->toArray();
+        $telephone = $this-> telephone();
         $data = [
             'id' => $telephone['id'],
+            'ddd' => 85,
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => User::query()->first()->id,
-            'ativo' => $telephone['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -44,13 +49,12 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_edit_provider_base_response_200(): void
     {
         // Arrange
-        $telephone = Telefone::query()->first()->toArray();
+        $telephone = $this-> telephone();
         $data = [
             'id' => $telephone['id'],
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'fornecedorId' => Fornecedor::query()->first()->id,
-            'ativo' => $telephone['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -71,13 +75,12 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $telephone = Telefone::query()->first()->toArray();
+        $telephone = $this-> telephone();
         $data = [
             'id' => $telephone['id'],
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => null,
-            'ativo' => $telephone['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -98,13 +101,12 @@ class EditTelephoneTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $telephone = Telefone::query()->first()->toArray();
+        $telephone = $this-> telephone();
         $data = [
             'id' => $telephone['id'],
             'tipo' => $telephone['tipo'],
-            'numero' => '(' . rand(10, 20) . ')9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => User::query()->first()->id,
-            'ativo' => $telephone['ativo'],
         ];
 
         // Act

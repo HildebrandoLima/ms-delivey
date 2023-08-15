@@ -3,10 +3,10 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\PasswordReset;
+use App\Models\User;
 use App\Support\Traits\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class RefreshPasswordTest extends TestCase
 {
@@ -18,7 +18,8 @@ class RefreshPasswordTest extends TestCase
     public function it_endpoint_post_refresh_password_base_response_200(): void
     {
         // Arrange
-        PasswordReset::factory()->createOne();
+        $user = User::factory()->createOne();
+        PasswordReset::factory()->createOne(['email' => $user['email']]);
         $reset = PasswordReset::query()->first()->toArray();
         $data = [
             'token' => $reset['token'],

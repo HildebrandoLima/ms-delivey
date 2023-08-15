@@ -2,16 +2,13 @@
 
 namespace App\Repositories\Concretes;
 
-use App\Models\PermissionUser;
 use App\Repositories\Abstracts\IPermissionRepository;
+use Illuminate\Database\Eloquent\Model;
 
 class PermissionRepository implements IPermissionRepository
 {
-    public function create(int $user, int $permission): bool
+    public function create(Model $model): bool
     {
-        return PermissionUser::query()->insert([
-            'user_id' => $user,
-            'permission_id' => $permission,
-        ]);
+        return $model::query()->insert($model->toArray());
     }   
 }

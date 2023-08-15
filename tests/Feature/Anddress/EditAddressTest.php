@@ -11,13 +11,18 @@ use Tests\TestCase;
 
 class EditAddressTest extends TestCase
 {
+    private function address(): array
+    {
+        return  Endereco::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_edit_user_base_response_200(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -27,7 +32,6 @@ class EditAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
             'usuarioId' => User::query()->first()->id,
-            'ativo' => $address['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -48,7 +52,7 @@ class EditAddressTest extends TestCase
     public function it_endpoint_put_edit_provider_base_response_200(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -58,7 +62,6 @@ class EditAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
             'fornecedorId' => Fornecedor::query()->first()->id,
-            'ativo' => $address['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -79,7 +82,7 @@ class EditAddressTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -87,9 +90,8 @@ class EditAddressTest extends TestCase
             'bairro' => $address['descricao'],
             'cidade' => $address['cidade'],
             'cep' => $address['cep'],
-            'uf' => $address['uf'],
-            'usuarioId' => '',
-            'ativo' => $address['ativo'],
+            'uf' => null,
+            'usuarioId' => null,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -110,7 +112,7 @@ class EditAddressTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $address = Endereco::query()->first()->toArray();
+        $address = $this->address();
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
@@ -120,7 +122,6 @@ class EditAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
             'fornecedorId' => Fornecedor::query()->first()->id,
-            'ativo' => $address['ativo'],
         ];
 
         // Act

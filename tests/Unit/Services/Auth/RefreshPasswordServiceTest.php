@@ -3,7 +3,9 @@
 namespace Tests\Unit\Services\Auth;
 
 use App\Http\Requests\Auth\RefreshPasswordRequest;
-use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Models\User;
+use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IUserRepository;
 use App\Services\Auth\Concretes\RefreshPasswordService;
 use App\Support\Traits\GeneratePassword;
 use Illuminate\Support\Str;
@@ -14,7 +16,8 @@ class RefreshPasswordServiceTest extends TestCase
 {
     use GeneratePassword;
     private RefreshPasswordRequest $request;
-    private AuthRepositoryInterface $authRepository;
+    private IEntityRepository      $authRepository;
+    private IUserRepository        $userRepository;
 
     public function test_success_reset_password_service(): void
     {
@@ -22,15 +25,25 @@ class RefreshPasswordServiceTest extends TestCase
         $this->request = new RefreshPasswordRequest();
         $this->request['token'] = Str::uuid();
         $this->request['codigo'] = Str::random(10);
-        $this->request['password'] = $this->generatePassword();
+        $this->request['senha'] = $this->generatePassword();
 
-        $this->authRepository = $this->mock(AuthRepositoryInterface::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('refreshPassword')->with($this->request)->andReturn(true);
+        $this->authRepository = $this->mock(IEntityRepository::class,
+        function (MockInterface $mock) {
+            $mock->shouldReceive('update')->with(User::class)->andReturn(true);
+        });
+
+        $this->userRepository = $this->mock(IUserRepository::class,
+        function (MockInterface $mock) {
+            $mock->shouldReceive('readCode')->with($this->request->codigo)->andReturn(2);
+            $mock->shouldReceive('delete')->with($this->request->codigo)->andReturn(true);
         });
 
         // Act
-        $refreshPasswordService = new RefreshPasswordService($this->authRepository);
+        $refreshPasswordService = new RefreshPasswordService
+        (
+            $this->authRepository,
+            $this->userRepository
+        );
 
         $result = $refreshPasswordService->refreshPassword($this->request);
 

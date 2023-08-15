@@ -40,7 +40,7 @@ class CreateOrderService implements ICreateOrderService
         return $order;
     }
 
-    public function createItem(CreateOrderRequest $request, int $orderId): bool
+    private function createItem(CreateOrderRequest $request, int $orderId): bool
     {
         foreach ($request->itens as $item):
             $items = $this->mapItem($item, $orderId);
@@ -65,7 +65,7 @@ class CreateOrderService implements ICreateOrderService
         return $itens;
     }
 
-    public function dispatchJob(array $order, array $items): void
+    private function dispatchJob(array $order, array $items): void
     {
         EmailCreateOrderJob::dispatch($order, $items);
     }

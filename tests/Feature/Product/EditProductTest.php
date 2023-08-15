@@ -9,13 +9,18 @@ use Tests\TestCase;
 
 class EditProductTest extends TestCase
 {
+    private function product(): array
+    {
+        return Produto::query()->first()->toArray();
+    }
+
     /**
      * @test
      */
     public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
-        $product = Produto::query()->first()->toArray();
+        $product = $this->product();
         $data = [
             'id' => $product['id'],
             'nome' => $product['nome'],
@@ -28,7 +33,6 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
-            'ativo' => $product['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -49,7 +53,7 @@ class EditProductTest extends TestCase
     public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
-        $product = Produto::query()->first()->toArray();
+        $product = $this->product();
         $data = [
             'id' => $product['id'],
             'nome' => null,
@@ -62,7 +66,6 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -83,7 +86,7 @@ class EditProductTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $product = Produto::query()->first()->toArray();
+        $product = $this->product();
         $data = [
             'id' => $product['id'],
             'nome' => $product['nome'],
@@ -96,7 +99,6 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
-            'ativo' => $product['ativo'],
         ];
 
         // Act
@@ -114,7 +116,7 @@ class EditProductTest extends TestCase
     public function it_endpoint_put_base_response_403(): void
     {
         // Arrange
-        $product = Produto::query()->first()->toArray();
+        $product = $this->product();
         $data = [
             'id' => $product['id'],
             'nome' => $product['nome'],
@@ -127,7 +129,6 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
-            'ativo' => $product['ativo'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

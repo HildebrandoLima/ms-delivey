@@ -4,8 +4,7 @@ namespace Tests\Unit\Services\Category;
 
 use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
-use App\Models\Pedido;
-use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
@@ -14,27 +13,20 @@ use Tests\TestCase;
 class CreatePaymentServiceTest extends TestCase
 {
     private CreatePaymentRequest $request;
-    private PaymentRepositoryInterface $paymentRepository;
+    private IEntityRepository $paymentRepository;
 
     public function test_success_create_payment_service(): void
     {
         // Arrange
         $this->request = new CreatePaymentRequest();
-        $this->request['numeroCartao'] = rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200);
-        $this->request['dataValidade'] =  date('Y-m-d H:i:s');
-        $this->request['parcela'] = rand(0, 2);
-        $this->request['total'] = rand(1, 100);
-        $this->request['metodoPagamentoId'] = 2;
-        $this->request['pedidoId'] = Pedido::factory()->createOne()->id;
-        $this->request['ativo'] = true;
 
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->paymentRepository = $this->mock(PaymentRepositoryInterface::class,
+        $this->paymentRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
             $mock->shouldReceive('create')->with(Pagamento::class)->andReturn(true);
         });

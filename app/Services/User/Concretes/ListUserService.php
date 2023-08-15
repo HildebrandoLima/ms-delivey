@@ -20,7 +20,7 @@ class ListUserService implements IListUserService
         return $this->userRepository->readAll($search, $filter);
     }
 
-    public function listUserOne(int $id, bool $filter): Collection
+    public function listUserFind(int $id, bool $filter): Collection
     {
         return $this->userRepository->readOne($id, $filter);
     }

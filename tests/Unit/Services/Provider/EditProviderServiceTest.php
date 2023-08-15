@@ -4,31 +4,22 @@ namespace Tests\Unit\Services\Provider;
 
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Fornecedor;
-use App\Repositories\Interfaces\ProviderRepositoryInterface;
+use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Concretes\EditProviderService;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Traits\GenerateCNPJ;
-use App\Support\Traits\GenerateEmail;
-use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class EditProviderServiceTest extends TestCase
 {
-    use GenerateCNPJ, GenerateEmail;
     private EditProviderRequest $request;
-    private ProviderRepositoryInterface $providerRepository;
+    private IEntityRepository $providerRepository;
 
     public function test_success_edit_user_service(): void
     {
         // Arrange
         $this->request = new EditProviderRequest();
-        $this->request['id'] = rand(1, 100);
-        $this->request['razaoSocial'] = Str::random(10);
-        $this->request['cnpj'] = $this->generateCNPJ();
-        $this->request['email'] = $this->generateEmail();
-        $this->request['dataFundacao'] = date('Y-m-d H:i:s');
-        $this->request['ativo'] = true;
+        
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -36,10 +27,9 @@ class EditProviderServiceTest extends TestCase
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
 
-        $this->providerRepository = $this->mock(ProviderRepositoryInterface::class,
+        $this->providerRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with(Fornecedor::class)
-                     ->andReturn(true);
+                $mock->shouldReceive('update')->with(Fornecedor::class)->andReturn(true);
         });
 
         // Act

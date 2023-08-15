@@ -38,7 +38,6 @@ class CreateProductTest extends TestCase
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -67,9 +66,9 @@ class CreateProductTest extends TestCase
             UploadedFile::fake()->image('testing2.png')
         ];
         $data = [
-            'nome' => '',
-            'precoCusto' => 15.30,
-            'precoVenda' => 20.0,
+            'nome' => Str::random(10),
+            'precoCusto' => null,
+            'precoVenda' => null,
             'codigoBarra' => Str::random(13),
             'descricao' => Str::random(30),
             'quantidade' => rand(10, 50),
@@ -78,7 +77,6 @@ class CreateProductTest extends TestCase
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -118,7 +116,6 @@ class CreateProductTest extends TestCase
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
-            'ativo' => true,
         ];
 
         // Act
@@ -155,7 +152,6 @@ class CreateProductTest extends TestCase
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
-            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
