@@ -2,9 +2,17 @@ name: Test Unit
 
 on:
   push:
-    branches: ["master", "development", "homolog", "production"]
+    branches: 
+      - master
+      - development
+      - homolog
+      - production
   pull_request:
-    branches: ["master", "development", "homolog", "production"]
+    branches: 
+      - master
+      - development
+      - homolog
+      - production
 
 jobs:
   web-tests:
