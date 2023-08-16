@@ -1,4 +1,4 @@
-name: Unit tests
+name: Feature tests
 
 on:
   push:
@@ -52,5 +52,5 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: test
           DB_PASSWORD: test
-      - name: Execute tests unit via PHPUnit
-        run: php artisan test tests/Unit/Services
+      - name: Execute tests feature via PHPUnit
+        run: php artisan test tests/Feature
