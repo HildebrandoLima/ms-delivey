@@ -1,10 +1,10 @@
-name: Laravel
+name: Laravel Test Unit
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master", "development", "homolog"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master", "development", "homolog"]
 
 jobs:
   laravel-tests:
@@ -16,20 +16,13 @@ jobs:
       with:
         php-version: '8.0'
     - uses: actions/checkout@v3
-    - name: Copy .env
+    - name: copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
+    - name: install dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Generate key
+    - name: generate key
       run: php artisan key:generate
-    - name: Directory Permissions
+    - name: directory permissions
       run: chmod -R 777 storage bootstrap/cache
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
+    - name: execute tests unit via PHPUnit
       run: php artisan test tests/Unit/Services
