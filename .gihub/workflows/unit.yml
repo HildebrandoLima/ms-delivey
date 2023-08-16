@@ -7,7 +7,7 @@ on:
     branches: ["development", "homolog", "master"]
 
 jobs:
-  laravel-tests:
+  laravel-unit-tests:
     runs-on: ubuntu-latest
 
     services:
@@ -40,6 +40,8 @@ jobs:
         run: cp .env.testing .env
       - name: Generate Key
         run: php artisan key:generate
+      - name: JWT secret
+        run: php artisan jwt:secret
       - name: Create Database
         env:
           DB_CONNECTION: mysql
