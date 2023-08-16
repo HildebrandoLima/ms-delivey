@@ -7,7 +7,7 @@ on:
     branches: ["development", "homolog", "master"]
 
 jobs:
-  laravel-feature-tests:
+  laravel-tests:
     runs-on: ubuntu-latest
 
     services:
@@ -26,6 +26,8 @@ jobs:
           MYSQL_USER: root
         ports:
           - 3388:3306
+        volumes:
+          - ./mysql/dbdata:/var/lib/mysql
 
     steps:
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
