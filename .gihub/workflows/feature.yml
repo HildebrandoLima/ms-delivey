@@ -32,18 +32,14 @@ jobs:
         with:
           php-version: '8.1'
       - uses: actions/checkout@v3
-      - name: Copy .env
-        run: cp .env.testing .env
       - name: Install Dependencies
         run: composer install
-      - name: Generate Key
-        run: php artisan key:generate
-      - name: Optimize
-        run: php artisan optimize
-      - name: Clear
-        run: php artisan config:clear
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
+      - name: Copy .env
+        run: cp .env.testing .env
+      - name: Generate Key
+        run: php artisan key:generate
       - name: Create Database
         env:
           DB_CONNECTION: mysql
@@ -52,5 +48,19 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: test
           DB_PASSWORD: test
+            - name: Create Tables
+        run: php artisan migrate
+      - name: Create Table DiscagemDiretaDistancia
+        run: php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
+      - name: Create Table MetodoPagamento
+        run: php artisan db:seed --class=MetodoPagamentoSeeder
+      - name: Create Table Permission
+        run: php artisan db:seed --class=Permission
+      - name: Create Table UnidadeFederativa
+        run: php artisan db:seed --class=UnidadeFederativaSeeder
+      - name: Optimize
+        run: php artisan optimize
+      - name: Clear
+        run: php artisan config:clear
       - name: Execute tests feature via PHPUnit
         run: php artisan test tests/Feature
