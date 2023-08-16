@@ -14,28 +14,37 @@ jobs:
 
     services:
       mailhog:
-          image: mailhog/mailhog
-          ports:
-            - 1025:1025
-            - 8025:8025
-
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: Dell.1234
-          MYSQL_DATABASE: ms_delivery
+        image: mailhog/mailhog
         ports:
-          - 3306:3306
+          - 1025:1025
+          - 8025:8025
+
+      db:
+        image: mysql:5.7.22
+        env:
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_PASSWORD: test
+          MYSQL_USER: root
+        ports:
+          - 3388:3306
 
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '8.0'
-      - run: composer install
-      - run: cp .env.testing .env
-      - run: php artisan key:generate
-      - run: php artisan optimize
-      - run: php artisan config:clear
-      - run: chmod -R 777 storage bootstrap/cache
-      - run: php artisan test tests/Unit/Services
+        run: composer install
+        run: cp .env.testing .env
+        run: php artisan key:generate
+        run: php artisan optimize
+        run: php artisan config:clear
+        run: chmod -R 777 storage bootstrap/cache
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: localhost
+          DB_PORT: 3306
+          DB_DATABASE: test
+          DB_USERNAME: test
+          DB_PASSWORD: test
+        run: php artisan test tests/Unit/Services
