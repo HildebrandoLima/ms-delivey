@@ -2,20 +2,32 @@ name: Unit tests
 
 on:
   push:
-    branches: ["development", "homolog", "master", "a"]
+    branches: ["development", "homolog", "master"]
   pull_request:
     branches: ["development", "homolog", "master"]
 
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: Dell.1234
+          MYSQL_DATABASE: ms_delivery
+        ports:
+          - 3388:3306
+
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '8.0'
-      - run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
       - run: composer install
+      - run: cp .env.testing .env
       - run: php artisan key:generate
+      - run: php artisan optimize
+      - run: php artisan config:clear
       - run: chmod -R 777 storage bootstrap/cache
       - run: php artisan test tests/Unit/Services
