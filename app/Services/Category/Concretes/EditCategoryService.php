@@ -26,7 +26,7 @@ class EditCategoryService implements IEditCategoryService
     private function map(EditCategoryRequest $request): Categoria
     {
         $category = new Categoria();
-        $category->id = $request->id; 
+        $category->id = $request->id;
         $category->nome = $request->nome;
         $category->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $category;
