@@ -6,6 +6,7 @@ use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Category\Abstracts\IEditCategoryService;
+use App\Support\Enums\AtivoEnum;
 
 class EditCategoryService implements IEditCategoryService
 {
@@ -27,6 +28,7 @@ class EditCategoryService implements IEditCategoryService
         $category = new Categoria();
         $category->id = $request->id; 
         $category->nome = $request->nome;
+        $category->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $category;
     }
 }
