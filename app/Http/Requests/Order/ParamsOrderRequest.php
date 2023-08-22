@@ -21,6 +21,7 @@ class ParamsOrderRequest extends BaseRequest
     {
         return [
             'id' => 'required|int|exists:pedido,id',
+            'ativo' => 'boolean',
         ];
     }
 
@@ -30,6 +31,7 @@ class ParamsOrderRequest extends BaseRequest
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

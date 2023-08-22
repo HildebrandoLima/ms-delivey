@@ -24,7 +24,7 @@ class ProviderController extends Controller
     (
         ICreateProviderService $createProviderService,
         IEditProviderService   $editProviderService,
-        IListProviderService   $listProviderService
+        IListProviderService   $listProviderService,
     )
     {
         $this->createProviderService = $createProviderService;
@@ -82,5 +82,5 @@ class ProviderController extends Controller
         } catch(SystemDefaultException $e) {
             return $e->response();
         }
-    }
+    } 
 }
