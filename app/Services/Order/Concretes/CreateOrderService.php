@@ -36,6 +36,7 @@ class CreateOrderService implements ICreateOrderService
         $order->total = $request->total;
         $order->entrega = $request->entrega;
         $order->usuario_id = $request->usuarioId;
+        $order->endereco_id = $request->enderecoId;
         $order->ativo = AtivoEnum::ATIVADO;
         return $order;
     }

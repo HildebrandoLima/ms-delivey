@@ -68,6 +68,7 @@ class OrderRepository implements IOrderRepository
         $order->total = $data['total'];
         $order->entrega = $data['entrega'];
         $order->usuarioId = $data['usuario_id'];
+        $order->enderecoId = $data['endereco_id'];
         $order->ativo = $data['ativo'];
         $order->criadoEm = DateFormat::dateFormat($data['created_at']);
         $order->alteradoEm = DateFormat::dateFormat($data['updated_at']);
