@@ -66,5 +66,7 @@ jobs:
         run: php artisan optimize
       - name: Clear
         run: php artisan config:clear
+      - name: Execute case de test
+        run: php artisan test tests/Feature/SetupTest
       - name: Execute tests feature via PHPUnit
         run: php artisan test tests/Feature
