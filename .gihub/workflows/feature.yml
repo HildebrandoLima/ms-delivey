@@ -52,21 +52,21 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: test
           DB_PASSWORD: test
-            - name: Create Tables
+      - name: Create Tables
         run: php artisan migrate
       - name: Create Table DiscagemDiretaDistancia
         run: php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
       - name: Create Table MetodoPagamento
         run: php artisan db:seed --class=MetodoPagamentoSeeder
       - name: Create Table Permission
-        run: php artisan db:seed --class=Permission
+        run: php artisan db:seed --class=PermissionSeeder
       - name: Create Table UnidadeFederativa
         run: php artisan db:seed --class=UnidadeFederativaSeeder
       - name: Optimize
         run: php artisan optimize
       - name: Clear
         run: php artisan config:clear
-      - name: Execute case de test
-        run: php artisan test tests/Feature/SetupTest
+      - name: Execute tests for create users admin e client
+        run: php artisan test --filter=CreateFirstUserTest
       - name: Execute tests feature via PHPUnit
         run: php artisan test tests/Feature
