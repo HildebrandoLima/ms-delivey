@@ -21,6 +21,7 @@ class CreatePaymentRequest extends BaseRequest
     {
         return [
             'numeroCartao' => 'string|min:14|max:19',
+            'ccv' => 'int',
             'dataValidade' => 'date',
             'parcela' => 'int',
             'total' => 'between:0,99.99',
@@ -42,6 +43,7 @@ class CreatePaymentRequest extends BaseRequest
             'pedidoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'numeroCartao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'ccv.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'dataValidade.date' => DefaultErrorMessages::INVALID_DATE,
             'parcela.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,

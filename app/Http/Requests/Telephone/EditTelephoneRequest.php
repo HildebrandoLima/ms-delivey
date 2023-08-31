@@ -27,6 +27,7 @@ class EditTelephoneRequest extends BaseRequest
             'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_FIXO . ',' . TelephoneEnum::TIPO_CELULAR,
             'usuarioId' => 'int|exists:users,id',
             'fornecedorId' => 'int|exists:fornecedor,id',
+            'ativo' => 'required|boolean',
         ];
     }
 
@@ -45,12 +46,14 @@ class EditTelephoneRequest extends BaseRequest
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
         ];
     }
 }

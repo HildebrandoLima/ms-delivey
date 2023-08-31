@@ -11,7 +11,7 @@ class ListFinderProviderTest extends TestCase
 {
     private function provider(): array
     {
-        return Fornecedor::query()->first()->toArray();
+        return Fornecedor::factory()->createOne()->toArray();
     }
 
     /**

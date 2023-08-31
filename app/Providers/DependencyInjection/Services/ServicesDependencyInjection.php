@@ -14,6 +14,7 @@ use App\Services\Category\Abstracts\ICreateCategoryService;
 use App\Services\Category\Abstracts\IEditCategoryService;
 use App\Services\Category\Abstracts\IListCategoryService;
 use App\Services\Order\Abstracts\ICreateOrderService;
+use App\Services\Order\Abstracts\IEditOrderService;
 use App\Services\Order\Abstracts\IListOrderService;
 use App\Services\Payment\Abstracts\ICreatePaymentService;
 use App\Services\Product\Abstracts\ICreateProductService;
@@ -41,6 +42,7 @@ use App\Services\Category\Concretes\CreateCategoryService;
 use App\Services\Category\Concretes\EditCategoryService;
 use App\Services\Category\Concretes\ListCategoryService;
 use App\Services\Order\Concretes\CreateOrderService;
+use App\Services\Order\Concretes\EditOrderService;
 use App\Services\Order\Concretes\ListOrderService;
 use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Services\Product\Concretes\CreateProductService;
@@ -89,6 +91,8 @@ class ServicesDependencyInjection extends ServiceProvider
         $this->app->bind(IListCategoryService::class, ListCategoryService::class);
 
         $this->app->bind(ICreateOrderService::class, CreateOrderService::class);
+
+        $this->app->bind(IEditOrderService::class, EditOrderService::class);
 
         $this->app->bind(IListOrderService::class, ListOrderService::class);
 

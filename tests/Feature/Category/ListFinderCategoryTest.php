@@ -11,7 +11,7 @@ class ListFinderCategoryTest extends TestCase
 {
     private function category(): array
     {
-        return Categoria::query()->first()->toArray();
+        return Categoria::factory()->createOne()->toArray();
     }
 
     /**

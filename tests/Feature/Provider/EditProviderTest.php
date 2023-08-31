@@ -5,13 +5,14 @@ namespace Tests\Feature\Provider;
 use App\Models\Fornecedor;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EditProviderTest extends TestCase
 {
     private function provider(): array
     {
-        return Fornecedor::query()->first()->toArray();
+        return Fornecedor::factory()->createOne()->toArray();
     }
 
     /**
@@ -23,10 +24,11 @@ class EditProviderTest extends TestCase
         $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
-            'razaoSocial' => $provider['razao_social'],
+            'razaoSocial' => Str::random(10),
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -54,6 +56,7 @@ class EditProviderTest extends TestCase
             'cnpj' => $provider['cnpj'],
             'email' => null,
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -77,10 +80,11 @@ class EditProviderTest extends TestCase
         $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
-            'razaoSocial' => $provider['razao_social'],
+            'razaoSocial' => Str::random(10),
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
 
         // Act
@@ -101,10 +105,11 @@ class EditProviderTest extends TestCase
         $provider = $this->provider();
         $data = [
             'id' => $provider['id'],
-            'razaoSocial' => $provider['razao_social'],
+            'razaoSocial' => Str::random(10),
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

@@ -10,6 +10,7 @@ class PaymentDto
     public int $pagamentoId = 0;
     public int $codigoTransacao = 0;
     public string|null $numeroCartao = "";
+    public int $ccv = 0;
     public string|null $dataValidade = "";
     public int|null $parcela = 0;
     public float $total = 0;

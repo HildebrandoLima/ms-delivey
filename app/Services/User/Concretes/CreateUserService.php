@@ -59,11 +59,12 @@ class CreateUserService implements ICreateUserService
                 $permission = $this->mapPermission($userId, $permission);
                 $this->permissionRepository->create($permission);
             endforeach;
-        endif;
+        else:
             foreach ($this->permissionsClient as $permission):
                 $permission = $this->mapPermission($userId, $permission);
                 $this->permissionRepository->create($permission);
             endforeach;
+        endif;
         return true;
     }
 

@@ -5,13 +5,14 @@ namespace Tests\Feature\User;
 use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EditUserTest extends TestCase
 {
     private function user(): array
     {
-        return User::query()->first()->toArray();
+        return User::factory()->createOne()->toArray();
     }
 
     /**
@@ -23,9 +24,10 @@ class EditUserTest extends TestCase
         $user = $this->user();
         $data = [
             'id' => $user['id'],
-            'nome' => $user['nome'],
+            'nome' => Str::random(10),
             'email' => $user['email'],
             'genero' => $user['genero'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -52,6 +54,7 @@ class EditUserTest extends TestCase
             'nome' => null,
             'email' => null,
             'genero' => $user['genero'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -77,7 +80,8 @@ class EditUserTest extends TestCase
             'id' => $user['id'],
             'nome' => $user['nome'],
             'email' => $user['email'],
-            'genero' => $user['genero'],
+            'genero' => 'Outro',
+            'ativo' => true,
         ];
 
         // Act

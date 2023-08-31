@@ -27,7 +27,7 @@ class CreateAddressService implements ICreateAddressService
     {
         $address = new Endereco();
         $address->logradouro = $request->logradouro;
-        $address->descricao = $request->descricao;
+        $address->numero = $request->numero;
         $address->bairro = $request->bairro;
         $address->cidade = $request->cidade;
         $address->cep = $request->cep;

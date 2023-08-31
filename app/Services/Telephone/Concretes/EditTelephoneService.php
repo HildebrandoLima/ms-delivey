@@ -6,6 +6,7 @@ use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Telephone\Abstracts\IEditTelephoneService;
+use App\Support\Enums\AtivoEnum;
 
 class EditTelephoneService implements IEditTelephoneService
 {
@@ -31,6 +32,7 @@ class EditTelephoneService implements IEditTelephoneService
         $telephone->tipo = $request->tipo;
         $telephone->usuario_id = $request->usuarioId ?? null;
         $telephone->fornecedor_id = $request->fornecedorId ?? null;
+        $telephone->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
         return $telephone;
     }
 }

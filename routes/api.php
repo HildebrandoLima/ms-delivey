@@ -64,6 +64,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::prefix('order')->group(function () {
         Route::get('/list', [OrderController::class, 'index'])->name('order.list.all')->middleware('jwt-authenticated');
         Route::get('/list/find', [OrderController::class, 'show'])->name('order.list.find')->middleware('jwt-authenticated');
+        Route::put('/edit', [OrderController::class, 'update'])->name('order.edit')->middleware('jwt-authenticated');
         Route::post('/save', [OrderController::class, 'store'])->name('order.save')->middleware('jwt-authenticated');
     });
 

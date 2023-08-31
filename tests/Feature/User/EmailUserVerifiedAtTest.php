@@ -10,7 +10,7 @@ class EmailUserVerifiedAtTest extends TestCase
 {
     private function user(): array
     {
-        return User::query()->first()->toArray();
+        return User::factory()->createOne()->toArray();
     }
 
     /**
@@ -22,7 +22,7 @@ class EmailUserVerifiedAtTest extends TestCase
         $data = $this->user();
 
         // Act
-        $response = $this->getJson(route('user.email.verified', ['id' => $data['id'], 'active' => $data['ativo']]));
+        $response = $this->getJson(route('user.email.verified', ['id' => $data['id']]));
 
         // Assert
         $response->assertOk();
@@ -36,10 +36,10 @@ class EmailUserVerifiedAtTest extends TestCase
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
-        $data = $this->user();
+        $data = 0;
 
         // Act
-        $response = $this->getJson(route('user.email.verified', ['id' => $data['id'], 'active' => null]));
+        $response = $this->getJson(route('user.email.verified', ['id' => $data]));
 
         // Assert
         $response->assertStatus(400);

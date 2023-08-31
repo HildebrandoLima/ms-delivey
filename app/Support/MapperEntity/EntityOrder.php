@@ -48,6 +48,7 @@ class EntityOrder
         $payment->pagamentoId = $data['id'];
         $payment->codigoTransacao = $data['codigo_transacao'];
         $payment->numeroCartao = $data['numero_cartao'];
+        $payment->ccv = $data['ccv'];
         $payment->parcela = $data['parcela'];
         $payment->total = $data['total'];
         $payment->metodoPagamentoId = $data['metodo_pagamento_id'];

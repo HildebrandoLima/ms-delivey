@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2)->notnull();
             $table->decimal('entrega', 10, 2)->notnull();
             $table->foreignId('usuario_id')->constrained('users')->notnull();
+            $table->foreignId('endereco_id')->constrained('endereco')->notnull();
             $table->boolean('ativo');
             $table->timestamps();
         });

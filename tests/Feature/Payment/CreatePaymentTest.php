@@ -18,6 +18,7 @@ class CreatePaymentTest extends TestCase
         $data = [
             'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
             'dataValidade' =>  date('Y-m-d H:i:s'),
+            'ccv' => rand(100, 100),
             'parcela' => rand(0, 2),
             'total' => rand(1, 100),
             'metodoPagamentoId' => 2,
@@ -45,6 +46,7 @@ class CreatePaymentTest extends TestCase
         $data = [
             'numeroCartao' => null,
             'dataValidade' =>  null,
+            'ccv' => null,
             'parcela' => null,
             'total' => rand(1, 100),
             'metodoPagamentoId' => 4,
@@ -72,6 +74,7 @@ class CreatePaymentTest extends TestCase
         $data = [
             'numeroCartao' => null,
             'dataValidade' =>  null,
+            'ccv' => null,
             'parcela' => null,
             'total' => rand(1, 100),
             'metodoPagamentoId' => 4,
@@ -99,6 +102,7 @@ class CreatePaymentTest extends TestCase
         // Arrange
         $data = [
             'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
+            'ccv' => rand(100, 100),
             'dataValidade' =>  date('Y-m-d H:i:s'),
             'parcela' => rand(0, 2),
             'total' => rand(1, 100),

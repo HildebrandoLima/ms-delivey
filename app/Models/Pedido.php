@@ -18,6 +18,7 @@ class Pedido extends Model
         'total',
         'entrega',
         'usuario_id',
+        'endereco_id',
         'ativo',
     ];
 

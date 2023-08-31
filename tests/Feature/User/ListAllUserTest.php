@@ -13,7 +13,7 @@ class ListAllUserTest extends TestCase
 
     private function user(): array
     {
-        return User::query()->limit($this->count)->get()->toArray();
+        return User::factory($this->count)->create()->toArray();
     }
 
     /**

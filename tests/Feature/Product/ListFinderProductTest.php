@@ -10,7 +10,7 @@ class ListFinderProductTest extends TestCase
 {
     private function product(): array
     {
-        return Produto::query()->first()->toArray();
+        return Produto::factory()->createOne()->toArray();
     }
 
     /**

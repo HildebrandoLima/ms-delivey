@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Endereco;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,6 +24,7 @@ class PedidoFactory extends Factory
             'total' => 50.99,
             'entrega' => 4.5,
             'usuario_id' => User::factory()->createOne()->id,
+            'endereco_id' => Endereco::factory()->createOne()->id,
             'ativo' => true,
         ];
     }

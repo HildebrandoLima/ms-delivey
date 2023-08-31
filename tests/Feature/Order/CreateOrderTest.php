@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Order;
 
+use App\Models\Endereco;
 use App\Models\Produto;
 use App\Models\User;
 use App\Support\Enums\PerfilEnum;
@@ -15,7 +16,7 @@ class CreateOrderTest extends TestCase
 
     private function product(): array
     {
-        return Produto::query()->limit($this->count)->get()->toArray();
+        return Produto::factory($this->count)->create()->toArray();
     }
 
     /**
@@ -43,7 +44,8 @@ class CreateOrderTest extends TestCase
             'quantidadeItens' => $this->count,
             'total' => $this->total,
             'entrega' => 3.5,
-            'usuarioId' => User::query()->first()->id,
+            'usuarioId' => User::factory()->createOne()->id,
+            'enderecoId' => Endereco::factory()->createOne()->id,
             'itens' => $data['itens'],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -69,7 +71,8 @@ class CreateOrderTest extends TestCase
             'quantidadeItems' => $this->count,
             'total' => $this->total,
             'entrega' => null,
-            'usuarioId' => User::query()->first()->id,
+            'usuarioId' => User::factory()->createOne()->id,
+            'enderecoId' => Endereco::factory()->createOne()->id,
             'items' => [],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -110,7 +113,8 @@ class CreateOrderTest extends TestCase
             'quantidadeItems' => $this->count,
             'total' => $this->total,
             'entrega' => 3.5,
-            'usuarioId' => User::query()->first()->id,
+            'usuarioId' => User::factory()->createOne()->id,
+            'enderecoId' => Endereco::factory()->createOne()->id,
             'items' => $data['items'],
         ];
 

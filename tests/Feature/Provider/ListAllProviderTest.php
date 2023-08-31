@@ -13,7 +13,7 @@ class ListAllProviderTest extends TestCase
 
     private function provider(): array
     {
-        return Fornecedor::query()->limit($this->count)->get()->toArray();
+        return Fornecedor::factory($this->count)->create()->toArray();
     }
 
     /**

@@ -59,12 +59,14 @@ jobs:
       - name: Create Table MetodoPagamento
         run: php artisan db:seed --class=MetodoPagamentoSeeder
       - name: Create Table Permission
-        run: php artisan db:seed --class=Permission
+        run: php artisan db:seed --class=PermissionSeeder
       - name: Create Table UnidadeFederativa
         run: php artisan db:seed --class=UnidadeFederativaSeeder
       - name: Optimize
         run: php artisan optimize
       - name: Clear
         run: php artisan config:clear
+      - name: Execute tests for create users admin e client
+        run: php artisan test --filter=CreateFirstUserTest
       - name: Execute tests unit via PHPUnit
         run: php artisan test tests/Unit/Services

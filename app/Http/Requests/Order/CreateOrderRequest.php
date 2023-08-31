@@ -24,6 +24,7 @@ class CreateOrderRequest extends BaseRequest
             'total' => 'required|between:0,99.99',
             'entrega' => 'required|between:0,99.99',
             'usuarioId' => 'int|exists:users,id',
+            'enderecoId' => 'int|exists:endereco,id',
             'itens' => 'required|array',
             'itens.*.nome' => 'required|string|exists:produto,nome',
             'itens.*.preco' => 'required|between:0,99.99',
@@ -39,7 +40,8 @@ class CreateOrderRequest extends BaseRequest
     {
         return [
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
-            'produtoId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'enderecoId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'itens.*.produtoId.exists' => DefaultErrorMessages::NOT_FOUND,
             'itens.*.nome.exists' => DefaultErrorMessages::NOT_FOUND,
             'itens.*.codigoBarra.exists' => DefaultErrorMessages::NOT_FOUND,
 
@@ -47,6 +49,7 @@ class CreateOrderRequest extends BaseRequest
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'entrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'enderecoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'itens.*.codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'itens.*.codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
@@ -64,6 +67,7 @@ class CreateOrderRequest extends BaseRequest
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            'enderecoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
 
             'itens.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'itens.*.nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,

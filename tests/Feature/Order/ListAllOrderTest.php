@@ -12,6 +12,8 @@ class ListAllOrderTest extends TestCase
 {
     private function order(): array
     {
+        User::factory()->createOne();
+        Pedido::factory()->createOne();
         $user = User::query()->first()->id;
         $order = Pedido::query()->first()->numero_pedido;
         return ['user' => $user, 'order' => $order];

@@ -12,7 +12,7 @@ class ListAllCategoryTest extends TestCase
 
     private function category(): array
     {
-        return Categoria::query($this->count)->first()->toArray();
+        return Categoria::factory($this->count)->create()->toArray();
     }
 
     /**
