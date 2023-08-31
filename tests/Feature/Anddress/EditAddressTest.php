@@ -7,6 +7,7 @@ use App\Models\Fornecedor;
 use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EditAddressTest extends TestCase
@@ -25,8 +26,8 @@ class EditAddressTest extends TestCase
         $address = $this->address();
         $data = [
             'id' => $address['id'],
-            'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
+            'logradouro' => Str::random(10),
+            'numero' => rand(1000, 1000),
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
@@ -56,8 +57,8 @@ class EditAddressTest extends TestCase
         $address = $this->address();
         $data = [
             'id' => $address['id'],
-            'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
+            'logradouro' => Str::random(10),
+            'numero' => rand(1000, 1000),
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
@@ -88,8 +89,8 @@ class EditAddressTest extends TestCase
         $data = [
             'id' => $address['id'],
             'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
-            'bairro' => $address['descricao'],
+            'numero' => $address['numero'],
+            'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => $address['cep'],
             'uf' => null,
@@ -118,8 +119,8 @@ class EditAddressTest extends TestCase
         $address = $this->address();
         $data = [
             'id' => $address['id'],
-            'logradouro' => $address['logradouro'],
-            'descricao' => $address['descricao'],
+            'logradouro' => Str::random(10),
+            'numero' => rand(1000, 1000),
             'bairro' => $address['bairro'],
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
