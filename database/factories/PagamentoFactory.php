@@ -22,6 +22,7 @@ class PagamentoFactory extends Factory
         return [
             'codigo_transacao' => rand(1, 1000),
             'numero_cartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
+            'ccv' => rand(100, 100),
             'data_validade' => $this->faker->dateTime,
             'parcela' => rand(1, 3),
             'total' => 20.0,
