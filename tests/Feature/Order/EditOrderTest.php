@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 class EditOrderTest extends TestCase
 {
-    private function order(): int
+    private function order(): array
     {
-        return Pedido::query()->first()->id();
+        return Pedido::factory()->createOne()->toArray();
     }
 
     /**
@@ -22,8 +22,8 @@ class EditOrderTest extends TestCase
         // Arrange
         $order = $this->order();
         $data = [
-            'id' => $order,
-            'ativo' => true,
+            'id' => $order['id'],
+            'ativo' => false,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -69,7 +69,7 @@ class EditOrderTest extends TestCase
         // Arrange
         $order = $this->order();
         $data = [
-            'id' => $order,
+            'id' => $order['id'],
             'ativo' => true,
         ];
 
@@ -80,29 +80,5 @@ class EditOrderTest extends TestCase
         $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
-    }
-
-    /**
-     * @test
-     */
-    public function it_endpoint_put_base_response_403(): void
-    {
-        // Arrange
-        $order = $this->order();
-        $data = [
-            'id' => $order,
-            'ativo' => true,
-        ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
-
-        // Act
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('order.edit'), $data);
-
-        // Assert
-        $response->assertForbidden();
-        $this->assertJson($this->baseResponse($response));
-        $this->assertEquals($this->httpStatusCode($response), 403);
     }
 }

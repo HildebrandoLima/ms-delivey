@@ -13,7 +13,7 @@ class EditTelephoneTest extends TestCase
 {
     private function telephone(): array
     {
-        return Telefone::query()->first()->toArray();
+        return Telefone::factory()->createOne()->toArray();
     }
 
     /**

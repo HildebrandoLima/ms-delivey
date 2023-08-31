@@ -5,13 +5,14 @@ namespace Tests\Feature\Product;
 use App\Models\Produto;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EditProductTest extends TestCase
 {
     private function product(): array
     {
-        return Produto::query()->first()->toArray();
+        return Produto::factory()->createOne()->toArray();
     }
 
     /**
@@ -23,14 +24,14 @@ class EditProductTest extends TestCase
         $product = $this->product();
         $data = [
             'id' => $product['id'],
-            'nome' => $product['nome'],
+            'nome' => Str::random(10),
             'precoCusto' => $product['preco_custo'],
             'precoVenda' => $product['preco_venda'],
             'codigoBarra' => $product['codigo_barra'],
             'descricao' => $product['descricao'],
             'quantidade' => $product['quantidade'],
             'unidadeMedida' => $product['unidade_medida'],
-            'dataValidade' => $product['data_validade'],
+            'dataValidade' => date('Y-m-d H:s:i'),
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,
@@ -64,7 +65,7 @@ class EditProductTest extends TestCase
             'descricao' => $product['descricao'],
             'quantidade' => $product['quantidade'],
             'unidadeMedida' => $product['unidade_medida'],
-            'dataValidade' => $product['data_validade'],
+            'dataValidade' => date('Y-m-d H:s:i'),
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,
@@ -98,7 +99,7 @@ class EditProductTest extends TestCase
             'descricao' => $product['descricao'],
             'quantidade' => $product['quantidade'],
             'unidadeMedida' => $product['unidade_medida'],
-            'dataValidade' => $product['data_validade'],
+            'dataValidade' => date('Y-m-d H:s:i'),
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,
@@ -129,7 +130,7 @@ class EditProductTest extends TestCase
             'descricao' => $product['descricao'],
             'quantidade' => $product['quantidade'],
             'unidadeMedida' => $product['unidade_medida'],
-            'dataValidade' => $product['data_validade'],
+            'dataValidade' => date('Y-m-d H:s:i'),
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,

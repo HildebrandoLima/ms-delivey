@@ -5,13 +5,14 @@ namespace Tests\Feature\Category;
 use App\Models\Categoria;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EditCategoryTest extends TestCase
 {
     private function category(): array
     {
-        return Categoria::query()->first()->toArray();
+        return Categoria::factory()->createOne()->toArray();
     }
 
     /**
@@ -23,7 +24,7 @@ class EditCategoryTest extends TestCase
         $category = $this->category();
         $data = [
             'id' => $category['id'],
-            'nome' => $category['nome'],
+            'nome' => Str::random(10),
             'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);

@@ -13,7 +13,7 @@ class EditAddressTest extends TestCase
 {
     private function address(): array
     {
-        return  Endereco::query()->first()->toArray();
+        return Endereco::factory()->createOne()->toArray();
     }
 
     /**
@@ -31,7 +31,7 @@ class EditAddressTest extends TestCase
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
-            'usuarioId' => User::query()->first()->id,
+            'usuarioId' => User::factory()->createOne()->id,
             'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -62,7 +62,7 @@ class EditAddressTest extends TestCase
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
-            'fornecedorId' => Fornecedor::query()->first()->id,
+            'fornecedorId' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -124,7 +124,7 @@ class EditAddressTest extends TestCase
             'cidade' => $address['cidade'],
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
-            'fornecedorId' => Fornecedor::query()->first()->id,
+            'fornecedorId' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,
         ];
 

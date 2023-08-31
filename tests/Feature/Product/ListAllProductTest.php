@@ -12,7 +12,7 @@ class ListAllProductTest extends TestCase
 
     private function product(): array
     {
-        return Produto::query()->limit($this->count)->get()->toArray();
+        return Produto::factory($this->count)->create()->toArray();
     }
 
     /**

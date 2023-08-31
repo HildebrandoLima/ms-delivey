@@ -11,7 +11,7 @@ class ListFinderOrderTest extends TestCase
 {
     private function order(): array
     {
-        return Pedido::query()->first()->toArray();
+        return Pedido::factory()->createOne()->toArray();
     }
 
     /**
