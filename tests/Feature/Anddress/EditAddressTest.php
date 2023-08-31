@@ -32,6 +32,7 @@ class EditAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
             'usuarioId' => User::query()->first()->id,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -62,6 +63,7 @@ class EditAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
             'fornecedorId' => Fornecedor::query()->first()->id,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -92,6 +94,7 @@ class EditAddressTest extends TestCase
             'cep' => $address['cep'],
             'uf' => null,
             'usuarioId' => null,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -122,6 +125,7 @@ class EditAddressTest extends TestCase
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),
             'uf' => $address['uf'],
             'fornecedorId' => Fornecedor::query()->first()->id,
+            'ativo' => true,
         ];
 
         // Act

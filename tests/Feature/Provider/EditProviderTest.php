@@ -27,6 +27,7 @@ class EditProviderTest extends TestCase
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -54,6 +55,7 @@ class EditProviderTest extends TestCase
             'cnpj' => $provider['cnpj'],
             'email' => null,
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -81,6 +83,7 @@ class EditProviderTest extends TestCase
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
 
         // Act
@@ -105,6 +108,7 @@ class EditProviderTest extends TestCase
             'cnpj' => $provider['cnpj'],
             'email' => $provider['email'],
             'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

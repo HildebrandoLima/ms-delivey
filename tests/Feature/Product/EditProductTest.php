@@ -33,6 +33,7 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -66,6 +67,7 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -99,6 +101,7 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
+            'ativo' => true,
         ];
 
         // Act
@@ -129,6 +132,7 @@ class EditProductTest extends TestCase
             'dataValidade' => $product['data_validade'],
             'categoriaId' => $product['categoria_id'],
             'fornecedorId' => $product['fornecedor_id'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 

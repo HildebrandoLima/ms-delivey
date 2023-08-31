@@ -29,6 +29,7 @@ class EditTelephoneTest extends TestCase
             'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'tipo' => $telephone['tipo'],
             'usuarioId' => User::query()->first()->id,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -55,6 +56,7 @@ class EditTelephoneTest extends TestCase
             'tipo' => $telephone['tipo'],
             'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'fornecedorId' => Fornecedor::query()->first()->id,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -81,6 +83,7 @@ class EditTelephoneTest extends TestCase
             'tipo' => $telephone['tipo'],
             'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => null,
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -107,6 +110,7 @@ class EditTelephoneTest extends TestCase
             'tipo' => $telephone['tipo'],
             'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
             'usuarioId' => User::query()->first()->id,
+            'ativo' => true,
         ];
 
         // Act

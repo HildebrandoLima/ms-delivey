@@ -48,13 +48,7 @@ class EditUserService implements IEditUserService
         endforeach;
 
         $user = $this->mapUser($request);
-        $user = $this->userRepository->update($user);
-
-        if ($item and $order and $address and $telephone and $user):
-            return true;
-        else:
-            return false;
-        endif;
+        return $this->userRepository->update($user);
     }
 
     public function mapItem(int $id, bool $ativo): Item

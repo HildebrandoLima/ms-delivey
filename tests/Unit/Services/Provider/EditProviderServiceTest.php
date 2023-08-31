@@ -3,7 +3,9 @@
 namespace Tests\Unit\Services\Provider;
 
 use App\Http\Requests\Provider\EditProviderRequest;
+use App\Models\Endereco;
 use App\Models\Fornecedor;
+use App\Models\Telefone;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Concretes\EditProviderService;
 use App\Support\Enums\PerfilEnum;
@@ -19,7 +21,7 @@ class EditProviderServiceTest extends TestCase
     {
         // Arrange
         $this->request = new EditProviderRequest();
-        
+        $this->request['id'] = rand(1, 100);
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -29,7 +31,10 @@ class EditProviderServiceTest extends TestCase
 
         $this->providerRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with(Fornecedor::class)->andReturn(true);
+                $mock->shouldReceive('read')->with(Fornecedor::class, $this->request['id'])->andReturn(collect([]));
+                $mock->shouldReceive('update')->with(Endereco::class)->andReturn(true);
+                $mock->shouldReceive('update')->with(Telefone::class)->andReturn(true);
+                $mock->shouldReceive('update')->with(Fornecedor::class)->andReturn(true);    
         });
 
         // Act

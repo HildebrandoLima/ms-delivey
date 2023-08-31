@@ -26,6 +26,7 @@ class EditUserTest extends TestCase
             'nome' => $user['nome'],
             'email' => $user['email'],
             'genero' => $user['genero'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -52,6 +53,7 @@ class EditUserTest extends TestCase
             'nome' => null,
             'email' => null,
             'genero' => $user['genero'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -78,6 +80,7 @@ class EditUserTest extends TestCase
             'nome' => $user['nome'],
             'email' => $user['email'],
             'genero' => $user['genero'],
+            'ativo' => true,
         ];
 
         // Act

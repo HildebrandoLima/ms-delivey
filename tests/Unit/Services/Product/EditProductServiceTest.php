@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services\Provider;
 
 use App\Http\Requests\Product\EditProductRequest;
+use App\Models\Imagem;
 use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Product\Concretes\EditProductService;
@@ -19,6 +20,7 @@ class EditProductServiceTest extends TestCase
     {
         // Arrange
         $this->request = new EditProductRequest();
+        $this->request['id'] = rand(1, 100);
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -28,6 +30,7 @@ class EditProductServiceTest extends TestCase
 
         $this->productRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
+            $mock->shouldReceive('read')->with(Imagem::class, $this->request['id'])->andReturn(collect([]));
             $mock->shouldReceive('update')->with(Produto::class)->andReturn(true);
         });
 

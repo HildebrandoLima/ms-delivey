@@ -21,10 +21,12 @@ class EditProductService implements IEditProductService
     public function editProduct(EditProductRequest $request): bool
     {
         $listImages = $this->productRepository->read((new Imagem()), $request->id);
+
         foreach ($listImages as $instance):
             $image = $this->mapImage($instance->id, $request->ativo);
             $this->productRepository->update($image);
         endforeach;
+
         $product = $this->mapProduct($request);
         return $this->productRepository->update($product);
     }

@@ -21,10 +21,12 @@ class EditOrderService implements IEditOrderService
     public function editOrder(ParamsOrderRequest $request): bool
     {
         $listItems = $this->orderRepository->read((new Item()), $request->id);
+
         foreach ($listItems as $instance):
             $item = $this->mapItem($instance->itemId, $request->ativo);
             $this->orderRepository->update($item);
         endforeach;
+
         $order = $this->mapOrder($request);
         return $this->orderRepository->update($order);
     }

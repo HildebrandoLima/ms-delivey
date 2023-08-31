@@ -30,17 +30,11 @@ class EditProviderService implements IEditProviderService
 
         foreach ($listAddressAndTelephone as $instance):
             $telephone = $this->mapAddress($instance->telefoneId, $request->ativo);
-            $this->providerRepository->update($address);
+            $this->providerRepository->update($telephone);
         endforeach;
 
         $provider = $this->mapProvider($request);
-        $provider = $this->providerRepository->update($provider);
-
-        if ($address and $telephone and $provider):
-            return true;
-        else:
-            return false;
-        endif;
+        return $this->providerRepository->update($provider);
     }
 
     public function mapAddress(int $id, bool $ativo): Endereco

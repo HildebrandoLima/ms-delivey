@@ -2,16 +2,16 @@
 
 namespace Tests\Feature\Category;
 
-use App\Models\Categoria;
+use App\Models\Pedido;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EditCategoryTest extends TestCase
+class EditOrderTest extends TestCase
 {
-    private function category(): array
+    private function order(): int
     {
-        return Categoria::query()->first()->toArray();
+        return Pedido::query()->first()->id();
     }
 
     /**
@@ -20,10 +20,9 @@ class EditCategoryTest extends TestCase
     public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
-        $category = $this->category();
+        $order = $this->order();
         $data = [
-            'id' => $category['id'],
-            'nome' => $category['nome'],
+            'id' => $order,
             'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -31,7 +30,7 @@ class EditCategoryTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.edit'), $data);
+        ])->putJson(route('order.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -47,7 +46,6 @@ class EditCategoryTest extends TestCase
         // Arrange
         $data = [
             'id' => null,
-            'nome' => null,
             'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -55,7 +53,7 @@ class EditCategoryTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.edit'), $data);
+        ])->putJson(route('order.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -69,15 +67,14 @@ class EditCategoryTest extends TestCase
     public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
-        $category = $this->category();
+        $order = $this->order();
         $data = [
-            'id' => $category['id'],
-            'nome' => $category['nome'],
+            'id' => $order,
             'ativo' => true,
         ];
 
         // Act
-        $response = $this->putJson(route('category.edit'), $data);
+        $response = $this->putJson(route('order.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -91,10 +88,9 @@ class EditCategoryTest extends TestCase
     public function it_endpoint_put_base_response_403(): void
     {
         // Arrange
-        $category = $this->category();
+        $order = $this->order();
         $data = [
-            'id' => $category['id'],
-            'nome' => $category['nome'],
+            'id' => $order,
             'ativo' => true,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -102,7 +98,7 @@ class EditCategoryTest extends TestCase
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->putJson(route('category.edit'), $data);
+        ])->putJson(route('order.edit'), $data);
 
         // Assert
         $response->assertForbidden();
