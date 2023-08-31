@@ -28,7 +28,7 @@ class EditAddressService implements IEditAddressService
         $address = new Endereco();
         $address->id = $request->id;
         $address->logradouro = $request->logradouro;
-        $address->descricao = $request->descricao;
+        $address->numero = $request->numero;
         $address->bairro = $request->bairro;
         $address->cidade = $request->cidade;
         $address->cep = $request->cep;

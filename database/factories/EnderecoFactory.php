@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Fornecedor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Endereco>
@@ -18,11 +19,9 @@ class EnderecoFactory extends Factory
      */
     public function definition()
     {
-        $public_place = array('Rua', 'Avenida');
-        $rand_keys = array_rand($public_place);
         return [
-            'logradouro' => $public_place[$rand_keys],
-            'descricao' => $this->faker->numerify,
+            'logradouro' => Str::random(20),
+            'numero' => $this->faker->numerify,
             'bairro' => $this->faker->country,
             'cidade' => $this->faker->city,
             'cep' => rand(10000, 20000) . '-' . rand(100, 200),

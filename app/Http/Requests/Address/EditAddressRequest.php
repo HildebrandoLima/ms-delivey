@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Address;
 
 use App\Http\Requests\BaseRequest;
-use App\Support\Enums\AddressEnum;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
@@ -22,8 +21,8 @@ class EditAddressRequest extends BaseRequest
     {
         return [
             'id' => 'required|int|exists:endereco,id',
-            'logradouro' => 'required|string|in:' . AddressEnum::LOGRADOURO_RUA . ',' . AddressEnum::LOGRADOURO_AVENIDA,
-            'descricao' => 'required|string',
+            'logradouro' => 'required|string',
+            'numero' => 'required|int',
             'bairro' => 'required|string',
             'cidade' => 'required|string',
             'cep' => 'required|string|formato_cep|min:9|max:9',
@@ -47,7 +46,7 @@ class EditAddressRequest extends BaseRequest
 
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'logradouro.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'descricao.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'bairro.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cidade.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'cep.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -56,7 +55,7 @@ class EditAddressRequest extends BaseRequest
 
             'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'logradouro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            'numero.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'bairro.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cidade.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cep.string' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,

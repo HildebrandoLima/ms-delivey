@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('endereco', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('logradouro', 50)->notnull();
+            $table->integer('numero')->notnull();
             $table->string('bairro', 50)->notnull();
             $table->string('cidade', 50)->notnull();
             $table->char('cep', 9)->notnull();

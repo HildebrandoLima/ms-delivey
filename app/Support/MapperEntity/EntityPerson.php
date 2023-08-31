@@ -21,7 +21,7 @@ class EntityPerson
         $address = new AddressDto();
         $address->enderecoId = $data['id'];
         $address->logradouro = $data['logradouro'];
-        $address->descricao = $data['descricao'];
+        $address->numero = $data['numero'];
         $address->bairro = $data['bairro'];
         $address->cidade = $data['cidade'];
         $address->cep = $data['cep'];

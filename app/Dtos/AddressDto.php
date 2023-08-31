@@ -9,7 +9,7 @@ class AddressDto
     use DefaultFields;
     public int $enderecoId = 0;
     public string $logradouro = "";
-    public string $descricao = "";
+    public int $numero = 0;
     public string $bairro = "";
     public string $cidade = "";
     public string $cep = "";
