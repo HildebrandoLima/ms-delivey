@@ -901,47 +901,43 @@ ou
 
 ### Body: POST/PUT
 ```
-{
-    "telefones": [
-        {
-            "numero": "99506-9315",
-            "tipo": "Celular",
-            "dddId": 1,
-            "usuarioId": 2,
-            "ativo": true
-        },
-        {
-            "numero": "98045-8709",
-            "tipo": "Fixo",
-            "dddId": 1,
-            "usuarioId": 2,
-            "ativo": true
-        }
-    ]
-}
+[
+    {
+        "numero": "99506-9315",
+        "tipo": "Celular",
+        "dddId": 1,
+        "usuarioId": 2,
+        "ativo": true
+    },
+    {
+        "numero": "98045-8709",
+        "tipo": "Fixo",
+        "dddId": 1,
+        "usuarioId": 2,
+        "ativo": true
+    }
+]
 ```
 
 ou
 
 ```
-{
-    "telefones": [
-        {
-            "numero": "99506-9315",
-            "tipo": "Celular",
-            "dddId": 1,
-            "fornecedorId": 3,
-            "ativo": true
-        },
-        {
-            "numero": "98045-8709",
-            "tipo": "Fixo",
-            "dddId": 1,
-            "fornecedorId": 3,
-            "ativo": true
-        }
-    ]
-}
+[
+    {
+        "numero": "99506-9315",
+        "tipo": "Celular",
+        "dddId": 1,
+        "fornecedorId": 3,
+        "ativo": true
+    },
+    {
+        "numero": "98045-8709",
+        "tipo": "Fixo",
+        "dddId": 1,
+        "fornecedorId": 3,
+        "ativo": true
+    }
+]
 ```
 
 ### Resposta:
