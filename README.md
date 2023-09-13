@@ -1171,7 +1171,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
-<li>?search=TV%LED%'55=&active=1</li>
+<li>?search=TV%LED%'55&active=1</li>
+<li>?id=3&active=1</li>
 
 ### Body: POST
 ```

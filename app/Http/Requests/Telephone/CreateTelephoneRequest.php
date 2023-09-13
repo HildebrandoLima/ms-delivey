@@ -16,37 +16,35 @@ class CreateTelephoneRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'telefones' => 'required|array',
-            'telefones.*.ddd' => 'required|int|exists:ddd,ddd',
-            'telefones.*.numero' => 'required|string|celular_com_ddd|unique:telefone,numero|min:14|max:14',
-            'telefones.*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_FIXO . ',' . TelephoneEnum::TIPO_CELULAR,
-            'telefones.*.usuarioId' => 'int|exists:users,id',
-            'telefones.*.fornecedorId' => 'int|exists:fornecedor,id',
+            '*.ddd' => 'required|int|exists:ddd,ddd',
+            '*.numero' => 'required|string|celular_com_ddd|unique:telefone,numero|min:14|max:14',
+            '*.tipo' => 'required|string|in:' . TelephoneEnum::TIPO_FIXO . ',' . TelephoneEnum::TIPO_CELULAR,
+            '*.usuarioId' => 'int|exists:users,id',
+            '*.fornecedorId' => 'int|exists:fornecedor,id',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'telefones.*.numero.unique' => DefaultErrorMessages::ALREADY_EXISTING,
+            '*.numero.unique' => DefaultErrorMessages::ALREADY_EXISTING,
+            '*.numero.min' => DefaultErrorMessages::MIN_CHARACTERS,
+            '*.numero.max' => DefaultErrorMessages::MAX_CHARACTERS,
 
-            'telefones.*.usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
-            'telefones.*.fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
-            'telefones.*.ddd.exists' => DefaultErrorMessages::NOT_FOUND,
-            'telefones.*.tipo.in' => DefaultErrorMessages::NOT_FOUND,
+            '*.ddd.exists' => DefaultErrorMessages::NOT_FOUND,
+            '*.usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
+            '*.fornecedorId.exists' => DefaultErrorMessages::NOT_FOUND,
+            '*.tipo.in' => DefaultErrorMessages::NOT_FOUND,
 
-            'telefones.*.numero.min' => DefaultErrorMessages::MIN_CHARACTERS,
-            'telefones.*.numero.max' => DefaultErrorMessages::MAX_CHARACTERS,
+            '*.ddd.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            '*.numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            '*.tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'telefones.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'telefones.*.numero.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'telefones.*.tipo.required' => DefaultErrorMessages::REQUIRED_FIELD,
-
-            'telefones.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
-            'telefones.*.numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'telefones.*.tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'telefones.*.usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'telefones.*.fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            '*.numero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            '*.tipo.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
+            '*.ddd.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            '*.usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
+            '*.fornecedorId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }
 }

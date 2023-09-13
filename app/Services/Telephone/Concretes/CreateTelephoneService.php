@@ -19,7 +19,7 @@ class CreateTelephoneService implements ICreateTelephoneService
 
     public function createTelephone(CreateTelephoneRequest $request): bool
     {
-        foreach ($request->telefones as $telefone):
+        foreach ($request->all() as $telefone):
             $telephone = $this->map($telefone);
             $this->telephoneRepository->create($telephone);
         endforeach;
