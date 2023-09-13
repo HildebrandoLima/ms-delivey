@@ -18,7 +18,7 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $data['telefones'] = [];
+        $data = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
                 'ddd' => 85,
@@ -26,7 +26,7 @@ class CreateTelephoneTest extends TestCase
                 'tipo' => $this->type[$rand_keys],
                 'usuarioId' => User::query()->first()->id,
             ];
-            array_push($data['telefones'], $telephone);
+            array_push($data, $telephone);
         }
 
         // Act
@@ -45,7 +45,7 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $data['telefones'] = [];
+        $data = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
                 'ddd' => 85,
@@ -53,7 +53,7 @@ class CreateTelephoneTest extends TestCase
                 'tipo' => $this->type[$rand_keys],
                 'fornecedorId' => Fornecedor::query()->first()->id,
             ];
-            array_push($data['telefones'], $telephone);
+            array_push($data, $telephone);
         }
 
         // Act
@@ -72,7 +72,7 @@ class CreateTelephoneTest extends TestCase
     {
         // Arrange
         $rand_keys = array_rand($this->type);
-        $data['telefones'] = [];
+        $data = [];
         for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
             $telephone = [
                 'ddd' => 85,
@@ -80,7 +80,7 @@ class CreateTelephoneTest extends TestCase
                 'tipo' => $this->type[$rand_keys],
                 'usuarioId' => null,
             ];
-            array_push($data['telefones'], $telephone);
+            array_push($data, $telephone);
         }
 
         // Act
