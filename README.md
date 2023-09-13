@@ -901,47 +901,43 @@ ou
 
 ### Body: POST/PUT
 ```
-{
-    "telefones": [
-        {
-            "numero": "99506-9315",
-            "tipo": "Celular",
-            "dddId": 1,
-            "usuarioId": 2,
-            "ativo": true
-        },
-        {
-            "numero": "98045-8709",
-            "tipo": "Fixo",
-            "dddId": 1,
-            "usuarioId": 2,
-            "ativo": true
-        }
-    ]
-}
+[
+    {
+        "numero": "99506-9315",
+        "tipo": "Celular",
+        "dddId": 1,
+        "usuarioId": 2,
+        "ativo": true
+    },
+    {
+        "numero": "98045-8709",
+        "tipo": "Fixo",
+        "dddId": 1,
+        "usuarioId": 2,
+        "ativo": true
+    }
+]
 ```
 
 ou
 
 ```
-{
-    "telefones": [
-        {
-            "numero": "99506-9315",
-            "tipo": "Celular",
-            "dddId": 1,
-            "fornecedorId": 3,
-            "ativo": true
-        },
-        {
-            "numero": "98045-8709",
-            "tipo": "Fixo",
-            "dddId": 1,
-            "fornecedorId": 3,
-            "ativo": true
-        }
-    ]
-}
+[
+    {
+        "numero": "99506-9315",
+        "tipo": "Celular",
+        "dddId": 1,
+        "fornecedorId": 3,
+        "ativo": true
+    },
+    {
+        "numero": "98045-8709",
+        "tipo": "Fixo",
+        "dddId": 1,
+        "fornecedorId": 3,
+        "ativo": true
+    }
+]
 ```
 
 ### Resposta:
@@ -1171,7 +1167,8 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
-<li>?search=TV%LED%'55=&active=1</li>
+<li>?search=TV%LED%'55&active=1</li>
+<li>?id=3&active=1</li>
 
 ### Body: POST
 ```
