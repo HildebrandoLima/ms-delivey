@@ -15,7 +15,7 @@ class ListProductServiceTest extends TestCase
     private Pagination $pagination;
     private int $id;
     private bool $filter;
-    private string $search;
+    private string|int $search;
 
     public function test_success_list_product_all_has_paginaiton_service(): void
     {
@@ -42,12 +42,37 @@ class ListProductServiceTest extends TestCase
         $this->assertSame($result, $expectedResult);
     }
 
-    public function test_success_list_product_all_has_paginaiton_with_search_service(): void
+    public function test_success_list_product_all_has_paginaiton_with_search_params_product_name_service(): void
     {
         // Arrange
         $this->id = rand(1, 100);
         $this->filter = true;
         $this->search = Str::random(10);
+        $this->pagination = new Pagination();
+
+        $expectedResult = $this->paginationList();
+
+        $this->productRepository = $this->mock(IProductRepository::class,
+            function (MockInterface $mock) use ($expectedResult) {
+                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                     ->andReturn($expectedResult);
+        });
+
+        // Act
+        $listProductService = new ListProductService($this->productRepository);
+
+        $result = $listProductService->listProductAll($this->pagination, $this->search, $this->filter);
+
+        // Assert
+        $this->assertSame($result, $expectedResult);
+    }
+
+    public function test_success_list_product_all_has_paginaiton_with_search_params_product_category_service(): void
+    {
+        // Arrange
+        $this->id = rand(1, 100);
+        $this->filter = true;
+        $this->search = rand(1, 10);
         $this->pagination = new Pagination();
 
         $expectedResult = $this->paginationList();

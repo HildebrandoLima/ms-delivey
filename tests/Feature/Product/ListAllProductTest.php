@@ -55,13 +55,31 @@ class ListAllProductTest extends TestCase
     /**
      * @test
      */
-    public function it_endpoint_get_list_all_as_has_pagination_base_with_search_base_response_200(): void
+    public function it_endpoint_get_list_all_as_has_pagination_base_with_search_params_product_name_base_response_200(): void
     {
         // Arrange
         $data = $this->product();
 
         // Act
         $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10, 'search' => $data[0]['nome'], 'active' => true]));
+
+        // Assert
+        $response->assertOk();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals(count($data), $this->count);
+        $this->assertEquals($this->httpStatusCode($response), 200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_endpoint_get_list_all_as_has_pagination_base_with_search_params_product_category_base_response_200(): void
+    {
+        // Arrange
+        $data = $this->product();
+
+        // Act
+        $response = $this->getJson(route('product.list.all', ['page' => 1, 'perPage' => 10, 'search' => $data[0]['categoria_id'], 'active' => true]));
 
         // Assert
         $response->assertOk();
