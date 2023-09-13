@@ -116,9 +116,9 @@ class DialingDirectDistanceDb
             'regiao' => 'Nordeste'
         ],
         [
-        'ddd' => '079',
-        'descricao' => 'Sergipe',
-        'regiao' => 'Nordeste'
+            'ddd' => '079',
+            'descricao' => 'Sergipe',
+            'regiao' => 'Nordeste'
         ]
     ];
 }

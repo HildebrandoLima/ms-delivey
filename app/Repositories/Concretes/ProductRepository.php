@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 
 class ProductRepository implements IProductRepository
 {
-    public function readAll(Pagination $pagination, string $search, bool $filter): Collection
+    public function readAll(Pagination $pagination, string|int $search, bool $filter): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
             return $this->hasPagination($search, $filter);
@@ -39,7 +39,7 @@ class ProductRepository implements IProductRepository
         return collect($collection);
     }
 
-    private function hasPagination(string $search, bool $filter): Collection
+    private function hasPagination(string|int $search, bool $filter): Collection
     {
         $collection = $this->query($search, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
@@ -48,7 +48,7 @@ class ProductRepository implements IProductRepository
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string $search, bool $filter): Collection
+    private function noPagination(string|int $search, bool $filter): Collection
     {
         $collection = $this->query($search, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
@@ -57,13 +57,15 @@ class ProductRepository implements IProductRepository
         return $collection;
     }
 
-    private function query(string $search, bool $filter): Builder
+    private function query(string|int $search, bool $filter): Builder
     {
         return Produto::query()->with('imagem')
         ->where(function($query) use ($search, $filter) {
             QueryFilter::getQueryFilter($query, $filter);
-            if (!empty($search)):
-                $query->where('produto.nome', 'like', $search);
+            if (!empty($search) and is_int($search)):
+                $query->where('produto.categoria_id', '=', $search);
+            elseif (!empty($search) and is_string($search)):
+                $query->where('produto.nome', 'like', $search);    
             else:
                 QueryFilter::getQueryFilter($query, $filter);
             endif;

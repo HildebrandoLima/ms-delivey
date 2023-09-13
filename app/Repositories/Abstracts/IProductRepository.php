@@ -7,6 +7,6 @@ use Illuminate\Support\Collection;
 
 interface IProductRepository
 {
-    public function readAll(Pagination $pagination, string $search, bool $active): Collection;
+    public function readAll(Pagination $pagination, string|int $search, bool $active): Collection;
     public function readOne(int $id, bool $active): Collection;
 }

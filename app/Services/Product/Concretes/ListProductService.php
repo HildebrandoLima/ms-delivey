@@ -16,7 +16,7 @@ class ListProductService implements IListProductService
         $this->productRepository = $productRepository;
     }
 
-    public function listProductAll(Pagination $pagination, string $search, bool $filter): Collection
+    public function listProductAll(Pagination $pagination, string|int $search, bool $filter): Collection
     {
         return $this->productRepository->readAll($pagination, $search, $filter);
     }
