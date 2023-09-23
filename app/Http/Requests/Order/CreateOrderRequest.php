@@ -28,10 +28,8 @@ class CreateOrderRequest extends BaseRequest
             'itens' => 'required|array',
             'itens.*.nome' => 'required|string|exists:produto,nome',
             'itens.*.preco' => 'required|between:0,99.99',
-            'itens.*.codigoBarra' => 'required|string|max:13|min:13|exists:produto,codigo_barra',
             'itens.*.quantidadeItem' => 'required|int',
             'itens.*.subTotal' => 'required|between:0,99.99',
-            'itens.*.unidadeMedida' => 'required|string',
             'itens.*.produtoId' => 'required|int|exists:produto,id',
         ];
     }
@@ -43,7 +41,6 @@ class CreateOrderRequest extends BaseRequest
             'enderecoId.exists' => DefaultErrorMessages::NOT_FOUND,
             'itens.*.produtoId.exists' => DefaultErrorMessages::NOT_FOUND,
             'itens.*.nome.exists' => DefaultErrorMessages::NOT_FOUND,
-            'itens.*.codigoBarra.exists' => DefaultErrorMessages::NOT_FOUND,
 
             'quantidadeItens.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
@@ -51,16 +48,11 @@ class CreateOrderRequest extends BaseRequest
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'enderecoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
-            'itens.*.codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
-            'itens.*.codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
-
             'itens.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'itens.*.nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'itens.*.preco.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'itens.*.codigoBarra.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'itens.*.quantidadeItem.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'itens.*.subTotal.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'itens.*.unidadeMedida.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'itens.*.produtoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
@@ -72,10 +64,8 @@ class CreateOrderRequest extends BaseRequest
             'itens.array' => DefaultErrorMessages::FIELD_MUST_BE_ARRAY,
             'itens.*.nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'itens.*.preco.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
-            'itens.*.codigoBarra.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'itens.*.quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'itens.*.subTotal.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
-            'itens.*.unidadeMedida.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'itens.*.produtoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
         ];
     }

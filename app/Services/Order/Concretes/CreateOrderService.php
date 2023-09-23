@@ -19,13 +19,13 @@ class CreateOrderService implements ICreateOrderService
         $this->entityRepository = $entityRepository;
     }
 
-    public function createOrder(CreateOrderRequest $request): bool
+    public function createOrder(CreateOrderRequest $request): int
     {
         $order = $this->mapOrder($request);
         $orderId = $this->entityRepository->create($order);
         $createItem = $this->createItem($request, $orderId);
         if ($orderId and $createItem) $this->dispatchJob($order->toArray(), $request->itens);
-        return true;
+        return $orderId;
     }
 
     private function mapOrder(CreateOrderRequest $request): Pedido
@@ -54,12 +54,8 @@ class CreateOrderService implements ICreateOrderService
     {
         
         $itens = new Item();
-        $itens->nome = $item['nome'];
-        $itens->preco = $item['preco'];
-        $itens->codigo_barra = $item['codigoBarra'];
         $itens->quantidade_item = $item['quantidadeItem'];
         $itens->sub_total = $item['subTotal'];
-        $itens->unidade_medida = $item['unidadeMedida'];
         $itens->pedido_id = $orderId;
         $itens->produto_id = $item['produtoId'];
         $itens->ativo = AtivoEnum::ATIVADO;
