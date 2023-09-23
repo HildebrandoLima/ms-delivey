@@ -56,6 +56,7 @@ class CreateOrderTest extends TestCase
         ])->postJson(route('order.save', $data));
 
         // Assert
+        dd($response);
         $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
@@ -73,7 +74,7 @@ class CreateOrderTest extends TestCase
             'entrega' => null,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,
-            'items' => [],
+            'itens' => [],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -95,7 +96,7 @@ class CreateOrderTest extends TestCase
     {
         // Arrange
         $products = $this->product();
-        $data['items'] = [];
+        $data['itens'] = [];
         foreach ($products as $product):
             $item = [
                 'nome' => $product['nome'],
@@ -107,7 +108,7 @@ class CreateOrderTest extends TestCase
                 'produtoId' => $product['id'],
             ];
             $this->total += $product['preco_venda'];
-            array_push($data['items'], $item);
+            array_push($data['itens'], $item);
         endforeach;
         $data = [
             'quantidadeItems' => $this->count,
