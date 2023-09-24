@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Payment;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\PaymentEnum;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
@@ -21,6 +22,7 @@ class CreatePaymentRequest extends BaseRequest
     {
         return [
             'numeroCartao' => 'string|min:14|max:19',
+            'tipoCartao' => 'required|string|in:' . PaymentEnum::CREDITO . ',' . PaymentEnum::DEBITO,
             'ccv' => 'int',
             'dataValidade' => 'date',
             'parcela' => 'int',
@@ -35,6 +37,7 @@ class CreatePaymentRequest extends BaseRequest
         return [
             'metodoPagamentoId.exists' => DefaultErrorMessages::NOT_FOUND,
             'pedidoId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'tipoCartao.in' => DefaultErrorMessages::NOT_FOUND,
 
             'numeroCartao.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'numeroCartao.max' => DefaultErrorMessages::MAX_CHARACTERS,
