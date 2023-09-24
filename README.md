@@ -1318,7 +1318,8 @@ O pedido não pode ser modificado.
 {
     "quantidadeItem": 4,
     "total": 102.99,
-    "entrega": 13.40,
+    "valorEntrega": 13.40,
+    "tipoEntrega": 'Correio',
     "ativo": true,
     "usuarioId": 3,
     "itens": [
