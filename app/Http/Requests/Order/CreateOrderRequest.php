@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Order;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\OrderEnum;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
@@ -22,7 +23,8 @@ class CreateOrderRequest extends BaseRequest
         return [
             'quantidadeItens' => 'required|int',
             'total' => 'required|between:0,99.99',
-            'entrega' => 'required|between:0,99.99',
+            'tipoEntrega' => 'required|string|in:' . OrderEnum::EXPRESSO . ',' . OrderEnum::CORREIO . ',' . OrderEnum::RETIRADA,
+            'valorEntrega' => 'required|between:0,99.99',
             'usuarioId' => 'int|exists:users,id',
             'enderecoId' => 'int|exists:endereco,id',
             'itens' => 'required|array',
@@ -39,12 +41,14 @@ class CreateOrderRequest extends BaseRequest
         return [
             'usuarioId.exists' => DefaultErrorMessages::NOT_FOUND,
             'enderecoId.exists' => DefaultErrorMessages::NOT_FOUND,
+            'tipoEntrega.in' => DefaultErrorMessages::NOT_FOUND,
             'itens.*.produtoId.exists' => DefaultErrorMessages::NOT_FOUND,
             'itens.*.nome.exists' => DefaultErrorMessages::NOT_FOUND,
 
             'quantidadeItens.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'total.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'entrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'tipoEntrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'valorEntrega.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'usuarioId.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'enderecoId.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
@@ -57,7 +61,7 @@ class CreateOrderRequest extends BaseRequest
 
             'quantidadeItem.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'total.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
-            'entrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
+            'valorEntrega.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'usuarioId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
             'enderecoId.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
 

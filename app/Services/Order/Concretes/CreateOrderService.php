@@ -34,7 +34,8 @@ class CreateOrderService implements ICreateOrderService
         $order->numero_pedido = random_int(100000000, 999999999);
         $order->quantidade_item = $request->quantidadeItens;
         $order->total = $request->total;
-        $order->entrega = $request->entrega;
+        $order->tipo_entrega = $request->tipoEntrega;
+        $order->valor_entrega = $request->valorEntrega;
         $order->usuario_id = $request->usuarioId;
         $order->endereco_id = $request->enderecoId;
         $order->ativo = AtivoEnum::ATIVADO;

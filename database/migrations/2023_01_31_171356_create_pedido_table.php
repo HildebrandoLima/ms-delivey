@@ -18,7 +18,8 @@ return new class extends Migration
             $table->integer('numero_pedido')->unique()->notnull();
             $table->integer('quantidade_item')->notnull();
             $table->decimal('total', 10, 2)->notnull();
-            $table->decimal('entrega', 10, 2)->notnull();
+            $table->enum('tipo_entrega', ['Expresso', 'Correio', 'Retirada']);
+            $table->decimal('valor_entrega', 10, 2)->notnull();
             $table->foreignId('usuario_id')->constrained('users')->notnull();
             $table->foreignId('endereco_id')->constrained('endereco')->notnull();
             $table->boolean('ativo');
