@@ -57,7 +57,6 @@ class CreateOrderTest extends TestCase
         ])->postJson(route('order.save', $data));
 
         // Assert
-        dd($response);
         $response->assertOk();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 200);
