@@ -19,10 +19,13 @@ class CreateOrderServiceTest extends TestCase
     public function test_success_create_order_service(): void
     {
         // Arrange
+        $typeDelivery = array('Expresso', 'Retirada');
+        $randKeys = array_rand($typeDelivery);
         $this->request = new CreateOrderRequest();
         $this->request['quantidadeItens'] = 1;
         $this->request['total'] = rand(1, 100);
-        $this->request['entrega'] = 3.5;
+        $this->request['tipoentrega'] = $typeDelivery[$randKeys];
+        $this->request['valorEntrega'] = 3.5;
         $this->request['usuarioId'] = rand(1, 100);
         $this->request['ativo'] = true;
         $this->request['itens'] = [
