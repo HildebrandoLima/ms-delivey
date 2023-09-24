@@ -11,6 +11,7 @@ use Tests\TestCase;
 
 class CreateOrderTest extends TestCase
 {
+    private array $typeDelivery = array('Expresso', 'Retirada');
     private int $count = 3;
     private float $total = 0;
 
@@ -25,8 +26,7 @@ class CreateOrderTest extends TestCase
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $typeDelivery = array('Expresso', 'Retirada');
-        $randKeys = array_rand($typeDelivery);
+        $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
         $data['itens'] = [];
         foreach ($products as $product):
@@ -43,7 +43,7 @@ class CreateOrderTest extends TestCase
         $data = [
             'quantidadeItens' => $this->count,
             'total' => $this->total,
-            'tipoEntrega' => $typeDelivery[$randKeys],
+            'tipoEntrega' => $this->typeDelivery[$randKeys],
             'valorEntrega' => 3.5,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,
@@ -97,8 +97,7 @@ class CreateOrderTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
-        $typeDelivery = array('Expresso', 'Retirada');
-        $randKeys = array_rand($typeDelivery);
+        $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
         $data['itens'] = [];
         foreach ($products as $product):
@@ -115,7 +114,7 @@ class CreateOrderTest extends TestCase
         $data = [
             'quantidadeItems' => $this->count,
             'total' => $this->total,
-            'tipoEntrega' => $typeDelivery[$randKeys],
+            'tipoEntrega' => $this->typeDelivery[$randKeys],
             'valorEntrega' => 3.5,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,

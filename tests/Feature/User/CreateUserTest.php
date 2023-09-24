@@ -20,14 +20,14 @@ class CreateUserTest extends TestCase
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->gender);
+        $randKeys = array_rand($this->gender);
         $data = [
             'nome' => Str::random(10),
             'cpf' => $this->generateCPF(),
             'email' => $this->generateEmail(),
             'senha' => $this->generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
-            'genero' => $this->gender[$rand_keys],
+            'genero' => $this->gender[$randKeys],
             'eAdmin' => rand(0, 1),
         ];
 
@@ -46,14 +46,14 @@ class CreateUserTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->gender);
+        $randKeys = array_rand($this->gender);
         $data = [
             'nome' => Str::random(10),
             'cpf' => null,
             'email' => Str::random(10),
             'senha' => $this->generatePassword(),
             'dataNascimento' => date('Y-m-d H:i:s'),
-            'genero' => $this->gender[$rand_keys],
+            'genero' => $this->gender[$randKeys],
             'eAdmin' => null,
         ];
 
