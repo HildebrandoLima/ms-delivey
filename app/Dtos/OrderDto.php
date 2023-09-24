@@ -11,7 +11,8 @@ class OrderDto
     public int $numeroPedido = 0;
     public int $quantidadeItem = 0;
     public float $total = 0;
-    public float $entrega = 0;
+    public string $tipoEntrega = '';
+    public float $valorEntrega = 0;
     public int $usuarioId = 0;
     public int $enderecoId = 0;
     public array $items = [];

@@ -18,11 +18,14 @@ class PedidoFactory extends Factory
      */
     public function definition()
     {
+        $typeDelivery = array('Expresso', 'Retirada');
+        $randKeys = array_rand($typeDelivery);
         return [
             'numero_pedido' => random_int(100000000, 999999999),
             'quantidade_item' => rand(10, 10),
             'total' => 50.99,
-            'entrega' => 4.5,
+            'tipo_entrega' => $typeDelivery[$randKeys],
+            'valor_entrega' => 4.5,
             'usuario_id' => User::factory()->createOne()->id,
             'endereco_id' => Endereco::factory()->createOne()->id,
             'ativo' => true,

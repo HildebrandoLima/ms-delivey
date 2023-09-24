@@ -20,14 +20,14 @@ class UserFactory extends Factory
     public function definition()
     {
         $gender = array('Masculino', 'Feminino', 'Outro');
-        $rand_keys = array_rand($gender);
+        $randKeys = array_rand($gender);
         return [
             'nome' => $this->faker->name,
             'cpf' => $this->generateCPF(),
             'email' => $this->faker->email,
             'password' => Hash::make($this->faker->password),
             'data_nascimento' => $this->faker->dateTime,
-            'genero' => $gender[$rand_keys],
+            'genero' => $gender[$randKeys],
             'e_admin' => rand(0, 1),
             'ativo' => true,
         ];

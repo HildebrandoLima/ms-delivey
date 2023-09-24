@@ -17,10 +17,10 @@
             <h3 class="text-white bg-info mt-3">Resumo do seu Pedido de Número: {{ $order['numero_pedido'] ?? 0 }}</h3>
             <hr />
             <p>
-                <b>Quantidade de Itens Solicitados:</b> {{ $order['quantidade_item'] ?? 0 }}
+                <b>Quantidade de Itens:</b> {{ $order['quantidade_item'] ?? 0 }}
             </p>
             <p>
-                <b>Total a Pagar:</b> R${{ number_format($order['total'], 2, ',', '.') }}
+                <b>Total Pago:</b> R${{ number_format($order['total'], 2, ',', '.') }}
                 &nbsp;&nbsp;&nbsp;
                 <b>Valor da Entrega:</b> R${{ number_format($order['entrega'], 2, ',', '.') }}
             </p>
@@ -35,7 +35,6 @@
                         <th scope="col">Preço UN</th>
                         <th scope="col">Quantidade</th>
                         <th scope="col">Sub Total</th>
-                        <th scope="col">Unidade Medida</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +45,6 @@
                         <td>R${{ number_format($item['preco'], 2, ',', '.') }}</td>
                         <td>{{ $item['quantidadeItem'] ?? 0 }}</td>
                         <td>R${{ number_format($item['subTotal'], 2, ',', '.') }}</td>
-                        <td>{{ $item['unidadeMedida'] ?? ''}}</td>
                     </tr>
                 @endforeach
                 </tbody>

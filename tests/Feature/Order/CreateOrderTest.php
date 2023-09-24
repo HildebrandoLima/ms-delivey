@@ -11,6 +11,7 @@ use Tests\TestCase;
 
 class CreateOrderTest extends TestCase
 {
+    private array $typeDelivery = array('Expresso', 'Retirada');
     private int $count = 3;
     private float $total = 0;
 
@@ -25,16 +26,15 @@ class CreateOrderTest extends TestCase
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
+        $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
         $data['itens'] = [];
         foreach ($products as $product):
             $item = [
                 'nome' => $product['nome'],
                 'preco' => $product['preco_venda'],
-                'codigoBarra' => $product['codigo_barra'],
                 'quantidadeItem' => $product['quantidade'],
                 'subTotal' => $product['preco_venda'],
-                'unidadeMedida' => $product['unidade_medida'],
                 'produtoId' => $product['id'],
             ];
             $this->total += $product['preco_venda'];
@@ -43,7 +43,8 @@ class CreateOrderTest extends TestCase
         $data = [
             'quantidadeItens' => $this->count,
             'total' => $this->total,
-            'entrega' => 3.5,
+            'tipoEntrega' => $this->typeDelivery[$randKeys],
+            'valorEntrega' => 3.5,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,
             'itens' => $data['itens'],
@@ -70,10 +71,11 @@ class CreateOrderTest extends TestCase
         $data = [
             'quantidadeItems' => $this->count,
             'total' => $this->total,
-            'entrega' => null,
+            'tipoEntrega' => null,
+            'valorEntrega' => null,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,
-            'items' => [],
+            'itens' => [],
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
 
@@ -94,25 +96,25 @@ class CreateOrderTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
+        $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
-        $data['items'] = [];
+        $data['itens'] = [];
         foreach ($products as $product):
             $item = [
                 'nome' => $product['nome'],
                 'preco' => $product['preco_venda'],
-                'codigoBarra' => $product['codigo_barra'],
                 'quantidadeItem' => $product['quantidade'],
                 'subTotal' => $product['preco_venda'],
-                'unidadeMedida' => $product['unidade_medida'],
                 'produtoId' => $product['id'],
             ];
             $this->total += $product['preco_venda'];
-            array_push($data['items'], $item);
+            array_push($data['itens'], $item);
         endforeach;
         $data = [
             'quantidadeItems' => $this->count,
             'total' => $this->total,
-            'entrega' => 3.5,
+            'tipoEntrega' => $this->typeDelivery[$randKeys],
+            'valorEntrega' => 3.5,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,
             'items' => $data['items'],

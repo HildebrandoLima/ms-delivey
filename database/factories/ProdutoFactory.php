@@ -20,7 +20,7 @@ class ProdutoFactory extends Factory
     public function definition()
     {
         $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
-        $rand_keys = array_rand($unitMeasure);
+        $randKeys = array_rand($unitMeasure);
         return [
             'nome' => Str::random(30),
             'preco_custo' => 15.30,
@@ -29,7 +29,7 @@ class ProdutoFactory extends Factory
             'codigo_barra' => Str::random(13),
             'descricao' => $this->faker->sentence,
             'quantidade' => rand(10, 50),
-            'unidade_medida' => $unitMeasure[$rand_keys],
+            'unidade_medida' => $unitMeasure[$randKeys],
             'data_validade' => $this->faker->dateTime,
             'categoria_id' => Categoria::factory()->createOne()->id,
             'fornecedor_id' => Fornecedor::factory()->createOne()->id,

@@ -1318,27 +1318,24 @@ O pedido não pode ser modificado.
 {
     "quantidadeItem": 4,
     "total": 102.99,
-    "entrega": 13.40,
+    "valorEntrega": 13.40,
+    "tipoEntrega": 'Correio',
     "ativo": true,
     "usuarioId": 3,
-    "items": [
+    "itens": [
         {
             "nome": "Batata Pringles Original 114g",
             "preco": 14.85,
-            "codigoBarra": "1324618322141",
             "quantidadeItem": 1,
             "subTotal": 14.85,
-            "unidadeMedida": "UN",
             "produtoId": 32,
             "ativo": true
         },
         {
             "nome": "Batata Palha Yoki 105G",
             "preco": 6.59,
-            "codigoBarra": "1324618321141",
             "quantidadeItem": 2,
             "subTotal": 13.18,
-            "unidadeMedida": "UN",
             "produtoId": 33,
             "ativo": true
         }

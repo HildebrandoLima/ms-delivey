@@ -66,7 +66,8 @@ class OrderRepository implements IOrderRepository
         $order->numeroPedido = $data['numero_pedido'];
         $order->quantidadeItem = $data['quantidade_item'];
         $order->total = $data['total'];
-        $order->entrega = $data['entrega'];
+        $order->tipoEntrega = $data['tipo_entrega'];
+        $order->valorEntrega = $data['valor_entrega'];
         $order->usuarioId = $data['usuario_id'];
         $order->enderecoId = $data['endereco_id'];
         $order->ativo = $data['ativo'];

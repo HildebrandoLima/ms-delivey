@@ -19,13 +19,13 @@ class CreateOrderService implements ICreateOrderService
         $this->entityRepository = $entityRepository;
     }
 
-    public function createOrder(CreateOrderRequest $request): bool
+    public function createOrder(CreateOrderRequest $request): int
     {
         $order = $this->mapOrder($request);
         $orderId = $this->entityRepository->create($order);
         $createItem = $this->createItem($request, $orderId);
         if ($orderId and $createItem) $this->dispatchJob($order->toArray(), $request->itens);
-        return true;
+        return $orderId;
     }
 
     private function mapOrder(CreateOrderRequest $request): Pedido
@@ -34,7 +34,8 @@ class CreateOrderService implements ICreateOrderService
         $order->numero_pedido = random_int(100000000, 999999999);
         $order->quantidade_item = $request->quantidadeItens;
         $order->total = $request->total;
-        $order->entrega = $request->entrega;
+        $order->tipo_entrega = $request->tipoEntrega;
+        $order->valor_entrega = $request->valorEntrega;
         $order->usuario_id = $request->usuarioId;
         $order->endereco_id = $request->enderecoId;
         $order->ativo = AtivoEnum::ATIVADO;
@@ -44,6 +45,8 @@ class CreateOrderService implements ICreateOrderService
     private function createItem(CreateOrderRequest $request, int $orderId): bool
     {
         foreach ($request->itens as $item):
+            unset($item['nome']);
+            unset($item['preco']);
             $items = $this->mapItem($item, $orderId);
             $this->entityRepository->create($items);
         endforeach;
@@ -52,14 +55,9 @@ class CreateOrderService implements ICreateOrderService
 
     private function mapItem(array $item, int $orderId): Item
     {
-        
         $itens = new Item();
-        $itens->nome = $item['nome'];
-        $itens->preco = $item['preco'];
-        $itens->codigo_barra = $item['codigoBarra'];
         $itens->quantidade_item = $item['quantidadeItem'];
         $itens->sub_total = $item['subTotal'];
-        $itens->unidade_medida = $item['unidadeMedida'];
         $itens->pedido_id = $orderId;
         $itens->produto_id = $item['produtoId'];
         $itens->ativo = AtivoEnum::ATIVADO;

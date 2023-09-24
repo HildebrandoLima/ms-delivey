@@ -21,7 +21,7 @@ class CreateProductTest extends TestCase
     public function it_endpoint_post_base_response_200(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->unitMeasure);
+        $randKeys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
@@ -33,7 +33,7 @@ class CreateProductTest extends TestCase
             'codigoBarra' => Str::random(13),
             'descricao' => Str::random(30),
             'quantidade' => rand(10, 50),
-            'unidadeMedida' => $this->unitMeasure[$rand_keys],
+            'unidadeMedida' => $this->unitMeasure[$randKeys],
             'dataValidade' => date('Y-m-d H:i:s'),
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
@@ -60,7 +60,7 @@ class CreateProductTest extends TestCase
     public function it_endpoint_post_base_response_400(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->unitMeasure);
+        $randKeys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
@@ -72,7 +72,7 @@ class CreateProductTest extends TestCase
             'codigoBarra' => Str::random(13),
             'descricao' => Str::random(30),
             'quantidade' => rand(10, 50),
-            'unidadeMedida' => $this->unitMeasure[$rand_keys],
+            'unidadeMedida' => $this->unitMeasure[$randKeys],
             'dataValidade' => date('Y-m-d H:i:s'),
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
@@ -99,7 +99,7 @@ class CreateProductTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->unitMeasure);
+        $randKeys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
@@ -111,7 +111,7 @@ class CreateProductTest extends TestCase
             'codigoBarra' => Str::random(13),
             'descricao' => Str::random(30),
             'quantidade' => rand(10, 50),
-            'unidadeMedida' => $this->unitMeasure[$rand_keys],
+            'unidadeMedida' => $this->unitMeasure[$randKeys],
             'dataValidade' => date('Y-m-d H:i:s'),
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
@@ -135,7 +135,7 @@ class CreateProductTest extends TestCase
     public function it_endpoint_post_base_response_403(): void
     {
         // Arrange
-        $rand_keys = array_rand($this->unitMeasure);
+        $randKeys = array_rand($this->unitMeasure);
         $this->images = [
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
@@ -147,7 +147,7 @@ class CreateProductTest extends TestCase
             'codigoBarra' => Str::random(13),
             'descricao' => Str::random(30),
             'quantidade' => rand(10, 50),
-            'unidadeMedida' => $this->unitMeasure[$rand_keys],
+            'unidadeMedida' => $this->unitMeasure[$randKeys],
             'dataValidade' => date('Y-m-d H:i:s'),
             'categoriaId' => Categoria::query()->first()->id,
             'fornecedorId' => Fornecedor::query()->first()->id,
