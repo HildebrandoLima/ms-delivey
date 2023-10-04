@@ -66,14 +66,14 @@ class UserRepository implements IUserRepository
     {
         $user = new UserDto();
         $user->usuarioId = $data['id'];
-        $user->loginSocialId = $data['login_social_id'];
-        $user->loginSocial = $data['login_social'];
+        $user->loginSocialId = $data['login_social_id'] ?? 0;
+        $user->loginSocial = $data['login_social'] ?? '';
         $user->nome = $data['nome'];
         $user->cpf = $data['cpf'];
         $user->email = $data['email'];
         $user->dataNascimento = $data['data_nascimento'];
         $user->genero = $data['genero'];
-        $user->emailVerificado = $data['email_verified_at'];
+        $user->emailVerificado = $data['email_verified_at'] ?? false;
         $user->eAdmin = $data['e_admin'];
         $user->ativo = $data['ativo'];
         $user->criadoEm = DateFormat::dateFormat($data['created_at']);
