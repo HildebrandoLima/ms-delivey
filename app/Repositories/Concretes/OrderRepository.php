@@ -17,24 +17,15 @@ class OrderRepository implements IOrderRepository
     public function readAll(string $search, int $id, bool $filter): Collection
     {
         $collection = $this->query()
-        ->whereHas('usuario', function ($query) use ($id, $search, $filter) {
-            QueryFilter::getQueryFilter($query, $filter);
-            if (!empty($id)):
-                $query->where('users.id', '=', $id)
-                ->where(function($query) use ($search) {
-                    if (!empty($search)):
-                        $query->where('pedido.numero_pedido', 'like', $search);
-                    endif;
-                });
-            else:
-                $query->where('users.is_admin', '=', true)
-                ->where(function($query) use ($search, $filter) {
-                    QueryFilter::getQueryFilter($query, $filter);
-                    if (!empty($search)):
-                        $query->where('pedido.numero_pedido', 'like', $search);
-                    endif;
-                });
-            endif;
+        ->where(function ($query) use ($id, $search, $filter) {
+            QueryFilter::getQueryFilter($query, $filter)
+            ->where(function($query) use ($id, $search) {
+                if (!empty($search)):
+                    $query->where('pedido.numero_pedido', 'like', $search);
+                else:
+                    $query->where('pedido.usuario_id', '=', $id);
+                endif;
+            });
         })->orderByDesc('pedido.id')->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = $this->map($instance->toArray());
@@ -56,7 +47,7 @@ class OrderRepository implements IOrderRepository
 
     private function query(): Builder
     {
-        return Pedido::query()->with('item')->with('pagamento')->with('usuario');
+        return Pedido::query()->with('item')->with('pagamento');
     }
 
     private function map(array $data): OrderDto
@@ -73,7 +64,7 @@ class OrderRepository implements IOrderRepository
         $order->ativo = $data['ativo'];
         $order->criadoEm = DateFormat::dateFormat($data['created_at']);
         $order->alteradoEm = DateFormat::dateFormat($data['updated_at']);
-        $order->items = EntityOrder::items($data['item']);
+        $order->itens = EntityOrder::items($data['item']);
         $order->pagamento = EntityOrder::payment($data['pagamento']);
         return $order;
     }

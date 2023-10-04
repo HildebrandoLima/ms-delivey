@@ -15,6 +15,6 @@ class OrderDto
     public float $valorEntrega = 0;
     public int $usuarioId = 0;
     public int $enderecoId = 0;
-    public array $items = [];
+    public array $itens = [];
     public array $pagamento = [];
 }

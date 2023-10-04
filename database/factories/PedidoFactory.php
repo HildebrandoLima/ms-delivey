@@ -18,7 +18,7 @@ class PedidoFactory extends Factory
      */
     public function definition()
     {
-        $typeDelivery = array('Expresso', 'Retirada');
+        $typeDelivery = array('Expresso', 'Correio', 'Retirada');
         $randKeys = array_rand($typeDelivery);
         return [
             'numero_pedido' => random_int(100000000, 999999999),
