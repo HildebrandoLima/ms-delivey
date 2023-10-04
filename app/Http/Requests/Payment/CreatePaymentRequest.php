@@ -22,7 +22,7 @@ class CreatePaymentRequest extends BaseRequest
     {
         return [
             'numeroCartao' => 'string|min:14|max:19',
-            'tipoCartao' => 'required|string|in:' . PaymentEnum::CREDITO . ',' . PaymentEnum::DEBITO,
+            'tipoCartao' => 'string|in:' . PaymentEnum::CREDITO . ',' . PaymentEnum::DEBITO,
             'ccv' => 'int',
             'dataValidade' => 'date',
             'parcela' => 'int',
@@ -32,7 +32,7 @@ class CreatePaymentRequest extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'metodoPagamentoId.exists' => DefaultErrorMessages::NOT_FOUND,
