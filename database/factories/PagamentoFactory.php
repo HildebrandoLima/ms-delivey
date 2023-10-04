@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\MetodoPagamento;
 use App\Models\Pedido;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pagamento>
@@ -19,9 +17,12 @@ class PagamentoFactory extends Factory
      */
     public function definition()
     {
+        $typeCard = array('Crédito', 'Débito');
+        $randKeys = array_rand($typeCard);
         return [
             'codigo_transacao' => rand(1, 1000),
             'numero_cartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
+            'tipo_cartao' => $typeCard[$randKeys],
             'ccv' => rand(100, 100),
             'data_validade' => $this->faker->dateTime,
             'parcela' => rand(1, 3),

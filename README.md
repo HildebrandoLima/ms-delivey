@@ -1309,7 +1309,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=200&active=1</li>
-<li>?search=100005000=&active=1</li>
+<li>?id=200&search=100005000=&active=1</li>
 
 O pedido não pode ser modificado.
 
@@ -1319,21 +1319,17 @@ O pedido não pode ser modificado.
     "quantidadeItem": 4,
     "total": 102.99,
     "valorEntrega": 13.40,
-    "tipoEntrega": 'Correio',
+    "tipoEntrega": "Expresso ou Correio ou Retirada",
     "ativo": true,
     "usuarioId": 3,
     "itens": [
         {
-            "nome": "Batata Pringles Original 114g",
-            "preco": 14.85,
             "quantidadeItem": 1,
             "subTotal": 14.85,
             "produtoId": 32,
             "ativo": true
         },
         {
-            "nome": "Batata Palha Yoki 105G",
-            "preco": 6.59,
             "quantidadeItem": 2,
             "subTotal": 13.18,
             "produtoId": 33,
@@ -1352,7 +1348,7 @@ Não é permitido alterar os dados do pedido.
 
 ```
 {
-    "message": "Cadastro efetuado com sucesso!",
+    "message": "Cadastro efetuado com sucesso.",
     "data": id_do_ultimo_cadastro,
     "status": 200,
     "details": ""
@@ -1432,6 +1428,7 @@ Com cartão
 ```
 {
     "numeroCartao": "3433 0684 3408 6543",
+    "tipoCartao": "Crédio ou Débito",
     "dataValidade": "2023-05-16 13:44:18",
     "parcela": 3,
     "total": 399.48,

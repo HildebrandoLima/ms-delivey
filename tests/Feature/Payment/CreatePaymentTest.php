@@ -9,15 +9,19 @@ use Tests\TestCase;
 
 class CreatePaymentTest extends TestCase
 {
+    private array $typeCard = array('Crédito', 'Débito');
+
     /**
      * @test
      */
     public function it_endpoint_post_create_card_base_response_200(): void
     {
         // Arrange
+        $randKeys = array_rand($this->typeCard);
         $data = [
             'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
-            'dataValidade' =>  date('Y-m-d H:i:s'),
+            'tipoCartao' => $this->typeCard[$randKeys],
+            'dataValidade' => date('Y-m-d H:i:s'),
             'ccv' => rand(100, 100),
             'parcela' => rand(0, 2),
             'total' => rand(1, 100),
@@ -46,6 +50,7 @@ class CreatePaymentTest extends TestCase
         $data = [
             'numeroCartao' => null,
             'dataValidade' =>  null,
+            'tipoCartao' => null,
             'ccv' => null,
             'parcela' => null,
             'total' => rand(1, 100),
@@ -73,6 +78,7 @@ class CreatePaymentTest extends TestCase
         // Arrange
         $data = [
             'numeroCartao' => null,
+            'tipoCartao' => null,
             'dataValidade' =>  null,
             'ccv' => null,
             'parcela' => null,
@@ -100,8 +106,10 @@ class CreatePaymentTest extends TestCase
     public function it_endpoint_post_base_response_401(): void
     {
         // Arrange
+        $randKeys = array_rand($this->typeCard);
         $data = [
             'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
+            'tipoCartao' => $this->typeCard[$randKeys],
             'ccv' => rand(100, 100),
             'dataValidade' =>  date('Y-m-d H:i:s'),
             'parcela' => rand(0, 2),

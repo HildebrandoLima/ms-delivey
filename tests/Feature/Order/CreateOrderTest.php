@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class CreateOrderTest extends TestCase
 {
-    private array $typeDelivery = array('Expresso', 'Retirada');
+    private array $typeDelivery = array('Expresso', 'Correio', 'Retirada');
     private int $count = 3;
     private float $total = 0;
 
@@ -117,7 +117,7 @@ class CreateOrderTest extends TestCase
             'valorEntrega' => 3.5,
             'usuarioId' => User::factory()->createOne()->id,
             'enderecoId' => Endereco::factory()->createOne()->id,
-            'items' => $data['items'],
+            'itens' => $data['itens'],
         ];
 
         // Act
