@@ -33,7 +33,7 @@ class CreatePaymentService implements ICreatePaymentService
         $payment->data_validade = $request->dataValidade ?? null;
         $payment->parcela = $request->parcela ?? null;
         $payment->total = $request->total;
-        $payment->metodo_pagamento_id = $request->metodoPagamentoId;
+        $payment->metodo_pagamento = $request->metodoPagamento;
         $payment->pedido_id = $request->pedidoId;
         $payment->ativo = AtivoEnum::ATIVADO;
         return $payment;
