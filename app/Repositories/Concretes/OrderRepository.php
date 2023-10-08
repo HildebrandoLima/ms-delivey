@@ -53,19 +53,19 @@ class OrderRepository implements IOrderRepository
     private function map(array $data): OrderDto
     {
         $order = new OrderDto();
-        $order->pedidoId = $data['id'];
-        $order->numeroPedido = $data['numero_pedido'];
-        $order->quantidadeItem = $data['quantidade_item'];
-        $order->total = $data['total'];
-        $order->tipoEntrega = $data['tipo_entrega'];
-        $order->valorEntrega = $data['valor_entrega'];
-        $order->usuarioId = $data['usuario_id'];
-        $order->enderecoId = $data['endereco_id'];
-        $order->ativo = $data['ativo'];
-        $order->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $order->alteradoEm = DateFormat::dateFormat($data['updated_at']);
-        $order->itens = EntityOrder::items($data['item']);
-        $order->pagamento = EntityOrder::payment($data['pagamento']);
+        $order->pedidoId = $data['id'] ?? 0;
+        $order->numeroPedido = $data['numero_pedido'] ?? '';
+        $order->quantidadeItem = $data['quantidade_item'] ?? 0;
+        $order->total = $data['total'] ?? 0;
+        $order->tipoEntrega = $data['tipo_entrega'] ?? '';
+        $order->valorEntrega = $data['valor_entrega'] ?? 0;
+        $order->usuarioId = $data['usuario_id'] ?? 0;
+        $order->enderecoId = $data['endereco_id'] ?? '';
+        $order->ativo = $data['ativo'] ?? '';
+        $order->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $order->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
+        $order->itens = EntityOrder::items($data['item'] ?? []) ?? [];
+        $order->pagamento = EntityOrder::payment($data['pagamento'] ?? []) ?? [];
         return $order;
     }
 }

@@ -75,22 +75,22 @@ class ProductRepository implements IProductRepository
     private function map(array $data): ProductDto
     {
         $product = new ProductDto();
-        $product->produtoId = $data['id'];
-        $product->nome = $data['nome'];
-        $product->precoCusto = $data['preco_custo'];
-        $product->precoVenda = $data['preco_venda'];
-        $product->margemLucro = $data['margem_lucro'];
-        $product->codigoBarra = $data['codigo_barra'];
-        $product->descricao = $data['descricao'];
-        $product->quantidade = $data['quantidade'];
-        $product->unidadeMedida = $data['unidade_medida'];
-        $product->dataValidade = $data['data_validade'];
-        $product->categoriaId = $data['categoria_id'];
-        $product->fornecedorId = $data['fornecedor_id'];
-        $product->ativo = $data['ativo'];
-        $product->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $product->alteradoEm = DateFormat::dateFormat($data['updated_at']);
-        $product->imagens = EntityProduct::images($data['imagem']);
+        $product->produtoId = $data['id'] ?? 0;
+        $product->nome = $data['nome'] ?? '';
+        $product->precoCusto = $data['preco_custo'] ?? 0;
+        $product->precoVenda = $data['preco_venda'] ?? 0;
+        $product->margemLucro = $data['margem_lucro'] ?? 0;
+        $product->codigoBarra = $data['codigo_barra'] ?? '';
+        $product->descricao = $data['descricao'] ?? '';
+        $product->quantidade = $data['quantidade'] ?? 0;
+        $product->unidadeMedida = $data['unidade_medida'] ?? '';
+        $product->dataValidade = $data['data_validade'] ?? '';
+        $product->categoriaId = $data['categoria_id'] ?? 0;
+        $product->fornecedorId = $data['fornecedor_id'] ?? 0;
+        $product->ativo = $data['ativo'] ?? '';
+        $product->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $product->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
+        $product->imagens = EntityProduct::images($data['imagem'] ?? []) ?? [];
         return $product;
     }
 }

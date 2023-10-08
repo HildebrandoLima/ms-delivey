@@ -69,11 +69,11 @@ class CategoryRepository implements ICategoryRepository
     private function map(array $data): CategoryDto
     {
         $category = new CategoryDto();
-        $category->categoriaId = $data['id'];
-        $category->nome = $data['nome'];
-        $category->ativo = $data['ativo'];
-        $category->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $category->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $category->categoriaId = $data['id'] ?? 0;
+        $category->nome = $data['nome'] ?? '';
+        $category->ativo = $data['ativo'] ?? '';
+        $category->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $category->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         return $category;
     }
 }
