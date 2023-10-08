@@ -38,6 +38,11 @@ class Pedido extends Model
         return $this->hasMany(Item::class, 'pedido_id', 'id');
     }
 
+    public function endereco(): HasMany
+    {
+        return $this->hasMany(Endereco::class, 'id', 'endereco_id');
+    }
+
     public function usuario(): HasMany
     {
         return $this->hasMany(User::class, 'id', 'usuario_id');
