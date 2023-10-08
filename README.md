@@ -899,6 +899,7 @@ ou
 |------|-------------------------------|
 | PUT  | /api/telephone/edit           |
 
+O campo "tipo", pode ser do tipo: ('Celular', 'Fixo')
 ### Body: POST/PUT
 ```
 [
@@ -1164,6 +1165,7 @@ ou
 | PUT  | /api/product/edit           |
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
+O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX')
 
 <li>?page=1&perPage=10&active=1</li>
 <li>/find?id=Mjg=&active=1</li>
@@ -1312,6 +1314,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 <li>?id=200&search=100005000=&active=1</li>
 
 O pedido não pode ser modificado.
+O campo "tipoEntrega", pode ser do tipo ('Expresso', 'Correio', 'Retirada')
 
 ### Body: POST
 ```
@@ -1319,7 +1322,7 @@ O pedido não pode ser modificado.
     "quantidadeItem": 4,
     "total": 102.99,
     "valorEntrega": 13.40,
-    "tipoEntrega": "Expresso ou Correio ou Retirada",
+    "tipoEntrega": "Expresso",
     "ativo": true,
     "usuarioId": 3,
     "itens": [
@@ -1420,6 +1423,7 @@ Não é permitido alterar os dados do pedido.
 | POST  | /api/payment/save        |
 
 A listagem vem junto com o pedido. Não se pode efetuar edição do mesmo.
+O campo "metodoPagamento", pode ser do tipo ('Boleto Bancário', 'Crédito', 'Débito', 'Pix')
 
 ### Body: POST
 
@@ -1432,7 +1436,7 @@ Com cartão
     "dataValidade": "2023-05-16 13:44:18",
     "parcela": 3,
     "total": 399.48,
-    "metodoPagamentoId": 1,
+    "metodoPagamento": "Crédito",
     "pedidoId": 25
     "ativo": true,
 }
@@ -1443,7 +1447,7 @@ Com dinheiro ou PIX
 ```
 {
     "total": 20.50,
-    "metodoPagamentoId": 4,
+    "metodoPagamento": "Pix",
     "pedidoId": 30
     "ativo": true,
 }
