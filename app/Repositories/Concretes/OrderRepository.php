@@ -6,6 +6,7 @@ use App\Dtos\OrderDto;
 use App\Models\Pedido;
 use App\Repositories\Abstracts\IOrderRepository;
 use App\Support\MapperEntity\EntityOrder;
+use App\Support\MapperEntity\EntityPerson;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\PaginationList;
@@ -47,7 +48,7 @@ class OrderRepository implements IOrderRepository
 
     private function query(): Builder
     {
-        return Pedido::query()->with('item')->with('pagamento');
+        return Pedido::query()->with('item')->with('pagamento')->with('endereco');
     }
 
     private function map(array $data): OrderDto
@@ -60,12 +61,12 @@ class OrderRepository implements IOrderRepository
         $order->tipoEntrega = $data['tipo_entrega'] ?? '';
         $order->valorEntrega = $data['valor_entrega'] ?? 0;
         $order->usuarioId = $data['usuario_id'] ?? 0;
-        $order->enderecoId = $data['endereco_id'] ?? '';
         $order->ativo = $data['ativo'] ?? '';
         $order->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
         $order->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         $order->itens = EntityOrder::items($data['item'] ?? []) ?? [];
         $order->pagamento = EntityOrder::payment($data['pagamento'] ?? []) ?? [];
+        $order->endereco = EntityPerson::addrres($data['endereco'] ?? '') ?? [];
         return $order;
     }
 }
