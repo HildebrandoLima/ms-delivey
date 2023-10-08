@@ -48,7 +48,7 @@ class EntityOrder
         $payment->ccv = $data['ccv'] ?? 0;
         $payment->parcela = $data['parcela'] ?? 0;
         $payment->total = $data['total'] ?? 0;
-        $payment->metodoPagamentoId = $data['metodo_pagamento_id'] ?? 0;
+        $payment->metodoPagamento = $data['metodo_pagamento'] ?? '';
         $payment->pedidoId = $data['pedido_id'] ?? 0;
         $payment->ativo = $data['ativo'] ?? '';
         $payment->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
