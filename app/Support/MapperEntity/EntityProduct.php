@@ -18,11 +18,11 @@ class EntityProduct
     private static function map(array $data): ImageDto
     {
         $image = new ImageDto();
-        $image->caminho = $data['caminho'];
-        $image->produtoId = $data['produto_id'];
-        $image->ativo = $data['ativo'];
-        $image->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $image->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $image->caminho = $data['caminho'] ?? '';
+        $image->produtoId = $data['produto_id'] ?? 0;
+        $image->ativo = $data['ativo'] ?? '';
+        $image->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $image->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         return $image;
     }
 }

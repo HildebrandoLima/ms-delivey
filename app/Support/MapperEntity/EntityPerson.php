@@ -19,18 +19,18 @@ class EntityPerson
     private static function mapAddress(array $data): AddressDto
     {
         $address = new AddressDto();
-        $address->enderecoId = $data['id'];
-        $address->logradouro = $data['logradouro'];
-        $address->numero = $data['numero'];
-        $address->bairro = $data['bairro'];
-        $address->cidade = $data['cidade'];
-        $address->cep = $data['cep'];
-        $address->uf = $data['uf'];
-        $address->usuarioId = $data['usuario_id'];
-        $address->fornecedorId = $data['fornecedor_id'];
-        $address->ativo = $data['ativo'];
-        $address->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $address->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $address->enderecoId = $data['id'] ?? 0;
+        $address->logradouro = $data['logradouro'] ?? '';
+        $address->numero = $data['numero'] ?? 0;
+        $address->bairro = $data['bairro'] ?? '';
+        $address->cidade = $data['cidade'] ?? '';
+        $address->cep = $data['cep'] ?? '';
+        $address->uf = $data['uf'] ?? '';
+        $address->usuarioId = $data['usuario_id'] ?? 0;
+        $address->fornecedorId = $data['fornecedor_id'] ?? 0;
+        $address->ativo = $data['ativo'] ?? '';
+        $address->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $address->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         return $address;
     }
 
@@ -45,14 +45,14 @@ class EntityPerson
     private static function mapTelephone(array $data): TelephoneDto
     {
         $telephone = new TelephoneDto();
-        $telephone->telefoneId = $data['id'];
-        $telephone->numero = $data['numero'];
-        $telephone->tipo = $data['tipo'];
-        $telephone->usuarioId = $data['usuario_id'];
-        $telephone->fornecedorId = $data['fornecedor_id'];
-        $telephone->ativo = $data['ativo'];
-        $telephone->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $telephone->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $telephone->telefoneId = $data['id'] ?? 0;
+        $telephone->numero = $data['numero'] ?? '';
+        $telephone->tipo = $data['tipo'] ?? '';
+        $telephone->usuarioId = $data['usuario_id'] ?? 0;
+        $telephone->fornecedorId = $data['fornecedor_id'] ?? 0;
+        $telephone->ativo = $data['ativo'] ?? '';
+        $telephone->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $telephone->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         return $telephone;
     }
 }

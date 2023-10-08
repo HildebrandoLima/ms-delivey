@@ -45,16 +45,16 @@ class ProviderRepository implements IProviderRepository
     private function map(array $data): ProviderDto
     {
         $provider = new ProviderDto();
-        $provider->fornecedorId = $data['id'];
-        $provider->razaoSocial = $data['razao_social'];
-        $provider->cnpj = $data['cnpj'];
-        $provider->email = $data['email'];
-        $provider->dataFundacao = $data['data_fundacao'];
-        $provider->ativo = $data['ativo'];
-        $provider->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $provider->alteradoEm = DateFormat::dateFormat($data['updated_at']);
-        $provider->enderecos = EntityPerson::addrres($data['endereco']);
-        $provider->telefones = EntityPerson::telephone($data['telefone']);
+        $provider->fornecedorId = $data['id'] ?? 0;
+        $provider->razaoSocial = $data['razao_social'] ?? '';
+        $provider->cnpj = $data['cnpj'] ?? '';
+        $provider->email = $data['email'] ?? '';
+        $provider->dataFundacao = $data['data_fundacao'] ?? '';
+        $provider->ativo = $data['ativo'] ?? '';
+        $provider->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $provider->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
+        $provider->enderecos = EntityPerson::addrres($data['endereco'] ?? [] ?? []);
+        $provider->telefones = EntityPerson::telephone($data['telefone'] ?? []) ?? [];
         return $provider;
     }
 

@@ -19,14 +19,14 @@ class EntityOrder
     private static function mapItems(array $data): ItemDto
     {
         $item = new ItemDto();
-        $item->itemId = $data['id'];
-        $item->quantidadeItem = $data['quantidade_item'];
-        $item->subTotal = $data['sub_total'];
-        $item->pedidoId = $data['pedido_id'];
-        $item->produtoId = $data['produto_id'];
-        $item->ativo = $data['ativo'];
-        $item->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $item->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $item->itemId = $data['id'] ?? 0;
+        $item->quantidadeItem = $data['quantidade_item'] ?? 0;
+        $item->subTotal = $data['sub_total'] ?? 0;
+        $item->pedidoId = $data['pedido_id'] ?? 0;
+        $item->produtoId = $data['produto_id'] ?? 0;
+        $item->ativo = $data['ativo'] ?? '';
+        $item->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $item->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         return $item;
     }
 
@@ -41,19 +41,18 @@ class EntityOrder
     private static function mapPayment(array $data): PaymentDto
     {
         $payment = new PaymentDto();
-        $payment->pagamentoId = $data['id'];
-        $payment->codigoTransacao = $data['codigo_transacao'];
-        $payment->numeroCartao = $data['numero_cartao'];
-        $payment->tipoCartao = $data['tipo_cartao'];
-        $payment->ccv = $data['ccv'];
-        $payment->parcela = $data['parcela'];
-        $payment->total = $data['total'];
-        $payment->metodoPagamentoId = $data['metodo_pagamento_id'];
-        $payment->pagamentoId = $data['id'];
-        $payment->pedidoId = $data['pedido_id'];
-        $payment->ativo = $data['ativo'];
-        $payment->criadoEm = DateFormat::dateFormat($data['created_at']);
-        $payment->alteradoEm = DateFormat::dateFormat($data['updated_at']);
+        $payment->pagamentoId = $data['id'] ?? 0;
+        $payment->codigoTransacao = $data['codigo_transacao'] ?? 0;
+        $payment->numeroCartao = $data['numero_cartao'] ?? '';
+        $payment->tipoCartao = $data['tipo_cartao'] ?? '';
+        $payment->ccv = $data['ccv'] ?? 0;
+        $payment->parcela = $data['parcela'] ?? 0;
+        $payment->total = $data['total'] ?? 0;
+        $payment->metodoPagamentoId = $data['metodo_pagamento_id'] ?? 0;
+        $payment->pedidoId = $data['pedido_id'] ?? 0;
+        $payment->ativo = $data['ativo'] ?? '';
+        $payment->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
+        $payment->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
         return $payment;
     }
 }
