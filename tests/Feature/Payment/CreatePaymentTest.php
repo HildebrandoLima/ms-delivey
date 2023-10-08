@@ -10,6 +10,8 @@ use Tests\TestCase;
 class CreatePaymentTest extends TestCase
 {
     private array $typeCard = array('Crédito', 'Débito');
+    private array $typePaymentCaseOne = array('Crédito', 'Débito');
+    private array $typePaymentCaseTwo = array('Boleto Bancário', 'Pix');
 
     /**
      * @test
@@ -17,15 +19,16 @@ class CreatePaymentTest extends TestCase
     public function it_endpoint_post_create_card_base_response_200(): void
     {
         // Arrange
-        $randKeys = array_rand($this->typeCard);
+        $randKeysCard = array_rand($this->typeCard);
+        $randKeysPayment = array_rand($this->typePaymentCaseOne);
         $data = [
             'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
-            'tipoCartao' => $this->typeCard[$randKeys],
+            'tipoCartao' => $this->typeCard[$randKeysCard],
             'dataValidade' => date('Y-m-d H:i:s'),
             'ccv' => rand(100, 100),
             'parcela' => rand(0, 2),
             'total' => rand(1, 100),
-            'metodoPagamentoId' => 2,
+            'metodoPagamento' => $this->typeCard[$randKeysPayment],
             'pedidoId' => Pedido::factory()->createOne()->id,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -46,6 +49,7 @@ class CreatePaymentTest extends TestCase
      */
     public function it_endpoint_post_create_money_base_response_200(): void
     {
+        $randKeysPayment = array_rand($this->typePaymentCaseTwo);
         // Arrange
         $data = [
             'numeroCartao' => null,
@@ -54,7 +58,7 @@ class CreatePaymentTest extends TestCase
             'ccv' => null,
             'parcela' => null,
             'total' => rand(1, 100),
-            'metodoPagamentoId' => 4,
+            'metodoPagamento' => $this->typeCard[$randKeysPayment],
             'pedidoId' => Pedido::factory()->createOne()->id,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -83,7 +87,7 @@ class CreatePaymentTest extends TestCase
             'ccv' => null,
             'parcela' => null,
             'total' => rand(1, 100),
-            'metodoPagamentoId' => 4,
+            'metodoPagamento' => 'Boleto Bancário',
             'pedidoId' => null,
             'ativo' => null,
         ];
@@ -114,7 +118,7 @@ class CreatePaymentTest extends TestCase
             'dataValidade' =>  date('Y-m-d H:i:s'),
             'parcela' => rand(0, 2),
             'total' => rand(1, 100),
-            'metodoPagamentoId' => 2,
+            'metodoPagamento' => 'Boleto Bancário',
             'pedidoId' => Pedido::factory()->createOne()->id,
         ];
 

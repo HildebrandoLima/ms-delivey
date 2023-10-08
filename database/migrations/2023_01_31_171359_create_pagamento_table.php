@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('data_validade')->nullable()->default(NULL);
             $table->integer('parcela')->nullable()->default(NULL);
             $table->decimal('total', 10, 2)->notnull();
-            $table->foreignId('metodo_pagamento_id')->constrained('metodo_pagamento')->notnull();
+            $table->enum('metodo_pagamento', ['Boleto Bancário', 'Crédito', 'Débito', 'Pix']);
             $table->foreignId('pedido_id')->constrained('pedido')->notnull();
             $table->boolean('ativo');
             $table->timestamps();

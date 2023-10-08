@@ -19,7 +19,7 @@ class Pagamento extends Model
         'data_validade',
         'parcela',
         'total',
-        'metodo_pagamento_id',
+        'metodo_pagamento',
         'pedido_id',
         'ativo',
     ];
