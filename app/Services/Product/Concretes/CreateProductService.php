@@ -22,12 +22,8 @@ class CreateProductService implements ICreateProductService
     {
         $product = $this->mapProduct($request);
         $productId = $this->entityRepository->create($product);
-        $images = $this->createImage($request, $productId);
-        if ($productId and $images):
-            return true;
-        else:
-            return false;
-        endif;
+        $this->createImage($request, $productId);
+        return true;
     }
 
     private function mapProduct(CreateProductRequest $request): Produto
