@@ -8,8 +8,6 @@ use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Product\Abstracts\ICreateProductService;
 use App\Support\Enums\AtivoEnum;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class CreateProductService implements ICreateProductService
 {
@@ -24,8 +22,12 @@ class CreateProductService implements ICreateProductService
     {
         $product = $this->mapProduct($request);
         $productId = $this->entityRepository->create($product);
-        $this->createImage($request, $productId);
-        return true;
+        $images = $this->createImage($request, $productId);
+        if ($productId and $images):
+            return true;
+        else:
+            return false;
+        endif;
     }
 
     private function mapProduct(CreateProductRequest $request): Produto
@@ -48,21 +50,21 @@ class CreateProductService implements ICreateProductService
 
     private function createImage(CreateProductRequest $request, int $productId): bool
     {
-        //$images = $request->file('imagens');
-        $images = $request['imagens'];
-        if (isset($images) && is_array($images)):
+        $uploadedImages = [];
+        if ($request->hasFile('imagens')):
+            $images = $request->file('imagens');
             foreach ($images as $image):
-                $originalFileName = $image->getClientOriginalName();
-                $extension = $image->getClientOriginalExtension();
-                $newFileName = Str::uuid() . '.' . $extension;
-                //$path = $image->store('images', 'public');
-                Storage::put('public/images/'. $newFileName, (string)$originalFileName, 'public');
-                $path = 'public/images/' . $newFileName;
-                $image = $this->mapImage($path, $productId);
-                $this->entityRepository->create($image);
+                $imageName = $image->getClientOriginalName();
+                $directory = 'images/' . uniqid();
+                $image->storeAs($directory, $imageName, 'public');
+                $uploadedImages[] = $imageName;
+                $imageModel = $this->mapImage($directory . '/' . $imageName, $productId);
+                $this->entityRepository->create($imageModel);
             endforeach;
+            return true;
+        else:
+            return false;
         endif;
-        return true;
     }
 
     private function mapImage(string $path, int $productId): Imagem

@@ -76,6 +76,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>Adicione o arquivo .env</li>
     <li>Execute os comandos: composer install | php artisan key:generate | php artisan jwt:secret</li>
     <li>Certifique-se que um diretório chamado `**/vendor**` foi criado.</li>
+    <li>Execute o comando: php artisan storage:link | Para liberar o acesso das imagens do servidor</li>
     <li>Execute o comando: php artisan serve</li>
 </ul>
 

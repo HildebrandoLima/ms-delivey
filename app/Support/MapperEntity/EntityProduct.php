@@ -4,6 +4,7 @@ namespace App\Support\MapperEntity;
 
 use App\Dtos\ImageDto;
 use App\Support\Utils\DateFormat\DateFormat;
+use Illuminate\Support\Facades\Storage;
 
 class EntityProduct
 {
@@ -18,7 +19,7 @@ class EntityProduct
     private static function map(array $data): ImageDto
     {
         $image = new ImageDto();
-        $image->caminho = $data['caminho'] ?? '';
+        $image->caminho = Storage::disk('public')->url($data['caminho'])  ?? '';
         $image->produtoId = $data['produto_id'] ?? 0;
         $image->ativo = $data['ativo'] ?? '';
         $image->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
