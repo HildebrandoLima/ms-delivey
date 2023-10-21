@@ -106,10 +106,6 @@ Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método 
 ```
 
 ```
-    php artisan db:seed --class=MetodoPagamentoSeeder
-```
-
-```
     php artisan db:seed --class=PermissionSeeder
 ```
 

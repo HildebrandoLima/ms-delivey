@@ -67,12 +67,19 @@ jobs:
       - name: Create Tables
         run: |
           php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
-          php artisan db:seed --class=MetodoPagamentoSeeder
           php artisan db:seed --class=PermissionSeeder
           php artisan db:seed --class=UnidadeFederativaSeeder
 
       - name: Optimize
         run: php artisan optimize
+
+      - name: Verify and Adjust Directory
+        run: |
+          ls /home/runner/work/ms-delivey/.docker
+          chmod -R 755 /home/runner/work/ms-delivey/.docker
+
+      - name: Remove Directory
+        run: rm -rf /home/runner/work/ms-delivey/.docker
 
       - name: Execute Tests
         run: php artisan test
