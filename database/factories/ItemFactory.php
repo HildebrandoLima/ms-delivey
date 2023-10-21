@@ -22,8 +22,8 @@ class ItemFactory extends Factory
         return [
             'nome' => Str::random(30),
             'preco' => 15.30,
-            'quantidade_item' => rand(1, 3),
-            'sub_total' => 20.5,
+            'quantidade_item' => 1,
+            'sub_total' => 15.30,
             'pedido_id' => Pedido::factory()->createOne()->id,
             'produto_id' => Produto::factory()->createOne()->id,
             'ativo' => true,
