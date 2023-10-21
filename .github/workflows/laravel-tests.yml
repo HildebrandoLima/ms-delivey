@@ -73,5 +73,13 @@ jobs:
       - name: Optimize
         run: php artisan optimize
 
+      - name: Verify and Adjust Directory
+        run: |
+          ls /home/runner/work/ms-delivey/ms-delivey/.docker
+          chmod -R 755 /home/runner/work/ms-delivey/ms-delivey/.docker
+
+      - name: Remove Directory
+        run: rm -rf /home/runner/work/ms-delivey/ms-delivey/.docker
+
       - name: Execute Tests
         run: php artisan test
