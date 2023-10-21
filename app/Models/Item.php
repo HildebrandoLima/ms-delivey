@@ -12,6 +12,8 @@ class Item extends Model
     protected $table = 'item';
 
     protected $fillable = [
+        'nome',
+        'preco',
         'quantidade_item',
         'sub_total',
         'pedido_id',
