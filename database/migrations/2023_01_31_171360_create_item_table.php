@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('item', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->string('nome', 50)->notnull();
+            $table->decimal('preco', 10, 2)->notnull();
             $table->integer('quantidade_item')->notnull();
             $table->decimal('sub_total', 10, 2)->notnull();
             $table->foreignId('pedido_id')->constrained('pedido')->notnull();

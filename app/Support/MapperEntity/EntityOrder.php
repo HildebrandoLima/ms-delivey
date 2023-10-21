@@ -20,6 +20,8 @@ class EntityOrder
     {
         $item = new ItemDto();
         $item->itemId = $data['id'] ?? 0;
+        $item->nome = $data['nome'] ?? '';
+        $item->preco = $data['preco'] ?? 0;
         $item->quantidadeItem = $data['quantidade_item'] ?? 0;
         $item->subTotal = $data['sub_total'] ?? 0;
         $item->pedidoId = $data['pedido_id'] ?? 0;

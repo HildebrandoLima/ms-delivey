@@ -45,8 +45,6 @@ class CreateOrderService implements ICreateOrderService
     private function createItem(CreateOrderRequest $request, int $orderId): bool
     {
         foreach ($request->itens as $item):
-            unset($item['nome']);
-            unset($item['preco']);
             $items = $this->mapItem($item, $orderId);
             $this->entityRepository->create($items);
         endforeach;
@@ -56,6 +54,8 @@ class CreateOrderService implements ICreateOrderService
     private function mapItem(array $item, int $orderId): Item
     {
         $itens = new Item();
+        $itens->nome = $item['nome'];
+        $itens->preco = $item['preco'];
         $itens->quantidade_item = $item['quantidadeItem'];
         $itens->sub_total = $item['subTotal'];
         $itens->pedido_id = $orderId;

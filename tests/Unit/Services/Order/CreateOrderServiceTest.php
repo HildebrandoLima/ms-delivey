@@ -10,6 +10,7 @@ use App\Services\Order\Concretes\CreateOrderService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class CreateOrderServiceTest extends TestCase
 {
@@ -30,8 +31,10 @@ class CreateOrderServiceTest extends TestCase
         $this->request['ativo'] = true;
         $this->request['itens'] = [
             [
-                'quantidadeItem' => 2,
-                'subTotal' => rand(1, 100),
+                'nome' => Str::random(30),
+                'preco' => 15.30,
+                'quantidadeItem' => 1,
+                'subTotal' => 15.30,
                 'produtoId' => rand(1, 100),
                 'ativo' => true,
             ]
