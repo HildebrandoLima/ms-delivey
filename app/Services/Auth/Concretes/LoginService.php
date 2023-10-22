@@ -16,7 +16,7 @@ class LoginService implements ILoginService
             'userId' => auth()->user()->id,
             'userName' => auth()->user()->nome,
             'userEmail' => auth()->user()->email,
-            'isAdmin' => auth()->user()->is_admin == 1 ? (bool)PerfilEnum::ADMIN : (bool)PerfilEnum::CLIENTE,
+            'isAdmin' => auth()->user()->e_admin == 1 ? (bool)PerfilEnum::ADMIN : (bool)PerfilEnum::CLIENTE,
             'permissions' => auth()->user()->permissions,
         ]);
     }
