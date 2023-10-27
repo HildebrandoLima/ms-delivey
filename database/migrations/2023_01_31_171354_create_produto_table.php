@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('produto', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('nome', 50)->unique()->notnull();
+            $table->string('nome', 100)->unique()->notnull();
             $table->decimal('preco_custo', 10, 2)->notnull();
             $table->decimal('margem_lucro', 10, 2)->notnull();
             $table->decimal('preco_venda', 10, 2)->notnull();
             $table->char('codigo_barra', 13)->unique()->notnull();
-            $table->string('descricao', 100)->notnull();
+            $table->string('descricao', 255)->notnull();
             $table->integer('quantidade')->notnull();
             $table->enum('unidade_medida', ['UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX']);
             $table->timestamp('data_validade')->notnull();
