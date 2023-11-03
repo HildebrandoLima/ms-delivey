@@ -26,13 +26,25 @@ class CreateProductService implements ICreateProductService
         return true;
     }
 
+    private function formartPrice(string $preco): string
+    {
+        $firstDotPosition = strpos($preco, '.');
+        if ($firstDotPosition !== false):
+            $preco = substr_replace($preco, '', $firstDotPosition, 1);
+        endif;
+        return $preco;
+    }
+
     private function mapProduct(CreateProductRequest $request): Produto
     {
+        $precoCusto = str_replace(',', '.', $this->formartPrice($request->precoCusto));
+        $precoVenda = str_replace(',', '.', $this->formartPrice($request->precoVenda));
+
         $product = new Produto();
         $product->nome = $request->nome;
-        $product->preco_custo = $request->precoCusto;
-        $product->preco_venda = $request->precoVenda;
-        $product->margem_lucro = $request->precoVenda - $request->precoCusto;
+        $product->preco_custo = $precoCusto;
+        $product->preco_venda = $precoVenda;
+        $product->margem_lucro = $precoVenda - $precoCusto;
         $product->codigo_barra = $request->codigoBarra;
         $product->descricao = $request->descricao;
         $product->quantidade = $request->quantidade;
