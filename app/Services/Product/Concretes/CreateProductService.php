@@ -56,14 +56,23 @@ class CreateProductService implements ICreateProductService
         return $product;
     }
 
+    private function directory(string $productName): string
+    {
+        $swapSpaceForUnderline = str_replace(' ', '_', $productName);
+        $changeUppercaseLettersToLowercaseLetters = strtolower($swapSpaceForUnderline);
+        $nameDirectory = $changeUppercaseLettersToLowercaseLetters;
+        $directory = 'images/' . $nameDirectory;
+        return $directory;
+    }
+
     private function createImage(CreateProductRequest $request, int $productId): bool
     {
         $uploadedImages = [];
         if ($request->hasFile('imagens')):
             $images = $request->file('imagens');
+            $directory = $this->directory($request->nome);
             foreach ($images as $image):
                 $imageName = $image->getClientOriginalName();
-                $directory = 'images/' . uniqid();
                 $image->storeAs($directory, $imageName, 'public');
                 $uploadedImages[] = $imageName;
                 $imageModel = $this->mapImage($directory . '/' . $imageName, $productId);
