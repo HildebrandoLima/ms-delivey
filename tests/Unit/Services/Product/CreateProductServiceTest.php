@@ -26,6 +26,8 @@ class CreateProductServiceTest extends TestCase
             UploadedFile::fake()->image('testing2.png')
         ];
         $this->request = new CreateProductRequest();
+        $this->request['precoCusto'] = '1.500,00';
+        $this->request['precoVenda'] = '2.000,00';
         $this->request['imagens'] = $this->images;
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);

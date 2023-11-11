@@ -26,13 +26,25 @@ class CreateProductService implements ICreateProductService
         return true;
     }
 
+    private function formartPrice(string $preco): string
+    {
+        $firstDotPosition = strpos($preco, '.');
+        if ($firstDotPosition !== false):
+            $preco = substr_replace($preco, '', $firstDotPosition, 1);
+        endif;
+        return $preco;
+    }
+
     private function mapProduct(CreateProductRequest $request): Produto
     {
+        $precoCusto = str_replace(',', '.', $this->formartPrice($request->precoCusto));
+        $precoVenda = str_replace(',', '.', $this->formartPrice($request->precoVenda));
+
         $product = new Produto();
         $product->nome = $request->nome;
-        $product->preco_custo = $request->precoCusto;
-        $product->preco_venda = $request->precoVenda;
-        $product->margem_lucro = $request->precoVenda - $request->precoCusto;
+        $product->preco_custo = $precoCusto;
+        $product->preco_venda = $precoVenda;
+        $product->margem_lucro = $precoVenda - $precoCusto;
         $product->codigo_barra = $request->codigoBarra;
         $product->descricao = $request->descricao;
         $product->quantidade = $request->quantidade;
@@ -44,14 +56,23 @@ class CreateProductService implements ICreateProductService
         return $product;
     }
 
+    private function directory(string $productName): string
+    {
+        $swapSpaceForUnderline = str_replace(' ', '_', $productName);
+        $changeUppercaseLettersToLowercaseLetters = strtolower($swapSpaceForUnderline);
+        $nameDirectory = $changeUppercaseLettersToLowercaseLetters;
+        $directory = 'images/' . $nameDirectory;
+        return $directory;
+    }
+
     private function createImage(CreateProductRequest $request, int $productId): bool
     {
         $uploadedImages = [];
         if ($request->hasFile('imagens')):
             $images = $request->file('imagens');
+            $directory = $this->directory($request->nome);
             foreach ($images as $image):
                 $imageName = $image->getClientOriginalName();
-                $directory = 'images/' . uniqid();
                 $image->storeAs($directory, $imageName, 'public');
                 $uploadedImages[] = $imageName;
                 $imageModel = $this->mapImage($directory . '/' . $imageName, $productId);

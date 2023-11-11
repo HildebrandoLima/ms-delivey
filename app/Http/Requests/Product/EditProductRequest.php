@@ -24,7 +24,7 @@ class EditProductRequest extends BaseRequest
             'id' => 'int|exists:produto,id',
             'nome' => 'required|string',
             'precoCusto' => 'required|between:0,99.99',
-            'precoVenda' => 'required|between:0,99.99',
+            'precoVenda' => 'required|between:0,99.99|gt:precoCusto',
             'codigoBarra' => 'required|string|min:13|max:13',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
@@ -46,6 +46,7 @@ class EditProductRequest extends BaseRequest
 
             'codigoBarra.min' => DefaultErrorMessages::MIN_CHARACTERS,
             'codigoBarra.max' => DefaultErrorMessages::MAX_CHARACTERS,
+            'precoVenda.gt' => 'O preço de venda deve ser maior que o preço de custo.',
 
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
