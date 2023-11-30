@@ -8,13 +8,10 @@ class DtoMapper
     {
         $dto = new $dtoClass();
 
-        foreach (get_class_vars($dtoClass) as $property => $defaultValue):
-            $dto->$property = $data[$property] ?? $defaultValue;
-        endforeach;
-
-        foreach (get_object_vars($dto) as $property => $value):
-            if (isset($data[$property])):
-                $dto->$property = $data[$property];
+        foreach ($data as $key => $value):
+            $property = self::convertSnakeToCamel($key);
+            if (property_exists($dtoClass, $property)):
+                $dto->$property = $value;
             endif;
         endforeach;
 
@@ -23,5 +20,10 @@ class DtoMapper
         endif;
 
         return $dto;
+    }
+
+    private static function convertSnakeToCamel(string $input): string
+    {
+        return lcfirst(str_replace('_', '', ucwords($input, '_')));
     }
 }
