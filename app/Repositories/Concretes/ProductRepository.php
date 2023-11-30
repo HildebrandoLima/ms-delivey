@@ -62,7 +62,7 @@ class ProductRepository implements IProductRepository
         return Produto::query()->with('imagem')
         ->where(function($query) use ($search, $filter) {
             QueryFilter::getQueryFilter($query, $filter);
-            if (!empty($search) and is_int($search)):
+            if (!empty($search) and is_numeric($search)):
                 $query->where('produto.categoria_id', '=', $search);
             elseif (!empty($search) and is_string($search)):
                 $query->where('produto.nome', 'like', $search);    

@@ -22,8 +22,8 @@ class CreateProductRequest extends BaseRequest
     {
         return [
             'nome' => 'required|string|unique:produto,nome',
-            'precoCusto' => 'required|between:0,99.99',
-            'precoVenda' => 'required|between:0,99.99|gt:precoCusto',
+            'precoCusto' => 'required|regex:/^\d{1,6}([,.]\d{1,2})?$/',
+            'precoVenda' => 'required|regex:/^\d{1,6}([,.]\d{1,2})?$/|gt:precoCusto',
             'codigoBarra' => 'required|string|min:13|max:13|unique:produto,codigo_barra',
             'descricao' => 'required|string',
             'quantidade' => 'required|int',
@@ -62,8 +62,8 @@ class CreateProductRequest extends BaseRequest
             'imagens.required' => DefaultErrorMessages::REQUIRED_FIELD,
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'precoCusto.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
-            'precoVenda.between' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
+            'precoCusto.regex' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
+            'precoVenda.regex' => DefaultErrorMessages::FIELD_MUST_BE_DECIMAL,
             'codigoBarra.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'descricao.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'quantidade.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,

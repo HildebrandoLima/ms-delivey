@@ -8,6 +8,7 @@ use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Product\Abstracts\IEditProductService;
 use App\Support\Enums\AtivoEnum;
+use App\Support\Utils\PriceFormat\PriceFormat;
 
 class EditProductService implements IEditProductService
 {
@@ -41,12 +42,15 @@ class EditProductService implements IEditProductService
 
     private function mapProduct(EditProductRequest $request): Produto
     {
+        $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($request->precoCusto));
+        $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($request->precoVenda));
+
         $product = new Produto();
         $product->id = $request->id;
         $product->nome = $request->nome;
-        $product->preco_custo = $request->precoCusto;
-        $product->preco_venda = $request->precoVenda;
-        $product->margem_lucro = $request->precoVenda - $request->precoCusto;
+        $product->preco_custo = $precoCusto;
+        $product->preco_venda = $precoVenda;
+        $product->margem_lucro = $precoVenda - $precoCusto;
         $product->codigo_barra = $request->codigoBarra;
         $product->descricao = $request->descricao;
         $product->quantidade = $request->quantidade;

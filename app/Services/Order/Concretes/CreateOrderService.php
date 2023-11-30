@@ -33,7 +33,7 @@ class CreateOrderService implements ICreateOrderService
         $order = new Pedido();
         $order->numero_pedido = random_int(100000000, 999999999);
         $order->quantidade_item = $request->quantidadeItens;
-        $order->total = $request->total;
+        $order->total = str_replace(',', '.', $request->total);
         $order->tipo_entrega = $request->tipoEntrega;
         $order->valor_entrega = $request->valorEntrega;
         $order->usuario_id = $request->usuarioId;
@@ -55,7 +55,7 @@ class CreateOrderService implements ICreateOrderService
     {
         $itens = new Item();
         $itens->nome = $item['nome'];
-        $itens->preco = $item['preco'];
+        $itens->preco = str_replace(',', '.', $item['preco']);
         $itens->quantidade_item = $item['quantidadeItem'];
         $itens->sub_total = $item['subTotal'];
         $itens->pedido_id = $orderId;
