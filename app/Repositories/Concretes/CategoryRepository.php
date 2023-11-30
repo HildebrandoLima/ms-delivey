@@ -5,8 +5,8 @@ namespace App\Repositories\Concretes;
 use App\Dtos\CategoryDto;
 use App\Models\Categoria;
 use App\Repositories\Abstracts\ICategoryRepository;
+use App\Support\AutoMapper\DtoMapper;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -68,12 +68,6 @@ class CategoryRepository implements ICategoryRepository
 
     private function map(array $data): CategoryDto
     {
-        $category = new CategoryDto();
-        $category->categoriaId = $data['id'] ?? 0;
-        $category->nome = $data['nome'] ?? '';
-        $category->ativo = $data['ativo'] ?? '';
-        $category->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
-        $category->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
-        return $category;
+        return DtoMapper::map($data, CategoryDto::class);
     }
 }
