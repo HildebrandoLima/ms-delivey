@@ -6,9 +6,8 @@ use App\Dtos\UserDto;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Repositories\Abstracts\IUserRepository;
-use App\Support\MapperEntity\EntityPerson;
+use App\Support\AutoMapper\DtoMapper;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -64,22 +63,6 @@ class UserRepository implements IUserRepository
 
     private function map(array $data): UserDto
     {
-        $user = new UserDto();
-        $user->usuarioId = $data['id'];
-        $user->loginSocialId = $data['login_social_id'] ?? 0;
-        $user->loginSocial = $data['login_social'] ?? '';
-        $user->nome = $data['nome'] ?? '';
-        $user->cpf = $data['cpf'] ?? '';
-        $user->email = $data['email'] ?? '';
-        $user->dataNascimento = $data['data_nascimento'] ?? '';
-        $user->genero = $data['genero'] ?? '';
-        $user->emailVerificado = $data['email_verified_at'] ?? false;
-        $user->eAdmin = $data['e_admin'] ?? '';
-        $user->ativo = $data['ativo'] ?? '';
-        $user->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
-        $user->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
-        $user->enderecos = EntityPerson::addrres($data['endereco'] ?? []) ?? [];
-        $user->telefones = EntityPerson::telephone($data['telefone'] ?? []) ?? [];
-        return $user;
+        return DtoMapper::map($data, UserDto::class);  
     }
 }
