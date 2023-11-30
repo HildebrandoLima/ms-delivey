@@ -6,7 +6,7 @@ use App\Dtos\UserDto;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Repositories\Abstracts\IUserRepository;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Model;
@@ -63,6 +63,6 @@ class UserRepository implements IUserRepository
 
     private function map(array $data): UserDto
     {
-        return DtoMapper::map($data, UserDto::class);  
+        return AutoMapper::map($data, UserDto::class);  
     }
 }

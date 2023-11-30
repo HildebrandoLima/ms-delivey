@@ -7,7 +7,6 @@ use App\Support\Traits\DefaultFields;
 class ItemDto 
 {
     use DefaultFields;
-    public int $id = 0;
     public string $nome = "";
     public float $preco = 0;
     public int $quantidadeItem = 0;

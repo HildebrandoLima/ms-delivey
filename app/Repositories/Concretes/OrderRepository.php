@@ -5,7 +5,7 @@ namespace App\Repositories\Concretes;
 use App\Dtos\OrderDto;
 use App\Models\Pedido;
 use App\Repositories\Abstracts\IOrderRepository;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,6 +51,6 @@ class OrderRepository implements IOrderRepository
 
     private function map(array $data): OrderDto
     {
-        return DtoMapper::map($data, OrderDto::class);
+        return AutoMapper::map($data, OrderDto::class);
     }
 }

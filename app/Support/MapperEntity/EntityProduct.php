@@ -3,7 +3,7 @@
 namespace App\Support\MapperEntity;
 
 use App\Dtos\ImageDto;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 use Illuminate\Support\Facades\Storage;
 
 class EntityProduct
@@ -18,7 +18,7 @@ class EntityProduct
 
     private static function map(array $data): ImageDto
     {
-        $image = DtoMapper::map($data, ImageDto::class);
+        $image = AutoMapper::map($data, ImageDto::class);
         $image->caminho = Storage::disk('public')->url($data['caminho'])  ?? '';
         $image->produtoId = $data['produto_id'] ?? 0;
         return $image;

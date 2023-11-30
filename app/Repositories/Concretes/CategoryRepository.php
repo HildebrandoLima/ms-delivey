@@ -5,7 +5,7 @@ namespace App\Repositories\Concretes;
 use App\Dtos\CategoryDto;
 use App\Models\Categoria;
 use App\Repositories\Abstracts\ICategoryRepository;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
@@ -68,6 +68,6 @@ class CategoryRepository implements ICategoryRepository
 
     private function map(array $data): CategoryDto
     {
-        return DtoMapper::map($data, CategoryDto::class);
+        return AutoMapper::map($data, CategoryDto::class);
     }
 }

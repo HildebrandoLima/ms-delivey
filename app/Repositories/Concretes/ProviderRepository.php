@@ -5,7 +5,7 @@ namespace App\Repositories\Concretes;
 use App\Dtos\ProviderDto;
 use App\Models\Fornecedor;
 use App\Repositories\Abstracts\IProviderRepository;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Support\Collection;
@@ -43,6 +43,6 @@ class ProviderRepository implements IProviderRepository
 
     private function map(array $data): ProviderDto
     {
-        return DtoMapper::map($data, ProviderDto::class);
+        return AutoMapper::map($data, ProviderDto::class);
     }
 }

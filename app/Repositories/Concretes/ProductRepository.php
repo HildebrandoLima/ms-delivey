@@ -5,7 +5,7 @@ namespace App\Repositories\Concretes;
 use App\Dtos\ProductDto;
 use App\Models\Produto;
 use App\Repositories\Abstracts\IProductRepository;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
@@ -73,6 +73,6 @@ class ProductRepository implements IProductRepository
 
     private function map(array $data): ProductDto
     {
-        return DtoMapper::map($data, ProductDto::class);
+        return AutoMapper::map($data, ProductDto::class);
     }
 }

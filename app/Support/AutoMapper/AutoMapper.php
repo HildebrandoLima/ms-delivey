@@ -2,7 +2,7 @@
 
 namespace App\Support\AutoMapper;
 
-class DtoMapper
+class AutoMapper
 {
     public static function map(array $data, string $dtoClass): object
     {

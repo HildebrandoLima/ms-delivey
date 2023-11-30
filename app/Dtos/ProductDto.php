@@ -8,7 +8,6 @@ use App\Support\Traits\DefaultFields;
 class ProductDto 
 {
     use DefaultFields;
-    public int $id = 0;
     public string $nome = "";
     public float $precoCusto = 0;
     public float $precoVenda = 0;

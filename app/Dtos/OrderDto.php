@@ -9,7 +9,6 @@ use App\Support\Traits\DefaultFields;
 class OrderDto 
 {
     use DefaultFields;
-    public int $id = 0;
     public int $numeroPedido = 0;
     public int $quantidadeItem = 0;
     public float $total = 0;

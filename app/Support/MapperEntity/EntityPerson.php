@@ -4,7 +4,7 @@ namespace App\Support\MapperEntity;
 
 use App\Dtos\AddressDto;
 use App\Dtos\TelephoneDto;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 
 class EntityPerson
 {
@@ -18,7 +18,7 @@ class EntityPerson
 
     private static function mapAddress(array $data): AddressDto
     {
-        return DtoMapper::map($data, AddressDto::class);
+        return AutoMapper::map($data, AddressDto::class);
     }
 
     public static function telephone(array $telefones): array
@@ -31,6 +31,6 @@ class EntityPerson
 
     private static function mapTelephone(array $data): TelephoneDto
     {
-        return DtoMapper::map($data, TelephoneDto::class);
+        return AutoMapper::map($data, TelephoneDto::class);
     }
 }

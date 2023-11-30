@@ -4,7 +4,7 @@ namespace App\Support\MapperEntity;
 
 use App\Dtos\ItemDto;
 use App\Dtos\PaymentDto;
-use App\Support\AutoMapper\DtoMapper;
+use App\Support\AutoMapper\AutoMapper;
 
 class EntityOrder
 {
@@ -18,7 +18,7 @@ class EntityOrder
 
     private static function mapItems(array $data): ItemDto
     {
-        return DtoMapper::map($data, ItemDto::class);
+        return AutoMapper::map($data, ItemDto::class);
     }
 
     public static function payment(array $pagamento): array
@@ -31,6 +31,6 @@ class EntityOrder
 
     private static function mapPayment(array $data): PaymentDto
     {
-        return DtoMapper::map($data, PaymentDto::class);
+        return AutoMapper::map($data, PaymentDto::class);
     }
 }

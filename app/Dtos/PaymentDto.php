@@ -7,7 +7,6 @@ use App\Support\Traits\DefaultFields;
 class PaymentDto
 {
     use DefaultFields;
-    public int $id = 0;
     public int $codigoTransacao = 0;
     public ?string $numeroCartao = "";
     public ?string $tipoCartao = "";
