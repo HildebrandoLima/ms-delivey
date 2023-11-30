@@ -9,6 +9,7 @@ use App\Models\Pedido;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Order\Abstracts\ICreateOrderService;
 use App\Support\Enums\AtivoEnum;
+use App\Support\Utils\PriceFormat\PriceFormat;
 
 class CreateOrderService implements ICreateOrderService
 {
@@ -33,9 +34,9 @@ class CreateOrderService implements ICreateOrderService
         $order = new Pedido();
         $order->numero_pedido = random_int(100000000, 999999999);
         $order->quantidade_item = $request->quantidadeItens;
-        $order->total = $request->total;
+        $order->total = str_replace(',', '.', PriceFormat::priceFormart($request->total));
         $order->tipo_entrega = $request->tipoEntrega;
-        $order->valor_entrega = $request->valorEntrega;
+        $order->valor_entrega = str_replace(',', '.', PriceFormat::priceFormart($request->valorEntrega));
         $order->usuario_id = $request->usuarioId;
         $order->endereco_id = $request->enderecoId;
         $order->ativo = AtivoEnum::ATIVADO;
@@ -55,9 +56,9 @@ class CreateOrderService implements ICreateOrderService
     {
         $itens = new Item();
         $itens->nome = $item['nome'];
-        $itens->preco = $item['preco'];
+        $itens->preco = str_replace(',', '.', PriceFormat::priceFormart($item['preco']));
         $itens->quantidade_item = $item['quantidadeItem'];
-        $itens->sub_total = $item['subTotal'];
+        $itens->sub_total = str_replace(',', '.', PriceFormat::priceFormart($item['subTotal']));
         $itens->pedido_id = $orderId;
         $itens->produto_id = $item['produtoId'];
         $itens->ativo = AtivoEnum::ATIVADO;

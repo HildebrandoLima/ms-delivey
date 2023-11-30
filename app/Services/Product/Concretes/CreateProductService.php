@@ -8,6 +8,7 @@ use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Product\Abstracts\ICreateProductService;
 use App\Support\Enums\AtivoEnum;
+use App\Support\Utils\PriceFormat\PriceFormat;
 
 class CreateProductService implements ICreateProductService
 {
@@ -26,19 +27,10 @@ class CreateProductService implements ICreateProductService
         return true;
     }
 
-    private function formartPrice(string $preco): string
-    {
-        $firstDotPosition = strpos($preco, '.');
-        if ($firstDotPosition !== false):
-            $preco = substr_replace($preco, '', $firstDotPosition, 1);
-        endif;
-        return $preco;
-    }
-
     private function mapProduct(CreateProductRequest $request): Produto
     {
-        $precoCusto = str_replace(',', '.', $this->formartPrice($request->precoCusto));
-        $precoVenda = str_replace(',', '.', $this->formartPrice($request->precoVenda));
+        $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($request->precoCusto));
+        $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($request->precoVenda));
 
         $product = new Produto();
         $product->nome = $request->nome;
