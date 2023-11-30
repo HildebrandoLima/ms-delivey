@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 
 final class Search
 {
-    private string $search;
+    private string|int $search;
 
-    final public function search(Request $request): string
+    final public function search(Request $request): string|int
     {
-        $request->search === null ? $this->search = '' : $this->search = '%' . $request->search . '%';
-        return $this->search;
+        if (is_numeric($request->search)) {
+            return $this->search = $request->search;
+        } else {
+            $request->search === null ? $this->search = '' : $this->search = '%' . $request->search . '%';
+            //dd(is_numeric($request->search), $this->search);
+            return $this->search;
+        }
     }
 }
