@@ -6,7 +6,7 @@ use App\Support\MapperEntity\EntityOrder;
 use App\Support\MapperEntity\EntityPerson;
 use App\Support\Traits\DefaultFields;
 
-class OrderDto 
+class OrderDto
 {
     use DefaultFields;
     public int $numeroPedido = 0;
