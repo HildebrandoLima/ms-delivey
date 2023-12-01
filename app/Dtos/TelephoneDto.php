@@ -14,8 +14,6 @@ class TelephoneDto
 
     public function customizeMapping(array $data): void
     {
-        $this->usuarioId = $data['usuario_id'] ?? 0;
-        $this->fornecedorId = $data['fornecedor_id'] ?? 0;
         $this->mapCommonFields($data);
     }
 }

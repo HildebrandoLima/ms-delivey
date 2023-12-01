@@ -5,7 +5,7 @@ namespace App\Dtos;
 use App\Support\MapperEntity\EntityPerson;
 use App\Support\Traits\DefaultFields;
 
-class ProviderDto 
+class ProviderDto
 {
     use DefaultFields;
     public string $razaoSocial = "";

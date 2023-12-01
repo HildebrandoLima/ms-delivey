@@ -5,7 +5,7 @@ namespace App\Dtos;
 use App\Support\MapperEntity\EntityProduct;
 use App\Support\Traits\DefaultFields;
 
-class ProductDto 
+class ProductDto
 {
     use DefaultFields;
     public string $nome = "";

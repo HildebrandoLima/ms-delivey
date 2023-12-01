@@ -4,7 +4,7 @@ namespace App\Dtos;
 
 use App\Support\Traits\DefaultFields;
 
-class CategoryDto 
+class CategoryDto
 {
     use DefaultFields;
     public string $nome = "";
