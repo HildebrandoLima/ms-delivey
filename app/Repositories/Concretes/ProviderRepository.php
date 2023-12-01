@@ -5,9 +5,8 @@ namespace App\Repositories\Concretes;
 use App\Dtos\ProviderDto;
 use App\Models\Fornecedor;
 use App\Repositories\Abstracts\IProviderRepository;
-use App\Support\MapperEntity\EntityPerson;
+use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\DateFormat\DateFormat;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Support\Collection;
 
@@ -44,22 +43,6 @@ class ProviderRepository implements IProviderRepository
 
     private function map(array $data): ProviderDto
     {
-        $provider = new ProviderDto();
-        $provider->fornecedorId = $data['id'] ?? 0;
-        $provider->razaoSocial = $data['razao_social'] ?? '';
-        $provider->cnpj = $data['cnpj'] ?? '';
-        $provider->email = $data['email'] ?? '';
-        $provider->dataFundacao = $data['data_fundacao'] ?? '';
-        $provider->ativo = $data['ativo'] ?? '';
-        $provider->criadoEm = DateFormat::dateFormat($data['created_at'] ?? '') ?? '';
-        $provider->alteradoEm = DateFormat::dateFormat($data['updated_at'] ?? '') ?? '';
-        $provider->enderecos = EntityPerson::addrres($data['endereco'] ?? [] ?? []);
-        $provider->telefones = EntityPerson::telephone($data['telefone'] ?? []) ?? [];
-        return $provider;
+        return AutoMapper::map($data, ProviderDto::class);
     }
-
-    //public function getProdutosByProvider(int $id): array
-   //{
-        //return Fornecedor::query()->join('produto as p', 'p.fornecedor_id', '=', 'fornecedor.id')->where('fornecedor.id', $id)->get()->toArray();
-    //}
 }

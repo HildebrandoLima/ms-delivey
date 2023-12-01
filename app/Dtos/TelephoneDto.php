@@ -7,9 +7,15 @@ use App\Support\Traits\DefaultFields;
 class TelephoneDto
 {
     use DefaultFields;
-    public int $telefoneId = 0;
     public string $numero = "";
     public string $tipo = "";
-    public int|null $usuarioId = 0;
-    public int|null $fornecedorId = 0;
+    public ?int $usuarioId = 0;
+    public ?int $fornecedorId = 0;
+
+    public function customizeMapping(array $data): void
+    {
+        $this->usuarioId = $data['usuario_id'] ?? 0;
+        $this->fornecedorId = $data['fornecedor_id'] ?? 0;
+        $this->mapCommonFields($data);
+    }
 }

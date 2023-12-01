@@ -2,21 +2,30 @@
 
 namespace App\Dtos;
 
+use App\Support\MapperEntity\EntityPerson;
 use App\Support\Traits\DefaultFields;
 
 class UserDto 
 {
     use DefaultFields;
-    public int $usuarioId = 0;
-    public int|null $loginSocialId = 0;
-    public string|null $loginSocial = "";
+    public ?int $loginSocialId = 0;
+    public ?string $loginSocial = "";
     public string $nome = "";
-    public string|null $cpf = "";
+    public ?string $cpf = "";
     public string $email = "";
-    public string|null $dataNascimento = "";
+    public ?string $dataNascimento = "";
     public string $genero = "";
-    public bool|null $emailVerificado;
-    public bool $eAdmin;
-    public array $enderecos = [];
-    public array $telefones = [];
+    public ?bool $emailVerificado;
+    public ?bool $eAdmin;
+    public ?array $enderecos = [];
+    public ?array $telefones = [];
+
+    public function customizeMapping(array $data): void
+    {
+        $this->emailVerificado = $data['email_verified_at'] ?? false;
+        $this->eAdmin = $data['e_admin'] ?? false;
+        $this->mapCommonFields($data);
+        $this->enderecos = EntityPerson::addrres($data['endereco'] ?? []) ?? [];
+        $this->telefones = EntityPerson::telephone($data['telefone'] ?? []) ?? [];
+    }
 }
