@@ -1448,6 +1448,7 @@ Não é permitido alterar os dados do pedido.
 <ul>
     <li>A listagem vem junto com o pedido. Não se pode efetuar edição do mesmo.</li>
     <li>O campo "metodoPagamento", pode ser do tipo ('Boleto Bancário', 'Crédito', 'Débito', 'Pix')</li>
+    <li>OI</li>
 </ul>
 
 ### Body: POST
