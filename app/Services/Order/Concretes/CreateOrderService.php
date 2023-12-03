@@ -4,6 +4,7 @@ namespace App\Services\Order\Concretes;
 
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
+use App\Jobs\InventoryManagementJob;
 use App\Models\Item;
 use App\Models\Pedido;
 use App\Repositories\Abstracts\IEntityRepository;
@@ -66,6 +67,7 @@ class CreateOrderService implements ICreateOrderService
 
     private function dispatchJob(array $order, array $items): void
     {
+        InventoryManagementJob::dispatch($items);
         EmailCreateOrderJob::dispatch($order, $items);
     }
 }
