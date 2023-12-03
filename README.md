@@ -390,9 +390,10 @@ Se preferir executar os testes de feature
 |------|-------------------------------------------|
 | GET  | /api/auth/login/social{provider}/callback |
 
-Atenção: Essa forma de logar, funciona com os dados da rede social de sua escolha. Teste as rotas em seu navegador.
-
-Configure nas redes sociais e obtenha as credenciais para autorização e autenticação de acesso.
+<ul>
+<li>Atenção: Essa forma de logar, funciona com os dados da rede social de sua escolha. Teste as rotas em seu navegador.</li>
+<li>Configure nas redes sociais e obtenha as credenciais para autorização e autenticação de acesso.</li>
+</ul>
 
 [GOOGLE](https://console.developers.google.com/?hl=pt-br)
 
@@ -490,6 +491,12 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 |------|-------------------------------|
 | POST | /api/user/save                |
 
+<ul>
+    <li>Em perfil é verdadeiro para admin e false para cliente.</li>
+    <li>?page=1&perPage=10&active=1</li>
+    <li>?search=Hill&active=1</li>
+</ul>
+
 ### Body: POST
 ```
 {
@@ -515,12 +522,6 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
     "ativo": true
 }
 ```
-
-<ul>
-    <li>Em perfil é verdadeiro para admin e false para cliente.</li>
-    <li>?page=1&perPage=10&active=1</li>
-    <li>?search=Hill&active=1</li>
-</ul>
 
 ### Resposta:
 
@@ -734,6 +735,7 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 | PUT  | /api/address/save           |
 
 ### Body: POST
+
 ```
 {
     "logradouro": "Rua",
@@ -763,6 +765,7 @@ ou
 ```
 
 ### Body: PUT
+
 ```
 {
     "id": 1,
