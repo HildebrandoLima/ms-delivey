@@ -490,8 +490,6 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 |------|-------------------------------|
 | POST | /api/user/save                |
 
-Em perfil é verdadeiro para admin e false para cliente.
-
 ### Body: POST
 ```
 {
@@ -519,6 +517,7 @@ Em perfil é verdadeiro para admin e false para cliente.
 ```
 
 <ul>
+<li>Em perfil é verdadeiro para admin e false para cliente.</li>
 <li>?page=1&perPage=10&active=1</li>
 <li>?search=Hill&active=1</li>
 </ul>
