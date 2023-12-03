@@ -99,10 +99,14 @@ Execute o comando para criar as tabelas:
     php artisan migrate
 ```
 
-Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método de pagamento, perfil e uf. Então, execute os seguintes comandos para preenchê-las:
+Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método de pagamento, permissões e uf. Então, execute os seguintes comandos para preenchê-las:
 
 ```
     php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
+```
+
+```
+    php artisan db:seed --class=MetodoPagamentoSeeder
 ```
 
 ```
@@ -113,7 +117,7 @@ Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método 
     php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
-Certifique-se que as tabelas foram criadas. Abrindo o cliente SQL que você escolheu, e então execute o comando:
+Certifique-se que as tabelas foram criadas. Abra seu cliente SQL que você escolheu, e então execute o comando:
 
 ```
     SHOW TABLES;
@@ -180,32 +184,8 @@ Crie o Arquivo .env
 <li>Instale as dependências do projeto: composer install</li>
 <li>Gere a chave do projeto: php artisan key:generate</li>
 <li>Depois execute o comando: php artisan optimize:clear</li>
-<li>Acesse o link: (http://localhost:8080)</li>
+<li>Acesse o link: (http://localhost:8080/api/rota)</li>
 </ul>
-
-Dentro de seu container app, execute o comando para criar as tabelas:
-
-```
-    php artisan migrate
-```
-
-Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método de pagamento, perfil e uf. Então, ainda dentro se seu container app, execute os seguintes comandos para preenchê-las:
-
-```
-    php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
-```
-
-```
-    php artisan db:seed --class=MetodoPagamentoSeeder
-```
-
-```
-    php artisan db:seed --class=PermissionSeeder
-```
-
-```
-    php artisan db:seed --class=UnidadeFederativaSeeder
-```
 
 Para saber se tudo deu certo. Seus containers estarão assim:
 
@@ -217,9 +197,9 @@ Seu servidor de email:
 
 </details>
 
-### Testes
+## Testes
 
-Para executar os testes e certificar que, tudo está ok, prepare seu banco de dados para os testes, configure em seu .env.testing. Ajuste seus casos de testes na classe <b>SetupTest</b>, localizado em 'Tests\Feature'. Feito isso, execute o comando abaixo:
+Para executar os testes e certificar que, tudo está ok, prepare seu banco de dados para os testes, configure em seu .env.testing. Ajuste seus casos de testes na classe <b>CreateFirstUserTest</b>, localizado em 'tests\Feature'. Feito isso, execute o comando abaixo:
 
 ```
     php artisan test
@@ -227,17 +207,28 @@ Para executar os testes e certificar que, tudo está ok, prepare seu banco de da
 
 Se preferir executar apenas um teste, execute o comando abaixo:
 
-
 ```
     php artisan test --filter=classeTest
 ```
 
+Se preferir executar os testes de serviços
 
-### API DOCUMENTAÇÃO
+```
+    php artisan test tests/Unit/Services
+```
+
+Se preferir executar os testes de feature
+
+```
+    php artisan test tests/Feature
+```
+
+
+
+## API DOCUMENTAÇÃO
 
 <ul>
-    <li>Todos os parâmetros 'id' são enviados em base64. O back-end se responsabiliza em decodificar.</li>
-    <li>Nos body de endereço e telefone, é preciso identificar quem se referência os mesmos. No caso de usuário ("usuarioId": 2) ou fornecedor ("fornecedorId": 2)</li>
+    <li>Nos body de endereço e telefone, é preciso identificar quem deseja atribuir os mesmos. No caso de usuário, ex.: ("usuarioId": 1) ou fornecedor, ex.: ("fornecedorId": 1)</li>
     <li>Os registros não são deletados, e sim ativados e desativados, sempre que necessário.</li>
     <li>Perfil 1 (Admin) e 2 (Cliente)</li>
 </ul>
@@ -271,9 +262,9 @@ Atenção: A senha é validada conforme o padrão abaixo:
 
 > No seu .env adicione da seguinte forma:<br />
 
-> URL_FRONT_FORGOT_PASSWORD=http://localhost:8000/api/auth/forgot-password
+> URL_FRONT_FORGOT_PASSWORD=link
 
-<li>O link acima funciona para enviar o link no email para redefinição de senha</li>
+<li>A url acima, funciona para enviar o link no email para redefinição de senha</li>
 <li>Ele deve ser a mesma url do front-end</li>
 
 ### Body: POST
@@ -518,6 +509,7 @@ Em perfil é verdadeiro para admin e false para cliente.
 ### Body: PUT
 ```
 {
+    "id": 1,
     "nome": "Hill",
     "email": "test@gmail.com",
     "genero": "Masculino",
@@ -529,7 +521,6 @@ Em perfil é verdadeiro para admin e false para cliente.
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
-<li>/find?id=1001&active=1</li>
 <li>?search=Hill&active=1</li>
 
 ### Resposta:
@@ -629,16 +620,26 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
-<li>/find?id=1002&active=1</li>
 <li>?search=System=&active=1</li>
 
-### Body: POST/PUT
+### Body: PUT
 ```
 {
     "razaoSocial": "Teste Test",
     "cnpj": "89.872.593/0001-90",
     "email": "hill@email.com.br",
     "dataFundacao": "2022-12-25 13:28:59",
+    "ativo": true
+}
+```
+
+### Body: PUT
+```
+{
+    "id": 1,
+    "razaoSocial": "Teste Test",
+    "cnpj": "89.872.593/0001-90",
+    "email": "hill@email.com.br",
     "ativo": true
 }
 ```
@@ -731,8 +732,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 |------|-----------------------------|
 | GET  | /api/address/list/uf        |
 |------|-----------------------------|
-| POST | /api/address/edit           |
-|------|-----------------------------|
 | PUT  | /api/address/save           |
 
 ### Body: POST
@@ -743,7 +742,7 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
     "bairro": "Centro",
     "cidade": "Fortaleza",
     "cep": 1234-567,
-    "ufId": 1,
+    "uf": "CE",
     "usuarioId": 24,
     "ativo": true
 }
@@ -758,7 +757,7 @@ ou
     "bairro": "Centro",
     "cidade": "Fortaleza",
     "cep": 1234-567,
-    "ufId": 1,
+    "uf": "CE",
     "fornecedorId": 33,
     "ativo": true
 }
@@ -773,7 +772,7 @@ ou
     "bairro": "Centro",
     "cidade": "Fortaleza",
     "cep": 1234-567,
-    "ufId": 1,
+    "uf": "CE",
     "usuarioId": 24,
     "ativo": true
 }
@@ -789,7 +788,7 @@ ou
     "bairro": "Centro",
     "cidade": "Fortaleza",
     "cep": 1234-567,
-    "ufId": 1,
+    "uf": "CE",
     "fornecedorId": 33,
     "ativo": true
 }
@@ -890,25 +889,26 @@ ou
 
 |MÉTODO|            ROTA               |
 |------|-------------------------------|
-| GET  | /api/telephone/list/ddd       |
-|------|-------------------------------|
 | POST | /api/telephone/save           |
 |------|-------------------------------|
 | PUT  | /api/telephone/edit           |
 
 O campo "tipo", pode ser do tipo: ('Celular', 'Fixo')
-### Body: POST/PUT
+
+### Body: POST
+
 ```
 [
     {
-        "numero": "99506-9315",
+        "ddd": "CE",
+        "numero": "(85) 9.9506-9315",
         "tipo": "Celular",
-        "dddId": 1,
         "usuarioId": 2,
         "ativo": true
     },
     {
-        "numero": "98045-8709",
+        "ddd": "CE",
+        "numero": "(85) 9.8045-8709",
         "tipo": "Fixo",
         "dddId": 1,
         "usuarioId": 2,
@@ -922,20 +922,44 @@ ou
 ```
 [
     {
+        "ddd": "CE",
         "numero": "99506-9315",
         "tipo": "Celular",
-        "dddId": 1,
         "fornecedorId": 3,
         "ativo": true
     },
     {
+        "ddd": "CE",
         "numero": "98045-8709",
         "tipo": "Fixo",
-        "dddId": 1,
         "fornecedorId": 3,
         "ativo": true
     }
 ]
+```
+
+### Body: PUT
+
+```
+{
+    "ddd": "CE",
+    "numero": "(85) 9.9506-9315",
+    "tipo": "Celular",
+    "usuarioId": 2,
+    "ativo": true
+}
+```
+
+ou
+
+```
+{
+    "ddd": "CE",
+    "numero": "99506-9315",
+    "tipo": "Celular",
+    "fornecedorId": 3,
+    "ativo": true
+}
 ```
 
 ### Resposta:
@@ -1165,7 +1189,6 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX')
 
 <li>?page=1&perPage=10&active=1</li>
-<li>/find?id=Mjg=&active=1</li>
 <li>?search=TV%LED%'55&active=1</li>
 <li>?id=3&active=1</li>
 
@@ -1190,6 +1213,7 @@ O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'C
 ### Body: PUT
 ```
 {
+    "id", 1,
     "nome": "Batata Frita Sabor Original Pringles - 114g",
     "precoCusto": 15.99,
     "precoVenda": 13.99,
@@ -1307,9 +1331,9 @@ O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'C
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <li>?page=1&perPage=10&active=1</li>
-<li>/find?id=200&active=1</li>
 <li>?id=200&search=100005000=&active=1</li>
 
+A listagem do pedido é realizada pelo usuário.
 O pedido não pode ser modificado.
 O campo "tipoEntrega", pode ser do tipo ('Expresso', 'Correio', 'Retirada')
 
@@ -1419,8 +1443,10 @@ Não é permitido alterar os dados do pedido.
 |-------|--------------------------|
 | POST  | /api/payment/save        |
 
-A listagem vem junto com o pedido. Não se pode efetuar edição do mesmo.
-O campo "metodoPagamento", pode ser do tipo ('Boleto Bancário', 'Crédito', 'Débito', 'Pix')
+<ul>
+<li>A listagem vem junto com o pedido. Não se pode efetuar edição do mesmo.</li>
+<li>O campo "metodoPagamento", pode ser do tipo ('Boleto Bancário', 'Crédito', 'Débito', 'Pix')</li>
+</ul>
 
 ### Body: POST
 
