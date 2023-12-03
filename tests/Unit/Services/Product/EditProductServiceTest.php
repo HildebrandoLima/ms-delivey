@@ -21,6 +21,8 @@ class EditProductServiceTest extends TestCase
         // Arrange
         $this->request = new EditProductRequest();
         $this->request['id'] = rand(1, 100);
+        $this->request['precoCusto'] = '1.500,00';
+        $this->request['precoVenda'] = '2.000,00';
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 

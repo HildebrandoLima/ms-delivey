@@ -22,22 +22,12 @@ class EmailCreateOrderJob implements ShouldQueue
     private array $items;
     private UserRepository $userRepository;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(array $order, array $items)
     {
         $this->order = $order;
         $this->items = $items;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle(): void
     {
         try {
