@@ -517,9 +517,9 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 ```
 
 <ul>
-<li>Em perfil é verdadeiro para admin e false para cliente.</li>
-<li>?page=1&perPage=10&active=1</li>
-<li>?search=Hill&active=1</li>
+    <li>Em perfil é verdadeiro para admin e false para cliente.</li>
+    <li>?page=1&perPage=10&active=1</li>
+    <li>?search=Hill&active=1</li>
 </ul>
 
 ### Resposta:
@@ -615,8 +615,6 @@ Configure nas redes sociais e obtenha as credenciais para autorização e autent
 | POST | /api/provider/save           |
 |------|------------------------------|
 | PUT  | /api/provider/edit           |
-
-Lembre-se de passar os parâmetros nas rotas de listagem.
 
 <ul>
     <li>?page=1&perPage=10&active=1</li>
@@ -894,7 +892,9 @@ ou
 |------|-------------------------------|
 | PUT  | /api/telephone/edit           |
 
-O campo "tipo", pode ser do tipo: ('Celular', 'Fixo')
+<ul>
+    <li>O campo "tipo", pode ser do tipo: ('Celular', 'Fixo')</li>
+</ul>
 
 ### Body: POST
 
@@ -1186,12 +1186,13 @@ ou
 |------|-----------------------------|
 | PUT  | /api/product/edit           |
 
-Lembre-se de passar os parâmetros nas rotas de listagem.
-O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX')
-
-<li>?page=1&perPage=10&active=1</li>
-<li>?search=TV%LED%'55&active=1</li>
-<li>?id=3&active=1</li>
+<ul>
+    <li>O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX')
+</li>
+    <li>?page=1&perPage=10&active=1</li>
+    <li>?search=TV%LED%'55&active=1</li>
+    <li>?id=3&active=1</li>
+</ul>
 
 ### Body: POST
 ```
@@ -1329,15 +1330,12 @@ O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'C
 |------|---------------------------|
 | GET  | /api/order/save           |
 
-Lembre-se de passar os parâmetros nas rotas de listagem.
-
-
 <ul>
-<li>?page=1&perPage=10&active=1</li>
-<li>?id=200&search=100005000=&active=1</li>
-<li>A listagem do pedido é realizada pelo usuário.</li>
-<li>O pedido não pode ser modificado.</li>
-<li>O campo "tipoEntrega", pode ser do tipo ('Expresso', 'Correio', 'Retirada')</li>
+    <li>?page=1&perPage=10&active=1</li>
+    <li>?id=200&search=100005000=&active=1</li>
+    <li>A listagem do pedido é realizada pelo usuário.</li>
+    <li>O pedido não pode ser modificado.</li>
+    <li>O campo "tipoEntrega", pode ser do tipo ('Expresso', 'Correio', 'Retirada')</li>
 </ul>
 
 ### Body: POST
@@ -1447,9 +1445,8 @@ Não é permitido alterar os dados do pedido.
 | POST  | /api/payment/save        |
 
 <ul>
-    <li>A listagem vem junto com o pedido. Não se pode efetuar edição do mesmo.</li>
-    <li>O campo "metodoPagamento", pode ser do tipo ('Boleto Bancário', 'Crédito', 'Débito', 'Pix')</li>
-    <li>OI</li>
+    <li>O campo "metodoPagamento", pode ser do tipo:</li>
+    <li>('Boleto Bancário', 'Crédito', 'Débito', 'Pix')</li>
 </ul>
 
 ### Body: POST
