@@ -1066,6 +1066,11 @@ ou
 |------|------------------------------|
 | PUT  | /api/category/edit           |
 
+<ul>
+    <li>?page=1&perPage=10&active=1</li>
+    <li>?search=Eletrônicos&active=1</li>
+</ul>
+
 ### Body: POST
 ```
 {
@@ -1190,6 +1195,7 @@ ou
     <li>O campo "unidadeMedida", pode ser do tipo: ('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX')
 </li>
     <li>?page=1&perPage=10&active=1</li>
+    <li>O produto pode ser listagem pela busca do item ou pela categoria.</li>
     <li>?search=TV%LED%'55&active=1</li>
     <li>?id=3&active=1</li>
 </ul>
