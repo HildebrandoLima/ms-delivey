@@ -179,12 +179,12 @@ Crie o Arquivo .env
 > MAIL_FROM_NAME="${APP_NAME}"<br />
 
 <ul>
-<li>Execute o comando: docker-compose up -d</li>
-<li>Entre no container app: docker-compose exec app bash</li>
-<li>Instale as dependências do projeto: composer install</li>
-<li>Gere a chave do projeto: php artisan key:generate</li>
-<li>Depois execute o comando: php artisan optimize:clear</li>
-<li>Acesse o link: (http://localhost:8080/api/rota)</li>
+    <li>Execute o comando: docker-compose up -d</li>
+    <li>Entre no container app: docker-compose exec app bash</li>
+    <li>Instale as dependências do projeto: composer install</li>
+    <li>Gere a chave do projeto: php artisan key:generate</li>
+    <li>Depois execute o comando: php artisan optimize:clear</li>
+    <li>Acesse o link: (http://localhost:8080/api/rota)</li>
 </ul>
 
 Para saber se tudo deu certo. Seus containers estarão assim:
@@ -252,20 +252,20 @@ Se preferir executar os testes de feature
 |------|------------------------------------|
 |GET   | /api/email-verified/               |
 
-Atenção: A senha é validada conforme o padrão abaixo:
-
-<li>8 caracteres no mínimo</li>
-<li>1 Letra Maiúscula no mínimo</li>
-<li>1 Número no mínimo</li>
-<li>1 Caracter especial no mínimo: $*&@#</li>
-<li>Não é permitido sequência como: aa, bb, 44, etc</li>
+<ul>
+    <li>Atenção: A senha é validada conforme o padrão abaixo:</li>
+    <li>8 caracteres no mínimo</li>
+    <li>1 Letra Maiúscula no mínimo</li>
+    <li>1 Número no mínimo</li>
+    <li>1 Caracter especial no mínimo: $*&@#</li>
+    <li>Não é permitido sequência como: aa, bb, 44, etc</li>
+    <li>A url abaixo, funciona para enviar o link no email para redefinição de senha</li>
+    <li>Ele deve ser a mesma url do front-end</li>
+</ul>
 
 > No seu .env adicione da seguinte forma:<br />
 
 > URL_FRONT_FORGOT_PASSWORD=link
-
-<li>A url acima, funciona para enviar o link no email para redefinição de senha</li>
-<li>Ele deve ser a mesma url do front-end</li>
 
 ### Body: POST
 ```
@@ -518,10 +518,10 @@ Em perfil é verdadeiro para admin e false para cliente.
 }
 ```
 
-Lembre-se de passar os parâmetros nas rotas de listagem.
-
+<ul>
 <li>?page=1&perPage=10&active=1</li>
 <li>?search=Hill&active=1</li>
+</ul>
 
 ### Resposta:
 
@@ -619,8 +619,10 @@ Lembre-se de passar os parâmetros nas rotas de listagem.
 
 Lembre-se de passar os parâmetros nas rotas de listagem.
 
-<li>?page=1&perPage=10&active=1</li>
-<li>?search=System=&active=1</li>
+<ul>
+    <li>?page=1&perPage=10&active=1</li>
+    <li>?search=System=&active=1</li>
+</ul>
 
 ### Body: PUT
 ```
