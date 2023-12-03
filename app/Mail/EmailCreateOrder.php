@@ -13,11 +13,7 @@ class EmailCreateOrder extends Mailable
 
     private array $order;
     private array $items;
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+
     public function __construct(array $order, array $items)
     {
         $this->order = $order;
