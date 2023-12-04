@@ -56,8 +56,6 @@ jobs:
         run: php artisan migrate
       - name: Create Table DiscagemDiretaDistancia
         run: php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
-      - name: Create Table MetodoPagamento
-        run: php artisan db:seed --class=MetodoPagamentoSeeder
       - name: Create Table Permission
         run: php artisan db:seed --class=PermissionSeeder
       - name: Create Table UnidadeFederativa
