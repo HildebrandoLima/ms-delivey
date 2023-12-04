@@ -20,9 +20,10 @@
                 <b>Quantidade de Itens:</b> {{ $order['quantidade_item'] ?? 0 }}
             </p>
             <p>
-                <b>Total Pago:</b> R${{ number_format($order['total'], 2, ',', '.') }}
+                <b>Total Pago:</b> R${{ number_format($order['total'], 2, ',', '.') }}&nbsp;&nbsp;&nbsp;
+                <b>Tipo da Entrega:</b> {{ $order['tipo_entrega'] ?? '' }}
                 &nbsp;&nbsp;&nbsp;
-                <b>Valor da Entrega:</b> R${{ number_format($order['entrega'], 2, ',', '.') }}
+                <b>Valor da Entrega:</b> R${{ number_format($order['valor_entrega'], 2, ',', '.') }}
             </p>
             @php
                 $count = 1;
