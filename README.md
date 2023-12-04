@@ -180,10 +180,8 @@ Crie o Arquivo .env
 
 <ul>
     <li>Execute o comando: docker-compose up -d</li>
-    <li>Entre no container app: docker-compose exec app bash</li>
-    <li>Instale as dependências do projeto: composer install</li>
-    <li>Gere a chave do projeto: php artisan key:generate</li>
-    <li>Depois execute o comando: php artisan optimize:clear</li>
+    <li>Entrar no container: docker exec -it name_container bash</li>
+    <li>Sair do container: exit</li>
     <li>Acesse o link: (http://localhost:8080/api/rota)</li>
 </ul>
 

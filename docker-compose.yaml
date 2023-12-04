@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
     app:
+        container_name: app
         build:
             context: .
             dockerfile: Dockerfile
@@ -11,8 +12,23 @@ services:
             - ./:/var/www
         networks:
             - laravel
+        command: >
+            sh -c "cp .env.example .env &&
+            php artisan key:generate &&
+            php artisan cache:clear &&
+            php artisan route:clear &&
+            php artisan optimize &&
+            php artisan config:clear &&
+            php artisan migrate &&
+            php artisan db:seed --class=DiscagemDiretaDistanciaSeeder &&
+            php artisan db:seed --class=PermissionSeeder &&
+            php artisan db:seed --class=UnidadeFederativaSeeder &&
+            php artisan test --filter=CreateFirstUserTest &&
+            php artisan test tests/Unit/Services &&
+            php artisan test tests/Feature"
 
     nginx:
+        container_name: nginx
         image: nginx:alpine
         restart: unless-stopped
         ports:
@@ -24,6 +40,7 @@ services:
             - laravel
 
     db:
+        container_name: db
         image: mysql:5.7.22
         restart: unless-stopped
         environment:
@@ -39,6 +56,7 @@ services:
             - laravel
 
     mailhog:
+        container_name: mailhog
         image: mailhog/mailhog
         depends_on:
             - app
@@ -49,6 +67,7 @@ services:
             - laravel
 
     queue:
+        container_name: queue
         image: especializati/laravel9-app
         restart: unless-stopped
         command: "php artisan queue:work"
