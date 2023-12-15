@@ -22,6 +22,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>CRUD de Pagamento</li>
     <li>Job (Disparo de e-mail ao cadastrar cliente/fornecedor)</li>
     <li>Job (Disparo de e-mail ao criar pedido)</li>
+    <li>Job (Atualização de Estoque)</li>
     <li>Validação de dados (CPF, CNPJ, CEP, E-mail, Telefone e Celular, EAN)</li>
     <li>Autenticação (login, logout e esqueci minha senha)</li>
     <li>Autenticação Solialite (GitHub, Google e Facebook)</li>
@@ -31,7 +32,6 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
 ### Funcionalidades (A desenvolver)
 <ul>
     <li>Integração com os Correios</li>
-    <li>Job (Atualização de Estoque)</li>
     <li>CRUD Caixa (Fluxo, Abertura e Fechamento)</li>
     <li>CRUD Promoção</li>
     <li>CRUD Desconto</li>
