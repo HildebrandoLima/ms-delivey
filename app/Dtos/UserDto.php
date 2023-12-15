@@ -23,7 +23,7 @@ class UserDto
     public function customizeMapping(array $data): void
     {
         $this->mapCommonFields($data);
-        $this->enderecos = EntityPerson::addrres($data['endereco'] ?? []) ?? [];
-        $this->telefones = EntityPerson::telephone($data['telefone'] ?? []) ?? [];
+        $this->enderecos = EntityPerson::addrres($data['endereco'] ?? []);
+        $this->telefones = EntityPerson::telephone($data['telefone'] ?? []);
     }
 }

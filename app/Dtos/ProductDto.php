@@ -24,6 +24,6 @@ class ProductDto
     public function customizeMapping(array $data): void
     {
         $this->mapCommonFields($data);
-        $this->imagens = EntityProduct::images($data['imagem'] ?? []) ?? [];
+        $this->imagens = EntityProduct::images($data['imagem'] ?? []);
     }
 }

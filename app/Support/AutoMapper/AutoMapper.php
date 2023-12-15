@@ -11,7 +11,10 @@ class AutoMapper
         foreach ($data as $key => $value):
             $property = self::convertSnakeToCamel($key);
             if (property_exists($dtoClass, $property)):
-                $dto->$property = $value;
+                if (is_null($dto->$property)):
+                    self::validateType($dto, $property, $value);
+                endif;
+                self::validateType($dto, $property, $value);
             endif;
         endforeach;
 
@@ -25,5 +28,26 @@ class AutoMapper
     private static function convertSnakeToCamel(string $input): string
     {
         return lcfirst(str_replace('_', '', ucwords($input, '_')));
+    }
+
+    private static function validateType(object $dto, string $property, $value): void
+    {
+        switch (true):
+            case is_int($dto->$property):
+                $dto->$property = $value ?? 0;
+            break;
+            case is_float($dto->$property):
+                $dto->$property = $value ?? 0.0;
+            break;
+            case is_string($dto->$property):
+                $dto->$property = $value ?? '';
+            break;
+            case is_array($dto->$property):
+                $dto->$property = $value ?? [];
+            break;
+            case is_bool($dto->$property):
+                $dto->$property = $value ?? false;
+            break;
+        endswitch;
     }
 }

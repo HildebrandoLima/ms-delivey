@@ -22,8 +22,8 @@ class OrderDto
     public function customizeMapping(array $data): void
     {
         $this->mapCommonFields($data);
-        $this->itens = EntityOrder::items($data['item'] ?? []) ?? [];
-        $this->pagamento = EntityOrder::payment($data['pagamento'] ?? []) ?? [];
-        $this->endereco = EntityPerson::addrres($data['endereco'] ?? '') ?? [];
+        $this->itens = EntityOrder::items($data['item'] ?? []);
+        $this->pagamento = EntityOrder::payment($data['pagamento'] ?? []);
+        $this->endereco = EntityPerson::addrres($data['endereco'] ?? []);
     }
 }

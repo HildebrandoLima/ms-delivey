@@ -19,7 +19,7 @@ class EntityProduct
     private static function map(array $data): ImageDto
     {
         $image = AutoMapper::map($data, ImageDto::class);
-        $image->caminho = Storage::disk('public')->url($data['caminho'])  ?? '';
+        $image->caminho = Storage::disk('public')->url($data['caminho']) ?? '';
         $image->produtoId = $data['produto_id'] ?? 0;
         return $image;
     }
