@@ -41,7 +41,7 @@ class OrderRepository implements IOrderRepository
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
-        return collect($collection);
+        return $collection;
     }
 
     private function query(): Builder

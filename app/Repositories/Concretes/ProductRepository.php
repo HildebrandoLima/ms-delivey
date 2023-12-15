@@ -35,7 +35,7 @@ class ProductRepository implements IProductRepository
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
-        return collect($collection);
+        return $collection;
     }
 
     private function hasPagination(string|int $search, bool $filter): Collection

@@ -41,7 +41,7 @@ class UserRepository implements IUserRepository
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
-        return collect($collection);
+        return $collection;
     }
 
     public function readCode(string $codigo): int
