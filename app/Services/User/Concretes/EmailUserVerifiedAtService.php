@@ -5,6 +5,7 @@ namespace App\Services\User\Concretes;
 use App\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
+use App\Support\Enums\AtivoEnum;
 
 class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
 {
@@ -25,7 +26,7 @@ class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
     {
         $user = new User();
         $user->id = $id;
-        $user->email_verified_at = 1;
+        $user->email_verificado = AtivoEnum::ATIVADO;
         return $user;
     }
 }

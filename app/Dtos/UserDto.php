@@ -15,14 +15,13 @@ class UserDto
     public string $email = "";
     public ?string $dataNascimento = "";
     public string $genero = "";
-    public ?bool $emailVerificado;
+    public ?bool $emailVerificado = false;
     public ?bool $eAdmin = false;
     public ?array $enderecos = [];
     public ?array $telefones = [];
 
     public function customizeMapping(array $data): void
     {
-        $this->emailVerificado = $data['email_verified_at'] ?? false;
         $this->mapCommonFields($data);
         $this->enderecos = EntityPerson::addrres($data['endereco'] ?? []) ?? [];
         $this->telefones = EntityPerson::telephone($data['telefone'] ?? []) ?? [];

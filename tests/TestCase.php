@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
 
     public function authenticate(int $perfil): Collection
     {
-        if ($perfil == 1):
+        if ($perfil === 1):
             $perfil = $this->authenticateAdmin();
         else:
             $perfil = $this->authenticateCliente();

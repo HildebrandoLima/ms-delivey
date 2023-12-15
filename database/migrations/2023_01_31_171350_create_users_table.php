@@ -24,9 +24,9 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamp('data_nascimento')->nullable()->default(NULL);
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
+            $table->boolean('email_verificado')->nullable()->default(NULL);
             $table->boolean('e_admin');
             $table->boolean('ativo');
-            $table->boolean('email_verified_at')->nullable()->default(NULL);
             $table->timestamps();
         });
     }
