@@ -6,6 +6,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthSocialController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -48,6 +49,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     //  Endereço
     Route::prefix('address')->group(function () {
+        Route::get('/search/{cep}', [IntegrationController::class, 'show'])->name('integration.viacep');
         Route::put('/edit', [AddressController::class, 'update'])->name('address.edit')->middleware('jwt-authenticated');
         Route::post('/save', [AddressController::class, 'store'])->name('address.save');
     });
@@ -103,4 +105,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::put('/edit', [UserController::class, 'update'])->name('user.edit')->middleware('jwt-authenticated');
         Route::post('/save', [UserController::class, 'store'])->name('user.save');
     });
+
 //});
