@@ -32,6 +32,7 @@ use App\Services\User\Abstracts\IListUserService;
 
 use App\Services\Address\Concretes\CreateAddressService;
 use App\Services\Address\Concretes\EditAddressService;
+use App\Services\Address\Concretes\IntegrationViaCepService;
 use App\Services\Auth\Concretes\ForgotPasswordService;
 use App\Services\Auth\Concretes\LoginService;
 use App\Services\Auth\Concretes\LogoutService;
@@ -71,6 +72,8 @@ class ServicesDependencyInjection extends ServiceProvider
         $this->app->bind(ICreateAddressService::class, CreateAddressService::class);
 
         $this->app->bind(IEditAddressService::class, EditAddressService::class);
+
+        $this->app->bind(IntegrationViaCepService::class, IntegrationViaCepService::class);
 
         $this->app->bind(IForgotPasswordService::class, ForgotPasswordService::class);
 

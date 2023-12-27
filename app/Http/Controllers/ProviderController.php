@@ -10,6 +10,7 @@ use App\Http\Requests\Provider\PermissonProviderRequest;
 use App\Services\Provider\Abstracts\ICreateProviderService;
 use App\Services\Provider\Abstracts\IEditProviderService;
 use App\Services\Provider\Abstracts\IListProviderService;
+use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +33,12 @@ class ProviderController extends Controller
         $this->listProviderService   = $listProviderService;
     }
 
-    public function index(PermissonProviderRequest $request, Search $search, FilterByActive $filter): Response
+    public function index(PermissonProviderRequest $request, Pagination $pagination, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
             (
+                $pagination,
                 $search->search(request()),
                 $filter->active
             );
