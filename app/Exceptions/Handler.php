@@ -55,9 +55,9 @@ class Handler extends ExceptionHandler
                     response()->json([
                         "message" => DefaultErrorMessages::NOT_FOUND,
                         "data" => [],
-                        "status" => Response::HTTP_BAD_REQUEST,
+                        "status" => Response::HTTP_NOT_FOUND,
                         "details" => $e->getMessage()
-                    ], Response::HTTP_BAD_REQUEST)
+                    ], Response::HTTP_NOT_FOUND)
                 );
             }
         });
