@@ -1,6 +1,6 @@
 ## API DE DELIVERY
 
-Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery, e-commerce e pdv). Nela abordo temas com foco em POO, DTOs, padrões de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Migrations, Eloquent, Relationships, Factories, Seeders, Storage (Upload Múltiplo de Imagens), Autenticação padrão JWT e Solialite, Permissões, Providers, Mails, Jobs (envio de e-mails e atualização de estoque), ambiente com Docker, e TDD (Testes de integração e de unidade). A documentação abaixo da api, será separada, melhoradada, na próxima release após a versão dos testes.
+Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O projeto resulta em uma api flexível para aplicações como: (delivery, e-commerce e pdv). Nela abordo temas com foco em POO, DTOs, padrões de projetos, SOLID, arquitetura limpa e distribuída. Bem como o ecossistema do Framework em si: Migrations, Eloquent, Relationships, Factories, Seeders, Storage (Upload Múltiplo de Imagens), Autenticação padrão JWT e Solialite, Permissões, Providers, Mails, Jobs (envio de e-mails e atualização de estoque), ambiente com Docker, e TDD (Testes de integração e de unidade). A documentação abaixo da api, será separada, melhoradada.
 
 ### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
@@ -38,6 +38,10 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. O
     <li>CRUD NF-e</li>
     <li>CRUD Faturamento</li>
 </ul>
+
+### Segue abaixo link da documentação completa incluindo UML, diagmara de classes, modelagem de classes e detalhes da arquitetura.
+
+[Clique Aqui!!!](https://drive.google.com/file/d/1ZXPKYphXT_yArgcid6dKTTDCi5IUpCAg/view?usp=sharing)
 
 ## UML
 ### Visão Cliente<br/>
