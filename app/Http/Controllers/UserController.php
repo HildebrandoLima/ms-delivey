@@ -11,6 +11,7 @@ use App\Services\User\Abstracts\ICreateUserService;
 use App\Services\User\Abstracts\IEditUserService;
 use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
 use App\Services\User\Abstracts\IListUserService;
+use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,11 +37,12 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService =   $emailUserVerifiedAtService;
     }
 
-    public function index(PermissonUserRequest $request, Search $search, FilterByActive $filter): Response
+    public function index(PermissonUserRequest $request, Pagination $pagination, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserAll
             (
+                $pagination,
                 $search->search(request()),
                 $filter->active
             );
