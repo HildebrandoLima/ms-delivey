@@ -13,6 +13,11 @@ class ServicesDependencyInjection extends ServiceProvider
         $this->mapBindServices(AuthSocialDi::$interfaces, AuthSocialDi::$concretes);
         $this->mapBindServices(CategoryDi::$interfaces, CategoryDi::$concretes);
         $this->mapBindServices(OrderDi::$interfaces, OrderDi::$concretes);
+        $this->mapBindServices(PaymentDi::$interfaces, PaymentDi::$concretes);
+        $this->mapBindServices(ProductDi::$interfaces, ProductDi::$concretes);
+        $this->mapBindServices(ProviderDi::$interfaces, ProviderDi::$concretes);
+        $this->mapBindServices(TelephoneDi::$interfaces, TelephoneDi::$concretes);
+        $this->mapBindServices(UserDi::$interfaces, UserDi::$concretes);
     }
 
     protected function mapBindServices(array $interfaces, array $concretes): void
