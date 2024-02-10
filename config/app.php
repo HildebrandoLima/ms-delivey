@@ -200,8 +200,8 @@ return [
         /*
         Application Service Providers/DependencyInjection...
         */
-        App\Providers\DependencyInjection\Repositories\RepositoriesDependencyInjection::class,
-        App\Providers\DependencyInjection\Services\ServicesDependencyInjection::class,
+        App\Providers\DependencyInjection\Repositories\DependencyInjection::class,
+        App\Providers\DependencyInjection\Services\DependencyInjection::class,
 
     ],
 
