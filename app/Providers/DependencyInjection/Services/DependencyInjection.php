@@ -4,7 +4,7 @@ namespace App\Providers\DependencyInjection\Services;
 
 use Carbon\Laravel\ServiceProvider;
 
-class ServicesDependencyInjection extends ServiceProvider
+class DependencyInjection extends ServiceProvider
 {
     public function register(): void
     {
