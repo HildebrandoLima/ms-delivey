@@ -36,11 +36,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     //  Autenticação
     Route::prefix('auth')->group(function () {
-        // Social
+        // Socialite
         Route::get('/login/social/{provider}', [AuthSocialController::class, 'redirectToProvider'])->name('social.login');
         Route::get('/login/social/{provider}/callback', [AuthSocialController::class, 'handleProviderCallback'])->name('social.callback');
 
-        // Trandicional
+        // JWT
         Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
         Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('jwt-authenticated');
         Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot');
