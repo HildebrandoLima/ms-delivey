@@ -2,36 +2,24 @@
 
 namespace App\Services\AuthSocial\Concretes;
 
+use App\Models\PermissionUser;
 use App\Models\User;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IPermissionRepository;
-use App\Repositories\Abstracts\IUserRepository;
 use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Support\Enums\AtivoEnum;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class HandleProviderCallbackService implements IHandleProviderCallbackService
 {
-    private IEntityRepository     $entityRepository;
-    private IUserRepository       $userRepository;
     private IPermissionRepository $permissionRepository;
     private User $user;
     private $userSocial;
     private string $provider = '';
     private array $permissions = [3, 4, 7, 10, 11, 14, 18, 19];
 
-    public function __construct
-    (
-        IEntityRepository     $entityRepository,
-        IUserRepository       $userRepository,
-        IPermissionRepository $permissionRepository,
-    )
+    public function __construct(IPermissionRepository $permissionRepository)
     {
-        $this->entityRepository     = $entityRepository;
-        $this->userRepository       = $userRepository;
         $this->permissionRepository = $permissionRepository;
     }
 
@@ -39,19 +27,14 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
     {
         $this->provider = $provider;
         $this->userSocial = Socialite::driver($this->provider)->stateless()->user();
-        $this->createUserSocial();
-        return collect(['accessToken' => JWTAuth::fromUser($this->user)]);
+        $user = $this->validateUser();
+        $this->createPermission($user->id);
+        return collect(['accessToken' => auth()->login($this->user)]);
     }
 
-    private function createUserSocial(): User
+    private function validateUser(): User
     {
-        $userModel = $this->map();
-        $checkUser = $this->checkExist();
-        if (is_null($checkUser)):
-            $userId = $this->entityRepository->create($userModel);
-            $this->createPermission($userId);
-        endif;
-        $this->user = $this->user();
+        $this->user = User::firstOrCreate(['email' => $this->userSocial->getEmail()], [$this->map()]);
         return $this->user;
     }
 
@@ -61,33 +44,31 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
         $user->login_social_id = $this->userSocial->getId();
         $user->login_social = $this->provider;
         $user->nome = $this->userSocial->getName();
+        $user->cpf = null;
         $user->email = $this->userSocial->getEmail();
-        $user->email_verified_at = true;
+        $user->password = null;
+        $user->data_nascimento = null;
+        $user->genero = 'Outro';
+        $user->email_verificado = true;
         $user->e_admin = false;
         $user->ativo = AtivoEnum::ATIVADO;
         return $user;
     }
 
-    private function checkExist(): int|null
-    {
-        $check = $this->userRepository->readSocial($this->userSocial->getEmail());
-        if (is_null($check)):
-            return null;
-        else:
-            return 1;
-        endif;
-    }
-
     private function createPermission(int $userId): bool
     {
         foreach ($this->permissions as $permission):
-            $this->permissionRepository->create($userId, $permission);
+            $permission = $this->mapPermission($userId, $permission);
+            $this->permissionRepository->create($permission);
         endforeach;
         return true;
     }
 
-    private function user(): Model
+    private function mapPermission(int $userId, int $permission): PermissionUser
     {
-        return $this->userRepository->readSocial($this->userSocial->getEmail());
+        $permissionUser = new PermissionUser();
+        $permissionUser->user_id = $userId;
+        $permissionUser->permission_id = $permission;
+        return $permissionUser;
     }
 }

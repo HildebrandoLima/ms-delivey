@@ -10,7 +10,6 @@ use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -74,11 +73,6 @@ class UserRepository implements IUserRepository
         return User::query()
         ->join('password_resets as pr', 'pr.email', '=', 'users.email')
         ->select('users.id')->where('pr.codigo', '=', $codigo)->get()->toArray()[0]['id'];
-    }
-
-    public function readSocial(string $email): Model|null
-    {
-        return User::query()->where('users.email', '=', $email)->first();
     }
 
     public function delete(string $codigo): bool

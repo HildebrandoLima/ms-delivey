@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exceptions\SystemDefaultException;
 use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Services\AuthSocial\Abstracts\IRedirectToProviderService;
+use App\Support\Utils\Messages\DefaultErrorMessages;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,12 +31,12 @@ class AuthSocialController extends Controller
         return $this->redirectToProviderService->redirectToProvider($provider);
     }
 
-    public function handleProviderCallback($provider): Response
+    public function handleProviderCallback(string $provider): Response
     {
         try {
             $this->validateProvider($provider);
             $success = $this->handleProviderCallbackService->handleProviderCallback($provider);
-            if (!isset ($success)):
+            if (!isset($success)):
                 return response()->json([
                     "message" => "Error ao efetuar login!",
                     "data" => [],
@@ -53,10 +55,18 @@ class AuthSocialController extends Controller
         }
     }
 
-    private function validateProvider(string $provider): Response
+    private function validateProvider(string $provider): void
     {
         if (!in_array($provider, ['facebook', 'google', 'github'])):
-            return Controller::error();
+            throw new HttpResponseException
+            (
+                response()->json([
+                    "message" => DefaultErrorMessages::NOT_FOUND,
+                    "data" => [],
+                    "status" => Response::HTTP_BAD_REQUEST,
+                    "details" => ""
+                ], Response::HTTP_BAD_REQUEST)
+            );
         endif;
     }
 }
