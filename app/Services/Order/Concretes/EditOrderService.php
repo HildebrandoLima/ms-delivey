@@ -31,7 +31,7 @@ class EditOrderService implements IEditOrderService
         return $this->orderRepository->update($order);
     }
 
-    private function mapItem(int $id, bool $ativo): Item
+    public function mapItem(int $id, bool $ativo): Item
     {
         $item = new Item();
         $item->id = $id;
@@ -39,7 +39,7 @@ class EditOrderService implements IEditOrderService
         return $item;
     }
 
-    private function mapOrder(ParamsOrderRequest $request): Pedido
+    public function mapOrder(ParamsOrderRequest $request): Pedido
     {
         $order = new Pedido();
         $order->id = $request->id;

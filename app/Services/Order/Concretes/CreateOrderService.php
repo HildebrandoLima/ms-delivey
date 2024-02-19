@@ -29,7 +29,7 @@ class CreateOrderService implements ICreateOrderService
         return $orderId;
     }
 
-    private function mapOrder(CreateOrderRequest $request): Pedido
+    public function mapOrder(CreateOrderRequest $request): Pedido
     {
         $order = new Pedido();
         $order->numero_pedido = random_int(100000000, 999999999);
@@ -43,7 +43,7 @@ class CreateOrderService implements ICreateOrderService
         return $order;
     }
 
-    private function createItem(CreateOrderRequest $request, int $orderId): bool
+    public function createItem(CreateOrderRequest $request, int $orderId): bool
     {
         foreach ($request->itens as $item):
             $items = $this->mapItem($item, $orderId);
@@ -52,7 +52,7 @@ class CreateOrderService implements ICreateOrderService
         return true;
     }
 
-    private function mapItem(array $item, int $orderId): Item
+    public function mapItem(array $item, int $orderId): Item
     {
         $itens = new Item();
         $itens->nome = $item['nome'];
