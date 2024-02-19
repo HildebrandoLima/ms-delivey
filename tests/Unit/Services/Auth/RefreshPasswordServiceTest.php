@@ -39,12 +39,7 @@ class RefreshPasswordServiceTest extends TestCase
         });
 
         // Act
-        $refreshPasswordService = new RefreshPasswordService
-        (
-            $this->authRepository,
-            $this->userRepository
-        );
-
+        $refreshPasswordService = new RefreshPasswordService($this->authRepository, $this->userRepository);
         $result = $refreshPasswordService->refreshPassword($this->request);
 
         // Assert
