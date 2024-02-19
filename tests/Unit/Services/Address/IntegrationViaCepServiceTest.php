@@ -15,7 +15,6 @@ class IntegrationViaCepServiceTest extends TestCase
     {
         // Arrange
         $cep = rand(10000, 20000) . '-' . rand(100, 200);
-
         $expectedResult = collect([]);
 
         $this->integrationViaCep = $this->mock(IntegrationViaCep::class,
@@ -25,7 +24,6 @@ class IntegrationViaCepServiceTest extends TestCase
 
         // Act
         $integrationViaCepService = new IntegrationViaCepService($this->integrationViaCep);
-
         $result = $integrationViaCepService->integrationViaCep($cep);
 
         // Assert

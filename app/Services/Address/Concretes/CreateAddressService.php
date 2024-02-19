@@ -23,7 +23,7 @@ class CreateAddressService implements ICreateAddressService
         return $this->addressRepository->create($address);
     }
 
-    private function map(CreateAddressRequest $request): Endereco
+    public function map(CreateAddressRequest $request): Endereco
     {
         $address = new Endereco();
         $address->logradouro = $request->logradouro;

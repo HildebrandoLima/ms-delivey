@@ -23,7 +23,7 @@ class EditAddressService implements IEditAddressService
         return $this->addressRepository->update($address);
     }
 
-    private function map(EditAddressRequest $request): Endereco
+    public function map(EditAddressRequest $request): Endereco
     {
         $address = new Endereco();
         $address->id = $request->id;
