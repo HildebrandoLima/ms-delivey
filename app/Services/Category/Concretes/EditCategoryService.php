@@ -23,7 +23,7 @@ class EditCategoryService implements IEditCategoryService
         return $this->categoryRepository->update($category);
     }
 
-    private function map(EditCategoryRequest $request): Categoria
+    public function map(EditCategoryRequest $request): Categoria
     {
         $category = new Categoria();
         $category->id = $request->id;
