@@ -28,7 +28,7 @@ class CreateOrderServiceTest extends TestCase
     {
         // Arrange
         $createdOrder = Pedido::query()->first();
-        $createdItems = Item::query()->where('pedido_id', '=', $createdOrder->id)->get();
+        $createdItems = Item::query()->where('pedido_id', '=', $createdOrder->id)->first();
         $this->request = new CreateOrderRequest();
         $this->request['quantidadeItens'] = $createdOrder->quantidade_itens;
         $this->request['total'] = $createdOrder->total;
@@ -37,11 +37,11 @@ class CreateOrderServiceTest extends TestCase
         $this->request['usuarioId'] = $createdOrder->usuario_id;
         $this->request['itens'] = [
             [
-                'nome' => $createdItems[0]->nome,
-                'preco' => $createdItems[0]->preco,
-                'quantidadeItem' => $createdItems[0]->quantidade_item,
-                'subTotal' => $createdItems[0]->sub_total,
-                'produtoId' => $createdItems[0]->produto_id,
+                'nome' => $createdItems->nome,
+                'preco' => $createdItems->preco,
+                'quantidadeItem' => $createdItems->quantidade_item,
+                'subTotal' => $createdItems->sub_total,
+                'produtoId' => $createdItems->produto_id,
             ]
         ];
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -79,11 +79,11 @@ class CreateOrderServiceTest extends TestCase
         $this->assertTrue($resultItems);
         $this->assertInstanceOf(Item::class, $mappedItems);
         $this->assertIsArray($this->request['itens']);
-        $this->assertEquals($itens['nome'], $createdItems[0]->nome);
-        $this->assertEquals($itens['preco'], $createdItems[0]->preco);
-        $this->assertEquals($itens['quantidadeItem'], $createdItems[0]->quantidade_item);
-        $this->assertEquals($itens['subTotal'], $createdItems[0]->sub_total);
-        $this->assertEquals($itens['produtoId'], $createdItems[0]->produto_id);
+        $this->assertEquals($itens['nome'], $createdItems->nome);
+        $this->assertEquals($itens['preco'], $createdItems->preco);
+        $this->assertEquals($itens['quantidadeItem'], $createdItems->quantidade_item);
+        $this->assertEquals($itens['subTotal'], $createdItems->sub_total);
+        $this->assertEquals($itens['produtoId'], $createdItems->produto_id);
 
         Queue::assertPushed(InventoryManagementJob::class, function ($items) {
             return $items;
