@@ -53,9 +53,9 @@ class EditProviderServiceTest extends TestCase
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Fornecedor::class, $mappedProvider);
         $this->assertInstanceOf(Endereco::class, $mappedAddress);
         $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertInstanceOf(Fornecedor::class, $mappedProvider);
         $this->assertEquals($this->request['id'], $editedProvider->id);
         $this->assertEquals($this->request['razaoSocial'], $editedProvider->razao_social);
         $this->assertEquals($this->request['cnpj'], $editedProvider->cnpj);
