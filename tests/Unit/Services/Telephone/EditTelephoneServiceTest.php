@@ -18,8 +18,14 @@ class EditTelephoneServiceTest extends TestCase
     public function test_success_edit_telephone_with_params_user_id_service(): void
     {
         // Arrange
+        $editedTelephone = Telefone::query()->first();
         $this->request = new EditTelephoneRequest();
-
+        $this->request['id'] = $editedTelephone->id;
+        $this->request['ddd'] = $editedTelephone->ddd;
+        $this->request['numero'] = $editedTelephone->numero;
+        $this->request['tipo'] = $editedTelephone->tipo;
+        $this->request['usuarioId'] = $editedTelephone->usuario_id;
+        $this->request['ativo'] = $editedTelephone->ativo;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -33,18 +39,31 @@ class EditTelephoneServiceTest extends TestCase
 
         // Act
         $editTelephoneService = new EditTelephoneService($this->telephoneRepository);
-
         $result = $editTelephoneService->editTelephone($this->request);
+        $mappedTelephone = $editTelephoneService->map($this->request);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertEquals($this->request['id'], $editedTelephone->id);
+        $this->assertEquals($this->request['ddd'], $editedTelephone->ddd);
+        $this->assertEquals($this->request['numero'], $editedTelephone->numero);
+        $this->assertEquals($this->request['tipo'], $editedTelephone->tipo);
+        $this->assertEquals($this->request['usuarioId'], $editedTelephone->usuario_id);
+        $this->assertEquals($this->request['ativo'], $editedTelephone->ativo);
     }
 
     public function test_success_edit_telephone_with_params_provider_id_service(): void
     {
         // Arrange
+        $editedTelephone = Telefone::query()->first();
         $this->request = new EditTelephoneRequest();
-
+        $this->request['id'] = $editedTelephone->id;
+        $this->request['ddd'] = $editedTelephone->ddd;
+        $this->request['numero'] = $editedTelephone->numero;
+        $this->request['tipo'] = $editedTelephone->tipo;
+        $this->request['fornecedorId'] = $editedTelephone->fornecedor_id;
+        $this->request['ativo'] = $editedTelephone->ativo;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -58,10 +77,17 @@ class EditTelephoneServiceTest extends TestCase
 
         // Act
         $editTelephoneService = new EditTelephoneService($this->telephoneRepository);
-
         $result = $editTelephoneService->editTelephone($this->request);
+        $mappedTelephone = $editTelephoneService->map($this->request);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertEquals($this->request['id'], $editedTelephone->id);
+        $this->assertEquals($this->request['ddd'], $editedTelephone->ddd);
+        $this->assertEquals($this->request['numero'], $editedTelephone->numero);
+        $this->assertEquals($this->request['tipo'], $editedTelephone->tipo);
+        $this->assertEquals($this->request['fornecedorId'], $editedTelephone->fornecedor_id);
+        $this->assertEquals($this->request['ativo'], $editedTelephone->ativo);
     }
 }

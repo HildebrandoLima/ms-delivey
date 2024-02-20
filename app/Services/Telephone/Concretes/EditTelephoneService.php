@@ -24,7 +24,7 @@ class EditTelephoneService implements IEditTelephoneService
         return true;
     }
 
-    private function map(EditTelephoneRequest $request): Telefone
+    public function map(EditTelephoneRequest $request): Telefone
     {
         $telephone = new Telefone();
         $telephone->id = $request->id;

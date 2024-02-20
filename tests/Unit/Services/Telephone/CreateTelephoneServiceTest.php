@@ -17,7 +17,16 @@ class CreateTelephoneServiceTest extends TestCase
     public function test_success_create_telephone_with_params_user_id_service(): void
     {
         // Arrange
-        $this->request = new CreateTelephoneRequest();
+        $createdTelephone = Telefone::query()->first();
+        $this->request = new CreateTelephoneRequest([
+                [
+                    'ddd' => 85,
+                    'numero' => $createdTelephone->numero,
+                    'tipo' => $createdTelephone->tipo,
+                    'usuarioId' => $createdTelephone->usuario_id,
+                ]
+            ]
+        );
 
         $this->telephoneRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
@@ -26,17 +35,31 @@ class CreateTelephoneServiceTest extends TestCase
 
         // Act
         $createTelephoneService = new CreateTelephoneService($this->telephoneRepository);
-
         $result = $createTelephoneService->createTelephone($this->request);
+        $mappedTelephone = $createTelephoneService->map($this->request[0]);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertEquals($this->request[0]['ddd'], 85);
+        $this->assertEquals($this->request[0]['numero'], $createdTelephone->numero);
+        $this->assertEquals($this->request[0]['tipo'], $createdTelephone->tipo);
+        $this->assertEquals($this->request[0]['usuarioId'], $createdTelephone->usuario_id);
     }
 
     public function test_success_create_telephone_with_params_provider_id_service(): void
     {
         // Arrange
-        $this->request = new CreateTelephoneRequest();
+        $createdTelephone = Telefone::query()->first();
+        $this->request = new CreateTelephoneRequest([
+                [
+                    'ddd' => 85,
+                    'numero' => $createdTelephone->numero,
+                    'tipo' => $createdTelephone->tipo,
+                    'fornecedorId' => $createdTelephone->fornecedor_id,
+                ]
+            ]
+        );
 
         $this->telephoneRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
@@ -45,10 +68,15 @@ class CreateTelephoneServiceTest extends TestCase
 
         // Act
         $createTelephoneService = new CreateTelephoneService($this->telephoneRepository);
-
         $result = $createTelephoneService->createTelephone($this->request);
+        $mappedTelephone = $createTelephoneService->map($this->request[0]);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertEquals($this->request[0]['ddd'], 85);
+        $this->assertEquals($this->request[0]['numero'], $createdTelephone->numero);
+        $this->assertEquals($this->request[0]['tipo'], $createdTelephone->tipo);
+        $this->assertEquals($this->request[0]['fornecedorId'], $createdTelephone->fornecedor_id);
     }
 }
