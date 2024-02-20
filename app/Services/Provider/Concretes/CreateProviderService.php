@@ -22,11 +22,11 @@ class CreateProviderService implements ICreateProviderService
     {
         $provider = $this->map($request);
         $providerId = $this->providerRepository->create($provider);
-        if ($providerId) $this->dispatchJob($providerId, $request->email);
+        if ($providerId) $this->dispatchJob($request->email, $providerId);
         return $providerId;
     }
 
-    private function map(CreateProviderRequest $request): Fornecedor
+    public function map(CreateProviderRequest $request): Fornecedor
     {
         $provider = new Fornecedor();
         $provider->razao_social = $request->razaoSocial;
@@ -37,7 +37,7 @@ class CreateProviderService implements ICreateProviderService
         return $provider;
     }
 
-    private function dispatchJob(int $providerId, string $email): void
+    private function dispatchJob(string $email, int $providerId): void
     {
         EmailForRegisterJob::dispatch($email, $providerId);
     }
