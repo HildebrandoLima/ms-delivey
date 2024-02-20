@@ -15,6 +15,8 @@ class EmailUserVerifiedAtServiceTest extends TestCase
     public function test_success_user_email_verified_at_service(): void
     {
         // Arrange
+        $id = rand(0, 100);
+
         $this->userRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
                 $mock->shouldReceive('update')->with(User::class)->andReturn(true);
@@ -22,10 +24,11 @@ class EmailUserVerifiedAtServiceTest extends TestCase
 
         // Act
         $emailUserVerifiedAtService = new EmailUserVerifiedAtService($this->userRepository);
-
-        $result = $emailUserVerifiedAtService->emailVerifiedAt(rand(1, 100), true);
+        $result = $emailUserVerifiedAtService->emailVerifiedAt($id);
+        $mappedUser = $emailUserVerifiedAtService->map($id);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(User::class, $mappedUser);
     }
 }

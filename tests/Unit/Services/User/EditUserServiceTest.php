@@ -22,9 +22,17 @@ class EditUserServiceTest extends TestCase
     public function test_success_edit_user_service(): void
     {
         // Arrange
+        $editedUser = User::query()->first();
+        $itemAndOrder = Item::query()->join('pedido as p', 'p.id', '=', 'item.pedido_id')
+        ->where('p.usuario_id', '=', $editedUser->id)->first()->toArray();
+        $address = Endereco::query()->where('usuario_id', '=', $editedUser->id)->first()->toArray();
+        $telephone = Telefone::query()->where('usuario_id', '=', $editedUser->id)->first()->toArray();
         $this->request = new EditUserRequest();
-        $this->request['id'] = rand(1, 100);
-
+        $this->request['id'] = $editedUser->id;
+        $this->request['nome'] = $editedUser->nome;
+        $this->request['email'] = $editedUser->email;
+        $this->request['genero'] = $editedUser->genero;
+        $this->request['ativo'] = $editedUser->e_admin;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -44,10 +52,25 @@ class EditUserServiceTest extends TestCase
 
         // Act
         $editUserService = new EditUserService($this->userRepository);
-
         $result = $editUserService->editUser($this->request);
+        $mappedUser = $editUserService->mapUser($this->request);
+        $mappedItem = $editUserService->mapItem($itemAndOrder['id'], $itemAndOrder['ativo']);
+        $mappedOrder = $editUserService->mapOrder($itemAndOrder['pedido_id'], $itemAndOrder['ativo']);
+        $mappedAddress = $editUserService->mapAddress($address['id'], $address['ativo']);
+        $mappedTelephone = $editUserService->mapTelephone($telephone['id'], $telephone['ativo']);
+        $mappedUser = $editUserService->mapUser($this->request);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Item::class, $mappedItem);
+        $this->assertInstanceOf(Pedido::class, $mappedOrder);
+        $this->assertInstanceOf(Endereco::class, $mappedAddress);
+        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertInstanceOf(User::class, $mappedUser);
+        $this->assertEquals($this->request['id'], $editedUser->id);
+        $this->assertEquals($this->request['nome'], $editedUser->nome);
+        $this->assertEquals($this->request['email'], $editedUser->email);
+        $this->assertEquals($this->request['genero'], $editedUser->genero);
+        $this->assertEquals($this->request['ativo'], $editedUser->ativo);
     }
 }
