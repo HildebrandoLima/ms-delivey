@@ -6,28 +6,40 @@ use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
+use App\Repositories\Abstracts\IProductRepository;
 use App\Services\Product\Abstracts\ICreateProductService;
 use App\Support\Enums\AtivoEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
 class CreateProductService implements ICreateProductService
 {
-    private IEntityRepository $entityRepository;
+    private IEntityRepository   $entityRepository;
+    private IProductRepository  $productRepository;
 
-    public function __construct(IEntityRepository $entityRepository)
+    public function __construct(IEntityRepository $entityRepository, IProductRepository $productRepository)
     {
-        $this->entityRepository = $entityRepository;
+        $this->entityRepository  = $entityRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function createProduct(CreateProductRequest $request): bool
     {
         $product = $this->mapProduct($request);
         $productId = $this->entityRepository->create($product);
-        $this->createImage($request, $productId);
-        return true;
+        if ($productId):
+            $image = $this->createImage($request, $productId);
+            if ($image):
+                return true;
+            else:
+                $this->productRepository->delete($productId);
+            return false;
+            endif;
+        else:
+            return false;
+        endif;
     }
 
-    private function mapProduct(CreateProductRequest $request): Produto
+    public function mapProduct(CreateProductRequest $request): Produto
     {
         $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($request->precoCusto));
         $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($request->precoVenda));
@@ -48,7 +60,7 @@ class CreateProductService implements ICreateProductService
         return $product;
     }
 
-    private function directory(string $productName): string
+    public function directory(string $productName): string
     {
         $swapSpaceForUnderline = str_replace(' ', '_', $productName);
         $changeUppercaseLettersToLowercaseLetters = strtolower($swapSpaceForUnderline);
@@ -57,18 +69,22 @@ class CreateProductService implements ICreateProductService
         return $directory;
     }
 
-    private function createImage(CreateProductRequest $request, int $productId): bool
+    public function createImage(CreateProductRequest $request, int $productId): bool
     {
         $uploadedImages = [];
-        if ($request->hasFile('imagens')):
-            $images = $request->file('imagens');
+        if ($request['imagens']):
+            $images = $request['imagens'];
             $directory = $this->directory($request->nome);
             foreach ($images as $image):
-                $imageName = $image->getClientOriginalName();
-                $image->storeAs($directory, $imageName, 'public');
-                $uploadedImages[] = $imageName;
-                $imageModel = $this->mapImage($directory . '/' . $imageName, $productId);
-                $this->entityRepository->create($imageModel);
+                if ($image->isValid()):
+                    $imageName = $image->getClientOriginalName();
+                    $image->storeAs($directory, $imageName, 'public');
+                    $uploadedImages[] = $imageName;
+                    $imageModel = $this->mapImage($directory . '/' . $imageName, $productId);
+                    $this->entityRepository->create($imageModel);
+                else:
+                    return false;
+                endif;
             endforeach;
             return true;
         else:
@@ -76,7 +92,7 @@ class CreateProductService implements ICreateProductService
         endif;
     }
 
-    private function mapImage(string $path, int $productId): Imagem
+    public function mapImage(string $path, int $productId): Imagem
     {
         $image = new Imagem();
         $image->caminho = $path;
