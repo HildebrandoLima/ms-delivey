@@ -13,8 +13,7 @@ class EditProviderRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
-        return true;
+        return $this->validationPermission(PermissionEnum::EDITAR_FORNECEDOR);
     }
 
     public function rules(): array

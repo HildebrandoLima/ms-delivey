@@ -13,8 +13,7 @@ class EditAddressRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_ENDERECO);
-        return true;
+        return $this->validationPermission(PermissionEnum::EDITAR_ENDERECO);
     }
 
     public function rules(): array

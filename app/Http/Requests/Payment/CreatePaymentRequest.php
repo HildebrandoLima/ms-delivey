@@ -14,8 +14,7 @@ class CreatePaymentRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::CRIAR_PAGAMENTO);
-        return true;
+        return $this->validationPermission(PermissionEnum::CRIAR_PAGAMENTO);
     }
 
     public function rules(): array

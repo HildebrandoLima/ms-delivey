@@ -13,15 +13,14 @@ class EditCategoryRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_CATEGORIA);
-        return true;
+        return $this->validationPermission(PermissionEnum::EDITAR_CATEGORIA);
     }
 
     public function rules(): array
     {
         return [
             'id' => 'required|int|exists:categoria,id',
-            'nome' => 'required|string',
+            'nome' => 'required|string|unique:categoria,nome',
             'ativo' => 'required|boolean',
         ];
     }
@@ -30,6 +29,7 @@ class EditCategoryRequest extends BaseRequest
     {
         return [
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
+            'nome.unique' => DefaultErrorMessages::ALREADY_EXISTING,
 
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,
