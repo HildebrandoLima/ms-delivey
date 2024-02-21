@@ -45,7 +45,7 @@ class InventoryManagementJob implements ShouldQueue
     private function calculateQuantity(array $item): int
     {
         $product = new ProductRepository();
-        $currentQuantity = $product->readOne($item['produtoId'], 1)->toArray()[0]->quantidade;
+        $currentQuantity = $product->readOne($item['produtoId'], 1)->first()->quantidade;
         $quantity = $currentQuantity - $item['quantidadeItem'];
         $this->newQuantity = $quantity;
         return $this->newQuantity;

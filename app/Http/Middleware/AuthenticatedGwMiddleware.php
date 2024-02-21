@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Support\Utils\Messages\DefaultErrorMessages;
+use App\Exceptions\BaseResponseError;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,27 +27,19 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
         try {
             JWTAuth::parseToken()->authenticate();
         } catch(Exception $e) {
-            if ($e instanceof TokenInvalidException) {
-               $this->getResponse();
-            } elseif ($e instanceof TokenExpiredException) {
-               $this->getResponse();
-            } else {
-               $this->getResponse();
-            }
+            if ($e instanceof TokenInvalidException):
+               $this->getResponse($e);
+            elseif ($e instanceof TokenExpiredException):
+               $this->getResponse($e);
+            else:
+               $this->getResponse($e);
+            endif;
         }
         return $next($request);
     }
 
-    private function getResponse(): void
+    private function getResponse(TokenInvalidException|TokenExpiredException $e): void
     {
-        throw new HttpResponseException
-        (
-            response()->json([
-                "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
-                "data" => [],
-                "status" => Response::HTTP_UNAUTHORIZED,
-                "details" => ""
-            ], Response::HTTP_UNAUTHORIZED)
-        );
+        throw new HttpResponseException(BaseResponseError::httpUnauthorized($e));
     }
 }

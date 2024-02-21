@@ -32,7 +32,7 @@ class EditProductService implements IEditProductService
         return $this->productRepository->update($product);
     }
 
-    private function mapImage(int $id, bool $ativo): Imagem
+    public function mapImage(int $id, bool $ativo): Imagem
     {
         $image = new Imagem();
         $image->id = $id;
@@ -40,7 +40,7 @@ class EditProductService implements IEditProductService
         return $image;
     }
 
-    private function mapProduct(EditProductRequest $request): Produto
+    public function mapProduct(EditProductRequest $request): Produto
     {
         $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($request->precoCusto));
         $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($request->precoVenda));

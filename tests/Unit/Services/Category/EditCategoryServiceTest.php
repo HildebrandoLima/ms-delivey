@@ -15,11 +15,19 @@ class EditCategoryServiceTest extends TestCase
     private EditCategoryRequest $request;
     private IEntityRepository $categoryRepository;
 
+    public function clearMockery(): void
+    {
+        $this->tearDown();
+    }
+
     public function test_success_edit_category_service(): void
     {
         // Arrange
+        $editedCategory = Categoria::query()->first();
         $this->request = new EditCategoryRequest();
-
+        $this->request['id'] = $editedCategory->id;
+        $this->request['nome'] = $editedCategory->nome;
+        $this->request['ativo'] = $editedCategory->ativo;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -33,10 +41,14 @@ class EditCategoryServiceTest extends TestCase
 
         // Act
         $editCategoryService = new EditCategoryService($this->categoryRepository);
-
         $result = $editCategoryService->editCategory($this->request);
+        $mappedCategory = $editCategoryService->map($this->request);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Categoria::class, $mappedCategory);
+        $this->assertEquals($this->request['id'], $editedCategory->id);
+        $this->assertEquals($this->request['nome'], $editedCategory->nome);
+        $this->assertEquals($this->request['ativo'], $editedCategory->ativo);
     }
 }

@@ -83,7 +83,7 @@ class EditUserService implements IEditUserService
         return $telephone;
     }
 
-    private function mapUser(EditUserRequest $request): User
+    public function mapUser(EditUserRequest $request): User
     {
         $user = new User();
         $user->id = $request->id;

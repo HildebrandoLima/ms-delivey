@@ -23,7 +23,7 @@ class CreateCategoryService implements ICreateCategoryService
         return $this->categoryRepository->create($category);
     }
 
-    private function map(CreateCategoryRequest $request): Categoria
+    public function map(CreateCategoryRequest $request): Categoria
     {
         $category = new Categoria();
         $category->nome = $request->nome;

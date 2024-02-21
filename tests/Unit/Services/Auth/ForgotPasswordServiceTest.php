@@ -18,6 +18,7 @@ class ForgotPasswordServiceTest extends TestCase
     {
         // Arrange
         $this->request = new ForgotPasswordRequest();
+        $this->request['email'] = 'cliente@gmail.com';
 
         $this->authRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
@@ -26,7 +27,6 @@ class ForgotPasswordServiceTest extends TestCase
 
         // Act
         $forgotPasswordService = new ForgotPasswordService($this->authRepository);
-
         $result = $forgotPasswordService->forgotPassword($this->request);
 
         // Assert

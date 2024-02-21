@@ -13,8 +13,7 @@ class ParamsOrderRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_PEDIDO);
-        return true;
+        return $this->validationPermission(PermissionEnum::LISTAR_DETALHES_PEDIDO);
     }
 
     public function rules(): array

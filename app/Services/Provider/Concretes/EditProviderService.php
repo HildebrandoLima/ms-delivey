@@ -53,7 +53,7 @@ class EditProviderService implements IEditProviderService
         return $address;
     }
 
-    private function mapProvider(EditProviderRequest $request): Fornecedor
+    public function mapProvider(EditProviderRequest $request): Fornecedor
     {
         $provider = new Fornecedor();
         $provider->id = $request->id;

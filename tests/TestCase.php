@@ -10,6 +10,7 @@ use Illuminate\Testing\TestResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use DateTime;
+use Mockery;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -97,5 +98,11 @@ abstract class TestCase extends BaseTestCase
     public function paginationList(): Collection
     {
         return PaginationList::createFromPagination(new LengthAwarePaginator(400, 400, 10, null, []));
+    }
+
+    public function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
     }
 }

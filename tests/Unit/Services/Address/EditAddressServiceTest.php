@@ -15,35 +15,26 @@ class EditAddressServiceTest extends TestCase
     private EditAddressRequest $request;
     private IEntityRepository $addressRepository;
 
-    public function test_success_edit_address_with_params_user_id_service(): void
+    public function clearMockery(): void
     {
-        // Arrange
-        $this->request = new EditAddressRequest();
-
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
-        $this->addressRepository = $this->mock(IEntityRepository::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with(Endereco::class)->andReturn(true);
-        });
-
-        // Act
-        $editAddressService = new EditAddressService($this->addressRepository);
-
-        $result = $editAddressService->editAddress($this->request);
-
-        // Assert
-        $this->assertTrue($result);
+        $this->tearDown();
     }
 
-    public function test_success_edit_address_with_params_provider_id_service(): void
+    public function test_success_edit_address_service(): void
     {
         // Arrange
+        $createdAddress = Endereco::query()->first();
         $this->request = new EditAddressRequest();
+        $this->request['id'] = $createdAddress->id;
+        $this->request['logradouro'] = $createdAddress->logradouro;
+        $this->request['numero'] = $createdAddress->numero;
+        $this->request['bairro'] = $createdAddress->bairro;
+        $this->request['cidade'] = $createdAddress->cidade;
+        $this->request['cep'] = $createdAddress->cep;
+        $this->request['uf'] = $createdAddress->uf;
+        $this->request['usuarioId'] = $createdAddress->usuario_id;
+        $this->request['fornecedorId'] = $createdAddress->fornecedor_id;
+        $this->request['ativo'] = $createdAddress->ativo;
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
@@ -58,10 +49,19 @@ class EditAddressServiceTest extends TestCase
 
         // Act
         $editAddressService = new EditAddressService($this->addressRepository);
-
         $result = $editAddressService->editAddress($this->request);
+        $mappedAddress = $editAddressService->map($this->request);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Endereco::class, $mappedAddress);
+        $this->assertEquals($this->request['logradouro'], $createdAddress->logradouro);
+        $this->assertEquals($this->request['numero'], $createdAddress->numero);
+        $this->assertEquals($this->request['bairro'], $createdAddress->bairro);
+        $this->assertEquals($this->request['cidade'], $createdAddress->cidade);
+        $this->assertEquals($this->request['cep'], $createdAddress->cep);
+        $this->assertEquals($this->request['uf'], $createdAddress->uf);
+        $this->assertEquals($this->request['usuarioId'], $createdAddress->usuario_id);
+        $this->assertEquals($this->request['fornecedorId'], $createdAddress->fornecedor_id);
     }
 }

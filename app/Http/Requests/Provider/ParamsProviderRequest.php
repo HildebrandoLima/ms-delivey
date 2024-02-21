@@ -13,8 +13,7 @@ class ParamsProviderRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::LISTAR_DETALHES_FORNECEDOR);
-        return true;
+        return $this->validationPermission(PermissionEnum::LISTAR_DETALHES_FORNECEDOR);
     }
 
     public function rules(): array

@@ -56,6 +56,11 @@ class ProductRepository implements IProductRepository
         return $collection;
     }
 
+    public function delete(int $id): bool
+    {
+        return Produto::query()->where('id', '=', $id)->delete();
+    }
+
     private function query(string|int $search, bool $filter): Builder
     {
         return Produto::query()->with('imagem')

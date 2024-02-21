@@ -23,7 +23,7 @@ class CreatePaymentService implements ICreatePaymentService
         return $this->paymentRepository->create($payment);
     }
 
-    private function map(CreatePaymentRequest $request): Pagamento
+    public function map(CreatePaymentRequest $request): Pagamento
     {
         $payment = new Pagamento();
         $payment->codigo_transacao = random_int(100000000, 999999999);

@@ -72,7 +72,7 @@ class UserRepository implements IUserRepository
     {
         return User::query()
         ->join('password_resets as pr', 'pr.email', '=', 'users.email')
-        ->select('users.id')->where('pr.codigo', '=', $codigo)->get()->toArray()[0]['id'];
+        ->select('users.id')->where('pr.codigo', '=', $codigo)->get()->first()->id;
     }
 
     public function delete(string $codigo): bool

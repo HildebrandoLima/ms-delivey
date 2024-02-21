@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\Provider;
+namespace Tests\Unit\Services\Product;
 
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Imagem;
@@ -16,14 +16,28 @@ class EditProductServiceTest extends TestCase
     private EditProductRequest $request;
     private IEntityRepository $productRepository;
 
+    public function clearMockery(): void
+    {
+        $this->tearDown();
+    }
+
     public function test_success_edit_product_service(): void
     {
         // Arrange
+        $editedProduct = Produto::query()->first();
         $this->request = new EditProductRequest();
-        $this->request['id'] = rand(1, 100);
-        $this->request['precoCusto'] = '1.500,00';
-        $this->request['precoVenda'] = '2.000,00';
-
+        $this->request['id'] = $editedProduct->id;
+        $this->request['nome'] = $editedProduct->nome;
+        $this->request['precoCusto'] = $editedProduct->preco_custo;
+        $this->request['precoVenda'] = $editedProduct->preco_venda;
+        $this->request['codigoBarra'] = $editedProduct->codigo_barra;
+        $this->request['descricao'] = $editedProduct->descricao;
+        $this->request['quantidade'] = $editedProduct->quantidade;
+        $this->request['unidadeMedida'] = $editedProduct->unidade_medida;
+        $this->request['dataValidade'] = $editedProduct->data_validade;
+        $this->request['categoriaId'] = $editedProduct->categoria_id;
+        $this->request['fornecedorId'] = $editedProduct->fornecedor_id;
+        $this->request['ativo'] = $editedProduct->ativo;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -38,10 +52,24 @@ class EditProductServiceTest extends TestCase
 
         // Act
         $editProductSerice = new EditProductService($this->productRepository);
-
-        $result = $editProductSerice->editProduct($this->request);
+        $resultProduct = $editProductSerice->editProduct($this->request);
+        $mappedImage = $editProductSerice->mapImage($editedProduct->id, $editedProduct->ativo);
+        $mappedProduct = $editProductSerice->mapProduct($this->request);
 
         // Assert
-        $this->assertTrue($result);
+        $this->assertTrue($resultProduct);
+        $this->assertInstanceOf(Produto::class, $mappedProduct);
+        $this->assertInstanceOf(Imagem::class, $mappedImage);
+        $this->assertEquals($this->request['id'], $editedProduct->id);
+        $this->assertEquals($this->request['nome'], $editedProduct->nome);
+        $this->assertEquals($this->request['precoCusto'], $editedProduct->preco_custo);
+        $this->assertEquals($this->request['precoVenda'], $editedProduct->preco_venda);
+        $this->assertEquals($this->request['codigoBarra'], $editedProduct->codigo_barra);
+        $this->assertEquals($this->request['descricao'], $editedProduct->descricao);
+        $this->assertEquals($this->request['quantidade'], $editedProduct->quantidade);
+        $this->assertEquals($this->request['unidadeMedida'], $editedProduct->unidade_medida);
+        $this->assertEquals($this->request['dataValidade'], $editedProduct->data_validade);
+        $this->assertEquals($this->request['categoriaId'], $editedProduct->categoria_id);
+        $this->assertEquals($this->request['fornecedorId'], $editedProduct->fornecedor_id);
     }
 }

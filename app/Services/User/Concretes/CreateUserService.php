@@ -38,7 +38,7 @@ class CreateUserService implements ICreateUserService
         return $userId;
     }
 
-    private function mapUser(CreateUserRequest $request): User
+    public function mapUser(CreateUserRequest $request): User
     {
         $user = new User();
         $user->nome = $request->nome;
@@ -52,7 +52,7 @@ class CreateUserService implements ICreateUserService
         return $user;
     }
 
-    private function createPermission(bool $isAdmin, int $userId): bool
+    public function createPermission(bool $isAdmin, int $userId): bool
     {
         if ($isAdmin == true):
             foreach ($this->permissionsAdmin as $permission):
@@ -68,7 +68,7 @@ class CreateUserService implements ICreateUserService
         return true;
     }
 
-    private function mapPermission(int $userId, int $permission): PermissionUser
+    public function mapPermission(int $userId, int $permission): PermissionUser
     {
         $permissionUser = new PermissionUser();
         $permissionUser->user_id = $userId;

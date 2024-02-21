@@ -14,8 +14,7 @@ class CreateProductRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
-        return true;
+        return $this->validationPermission(PermissionEnum::CRIAR_PRODUTO);
     }
 
     public function rules(): array

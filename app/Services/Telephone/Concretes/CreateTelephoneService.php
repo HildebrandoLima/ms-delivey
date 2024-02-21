@@ -26,7 +26,7 @@ class CreateTelephoneService implements ICreateTelephoneService
         return true;
     }
 
-    private function map(array $telefone): Telefone
+    public function map(array $telefone): Telefone
     {
         $telephone = new Telefone();
         $telephone->numero = $telefone['numero'];

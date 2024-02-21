@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\User;
+namespace Tests\Unit\Services\Provider;
 
 use App\Repositories\Abstracts\IProviderRepository;
 use App\Services\Provider\Concretes\ListProviderService;
@@ -22,9 +22,10 @@ class ListProviderServiceTest extends TestCase
     {
         // Arrange
         $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $this->search = '';
         $this->filter = true;
-
         $expectedResult = $this->paginationList();
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -40,20 +41,20 @@ class ListProviderServiceTest extends TestCase
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
-
         $result = $listProviderService->listProviderAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_provider_all_has_pagination_search_service(): void
     {
         // Arrange
         $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $this->search = Str::random(10);
         $this->filter = true;
-
         $expectedResult = $this->paginationList();
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -69,11 +70,10 @@ class ListProviderServiceTest extends TestCase
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
-
         $result = $listProviderService->listProviderAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_provider_all_no_pagination_search_service(): void
@@ -82,7 +82,6 @@ class ListProviderServiceTest extends TestCase
         $this->pagination = new Pagination();
         $this->search = Str::random(10);
         $this->filter = true;
-
         $expectedResult = $this->paginationList();
 
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
@@ -98,11 +97,10 @@ class ListProviderServiceTest extends TestCase
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
-
         $result = $listProviderService->listProviderAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_provider_find_id_service(): void
@@ -111,7 +109,6 @@ class ListProviderServiceTest extends TestCase
         $this->id = rand(1, 100);
         $this->filter = true;
         $expectedResult = collect([]);
-
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
@@ -125,10 +122,9 @@ class ListProviderServiceTest extends TestCase
 
         // Act
         $listProviderService = new ListProviderService($this->providerRepository);
-
         $result = $listProviderService->listProviderFind($this->id, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 }

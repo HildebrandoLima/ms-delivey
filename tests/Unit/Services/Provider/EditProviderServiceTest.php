@@ -20,9 +20,16 @@ class EditProviderServiceTest extends TestCase
     public function test_success_edit_user_service(): void
     {
         // Arrange
+        $editedProvider = Fornecedor::query()->first();
+        $address = Endereco::query()->where('fornecedor_id', '=', $editedProvider->id)->first()->toArray();
+        $telephone = Telefone::query()->where('fornecedor_id', '=', $editedProvider->id)->first()->toArray();
         $this->request = new EditProviderRequest();
-        $this->request['id'] = rand(1, 100);
-
+        $this->request['id'] = $editedProvider->id;
+        $this->request['razaoSocial'] = $editedProvider->razao_social;
+        $this->request['cnpj'] = $editedProvider->cnpj;
+        $this->request['email'] = $editedProvider->email;
+        $this->request['dataFundacao'] = $editedProvider->data_fundacao;
+        $this->request['ativo'] = $editedProvider->ativo;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -39,10 +46,21 @@ class EditProviderServiceTest extends TestCase
 
         // Act
         $editProviderService = new EditProviderService($this->providerRepository);
-
         $result = $editProviderService->editProvider($this->request);
+        $mappedAddress = $editProviderService->mapAddress($address['id'], $address['ativo']);
+        $mappedTelephone = $editProviderService->mapTelephone($telephone['id'], $telephone['ativo']);
+        $mappedProvider = $editProviderService->mapProvider($this->request);
 
         // Assert
         $this->assertTrue($result);
+        $this->assertInstanceOf(Endereco::class, $mappedAddress);
+        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
+        $this->assertInstanceOf(Fornecedor::class, $mappedProvider);
+        $this->assertEquals($this->request['id'], $editedProvider->id);
+        $this->assertEquals($this->request['razaoSocial'], $editedProvider->razao_social);
+        $this->assertEquals($this->request['cnpj'], $editedProvider->cnpj);
+        $this->assertEquals($this->request['email'], $editedProvider->email);
+        $this->assertEquals($this->request['dataFundacao'], $editedProvider->data_fundacao);
+        $this->assertEquals($this->request['ativo'], $editedProvider->ativo);
     }
 }

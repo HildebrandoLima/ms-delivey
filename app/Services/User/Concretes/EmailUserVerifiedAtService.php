@@ -22,7 +22,7 @@ class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
         return $this->userRepository->update($user);
     }
 
-    private function map(int $id): User
+    public function map(int $id): User
     {
         $user = new User();
         $user->id = $id;

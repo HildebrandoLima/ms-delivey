@@ -21,9 +21,10 @@ class ListCategoryServiceTest extends TestCase
     {
         // Arrange
         $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $this->filter = true;
         $this->search = '';
-
         $expectedResult = $this->paginationList();
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
@@ -34,20 +35,20 @@ class ListCategoryServiceTest extends TestCase
 
         // Act
         $listCategoryService = new ListCategoryService($this->categoryRepository);
-
         $result = $listCategoryService->listCategoryAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_category_all_has_pagination_search_service(): void
     {
         // Arrange
         $this->pagination = new Pagination();
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $this->filter = true;
         $this->search = 'Teste';
-
         $expectedResult = $this->paginationList();
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
@@ -58,11 +59,10 @@ class ListCategoryServiceTest extends TestCase
 
         // Act
         $listCategoryService = new ListCategoryService($this->categoryRepository);
-
         $result = $listCategoryService->listCategoryAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_category_all_no_pagination_service(): void
@@ -71,7 +71,6 @@ class ListCategoryServiceTest extends TestCase
         $this->pagination = new Pagination();
         $this->filter = true;
         $this->search = '';
-
         $expectedResult = $this->paginationList();
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
@@ -82,11 +81,10 @@ class ListCategoryServiceTest extends TestCase
 
         // Act
         $listCategoryService = new ListCategoryService($this->categoryRepository);
-
         $result = $listCategoryService->listCategoryAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_category_find_id_service(): void
@@ -109,10 +107,9 @@ class ListCategoryServiceTest extends TestCase
 
         // Act
         $listCategoryService = new ListCategoryService($this->categoryRepository);
-
         $result = $listCategoryService->listCategoryFind($this->id, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 }

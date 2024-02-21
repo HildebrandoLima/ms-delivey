@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\User;
+namespace Tests\Unit\Services\Product;
 
 use App\Repositories\Abstracts\IProductRepository;
 use App\Services\Product\Concretes\ListProductService;
@@ -20,11 +20,11 @@ class ListProductServiceTest extends TestCase
     public function test_success_list_product_all_has_paginaiton_service(): void
     {
         // Arrange
-        $this->id = rand(1, 100);
         $this->filter = true;
         $this->search = '';
         $this->pagination = new Pagination();
-
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $expectedResult = $this->paginationList();
 
         $this->productRepository = $this->mock(IProductRepository::class,
@@ -35,21 +35,20 @@ class ListProductServiceTest extends TestCase
 
         // Act
         $listProductService = new ListProductService($this->productRepository);
-
         $result = $listProductService->listProductAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_product_all_has_paginaiton_with_search_params_product_name_service(): void
     {
         // Arrange
-        $this->id = rand(1, 100);
         $this->filter = true;
         $this->search = Str::random(10);
         $this->pagination = new Pagination();
-
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $expectedResult = $this->paginationList();
 
         $this->productRepository = $this->mock(IProductRepository::class,
@@ -60,7 +59,6 @@ class ListProductServiceTest extends TestCase
 
         // Act
         $listProductService = new ListProductService($this->productRepository);
-
         $result = $listProductService->listProductAll($this->pagination, $this->search, $this->filter);
 
         // Assert
@@ -74,7 +72,8 @@ class ListProductServiceTest extends TestCase
         $this->filter = true;
         $this->search = rand(1, 10);
         $this->pagination = new Pagination();
-
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $expectedResult = $this->paginationList();
 
         $this->productRepository = $this->mock(IProductRepository::class,
@@ -85,21 +84,20 @@ class ListProductServiceTest extends TestCase
 
         // Act
         $listProductService = new ListProductService($this->productRepository);
-
         $result = $listProductService->listProductAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_product_all_no_paginaiton_service(): void
     {
         // Arrange
-        $this->id = rand(1, 100);
         $this->filter = true;
         $this->search = '';
         $this->pagination = new Pagination();
-
+        $this->pagination['page'] = 1;
+        $this->pagination['perPage'] = 10;
         $expectedResult = $this->paginationList();
 
         $this->productRepository = $this->mock(IProductRepository::class,
@@ -110,11 +108,10 @@ class ListProductServiceTest extends TestCase
 
         // Act
         $listProductService = new ListProductService($this->productRepository);
-
         $result = $listProductService->listProductAll($this->pagination, $this->search, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 
     public function test_success_list_product_find_id_service(): void
@@ -132,10 +129,9 @@ class ListProductServiceTest extends TestCase
 
         // Act
         $listProductService = new ListProductService($this->productRepository);
-
         $result = $listProductService->listProductFind($this->id, $this->filter);
 
         // Assert
-        $this->assertSame($result, $expectedResult);
+        $this->assertSame($expectedResult, $result);
     }
 }

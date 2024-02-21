@@ -13,8 +13,7 @@ class CreateProviderRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::CRIAR_FORNECEDOR);
-        return true;
+        return $this->validationPermission(PermissionEnum::CRIAR_FORNECEDOR);
     }
 
     public function rules(): array

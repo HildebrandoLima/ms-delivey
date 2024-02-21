@@ -14,8 +14,7 @@ class EditTelephoneRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        $this->validationPermission(PermissionEnum::EDITAR_TELEFONE);
-        return true;
+        return $this->validationPermission(PermissionEnum::EDITAR_TELEFONE);
     }
 
     public function rules(): array

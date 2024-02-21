@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Support\Utils\Messages\DefaultErrorMessages;
+use App\Exceptions\BaseResponseError;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -15,49 +15,43 @@ abstract class BaseRequest extends FormRequest
     {
         $errors = collect($validator->errors()->toArray())
             ->map(fn(array $error): string => count($error) === 0 ? '' : $error[0]);
-        $details = [
+        $details = collect([
             'rules' => $this->mappedRules(),
             'error' => $validator->getMessageBag()
-        ];
+        ]);
+        $errors = $this->mappedErros($errors);
 
-        throw new HttpResponseException
-        (
-            response()->json([
-                "message" => DefaultErrorMessages::VALIDATION_FAILURE,
-                "data" => $this->mappedErros($errors),
-                "status" => Response::HTTP_BAD_REQUEST,
-                "details" => $details
-            ], Response::HTTP_BAD_REQUEST)
-        );
+        throw new HttpResponseException(BaseResponseError::httpBadRequest($errors, $details));
     }
 
-    private function mappedRules()
+    private function mappedRules(): Collection
     {
         return collect($this->rules())->map(function ($rule) {
-            if (gettype($rule) !== 'array') {
+            if (gettype($rule) !== 'array'):
                 return explode( '|', $rule);
-            }
-            foreach ($rule as $i => $subRule) {
-                if (gettype($subRule) === 'object') {
+            endif;
+
+            foreach ($rule as $i => $subRule):
+                if (gettype($subRule) === 'object'):
                     $rule[$i] = get_class($subRule);
-                }
-            }
+                endif;
+            endforeach;
             return $rule;
         });
     }
 
-    private function mappedErros(Collection $errors): array
+    private function mappedErros(Collection $errors): Collection
     {
         $errorsArray = [];
-        foreach ($errors as $key => $error) {
+        foreach ($errors as $key => $error):
             $matches = [];
-            if (preg_match('/(\w+)\.(\d)+/', $key, $matches)) {
+            if (preg_match('/(\w+)\.(\d)+/', $key, $matches)):
                 $newKey = $matches[1] . "[" . $matches[2] . "]";
                 $errorsArray[$newKey] = $error;
-            } else {
+            else:
                 $errorsArray[$key] = $error;
-            }
-        }
-        return $errorsArray;
+            endif;
+        endforeach;
+        return collect($errorsArray);
     }
 }
