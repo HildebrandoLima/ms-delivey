@@ -6,13 +6,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function get($success): Response
+    public function get(Collection $success): Response
     {
         return response()->json([
             "message" => "Listagem efetuada com sucesso.",
@@ -22,7 +23,7 @@ class Controller extends BaseController
         ], Response::HTTP_OK);
     }
 
-    public function post($success): Response
+    public function post(bool $success): Response
     {
         return response()->json([
             "message" => "Cadastro efetuado com sucesso.",
