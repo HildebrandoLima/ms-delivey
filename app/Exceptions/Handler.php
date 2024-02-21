@@ -2,11 +2,9 @@
 
 namespace App\Exceptions;
 
-use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -49,17 +47,9 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (NotFoundHttpException $e, Request $request) {
-            if ($request->is('api/*')) {
-                throw new HttpResponseException
-                (
-                    response()->json([
-                        "message" => DefaultErrorMessages::NOT_FOUND,
-                        "data" => [],
-                        "status" => Response::HTTP_NOT_FOUND,
-                        "details" => $e->getMessage()
-                    ], Response::HTTP_NOT_FOUND)
-                );
-            }
+            if ($request->is('api/*')):
+                throw new HttpResponseException(BaseResponseError::httpNotFound($e));
+            endif;
         });
     }
 }

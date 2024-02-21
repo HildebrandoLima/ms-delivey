@@ -2,35 +2,20 @@
 
 namespace App\Support\Traits;
 
-use App\Support\Utils\Messages\DefaultErrorMessages;
+use App\Exceptions\BaseResponseError;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Symfony\Component\HttpFoundation\Response;
 
 trait ValidationPermission
 {
-    public function validationPermission(string $permission): void
+    public function validationPermission(string $permission): bool
     {
-        if(!$this->containsPermission($permission)) {
-            throw new HttpResponseException
-            (
-                response()->json([
-                    "message" => DefaultErrorMessages::PERMISSION_MESSAGE,
-                    "data" => [],
-                    "status" => Response::HTTP_FORBIDDEN,
-                    "details" => ""
-                ], Response::HTTP_FORBIDDEN)
-            );
-        }
-    }
-
-    private function containsPermission(string $permission): bool
-    {
+        $message = 'Permissão negada! Você não possue acesso de admin.';
         $permissions = auth()->user()->permissions;
-        foreach ($permissions->toArray() as $instance) {
-            if (in_array($permission, $instance)) {
+        foreach ($permissions->toArray() as $instance):
+            if (in_array($permission, $instance)): 
                 return true;
-            }
-        }
-        return false;
+            endif;
+        endforeach;
+        throw new HttpResponseException(BaseResponseError::httpForbidden($message));
     }
 }
