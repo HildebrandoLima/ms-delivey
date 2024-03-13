@@ -5,6 +5,7 @@ namespace App\Providers\DependencyInjection\Services;
 use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Services\AuthSocial\Abstracts\IRedirectToProviderService;
 use App\Services\AuthSocial\Concretes\HandleProviderCallbackService;
+use App\Services\AuthSocial\Concretes\RedirectToProviderService;
 
 class AuthSocialDi
 {
@@ -15,6 +16,6 @@ class AuthSocialDi
 
     public static $concretes = [
         HandleProviderCallbackService::class,
-        IRedirectToProviderService::class,
+        RedirectToProviderService::class,
     ];
 }
