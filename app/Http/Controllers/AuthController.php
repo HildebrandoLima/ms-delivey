@@ -37,17 +37,14 @@ class AuthController extends Controller
     {
         try {
             $success = $this->loginService->login($request);
-            if (!isset ($success)):
-                return Controller::error();
-            endif;
             return response()->json([
                 "message" => "Login efetuado com sucesso.",
                 "data" => $success,
                 "status" =>  Response::HTTP_OK,
                 "details" => ""
             ],  Response::HTTP_OK);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            Controller::error($e);
         }
     }
 
@@ -55,16 +52,14 @@ class AuthController extends Controller
     {
         try {
             $success = $this->logoutService->logout();
-            if ($success):
-                return response()->json([
-                    "message" => "Logout efetuado com sucesso.",
-                    "data" => [],
-                    "status" => 200,
-                    "details" => ""
-                ], Response::HTTP_OK);
-            endif;
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+            return response()->json([
+                "message" => "Logout efetuado com sucesso.",
+                "data" => $success,
+                "status" => 200,
+                "details" => ""
+            ], Response::HTTP_OK);
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -72,17 +67,14 @@ class AuthController extends Controller
     {
         try {
             $success = $this->forgotPasswordService->forgotPassword($request);
-            if (!isset ($success)):
-                return Controller::error();
-            endif;
             return response()->json([
                 "message" => "Solicitação de nova senha efetuada com sucesso.",
-                "data" => true,
+                "data" => $success,
                 "status" => 200,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -90,17 +82,14 @@ class AuthController extends Controller
     {
         try {
             $success = $this->refreshPasswordService->refreshPassword($request);
-            if (!isset ($success)):
-                return Controller::error();
-            endif;
             return response()->json([
                 "message" => "Senha modificada com sucesso.",
-                "data" => true,
+                "data" => $success,
                 "status" => Response::HTTP_OK,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 }

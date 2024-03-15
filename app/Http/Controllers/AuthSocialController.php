@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\BaseResponseError;
 use App\Exceptions\SystemDefaultException;
 use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Services\AuthSocial\Abstracts\IRedirectToProviderService;
-use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,23 +50,15 @@ class AuthSocialController extends Controller
                 "status" => Response::HTTP_OK,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
     private function validateProvider(string $provider): void
     {
         if (!in_array($provider, ['facebook', 'google', 'github'])):
-            throw new HttpResponseException
-            (
-                response()->json([
-                    "message" => DefaultErrorMessages::NOT_FOUND,
-                    "data" => [],
-                    "status" => Response::HTTP_BAD_REQUEST,
-                    "details" => ""
-                ], Response::HTTP_BAD_REQUEST)
-            );
+            throw new HttpResponseException(BaseResponseError::httpBadRequest(collect(), collect()));
         endif;
     }
 }

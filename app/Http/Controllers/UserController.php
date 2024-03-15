@@ -46,10 +46,9 @@ class UserController extends Controller
                 $search->search(request()),
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -61,10 +60,9 @@ class UserController extends Controller
                 $request->id,
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -72,10 +70,9 @@ class UserController extends Controller
     {
         try {
             $success = $this->createUserService->createUser($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -83,18 +80,16 @@ class UserController extends Controller
     {
         try {
             $success = $this->editUserService->editUser($request);
-            if (!$success) return Controller::error();
-            return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::put($success);
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
     public function emailVerifiedAt(int $id): Response
     {
         try {
-            $success = $this->emailUserVerifiedAtService->emailVerifiedAt($id);
-            if (!$success) return Controller::error();
+            $this->emailUserVerifiedAtService->emailVerifiedAt($id);
             return response()->json([
                 "message" => "Verificação efetuada com sucesso!",
                 "data" => true,
@@ -102,7 +97,7 @@ class UserController extends Controller
                 "details" => ""
             ]);
         } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::error($e);
         }
     }
 }

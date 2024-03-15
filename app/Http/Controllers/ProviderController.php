@@ -42,9 +42,8 @@ class ProviderController extends Controller
                 $search->search(request()),
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
+        } catch (SystemDefaultException $e) {
             return $e->response();
         }
     }
@@ -57,10 +56,9 @@ class ProviderController extends Controller
                 $request->id,
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -68,10 +66,9 @@ class ProviderController extends Controller
     {
         try {
             $success = $this->createProviderService->createProvider($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -79,10 +76,9 @@ class ProviderController extends Controller
     {
         try {
             $success = $this->editProviderService->editProvider($request);
-            if (!$success) return Controller::error();
-            return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::put($success);
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     } 
 }

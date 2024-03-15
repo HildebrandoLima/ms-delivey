@@ -28,10 +28,9 @@ class TelephoneController extends Controller
     {
         try {
             $success = $this->createTelephoneService->createTelephone($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -39,10 +38,9 @@ class TelephoneController extends Controller
     {
         try {
             $success = $this->editTelephoneService->editTelephone($request);
-            if (!$success) return Controller::error();
-            return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::put($success);
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 }
