@@ -22,6 +22,7 @@ class CreateOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_post_base_response_200(): void
     {
@@ -64,6 +65,7 @@ class CreateOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_post_base_response_400(): void
     {
@@ -92,6 +94,7 @@ class CreateOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_post_base_response_401(): void
     {
@@ -121,7 +124,9 @@ class CreateOrderTest extends TestCase
         ];
 
         // Act
-        $response = $this->postJson(route('order.save', $data));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->postJson(route('order.save', $data));
 
         // Assert
         $response->assertUnauthorized();

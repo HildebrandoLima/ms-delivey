@@ -40,10 +40,9 @@ class OrderController extends Controller
                 $request->id,
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -55,10 +54,9 @@ class OrderController extends Controller
                 $request->id,
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
         } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::error($e);
         }
     }
 
@@ -66,10 +64,9 @@ class OrderController extends Controller
     {
         try {
             $success = $this->createOrderService->createOrder($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -77,10 +74,9 @@ class OrderController extends Controller
     {
         try {
             $success = $this->editOrderService->editOrder($request);
-            if (!$success) return Controller::error();
-            return Controller::put();
+            return Controller::put($success);
         } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::error($e);
         }
     }
 }

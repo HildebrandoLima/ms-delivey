@@ -11,6 +11,7 @@ class CreateCategoryTest extends TestCase
 {
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_post_base_response_200(): void
     {
@@ -64,7 +65,9 @@ class CreateCategoryTest extends TestCase
         ];
 
         // Act
-        $response = $this->postJson(route('category.save', $data));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->postJson(route('category.save', $data));
 
         // Assert
         $response->assertUnauthorized();

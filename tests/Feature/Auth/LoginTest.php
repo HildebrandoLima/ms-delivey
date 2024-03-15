@@ -9,6 +9,7 @@ class LoginTest extends TestCase
 {
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_login_base_response_200(): void
     {
@@ -28,6 +29,7 @@ class LoginTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_login_email_invalid_base_response_400(): void
     {
@@ -47,6 +49,7 @@ class LoginTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_login_password_invalid_base_response_400(): void
     {
@@ -66,6 +69,7 @@ class LoginTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     /*
     public function it_endpoint_post_login_first_access_base_response_400(): void

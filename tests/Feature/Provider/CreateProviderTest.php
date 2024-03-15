@@ -15,6 +15,7 @@ class CreateProviderTest extends TestCase
     use GenerateCNPJ, GenerateEmail;
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_post_base_response_200(): void
     {
@@ -40,6 +41,7 @@ class CreateProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_post_base_response_400(): void
     {
@@ -65,6 +67,7 @@ class CreateProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_post_base_response_401(): void
     {
@@ -78,7 +81,9 @@ class CreateProviderTest extends TestCase
         ];
 
         // Act
-        $response = $this->postJson(route('provider.save'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->postJson(route('provider.save'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -88,6 +93,7 @@ class CreateProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_post_base_response_403(): void
     {

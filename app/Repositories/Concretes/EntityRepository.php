@@ -2,20 +2,40 @@
 
 namespace App\Repositories\Concretes;
 
+use App\Exceptions\BaseResponseError;
+use App\Infra\Database\DBConnection;
 use App\Repositories\Abstracts\IEntityRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Throwable;
 
-class EntityRepository implements IEntityRepository
+class EntityRepository extends DBConnection implements IEntityRepository
 {
     public function create(Model $model): int
     {
-        return $model::query()->create($model->toArray())->orderBy('id', 'desc')->first()->id;
+        try {
+            $this->db->beginTransaction();
+            $id = $model::query()->create($model->toArray())->orderBy('id', 'desc')->first()->id;
+            $this->db->commit();
+            return $id;
+        } catch (Throwable $e) {
+            $this->db->rollBack();
+            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+        }
     }
 
     public function update(Model $model): bool
     {
-        return $model::query()->where('id', '=', $model->id)->update($model->toArray());
+        try {
+            $this->db->beginTransaction();
+            $success = $model::query()->where('id', '=', $model->id)->update($model->toArray());
+            $this->db->commit();
+            return $success;
+        } catch (Throwable $e) {
+            $this->db->rollBack();
+            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+        }
     }
 
     public function read(Model $model, int $id): Collection

@@ -15,6 +15,7 @@ class ListFinderProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_find_base_response_200(): void
     {
@@ -36,6 +37,7 @@ class ListFinderProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_find_base_response_400(): void
     {

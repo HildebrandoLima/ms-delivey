@@ -16,6 +16,7 @@ class ListFinderCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_get_list_find_base_response_200(): void
     {
@@ -40,6 +41,7 @@ class ListFinderCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_get_list_find_base_response_400(): void
     {

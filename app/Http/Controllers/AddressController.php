@@ -28,10 +28,9 @@ class AddressController extends Controller
     {
         try {
             $success = $this->createAddressService->createAddress($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -39,10 +38,9 @@ class AddressController extends Controller
     {
         try {
             $success = $this->editAddressService->editAddress($request);
-            if (!$success) return Controller::error();
-            return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::put($success);
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 }

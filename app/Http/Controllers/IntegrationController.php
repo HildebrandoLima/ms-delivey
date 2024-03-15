@@ -19,10 +19,9 @@ class IntegrationController extends Controller
     {
         try {
             $success = $this->integrationViaCepService->integrationViaCep($cep);
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 }

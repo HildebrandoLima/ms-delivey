@@ -19,6 +19,7 @@ class EditAddressTest extends TestCase
 
     /**
      * @test
+     * @group address
      */
     public function it_endpoint_put_edit_user_base_response_200(): void
     {
@@ -50,6 +51,7 @@ class EditAddressTest extends TestCase
 
     /**
      * @test
+     * @group address
      */
     public function it_endpoint_put_edit_provider_base_response_200(): void
     {
@@ -81,6 +83,7 @@ class EditAddressTest extends TestCase
 
     /**
      * @test
+     * @group address
      */
     public function it_endpoint_put_base_response_400(): void
     {
@@ -112,6 +115,7 @@ class EditAddressTest extends TestCase
 
     /**
      * @test
+     * @group address
      */
     public function it_endpoint_put_base_response_401(): void
     {
@@ -130,7 +134,9 @@ class EditAddressTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('address.edit'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->putJson(route('address.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();

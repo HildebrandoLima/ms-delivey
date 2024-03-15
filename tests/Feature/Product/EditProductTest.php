@@ -17,6 +17,7 @@ class EditProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_put_base_response_200(): void
     {
@@ -51,6 +52,7 @@ class EditProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_put_base_response_400(): void
     {
@@ -85,6 +87,7 @@ class EditProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_put_base_response_401(): void
     {
@@ -106,7 +109,9 @@ class EditProductTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('product.edit'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->putJson(route('product.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -116,6 +121,7 @@ class EditProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_put_base_response_403(): void
     {

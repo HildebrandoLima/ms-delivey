@@ -17,6 +17,7 @@ class ListAllCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_get_list_all_as_pagination_base_response_200(): void
     {
@@ -35,6 +36,7 @@ class ListAllCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_get_list_all_no_pagination_base_response_200(): void
     {
@@ -53,6 +55,7 @@ class ListAllCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_get_list_all_search_base_response_200(): void
     {
@@ -71,6 +74,7 @@ class ListAllCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_get_list_all_base_response_400(): void
     {

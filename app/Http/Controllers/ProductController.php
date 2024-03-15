@@ -41,10 +41,9 @@ class ProductController extends Controller
                 $search->search(request()),
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -56,10 +55,9 @@ class ProductController extends Controller
                 $request->id,
                 $filter->active
             );
-            if (!$success) return Controller::error();
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -67,10 +65,9 @@ class ProductController extends Controller
     {
         try {
             $success = $this->createProductService->createProduct($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 
@@ -78,10 +75,9 @@ class ProductController extends Controller
     {
         try {
             $success = $this->editProductService->editProduct($request);
-            if (!$success) return Controller::error();
-            return Controller::put();
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+            return Controller::put($success);
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 }

@@ -20,10 +20,9 @@ class PaymentController extends Controller
     {
         try {
             $success = $this->createPaymentService->createPayment($request);
-            if (!$success) return Controller::error();
             return Controller::post($success);
-        } catch(SystemDefaultException $e) {
-            return $e->response();
+        } catch (SystemDefaultException $e) {
+            return Controller::error($e);
         }
     }
 }

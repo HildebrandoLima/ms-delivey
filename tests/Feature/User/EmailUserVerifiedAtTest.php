@@ -15,6 +15,7 @@ class EmailUserVerifiedAtTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_get_base_response_200(): void
     {
@@ -32,6 +33,7 @@ class EmailUserVerifiedAtTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_get_base_response_400(): void
     {

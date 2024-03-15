@@ -18,6 +18,7 @@ class ListAllProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_get_list_all_base_response_200(): void
     {
@@ -39,6 +40,7 @@ class ListAllProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_get_list_all_search_base_response_200(): void
     {
@@ -59,6 +61,7 @@ class ListAllProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_get_list_all_basea_response_400(): void
     {
@@ -79,6 +82,7 @@ class ListAllProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_get_list_all_base_response_401(): void
     {
@@ -86,7 +90,9 @@ class ListAllProviderTest extends TestCase
         $this->provider();
 
         // Act
-        $response = $this->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'active' => true]));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->getJson(route('provider.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'active' => true]));
 
         // Assert
         $response->assertUnauthorized();
@@ -96,6 +102,7 @@ class ListAllProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_get_list_all_base_response_403(): void
     {

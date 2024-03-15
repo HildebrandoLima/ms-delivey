@@ -16,6 +16,7 @@ class ListFinderUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_get_list_find_base_response_200(): void
     {
@@ -40,6 +41,7 @@ class ListFinderUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_get_list_find_base_response_400(): void
     {
@@ -64,6 +66,7 @@ class ListFinderUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_get_list_find_base_response_401(): void
     {
@@ -75,7 +78,9 @@ class ListFinderUserTest extends TestCase
         ];
 
         // Act
-        $response = $this->getJson(route('user.list.find', $data));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->getJson(route('user.list.find', $data));
 
         // Assert
         $response->assertUnauthorized();
