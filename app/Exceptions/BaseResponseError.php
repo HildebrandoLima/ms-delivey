@@ -5,17 +5,13 @@ namespace App\Exceptions;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class BaseResponseError
 {
     public static function httpBadRequest(Collection $errors, Collection $details): Response
     {
-        Log::error("Error: [" . $details . "]");
         return response()->json([
             "message" => DefaultErrorMessages::VALIDATION_FAILURE,
             "data" => $errors,
@@ -24,9 +20,8 @@ class BaseResponseError
         ], Response::HTTP_BAD_REQUEST);
     }
 
-    public static function httpUnauthorized(TokenInvalidException|TokenExpiredException $details): Response
+    public static function httpUnauthorized(Exception $details): Response
     {
-        Log::error("Error: [" . $details->getMessage() . "]");
         return response()->json([
             "message" => DefaultErrorMessages::UNAUTHORIZED_MESSAGE,
             "data" => [],
@@ -37,7 +32,6 @@ class BaseResponseError
 
     public static function httpForbidden(string $details): Response
     {
-        Log::error("Error: [" . $details . "]");
         return response()->json([
             "message" => DefaultErrorMessages::PERMISSION_MESSAGE,
             "data" => [],
@@ -46,9 +40,8 @@ class BaseResponseError
         ], Response::HTTP_FORBIDDEN);
     }
 
-    public static function httpNotFound(NotFoundHttpException $details): Response
+    public static function httpNotFound(Exception $details): Response
     {
-        Log::error("Error: [" . $details->getMessage() . "]");
         return response()->json([
             "message" => DefaultErrorMessages::NOT_FOUND,
             "data" => [],
@@ -57,7 +50,7 @@ class BaseResponseError
         ], Response::HTTP_NOT_FOUND);
     }
 
-    public static function httpInternalServerErrorException(QueryException $details): Response
+    public static function httpInternalServerErrorException(Exception $details): Response
     {
         Log::error("Error: [" . $details->getMessage() . "]");
         return response()->json([
