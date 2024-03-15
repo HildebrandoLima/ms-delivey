@@ -38,8 +38,12 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
         return $next($request);
     }
 
-    private function getResponse(TokenInvalidException|TokenExpiredException $e): void
+    private function getResponse(Exception $e): void
     {
-        throw new HttpResponseException(BaseResponseError::httpUnauthorized($e));
+        if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException):
+            throw new HttpResponseException(BaseResponseError::httpUnauthorized($e));
+        else:
+            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+        endif;
     }
 }
