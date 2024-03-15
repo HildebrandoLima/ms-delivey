@@ -14,6 +14,7 @@ class RefreshPasswordTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_refresh_password_base_response_200(): void
     {
@@ -37,6 +38,7 @@ class RefreshPasswordTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_refresh_password_base_response_400(): void
     {

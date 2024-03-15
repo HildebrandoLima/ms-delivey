@@ -185,13 +185,25 @@ Seu servidor de email:
 Para executar os testes e certificar que, tudo está ok, prepare seu banco de dados para os testes, configure em seu .env.testing. Ajuste seus casos de testes na classe <b>CreateFirstUserTest</b>, localizado em 'tests\Feature'. Feito isso, execute o comando abaixo:
 
 ```
-    php artisan test
+    php artisan test --filter=CreateFirstUserTest
+```
+
+Se preferir executar todos os testes exceto, CreateFirstUserTest
+
+```
+    php artisan test --exclude=CreateFirstUserTest
 ```
 
 Se preferir executar apenas um teste, execute o comando abaixo:
 
 ```
-    php artisan test --filter=classeTest
+    php artisan test --filter=classTest
+```
+
+Se preferir executar um grupo especifico de testes, execute o comando abaixo:
+
+```
+    php artisan test ---group=namegroup
 ```
 
 Se preferir executar os testes de serviços
@@ -203,7 +215,7 @@ Se preferir executar os testes de serviços
 Se preferir executar os testes de feature
 
 ```
-    php artisan test tests/Feature
+    php artisan test tests/Feature --exclude=CreateFirstUserTest
 ```
 
 

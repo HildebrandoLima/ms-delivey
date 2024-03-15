@@ -21,6 +21,7 @@ class ListAllOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_get_with_by_params_id_base_response_200(): void
     {
@@ -41,6 +42,7 @@ class ListAllOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_post_with_by_params_search_base_response_200(): void
     {
@@ -61,6 +63,7 @@ class ListAllOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_get_base_response_400(): void
     {
@@ -80,6 +83,7 @@ class ListAllOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_post_base_response_401(): void
     {
@@ -87,7 +91,9 @@ class ListAllOrderTest extends TestCase
         $data = $this->order();
 
         // Act
-        $response = $this->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'id' => $data['user'], 'active' => true]));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->getJson(route('order.list.all', ['page' => 1, 'perPage' => 10, 'search' => null, 'id' => $data['user'], 'active' => true]));
 
         // Assert
         $response->assertUnauthorized();

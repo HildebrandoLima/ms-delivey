@@ -10,6 +10,7 @@ class LogoutTest extends TestCase
 {
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_logout_base_response_200(): void
     {
@@ -28,14 +29,17 @@ class LogoutTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_logout_base_response_401(): void
     {
         // Arrange
-        #
+        $authenticate = $this->bearerTokenInvalid();
 
         // Act
-        $response = $this->postJson(route('auth.logout'));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate,
+        ])->postJson(route('auth.logout'));
 
         // Assert
         $response->assertUnauthorized();

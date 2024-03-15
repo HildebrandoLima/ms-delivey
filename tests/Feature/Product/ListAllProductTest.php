@@ -17,6 +17,7 @@ class ListAllProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_all_as_has_pagination_base_response_200(): void
     {
@@ -36,6 +37,7 @@ class ListAllProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_all_as_no_pagination_base_response_200(): void
     {
@@ -54,6 +56,7 @@ class ListAllProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_all_as_has_pagination_base_with_search_params_product_name_base_response_200(): void
     {
@@ -72,6 +75,7 @@ class ListAllProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_all_as_has_pagination_base_with_search_params_product_category_base_response_200(): void
     {
@@ -90,6 +94,7 @@ class ListAllProductTest extends TestCase
 
     /**
      * @test
+     * @group product
      */
     public function it_endpoint_get_list_all_base_response_400(): void
     {

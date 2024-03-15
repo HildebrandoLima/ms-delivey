@@ -16,6 +16,11 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    public function bearerTokenInvalid(): string
+    {
+        return 'x4md1lfkewofqimvSKNDIEWHI@L';
+    }
+
     public function authenticate(int $perfil): Collection
     {
         if ($perfil === 1):

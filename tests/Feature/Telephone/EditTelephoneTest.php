@@ -18,6 +18,7 @@ class EditTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_put_edit_user_base_response_200(): void
     {
@@ -46,6 +47,7 @@ class EditTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_put_edit_provider_base_response_200(): void
     {
@@ -73,6 +75,7 @@ class EditTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_put_base_response_400(): void
     {
@@ -100,6 +103,7 @@ class EditTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_put_base_response_401(): void
     {
@@ -114,7 +118,9 @@ class EditTelephoneTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('telephone.edit'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->putJson(route('telephone.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();

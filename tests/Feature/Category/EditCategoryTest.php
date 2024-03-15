@@ -17,6 +17,7 @@ class EditCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_put_base_response_200(): void
     {
@@ -42,6 +43,7 @@ class EditCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_put_base_response_400(): void
     {
@@ -66,6 +68,7 @@ class EditCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_put_base_response_401(): void
     {
@@ -78,7 +81,9 @@ class EditCategoryTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('category.edit'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->putJson(route('category.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -88,6 +93,7 @@ class EditCategoryTest extends TestCase
 
     /**
      * @test
+     * @group category
      */
     public function it_endpoint_put_base_response_403(): void
     {

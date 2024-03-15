@@ -16,6 +16,7 @@ class CreateUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_post_base_response_200(): void
     {
@@ -42,6 +43,7 @@ class CreateUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_post_base_response_400(): void
     {

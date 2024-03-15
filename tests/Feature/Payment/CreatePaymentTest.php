@@ -15,6 +15,7 @@ class CreatePaymentTest extends TestCase
 
     /**
      * @test
+     * @group payment
      */
     public function it_endpoint_post_create_card_base_response_200(): void
     {
@@ -46,6 +47,7 @@ class CreatePaymentTest extends TestCase
 
     /**
      * @test
+     * @group payment
      */
     public function it_endpoint_post_create_money_base_response_200(): void
     {
@@ -76,6 +78,7 @@ class CreatePaymentTest extends TestCase
 
     /**
      * @test
+     * @group payment
      */
     public function it_endpoint_post_base_response_400(): void
     {
@@ -106,6 +109,7 @@ class CreatePaymentTest extends TestCase
 
     /**
      * @test
+     * @group payment
      */
     public function it_endpoint_post_base_response_401(): void
     {
@@ -123,7 +127,9 @@ class CreatePaymentTest extends TestCase
         ];
 
         // Act
-        $response = $this->postJson(route('payment.save', $data));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->postJson(route('payment.save', $data));
 
         // Assert
         $response->assertUnauthorized();

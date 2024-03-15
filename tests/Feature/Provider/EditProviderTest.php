@@ -17,6 +17,7 @@ class EditProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_put_base_response_200(): void
     {
@@ -45,6 +46,7 @@ class EditProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_put_base_response_400(): void
     {
@@ -73,6 +75,7 @@ class EditProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_put_base_response_401(): void
     {
@@ -88,7 +91,9 @@ class EditProviderTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('provider.edit'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->putJson(route('provider.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -98,6 +103,7 @@ class EditProviderTest extends TestCase
 
     /**
      * @test
+     * @group provider
      */
     public function it_endpoint_put_base_response_403(): void
     {

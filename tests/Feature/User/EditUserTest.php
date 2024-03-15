@@ -17,6 +17,7 @@ class EditUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_put_base_response_200(): void
     {
@@ -44,6 +45,7 @@ class EditUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_put_base_response_400(): void
     {
@@ -71,6 +73,7 @@ class EditUserTest extends TestCase
 
     /**
      * @test
+     * @group user
      */
     public function it_endpoint_put_base_response_401(): void
     {
@@ -85,7 +88,9 @@ class EditUserTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('user.edit'), $data);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();

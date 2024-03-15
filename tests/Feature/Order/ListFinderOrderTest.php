@@ -16,6 +16,7 @@ class ListFinderOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_get_base_response_200(): void
     {
@@ -40,6 +41,7 @@ class ListFinderOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_get_base_response_400(): void
     {
@@ -64,6 +66,7 @@ class ListFinderOrderTest extends TestCase
 
     /**
      * @test
+     * @group order
      */
     public function it_endpoint_get_base_response_401(): void
     {
@@ -75,7 +78,9 @@ class ListFinderOrderTest extends TestCase
         ];
 
         // Act
-        $response = $this->getJson(route('order.list.find', $data));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
+        ])->getJson(route('order.list.find', $data));
 
         // Assert
         $response->assertUnauthorized();

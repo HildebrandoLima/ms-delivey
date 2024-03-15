@@ -9,12 +9,13 @@ class ForgotPasswordTest extends TestCase
 {
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_forgot_password_base_response_200(): void
     {
         // Arrange
         $data = [
-            'email' => 'cliente@gmail.com'
+            'email' => 'teste@email.com'
         ];
 
         // Act
@@ -27,6 +28,7 @@ class ForgotPasswordTest extends TestCase
 
     /**
      * @test
+     * @group login
      */
     public function it_endpoint_post_forgot_password_base_response_400(): void
     {

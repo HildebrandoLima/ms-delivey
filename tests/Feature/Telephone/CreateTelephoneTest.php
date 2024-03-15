@@ -13,6 +13,7 @@ class CreateTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_post_create_user_base_response_200(): void
     {
@@ -40,6 +41,7 @@ class CreateTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_post_create_provider_base_response_200(): void
     {
@@ -67,6 +69,7 @@ class CreateTelephoneTest extends TestCase
 
     /**
      * @test
+     * @group telephone
      */
     public function it_endpoint_post_base_response_400(): void
     {
