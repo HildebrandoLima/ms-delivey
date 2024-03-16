@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories\Concretes;
 
-use App\Dtos\CategoryDto;
+use App\Domains\Dtos\CategoryDto;
 use App\Models\Categoria;
 use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Support\AutoMapper\AutoMapper;

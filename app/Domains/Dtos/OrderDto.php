@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Domains\Dtos;
 
 use App\Support\MapperEntity\EntityOrder;
 use App\Support\MapperEntity\EntityPerson;

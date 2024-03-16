@@ -2,8 +2,8 @@
 
 namespace App\Support\MapperEntity;
 
-use App\Dtos\AddressDto;
-use App\Dtos\TelephoneDto;
+use App\Domains\Dtos\AddressDto;
+use App\Domains\Dtos\TelephoneDto;
 use App\Support\AutoMapper\AutoMapper;
 
 class EntityPerson

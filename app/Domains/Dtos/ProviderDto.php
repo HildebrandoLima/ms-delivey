@@ -1,22 +1,17 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Domains\Dtos;
 
 use App\Support\MapperEntity\EntityPerson;
 use App\Support\Traits\DefaultFields;
 
-class UserDto
+class ProviderDto
 {
     use DefaultFields;
-    public ?int $loginSocialId = 0;
-    public ?string $loginSocial = "";
-    public string $nome = "";
-    public ?string $cpf = "";
+    public string $razaoSocial = "";
+    public string $cnpj = "";
     public string $email = "";
-    public ?string $dataNascimento = "";
-    public string $genero = "";
-    public ?bool $emailVerificado = false;
-    public ?bool $eAdmin = false;
+    public string $dataFundacao = "";
     public ?array $enderecos = [];
     public ?array $telefones = [];
 

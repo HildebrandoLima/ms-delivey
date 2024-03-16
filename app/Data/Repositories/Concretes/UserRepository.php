@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories\Concretes;
 
-use App\Dtos\UserDto;
+use App\Domains\Dtos\UserDto;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Data\Repositories\Abstracts\IUserRepository;

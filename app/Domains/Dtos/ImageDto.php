@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Dtos;
+namespace App\Domains\Dtos;
 
 use App\Support\Traits\DefaultFields;
 
-class ItemDto
+class ImageDto
 {
     use DefaultFields;
-    public string $nome = "";
-    public float $preco = 0;
-    public int $quantidadeItem = 0;
-    public float $subTotal = 0;
-    public int $pedidoId = 0;
+    public string $caminho = "";
     public int $produtoId = 0;
 
     public function customizeMapping(array $data): void

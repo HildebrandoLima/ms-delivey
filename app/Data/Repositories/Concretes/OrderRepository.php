@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories\Concretes;
 
-use App\Dtos\OrderDto;
+use App\Domains\Dtos\OrderDto;
 use App\Models\Pedido;
 use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Support\AutoMapper\AutoMapper;

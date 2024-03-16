@@ -2,7 +2,7 @@
 
 namespace App\Support\MapperEntity;
 
-use App\Dtos\ImageDto;
+use App\Domains\Dtos\ImageDto;
 use App\Support\AutoMapper\AutoMapper;
 use Illuminate\Support\Facades\Storage;
 
