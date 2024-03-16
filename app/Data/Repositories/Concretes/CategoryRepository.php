@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Concretes;
+namespace App\Data\Repositories\Concretes;
 
 use App\Dtos\CategoryDto;
 use App\Models\Categoria;
-use App\Repositories\Abstracts\ICategoryRepository;
+use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;

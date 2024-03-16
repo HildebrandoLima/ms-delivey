@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\ICategoryRepository;
-use App\Repositories\Concretes\CategoryRepository;
+use App\Data\Repositories\Abstracts\ICategoryRepository;
+use App\Data\Repositories\Concretes\CategoryRepository;
 
 class CategoryDi
 {

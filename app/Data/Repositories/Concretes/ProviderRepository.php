@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Concretes;
+namespace App\Data\Repositories\Concretes;
 
-use App\Dtos\ProductDto;
-use App\Models\Produto;
-use App\Repositories\Abstracts\IProductRepository;
+use App\Dtos\ProviderDto;
+use App\Models\Fornecedor;
+use App\Data\Repositories\Abstracts\IProviderRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
@@ -12,9 +12,9 @@ use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class ProductRepository implements IProductRepository
+class ProviderRepository implements IProviderRepository
 {
-    public function readAll(Pagination $pagination, string|int $search, bool $filter): Collection
+    public function readAll(Pagination $pagination, string $search, bool $filter): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
             return $this->hasPagination($search, $filter);
@@ -25,29 +25,26 @@ class ProductRepository implements IProductRepository
 
     public function readOne(int $id, bool $filter): Collection
     {
-        $collection = Produto::query()->with('imagem')
+        $collection = Fornecedor::with('endereco')->with('telefone')
         ->where(function($query) use ($filter) {
             QueryFilter::getQueryFilter($query, $filter);
-        })->where('produto.id', '=', $id)
-        ->orWhere(function ($query) use ($id) {
-            $query->where('produto.categoria_id', $id);
-        })->get();
+        })->where('fornecedor.id', '=', $id)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
         return $collection;
     }
 
-    private function hasPagination(string|int $search, bool $filter): Collection
+    private function hasPagination(string $search, bool $filter): Collection
     {
         $collection = $this->query($search, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
-            $collection[$key] = $this->map($instance->toArray());
+          $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string|int $search, bool $filter): Collection
+    private function noPagination(string $search, bool $filter): Collection
     {
         $collection = $this->query($search, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
@@ -56,28 +53,21 @@ class ProductRepository implements IProductRepository
         return $collection;
     }
 
-    public function delete(int $id): bool
+    private function query(string $search, bool $filter): Builder
     {
-        return Produto::query()->where('id', '=', $id)->delete();
-    }
-
-    private function query(string|int $search, bool $filter): Builder
-    {
-        return Produto::query()->with('imagem')
+        return Fornecedor::with('endereco')->with('telefone')
         ->where(function($query) use ($search, $filter) {
             QueryFilter::getQueryFilter($query, $filter);
-            if (!empty($search) and is_numeric($search)):
-                $query->where('produto.categoria_id', '=', $search);
-            elseif (!empty($search) and is_string($search)):
-                $query->where('produto.nome', 'like', $search);    
+            if (!empty($search)):
+                $query->where('fornecedor.razao_social', 'like', $search);
             else:
                 QueryFilter::getQueryFilter($query, $filter);
             endif;
-        })->orderByDesc('produto.id');
+        })->orderByDesc('id');
     }
 
-    private function map(array $data): ProductDto
+    private function map(array $data): ProviderDto
     {
-        return AutoMapper::map($data, ProductDto::class);
+        return AutoMapper::map($data, ProviderDto::class);
     }
 }

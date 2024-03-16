@@ -2,10 +2,10 @@
 
 namespace App\Services\Auth\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 use App\Models\PasswordReset;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Auth\Abstracts\IForgotPasswordService;
 use Illuminate\Support\Str;
 

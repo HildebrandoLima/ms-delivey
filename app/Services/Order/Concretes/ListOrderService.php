@@ -2,7 +2,7 @@
 
 namespace App\Services\Order\Concretes;
 
-use App\Repositories\Abstracts\IOrderRepository;
+use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Services\Order\Abstracts\IListOrderService;
 use Illuminate\Support\Collection;
 

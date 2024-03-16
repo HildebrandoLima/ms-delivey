@@ -2,7 +2,7 @@
 
 namespace App\Services\User\Concretes;
 
-use App\Repositories\Abstracts\IUserRepository;
+use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Services\User\Abstracts\IListUserService;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;

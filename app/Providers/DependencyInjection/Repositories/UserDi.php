@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\IUserRepository;
-use App\Repositories\Concretes\UserRepository;
+use App\Data\Repositories\Abstracts\IUserRepository;
+use App\Data\Repositories\Concretes\UserRepository;
 
 class UserDi
 {

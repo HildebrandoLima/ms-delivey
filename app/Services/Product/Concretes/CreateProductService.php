@@ -2,11 +2,11 @@
 
 namespace App\Services\Product\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Abstracts\IProductRepository;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Repositories\Abstracts\IProductRepository;
 use App\Services\Product\Abstracts\ICreateProductService;
 use App\Support\Enums\AtivoEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;

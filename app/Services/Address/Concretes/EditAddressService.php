@@ -2,9 +2,9 @@
 
 namespace App\Services\Address\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Models\Endereco;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Address\Abstracts\IEditAddressService;
 use App\Support\Enums\AtivoEnum;
 

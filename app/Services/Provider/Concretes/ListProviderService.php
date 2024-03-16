@@ -2,7 +2,7 @@
 
 namespace App\Services\Provider\Concretes;
 
-use App\Repositories\Abstracts\IProviderRepository;
+use App\Data\Repositories\Abstracts\IProviderRepository;
 use App\Services\Provider\Abstracts\IListProviderService;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;

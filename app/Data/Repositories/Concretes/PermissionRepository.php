@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\Concretes;
+namespace App\Data\Repositories\Concretes;
 
-use App\Repositories\Abstracts\IPermissionRepository;
+use App\Data\Repositories\Abstracts\IPermissionRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class PermissionRepository implements IPermissionRepository

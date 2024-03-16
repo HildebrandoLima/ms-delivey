@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\IProviderRepository;
-use App\Repositories\Concretes\ProviderRepository;
+use App\Data\Repositories\Abstracts\IProviderRepository;
+use App\Data\Repositories\Concretes\ProviderRepository;
 
 class ProviderDi
 {

@@ -2,9 +2,9 @@
 
 namespace App\Services\Category\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Category\Abstracts\IEditCategoryService;
 use App\Support\Enums\AtivoEnum;
 

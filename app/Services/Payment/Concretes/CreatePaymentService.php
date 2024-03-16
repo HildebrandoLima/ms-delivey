@@ -2,9 +2,9 @@
 
 namespace App\Services\Payment\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Payment\Abstracts\ICreatePaymentService;
 use App\Support\Enums\AtivoEnum;
 

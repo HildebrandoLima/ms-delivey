@@ -2,11 +2,11 @@
 
 namespace App\Services\Provider\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Abstracts\IEditProviderService;
 use App\Support\Enums\AtivoEnum;
 

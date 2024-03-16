@@ -2,9 +2,9 @@
 
 namespace App\Services\Telephone\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Models\Telefone;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Telephone\Abstracts\ICreateTelephoneService;
 use App\Support\Enums\AtivoEnum;
 

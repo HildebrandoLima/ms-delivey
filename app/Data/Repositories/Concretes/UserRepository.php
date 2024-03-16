@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\Concretes;
+namespace App\Data\Repositories\Concretes;
 
 use App\Dtos\UserDto;
 use App\Models\PasswordReset;
 use App\Models\User;
-use App\Repositories\Abstracts\IUserRepository;
+use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;

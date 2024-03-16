@@ -2,7 +2,7 @@
 
 namespace App\Services\Category\Concretes;
 
-use App\Repositories\Abstracts\ICategoryRepository;
+use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Services\Category\Abstracts\IListCategoryService;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;

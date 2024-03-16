@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\IProductRepository;
-use App\Repositories\Concretes\ProductRepository;
+use App\Data\Repositories\Abstracts\IProductRepository;
+use App\Data\Repositories\Concretes\ProductRepository;
 
 class ProductDi
 {

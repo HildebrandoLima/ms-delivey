@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Abstracts;
+namespace App\Data\Repositories\Abstracts;
 
 use Illuminate\Support\Collection;
 

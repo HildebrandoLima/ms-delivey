@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\IPermissionRepository;
-use App\Repositories\Concretes\PermissionRepository;
+use App\Data\Repositories\Abstracts\IPermissionRepository;
+use App\Data\Repositories\Concretes\PermissionRepository;
 
 class PermissionDi
 {

@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Concretes;
 
-use App\Repositories\Abstracts\IProductRepository;
+use App\Data\Repositories\Abstracts\IProductRepository;
 use App\Services\Product\Abstracts\IListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;

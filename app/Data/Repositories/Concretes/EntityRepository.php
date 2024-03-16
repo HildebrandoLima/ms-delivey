@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Concretes;
+namespace App\Data\Repositories\Concretes;
 
 use App\Data\Infra\Database\DBConnection;
 use App\Exceptions\BaseResponseError;
-use App\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;

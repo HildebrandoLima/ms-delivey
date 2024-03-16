@@ -2,10 +2,10 @@
 
 namespace App\Services\Provider\Concretes;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Abstracts\ICreateProviderService;
 use App\Support\Enums\AtivoEnum;
 

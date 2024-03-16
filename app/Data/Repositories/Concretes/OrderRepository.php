@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Concretes;
+namespace App\Data\Repositories\Concretes;
 
 use App\Dtos\OrderDto;
 use App\Models\Pedido;
-use App\Repositories\Abstracts\IOrderRepository;
+use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;
