@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services\Category;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Domains\Models\Pagamento;
-use App\Services\Payment\Concretes\CreatePaymentService;
+use App\Domains\Services\Payment\Concretes\CreatePaymentService;
+use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Address;
 
 use App\Data\Infra\Integration\IntegrationViaCep;
-use App\Services\Address\Concretes\IntegrationViaCepService;
+use App\Domains\Services\Address\Concretes\IntegrationViaCepService;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

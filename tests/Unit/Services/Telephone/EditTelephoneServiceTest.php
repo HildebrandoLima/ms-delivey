@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services\Telephone;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Domains\Models\Telefone;
-use App\Services\Telephone\Concretes\EditTelephoneService;
+use App\Domains\Services\Telephone\Concretes\EditTelephoneService;
+use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

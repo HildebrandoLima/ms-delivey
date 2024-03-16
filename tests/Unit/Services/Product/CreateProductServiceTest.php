@@ -4,10 +4,10 @@ namespace Tests\Unit\Services\Product;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Data\Repositories\Abstracts\IProductRepository;
-use App\Http\Requests\Product\CreateProductRequest;
 use App\Domains\Models\Imagem;
 use App\Domains\Models\Produto;
-use App\Services\Product\Concretes\CreateProductService;
+use App\Domains\Services\Product\Concretes\CreateProductService;
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;

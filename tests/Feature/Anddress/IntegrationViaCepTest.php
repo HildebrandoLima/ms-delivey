@@ -23,7 +23,6 @@ class IntegrationViaCepTest extends TestCase
 
         // Act
         $response = $this->getJson(route('integration.viacep', ['cep' => $data]));
-        dd($response);
 
         // Assert
         $response->assertOk();

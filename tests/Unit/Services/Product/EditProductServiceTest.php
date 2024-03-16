@@ -3,10 +3,10 @@
 namespace Tests\Unit\Services\Product;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Http\Requests\Product\EditProductRequest;
 use App\Domains\Models\Imagem;
 use App\Domains\Models\Produto;
-use App\Services\Product\Concretes\EditProductService;
+use App\Domains\Services\Product\Concretes\EditProductService;
+use App\Http\Requests\Product\EditProductRequest;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

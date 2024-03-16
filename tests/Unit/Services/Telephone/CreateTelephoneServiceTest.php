@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services\Telephone;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Domains\Models\Telefone;
-use App\Services\Telephone\Concretes\CreateTelephoneService;
+use App\Domains\Services\Telephone\Concretes\CreateTelephoneService;
+use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

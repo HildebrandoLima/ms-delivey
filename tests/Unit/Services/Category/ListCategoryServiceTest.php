@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Category;
 
 use App\Data\Repositories\Abstracts\ICategoryRepository;
-use App\Services\Category\Concretes\ListCategoryService;
+use App\Domains\Services\Category\Concretes\ListCategoryService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;

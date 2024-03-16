@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services\Auth;
 
+use App\Domains\Services\Auth\Concretes\LoginService;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Services\Auth\Concretes\LoginService;
 use App\Support\Enums\PerfilEnum;
 use Tests\TestCase;
 

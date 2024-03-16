@@ -3,10 +3,10 @@
 namespace Tests\Unit\Services\Category;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Domains\Models\Item;
 use App\Domains\Models\Pedido;
-use App\Services\Order\Concretes\EditOrderService;
+use App\Domains\Services\Order\Concretes\EditOrderService;
+use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
