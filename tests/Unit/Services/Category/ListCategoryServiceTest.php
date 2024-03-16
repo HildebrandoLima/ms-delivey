@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Repositories\Abstracts\ICategoryRepository;
+use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Services\Category\Concretes\ListCategoryService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;

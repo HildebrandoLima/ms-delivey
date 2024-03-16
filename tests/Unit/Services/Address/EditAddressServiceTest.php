@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Services\Address;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Domains\Models\Endereco;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Address\Concretes\EditAddressService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;

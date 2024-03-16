@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Services\Order;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
 use App\Domains\Models\Item;
 use App\Domains\Models\Pedido;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Order\Concretes\CreateOrderService;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Facades\Queue;

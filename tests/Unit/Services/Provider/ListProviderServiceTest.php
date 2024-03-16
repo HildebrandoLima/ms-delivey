@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Provider;
 
-use App\Repositories\Abstracts\IProviderRepository;
+use App\Data\Repositories\Abstracts\IProviderRepository;
 use App\Services\Provider\Concretes\ListProviderService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;

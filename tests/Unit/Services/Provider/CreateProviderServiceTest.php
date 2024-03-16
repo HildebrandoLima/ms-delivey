@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Services\Provider;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Domains\Models\Fornecedor;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Concretes\CreateProviderService;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Facades\Queue;

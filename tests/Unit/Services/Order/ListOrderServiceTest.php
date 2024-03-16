@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services\Order;
 
+use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Domains\Models\Pedido;
-use App\Repositories\Abstracts\IOrderRepository;
 use App\Services\Order\Concretes\ListOrderService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services\User;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Models\User;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\User\Concretes\EmailUserVerifiedAtService;
 use Mockery\MockInterface;
 use Tests\TestCase;

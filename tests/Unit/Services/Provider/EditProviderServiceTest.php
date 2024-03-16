@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Services\Provider;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Domains\Models\Endereco;
 use App\Domains\Models\Fornecedor;
 use App\Domains\Models\Telefone;
-use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Concretes\EditProviderService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;

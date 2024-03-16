@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\Repositories\Abstracts\IUserRepository;
+use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Services\User\Concretes\ListUserService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;
