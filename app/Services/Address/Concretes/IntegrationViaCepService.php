@@ -2,7 +2,7 @@
 
 namespace App\Services\Address\Concretes;
 
-use App\Infra\IntegrationViaCep;
+use App\Data\Infra\Integration\IntegrationViaCep;
 use App\Services\Address\Abstracts\IIntegrationViaCepService;
 use Illuminate\Support\Collection;
 

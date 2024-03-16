@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra;
+namespace App\Data\Infra\Integration;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;

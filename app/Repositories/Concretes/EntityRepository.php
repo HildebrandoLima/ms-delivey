@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Concretes;
 
+use App\Data\Infra\Database\DBConnection;
 use App\Exceptions\BaseResponseError;
-use App\Infra\Database\DBConnection;
 use App\Repositories\Abstracts\IEntityRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

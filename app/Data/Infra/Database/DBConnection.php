@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra\Database;
+namespace App\Data\Infra\Database;
 
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
