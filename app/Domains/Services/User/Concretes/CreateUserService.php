@@ -4,11 +4,11 @@ namespace App\Domains\Services\User\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Data\Repositories\Abstracts\IPermissionRepository;
-use App\Domains\Models\PermissionUser;
-use App\Domains\Models\User;
 use App\Domains\Services\User\Abstracts\ICreateUserService;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\PermissionUser;
+use App\Models\User;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Facades\Hash;
 

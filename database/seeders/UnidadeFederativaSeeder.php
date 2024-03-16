@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domains\Models\UnidadeFederativa;
+use App\Models\UnidadeFederativa;
 use App\Support\Utils\DefaultDatabaseStatic\UnitFederalDb;
 use Illuminate\Database\Seeder;
 

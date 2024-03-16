@@ -3,9 +3,9 @@
 namespace App\Domains\Services\Category\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Categoria;
 use App\Domains\Services\Category\Abstracts\IEditCategoryService;
 use App\Http\Requests\Category\EditCategoryRequest;
+use App\Models\Categoria;
 use App\Support\Enums\AtivoEnum;
 
 class EditCategoryService implements IEditCategoryService

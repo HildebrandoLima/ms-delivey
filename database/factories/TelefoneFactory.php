@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Domains\Models\Fornecedor;
-use App\Domains\Models\User;
+use App\Models\Fornecedor;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\Telefone>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Telefone>
  */
 class TelefoneFactory extends Factory
 {

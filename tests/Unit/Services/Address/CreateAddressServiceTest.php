@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services\Address;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Endereco;
 use App\Domains\Services\Address\Concretes\CreateAddressService;
 use App\Http\Requests\Address\CreateAddressRequest;
+use App\Models\Endereco;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

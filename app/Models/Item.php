@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Domains\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pagamento extends Model
+class Item extends Model
 {
     use HasFactory;
 
-    protected $table = 'pagamento';
+    protected $table = 'item';
 
     protected $fillable = [
-        'codigo_transacao',
-        'numero_cartao',
-        'tipo_cartao',
-        'ccv',
-        'data_validade',
-        'parcela',
-        'total',
-        'metodo_pagamento',
+        'nome',
+        'preco',
+        'quantidade_item',
+        'sub_total',
         'pedido_id',
+        'produto_id',
         'ativo',
     ];
 

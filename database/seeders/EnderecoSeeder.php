@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domains\Models\Endereco;
+use App\Models\Endereco;
 use Illuminate\Database\Seeder;
 
 class EnderecoSeeder extends Seeder

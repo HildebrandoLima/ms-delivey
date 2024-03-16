@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Domains\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DDD extends Model
+class PermissionUser extends Model
 {
     use HasFactory;
 
-    protected $table = 'ddd';
+    protected $table = 'permission_user';
 
     protected $fillable = [
-        'ddd',
-        'descricao',
+        'user_id',
+        'permission_id',
     ];
 }

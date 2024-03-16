@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Provider;
 
-use App\Domains\Models\Fornecedor;
+use App\Models\Fornecedor;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Traits\GenerateCNPJ;
 use App\Support\Traits\GenerateEmail;

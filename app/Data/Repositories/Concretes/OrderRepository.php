@@ -3,8 +3,8 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\OrderDto;
-use App\Domains\Models\Pedido;
 use App\Data\Repositories\Abstracts\IOrderRepository;
+use App\Models\Pedido;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\PaginationList;

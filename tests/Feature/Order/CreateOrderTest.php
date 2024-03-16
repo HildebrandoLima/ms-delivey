@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Order;
 
-use App\Domains\Models\Endereco;
-use App\Domains\Models\Produto;
-use App\Domains\Models\User;
+use App\Models\Endereco;
+use App\Models\Produto;
+use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

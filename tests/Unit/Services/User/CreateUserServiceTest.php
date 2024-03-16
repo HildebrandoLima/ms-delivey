@@ -4,11 +4,11 @@ namespace Tests\Unit\Services\User;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Data\Repositories\Abstracts\IPermissionRepository;
-use App\Domains\Models\PermissionUser;
-use App\Domains\Models\User;
 use App\Domains\Services\User\Concretes\CreateUserService;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\PermissionUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;

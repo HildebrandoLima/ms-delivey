@@ -3,9 +3,9 @@
 namespace App\Domains\Services\Payment\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Pagamento;
 use App\Domains\Services\Payment\Abstracts\ICreatePaymentService;
 use App\Http\Requests\Payment\CreatePaymentRequest;
+use App\Models\Pagamento;
 use App\Support\Enums\AtivoEnum;
 
 class CreatePaymentService implements ICreatePaymentService

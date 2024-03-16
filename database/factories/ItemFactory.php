@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Domains\Models\Pedido;
-use App\Domains\Models\Produto;
+use App\Models\Pedido;
+use App\Models\Produto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\Item>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Item>
  */
 class ItemFactory extends Factory
 {

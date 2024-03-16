@@ -3,13 +3,13 @@
 namespace Tests\Unit\Services\User;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Endereco;
-use App\Domains\Models\Item;
-use App\Domains\Models\Pedido;
-use App\Domains\Models\Telefone;
-use App\Domains\Models\User;
 use App\Domains\Services\User\Concretes\EditUserService;
 use App\Http\Requests\User\EditUserRequest;
+use App\Models\Endereco;
+use App\Models\Item;
+use App\Models\Pedido;
+use App\Models\Telefone;
+use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

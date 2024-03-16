@@ -3,9 +3,9 @@
 namespace App\Domains\Services\Telephone\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Telefone;
 use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
+use App\Models\Telefone;
 use App\Support\Enums\AtivoEnum;
 
 class CreateTelephoneService implements ICreateTelephoneService

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\Domains\Models\User;
+use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;

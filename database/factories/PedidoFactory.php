@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Domains\Models\Endereco;
-use App\Domains\Models\User;
+use App\Models\Endereco;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\Pedido>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pedido>
  */
 class PedidoFactory extends Factory
 {

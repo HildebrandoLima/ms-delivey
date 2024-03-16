@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Product;
 
-use App\Domains\Models\Produto;
+use App\Models\Produto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

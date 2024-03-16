@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domains\Models\Imagem;
+use App\Models\Imagem;
 use Illuminate\Database\Seeder;
 
 class ImagemSeeder extends Seeder

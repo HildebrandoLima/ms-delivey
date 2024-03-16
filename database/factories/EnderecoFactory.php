@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Domains\Models\Fornecedor;
-use App\Domains\Models\User;
+use App\Models\Fornecedor;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\Endereco>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Endereco>
  */
 class EnderecoFactory extends Factory
 {

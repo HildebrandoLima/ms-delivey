@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Product;
 
-use App\Domains\Models\Categoria;
-use App\Domains\Models\Fornecedor;
+use App\Models\Categoria;
+use App\Models\Fornecedor;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;

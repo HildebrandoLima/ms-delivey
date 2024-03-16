@@ -3,9 +3,9 @@
 namespace App\Domains\Services\Category\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Categoria;
 use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
+use App\Models\Categoria;
 use App\Support\Enums\AtivoEnum;
 
 class CreateCategoryService implements ICreateCategoryService

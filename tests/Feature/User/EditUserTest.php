@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\User;
 
-use App\Domains\Models\User;
+use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;

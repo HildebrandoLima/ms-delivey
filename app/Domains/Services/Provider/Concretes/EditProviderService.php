@@ -3,11 +3,11 @@
 namespace App\Domains\Services\Provider\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Endereco;
-use App\Domains\Models\Fornecedor;
-use App\Domains\Models\Telefone;
 use App\Domains\Services\Provider\Abstracts\IEditProviderService;
 use App\Http\Requests\Provider\EditProviderRequest;
+use App\Models\Endereco;
+use App\Models\Fornecedor;
+use App\Models\Telefone;
 use App\Support\Enums\AtivoEnum;
 
 class EditProviderService implements IEditProviderService

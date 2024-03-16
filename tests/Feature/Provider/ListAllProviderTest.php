@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Provider;
 
-use App\Domains\Models\Fornecedor;
+use App\Models\Fornecedor;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

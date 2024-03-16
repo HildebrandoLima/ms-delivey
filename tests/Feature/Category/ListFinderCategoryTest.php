@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Category;
 
-use App\Domains\Models\Categoria;
+use App\Models\Categoria;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

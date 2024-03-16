@@ -3,8 +3,8 @@
 namespace Tests\Unit\Services\User;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\User;
 use App\Domains\Services\User\Concretes\EmailUserVerifiedAtService;
+use App\Models\User;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

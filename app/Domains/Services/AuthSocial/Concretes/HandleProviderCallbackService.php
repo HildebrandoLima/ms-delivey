@@ -3,9 +3,9 @@
 namespace App\Domains\Services\AuthSocial\Concretes;
 
 use App\Data\Repositories\Abstracts\IPermissionRepository;
-use App\Domains\Models\PermissionUser;
-use App\Domains\Models\User;
 use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
+use App\Models\PermissionUser;
+use App\Models\User;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;

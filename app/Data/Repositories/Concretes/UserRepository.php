@@ -2,18 +2,22 @@
 
 namespace App\Data\Repositories\Concretes;
 
+use App\Data\Infra\Database\DBConnection;
 use App\Domains\Dtos\UserDto;
-use App\Domains\Models\PasswordReset;
-use App\Domains\Models\User;
 use App\Data\Repositories\Abstracts\IUserRepository;
+use App\Exceptions\BaseResponseError;
+use App\Models\PasswordReset;
+use App\Models\User;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
+use Throwable;
 
-class UserRepository implements IUserRepository
+class UserRepository extends DBConnection implements IUserRepository
 {
     public function readAll(Pagination $pagination, string $search, bool $filter): Collection
     {
@@ -77,7 +81,15 @@ class UserRepository implements IUserRepository
 
     public function delete(string $codigo): bool
     {
-        return PasswordReset::query()->where('codigo', '=', $codigo)->delete();
+        try {
+            $this->db->beginTransaction();
+            $id = PasswordReset::query()->where('codigo', '=', $codigo)->delete();
+            $this->db->commit();
+            return $id;
+        } catch (Throwable $e) {
+            $this->db->rollBack();
+            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+        }
     }
 
     private function map(array $data): UserDto

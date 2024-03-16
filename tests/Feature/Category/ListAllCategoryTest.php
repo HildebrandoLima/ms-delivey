@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Category;
 
-use App\Domains\Models\Categoria;
+use App\Models\Categoria;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

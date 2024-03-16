@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Telephone;
 
-use App\Domains\Models\Fornecedor;
-use App\Domains\Models\User;
+use App\Models\Fornecedor;
+use App\Models\User;
 use Tests\TestCase;
 
 class CreateTelephoneTest extends TestCase

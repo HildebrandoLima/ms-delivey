@@ -1,25 +1,19 @@
 <?php
 
-namespace App\Domains\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Endereco extends Model
+class Imagem extends Model
 {
     use HasFactory;
 
-    protected $table = 'endereco';
+    protected $table = 'imagem';
 
     protected $fillable = [
-        'logradouro',
-        'numero',
-        'bairro',
-        'cidade',
-        'cep',
-        'uf',
-        'usuario_id',
-        'fornecedor_id',
+        'caminho',
+        'produto_id',
         'ativo',
     ];
 

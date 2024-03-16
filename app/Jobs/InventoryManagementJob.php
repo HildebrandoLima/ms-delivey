@@ -2,8 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Domains\Models\Produto;
-use App\Repositories\Concretes\EntityRepository;
+use App\Data\Repositories\Concretes\EntityRepository;
+use App\Data\Repositories\Concretes\ProductRepository;
+use App\Models\Produto;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,7 +20,7 @@ class InventoryManagementJob implements ShouldQueue
 
     private array $items;
     private int $newQuantity;
-    private ProductRepositor $productRepository;
+    private ProductRepository $productRepository;
     private EntityRepository $entityRepository;
 
     public function __construct(array $items)

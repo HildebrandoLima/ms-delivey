@@ -3,8 +3,8 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\CategoryDto;
-use App\Domains\Models\Categoria;
 use App\Data\Repositories\Abstracts\ICategoryRepository;
+use App\Models\Categoria;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;

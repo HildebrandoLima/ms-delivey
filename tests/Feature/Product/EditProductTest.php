@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Product;
 
-use App\Domains\Models\Produto;
+use App\Models\Produto;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;

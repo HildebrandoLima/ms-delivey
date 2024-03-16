@@ -3,10 +3,10 @@
 namespace App\Domains\Services\Auth\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\PasswordReset;
 use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
+use App\Models\PasswordReset;
 use Illuminate\Support\Str;
 
 class ForgotPasswordService implements IForgotPasswordService

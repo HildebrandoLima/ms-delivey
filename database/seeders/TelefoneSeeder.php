@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Domains\Models\Telefone;
+use App\Models\Telefone;
 use Illuminate\Database\Seeder;
 
 class TelefoneSeeder extends Seeder

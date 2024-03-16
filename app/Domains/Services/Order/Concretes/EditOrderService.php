@@ -3,10 +3,10 @@
 namespace App\Domains\Services\Order\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Item;
-use App\Domains\Models\Pedido;
 use App\Domains\Services\Order\Abstracts\IEditOrderService;
 use App\Http\Requests\Order\ParamsOrderRequest;
+use App\Models\Item;
+use App\Models\Pedido;
 use App\Support\Enums\AtivoEnum;
 
 class EditOrderService implements IEditOrderService

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Telephone;
 
-use App\Domains\Models\Fornecedor;
-use App\Domains\Models\Telefone;
-use App\Domains\Models\User;
+use App\Models\Fornecedor;
+use App\Models\Telefone;
+use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

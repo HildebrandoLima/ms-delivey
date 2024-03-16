@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\Pagamento>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pagamento>
  */
 class PasswordResetFactory extends Factory
 {

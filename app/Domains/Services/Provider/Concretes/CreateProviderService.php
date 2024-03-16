@@ -3,10 +3,10 @@
 namespace App\Domains\Services\Provider\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Fornecedor;
 use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\Fornecedor;
 use App\Support\Enums\AtivoEnum;
 
 class CreateProviderService implements ICreateProviderService

@@ -2,17 +2,21 @@
 
 namespace App\Data\Repositories\Concretes;
 
+use App\Data\Infra\Database\DBConnection;
 use App\Domains\Dtos\ProductDto;
-use App\Domains\Models\Produto;
 use App\Data\Repositories\Abstracts\IProductRepository;
+use App\Exceptions\BaseResponseError;
+use App\Models\Produto;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
+use Throwable;
 
-class ProductRepository implements IProductRepository
+class ProductRepository extends DBConnection implements IProductRepository
 {
     public function readAll(Pagination $pagination, string|int $search, bool $filter): Collection
     {
@@ -58,7 +62,15 @@ class ProductRepository implements IProductRepository
 
     public function delete(int $id): bool
     {
-        return Produto::query()->where('id', '=', $id)->delete();
+        try {
+            $this->db->beginTransaction();
+            $id = Produto::query()->where('id', '=', $id)->delete();
+            $this->db->commit();
+            return $id;
+        } catch (Throwable $e) {
+            $this->db->rollBack();
+            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+        }
     }
 
     private function query(string|int $search, bool $filter): Builder

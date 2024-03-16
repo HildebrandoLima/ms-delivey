@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Domains\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UnidadeFederativa extends Model
+class DDD extends Model
 {
     use HasFactory;
 
-    protected $table = 'unidade_federativa';
+    protected $table = 'ddd';
 
     protected $fillable = [
-        'uf',
+        'ddd',
         'descricao',
     ];
 }

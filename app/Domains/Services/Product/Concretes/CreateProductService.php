@@ -4,10 +4,10 @@ namespace App\Domains\Services\Product\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Data\Repositories\Abstracts\IProductRepository;
-use App\Domains\Models\Imagem;
-use App\Domains\Models\Produto;
 use App\Domains\Services\Product\Abstracts\ICreateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Models\Imagem;
+use App\Models\Produto;
 use App\Support\Enums\AtivoEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;
 

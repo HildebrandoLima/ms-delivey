@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services\Auth;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\PasswordReset;
 use App\Domains\Services\Auth\Concretes\ForgotPasswordService;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Models\PasswordReset;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

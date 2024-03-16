@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Domains\Models\Permission;
-use App\Domains\Models\User;
+use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\PermissionUser>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PermissionUser>
  */
 class PermissionUserFactory extends Factory
 {

@@ -3,9 +3,9 @@
 namespace App\Domains\Services\Address\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Endereco;
 use App\Domains\Services\Address\Abstracts\ICreateAddressService;
 use App\Http\Requests\Address\CreateAddressRequest;
+use App\Models\Endereco;
 use App\Support\Enums\AtivoEnum;
 
 class CreateAddressService implements ICreateAddressService

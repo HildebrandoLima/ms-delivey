@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Address;
 
-use App\Domains\Models\Endereco;
-use App\Domains\Models\Fornecedor;
-use App\Domains\Models\User;
+use App\Models\Endereco;
+use App\Models\Fornecedor;
+use App\Models\User;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;

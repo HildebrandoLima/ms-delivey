@@ -3,10 +3,10 @@
 namespace Tests\Unit\Services\Provider;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Models\Fornecedor;
 use App\Domains\Services\Provider\Concretes\CreateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
+use App\Models\Fornecedor;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
