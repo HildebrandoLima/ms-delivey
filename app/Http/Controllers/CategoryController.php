@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
+use App\Domains\Services\Category\Abstracts\IEditCategoryService;
+use App\Domains\Services\Category\Abstracts\IListCategoryService;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\Category\ParamsCategoryRequest;
-use App\Services\Category\Abstracts\ICreateCategoryService;
-use App\Services\Category\Abstracts\IEditCategoryService;
-use App\Services\Category\Abstracts\IListCategoryService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;

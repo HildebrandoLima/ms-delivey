@@ -2,10 +2,10 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Services\Telephone\Abstracts\ICreateTelephoneService;
-use App\Services\Telephone\Abstracts\IEditTelephoneService;
-use App\Services\Telephone\Concretes\CreateTelephoneService;
-use App\Services\Telephone\Concretes\EditTelephoneService;
+use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
+use App\Domains\Services\Telephone\Abstracts\IEditTelephoneService;
+use App\Domains\Services\Telephone\Concretes\CreateTelephoneService;
+use App\Domains\Services\Telephone\Concretes\EditTelephoneService;
 
 class TelephoneDi
 {

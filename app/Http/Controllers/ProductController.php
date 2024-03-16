@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Product\Abstracts\ICreateProductService;
+use App\Domains\Services\Product\Abstracts\IEditProductService;
+use App\Domains\Services\Product\Abstracts\IListProductService;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Http\Requests\Product\ParamsProductRequest;
-use App\Services\Product\Abstracts\ICreateProductService;
-use App\Services\Product\Abstracts\IEditProductService;
-use App\Services\Product\Abstracts\IListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;

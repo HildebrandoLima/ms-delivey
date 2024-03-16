@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Payment\Abstracts\ICreatePaymentService;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Payment\CreatePaymentRequest;
-use App\Services\Payment\Abstracts\ICreatePaymentService;
 use Symfony\Component\HttpFoundation\Response;
 
 class PaymentController extends Controller

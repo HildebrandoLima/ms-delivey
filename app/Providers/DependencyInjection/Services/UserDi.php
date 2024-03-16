@@ -2,14 +2,15 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Services\User\Abstracts\ICreateUserService;
-use App\Services\User\Abstracts\IEditUserService;
-use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
-use App\Services\User\Abstracts\IListUserService;
-use App\Services\User\Concretes\CreateUserService;
-use App\Services\User\Concretes\EditUserService;
-use App\Services\User\Concretes\EmailUserVerifiedAtService;
-use App\Services\User\Concretes\ListUserService;
+use App\Domains\Services\User\Abstracts\ICreateUserService;
+use App\Domains\Services\User\Abstracts\IEditUserService;
+use App\Domains\Services\User\Abstracts\IEmailUserVerifiedAtService;
+use App\Domains\Services\User\Abstracts\IListUserService;
+use App\Domains\Services\User\Concretes\CreateUserService;
+use App\Domains\Services\User\Concretes\EditUserService;
+use App\Domains\Services\User\Concretes\EmailUserVerifiedAtService;
+use App\Domains\Services\User\Concretes\ListUserService;
+
 
 class UserDi
 {

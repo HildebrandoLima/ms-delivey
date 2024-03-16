@@ -2,12 +2,12 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Services\Category\Abstracts\ICreateCategoryService;
-use App\Services\Category\Abstracts\IEditCategoryService;
-use App\Services\Category\Abstracts\IListCategoryService;
-use App\Services\Category\Concretes\CreateCategoryService;
-use App\Services\Category\Concretes\EditCategoryService;
-use App\Services\Category\Concretes\ListCategoryService;
+use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
+use App\Domains\Services\Category\Abstracts\IEditCategoryService;
+use App\Domains\Services\Category\Abstracts\IListCategoryService;
+use App\Domains\Services\Category\Concretes\CreateCategoryService;
+use App\Domains\Services\Category\Concretes\EditCategoryService;
+use App\Domains\Services\Category\Concretes\ListCategoryService;
 
 class CategoryDi
 {
