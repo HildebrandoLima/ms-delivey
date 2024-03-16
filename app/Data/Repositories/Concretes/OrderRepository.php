@@ -3,7 +3,7 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\OrderDto;
-use App\Models\Pedido;
+use App\Domains\Models\Pedido;
 use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;

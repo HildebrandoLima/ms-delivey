@@ -4,9 +4,9 @@ namespace App\Services\Provider\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Provider\EditProviderRequest;
-use App\Models\Endereco;
-use App\Models\Fornecedor;
-use App\Models\Telefone;
+use App\Domains\Models\Endereco;
+use App\Domains\Models\Fornecedor;
+use App\Domains\Models\Telefone;
 use App\Services\Provider\Abstracts\IEditProviderService;
 use App\Support\Enums\AtivoEnum;
 

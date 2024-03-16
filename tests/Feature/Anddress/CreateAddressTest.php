@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Address;
 
-use App\Models\Fornecedor;
-use App\Models\User;
+use App\Domains\Models\Fornecedor;
+use App\Domains\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;

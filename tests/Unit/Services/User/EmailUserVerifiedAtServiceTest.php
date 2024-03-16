@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\Models\User;
+use App\Domains\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\User\Concretes\EmailUserVerifiedAtService;
 use Mockery\MockInterface;

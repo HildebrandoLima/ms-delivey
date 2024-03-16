@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Telephone;
 
 use App\Http\Requests\Telephone\EditTelephoneRequest;
-use App\Models\Telefone;
+use App\Domains\Models\Telefone;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Telephone\Concretes\EditTelephoneService;
 use App\Support\Enums\PerfilEnum;

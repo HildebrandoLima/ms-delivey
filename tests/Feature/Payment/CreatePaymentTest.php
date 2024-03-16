@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Payment;
 
-use App\Models\Pedido;
+use App\Domains\Models\Pedido;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

@@ -3,8 +3,8 @@
 namespace Tests\Unit\Services\Product;
 
 use App\Http\Requests\Product\CreateProductRequest;
-use App\Models\Imagem;
-use App\Models\Produto;
+use App\Domains\Models\Imagem;
+use App\Domains\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IProductRepository;
 use App\Services\Product\Concretes\CreateProductService;

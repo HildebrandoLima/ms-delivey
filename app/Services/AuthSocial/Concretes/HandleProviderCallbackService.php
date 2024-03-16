@@ -3,8 +3,8 @@
 namespace App\Services\AuthSocial\Concretes;
 
 use App\Data\Repositories\Abstracts\IPermissionRepository;
-use App\Models\PermissionUser;
-use App\Models\User;
+use App\Domains\Models\PermissionUser;
+use App\Domains\Models\User;
 use App\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Support\Enums\AtivoEnum;
 use Illuminate\Support\Collection;

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pedido;
+use App\Domains\Models\Pedido;
 use Illuminate\Database\Seeder;
 
 class PedidoSeeder extends Seeder

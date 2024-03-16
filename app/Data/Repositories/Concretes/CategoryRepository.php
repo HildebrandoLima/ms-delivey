@@ -3,7 +3,7 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\CategoryDto;
-use App\Models\Categoria;
+use App\Domains\Models\Categoria;
 use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;

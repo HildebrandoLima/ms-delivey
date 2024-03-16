@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
+use App\Domains\Models\Permission;
 use App\Support\Utils\DefaultDatabaseStatic\PermissoesDb;
 use Illuminate\Database\Seeder;
 

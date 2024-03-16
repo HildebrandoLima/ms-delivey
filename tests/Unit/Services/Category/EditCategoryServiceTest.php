@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Category;
 
 use App\Http\Requests\Category\EditCategoryRequest;
-use App\Models\Categoria;
+use App\Domains\Models\Categoria;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Category\Concretes\EditCategoryService;
 use App\Support\Enums\PerfilEnum;

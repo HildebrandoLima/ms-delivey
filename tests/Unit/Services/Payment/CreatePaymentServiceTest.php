@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Category;
 
 use App\Http\Requests\Payment\CreatePaymentRequest;
-use App\Models\Pagamento;
+use App\Domains\Models\Pagamento;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Payment\Concretes\CreatePaymentService;
 use App\Support\Enums\PerfilEnum;

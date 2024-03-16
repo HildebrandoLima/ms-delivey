@@ -3,8 +3,8 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\UserDto;
-use App\Models\PasswordReset;
-use App\Models\User;
+use App\Domains\Models\PasswordReset;
+use App\Domains\Models\User;
 use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;

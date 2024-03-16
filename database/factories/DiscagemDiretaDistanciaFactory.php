@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DDD>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\DDD>
  */
 class DiscagemDiretaDistanciaFactory extends Factory
 {

@@ -6,8 +6,8 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
-use App\Models\Item;
-use App\Models\Pedido;
+use App\Domains\Models\Item;
+use App\Domains\Models\Pedido;
 use App\Services\Order\Abstracts\ICreateOrderService;
 use App\Support\Enums\AtivoEnum;
 

@@ -3,7 +3,7 @@
 namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
+use App\Domains\Models\User;
 use Tests\TestCase;
 
 class EmailUserVerifiedAtTest extends TestCase

@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Produto;
+use App\Domains\Models\Produto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Imagem>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domains\Models\Imagem>
  */
 class ImagemFactory extends Factory
 {

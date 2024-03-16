@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Domains\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Telefone extends Model
+class Categoria extends Model
 {
     use HasFactory;
 
-    protected $table = 'telefone';
+    protected $table = 'categoria';
 
     protected $fillable = [
-        'numero',
-        'tipo',
-        'usuario_id',
-        'fornecedor_id',
+        'nome',
         'ativo',
     ];
 

@@ -4,8 +4,8 @@ namespace App\Services\Product\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Product\EditProductRequest;
-use App\Models\Imagem;
-use App\Models\Produto;
+use App\Domains\Models\Imagem;
+use App\Domains\Models\Produto;
 use App\Services\Product\Abstracts\IEditProductService;
 use App\Support\Enums\AtivoEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;

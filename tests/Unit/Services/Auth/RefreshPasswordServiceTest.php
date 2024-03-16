@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Auth;
 
 use App\Http\Requests\Auth\RefreshPasswordRequest;
-use App\Models\User;
+use App\Domains\Models\User;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Repositories\Abstracts\IUserRepository;
 use App\Services\Auth\Concretes\RefreshPasswordService;

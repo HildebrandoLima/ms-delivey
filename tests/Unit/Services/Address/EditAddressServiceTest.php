@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Address;
 
 use App\Http\Requests\Address\EditAddressRequest;
-use App\Models\Endereco;
+use App\Domains\Models\Endereco;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Address\Concretes\EditAddressService;
 use App\Support\Enums\PerfilEnum;

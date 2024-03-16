@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DDD;
+use App\Domains\Models\DDD;
 use App\Support\Utils\DefaultDatabaseStatic\DialingDirectDistanceDb;
 use Illuminate\Database\Seeder;
 

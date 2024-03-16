@@ -3,7 +3,7 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\ProviderDto;
-use App\Models\Fornecedor;
+use App\Domains\Models\Fornecedor;
 use App\Data\Repositories\Abstracts\IProviderRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;

@@ -3,7 +3,7 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\ProductDto;
-use App\Models\Produto;
+use App\Domains\Models\Produto;
 use App\Data\Repositories\Abstracts\IProductRepository;
 use App\Support\AutoMapper\AutoMapper;
 use App\Support\Queries\QueryFilter;

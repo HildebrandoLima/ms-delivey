@@ -4,7 +4,7 @@ namespace Tests\Unit\Services\Provider;
 
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Models\Fornecedor;
+use App\Domains\Models\Fornecedor;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Concretes\CreateProviderService;
 use App\Support\Enums\PerfilEnum;

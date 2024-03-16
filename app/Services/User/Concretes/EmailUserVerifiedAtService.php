@@ -3,7 +3,7 @@
 namespace App\Services\User\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Models\User;
+use App\Domains\Models\User;
 use App\Services\User\Abstracts\IEmailUserVerifiedAtService;
 use App\Support\Enums\AtivoEnum;
 

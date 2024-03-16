@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Endereco;
-use App\Models\User;
+use App\Domains\Models\Endereco;
+use App\Domains\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

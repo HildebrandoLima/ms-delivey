@@ -4,7 +4,7 @@ namespace App\Services\Telephone\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
-use App\Models\Telefone;
+use App\Domains\Models\Telefone;
 use App\Services\Telephone\Abstracts\IEditTelephoneService;
 use App\Support\Enums\AtivoEnum;
 

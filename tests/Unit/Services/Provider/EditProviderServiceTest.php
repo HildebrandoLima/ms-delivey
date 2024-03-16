@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services\Provider;
 
 use App\Http\Requests\Provider\EditProviderRequest;
-use App\Models\Endereco;
-use App\Models\Fornecedor;
-use App\Models\Telefone;
+use App\Domains\Models\Endereco;
+use App\Domains\Models\Fornecedor;
+use App\Domains\Models\Telefone;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Provider\Concretes\EditProviderService;
 use App\Support\Enums\PerfilEnum;

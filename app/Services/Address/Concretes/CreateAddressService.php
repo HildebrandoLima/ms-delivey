@@ -4,7 +4,7 @@ namespace App\Services\Address\Concretes;
 
 use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Http\Requests\Address\CreateAddressRequest;
-use App\Models\Endereco;
+use App\Domains\Models\Endereco;
 use App\Services\Address\Abstracts\ICreateAddressService;
 use App\Support\Enums\AtivoEnum;
 

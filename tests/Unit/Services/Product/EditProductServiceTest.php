@@ -3,8 +3,8 @@
 namespace Tests\Unit\Services\Product;
 
 use App\Http\Requests\Product\EditProductRequest;
-use App\Models\Imagem;
-use App\Models\Produto;
+use App\Domains\Models\Imagem;
+use App\Domains\Models\Produto;
 use App\Repositories\Abstracts\IEntityRepository;
 use App\Services\Product\Concretes\EditProductService;
 use App\Support\Enums\PerfilEnum;
