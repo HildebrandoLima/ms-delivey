@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\AutoMapper;
+namespace App\Support\Utils\MapperDtos;
 
 class AutoMapper
 {

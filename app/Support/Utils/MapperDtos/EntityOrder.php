@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Support\MapperEntity;
+namespace App\Support\Utils\MapperDtos;
 
 use App\Domains\Dtos\ItemDto;
 use App\Domains\Dtos\PaymentDto;
-use App\Support\AutoMapper\AutoMapper;
 
 class EntityOrder
 {

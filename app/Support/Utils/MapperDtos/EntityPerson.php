@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Support\MapperEntity;
+namespace App\Support\Utils\MapperDtos;
 
 use App\Domains\Dtos\AddressDto;
 use App\Domains\Dtos\TelephoneDto;
-use App\Support\AutoMapper\AutoMapper;
 
 class EntityPerson
 {

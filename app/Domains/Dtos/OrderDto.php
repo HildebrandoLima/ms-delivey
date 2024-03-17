@@ -2,9 +2,9 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\MapperEntity\EntityOrder;
-use App\Support\MapperEntity\EntityPerson;
 use App\Support\Traits\DefaultFields;
+use App\Support\Utils\MapperDtos\EntityOrder;
+use App\Support\Utils\MapperDtos\EntityPerson;
 
 class OrderDto
 {

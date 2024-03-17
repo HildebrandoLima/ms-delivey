@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Support\MapperEntity;
+namespace App\Support\Utils\MapperDtos;
 
 use App\Domains\Dtos\ImageDto;
-use App\Support\AutoMapper\AutoMapper;
 use Illuminate\Support\Facades\Storage;
 
 class EntityProduct
