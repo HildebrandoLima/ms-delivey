@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class EntityProduct
 {
-    public static function images(array $imagens): array
+    public static function images(array $images): array
     {
-        foreach ($imagens as $key => $instance):
-            $imagens[$key] = self::map($instance);
+        foreach ($images as $key => $instance):
+            $images[$key] = self::map($instance);
         endforeach;
-        return $imagens;
+        return $images;
     }
 
     private static function map(array $data): ImageDto

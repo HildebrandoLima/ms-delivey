@@ -21,12 +21,12 @@ class EntityOrder
         return AutoMapper::map($data, ItemDto::class);
     }
 
-    public static function payment(array $pagamento): array
+    public static function payment(array $payment): array
     {
-        foreach ($pagamento as $key => $instance):
-            $pagamento[$key] = self::mapPayment($instance);
+        foreach ($payment as $key => $instance):
+            $payment[$key] = self::mapPayment($instance);
         endforeach;
-        return $pagamento;
+        return $payment;
     }
 
     private static function mapPayment(array $data): PaymentDto

@@ -8,12 +8,12 @@ use App\Support\AutoMapper\AutoMapper;
 
 class EntityPerson
 {
-    public static function addrres(array $addrres): array
+    public static function addrres(array $address): array
     {
-        foreach ($addrres as $key => $instance):
-            $addrres[$key] = self::mapAddress($instance);
+        foreach ($address as $key => $instance):
+            $address[$key] = self::mapAddress($instance);
         endforeach;
-        return $addrres;
+        return $address;
     }
 
     private static function mapAddress(array $data): AddressDto
@@ -21,12 +21,12 @@ class EntityPerson
         return AutoMapper::map($data, AddressDto::class);
     }
 
-    public static function telephone(array $telefones): array
+    public static function telephone(array $telephones): array
     {
-        foreach ($telefones as $key => $instance):
-            $telefones[$key] = self::mapTelephone($instance);
+        foreach ($telephones as $key => $instance):
+            $telephones[$key] = self::mapTelephone($instance);
         endforeach;
-        return $telefones;
+        return $telephones;
     }
 
     private static function mapTelephone(array $data): TelephoneDto
