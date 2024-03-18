@@ -8,22 +8,22 @@ trait GenerateCNPJ
     {
         $cnpj = '';
 
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 8; $i++):
             $cnpj .= mt_rand(0, 9);
-        }
+        endfor;
 
         $cnpj .= '00';
 
-        while (strlen($cnpj) < 12) {
+        while (strlen($cnpj) < 12):
             $cnpj = '0' . $cnpj;
-        }
+        endwhile;
 
         $sum = 0;
         $weights = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
-        for ($i = 0; $i < 12; $i++) {
+        for ($i = 0; $i < 12; $i++):
             $sum += $cnpj[$i] * $weights[$i];
-        }
+        endfor;
 
         $firstVerifier = ($sum % 11 < 2) ? 0 : 11 - ($sum % 11);
         $cnpj[12] = $firstVerifier;
@@ -31,9 +31,9 @@ trait GenerateCNPJ
         $sum = 0;
         array_unshift($weights, 6);
 
-        for ($i = 0; $i < 13; $i++) {
+        for ($i = 0; $i < 13; $i++):
             $sum += $cnpj[$i] * $weights[$i];
-        }
+        endfor;
 
         $secondVerifier = ($sum % 11 < 2) ? 0 : 11 - ($sum % 11);
         $cnpj[13] = $secondVerifier;

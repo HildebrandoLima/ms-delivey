@@ -10,12 +10,11 @@ final class Search
 
     final public function search(Request $request): string|int
     {
-        if (is_numeric($request->search)) {
+        if (is_numeric($request->search)):
             return $this->search = $request->search;
-        } else {
+        else:
             $request->search === null ? $this->search = '' : $this->search = '%' . $request->search . '%';
-            //dd(is_numeric($request->search), $this->search);
             return $this->search;
-        }
+        endif;
     }
 }
