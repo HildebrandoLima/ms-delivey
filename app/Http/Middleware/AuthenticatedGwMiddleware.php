@@ -3,15 +3,15 @@
 namespace App\Http\Middleware;
 
 use App\Exceptions\BaseResponseError;
-use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+use Closure;
 use Exception;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthenticatedGwMiddleware extends BaseMiddleware
 {
@@ -26,7 +26,7 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
     {
         try {
             JWTAuth::parseToken()->authenticate();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             if ($e instanceof TokenInvalidException):
                $this->getResponse($e);
             elseif ($e instanceof TokenExpiredException):

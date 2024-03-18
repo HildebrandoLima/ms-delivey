@@ -96,7 +96,7 @@ class UserController extends Controller
                 "status" => 200,
                 "details" => ""
             ]);
-        } catch(SystemDefaultException $e) {
+        } catch (SystemDefaultException $e) {
             return Controller::error($e);
         }
     }

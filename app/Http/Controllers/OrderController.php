@@ -55,7 +55,7 @@ class OrderController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch(SystemDefaultException $e) {
+        } catch (SystemDefaultException $e) {
             return Controller::error($e);
         }
     }
@@ -75,7 +75,7 @@ class OrderController extends Controller
         try {
             $success = $this->editOrderService->editOrder($request);
             return Controller::put($success);
-        } catch(SystemDefaultException $e) {
+        } catch (SystemDefaultException $e) {
             return Controller::error($e);
         }
     }

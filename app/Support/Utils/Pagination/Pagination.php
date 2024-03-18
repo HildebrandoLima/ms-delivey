@@ -20,7 +20,7 @@ class Pagination extends BaseRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'page.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,

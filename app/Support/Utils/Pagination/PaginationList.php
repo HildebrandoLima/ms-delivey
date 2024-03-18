@@ -4,8 +4,8 @@ namespace App\Support\Utils\Pagination;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Exception;
 
 class PaginationList
 {
@@ -18,7 +18,7 @@ class PaginationList
                 'page' => $paginator->currentPage(),
                 'lastPage' => $paginator->lastPage()
             ]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error ao criar paginação', [$e->getMessage()]);
         }
     }
