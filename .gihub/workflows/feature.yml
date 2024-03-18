@@ -67,4 +67,4 @@ jobs:
       - name: Execute tests for create users admin e client
         run: php artisan test --filter=CreateFirstUserTest
       - name: Execute tests feature via PHPUnit
-        run: php artisan test tests/Feature
+        run: php artisan test tests/Feature --exclude=CreateFirstUserTest
