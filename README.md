@@ -226,6 +226,7 @@ Se preferir executar os testes de feature
     <li>Nos body de endereço e telefone, é preciso identificar quem deseja atribuir os mesmos. No caso de usuário, ex.: ("usuarioId": 1) ou fornecedor, ex.: ("fornecedorId": 1)</li>
     <li>Os registros não são deletados, e sim ativados e desativados, sempre que necessário.</li>
     <li>Perfil 1 (Admin) e 2 (Cliente)</li>
+    <li>[Ecommerce API - Swagger](https://app.swaggerhub.com/apis-docs/HildebrandoLima/ECOMMERCE/1.0.0#/)</li>
 </ul>
 
 ### Login
