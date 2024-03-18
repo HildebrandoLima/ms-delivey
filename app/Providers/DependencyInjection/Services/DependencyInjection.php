@@ -22,9 +22,9 @@ class DependencyInjection extends ServiceProvider
 
     protected function mapBindServices(array $interfaces, array $concretes): void
     {
-        foreach ($interfaces as $index => $interface) {
+        foreach ($interfaces as $index => $interface):
             $this->bindService($interface, $concretes[$index]);
-        }
+        endforeach;
     }
 
     protected function bindService(string $interface, string $implementation): void

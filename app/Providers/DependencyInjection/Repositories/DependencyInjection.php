@@ -19,9 +19,9 @@ class DependencyInjection extends ServiceProvider
 
     protected function mapBindRepositories(array $interfaces, array $concretes): void
     {
-        foreach ($interfaces as $index => $interface) {
+        foreach ($interfaces as $index => $interface):
             $this->bindRepository($interface, $concretes[$index]);
-        }
+        endforeach;
     }
 
     protected function bindRepository(string $interface, string $implementation): void
