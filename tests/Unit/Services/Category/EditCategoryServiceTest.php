@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Services\Category;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Domains\Services\Category\Concretes\EditCategoryService;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Category\Concretes\EditCategoryService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

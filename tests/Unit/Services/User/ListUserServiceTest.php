@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\Repositories\Abstracts\IUserRepository;
-use App\Services\User\Concretes\ListUserService;
+use App\Data\Repositories\Abstracts\IUserRepository;
+use App\Domains\Services\User\Concretes\ListUserService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Str;

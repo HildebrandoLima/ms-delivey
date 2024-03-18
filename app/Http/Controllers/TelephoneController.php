@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
+use App\Domains\Services\Telephone\Abstracts\IEditTelephoneService;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
-use App\Services\Telephone\Abstracts\ICreateTelephoneService;
-use App\Services\Telephone\Abstracts\IEditTelephoneService;
 use Symfony\Component\HttpFoundation\Response;
 
 class TelephoneController extends Controller

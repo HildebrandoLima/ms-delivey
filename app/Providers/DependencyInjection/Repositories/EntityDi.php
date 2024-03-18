@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Repositories\Concretes\EntityRepository;
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Concretes\EntityRepository;
 
 class EntityDi
 {

@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Data\Repositories\Concretes\EntityRepository;
+use App\Data\Repositories\Concretes\ProductRepository;
 use App\Models\Produto;
-use App\Repositories\Concretes\EntityRepository;
-use App\Repositories\Concretes\ProductRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;

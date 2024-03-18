@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\User;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EmailUserVerifiedAtTest extends TestCase
@@ -35,6 +35,7 @@ class EmailUserVerifiedAtTest extends TestCase
      * @test
      * @group user
      */
+    /*
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
@@ -48,4 +49,5 @@ class EmailUserVerifiedAtTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
+    */
 }

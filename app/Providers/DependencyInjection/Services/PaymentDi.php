@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Services\Payment\Abstracts\ICreatePaymentService;
-use App\Services\Payment\Concretes\CreatePaymentService;
+use App\Domains\Services\Payment\Abstracts\ICreatePaymentService;
+use App\Domains\Services\Payment\Concretes\CreatePaymentService;
 
 class PaymentDi
 {

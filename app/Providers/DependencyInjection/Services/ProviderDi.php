@@ -2,12 +2,12 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Services\Provider\Abstracts\ICreateProviderService;
-use App\Services\Provider\Abstracts\IEditProviderService;
-use App\Services\Provider\Abstracts\IListProviderService;
-use App\Services\Provider\Concretes\CreateProviderService;
-use App\Services\Provider\Concretes\EditProviderService;
-use App\Services\Provider\Concretes\ListProviderService;
+use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
+use App\Domains\Services\Provider\Abstracts\IEditProviderService;
+use App\Domains\Services\Provider\Abstracts\IListProviderService;
+use App\Domains\Services\Provider\Concretes\CreateProviderService;
+use App\Domains\Services\Provider\Concretes\EditProviderService;
+use App\Domains\Services\Provider\Concretes\ListProviderService;
 
 class ProviderDi
 {

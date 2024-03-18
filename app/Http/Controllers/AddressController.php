@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Address\Abstracts\ICreateAddressService;
+use App\Domains\Services\Address\Abstracts\IEditAddressService;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
-use App\Services\Address\Abstracts\ICreateAddressService;
-use App\Services\Address\Abstracts\IEditAddressService;
 use Symfony\Component\HttpFoundation\Response;
 
 class AddressController extends Controller

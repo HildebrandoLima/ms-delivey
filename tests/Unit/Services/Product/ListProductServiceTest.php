@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services\Product;
 
-use App\Repositories\Abstracts\IProductRepository;
-use App\Services\Product\Concretes\ListProductService;
+use App\Data\Repositories\Abstracts\IProductRepository;
+use App\Domains\Services\Product\Concretes\ListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;

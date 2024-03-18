@@ -2,14 +2,14 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Services\Auth\Abstracts\IForgotPasswordService;
-use App\Services\Auth\Abstracts\ILoginService;
-use App\Services\Auth\Abstracts\ILogoutService;
-use App\Services\Auth\Abstracts\IRefreshPasswordService;
-use App\Services\Auth\Concretes\ForgotPasswordService;
-use App\Services\Auth\Concretes\LoginService;
-use App\Services\Auth\Concretes\LogoutService;
-use App\Services\Auth\Concretes\RefreshPasswordService;
+use App\Domains\Services\Auth\Concretes\LoginService;
+use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
+use App\Domains\Services\Auth\Abstracts\ILoginService;
+use App\Domains\Services\Auth\Abstracts\ILogoutService;
+use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
+use App\Domains\Services\Auth\Concretes\ForgotPasswordService;
+use App\Domains\Services\Auth\Concretes\LogoutService;
+use App\Domains\Services\Auth\Concretes\RefreshPasswordService;
 
 class AuthDi
 {

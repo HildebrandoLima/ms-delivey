@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Services\Category;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Domains\Services\Order\Concretes\EditOrderService;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Order\Concretes\EditOrderService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

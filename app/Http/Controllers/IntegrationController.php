@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Address\Concretes\IntegrationViaCepService;
 use App\Exceptions\SystemDefaultException;
-use App\Services\Address\Concretes\IntegrationViaCepService;
 use Symfony\Component\HttpFoundation\Response;
 
 class IntegrationController extends Controller

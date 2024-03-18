@@ -2,8 +2,8 @@
 
 namespace App\Providers\DependencyInjection\Repositories;
 
-use App\Repositories\Abstracts\IOrderRepository;
-use App\Repositories\Concretes\OrderRepository;
+use App\Data\Repositories\Abstracts\IOrderRepository;
+use App\Data\Repositories\Concretes\OrderRepository;
 
 class OrderDi
 {

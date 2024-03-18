@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
+use App\Domains\Services\Provider\Abstracts\IEditProviderService;
+use App\Domains\Services\Provider\Abstracts\IListProviderService;
 use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Http\Requests\Provider\PermissonProviderRequest;
-use App\Services\Provider\Abstracts\ICreateProviderService;
-use App\Services\Provider\Abstracts\IEditProviderService;
-use App\Services\Provider\Abstracts\IListProviderService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;

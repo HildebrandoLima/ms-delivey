@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Services\Telephone;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Domains\Services\Telephone\Concretes\EditTelephoneService;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Telephone\Concretes\EditTelephoneService;
 use App\Support\Enums\PerfilEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;

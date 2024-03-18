@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Services\Order;
 
-use App\Models\Pedido;
-use App\Repositories\Abstracts\IOrderRepository;
-use App\Services\Order\Concretes\ListOrderService;
+use App\Data\Repositories\Abstracts\IOrderRepository;
+use App\Domains\Services\Order\Concretes\ListOrderService;
 use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
@@ -51,7 +50,7 @@ class ListOrderServiceTest extends TestCase
     public function test_success_list_order_find_service(): void
     {
         // Arrange
-        $orderId = Pedido::query()->first()->id;
+        $orderId = rand(1, 100);
         $this->id = $orderId;
         $this->filter = true;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);

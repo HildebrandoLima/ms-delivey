@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Services\Order;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Domains\Services\Order\Concretes\CreateOrderService;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Services\Order\Concretes\CreateOrderService;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;

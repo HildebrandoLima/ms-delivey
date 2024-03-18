@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Data\Repositories\Concretes\UserRepository;
 use App\Mail\EmailCreateOrder;
-use App\Repositories\Concretes\UserRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;

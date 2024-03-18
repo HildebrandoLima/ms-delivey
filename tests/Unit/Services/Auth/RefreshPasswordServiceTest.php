@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Services\Auth;
 
+use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Abstracts\IUserRepository;
+use App\Domains\Services\Auth\Concretes\RefreshPasswordService;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Models\User;
-use App\Repositories\Abstracts\IEntityRepository;
-use App\Repositories\Abstracts\IUserRepository;
-use App\Services\Auth\Concretes\RefreshPasswordService;
 use App\Support\Traits\GeneratePassword;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;

@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\MetodoPagamento;
-use App\Models\Pedido;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
