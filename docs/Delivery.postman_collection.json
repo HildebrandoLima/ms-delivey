@@ -1,0 +1,1242 @@
+{
+	"info": {
+		"_postman_id": "f2c7deb0-931b-4ddf-af0b-9a1a4867bf43",
+		"name": "Delivery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19441900"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hildebrandolima16@gmail.com\",\n    \"password\": \"HiLd3br@ndo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/auth/login",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-delivery}}/api/auth/logout",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hildebrandolima16@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/auth/forgot-password",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"97ac28de-4b1e-47dd-bc08-fe660b377fd9\",\n    \"codigo\": \"OLOh6VPVPJ\",\n    \"senha\": \"@PClient5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/auth/refresh-password",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "Listar Categorias",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-delivery}}/api/category/list?page=2&perPage=10&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "perPage",
+									"value": "10"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "Eletronicos",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIstar Categoria",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/category/list/find?id=736&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"list",
+								"find"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "736"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Categoria",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 738,\n    \"nome\": \"bgbh\",\n    \"ativo\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/category/edit",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Categoria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Embutidos\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/category/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endereço",
+			"item": [
+				{
+					"name": "Editar Endereço",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 196,\n    \"logradouro\": \"Avenida das Guianas\",\n    \"numero\": 123,\n    \"bairro\": \"Treze de Setembro\",\n    \"cidade\": \"Boa Vista\",\n    \"cep\": \"69308-161\",\n    \"uf\": \"CE\",\n    \"usuarioId\": 556,\n    \"ativo\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/address/edit",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"address",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Endereço",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"logradouro\": \"Rua Hilda S. do Amaral\",\n    \"numero\": 123,\n    \"bairro\": \"Cidade Boa Vista\",\n    \"cidade\": \"Suzano\",\n    \"cep\": \"08693-560\",\n    \"uf\": \"CE\",\n    \"usuarioId\": 556\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/address/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"address",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fornecedor",
+			"item": [
+				{
+					"name": "LIstar Fornecedores",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/provider/list?page=1&perPage=10&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"provider",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "10"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "System",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIstar Fornecedor",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/provider/list/find?id=1223&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"provider",
+								"list",
+								"find"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1223"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Fornecedor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"razaoSocial\": \"Systerss\",\n    \"cnpj\": \"33.372.926/0001-67\",\n    \"email\": \"systers@email.com\",\n    \"dataFundacao\": \"2022-12-25 13:28:59\",\n    \"ativo\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/provider/edit",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"provider",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Fornecedor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"razaoSocial\": \"System\",\n    \"cnpj\": \"57.296.610/0001-00\",\n    \"email\": \"system@email.com\",\n    \"dataFundacao\": \"2022-12-25 13:28:59\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/provider/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"provider",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pagamento",
+			"item": [
+				{
+					"name": "Cadastrar Pagamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numeroCartao\": \"3433 0684 3408 51\",\n    \"tipoCartao\": \"Crédito\",\n    \"dataValidade\": \"2023-05-16 13:44:18\",\n    \"ccv\": 123,\n    \"parcela\": 1,\n    \"total\": 20.99,\n    \"metodoPagamento\": \"Crédito\",\n    \"pedidoId\": 308\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/payment/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"payment",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "LIstar Pedidos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 556,\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/order/list?page=1&perPage=10&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "10"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "600036205",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIstar Pedido",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/order/list/find?id=308&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"list",
+								"find"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "308"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Pedido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidadeItens\": 1,\n    \"total\": 20.50,\n    \"tipoEntrega\": \"Retirada\",\n    \"valorEntrega\": 0,\n    \"usuarioId\": 556,\n    \"enderecoId\": 154,\n    \"itens\": [\n        {\n            \"nome\": \"OVOS GRANJA SANTANA BRANCOS PENTE C/30\",\n            \"preco\": 16.98,\n            \"quantidadeItem\": 1,\n            \"subTotal\": 16.98,\n            \"produtoId\": 495\n        },\n        {\n            \"nome\": \"Dener Frangos\",\n            \"preco\": 14.29,\n            \"quantidadeItem\": 1,\n            \"subTotal\": 14.29,\n            \"produtoId\": 496\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/order/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "LIstar Produtos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-delivery}}/api/product/list?perPage=10&active=1&page=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"list"
+							],
+							"query": [
+								{
+									"key": "perPage",
+									"value": "10"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "647",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIstar Produto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/product/list/find?id=495&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"list",
+								"find"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "495"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Produto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 616,\n    \"nome\": \"rfg4g24yhytjuy\",\n    \"precoCusto\": 10,\n    \"precoVenda\": 400,\n    \"margemLucro\": 390,\n    \"codigoBarra\": \"2211111117114\",\n    \"descricao\": \"frgftrg.\",\n    \"quantidade\": 3,\n    \"unidadeMedida\": \"ML\",\n    \"dataValidade\": \"2023-12-21 00:00:00\",\n    \"categoriaId\": 745,\n    \"fornecedorId\": 1224,\n    \"ativo\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/product/edit",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Produto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "fregreger df",
+									"type": "text"
+								},
+								{
+									"key": "precoCusto",
+									"value": "10,00",
+									"type": "text"
+								},
+								{
+									"key": "precoVenda",
+									"value": "400,00",
+									"type": "text"
+								},
+								{
+									"key": "codigoBarra",
+									"value": "6877165436321",
+									"type": "text"
+								},
+								{
+									"key": "descricao",
+									"value": "dcdsfcsdvfre.",
+									"type": "text"
+								},
+								{
+									"key": "quantidade",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "unidadeMedida",
+									"value": "UN",
+									"type": "text"
+								},
+								{
+									"key": "dataValidade",
+									"value": "2024-12-25 13:28:59",
+									"type": "text"
+								},
+								{
+									"key": "categoriaId",
+									"value": "647",
+									"type": "text"
+								},
+								{
+									"key": "fornecedorId",
+									"value": "1076",
+									"type": "text"
+								},
+								{
+									"key": "imagens[]",
+									"type": "file",
+									"src": "/home/hildebrando/Imagens/Capturas de tela/Captura de tela de 2023-08-08 15-22-03.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/product/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Telefone",
+			"item": [
+				{
+					"name": "Editar Telefone",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 8,\n    \"ddd\": 85,\n    \"numero\": \"(85)99133-2611\",\n    \"tipo\": \"Celular\",\n    \"usuarioId\": 556,\n    \"ativo\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/telephone/edit",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"telephone",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Telefone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"ddd\": 85,\n        \"numero\": \"(85)99131-8080\",\n        \"tipo\": \"Celular\",\n        \"usuarioId\": 556\n    },\n        {\n        \"ddd\": 85,\n        \"numero\": \"(85)99131-1392\",\n        \"tipo\": \"Fixo\",\n        \"usuarioId\": 556\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/telephone/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"telephone",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuário",
+			"item": [
+				{
+					"name": "LIstar Usuários",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-delivery}}/api/user/list?page=1&perPage=10&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"list"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Hill",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "10"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIstar Usuário",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-delivery}}/api/user/list/find?id=556&active=1",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"list",
+								"find"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "556"
+								},
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Primeiro Acesso",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/user/email-verified/7",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"email-verified",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Usuário",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token-delivery}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 567,\n    \"nome\": \"Prof. Ian Nitzsche\",\n    \"email\": \"lola.stanton@hotmail.com\",\n    \"genero\": \"Masculino\",\n    \"ativo\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/user/edit",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Cliente\",\n    \"cpf\": \"470.672.250-00\",\n    \"email\": \"cliente@gmail.com\",\n    \"senha\": \"@PClient5\",\n    \"dataNascimento\": \"2020-03-20 02:02:00\",\n    \"genero\": \"Outro\",\n    \"eAdmin\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-delivery}}/api/user/save",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Integração",
+			"item": [
+				{
+					"name": "Via CEP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-delivery}}/api/address/search/60872-559",
+							"host": [
+								"{{host-delivery}}"
+							],
+							"path": [
+								"api",
+								"address",
+								"search",
+								"60872-559"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
