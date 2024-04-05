@@ -11,10 +11,11 @@ services:
         volumes:
             - ./:/var/www
         networks:
-            - laravel
+            - app-network
         command: >
             sh -c "cp .env.example .env &&
             php artisan key:generate &&
+            php artisan jwt:secret &&
             php artisan cache:clear &&
             php artisan route:clear &&
             php artisan optimize &&
@@ -25,7 +26,7 @@ services:
             php artisan db:seed --class=UnidadeFederativaSeeder &&
             php artisan test --filter=CreateFirstUserTest &&
             php artisan test tests/Unit/Services &&
-            php artisan test tests/Feature"
+            php artisan test tests/Feature --exclude=CreateFirstUserTest"
 
     nginx:
         container_name: nginx
@@ -37,7 +38,7 @@ services:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - laravel
+            - app-network
 
     db:
         container_name: db
@@ -49,11 +50,11 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
         volumes:
-            - ./.docker/mysql/dbdata:/var/lib/mysql
+            - ./docker/dbdata:/var/lib/mysql
         ports:
             - "3388:3306"
         networks:
-            - laravel
+            - app-network
 
     mailhog:
         container_name: mailhog
@@ -64,7 +65,7 @@ services:
             - "1025:1025"
             - "8025:8025"
         networks:
-            - laravel
+            - app-network
 
     queue:
         container_name: queue
@@ -76,8 +77,8 @@ services:
         depends_on:
             - app
         networks:
-            - laravel
+            - app-network
 
 networks:
-    laravel:
+    app-network:
         driver: bridge
