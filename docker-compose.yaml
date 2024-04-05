@@ -11,7 +11,7 @@ services:
         volumes:
             - ./:/var/www
         networks:
-            - app-network
+            - laravel
         command: >
             sh -c "cp .env.example .env &&
             php artisan key:generate &&
@@ -38,7 +38,7 @@ services:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - app-network
+            - laravel
 
     db:
         container_name: db
@@ -54,7 +54,7 @@ services:
         ports:
             - "3388:3306"
         networks:
-            - app-network
+            - laravel
 
     mailhog:
         container_name: mailhog
@@ -65,7 +65,7 @@ services:
             - "1025:1025"
             - "8025:8025"
         networks:
-            - app-network
+            - laravel
 
     queue:
         container_name: queue
@@ -77,8 +77,8 @@ services:
         depends_on:
             - app
         networks:
-            - app-network
+            - laravel
 
 networks:
-    app-network:
+    laravel:
         driver: bridge
