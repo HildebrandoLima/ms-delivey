@@ -2,7 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpInternalServerError;
+use App\Exceptions\HttpUnauthorized;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -41,9 +42,9 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
     private function getResponse(Exception $e): void
     {
         if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException):
-            throw new HttpResponseException(BaseResponseError::httpUnauthorized($e));
+            throw new HttpResponseException(HttpUnauthorized::getResponse($e));
         else:
-            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+            throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         endif;
     }
 }

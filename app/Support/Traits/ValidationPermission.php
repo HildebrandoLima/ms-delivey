@@ -2,7 +2,7 @@
 
 namespace App\Support\Traits;
 
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpForbidden;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 trait ValidationPermission
@@ -16,6 +16,6 @@ trait ValidationPermission
                 return true;
             endif;
         endforeach;
-        throw new HttpResponseException(BaseResponseError::httpForbidden($message));
+        throw new HttpResponseException(HttpForbidden::getResponse($message));
     }
 }

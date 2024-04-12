@@ -5,7 +5,7 @@ namespace App\Data\Repositories\Concretes;
 use App\Data\Infra\Database\DBConnection;
 use App\Domains\Dtos\ProductDto;
 use App\Data\Repositories\Abstracts\IProductRepository;
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpInternalServerError;
 use App\Models\Produto;
 use App\Support\Queries\QueryFilter;
 use App\Support\Utils\MapperDtos\AutoMapper;
@@ -69,7 +69,7 @@ class ProductRepository extends DBConnection implements IProductRepository
             return $id;
         } catch (Throwable $e) {
             $this->db->rollBack();
-            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+            throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
 

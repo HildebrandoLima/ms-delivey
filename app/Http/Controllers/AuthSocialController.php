@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Domains\Services\AuthSocial\Abstracts\IRedirectToProviderService;
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpBadRequest;
 use App\Exceptions\SystemDefaultException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
@@ -58,7 +58,10 @@ class AuthSocialController extends Controller
     private function validateProvider(string $provider): void
     {
         if (!in_array($provider, ['facebook', 'google', 'github'])):
-            throw new HttpResponseException(BaseResponseError::httpBadRequest(collect(), collect()));
+            throw new HttpResponseException(HttpBadRequest::getResponse(collect(),
+            collect([
+                'Informe umas das seguintes redes sociais: Facebook, Google ou GitHub.'
+            ])));
         endif;
     }
 }

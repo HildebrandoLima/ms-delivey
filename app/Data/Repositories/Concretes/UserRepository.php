@@ -5,7 +5,7 @@ namespace App\Data\Repositories\Concretes;
 use App\Data\Infra\Database\DBConnection;
 use App\Domains\Dtos\UserDto;
 use App\Data\Repositories\Abstracts\IUserRepository;
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpInternalServerError;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Support\Queries\QueryFilter;
@@ -88,7 +88,7 @@ class UserRepository extends DBConnection implements IUserRepository
             return $id;
         } catch (Throwable $e) {
             $this->db->rollBack();
-            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+            throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
 

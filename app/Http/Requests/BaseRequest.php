@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpBadRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -21,7 +21,7 @@ abstract class BaseRequest extends FormRequest
         ]);
         $errors = $this->mappedErros($errors);
 
-        throw new HttpResponseException(BaseResponseError::httpBadRequest($errors, $details));
+        throw new HttpResponseException(HttpBadRequest::getResponse($errors, $details));
     }
 
     private function mappedRules(): Collection

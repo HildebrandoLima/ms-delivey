@@ -2,9 +2,9 @@
 
 namespace App\Domains\Services\Auth\Concretes;
 
-use App\Exceptions\BaseResponseError;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Domains\Services\Auth\Abstracts\ILoginService;
+use App\Exceptions\HttpBadRequest;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
@@ -25,7 +25,10 @@ class LoginService implements ILoginService
                 'permissions' => $user->permissions,
             ]);
         else:
-            throw new HttpResponseException(BaseResponseError::httpBadRequest(collect(), collect()));
+            throw new HttpResponseException(HttpBadRequest::getResponse(collect(),
+            collect([
+                'Não foi possível gerar seu token de acesso. Verifique novamente seus dados enviados.'
+            ])));
         endif;
     }
 }
