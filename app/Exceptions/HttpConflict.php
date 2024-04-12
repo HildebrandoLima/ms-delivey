@@ -6,15 +6,15 @@ use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
-class HttpNotFound
+class HttpConflict
 {
-    public static function getResponse(Collection $errors, Collection|string $details): Response
+    public static function getResponse(Collection $errors, Collection $details): Response
     {
         return response()->json([
-            "message" => DefaultErrorMessages::NOT_FOUND,
+            "message" => DefaultErrorMessages::ALREADY_EXISTING,
             "data" => $errors,
-            "status" => Response::HTTP_NOT_FOUND,
+            "status" => Response::HTTP_CONFLICT,
             "details" => $details,
-        ], Response::HTTP_NOT_FOUND);
+        ], Response::HTTP_CONFLICT);
     }
 }
