@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Domains\Services\Order\Abstracts\ICreateOrderService;
 use App\Domains\Services\Order\Abstracts\IEditOrderService;
 use App\Domains\Services\Order\Abstracts\IListOrderService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Http\Requests\User\ParamsUserRequest;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class OrderController extends Controller
 {
@@ -41,7 +41,7 @@ class OrderController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -55,7 +55,7 @@ class OrderController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -65,7 +65,7 @@ class OrderController extends Controller
         try {
             $success = $this->createOrderService->createOrder($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -75,7 +75,7 @@ class OrderController extends Controller
         try {
             $success = $this->editOrderService->editOrder($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

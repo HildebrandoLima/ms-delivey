@@ -6,7 +6,6 @@ use App\Domains\Services\User\Abstracts\ICreateUserService;
 use App\Domains\Services\User\Abstracts\IEditUserService;
 use App\Domains\Services\User\Abstracts\IEmailUserVerifiedAtService;
 use App\Domains\Services\User\Abstracts\IListUserService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\EditUserRequest;
 use App\Http\Requests\User\ParamsUserRequest;
@@ -15,6 +14,7 @@ use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class UserController extends Controller
 {
@@ -47,7 +47,7 @@ class UserController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -61,7 +61,7 @@ class UserController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -71,7 +71,7 @@ class UserController extends Controller
         try {
             $success = $this->createUserService->createUser($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -81,7 +81,7 @@ class UserController extends Controller
         try {
             $success = $this->editUserService->editUser($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -96,7 +96,7 @@ class UserController extends Controller
                 "status" => 200,
                 "details" => ""
             ]);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

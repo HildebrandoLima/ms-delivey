@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
 use App\Domains\Services\Category\Abstracts\IEditCategoryService;
 use App\Domains\Services\Category\Abstracts\IListCategoryService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\Category\ParamsCategoryRequest;
@@ -13,6 +12,7 @@ use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class CategoryController extends Controller
 {
@@ -42,7 +42,7 @@ class CategoryController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -56,7 +56,7 @@ class CategoryController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -66,7 +66,7 @@ class CategoryController extends Controller
         try {
             $success = $this->editCategoryService->editCategory($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         try {
             $success = $this->createCategoryService->createCategory($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

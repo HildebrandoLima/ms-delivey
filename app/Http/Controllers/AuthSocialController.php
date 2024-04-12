@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Domains\Services\AuthSocial\Abstracts\IRedirectToProviderService;
 use App\Exceptions\HttpBadRequest;
-use App\Exceptions\SystemDefaultException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class AuthSocialController extends Controller
 {
@@ -50,7 +50,7 @@ class AuthSocialController extends Controller
                 "status" => Response::HTTP_OK,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

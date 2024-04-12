@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Domains\Services\Product\Abstracts\ICreateProductService;
 use App\Domains\Services\Product\Abstracts\IEditProductService;
 use App\Domains\Services\Product\Abstracts\IListProductService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Http\Requests\Product\ParamsProductRequest;
@@ -13,6 +12,7 @@ use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -42,7 +42,7 @@ class ProductController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -56,7 +56,7 @@ class ProductController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -66,7 +66,7 @@ class ProductController extends Controller
         try {
             $success = $this->createProductService->createProduct($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -76,7 +76,7 @@ class ProductController extends Controller
         try {
             $success = $this->editProductService->editProduct($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

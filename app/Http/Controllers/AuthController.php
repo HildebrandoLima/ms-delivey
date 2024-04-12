@@ -6,11 +6,11 @@ use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
 use App\Domains\Services\Auth\Abstracts\ILoginService;
 use App\Domains\Services\Auth\Abstracts\ILogoutService;
 use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -43,7 +43,7 @@ class AuthController extends Controller
                 "status" =>  Response::HTTP_OK,
                 "details" => ""
             ],  Response::HTTP_OK);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             Controller::error($e);
         }
     }
@@ -58,7 +58,7 @@ class AuthController extends Controller
                 "status" => 200,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -73,7 +73,7 @@ class AuthController extends Controller
                 "status" => 200,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -88,7 +88,7 @@ class AuthController extends Controller
                 "status" => Response::HTTP_OK,
                 "details" => ""
             ], Response::HTTP_OK);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

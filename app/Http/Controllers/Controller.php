@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\SystemDefaultException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -10,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class Controller extends BaseController
 {
@@ -55,7 +55,7 @@ class Controller extends BaseController
         ], Response::HTTP_OK);
     }
 
-    public function error(SystemDefaultException $details): Response
+    public function error(Exception $details): Response
     {
         Log::error("Error: [" . $details->getMessage() . "]");
         return response()->json([
