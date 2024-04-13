@@ -127,4 +127,33 @@ class EditTelephoneTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
+
+    /**
+     * @test
+     * @group telephone
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $telephone = $this-> telephone();
+        $data = [
+            'id' => $telephone['id'],
+            'ddd' => 85,
+            'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+            'tipo' => $telephone['tipo'],
+            'usuarioId' => 1000,
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('telephone.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

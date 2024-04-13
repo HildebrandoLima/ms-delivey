@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Domains\Services\Address\Concretes\IntegrationViaCepService;
-use App\Exceptions\SystemDefaultException;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class IntegrationController extends Controller
 {
@@ -20,7 +20,7 @@ class IntegrationController extends Controller
         try {
             $success = $this->integrationViaCepService->integrationViaCep($cep);
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

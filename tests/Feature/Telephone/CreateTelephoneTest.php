@@ -94,4 +94,32 @@ class CreateTelephoneTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
+
+    /**
+     * @test
+     * @group telephone
+     */
+    public function it_endpoint_post_base_response_404(): void
+    {
+        // Arrange
+        $randKeys = array_rand($this->type);
+        $data = [];
+        for ($i = $this->counTelephones; $i <= $this->counTelephones; $i++) {
+            $telephone = [
+                'ddd' => 85,
+                'numero' => '(85)9' . rand(1000, 2000) . '-' . rand(1000, 2000),
+                'tipo' => $this->type[$randKeys],
+                'usuarioId' => 1000,
+            ];
+            array_push($data, $telephone);
+        }
+
+        // Act
+        $response = $this->postJson(route('telephone.save'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

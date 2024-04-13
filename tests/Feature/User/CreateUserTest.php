@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\User;
 
+use App\Models\User;
 use App\Support\Traits\GenerateCPF;
 use App\Support\Traits\GenerateEmail;
 use App\Support\Traits\GeneratePassword;
@@ -66,5 +67,60 @@ class CreateUserTest extends TestCase
         $response->assertStatus(400);
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
+    }
+
+    /**
+     * @test
+     * @group user
+     */
+    public function it_endpoint_post_base_response_404(): void
+    {
+        // Arrange
+        $randKeys = array_rand($this->gender);
+        $data = [
+            'nome' => Str::random(10),
+            'cpf' => $this->generateCPF(),
+            'email' => $this->generateEmail(),
+            'senha' => $this->generatePassword(),
+            'dataNascimento' => date('Y-m-d H:i:s'),
+            'genero' => 'A',
+            'eAdmin' => rand(0, 1),
+        ];
+
+        // Act
+        $response = $this->postJson(route('user.save'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
+
+    /**
+     * @test
+     * @group user
+     */
+    public function it_endpoint_post_base_response_409(): void
+    {
+        // Arrange
+        $user = User::factory()->createOne()->toArray();
+        $randKeys = array_rand($this->gender);
+        $data = [
+            'nome' => $user['nome'],
+            'cpf' => $this->generateCPF(),
+            'email' => $this->generateEmail(),
+            'senha' => $this->generatePassword(),
+            'dataNascimento' => date('Y-m-d H:i:s'),
+            'genero' => $this->gender[$randKeys],
+            'eAdmin' => rand(0, 1),
+        ];
+
+        // Act
+        $response = $this->postJson(route('user.save'), $data);
+
+        // Assert
+        $response->assertStatus(409);
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 409);
     }
 }

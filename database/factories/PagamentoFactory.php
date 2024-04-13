@@ -17,7 +17,7 @@ class PagamentoFactory extends Factory
      */
     public function definition()
     {
-        $typeCard = array('Crédito', 'Débito');
+        $typeCard = array('Crédito', 'Débito', 'NULL');
         $randKeysCard = array_rand($typeCard);
         $typePayment = array('Boleto Bancário', 'Crédito', 'Débito', 'Pix');
         $randKeysPayment = array_rand($typePayment);

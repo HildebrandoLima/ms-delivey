@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')):
-                throw new HttpResponseException(BaseResponseError::httpNotFound($e));
+                throw new HttpResponseException(HttpNotFound::getResponse(collect([]), $e->getMessage()));
             endif;
         });
     }

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Domains\Services\Address\Abstracts\ICreateAddressService;
 use App\Domains\Services\Address\Abstracts\IEditAddressService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Http\Requests\Address\EditAddressRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class AddressController extends Controller
 {
@@ -29,7 +29,7 @@ class AddressController extends Controller
         try {
             $success = $this->createAddressService->createAddress($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -39,7 +39,7 @@ class AddressController extends Controller
         try {
             $success = $this->editAddressService->editAddress($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
 use App\Domains\Services\Provider\Abstracts\IEditProviderService;
 use App\Domains\Services\Provider\Abstracts\IListProviderService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
@@ -14,6 +13,7 @@ use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class ProviderController extends Controller
 {
@@ -43,8 +43,8 @@ class ProviderController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
-            return $e->response();
+        } catch (Exception $e) {
+            return Controller::error($e);
         }
     }
 
@@ -57,7 +57,7 @@ class ProviderController extends Controller
                 $filter->active
             );
             return Controller::get($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -67,7 +67,7 @@ class ProviderController extends Controller
         try {
             $success = $this->createProviderService->createProvider($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -77,7 +77,7 @@ class ProviderController extends Controller
         try {
             $success = $this->editProviderService->editProvider($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     } 

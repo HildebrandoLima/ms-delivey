@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
 use App\Domains\Services\Telephone\Abstracts\IEditTelephoneService;
-use App\Exceptions\SystemDefaultException;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class TelephoneController extends Controller
 {
@@ -29,7 +29,7 @@ class TelephoneController extends Controller
         try {
             $success = $this->createTelephoneService->createTelephone($request);
             return Controller::post($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }
@@ -39,7 +39,7 @@ class TelephoneController extends Controller
         try {
             $success = $this->editTelephoneService->editTelephone($request);
             return Controller::put($success);
-        } catch (SystemDefaultException $e) {
+        } catch (Exception $e) {
             return Controller::error($e);
         }
     }

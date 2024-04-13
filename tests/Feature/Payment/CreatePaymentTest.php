@@ -10,8 +10,7 @@ use Tests\TestCase;
 class CreatePaymentTest extends TestCase
 {
     private array $typeCard = array('Crédito', 'Débito');
-    private array $typePaymentCaseOne = array('Crédito', 'Débito');
-    private array $typePaymentCaseTwo = array('Boleto Bancário', 'Pix');
+    private array $typePayment = array('Crédito', 'Débito');
 
     /**
      * @test
@@ -21,7 +20,7 @@ class CreatePaymentTest extends TestCase
     {
         // Arrange
         $randKeysCard = array_rand($this->typeCard);
-        $randKeysPayment = array_rand($this->typePaymentCaseOne);
+        $randKeysPayment = array_rand($this->typePayment);
         $data = [
             'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
             'tipoCartao' => $this->typeCard[$randKeysCard],
@@ -51,7 +50,6 @@ class CreatePaymentTest extends TestCase
      */
     public function it_endpoint_post_create_money_base_response_200(): void
     {
-        $randKeysPayment = array_rand($this->typePaymentCaseTwo);
         // Arrange
         $data = [
             'numeroCartao' => null,
@@ -60,7 +58,7 @@ class CreatePaymentTest extends TestCase
             'ccv' => null,
             'parcela' => null,
             'total' => rand(1, 100),
-            'metodoPagamento' => $this->typeCard[$randKeysPayment],
+            'metodoPagamento' => 'Boleto Bancário' ?? 'Pix',
             'pedidoId' => Pedido::factory()->createOne()->id,
         ];
         $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
@@ -135,5 +133,37 @@ class CreatePaymentTest extends TestCase
         $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
+    }
+
+    /**
+     * @test
+     * @group payment
+     */
+    public function it_endpoint_post_base_response_404(): void
+    {
+        // Arrange
+        $randKeysCard = array_rand($this->typeCard);
+        $randKeysPayment = array_rand($this->typePayment);
+        $data = [
+            'numeroCartao' => rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200) . ' ' . rand(100, 200),
+            'tipoCartao' => $this->typeCard[$randKeysCard],
+            'dataValidade' => date('Y-m-d H:i:s'),
+            'ccv' => rand(100, 100),
+            'parcela' => rand(0, 2),
+            'total' => rand(1, 100),
+            'metodoPagamento' => $this->typeCard[$randKeysPayment],
+            'pedidoId' => 1000,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->postJson(route('payment.save', $data));
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Category;
 
+use App\Models\Categoria;
 use App\Support\Enums\PerfilEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -95,5 +96,29 @@ class CreateCategoryTest extends TestCase
         $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
+    }
+
+    /**
+     * @test
+     * @group category
+     */
+    public function it_endpoint_post_base_response_409(): void
+    {
+        // Arrange
+        $category = Categoria::factory()->createOne()->toArray();
+        $data = [
+            'nome' => $category['nome'],
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->postJson(route('category.save', $data));
+
+        // Assert
+        $response->assertStatus(409);
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 409);
     }
 }

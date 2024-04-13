@@ -3,8 +3,8 @@
 namespace App\Data\Repositories\Concretes;
 
 use App\Data\Infra\Database\DBConnection;
-use App\Exceptions\BaseResponseError;
 use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Exceptions\HttpInternalServerError;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -21,7 +21,7 @@ class EntityRepository extends DBConnection implements IEntityRepository
             return $id;
         } catch (Throwable $e) {
             $this->db->rollBack();
-            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+            throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
 
@@ -34,7 +34,7 @@ class EntityRepository extends DBConnection implements IEntityRepository
             return $success;
         } catch (Throwable $e) {
             $this->db->rollBack();
-            throw new HttpResponseException(BaseResponseError::httpInternalServerErrorException($e));
+            throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
 

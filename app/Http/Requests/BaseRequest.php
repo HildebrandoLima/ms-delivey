@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\BaseResponseError;
+use App\Exceptions\HttpBadRequest;
+use App\Exceptions\HttpConflict;
+use App\Exceptions\HttpNotFound;
+use App\Support\Utils\Messages\DefaultErrorMessages;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -13,15 +16,30 @@ abstract class BaseRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator): Response
     {
-        $errors = collect($validator->errors()->toArray())
+        $errors = $this->getErrors($validator);
+        $details = $this->getDetails($validator);
+
+        foreach ($this->createResponseError() as $response):
+            if ($response['condition']($errors)):
+                throw new HttpResponseException($response['response']::getResponse($errors, $details));
+            endif;
+        endforeach;
+
+        throw new HttpResponseException(HttpBadRequest::getResponse($errors, $details));
+    }
+
+    private function getErrors(Validator $validator): Collection
+    {
+        return collect($validator->errors()->toArray())
             ->map(fn(array $error): string => count($error) === 0 ? '' : $error[0]);
-        $details = collect([
+    }
+
+    private function getDetails(Validator $validator): Collection
+    {
+        return collect([
             'rules' => $this->mappedRules(),
             'error' => $validator->getMessageBag()
         ]);
-        $errors = $this->mappedErros($errors);
-
-        throw new HttpResponseException(BaseResponseError::httpBadRequest($errors, $details));
     }
 
     private function mappedRules(): Collection
@@ -40,18 +58,22 @@ abstract class BaseRequest extends FormRequest
         });
     }
 
-    private function mappedErros(Collection $errors): Collection
+    private function createResponseError(): array
     {
-        $errorsArray = [];
-        foreach ($errors as $key => $error):
-            $matches = [];
-            if (preg_match('/(\w+)\.(\d)+/', $key, $matches)):
-                $newKey = $matches[1] . "[" . $matches[2] . "]";
-                $errorsArray[$newKey] = $error;
-            else:
-                $errorsArray[$key] = $error;
-            endif;
-        endforeach;
-        return collect($errorsArray);
+        return [
+            [
+                'condition' => fn($errors) => $this->hasError($errors, DefaultErrorMessages::ALREADY_EXISTING),
+                'response' => HttpConflict::class,
+            ],
+            [
+                'condition' => fn($errors) => $this->hasError($errors, DefaultErrorMessages::NOT_FOUND),
+                'response' => HttpNotFound::class,
+            ],
+        ];
+    }
+
+    private function hasError($errors, $errorMessage): bool
+    {
+        return $errors->contains(fn($error) => str_contains($error, $errorMessage));
     }
 }

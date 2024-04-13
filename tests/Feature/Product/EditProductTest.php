@@ -153,4 +153,40 @@ class EditProductTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
+
+    /**
+     * @test
+     * @group product
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $id = 1000;
+        $product = $this->product();
+        $data = [
+            'id' => $id,
+            'nome' => Str::random(10),
+            'precoCusto' => $product['preco_custo'],
+            'precoVenda' => $product['preco_venda'],
+            'codigoBarra' => $product['codigo_barra'],
+            'descricao' => $product['descricao'],
+            'quantidade' => $product['quantidade'],
+            'unidadeMedida' => $product['unidade_medida'],
+            'dataValidade' => date('Y-m-d H:s:i'),
+            'categoriaId' => $id,
+            'fornecedorId' => $id,
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('product.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }
