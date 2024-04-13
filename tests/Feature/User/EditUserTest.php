@@ -97,4 +97,32 @@ class EditUserTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
+
+    /**
+     * @test
+     * @group user
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $user = $this->user();
+        $data = [
+            'id' => 1000,
+            'nome' => Str::random(10),
+            'email' => $user['email'],
+            'genero' => 'A',
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('user.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

@@ -143,4 +143,36 @@ class EditAddressTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
+
+    /**
+     * @test
+     * @group address
+     */
+    public function it_endpoint_post_base_response_404(): void
+    {
+        // Arrange
+        $address = $this->address();
+        $data = [
+            'id' => 1000,
+            'logradouro' => Str::random(10),
+            'numero' => rand(1000, 1000),
+            'bairro' => $address['bairro'],
+            'cidade' => $address['cidade'],
+            'cep' => rand(10000, 20000) . '-' . rand(100, 200),
+            'uf' => $address['uf'],
+            'fornecedorId' => Fornecedor::factory()->createOne()->id,
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('address.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

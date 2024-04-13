@@ -129,4 +129,33 @@ class EditProviderTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
+
+    /**
+     * @test
+     * @group provider
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $provider = $this->provider();
+        $data = [
+            'id' => 1000,
+            'razaoSocial' => Str::random(10),
+            'cnpj' => $provider['cnpj'],
+            'email' => $provider['email'],
+            'dataFundacao' => $provider['data_fundacao'],
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('provider.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

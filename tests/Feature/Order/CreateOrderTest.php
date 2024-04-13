@@ -133,4 +133,48 @@ class CreateOrderTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
+
+    /**
+     * @test
+     * @group order
+     */
+    public function it_endpoint_post_base_response_404(): void
+    {
+        // Arrange
+        $id = 1000000;
+        $randKeys = array_rand($this->typeDelivery);
+        $products = $this->product();
+        $data['itens'] = [];
+        foreach ($products as $product):
+            $item = [
+                'nome' => $product['nome'],
+                'preco' => $product['preco_venda'],
+                'quantidadeItem' => $product['quantidade'],
+                'subTotal' => $product['preco_venda'],
+                'produtoId' => $id,
+            ];
+            $this->total += $product['preco_venda'];
+            array_push($data['itens'], $item);
+        endforeach;
+        $data = [
+            'quantidadeItens' => $this->count,
+            'total' => $this->total,
+            'tipoEntrega' => $this->typeDelivery[$randKeys],
+            'valorEntrega' => 3.5,
+            'usuarioId' => $id,
+            'enderecoId' => $id,
+            'itens' => $data['itens'],
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->postJson(route('order.save', $data));
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

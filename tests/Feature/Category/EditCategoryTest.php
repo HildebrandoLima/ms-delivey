@@ -116,4 +116,29 @@ class EditCategoryTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
     }
+
+    /**
+     * @test
+     * @group category
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $data = [
+            'id' => 1000,
+            'nome' => Str::random(10),
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('category.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

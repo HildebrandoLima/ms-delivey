@@ -86,4 +86,28 @@ class EditOrderTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
     }
+
+    /**
+     * @test
+     * @group order
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $data = [
+            'id' => 1000,
+            'ativo' => false,
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('order.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }

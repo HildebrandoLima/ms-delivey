@@ -35,7 +35,6 @@ class CreatePaymentRequest extends BaseRequest
     public function messages(): array
     {
         return [
-            'metodoPagamento.exists' => DefaultErrorMessages::NOT_FOUND,
             'pedidoId.exists' => DefaultErrorMessages::NOT_FOUND,
             'tipoCartao.in' => DefaultErrorMessages::NOT_FOUND,
             'metodoPagamento.in' => DefaultErrorMessages::NOT_FOUND,

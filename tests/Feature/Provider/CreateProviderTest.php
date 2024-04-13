@@ -13,6 +13,7 @@ use Tests\TestCase;
 class CreateProviderTest extends TestCase
 {
     use GenerateCNPJ, GenerateEmail;
+
     /**
      * @test
      * @group provider
@@ -115,5 +116,32 @@ class CreateProviderTest extends TestCase
         $response->assertForbidden();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 403);
+    }
+
+        /**
+     * @test
+     * @group provider
+     */
+    public function it_endpoint_post_base_response_409(): void
+    {
+        // Arrange
+        $provider = Fornecedor::factory()->createOne()->toArray();
+        $data = [
+            'razaoSocial' => $provider['razao_social'],
+            'cnpj' => $this->generateCNPJ(),
+            'email' => $this->generateEmail(),
+            'dataFundacao' => date('Y-m-d H:i:s'),
+        ];
+        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->postJson(route('provider.save'), $data);
+
+        // Assert
+        $response->assertStatus(409);
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 409);
     }
 }

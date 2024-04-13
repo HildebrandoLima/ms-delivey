@@ -87,4 +87,30 @@ class CreateAddressTest extends TestCase
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 400);
     }
+
+    /**
+     * @test
+     * @group address
+     */
+    public function it_endpoint_post_base_response_404(): void
+    {
+        // Arrange
+        $data = [
+            'logradouro' => Str::random(10),
+            'numero' => rand(1, 100),
+            'bairro' => Str::random(10),
+            'cidade' => Str::random(10),
+            'cep' => null,
+            'ufId' => rand(1, 27),
+            'usuarioId' => 10000,
+        ];
+
+        // Act
+        $response = $this->postJson(route('address.save'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
+    }
 }
