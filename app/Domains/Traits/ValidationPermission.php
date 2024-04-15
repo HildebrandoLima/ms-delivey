@@ -9,7 +9,7 @@ trait ValidationPermission
 {
     public function validationPermission(string $permission): bool
     {
-        $message = 'Permissão negada! Você não possue acesso de admin.';
+        $message = 'Permissão negada! Você não possue acesso de administrador.';
         $permissions = auth()->user()->permissions;
         foreach ($permissions->toArray() as $instance):
             if (in_array($permission, $instance)): 
