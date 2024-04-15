@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Product;
 
+use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\ProductEnum;
-use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class EditProductRequest extends BaseRequest

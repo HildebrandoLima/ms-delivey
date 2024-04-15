@@ -5,10 +5,10 @@ namespace App\Data\Repositories\Concretes;
 use App\Data\Infra\Database\DBConnection;
 use App\Domains\Dtos\ProductDto;
 use App\Data\Repositories\Abstracts\IProductRepository;
+use App\Domains\Traits\Dtos\AutoMapper;
 use App\Exceptions\HttpInternalServerError;
 use App\Models\Produto;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\MapperDtos\AutoMapper;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,6 +18,8 @@ use Throwable;
 
 class ProductRepository extends DBConnection implements IProductRepository
 {
+    use AutoMapper;
+
     public function readAll(Pagination $pagination, string|int $search, bool $filter): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
@@ -90,6 +92,6 @@ class ProductRepository extends DBConnection implements IProductRepository
 
     private function map(array $data): ProductDto
     {
-        return AutoMapper::map($data, ProductDto::class);
+        return $this->mapper($data, ProductDto::class);
     }
 }

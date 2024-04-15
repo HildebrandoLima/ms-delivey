@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Traits;
+namespace App\Domains\Traits;
 
 use App\Exceptions\HttpForbidden;
 use Illuminate\Http\Exceptions\HttpResponseException;

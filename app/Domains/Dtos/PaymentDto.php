@@ -2,11 +2,12 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
+use App\Domains\Traits\Dtos\DefaultFields;
 
 class PaymentDto
 {
     use DefaultFields;
+
     public int $codigoTransacao = 0;
     public ?string $numeroCartao = "";
     public ?string $tipoCartao = "";

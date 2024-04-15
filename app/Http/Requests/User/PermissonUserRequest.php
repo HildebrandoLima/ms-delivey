@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\User;
 
+use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
-use App\Support\Traits\ValidationPermission;
 
 class PermissonUserRequest extends BaseRequest
 {

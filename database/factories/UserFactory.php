@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Support\Traits\GenerateCPF;
+use App\Domains\Traits\GenerateData\GenerateCPF;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 

@@ -5,11 +5,11 @@ namespace App\Data\Repositories\Concretes;
 use App\Data\Infra\Database\DBConnection;
 use App\Domains\Dtos\UserDto;
 use App\Data\Repositories\Abstracts\IUserRepository;
+use App\Domains\Traits\Dtos\AutoMapper;
 use App\Exceptions\HttpInternalServerError;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\MapperDtos\AutoMapper;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +19,8 @@ use Throwable;
 
 class UserRepository extends DBConnection implements IUserRepository
 {
+    use AutoMapper;
+
     public function readAll(Pagination $pagination, string $search, bool $filter): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
@@ -94,6 +96,6 @@ class UserRepository extends DBConnection implements IUserRepository
 
     private function map(array $data): UserDto
     {
-        return AutoMapper::map($data, UserDto::class);  
+        return $this->mapper($data, UserDto::class);  
     }
 }

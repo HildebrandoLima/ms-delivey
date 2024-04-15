@@ -2,11 +2,12 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
+use App\Domains\Traits\Dtos\DefaultFields;
 
 class ItemDto
 {
     use DefaultFields;
+
     public string $nome = "";
     public float $preco = 0;
     public int $quantidadeItem = 0;

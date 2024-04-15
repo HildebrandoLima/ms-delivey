@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Payment;
 
+use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PaymentEnum;
 use App\Support\Enums\PermissionEnum;
-use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreatePaymentRequest extends BaseRequest

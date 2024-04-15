@@ -2,11 +2,12 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
+use App\Domains\Traits\Dtos\DefaultFields;
 
 class AddressDto
 {
     use DefaultFields;
+
     public string $logradouro = "";
     public int $numero = 0;
     public string $bairro = "";

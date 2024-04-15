@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Traits;
+namespace App\Domains\Traits\GenerateData;
 
 use Illuminate\Support\Str;
 

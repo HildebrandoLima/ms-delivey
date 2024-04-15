@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Order;
 
+use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\OrderEnum;
 use App\Support\Enums\PermissionEnum;
-use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreateOrderRequest extends BaseRequest

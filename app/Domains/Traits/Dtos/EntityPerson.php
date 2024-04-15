@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Support\Utils\MapperDtos;
+namespace App\Domains\Traits\Dtos;
 
 use App\Domains\Dtos\AddressDto;
 use App\Domains\Dtos\TelephoneDto;
 
 trait EntityPerson
 {
+    use AutoMapper;
+
     public function address(array $address): array
     {
         foreach ($address as $key => $instance):
@@ -17,7 +19,7 @@ trait EntityPerson
 
     private function mapAddress(array $data): AddressDto
     {
-        return AutoMapper::map($data, AddressDto::class);
+        return $this->mapper($data, AddressDto::class);
     }
 
     public function telephone(array $telephones): array
@@ -30,6 +32,6 @@ trait EntityPerson
 
     private function mapTelephone(array $data): TelephoneDto
     {
-        return AutoMapper::map($data, TelephoneDto::class);
+        return $this->mapper($data, TelephoneDto::class);
     }
 }

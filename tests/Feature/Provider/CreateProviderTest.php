@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Provider;
 
+use App\Domains\Traits\GenerateData\GenerateCNPJ;
+use App\Domains\Traits\GenerateData\GenerateEmail;
 use App\Models\Fornecedor;
 use App\Support\Enums\PerfilEnum;
-use App\Support\Traits\GenerateCNPJ;
-use App\Support\Traits\GenerateEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;

@@ -2,8 +2,8 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
-use App\Support\Utils\MapperDtos\EntityProduct;
+use App\Domains\Traits\Dtos\DefaultFields;
+use App\Domains\Traits\Dtos\EntityProduct;
 
 class ProductDto
 {

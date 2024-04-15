@@ -2,11 +2,12 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
+use App\Domains\Traits\Dtos\DefaultFields;
 
 class TelephoneDto
 {
     use DefaultFields;
+
     public string $numero = "";
     public string $tipo = "";
     public ?int $usuarioId = 0;

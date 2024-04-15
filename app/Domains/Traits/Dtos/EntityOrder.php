@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Support\Utils\MapperDtos;
+namespace App\Domains\Traits\Dtos;
 
 use App\Domains\Dtos\ItemDto;
 use App\Domains\Dtos\PaymentDto;
 
 trait EntityOrder
 {
+    use AutoMapper;
+
     public function items(array $items): array
     {
         foreach ($items as $key => $instance):
@@ -17,7 +19,7 @@ trait EntityOrder
 
     private function mapItems(array $data): ItemDto
     {
-        return AutoMapper::map($data, ItemDto::class);
+        return $this->mapper($data, ItemDto::class);
     }
 
     public function payment(array $payment): array
@@ -30,6 +32,6 @@ trait EntityOrder
 
     private function mapPayment(array $data): PaymentDto
     {
-        return AutoMapper::map($data, PaymentDto::class);
+        return $this->mapper($data, PaymentDto::class);
     }
 }
