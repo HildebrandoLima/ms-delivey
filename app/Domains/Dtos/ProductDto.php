@@ -7,7 +7,8 @@ use App\Support\Utils\MapperDtos\EntityProduct;
 
 class ProductDto
 {
-    use DefaultFields;
+    use DefaultFields, EntityProduct;
+
     public string $nome = "";
     public float $precoCusto = 0;
     public float $precoVenda = 0;
@@ -24,6 +25,6 @@ class ProductDto
     public function customizeMapping(array $data): void
     {
         $this->mapCommonFields($data);
-        $this->imagens = EntityProduct::images($data['imagem'] ?? []);
+        $this->imagens = $this->images($data['imagem'] ?? []);
     }
 }

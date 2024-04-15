@@ -7,7 +7,8 @@ use App\Support\Utils\MapperDtos\EntityPerson;
 
 class ProviderDto
 {
-    use DefaultFields;
+    use DefaultFields, EntityPerson;
+
     public string $razaoSocial = "";
     public string $cnpj = "";
     public string $email = "";
@@ -18,7 +19,7 @@ class ProviderDto
     public function customizeMapping(array $data): void
     {
         $this->mapCommonFields($data);
-        $this->enderecos = EntityPerson::addrres($data['endereco'] ?? []);
-        $this->telefones = EntityPerson::telephone($data['telefone'] ?? []);
+        $this->enderecos = $this->address($data['endereco'] ?? []);
+        $this->telefones = $this->telephone($data['telefone'] ?? []);
     }
 }

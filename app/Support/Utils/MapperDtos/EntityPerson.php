@@ -5,30 +5,30 @@ namespace App\Support\Utils\MapperDtos;
 use App\Domains\Dtos\AddressDto;
 use App\Domains\Dtos\TelephoneDto;
 
-class EntityPerson
+trait EntityPerson
 {
-    public static function addrres(array $address): array
+    public function address(array $address): array
     {
         foreach ($address as $key => $instance):
-            $address[$key] = self::mapAddress($instance);
+            $address[$key] = $this->mapAddress($instance);
         endforeach;
         return $address;
     }
 
-    private static function mapAddress(array $data): AddressDto
+    private function mapAddress(array $data): AddressDto
     {
         return AutoMapper::map($data, AddressDto::class);
     }
 
-    public static function telephone(array $telephones): array
+    public function telephone(array $telephones): array
     {
         foreach ($telephones as $key => $instance):
-            $telephones[$key] = self::mapTelephone($instance);
+            $telephones[$key] = $this->mapTelephone($instance);
         endforeach;
         return $telephones;
     }
 
-    private static function mapTelephone(array $data): TelephoneDto
+    private function mapTelephone(array $data): TelephoneDto
     {
         return AutoMapper::map($data, TelephoneDto::class);
     }
