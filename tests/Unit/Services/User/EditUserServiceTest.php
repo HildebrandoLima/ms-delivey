@@ -22,17 +22,19 @@ class EditUserServiceTest extends TestCase
     public function test_success_edit_user_service(): void
     {
         // Arrange
-        $editedUser = User::query()->first();
-        $itemAndOrder = Item::query()->join('pedido as p', 'p.id', '=', 'item.pedido_id')
-        ->where('p.usuario_id', '=', $editedUser->id)->first()->toArray();
-        $address = Endereco::query()->where('usuario_id', '=', $editedUser->id)->first()->toArray();
-        $telephone = Telefone::query()->where('usuario_id', '=', $editedUser->id)->first()->toArray();
+        $editedUser = Pedido::query()->with('usuario')->with('item')->with('endereco')->first();
+        $item = $editedUser->item->first();
+        $order = $editedUser->first();
+        $user = $editedUser->usuario->first();
+        $address = $editedUser->endereco->first();
+        $telephone = User::query()->with('telefone')->first()->telefone[0];
+
         $this->request = new EditUserRequest();
-        $this->request['id'] = $editedUser->id;
-        $this->request['nome'] = $editedUser->nome;
-        $this->request['email'] = $editedUser->email;
-        $this->request['genero'] = $editedUser->genero;
-        $this->request['ativo'] = $editedUser->e_admin;
+        $this->request['id'] = $user->id;
+        $this->request['nome'] = $user->nome;
+        $this->request['email'] = $user->email;
+        $this->request['genero'] = $user->genero;
+        $this->request['ativo'] = $user->ativo;
         $authenticate = $this->authenticate(PerfilEnum::ADMIN);
 
         $this->withHeaders([
@@ -54,10 +56,10 @@ class EditUserServiceTest extends TestCase
         $editUserService = new EditUserService($this->userRepository);
         $result = $editUserService->editUser($this->request);
         $mappedUser = $editUserService->mapUser($this->request);
-        $mappedItem = $editUserService->mapItem($itemAndOrder['id'], $itemAndOrder['ativo']);
-        $mappedOrder = $editUserService->mapOrder($itemAndOrder['pedido_id'], $itemAndOrder['ativo']);
-        $mappedAddress = $editUserService->mapAddress($address['id'], $address['ativo']);
-        $mappedTelephone = $editUserService->mapTelephone($telephone['id'], $telephone['ativo']);
+        $mappedItem = $editUserService->mapItem($item->id, $item->ativo);
+        $mappedOrder = $editUserService->mapOrder($order->id, $order->ativo);
+        $mappedAddress = $editUserService->mapAddress($address->id, $address->ativo);
+        $mappedTelephone = $editUserService->mapTelephone($telephone->id, $telephone->ativo);
         $mappedUser = $editUserService->mapUser($this->request);
 
         // Assert
@@ -67,10 +69,10 @@ class EditUserServiceTest extends TestCase
         $this->assertInstanceOf(Endereco::class, $mappedAddress);
         $this->assertInstanceOf(Telefone::class, $mappedTelephone);
         $this->assertInstanceOf(User::class, $mappedUser);
-        $this->assertEquals($this->request['id'], $editedUser->id);
-        $this->assertEquals($this->request['nome'], $editedUser->nome);
-        $this->assertEquals($this->request['email'], $editedUser->email);
-        $this->assertEquals($this->request['genero'], $editedUser->genero);
-        $this->assertEquals($this->request['ativo'], $editedUser->ativo);
+        $this->assertEquals($this->request['id'], $user->id);
+        $this->assertEquals($this->request['nome'], $user->nome);
+        $this->assertEquals($this->request['email'], $user->email);
+        $this->assertEquals($this->request['genero'], $user->genero);
+        $this->assertEquals($this->request['ativo'], $user->ativo);
     }
 }
