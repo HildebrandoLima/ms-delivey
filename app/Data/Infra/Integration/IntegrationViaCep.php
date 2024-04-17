@@ -9,11 +9,10 @@ class IntegrationViaCep
 {
     public function integrationViaCep(string $cep): Collection|null
     {
-        $response = Http::get('https://viacep.com.br/ws/' . $cep . '/json');
-        $data = json_decode($response->getBody(), true);
+        $response = Http::get('https://viacep.com.br/ws/' . $cep . '/json')->json();
 
-        if (!is_null($data)):
-            return collect($this->treatObject($data));
+        if (!is_null($response)):
+            return collect($this->treatObject($response));
         endif;
         return null;
     }
