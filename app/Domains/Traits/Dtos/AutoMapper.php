@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Support\Utils\MapperDtos;
+namespace App\Domains\Traits\Dtos;
 
-class AutoMapper
+trait AutoMapper
 {
-    public static function map(array $data, string $dtoClass): object
+    public static function mapper(array $data, string $dtoClass): object
     {
         $dto = new $dtoClass();
 

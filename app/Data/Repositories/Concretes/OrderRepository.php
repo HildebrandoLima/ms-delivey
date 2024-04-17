@@ -4,15 +4,17 @@ namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\OrderDto;
 use App\Data\Repositories\Abstracts\IOrderRepository;
+use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Pedido;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\MapperDtos\AutoMapper;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class OrderRepository implements IOrderRepository
 {
+    use AutoMapper;
+
     public function readAll(string $search, int $id, bool $filter): Collection
     {
         $collection = $this->query()
@@ -51,6 +53,6 @@ class OrderRepository implements IOrderRepository
 
     private function map(array $data): OrderDto
     {
-        return AutoMapper::map($data, OrderDto::class);
+        return $this->mapper($data, OrderDto::class);
     }
 }

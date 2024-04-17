@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Category;
 
+use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
-use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class CreateCategoryRequest extends BaseRequest

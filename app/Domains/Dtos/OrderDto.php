@@ -2,13 +2,14 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
-use App\Support\Utils\MapperDtos\EntityOrder;
-use App\Support\Utils\MapperDtos\EntityPerson;
+use App\Domains\Traits\Dtos\DefaultFields;
+use App\Domains\Traits\Dtos\EntityOrder;
+use App\Domains\Traits\Dtos\EntityPerson;
 
 class OrderDto
 {
-    use DefaultFields;
+    use DefaultFields, EntityOrder, EntityPerson;
+
     public int $numeroPedido = 0;
     public int $quantidadeItem = 0;
     public float $total = 0;
@@ -22,8 +23,8 @@ class OrderDto
     public function customizeMapping(array $data): void
     {
         $this->mapCommonFields($data);
-        $this->itens = EntityOrder::items($data['item'] ?? []);
-        $this->pagamento = EntityOrder::payment($data['pagamento'] ?? []);
-        $this->endereco = EntityPerson::addrres($data['endereco'] ?? []);
+        $this->itens = $this->items($data['item'] ?? []);
+        $this->pagamento = $this->payment($data['pagamento'] ?? []);
+        $this->endereco = $this->address($data['endereco'] ?? []);
     }
 }

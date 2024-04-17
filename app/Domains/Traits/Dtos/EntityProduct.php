@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Support\Utils\MapperDtos;
+namespace App\Domains\Traits\Dtos;
 
 use App\Domains\Dtos\ImageDto;
 use Illuminate\Support\Facades\Storage;
 
-class EntityProduct
+trait EntityProduct
 {
-    public static function images(array $images): array
+    use AutoMapper;
+
+    public function images(array $images): array
     {
         foreach ($images as $key => $instance):
-            $images[$key] = self::map($instance);
+            $images[$key] = $this->map($instance);
         endforeach;
         return $images;
     }
 
-    private static function map(array $data): ImageDto
+    private function map(array $data): ImageDto
     {
-        $image = AutoMapper::map($data, ImageDto::class);
+        $image = $this->mapper($data, ImageDto::class);
         $image->caminho = Storage::disk('public')->url($data['caminho']) ?? '';
         $image->produtoId = $data['produto_id'] ?? 0;
         return $image;

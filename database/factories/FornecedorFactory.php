@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Support\Traits\GenerateCNPJ;
+use App\Domains\Traits\GenerateData\GenerateCNPJ;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

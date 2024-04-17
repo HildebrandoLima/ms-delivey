@@ -2,11 +2,12 @@
 
 namespace App\Domains\Dtos;
 
-use App\Support\Traits\DefaultFields;
+use App\Domains\Traits\Dtos\DefaultFields;
 
 class ImageDto
 {
     use DefaultFields;
+
     public string $caminho = "";
     public int $produtoId = 0;
 

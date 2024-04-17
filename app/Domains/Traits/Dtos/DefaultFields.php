@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Traits;
+namespace App\Domains\Traits\Dtos;
 
 use App\Support\Utils\DateFormat\DateFormat;
 

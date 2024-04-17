@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Domains\Traits\GenerateData\GeneratePassword;
 use App\Models\PasswordReset;
 use App\Models\User;
-use App\Support\Traits\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

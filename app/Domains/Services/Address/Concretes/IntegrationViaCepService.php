@@ -15,7 +15,7 @@ class IntegrationViaCepService implements IIntegrationViaCepService
         $this->integrationViaCep = $integrationViaCep;
     }
 
-    public function integrationViaCep(string $cep): Collection
+    public function integrationViaCep(string $cep): Collection|null
     {
         return $this->integrationViaCep->integrationViaCep($cep);   
     }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Address\Concretes\IntegrationViaCepService;
+use App\Domains\Services\Address\Abstracts\IIntegrationViaCepService;
+use App\Exceptions\HttpBadRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
 class IntegrationController extends Controller
 {
-    private IntegrationViaCepService $integrationViaCepService;
+    private IIntegrationViaCepService $integrationViaCepService;
 
-    public function __construct(IntegrationViaCepService $integrationViaCepService)
+    public function __construct(IIntegrationViaCepService $integrationViaCepService)
     {
         $this->integrationViaCepService = $integrationViaCepService;
     }
@@ -19,6 +20,9 @@ class IntegrationController extends Controller
     {
         try {
             $success = $this->integrationViaCepService->integrationViaCep($cep);
+            if (is_null($success)):
+                return HttpBadRequest::getResponse(collect([]), collect([]));
+            endif;
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);

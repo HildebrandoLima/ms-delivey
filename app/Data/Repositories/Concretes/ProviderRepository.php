@@ -4,9 +4,9 @@ namespace App\Data\Repositories\Concretes;
 
 use App\Domains\Dtos\ProviderDto;
 use App\Data\Repositories\Abstracts\IProviderRepository;
+use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Fornecedor;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\MapperDtos\AutoMapper;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +14,8 @@ use Illuminate\Support\Collection;
 
 class ProviderRepository implements IProviderRepository
 {
+    use AutoMapper;
+
     public function readAll(Pagination $pagination, string $search, bool $filter): Collection
     {
         if (isset($pagination->page) && isset($pagination->perPage)):
@@ -68,6 +70,6 @@ class ProviderRepository implements IProviderRepository
 
     private function map(array $data): ProviderDto
     {
-        return AutoMapper::map($data, ProviderDto::class);
+        return $this->mapper($data, ProviderDto::class);
     }
 }

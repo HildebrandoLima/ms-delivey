@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,8 +15,9 @@ class ForgotPasswordTest extends TestCase
     public function it_endpoint_post_forgot_password_base_response_200(): void
     {
         // Arrange
+        $email = User::query()->first()->email;
         $data = [
-            'email' => 'teste@email.com'
+            'email' => $email
         ];
 
         // Act

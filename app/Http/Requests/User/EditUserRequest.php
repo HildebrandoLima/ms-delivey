@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\User;
 
+use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
 use App\Support\Enums\UserEnum;
-use App\Support\Traits\ValidationPermission;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
 class EditUserRequest extends BaseRequest

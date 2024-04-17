@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\User;
 
+use App\Domains\Traits\GenerateData\GenerateCPF;
+use App\Domains\Traits\GenerateData\GenerateEmail;
+use App\Domains\Traits\GenerateData\GeneratePassword;
 use App\Models\User;
-use App\Support\Traits\GenerateCPF;
-use App\Support\Traits\GenerateEmail;
-use App\Support\Traits\GeneratePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
