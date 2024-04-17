@@ -7,11 +7,6 @@ use Tests\TestCase;
 
 class IntegrationViaCepTest extends TestCase
 {
-    private function cep(): string
-    {
-        return rand(10000, 20000) . '-' . rand(100, 200);;
-    }
-
     /**
      * @test
      * @group address
@@ -19,7 +14,7 @@ class IntegrationViaCepTest extends TestCase
     public function it_endpoint_get_list_all_base_response_200(): void
     {
         // Arrange
-        $data = $this->cep();
+        $data = '60872-559';
 
         // Act
         $response = $this->getJson(route('integration.viacep', ['cep' => $data]));
@@ -37,7 +32,7 @@ class IntegrationViaCepTest extends TestCase
     public function it_endpoint_get_list_all_base_response_400(): void
     {
         // Arrange
-        $data = $this->cep();
+        $data = '60872-55';
 
         // Act
         $response = $this->getJson(route('integration.viacep', ['cep' => $data]));

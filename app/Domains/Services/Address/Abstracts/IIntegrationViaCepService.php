@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface IIntegrationViaCepService
 {
-    public function integrationViaCep(string $cep): Collection;
+    public function integrationViaCep(string $cep): Collection|null;
 }
