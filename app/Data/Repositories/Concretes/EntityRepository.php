@@ -8,7 +8,7 @@ use App\Exceptions\HttpInternalServerError;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Throwable;
+use Exception;
 
 class EntityRepository extends DBConnection implements IEntityRepository
 {
@@ -19,7 +19,7 @@ class EntityRepository extends DBConnection implements IEntityRepository
             $id = $model::query()->create($model->toArray())->orderBy('id', 'desc')->first()->id;
             $this->db->commit();
             return $id;
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             $this->db->rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
@@ -32,7 +32,7 @@ class EntityRepository extends DBConnection implements IEntityRepository
             $success = $model::query()->where('id', '=', $model->id)->update($model->toArray());
             $this->db->commit();
             return $success;
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             $this->db->rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }

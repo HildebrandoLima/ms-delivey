@@ -15,7 +15,7 @@ use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
-use Throwable;
+use Exception;
 
 class UserRepository extends DBConnection implements IUserRepository
 {
@@ -88,7 +88,7 @@ class UserRepository extends DBConnection implements IUserRepository
             $id = PasswordReset::query()->where('codigo', '=', $codigo)->delete();
             $this->db->commit();
             return $id;
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             $this->db->rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
