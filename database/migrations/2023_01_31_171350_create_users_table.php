@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamp('data_nascimento')->nullable()->default(NULL);
             $table->enum('genero', ['Masculino', 'Feminino', 'Outro']);
             $table->boolean('email_verificado')->nullable()->default(NULL);
-            $table->boolean('e_admin');
+            $table->foreignId('role_id')->nullable()->default(NULL)->constrained('roles');
             $table->boolean('ativo');
             $table->timestamps();
         });
