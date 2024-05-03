@@ -9,13 +9,12 @@ trait ValidationPermission
 {
     public function validationPermission(string $permission): bool
     {
+        $user = auth()->user();
+        $permissions = $user->permissions();
         $message = 'Permissão negada! Você não possue acesso de administrador.';
-        $permissions = auth()->user()->permissions;
-        foreach ($permissions->toArray() as $instance):
-            if (in_array($permission, $instance)): 
-                return true;
-            endif;
-        endforeach;
+        if (in_array($permission, $permissions)): 
+            return true;
+        endif;
         throw new HttpResponseException(HttpForbidden::getResponse($message));
     }
 }

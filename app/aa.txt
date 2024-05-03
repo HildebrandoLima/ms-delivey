@@ -1,0 +1,21 @@
++ Novo Gerenciado de Permissões mais moderno:
+
++ 1° A nível de banco:
+
+- Permanecer com a tabela de permissions;
+- Criar tabela de role;
+- Modificar a tabela de user_permission para permission_role;
+- Na tabela de permission_role será atrelada automaticamente as permisssões dentro de seu role;
+- Modicar a tabela de user, especificamente o campo e_admin para role_id;
+
++ 2° A nível de back-end:
+
+- Criar a classe de PermissonRoleDb, com o array de relacionamento da tabela permission_rule;
+- Criar seeder PermissonRuleSeeder, para preencher a tabela;
+- Modificar o serviço de criaração do usuário, recebendo apenas o perfil na request;
+- Modificar request de criaração do usuário, para aplicar mova regra;
+- Analisar a classe de login e models relaconadas ao usuário;
+- Modificar Testes de Integração e unidade;
+- Atualizar Docker e GitHubActions;
+- Remover arquivos inutilizados;
+- Rodar tudo e verificar se funciona conforme esperado.

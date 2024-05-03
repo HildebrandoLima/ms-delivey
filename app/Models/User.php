@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
         'data_nascimento',
         'genero',
         'ativo',
-        'e_admin',
+        'role_id',
     ];
 
     protected $hidden = [
@@ -40,12 +41,12 @@ class User extends Authenticatable implements JWTSubject
         'updated_at' =>'datetime',
     ];
 
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): int
     {
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
@@ -60,8 +61,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Telefone::class, 'usuario_id', 'id');
     }
 
-    public function permissions(): BelongsToMany
+    public function role(): BelongsTo
     {
-        return $this->belongsToMany(Permission::class, 'permission_user');
+        return $this->belongsTo(Role::class);
+    }
+
+    public function permissions(): array
+    {
+        return PermissionRole::query()->with('permission')
+        ->where('permission_role.role_id', '=', auth()->user()->role->id)
+        ->get()->pluck('permission.0.description')->toArray();
     }
 }

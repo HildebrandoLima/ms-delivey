@@ -11,7 +11,6 @@ class DependencyInjection extends ServiceProvider
         $this->mapBindRepositories(CategoryDi::$interfaces, CategoryDi::$concretes);
         $this->mapBindRepositories(EntityDi::$interfaces, EntityDi::$concretes);
         $this->mapBindRepositories(OrderDi::$interfaces, OrderDi::$concretes);
-        $this->mapBindRepositories(PermissionDi::$interfaces, PermissionDi::$concretes);
         $this->mapBindRepositories(ProductDi::$interfaces, ProductDi::$concretes);
         $this->mapBindRepositories(ProviderDi::$interfaces, ProviderDi::$concretes);
         $this->mapBindRepositories(UserDi::$interfaces, UserDi::$concretes);
