@@ -37,7 +37,7 @@ class CreateUserService implements ICreateUserService
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $request->genero;
-        $user->role_id = $request->profile === 1 ? PerfilEnum::ADMIN : PerfilEnum::CLIENTE;
+        $user->role_id = $request->perfil === 1 ? PerfilEnum::ADMIN : PerfilEnum::CLIENTE;
         $user->ativo = AtivoEnum::ATIVADO;
         return $user;
     }
