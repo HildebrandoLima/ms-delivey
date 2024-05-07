@@ -7,7 +7,7 @@ use App\Domains\Services\Product\Abstracts\IEditProductService;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
 class EditProductService implements IEditProductService
@@ -36,7 +36,7 @@ class EditProductService implements IEditProductService
     {
         $image = new Imagem();
         $image->id = $id;
-        $image->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $image->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $image;
     }
 
@@ -58,7 +58,7 @@ class EditProductService implements IEditProductService
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $product->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $product;
     }
 }

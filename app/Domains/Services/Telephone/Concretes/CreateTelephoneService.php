@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 use App\Models\Telefone;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class CreateTelephoneService implements ICreateTelephoneService
 {
@@ -33,7 +33,7 @@ class CreateTelephoneService implements ICreateTelephoneService
         $telephone->tipo = $telefone['tipo'];
         $telephone->usuario_id = $telefone['usuarioId'] ?? null;
         $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
-        $telephone->ativo = AtivoEnum::ATIVADO;
+        $telephone->ativo = ActiveEnum::ATIVADO;
         return $telephone;
     }
 }

@@ -32,10 +32,7 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. E
 ### Funcionalidades (A desenvolver)
 <ul>
     <li>Integração com os Correios</li>
-    <li>CRUD Caixa (Fluxo, Abertura e Fechamento)</li>
-    <li>CRUD Promoção</li>
-    <li>CRUD Desconto</li>
-    <li>CRUD NF-e</li>
+    <li>CRUD Promoção/Desconto</li>
     <li>CRUD Faturamento</li>
 </ul>
 
@@ -99,6 +96,14 @@ Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método 
 ```
 
 ```
+    php artisan db:seed --class=RoleSeeder
+```
+
+```
+    php artisan db:seed --class=PermissionRoleSeeder
+```
+
+```
     php artisan db:seed --class=UnidadeFederativaSeeder
 ```
 
@@ -143,26 +148,6 @@ Clone o projeto
 git clone https://github.com/HildebrandoLima/ms-delivey.git
 ```
 
-Crie o Arquivo .env
-
-> No seu .env adicione da seguinte forma:<br />
-
-> DB_CONNECTION=mysql<br />
-> DB_HOST=db<br />
-> DB_PORT=3306<br />
-> DB_DATABASE=laravel<br />
-> DB_USERNAME=root<br />
-> DB_PASSWORD=root<br />
-
-> MAIL_MAILER=smtp<br />
-> MAIL_HOST=localhost<br />
-> MAIL_PORT=1025<br />
-> MAIL_USERNAME=null<br />
-> MAIL_PASSWORD=null<br />
-> MAIL_ENCRYPTION=null<br />
-> MAIL_FROM_ADDRESS="hello@example.com"<br />
-> MAIL_FROM_NAME="${APP_NAME}"<br />
-
 <ul>
     <li>Execute o comando: docker-compose up -d</li>
     <li>Entrar no container: docker exec -it name_container bash</li>
@@ -182,40 +167,34 @@ Seu servidor de email:
 
 ## Testes
 
-Para executar os testes e certificar que, tudo está ok, prepare seu banco de dados para os testes, configure em seu .env.testing. Ajuste seus casos de testes na classe <b>CreateFirstUserTest</b>, localizado em 'tests\Feature'. Feito isso, execute o comando abaixo:
+Para executar os testes e certificar que, tudo está ok, prepare seu banco de dados para os testes, configure em seu .env.testing. Feito isso, execute o comando abaixo:
 
 ```
-    php artisan test --filter=CreateFirstUserTest
+    php artisan test
 ```
 
-Se preferir executar todos os testes exceto, CreateFirstUserTest
+Caso preferira executar apenas um teste, execute o comando abaixo:
 
 ```
-    php artisan test --exclude=CreateFirstUserTest
+    php artisan test --filter=ClassTest
 ```
 
-Se preferir executar apenas um teste, execute o comando abaixo:
+Caso preferira executar um grupo especifico de testes, execute o comando abaixo:
 
 ```
-    php artisan test --filter=classTest
+    php artisan test ---group=NameGroup
 ```
 
-Se preferir executar um grupo especifico de testes, execute o comando abaixo:
-
-```
-    php artisan test ---group=namegroup
-```
-
-Se preferir executar os testes de serviços
+Caso preferira executar os testes de serviços
 
 ```
     php artisan test tests/Unit/Services
 ```
 
-Se preferir executar os testes de feature
+Caso preferira executar os testes de feature
 
 ```
-    php artisan test tests/Feature --exclude=CreateFirstUserTest
+    php artisan test tests/Feature
 ```
 
 
@@ -285,8 +264,16 @@ Se preferir executar os testes de feature
         "userId": id,
         "userName": name,
         "userEmail": email,
-        "isAdmin": true or false
-        "permissions": []
+        "role": {
+            "id": 1,
+            "description": "Admin"
+        }
+        "permissions": [
+            "PERMISSÃO1",
+            "PERMISSÃO2",
+            "PERMISSÃO3",
+            "PERMISSÃO4"
+        ]
     },
     "status": 200,
     "details": ""
@@ -425,8 +412,15 @@ Se preferir executar os testes de feature
         "userId": id,
         "userName": name,
         "userEmail": email,
-        "isAdmin": true or false,
-        "permissions" []
+        "role": {
+            "id": 1,
+            "description": "Admin" 
+        },
+        "permissions" [
+            "PERMISSÃO1",
+            "PERMISSÃO2",
+            "PERMISSÃO3"
+        ]
     },
     "status": 200,
     "details": ""
@@ -503,7 +497,7 @@ Se preferir executar os testes de feature
     "senha": "Hil@03#1.4",
     "dataNascimento": "2023-03-25 18:20:59",
     "genero": "Masculino",
-    "perfil": true,
+    "perfil": 1,
     "ativo": true
 }
 ```
@@ -515,7 +509,7 @@ Se preferir executar os testes de feature
     "nome": "Hill",
     "email": "test@gmail.com",
     "genero": "Masculino",
-    "perfil": true,
+    "perfil": 1,
     "ativo": true
 }
 ```

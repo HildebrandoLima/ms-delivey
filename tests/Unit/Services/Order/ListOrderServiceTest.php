@@ -4,7 +4,7 @@ namespace Tests\Unit\Services\Order;
 
 use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Domains\Services\Order\Concretes\ListOrderService;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -20,7 +20,7 @@ class ListOrderServiceTest extends TestCase
     public function test_success_list_order_all_service(): void
     {
         // Arrange
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->pagination = new Pagination();
         $this->pagination['page'] = 1;
         $this->pagination['perPage'] = 10;
@@ -53,7 +53,7 @@ class ListOrderServiceTest extends TestCase
         $orderId = rand(1, 100);
         $this->id = $orderId;
         $this->filter = true;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $expectedResult = collect([]);
 
         $this->withHeaders([

@@ -5,7 +5,7 @@ namespace Tests\Feature\Telephone;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -32,7 +32,7 @@ class EditTelephoneTest extends TestCase
             'usuarioId' => User::query()->first()->id,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -60,7 +60,7 @@ class EditTelephoneTest extends TestCase
             'fornecedorId' => Fornecedor::query()->first()->id,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -88,7 +88,7 @@ class EditTelephoneTest extends TestCase
             'usuarioId' => null,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -144,7 +144,7 @@ class EditTelephoneTest extends TestCase
             'usuarioId' => 1000,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

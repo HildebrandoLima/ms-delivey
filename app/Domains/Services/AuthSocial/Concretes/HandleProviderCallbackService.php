@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IPermissionRepository;
 use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
 use App\Models\PermissionUser;
 use App\Models\User;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 use Illuminate\Support\Collection;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -51,7 +51,7 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
         $user->genero = 'Outro';
         $user->email_verificado = true;
         $user->e_admin = false;
-        $user->ativo = AtivoEnum::ATIVADO;
+        $user->ativo = ActiveEnum::ATIVADO;
         return $user;
     }
 

@@ -66,8 +66,10 @@ jobs:
 
       - name: Create Tables
         run: |
-          php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
           php artisan db:seed --class=PermissionSeeder
+          php artisan db:seed --class=RoleSeeder
+          php artisan db:seed --class=PermissionRoleSeeder
+          php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
           php artisan db:seed --class=UnidadeFederativaSeeder
 
       - name: Optimize

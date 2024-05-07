@@ -7,7 +7,7 @@ use App\Domains\Services\Provider\Concretes\CreateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -31,7 +31,7 @@ class CreateProviderServiceTest extends TestCase
         $this->request['cnpj'] = $createdProvider->cnpj;
         $this->request['email'] = $createdProvider->email;
         $this->request['dataFundacao'] = $createdProvider->data_fundacao;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

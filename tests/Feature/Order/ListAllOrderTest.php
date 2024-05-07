@@ -4,7 +4,7 @@ namespace Tests\Feature\Order;
 
 use App\Models\Pedido;
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -27,7 +27,7 @@ class ListAllOrderTest extends TestCase
     {
         // Arrange
         $data = $this->order();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -48,7 +48,7 @@ class ListAllOrderTest extends TestCase
     {
         // Arrange
         $data = $this->order();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -68,7 +68,7 @@ class ListAllOrderTest extends TestCase
     public function it_endpoint_get_base_response_400(): void
     {
         // Arrange
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

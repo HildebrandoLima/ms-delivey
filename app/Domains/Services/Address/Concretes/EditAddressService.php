@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Address\Abstracts\IEditAddressService;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Models\Endereco;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class EditAddressService implements IEditAddressService
 {
@@ -35,7 +35,7 @@ class EditAddressService implements IEditAddressService
         $address->uf = $request->uf;
         $address->usuario_id = $request->usuarioId;
         $address->fornecedor_id = $request->fornecedorId;
-        $address->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $address->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $address;
     }
 }

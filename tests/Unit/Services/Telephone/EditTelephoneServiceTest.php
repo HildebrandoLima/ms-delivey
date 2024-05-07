@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Telephone\Concretes\EditTelephoneService;
 use App\Http\Requests\Telephone\EditTelephoneRequest;
 use App\Models\Telefone;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class EditTelephoneServiceTest extends TestCase
         $this->request['tipo'] = $editedTelephone->tipo;
         $this->request['usuarioId'] = $editedTelephone->usuario_id;
         $this->request['ativo'] = $editedTelephone->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
@@ -64,7 +64,7 @@ class EditTelephoneServiceTest extends TestCase
         $this->request['tipo'] = $editedTelephone->tipo;
         $this->request['fornecedorId'] = $editedTelephone->fornecedor_id;
         $this->request['ativo'] = $editedTelephone->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

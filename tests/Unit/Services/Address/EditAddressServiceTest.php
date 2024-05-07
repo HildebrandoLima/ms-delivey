@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Address\Concretes\EditAddressService;
 use App\Http\Requests\Address\EditAddressRequest;
 use App\Models\Endereco;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -36,7 +36,7 @@ class EditAddressServiceTest extends TestCase
         $this->request['fornecedorId'] = $createdAddress->fornecedor_id;
         $this->request['ativo'] = $createdAddress->ativo;
 
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

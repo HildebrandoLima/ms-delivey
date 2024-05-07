@@ -8,7 +8,7 @@ use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -30,7 +30,7 @@ class EditProviderServiceTest extends TestCase
         $this->request['email'] = $editedProvider->email;
         $this->request['dataFundacao'] = $editedProvider->data_fundacao;
         $this->request['ativo'] = $editedProvider->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

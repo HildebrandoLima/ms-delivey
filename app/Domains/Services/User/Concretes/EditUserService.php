@@ -10,7 +10,7 @@ use App\Models\Item;
 use App\Models\Pedido;
 use App\Models\Telefone;
 use App\Models\User;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class EditUserService implements IEditUserService
 {
@@ -55,7 +55,7 @@ class EditUserService implements IEditUserService
     {
         $item = new Item();
         $item->id = $id;
-        $item->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $item->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $item;
     }
 
@@ -63,7 +63,7 @@ class EditUserService implements IEditUserService
     {
         $order = new Pedido();
         $order->id = $id;
-        $order->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $order->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $order;
     }
 
@@ -71,7 +71,7 @@ class EditUserService implements IEditUserService
     {
         $address = new Endereco();
         $address->id = $id;
-        $address->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $address->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $address;
     }
 
@@ -79,7 +79,7 @@ class EditUserService implements IEditUserService
     {
         $telephone = new Telefone();
         $telephone->id = $id;
-        $telephone->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $telephone->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $telephone;
     }
 
@@ -90,7 +90,7 @@ class EditUserService implements IEditUserService
         $user->nome = $request->nome;
         $user->email = $request->email;
         $user->genero = $request->genero;
-        $user->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $user->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $user;
     }
 }

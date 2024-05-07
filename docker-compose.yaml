@@ -21,12 +21,13 @@ services:
             php artisan optimize &&
             php artisan config:clear &&
             php artisan migrate &&
-            php artisan db:seed --class=DiscagemDiretaDistanciaSeeder &&
             php artisan db:seed --class=PermissionSeeder &&
+            php artisan db:seed --class=RoleSeeder &&
+            php artisan db:seed --class=PermissionRoleSeeder &&
+            php artisan db:seed --class=DiscagemDiretaDistanciaSeeder &&
             php artisan db:seed --class=UnidadeFederativaSeeder &&
-            php artisan test --filter=CreateFirstUserTest &&
             php artisan test tests/Unit/Services &&
-            php artisan test tests/Feature --exclude=CreateFirstUserTest"
+            php artisan test tests/Feature"
 
     nginx:
         container_name: nginx
@@ -50,7 +51,7 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
         volumes:
-            - ./docker/dbdata:/var/lib/mysql
+            - ./docker/db/dbdata:/var/lib/mysql
         ports:
             - "3388:3306"
         networks:

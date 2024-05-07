@@ -3,7 +3,7 @@
 namespace Tests\Feature\Category;
 
 use App\Models\Categoria;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -28,7 +28,7 @@ class EditCategoryTest extends TestCase
             'nome' => Str::random(10),
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -53,7 +53,7 @@ class EditCategoryTest extends TestCase
             'nome' => null,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -104,7 +104,7 @@ class EditCategoryTest extends TestCase
             'nome' => $category['nome'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -129,7 +129,7 @@ class EditCategoryTest extends TestCase
             'nome' => Str::random(10),
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

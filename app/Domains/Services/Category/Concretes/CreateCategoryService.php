@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class CreateCategoryService implements ICreateCategoryService
 {
@@ -27,7 +27,7 @@ class CreateCategoryService implements ICreateCategoryService
     {
         $category = new Categoria();
         $category->nome = $request->nome;
-        $category->ativo = AtivoEnum::ATIVADO;
+        $category->ativo = ActiveEnum::ATIVADO;
         return $category;
     }
 }

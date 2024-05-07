@@ -3,7 +3,7 @@
 namespace Tests\Feature\Payment;
 
 use App\Models\Pedido;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -31,7 +31,7 @@ class CreatePaymentTest extends TestCase
             'metodoPagamento' => $this->typeCard[$randKeysPayment],
             'pedidoId' => Pedido::factory()->createOne()->id,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -61,7 +61,7 @@ class CreatePaymentTest extends TestCase
             'metodoPagamento' => 'Boleto Bancário' ?? 'Pix',
             'pedidoId' => Pedido::factory()->createOne()->id,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -92,7 +92,7 @@ class CreatePaymentTest extends TestCase
             'pedidoId' => null,
             'ativo' => null,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -154,7 +154,7 @@ class CreatePaymentTest extends TestCase
             'metodoPagamento' => $this->typeCard[$randKeysPayment],
             'pedidoId' => 1000,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

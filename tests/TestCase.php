@@ -3,7 +3,6 @@
 namespace Tests;
 
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
@@ -28,13 +27,17 @@ abstract class TestCase extends BaseTestCase
         else:
             $perfil = $this->authenticateCliente();
         endif;
+
+        $auth = auth()->attempt($perfil);
+        $user = auth()->user();
+
         return collect([
-            'accessToken' => auth()->attempt($perfil),
-            'userId' => auth()->user()->id,
-            'userName' => auth()->user()->name,
-            'userEmail' => auth()->user()->email,
-            'isAdmin' => auth()->user()->is_admin == 1 ? (bool)PerfilEnum::ADMIN : (bool)PerfilEnum::CLIENTE,
-            'permissions' => auth()->user()->permissions,
+            'accessToken' => $auth,
+            'userId' => $user->id,
+            'userName' => $user->name,
+            'userEmail' => $user->email,
+            'role' => $user->role,
+            'permissions' => $user->permissions(),
         ]);
     }
 
@@ -74,6 +77,11 @@ abstract class TestCase extends BaseTestCase
         return count($response->baseResponse->original['data']['list']);
     }
 
+    public function paginationList(): Collection
+    {
+        return PaginationList::createFromPagination(new LengthAwarePaginator(400, 400, 10, null, []));
+    }
+
     public function caseDate(string $dateRequest): bool
     {
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $dateRequest);
@@ -98,11 +106,6 @@ abstract class TestCase extends BaseTestCase
             endif;
         endfor;
         return $mask;
-    }
-
-    public function paginationList(): Collection
-    {
-        return PaginationList::createFromPagination(new LengthAwarePaginator(400, 400, 10, null, []));
     }
 
     public function tearDown(): void

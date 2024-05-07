@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
-use App\Support\Utils\DefaultDatabaseStatic\PermissonsDb;
+use App\Models\Role;
+use App\Support\Utils\DefaultDatabaseStatic\RolesDb;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissionsDb = PermissonsDb::PEMISSONS;
-        foreach ($permissionsDb as $instance):
-            Permission::query()->insert([
+        $rolesDb = RolesDb::ROLES;
+        foreach ($rolesDb as $instance):
+            Role::query()->insert([
                 'description' => $instance['description']
             ]);
         endforeach;

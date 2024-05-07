@@ -5,7 +5,7 @@ namespace Tests\Feature\Order;
 use App\Models\Endereco;
 use App\Models\Produto;
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -50,7 +50,7 @@ class CreateOrderTest extends TestCase
             'enderecoId' => Endereco::factory()->createOne()->id,
             'itens' => $data['itens'],
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -79,7 +79,7 @@ class CreateOrderTest extends TestCase
             'enderecoId' => Endereco::factory()->createOne()->id,
             'itens' => [],
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -165,7 +165,7 @@ class CreateOrderTest extends TestCase
             'enderecoId' => $id,
             'itens' => $data['itens'],
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

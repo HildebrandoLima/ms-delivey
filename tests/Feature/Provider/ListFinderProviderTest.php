@@ -3,7 +3,7 @@
 namespace Tests\Feature\Provider;
 
 use App\Models\Fornecedor;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class ListFinderProviderTest extends TestCase
             'id' => $provider['id'],
             'active' => true
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -51,7 +51,7 @@ class ListFinderProviderTest extends TestCase
             'id' => $provider['id'],
             'active' => null
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -100,7 +100,7 @@ class ListFinderProviderTest extends TestCase
             'id' => $provider['id'],
             'active' => true
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

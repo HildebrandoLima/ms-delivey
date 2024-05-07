@@ -5,7 +5,7 @@ namespace Tests\Feature\Provider;
 use App\Domains\Traits\GenerateData\GenerateCNPJ;
 use App\Domains\Traits\GenerateData\GenerateEmail;
 use App\Models\Fornecedor;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -27,7 +27,7 @@ class CreateProviderTest extends TestCase
             'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -53,7 +53,7 @@ class CreateProviderTest extends TestCase
             'email' => '',
             'dataFundacao' => date('Y-m-d H:i:s'),
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -105,7 +105,7 @@ class CreateProviderTest extends TestCase
             'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -132,7 +132,7 @@ class CreateProviderTest extends TestCase
             'email' => $this->generateEmail(),
             'dataFundacao' => date('Y-m-d H:i:s'),
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

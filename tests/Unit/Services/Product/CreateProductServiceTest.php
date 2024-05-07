@@ -8,7 +8,7 @@ use App\Domains\Services\Product\Concretes\CreateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -46,7 +46,7 @@ class CreateProductServiceTest extends TestCase
         $this->request['fornecedorId'] = $createdProduct->fornecedor_id;
         $this->request['imagens'] = $this->images;
         $productId = $createdProduct->id;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

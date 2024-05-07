@@ -8,7 +8,7 @@ use App\Domains\Services\Product\Abstracts\ICreateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
 class CreateProductService implements ICreateProductService
@@ -56,7 +56,7 @@ class CreateProductService implements ICreateProductService
         $product->data_validade = $request->dataValidade;
         $product->categoria_id = $request->categoriaId;
         $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = AtivoEnum::ATIVADO;
+        $product->ativo = ActiveEnum::ATIVADO;
         return $product;
     }
 
@@ -97,7 +97,7 @@ class CreateProductService implements ICreateProductService
         $image = new Imagem();
         $image->caminho = $path;
         $image->produto_id = $productId;
-        $image->ativo = AtivoEnum::ATIVADO;
+        $image->ativo = ActiveEnum::ATIVADO;
         return $image;
     }
 }

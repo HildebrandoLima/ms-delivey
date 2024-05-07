@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
+use App\Support\Enums\RoleEnum;
 use App\Support\Enums\UserEnum;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
@@ -22,7 +23,7 @@ class CreateUserRequest extends BaseRequest
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
-            'eAdmin' => 'required|boolean',
+            'perfil' => 'required|int||in:' . RoleEnum::ADMIN . ',' . RoleEnum::CLIENTE,
         ];
     }
 
@@ -30,6 +31,7 @@ class CreateUserRequest extends BaseRequest
     {
         return [
             'genero.in' => DefaultErrorMessages::NOT_FOUND,
+            'perfil.in' => DefaultErrorMessages::NOT_FOUND,
 
             'nome.unique' => DefaultErrorMessages::ALREADY_EXISTING,
             'cpf.unique' => DefaultErrorMessages::ALREADY_EXISTING,
@@ -44,14 +46,14 @@ class CreateUserRequest extends BaseRequest
             'senha.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'dataNascimento.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'genero.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'eAdmin.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'perfil.required' => DefaultErrorMessages::REQUIRED_FIELD,            
 
             'nome.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'cpf.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'email.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'senha.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
             'genero.string' => DefaultErrorMessages::FIELD_MUST_BE_STRINGER,
-            'eAdmin.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+            'perfil.boolean' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
 
             'email' => DefaultErrorMessages::INVALID_EMAIL,
             'senha' => DefaultErrorMessages::INVALID_PASSWORD,

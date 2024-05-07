@@ -2,9 +2,9 @@
 
 namespace App\Support\Utils\DefaultDatabaseStatic;
 
-class PermissoesDb
+class PermissonsDb
 {
-    public const PEMISSOES = [
+    public const PEMISSONS = [
         [
             'description' => 'CRIAR CATEGORIA'
         ],

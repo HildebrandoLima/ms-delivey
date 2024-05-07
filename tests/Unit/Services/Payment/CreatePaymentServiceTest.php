@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Payment\Concretes\CreatePaymentService;
 use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class CreatePaymentServiceTest extends TestCase
         $this->request['total'] = $createdPayment->total;
         $this->request['metodoPagamento'] = $createdPayment->metodo_pagamento;
         $this->request['pedidoId'] = $createdPayment->pedido_id;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

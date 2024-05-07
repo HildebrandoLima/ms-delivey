@@ -7,7 +7,7 @@ use App\Domains\Services\Order\Concretes\EditOrderService;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -23,7 +23,7 @@ class EditOrderServiceTest extends TestCase
         $this->request = new ParamsOrderRequest();
         $this->request['id'] = $order->id;
         $this->request['ativo'] = $order->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
