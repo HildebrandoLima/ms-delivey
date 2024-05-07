@@ -4,7 +4,7 @@ namespace Tests\Unit\Services\User;
 
 use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Domains\Services\User\Concretes\ListUserService;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
@@ -28,7 +28,7 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
@@ -56,7 +56,7 @@ class ListUserServiceTest extends TestCase
 
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
@@ -85,7 +85,7 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
@@ -112,7 +112,7 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);
@@ -138,7 +138,7 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = collect([]);
 
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ]);

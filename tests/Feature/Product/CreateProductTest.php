@@ -5,7 +5,7 @@ namespace Tests\Feature\Product;
 use App\Models\Categoria;
 use App\Models\Fornecedor;
 use App\Models\Produto;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -41,7 +41,7 @@ class CreateProductTest extends TestCase
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -81,7 +81,7 @@ class CreateProductTest extends TestCase
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -160,7 +160,7 @@ class CreateProductTest extends TestCase
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -201,7 +201,7 @@ class CreateProductTest extends TestCase
             'fornecedorId' => $id,
             'imagens' => $this->images,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -242,7 +242,7 @@ class CreateProductTest extends TestCase
             'fornecedorId' => Fornecedor::query()->first()->id,
             'imagens' => $this->images,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

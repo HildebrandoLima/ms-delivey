@@ -3,7 +3,7 @@
 namespace Tests\Feature\Order;
 
 use App\Models\Pedido;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class ListFinderOrderTest extends TestCase
             'id' => $order['id'],
             'active' => true
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -51,7 +51,7 @@ class ListFinderOrderTest extends TestCase
             'id' => $order['id'],
             'active' => null
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

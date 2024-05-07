@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,7 +15,7 @@ class LogoutTest extends TestCase
     public function it_endpoint_post_logout_base_response_200(): void
     {
         // Arrange
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

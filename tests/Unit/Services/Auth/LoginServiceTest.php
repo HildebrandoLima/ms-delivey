@@ -4,7 +4,7 @@ namespace Tests\Unit\Services\Auth;
 
 use App\Domains\Services\Auth\Concretes\LoginService;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Tests\TestCase;
 
 class LoginServiceTest extends TestCase
@@ -17,7 +17,7 @@ class LoginServiceTest extends TestCase
         $this->request = new LoginRequest();
         $this->request['email'] = 'hildebrandolima16@gmail.com';
         $this->request['password'] = 'HiLd3br@ndo';
-        $expectedResult = $this->authenticate(PerfilEnum::ADMIN);
+        $expectedResult = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $loginService = new LoginService();

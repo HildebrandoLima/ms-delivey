@@ -5,7 +5,7 @@ namespace Tests\Feature\Address;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -36,7 +36,7 @@ class EditAddressTest extends TestCase
             'usuarioId' => User::factory()->createOne()->id,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -68,7 +68,7 @@ class EditAddressTest extends TestCase
             'fornecedorId' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -100,7 +100,7 @@ class EditAddressTest extends TestCase
             'usuarioId' => null,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -163,7 +163,7 @@ class EditAddressTest extends TestCase
             'fornecedorId' => Fornecedor::factory()->createOne()->id,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([

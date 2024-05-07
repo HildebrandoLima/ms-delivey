@@ -3,7 +3,7 @@
 namespace Tests\Feature\Category;
 
 use App\Models\Categoria;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class ListFinderCategoryTest extends TestCase
             'id' => $category['id'],
             'active' => true
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -51,7 +51,7 @@ class ListFinderCategoryTest extends TestCase
            'id' => $category['id'],
            'active' => null
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

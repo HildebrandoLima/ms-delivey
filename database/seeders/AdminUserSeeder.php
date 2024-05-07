@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Support\Enums\AtivoEnum;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +26,7 @@ class AdminUserSeeder extends Seeder
             'genero' => 'Outro',
             'email_verificado' => AtivoEnum::ATIVADO,
             'ativo' => true,
-            'role_id' => PerfilEnum::ADMIN,
+            'role_id' => RoleEnum::ADMIN,
         ]);
     }
 }

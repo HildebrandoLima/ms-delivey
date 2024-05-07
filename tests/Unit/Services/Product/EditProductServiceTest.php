@@ -7,7 +7,7 @@ use App\Domains\Services\Product\Concretes\EditProductService;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -38,7 +38,7 @@ class EditProductServiceTest extends TestCase
         $this->request['categoriaId'] = $editedProduct->categoria_id;
         $this->request['fornecedorId'] = $editedProduct->fornecedor_id;
         $this->request['ativo'] = $editedProduct->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

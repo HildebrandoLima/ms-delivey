@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Category\Concretes\EditCategoryService;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -28,7 +28,7 @@ class EditCategoryServiceTest extends TestCase
         $this->request['id'] = $editedCategory->id;
         $this->request['nome'] = $editedCategory->nome;
         $this->request['ativo'] = $editedCategory->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

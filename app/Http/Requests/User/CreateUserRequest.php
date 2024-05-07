@@ -3,7 +3,7 @@
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseRequest;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use App\Support\Enums\UserEnum;
 use App\Support\Utils\Messages\DefaultErrorMessages;
 
@@ -23,7 +23,7 @@ class CreateUserRequest extends BaseRequest
             'senha' => 'required|string|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/i',
             'dataNascimento' => 'required|date',
             'genero' => 'required|string|in:' . UserEnum::GENERO_MASCULINO . ',' . UserEnum::GENERO_FEMININO . ',' . UserEnum::GENERO_OUTRO,
-            'perfil' => 'required|int||in:' . PerfilEnum::ADMIN . ',' . PerfilEnum::CLIENTE,
+            'perfil' => 'required|int||in:' . RoleEnum::ADMIN . ',' . RoleEnum::CLIENTE,
         ];
     }
 

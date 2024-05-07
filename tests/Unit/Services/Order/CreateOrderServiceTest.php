@@ -9,7 +9,7 @@ use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -44,7 +44,7 @@ class CreateOrderServiceTest extends TestCase
                 'produtoId' => $createdItems->produto_id,
             ]
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

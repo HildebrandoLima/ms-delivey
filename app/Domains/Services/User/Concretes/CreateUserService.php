@@ -8,7 +8,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\User;
 use App\Support\Enums\AtivoEnum;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements ICreateUserService
@@ -37,7 +37,7 @@ class CreateUserService implements ICreateUserService
         $user->password = Hash::make($request->senha);
         $user->data_nascimento = $request->dataNascimento;
         $user->genero = $request->genero;
-        $user->role_id = $request->perfil === 1 ? PerfilEnum::ADMIN : PerfilEnum::CLIENTE;
+        $user->role_id = $request->perfil === 1 ? RoleEnum::ADMIN : RoleEnum::CLIENTE;
         $user->ativo = AtivoEnum::ATIVADO;
         return $user;
     }

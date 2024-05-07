@@ -4,7 +4,7 @@ namespace Tests\Unit\Services\Auth;
 
 use App\Domains\Services\Auth\Concretes\LogoutService;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Tests\TestCase;
 
 class LogoutServiceTest extends TestCase
@@ -17,7 +17,7 @@ class LogoutServiceTest extends TestCase
         $this->request = new LoginRequest();
         $this->request['email'] = 'hildebrandolima16@gmail.com';
         $this->request['password'] = 'HiLd3br@ndo';
-        $this->authenticate(PerfilEnum::ADMIN);
+        $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $loginService = new LogoutService();

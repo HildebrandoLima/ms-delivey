@@ -3,7 +3,7 @@
 namespace Tests\Feature\Product;
 
 use App\Models\Produto;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -37,7 +37,7 @@ class EditProductTest extends TestCase
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -72,7 +72,7 @@ class EditProductTest extends TestCase
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -141,7 +141,7 @@ class EditProductTest extends TestCase
             'fornecedorId' => $product['fornecedor_id'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -177,7 +177,7 @@ class EditProductTest extends TestCase
             'fornecedorId' => $id,
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

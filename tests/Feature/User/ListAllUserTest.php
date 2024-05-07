@@ -3,7 +3,7 @@
 namespace Tests\Feature\User;
 
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class ListAllUserTest extends TestCase
         $this->user();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));
@@ -48,7 +48,7 @@ class ListAllUserTest extends TestCase
         $data = $this->user();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => $data[0]['nome'], 'active' => true]));
@@ -68,7 +68,7 @@ class ListAllUserTest extends TestCase
     {
         // Arrange
         $this->user();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -111,7 +111,7 @@ class ListAllUserTest extends TestCase
         $this->user();
 
         // Act
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
         ])->getJson(route('user.list.all', ['page' => 1, 'perPage' => 10, 'seacrh' => null, 'active' => true]));

@@ -10,7 +10,7 @@ trait GeneratePassword
     {
         $caracter = array('$', '*', '&', '@', '#');
         $rand_keys = array_rand($caracter);
-        $password = rand(0, 100) . Str::random(10) . $caracter[$rand_keys];
+        $password = Str::random(10) . rand(0, 100) . $caracter[$rand_keys];
         return $password;
     }
 }

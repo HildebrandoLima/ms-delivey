@@ -10,7 +10,7 @@ use App\Models\Item;
 use App\Models\Pedido;
 use App\Models\Telefone;
 use App\Models\User;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -35,7 +35,7 @@ class EditUserServiceTest extends TestCase
         $this->request['email'] = $user->email;
         $this->request['genero'] = $user->genero;
         $this->request['ativo'] = $user->ativo;
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],

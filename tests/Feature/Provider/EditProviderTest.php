@@ -3,7 +3,7 @@
 namespace Tests\Feature\Provider;
 
 use App\Models\Fornecedor;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -31,7 +31,7 @@ class EditProviderTest extends TestCase
             'dataFundacao' => $provider['data_fundacao'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -60,7 +60,7 @@ class EditProviderTest extends TestCase
             'dataFundacao' => $provider['data_fundacao'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -117,7 +117,7 @@ class EditProviderTest extends TestCase
             'dataFundacao' => $provider['data_fundacao'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
@@ -146,7 +146,7 @@ class EditProviderTest extends TestCase
             'dataFundacao' => $provider['data_fundacao'],
             'ativo' => true,
         ];
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([

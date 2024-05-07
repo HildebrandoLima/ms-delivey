@@ -3,7 +3,7 @@
 namespace Tests\Feature\Provider;
 
 use App\Models\Fornecedor;
-use App\Support\Enums\PerfilEnum;
+use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -24,7 +24,7 @@ class ListAllProviderTest extends TestCase
     {
         // Arrange
         $this->provider();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -46,7 +46,7 @@ class ListAllProviderTest extends TestCase
     {
         // Arrange
         $data = $this->provider();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -67,7 +67,7 @@ class ListAllProviderTest extends TestCase
     {
         // Arrange
         $this->provider();
-        $authenticate = $this->authenticate(PerfilEnum::ADMIN);
+        $authenticate = $this->authenticate(RoleEnum::ADMIN);
 
         // Act
         $response = $this->withHeaders([
@@ -108,7 +108,7 @@ class ListAllProviderTest extends TestCase
     {
         // Arrange
         $this->provider();
-        $authenticate = $this->authenticate(PerfilEnum::CLIENTE);
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
