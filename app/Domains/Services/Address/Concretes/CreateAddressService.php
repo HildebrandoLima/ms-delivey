@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Address\Abstracts\ICreateAddressService;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Endereco;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class CreateAddressService implements ICreateAddressService
 {
@@ -34,7 +34,7 @@ class CreateAddressService implements ICreateAddressService
         $address->uf = $request->uf;
         $address->usuario_id = $request->usuarioId ?? null;
         $address->fornecedor_id = $request->fornecedorId ?? null;
-        $address->ativo = AtivoEnum::ATIVADO;
+        $address->ativo = ActiveEnum::ATIVADO;
         return $address;
     }
 }

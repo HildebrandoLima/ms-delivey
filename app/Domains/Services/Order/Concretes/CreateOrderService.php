@@ -9,7 +9,7 @@ use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class CreateOrderService implements ICreateOrderService
 {
@@ -39,7 +39,7 @@ class CreateOrderService implements ICreateOrderService
         $order->valor_entrega = $request->valorEntrega;
         $order->usuario_id = $request->usuarioId;
         $order->endereco_id = $request->enderecoId;
-        $order->ativo = AtivoEnum::ATIVADO;
+        $order->ativo = ActiveEnum::ATIVADO;
         return $order;
     }
 
@@ -61,7 +61,7 @@ class CreateOrderService implements ICreateOrderService
         $itens->sub_total = $item['subTotal'];
         $itens->pedido_id = $orderId;
         $itens->produto_id = $item['produtoId'];
-        $itens->ativo = AtivoEnum::ATIVADO;
+        $itens->ativo = ActiveEnum::ATIVADO;
         return $itens;
     }
 

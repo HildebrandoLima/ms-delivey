@@ -6,7 +6,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Payment\Abstracts\ICreatePaymentService;
 use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class CreatePaymentService implements ICreatePaymentService
 {
@@ -35,7 +35,7 @@ class CreatePaymentService implements ICreatePaymentService
         $payment->total = $request->total;
         $payment->metodo_pagamento = $request->metodoPagamento;
         $payment->pedido_id = $request->pedidoId;
-        $payment->ativo = AtivoEnum::ATIVADO;
+        $payment->ativo = ActiveEnum::ATIVADO;
         return $payment;
     }
 }

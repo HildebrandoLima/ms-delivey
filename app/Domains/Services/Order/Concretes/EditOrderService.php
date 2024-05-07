@@ -7,7 +7,7 @@ use App\Domains\Services\Order\Abstracts\IEditOrderService;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class EditOrderService implements IEditOrderService
 {
@@ -35,7 +35,7 @@ class EditOrderService implements IEditOrderService
     {
         $item = new Item();
         $item->id = $id;
-        $item->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $item->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $item;
     }
 
@@ -43,7 +43,7 @@ class EditOrderService implements IEditOrderService
     {
         $order = new Pedido();
         $order->id = $request->id;
-        $order->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $order->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $order;
     }
 }

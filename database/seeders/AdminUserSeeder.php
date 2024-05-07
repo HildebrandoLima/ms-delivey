@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 use App\Support\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +24,7 @@ class AdminUserSeeder extends Seeder
             'password' => Hash::make('HiLd3br@ndo'),
             'data_nascimento' => date('Y-m-d H:i:s'),
             'genero' => 'Outro',
-            'email_verificado' => AtivoEnum::ATIVADO,
+            'email_verificado' => ActiveEnum::ATIVADO,
             'ativo' => true,
             'role_id' => RoleEnum::ADMIN,
         ]);

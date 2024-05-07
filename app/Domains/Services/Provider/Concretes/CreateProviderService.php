@@ -7,7 +7,7 @@ use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 use App\Models\Fornecedor;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class CreateProviderService implements ICreateProviderService
 {
@@ -33,7 +33,7 @@ class CreateProviderService implements ICreateProviderService
         $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
         $provider->data_fundacao = $request->dataFundacao;
-        $provider->ativo = AtivoEnum::ATIVADO;
+        $provider->ativo = ActiveEnum::ATIVADO;
         return $provider;
     }
 

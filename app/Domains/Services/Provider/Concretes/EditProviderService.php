@@ -8,7 +8,7 @@ use App\Http\Requests\Provider\EditProviderRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
-use App\Support\Enums\AtivoEnum;
+use App\Support\Enums\ActiveEnum;
 
 class EditProviderService implements IEditProviderService
 {
@@ -41,7 +41,7 @@ class EditProviderService implements IEditProviderService
     {
         $address = new Endereco();
         $address->id = $id;
-        $address->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $address->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $address;
     }
 
@@ -49,7 +49,7 @@ class EditProviderService implements IEditProviderService
     {
         $address = new Telefone();
         $address->id = $id;
-        $address->ativo = $ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $address->ativo = $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $address;
     }
 
@@ -60,7 +60,7 @@ class EditProviderService implements IEditProviderService
         $provider->razao_social = $request->razaoSocial;
         $provider->cnpj = $request->cnpj;
         $provider->email = $request->email;
-        $provider->ativo = $request->ativo == true ? AtivoEnum::ATIVADO : AtivoEnum::DESATIVADO;
+        $provider->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
         return $provider;
     }
 }
