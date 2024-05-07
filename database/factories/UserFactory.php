@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Domains\Traits\GenerateData\GenerateCPF;
+use App\Support\Enums\PerfilEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,7 +29,7 @@ class UserFactory extends Factory
             'password' => Hash::make($this->faker->password),
             'data_nascimento' => $this->faker->dateTime,
             'genero' => $gender[$randKeys],
-            'e_admin' => rand(0, 1),
+            'role_id' => PerfilEnum::CLIENTE ?? PerfilEnum::ADMIN,
             'ativo' => true,
         ];
     }
