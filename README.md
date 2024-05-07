@@ -194,7 +194,7 @@ Caso preferira executar os testes de serviços
 Caso preferira executar os testes de feature
 
 ```
-    php artisan test tests/Feature --exclude=CreateFirstUserTest
+    php artisan test tests/Feature
 ```
 
 
