@@ -85,11 +85,7 @@ Execute o comando para criar as tabelas:
     php artisan migrate
 ```
 
-Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método de pagamento, permissões e uf. Então, execute os seguintes comandos para preenchê-las:
-
-```
-    php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
-```
+Há algumas tabelas que possuem dados já padronizados, são elas: roles, permissões, relação de permissões e roles, ddd e uf. Então, execute os seguintes comandos para preenchê-las:
 
 ```
     php artisan db:seed --class=PermissionSeeder
@@ -101,6 +97,10 @@ Há algumas tabelas que possuem dados já padronizados, são elas: ddd, método 
 
 ```
     php artisan db:seed --class=PermissionRoleSeeder
+```
+
+```
+    php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
 ```
 
 ```
