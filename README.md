@@ -202,7 +202,6 @@ Caso preferira executar os testes de feature
 ## API DOCUMENTAÇÃO
 
 <ul>
-    <li>Nos body de endereço e telefone, é preciso identificar quem deseja atribuir os mesmos. No caso de usuário, ex.: ("usuarioId": 1) ou fornecedor, ex.: ("fornecedorId": 1)</li>
     <li>Os registros não são deletados, e sim ativados e desativados, sempre que necessário.</li>
     <li>Perfil 1 (Admin) e 2 (Cliente)</li>
 </ul>
@@ -725,6 +724,10 @@ Caso preferira executar os testes de feature
 |------|-----------------------------|
 | PUT  | /api/address/save           |
 
+<ul>
+    <li>Nos body de endereço, é preciso identificar quem deseja atribuir os mesmos. No caso de usuário, ex.: ("usuarioId": 1) ou fornecedor, ex.: ("fornecedorId": 1)</li>
+</ul>
+
 ### Body: POST
 
 ```
@@ -887,6 +890,7 @@ ou
 | PUT  | /api/telephone/edit           |
 
 <ul>
+    <li>Nos body de endereço e telefone, é preciso identificar quem deseja atribuir os mesmos. No caso de usuário, ex.: ("usuarioId": 1) ou fornecedor, ex.: ("fornecedorId": 1)</li>
     <li>O campo "tipo", pode ser do tipo: ('Celular', 'Fixo')</li>
 </ul>
 
