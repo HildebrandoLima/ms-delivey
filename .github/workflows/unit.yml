@@ -1,0 +1,36 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: ["production", "homolog", "development", "master"]
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run deployment commands on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd domains/caravanas-fadinha.com.br/ms-delivery/
+            git pull
+            composer install --no-dev --no-progress --optimize-autoloader
+            php artisan key:generate
+            php artisan jwt:secret
+            php artisan migrate
+            php artisan db:seed --class=PermissionSeeder
+            php artisan db:seed --class=RoleSeeder
+            php artisan db:seed --class=PermissionRoleSeeder
+            php artisan db:seed --class=DiscagemDiretaDistanciaSeeder
+            php artisan db:seed --class=UnidadeFederativaSeeder
+            php artisan optimize
+            php artisan config:clear
+            php artisan test tests/Unit/Services

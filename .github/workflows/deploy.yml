@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches: ["production", "homolog", "development", "master"]
+
+jobs:
+  build_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run deployment commands on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd domains/caravanas-fadinha.com.br/ms-delivery/
+            git pull
+            composer install --no-dev --no-progress --optimize-autoloader
+            php artisan optimize
+            php artisan config:clear
