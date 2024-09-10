@@ -11,6 +11,11 @@ class IntegrationViaCepServiceTest extends TestCase
 {
     private IntegrationViaCep $integrationViaCep;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_integration_via_cep_service(): void
     {
         // Arrange

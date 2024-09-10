@@ -17,6 +17,11 @@ class ListProviderServiceTest extends TestCase
     private bool $filter;
     private string $search;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_list_provider_all_has_pagination_service(): void
     {
         // Arrange

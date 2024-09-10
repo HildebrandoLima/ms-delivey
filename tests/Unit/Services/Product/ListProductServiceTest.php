@@ -17,6 +17,11 @@ class ListProductServiceTest extends TestCase
     private bool $filter;
     private string|int $search;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_list_product_all_has_paginaiton_service(): void
     {
         // Arrange

@@ -13,7 +13,8 @@ use Tests\TestCase;
 class EditOrderServiceTest extends TestCase
 {
     private ParamsOrderRequest $request;
-    private IEntityRepository $orderRepository;    private array $data;
+    private IEntityRepository $orderRepository;
+    private array $data;
 
     protected function setUp(): void
     {
