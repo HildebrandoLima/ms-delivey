@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PermissionRole extends Model
 {
@@ -16,9 +15,4 @@ class PermissionRole extends Model
         'role_id',
         'permission_id',
     ];
-
-    public function permission(): HasMany
-    {
-        return $this->hasMany(Permission::class, 'id', 'permission_id');
-    }
 }

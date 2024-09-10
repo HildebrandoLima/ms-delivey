@@ -11,17 +11,17 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordService implements IForgotPasswordService
 {
-    private IEntityRepository $authRepository;
+    private IEntityRepository $entityRepository;
 
-    public function __construct(IEntityRepository $authRepository)
+    public function __construct(IEntityRepository $entityRepository)
     {
-        $this->authRepository = $authRepository;
+        $this->entityRepository = $entityRepository;
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
         $passwordReset = $this->map($request);
-        $auth = $this->authRepository->create($passwordReset);
+        $auth = $this->entityRepository->create($passwordReset);
         if ($auth) $this->dispatchJob($passwordReset->toArray());
         return true;
     }
