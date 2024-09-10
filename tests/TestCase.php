@@ -125,7 +125,10 @@ abstract class TestCase extends BaseTestCase
     public function setDataAuth(): array{
         return [
             'email' => 'hildebrandolima16@gmail.com',
-            'password' => 'HiLd3br@ndo'
+            'password' => 'HiLd3br@ndo',
+            'token' => Str::uuid(),
+            'codigo' => Str::random(10),
+            'senha' => $this->generatePassword()
         ];
     }
 
