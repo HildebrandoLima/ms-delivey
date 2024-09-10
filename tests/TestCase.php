@@ -195,7 +195,7 @@ abstract class TestCase extends BaseTestCase
             'dataValidade' => date('Y-m-d H:i:s'),
             'parcela' => rand(1, 3),
             'total' => 20.0,
-            'metodoPagamentoId' => $typePayment[$randKeysPayment],
+            'metodoPagamento' => $typePayment[$randKeysPayment],
             'pedidoId' => 1,
             'ativo' => true,
         ];
