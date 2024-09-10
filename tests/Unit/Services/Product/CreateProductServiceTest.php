@@ -8,7 +8,6 @@ use App\Domains\Services\Product\Concretes\CreateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Enums\RoleEnum;
 use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -19,10 +18,12 @@ class CreateProductServiceTest extends TestCase
     private IEntityRepository $entityRepository;
     private IProductRepository  $productRepository;
     private array $images = [];
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataProduct();
     }
 
     public function test_success_create_product_service(): void
@@ -32,25 +33,19 @@ class CreateProductServiceTest extends TestCase
             UploadedFile::fake()->image('testing1.png'),
             UploadedFile::fake()->image('testing2.png')
         ];
-        $createdProduct = Produto::query()->first();
         $this->request = new CreateProductRequest();
-        $this->request['nome'] = $createdProduct->nome;
-        $this->request['precoCusto'] = $createdProduct->preco_custo;
-        $this->request['precoVenda'] = $createdProduct->preco_venda;
-        $this->request['codigoBarra'] = $createdProduct->codigo_barra;
-        $this->request['descricao'] = $createdProduct->descricao;
-        $this->request['quantidade'] = $createdProduct->quantidade;
-        $this->request['unidadeMedida'] = $createdProduct->unidade_medida;
-        $this->request['dataValidade'] = $createdProduct->data_validade;
-        $this->request['categoriaId'] = $createdProduct->categoria_id;
-        $this->request['fornecedorId'] = $createdProduct->fornecedor_id;
+        $this->request['nome'] = $this->data['nome'];
+        $this->request['precoCusto'] = $this->data['precoCusto'];
+        $this->request['precoVenda'] = $this->data['precoVenda'];
+        $this->request['codigoBarra'] = $this->data['codigoBarra'];
+        $this->request['descricao'] = $this->data['descricao'];
+        $this->request['quantidade'] = $this->data['quantidade'];
+        $this->request['unidadeMedida'] = $this->data['unidadeMedida'];
+        $this->request['dataValidade'] = $this->data['dataValidade'];
+        $this->request['categoriaId'] = $this->data['categoriaId'];
+        $this->request['fornecedorId'] = $this->data['fornecedorId'];
         $this->request['imagens'] = $this->images;
-        $productId = $createdProduct->id;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $productId = $this->data['id'];
 
         $this->entityRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -68,8 +63,8 @@ class CreateProductServiceTest extends TestCase
         $resultProduct = $createProductService->createProduct($this->request);
         $mappedProduct = $createProductService->mapProduct($this->request);
         $directory = $createProductService->directory($this->request['nome']);
-        $resultImage = $createProductService->createImage($this->request, $createdProduct->id);
-        $mappedImage = $createProductService->mapImage($directory, $createdProduct->id);
+        $resultImage = $createProductService->createImage($this->request, $productId);
+        $mappedImage = $createProductService->mapImage($directory, $productId);
 
         // Assert
         $this->assertTrue($resultProduct);
@@ -77,16 +72,16 @@ class CreateProductServiceTest extends TestCase
         $this->assertFileExists($this->images[0]);
         $this->assertInstanceOf(Produto::class, $mappedProduct);
         $this->assertInstanceOf(Imagem::class, $mappedImage);
-        $this->assertEquals($this->request['nome'], $createdProduct->nome);
-        $this->assertEquals($this->request['precoCusto'], $createdProduct->preco_custo);
-        $this->assertEquals($this->request['precoVenda'], $createdProduct->preco_venda);
-        $this->assertEquals($this->request['codigoBarra'], $createdProduct->codigo_barra);
-        $this->assertEquals($this->request['descricao'], $createdProduct->descricao);
-        $this->assertEquals($this->request['quantidade'], $createdProduct->quantidade);
-        $this->assertEquals($this->request['unidadeMedida'], $createdProduct->unidade_medida);
-        $this->assertEquals($this->request['dataValidade'], $createdProduct->data_validade);
-        $this->assertEquals($this->request['categoriaId'], $createdProduct->categoria_id);
-        $this->assertEquals($this->request['fornecedorId'], $createdProduct->fornecedor_id);
+        $this->assertEquals($this->request['nome'], $this->data['nome']);
+        $this->assertEquals($this->request['precoCusto'], $this->data['precoCusto']);
+        $this->assertEquals($this->request['precoVenda'], $this->data['precoVenda']);
+        $this->assertEquals($this->request['codigoBarra'], $this->data['codigoBarra']);
+        $this->assertEquals($this->request['descricao'], $this->data['descricao']);
+        $this->assertEquals($this->request['quantidade'], $this->data['quantidade']);
+        $this->assertEquals($this->request['unidadeMedida'], $this->data['unidadeMedida']);
+        $this->assertEquals($this->request['dataValidade'], $this->data['dataValidade']);
+        $this->assertEquals($this->request['categoriaId'], $this->data['categoriaId']);
+        $this->assertEquals($this->request['fornecedorId'], $this->data['fornecedorId']);
         $this->assertFileEquals($this->request['imagens'][0], $this->images[0]);
         $this->assertFileEquals($this->request['imagens'][1], $this->images[1]);
     }

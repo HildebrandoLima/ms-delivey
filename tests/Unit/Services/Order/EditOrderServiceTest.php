@@ -7,27 +7,26 @@ use App\Domains\Services\Order\Concretes\EditOrderService;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class EditOrderServiceTest extends TestCase
 {
     private ParamsOrderRequest $request;
-    private IEntityRepository $orderRepository;
+    private IEntityRepository $orderRepository;    private array $data;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->data = $this->setDataOrder();
+    }
 
     public function test_success_edit_order_service(): void
     {
         // Arrange
-        $order = Pedido::query()->first();
         $this->request = new ParamsOrderRequest();
-        $this->request['id'] = $order->id;
-        $this->request['ativo'] = $order->ativo;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $this->request['id'] = $this->data['id'];
+        $this->request['ativo'] = $this->data['ativo'];
 
         $this->orderRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -46,7 +45,7 @@ class EditOrderServiceTest extends TestCase
         $this->assertTrue($result);
         $this->assertInstanceOf(Item::class, $mappedItems);
         $this->assertInstanceOf(Pedido::class, $mappedOrder);
-        $this->assertEquals($this->request['id'], $order->id);
-        $this->assertEquals($this->request['ativo'], $order->ativo);
+        $this->assertEquals($this->request['id'], $this->data['id']);
+        $this->assertEquals($this->request['ativo'], $this->data['ativo']);
     }
 }

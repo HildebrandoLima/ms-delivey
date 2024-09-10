@@ -15,19 +15,25 @@ class CreateUserServiceTest extends TestCase
 {
     private CreateUserRequest $request;
     private IEntityRepository $userRepository;
+    private array $data;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->data = $this->setDataUser();
+    }
 
     public function test_success_create_user_service(): void
     {
         // Arrange
-        $createdUser = User::query()->first();
         $this->request = new CreateUserRequest();
-        $this->request['nome'] = $createdUser->nome;
-        $this->request['cpf'] = $createdUser->cpf;
-        $this->request['email'] = $createdUser->email;
-        $this->request['senha'] = $createdUser->password;
-        $this->request['dataNascimento'] = $createdUser->data_nascimento;
-        $this->request['genero'] = $createdUser->genero;
-        $this->request['perfil'] = $createdUser->role_id;
+        $this->request['nome'] = $this->data['nome'];
+        $this->request['cpf'] = $this->data['cpf'];
+        $this->request['email'] = $this->data['email'];
+        $this->request['senha'] = $this->data['password'];
+        $this->request['dataNascimento'] = $this->data['dataNascimento'];
+        $this->request['genero'] = $this->data['genero'];
+        $this->request['perfil'] = $this->data['perfil'];
 
         $this->userRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
@@ -43,13 +49,13 @@ class CreateUserServiceTest extends TestCase
         // Assert
         $this->assertIsInt($resultUser);
         $this->assertInstanceOf(User::class, $mappedUser);
-        $this->assertEquals($this->request['nome'], $createdUser->nome);
-        $this->assertEquals($this->request['cpf'], $createdUser->cpf);
-        $this->assertEquals($this->request['email'], $createdUser->email);
-        $this->assertEquals($this->request['senha'], $createdUser->password);
-        $this->assertEquals($this->request['dataNascimento'], $createdUser->data_nascimento);
-        $this->assertEquals($this->request['genero'], $createdUser->genero);
-        $this->assertEquals($this->request['perfil'], $createdUser->role_id);
+        $this->assertEquals($this->request['nome'], $this->data['nome']);
+        $this->assertEquals($this->request['cpf'], $this->data['cpf']);
+        $this->assertEquals($this->request['email'], $this->data['email']);
+        $this->assertEquals($this->request['senha'], $this->data['password']);
+        $this->assertEquals($this->request['dataNascimento'], $this->data['dataNascimento']);
+        $this->assertEquals($this->request['genero'], $this->data['genero']);
+        $this->assertEquals($this->request['perfil'], $this->data['perfil']);
 
         Queue::assertPushed(EmailForRegisterJob::class, function ($user) {
             return $user;

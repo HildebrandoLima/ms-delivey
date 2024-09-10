@@ -29,7 +29,10 @@ class ListProductServiceTest extends TestCase
 
         $this->productRepository = $this->mock(IProductRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -53,7 +56,10 @@ class ListProductServiceTest extends TestCase
 
         $this->productRepository = $this->mock(IProductRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -78,7 +84,10 @@ class ListProductServiceTest extends TestCase
 
         $this->productRepository = $this->mock(IProductRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -102,7 +111,10 @@ class ListProductServiceTest extends TestCase
 
         $this->productRepository = $this->mock(IProductRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 

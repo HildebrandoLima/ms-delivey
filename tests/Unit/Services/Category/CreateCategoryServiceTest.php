@@ -6,7 +6,6 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Category\Concretes\CreateCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Models\Categoria;
-use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -14,23 +13,19 @@ class CreateCategoryServiceTest extends TestCase
 {
     private CreateCategoryRequest $request;
     private IEntityRepository $categoryRepository;
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataCategory();
     }
 
     public function test_success_create_category_service(): void
     {
         // Arrange
-        $createdCategory = Categoria::query()->first();
         $this->request = new CreateCategoryRequest();
-        $this->request['nome'] = $createdCategory->nome;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $this->request['nome'] = $this->data['nome'];
 
         $this->categoryRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -45,6 +40,6 @@ class CreateCategoryServiceTest extends TestCase
         // Assert
         $this->assertTrue($result);
         $this->assertInstanceOf(Categoria::class, $mappedCategory);
-        $this->assertEquals($this->request['nome'], $createdCategory->nome);
+        $this->assertEquals($this->request['nome'], $this->data['nome']);
     }
 }

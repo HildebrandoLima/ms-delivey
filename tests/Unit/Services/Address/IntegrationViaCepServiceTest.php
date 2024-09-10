@@ -14,7 +14,7 @@ class IntegrationViaCepServiceTest extends TestCase
     public function test_success_integration_via_cep_service(): void
     {
         // Arrange
-        $cep = rand(10000, 20000) . '-' . rand(100, 200);
+        $cep = '01001000';
         $expectedResult = collect([]);
 
         $this->integrationViaCep = $this->mock(IntegrationViaCep::class,

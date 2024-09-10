@@ -9,7 +9,6 @@ use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
 use App\Models\Item;
 use App\Models\Pedido;
-use App\Support\Enums\RoleEnum;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -18,37 +17,24 @@ class CreateOrderServiceTest extends TestCase
 {
     private CreateOrderRequest $request;
     private IEntityRepository $orderRepository;
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataOrder();
     }
 
     public function test_success_create_order_service(): void
     {
         // Arrange
-        $createdOrder = Pedido::query()->first();
-        $createdItems = Item::query()->where('pedido_id', '=', $createdOrder->id)->first();
         $this->request = new CreateOrderRequest();
-        $this->request['quantidadeItens'] = $createdOrder->quantidade_itens;
-        $this->request['total'] = $createdOrder->total;
-        $this->request['tipoEntrega'] = $createdOrder->tipo_entrega;
-        $this->request['valorEntrega'] = $createdOrder->valor_entrega;
-        $this->request['usuarioId'] = $createdOrder->usuario_id;
-        $this->request['itens'] = [
-            [
-                'nome' => $createdItems->nome,
-                'preco' => $createdItems->preco,
-                'quantidadeItem' => $createdItems->quantidade_item,
-                'subTotal' => $createdItems->sub_total,
-                'produtoId' => $createdItems->produto_id,
-            ]
-        ];
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $this->request['quantidadeItens'] = $this->data['quantidadeItens'];
+        $this->request['total'] = $this->data['total'];
+        $this->request['tipoEntrega'] = $this->data['tipoEntrega'];
+        $this->request['valorEntrega'] = $this->data['valorEntrega'];
+        $this->request['usuarioId'] = $this->data['usuarioId'];
+        $this->request['itens'] = $this->data['itens'];
 
         $this->orderRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -70,20 +56,20 @@ class CreateOrderServiceTest extends TestCase
         // Assert
         $this->assertIsInt($resultOrder);
         $this->assertInstanceOf(Pedido::class, $mappedOrder);
-        $this->assertEquals($this->request['quantidadeItens'], $createdOrder->quantidade_itens);
-        $this->assertEquals($this->request['total'], $createdOrder->total);
-        $this->assertEquals($this->request['tipoEntrega'], $createdOrder->tipo_entrega);
-        $this->assertEquals($this->request['valorEntrega'], $createdOrder->valor_entrega);
-        $this->assertEquals($this->request['usuarioId'], $createdOrder->usuario_id);
+        $this->assertEquals($this->request['quantidadeItens'], $this->data['quantidadeItens']);
+        $this->assertEquals($this->request['total'], $this->data['total']);
+        $this->assertEquals($this->request['tipoEntrega'], $this->data['tipoEntrega']);
+        $this->assertEquals($this->request['valorEntrega'], $this->data['valorEntrega']);
+        $this->assertEquals($this->request['usuarioId'], $this->data['usuarioId']);
 
         $this->assertTrue($resultItems);
         $this->assertInstanceOf(Item::class, $mappedItems);
         $this->assertIsArray($this->request['itens']);
-        $this->assertEquals($itens['nome'], $createdItems->nome);
-        $this->assertEquals($itens['preco'], $createdItems->preco);
-        $this->assertEquals($itens['quantidadeItem'], $createdItems->quantidade_item);
-        $this->assertEquals($itens['subTotal'], $createdItems->sub_total);
-        $this->assertEquals($itens['produtoId'], $createdItems->produto_id);
+        $this->assertEquals($itens['nome'], $this->data['itens'][0]['nome']);
+        $this->assertEquals($itens['preco'], $this->data['itens'][0]['preco']);
+        $this->assertEquals($itens['quantidadeItem'], $this->data['itens'][0]['quantidadeItem']);
+        $this->assertEquals($itens['subTotal'], $this->data['itens'][0]['subTotal']);
+        $this->assertEquals($itens['produtoId'], $this->data['itens'][0]['produtoId']);
 
         Queue::assertPushed(InventoryManagementJob::class, function ($items) {
             return $items;

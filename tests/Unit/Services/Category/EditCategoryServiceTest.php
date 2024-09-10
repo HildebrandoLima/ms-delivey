@@ -6,7 +6,6 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Category\Concretes\EditCategoryService;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Models\Categoria;
-use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -14,25 +13,21 @@ class EditCategoryServiceTest extends TestCase
 {
     private EditCategoryRequest $request;
     private IEntityRepository $categoryRepository;
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataCategory();
     }
 
     public function test_success_edit_category_service(): void
     {
         // Arrange
-        $editedCategory = Categoria::query()->first();
         $this->request = new EditCategoryRequest();
-        $this->request['id'] = $editedCategory->id;
-        $this->request['nome'] = $editedCategory->nome;
-        $this->request['ativo'] = $editedCategory->ativo;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $this->request['id'] = $this->data['id'];
+        $this->request['nome'] = $this->data['nome'];
+        $this->request['ativo'] = $this->data['ativo'];
 
         $this->categoryRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -47,8 +42,8 @@ class EditCategoryServiceTest extends TestCase
         // Assert
         $this->assertTrue($result);
         $this->assertInstanceOf(Categoria::class, $mappedCategory);
-        $this->assertEquals($this->request['id'], $editedCategory->id);
-        $this->assertEquals($this->request['nome'], $editedCategory->nome);
-        $this->assertEquals($this->request['ativo'], $editedCategory->ativo);
+        $this->assertEquals($this->request['id'], $this->data['id']);
+        $this->assertEquals($this->request['nome'], $this->data['nome']);
+        $this->assertEquals($this->request['ativo'], $this->data['ativo']);
     }
 }

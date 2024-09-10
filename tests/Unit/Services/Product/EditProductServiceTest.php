@@ -7,7 +7,6 @@ use App\Domains\Services\Product\Concretes\EditProductService;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Models\Imagem;
 use App\Models\Produto;
-use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -15,34 +14,30 @@ class EditProductServiceTest extends TestCase
 {
     private EditProductRequest $request;
     private IEntityRepository $productRepository;
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataProduct();
     }
 
     public function test_success_edit_product_service(): void
     {
         // Arrange
-        $editedProduct = Produto::query()->first();
         $this->request = new EditProductRequest();
-        $this->request['id'] = $editedProduct->id;
-        $this->request['nome'] = $editedProduct->nome;
-        $this->request['precoCusto'] = $editedProduct->preco_custo;
-        $this->request['precoVenda'] = $editedProduct->preco_venda;
-        $this->request['codigoBarra'] = $editedProduct->codigo_barra;
-        $this->request['descricao'] = $editedProduct->descricao;
-        $this->request['quantidade'] = $editedProduct->quantidade;
-        $this->request['unidadeMedida'] = $editedProduct->unidade_medida;
-        $this->request['dataValidade'] = $editedProduct->data_validade;
-        $this->request['categoriaId'] = $editedProduct->categoria_id;
-        $this->request['fornecedorId'] = $editedProduct->fornecedor_id;
-        $this->request['ativo'] = $editedProduct->ativo;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $this->request['id'] = $this->data['id'];
+        $this->request['nome'] = $this->data['nome'];
+        $this->request['precoCusto'] = $this->data['precoCusto'];
+        $this->request['precoVenda'] = $this->data['precoVenda'];
+        $this->request['codigoBarra'] = $this->data['codigoBarra'];
+        $this->request['descricao'] = $this->data['descricao'];
+        $this->request['quantidade'] = $this->data['quantidade'];
+        $this->request['unidadeMedida'] = $this->data['unidadeMedida'];
+        $this->request['dataValidade'] = $this->data['dataValidade'];
+        $this->request['categoriaId'] = $this->data['categoriaId'];
+        $this->request['fornecedorId'] = $this->data['fornecedorId'];
+        $this->request['ativo'] = $this->data['ativo'];
 
         $this->productRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -53,23 +48,24 @@ class EditProductServiceTest extends TestCase
         // Act
         $editProductSerice = new EditProductService($this->productRepository);
         $resultProduct = $editProductSerice->editProduct($this->request);
-        $mappedImage = $editProductSerice->mapImage($editedProduct->id, $editedProduct->ativo);
+        $mappedImage = $editProductSerice->mapImage($this->request['id'], $this->request['ativo']);
         $mappedProduct = $editProductSerice->mapProduct($this->request);
 
         // Assert
         $this->assertTrue($resultProduct);
         $this->assertInstanceOf(Produto::class, $mappedProduct);
         $this->assertInstanceOf(Imagem::class, $mappedImage);
-        $this->assertEquals($this->request['id'], $editedProduct->id);
-        $this->assertEquals($this->request['nome'], $editedProduct->nome);
-        $this->assertEquals($this->request['precoCusto'], $editedProduct->preco_custo);
-        $this->assertEquals($this->request['precoVenda'], $editedProduct->preco_venda);
-        $this->assertEquals($this->request['codigoBarra'], $editedProduct->codigo_barra);
-        $this->assertEquals($this->request['descricao'], $editedProduct->descricao);
-        $this->assertEquals($this->request['quantidade'], $editedProduct->quantidade);
-        $this->assertEquals($this->request['unidadeMedida'], $editedProduct->unidade_medida);
-        $this->assertEquals($this->request['dataValidade'], $editedProduct->data_validade);
-        $this->assertEquals($this->request['categoriaId'], $editedProduct->categoria_id);
-        $this->assertEquals($this->request['fornecedorId'], $editedProduct->fornecedor_id);
+        $this->assertEquals($this->request['id'], $this->data['id']);
+        $this->assertEquals($this->request['nome'], $this->data['nome']);
+        $this->assertEquals($this->request['precoCusto'], $this->data['precoCusto']);
+        $this->assertEquals($this->request['precoVenda'], $this->data['precoVenda']);
+        $this->assertEquals($this->request['codigoBarra'], $this->data['codigoBarra']);
+        $this->assertEquals($this->request['descricao'], $this->data['descricao']);
+        $this->assertEquals($this->request['quantidade'], $this->data['quantidade']);
+        $this->assertEquals($this->request['unidadeMedida'], $this->data['unidadeMedida']);
+        $this->assertEquals($this->request['dataValidade'], $this->data['dataValidade']);
+        $this->assertEquals($this->request['categoriaId'], $this->data['categoriaId']);
+        $this->assertEquals($this->request['fornecedorId'], $this->data['fornecedorId']);
+        $this->assertEquals($this->request['ativo'], $this->data['ativo']);
     }
 }
