@@ -2,12 +2,12 @@
 
 namespace App\Data\Repositories\Abstracts;
 
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Collection;
 
 interface IProductRepository
 {
-    public function readAll(Pagination $pagination, string|int $search, bool $active): Collection;
-    public function readOne(int $id, bool $active): Collection;
+    public function hasPagination(string|int $search, bool $filter): Collection;
+    public function noPagination(string|int $search, bool $filter): Collection;
+    public function readOne(int $id, bool $filter): Collection;
     public function delete(int $id): bool;
 }

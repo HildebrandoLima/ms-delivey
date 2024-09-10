@@ -18,7 +18,11 @@ class ListCategoryService implements IListCategoryService
 
     public function listCategoryAll(Pagination $pagination, string $search, bool $filter): Collection
     {
-        return $this->categoryRepository->readAll($pagination, $search, $filter);
+        if ($pagination->hasPagination($pagination)):
+            return $this->categoryRepository->hasPagination($search, $filter);
+        else:
+            return $this->categoryRepository->noPagination($search, $filter);
+        endif;
     }
 
     public function listCategoryFind(int $id, bool $filter): Collection

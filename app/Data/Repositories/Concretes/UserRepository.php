@@ -10,7 +10,6 @@ use App\Exceptions\HttpInternalServerError;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -21,53 +20,41 @@ class UserRepository extends DBConnection implements IUserRepository
 {
     use AutoMapper;
 
-    public function readAll(Pagination $pagination, string $search, bool $filter): Collection
+    public function hasPagination(string $search, bool $filter): Collection
     {
-        if (isset($pagination->page) && isset($pagination->perPage)):
-            return $this->hasPagination($search, $filter);
-        else:
-            return $this->noPagination($search, $filter);
-        endif;
-    }
-
-    public function readOne(int $id, bool $filter): Collection
-    {
-        $collection = User::with('endereco')->with('telefone')
-        ->where(function($query) use ($filter) {
-            QueryFilter::getQueryFilter($query, $filter);
-        })
-        ->where('users.id', '=', $id)->get();
-        foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = $this->map($instance);
-        endforeach;
-        return $collection;
-    }
-
-    private function hasPagination(string $search, bool $filter): Collection
-    {
-        $collection = $this->query($search, $filter)->paginate(10);
+        $collection = $this->query($search, 0, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
           $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string $search, bool $filter): Collection
+    public function noPagination(string $search, bool $filter): Collection
     {
-        $collection = $this->query($search, $filter)->get();
+        $collection = $this->query($search, 0, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
         return $collection;
     }
 
-    private function query(string $search, bool $filter): Builder
+    public function readOne(int $id, bool $filter): Collection
+    {
+        $collection = $this->query('', $id, $filter)->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = $this->map($instance);
+        endforeach;
+        return $collection;
+    }
+
+    private function query(string $search, int $id, bool $filter): Builder
     {
         return User::with('endereco')->with('telefone')
-        ->where(function($query) use ($search, $filter) {
-            QueryFilter::getQueryFilter($query, $filter);
+        ->where(function($query) use ($search, $id, $filter) {
             if (!empty($search)):
                 $query->where('users.nome', 'like', $search);
+            elseif (!empty($id)):
+                $query->where('users.id', '=', $id);
             else:
                 QueryFilter::getQueryFilter($query, $filter);
             endif;

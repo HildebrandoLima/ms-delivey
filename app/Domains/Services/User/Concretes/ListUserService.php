@@ -18,7 +18,11 @@ class ListUserService implements IListUserService
 
     public function listUserAll(Pagination $pagination, string $search, bool $filter): Collection
     {
-        return $this->userRepository->readAll($pagination, $search, $filter);
+        if ($pagination->hasPagination($pagination)):
+            return $this->userRepository->hasPagination($search, $filter);
+        else:
+            return $this->userRepository->noPagination($search, $filter);
+        endif;
     }
 
     public function listUserFind(int $id, bool $filter): Collection
