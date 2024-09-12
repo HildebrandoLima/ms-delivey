@@ -7,6 +7,7 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RefreshPasswordService implements IRefreshPasswordService
 {
@@ -38,7 +39,7 @@ class RefreshPasswordService implements IRefreshPasswordService
     {
         $user = new User();
         $user->id = $userId;
-        $user->password = $senha;
+        $user->password = Hash::make($senha);
         return $user;
     }
 }

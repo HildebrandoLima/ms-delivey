@@ -31,12 +31,12 @@ abstract class TestCase extends BaseTestCase
     public function authenticate(int $perfil): Collection
     {
         if ($perfil === 1):
-            $perfil = $this->authenticateAdmin();
+            $credentials = $this->authenticateAdmin();
         else:
-            $perfil = $this->authenticateCliente();
+            $credentials = $this->authenticateCliente();
         endif;
 
-        $auth = auth()->attempt($perfil);
+        $auth = auth()->attempt($credentials);
         $user = auth()->user();
 
         return collect([
@@ -45,7 +45,9 @@ abstract class TestCase extends BaseTestCase
             'userName' => $user->name,
             'userEmail' => $user->email,
             'role' => $user->role,
-            'permissions' => $user->permissions(),
+            'permissions' => $user->permissions->map(function ($permission) {
+                return $permission->description;
+            }),
         ]);
     }
 

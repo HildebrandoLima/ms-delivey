@@ -4,6 +4,8 @@ Para fins de estudo e ampliação de meu conhecimento com o Framework Laravel. E
 
 ### [Crie sua massa de testes para CPF, CNPJ, CEP/Endereço e afins, clicando aqui!](https://www.4devs.com.br/)
 
+### [Gerador de Senha!](https://bcrypt.online/)
+
 ### Aplicação Web desenvolvida com:<br />
 - Laravel/PHP<br />
 - MySQL para banco de dados.<br/>
@@ -105,6 +107,10 @@ Há algumas tabelas que possuem dados já padronizados, são elas: roles, permis
 
 ```
     php artisan db:seed --class=UnidadeFederativaSeeder
+```
+
+```
+    php artisan db:seed --class=CreateUserTestSeeder
 ```
 
 Certifique-se que as tabelas foram criadas. Abra seu cliente SQL que você escolheu, e então execute o comando:
