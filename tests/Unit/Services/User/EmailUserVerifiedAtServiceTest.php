@@ -12,6 +12,11 @@ class EmailUserVerifiedAtServiceTest extends TestCase
 {
     private IEntityRepository $userRepository;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_user_email_verified_at_service(): void
     {
         // Arrange

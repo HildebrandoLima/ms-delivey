@@ -4,7 +4,6 @@ namespace Tests\Unit\Services\Provider;
 
 use App\Data\Repositories\Abstracts\IProviderRepository;
 use App\Domains\Services\Provider\Concretes\ListProviderService;
-use App\Support\Enums\RoleEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
@@ -18,6 +17,11 @@ class ListProviderServiceTest extends TestCase
     private bool $filter;
     private string $search;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_list_provider_all_has_pagination_service(): void
     {
         // Arrange
@@ -28,14 +32,12 @@ class ListProviderServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
         $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -57,14 +59,12 @@ class ListProviderServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
         $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -84,14 +84,12 @@ class ListProviderServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
         $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -109,10 +107,6 @@ class ListProviderServiceTest extends TestCase
         $this->id = rand(1, 100);
         $this->filter = true;
         $expectedResult = collect([]);
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
 
         $this->providerRepository = $this->mock(IProviderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {

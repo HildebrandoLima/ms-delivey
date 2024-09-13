@@ -10,9 +10,9 @@ trait ValidationPermission
     public function validationPermission(string $permission): bool
     {
         $user = auth()->user();
-        $permissions = $user->permissions();
+        $permissions = $user->role->permissions()->where('description', $permission)->exists();
         $message = 'Permissão negada! Você não possue acesso de administrador.';
-        if (in_array($permission, $permissions)): 
+        if ($permissions): 
             return true;
         endif;
         throw new HttpResponseException(HttpForbidden::getResponse($message));

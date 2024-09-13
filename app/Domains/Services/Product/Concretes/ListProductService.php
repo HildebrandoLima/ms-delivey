@@ -18,7 +18,11 @@ class ListProductService implements IListProductService
 
     public function listProductAll(Pagination $pagination, string|int $search, bool $filter): Collection
     {
-        return $this->productRepository->readAll($pagination, $search, $filter);
+        if ($pagination->hasPagination($pagination)):
+            return $this->productRepository->hasPagination($search, $filter);
+        else:
+            return $this->productRepository->noPagination($search, $filter);
+        endif;
     }
 
     public function listProductFind(int $id, bool $filter): Collection

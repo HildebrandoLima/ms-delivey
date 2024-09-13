@@ -6,7 +6,6 @@ use App\Data\Repositories\Abstracts\IEntityRepository;
 use App\Domains\Services\Payment\Concretes\CreatePaymentService;
 use App\Http\Requests\Payment\CreatePaymentRequest;
 use App\Models\Pagamento;
-use App\Support\Enums\RoleEnum;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -14,30 +13,26 @@ class CreatePaymentServiceTest extends TestCase
 {
     private CreatePaymentRequest $request;
     private IEntityRepository $paymentRepository;
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataPayment();
     }
 
     public function test_success_create_payment_service(): void
     {
         // Arrange
-        $createdPayment = Pagamento::query()->first();
         $this->request = new CreatePaymentRequest();
-        $this->request['numeroCartao'] = $createdPayment->numero_cartao;
-        $this->request['tipoCartao'] = $createdPayment->tipo_cartao;
-        $this->request['ccv'] = $createdPayment->ccv;
-        $this->request['dataValidade'] = $createdPayment->data_validade;
-        $this->request['parcela'] = $createdPayment->parcela;
-        $this->request['total'] = $createdPayment->total;
-        $this->request['metodoPagamento'] = $createdPayment->metodo_pagamento;
-        $this->request['pedidoId'] = $createdPayment->pedido_id;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
+        $this->request['numeroCartao'] = $this->data['numeroCartao'];
+        $this->request['tipoCartao'] = $this->data['tipoCartao'];
+        $this->request['ccv'] = $this->data['ccv'];
+        $this->request['dataValidade'] = $this->data['dataValidade'];
+        $this->request['parcela'] = $this->data['parcela'];
+        $this->request['total'] = $this->data['total'];
+        $this->request['metodoPagamento'] = $this->data['metodoPagamento'];
+        $this->request['pedidoId'] = $this->data['pedidoId'];
 
         $this->paymentRepository = $this->mock(IEntityRepository::class,
         function (MockInterface $mock) {
@@ -52,13 +47,13 @@ class CreatePaymentServiceTest extends TestCase
         // Assert
         $this->assertTrue($result);
         $this->assertInstanceOf(Pagamento::class, $mappedPayment);
-        $this->assertEquals($this->request['numeroCartao'], $createdPayment->numero_cartao);
-        $this->assertEquals($this->request['tipoCartao'], $createdPayment->tipo_cartao);
-        $this->assertEquals($this->request['ccv'], $createdPayment->ccv);
-        $this->assertEquals($this->request['dataValidade'], $createdPayment->data_validade);
-        $this->assertEquals($this->request['parcela'], $createdPayment->parcela);
-        $this->assertEquals($this->request['total'], $createdPayment->total);
-        $this->assertEquals($this->request['metodoPagamento'], $createdPayment->metodo_pagamento);
-        $this->assertEquals($this->request['pedidoId'], $createdPayment->pedido_id);
+        $this->assertEquals($this->request['numeroCartao'], $this->data['numeroCartao']);
+        $this->assertEquals($this->request['tipoCartao'], $this->data['tipoCartao']);
+        $this->assertEquals($this->request['ccv'], $this->data['ccv']);
+        $this->assertEquals($this->request['dataValidade'], $this->data['dataValidade']);
+        $this->assertEquals($this->request['parcela'], $this->data['parcela']);
+        $this->assertEquals($this->request['total'], $this->data['total']);
+        $this->assertEquals($this->request['metodoPagamento'], $this->data['metodoPagamento']);
+        $this->assertEquals($this->request['pedidoId'], $this->data['pedidoId']);
     }
 }

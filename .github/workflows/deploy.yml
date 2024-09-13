@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd domains/caravanas-fadinha.com.br/ms-delivery/
+            cd ${{ secrets.REMOTE_PATH }}
             git pull
             composer install --no-dev --no-progress --optimize-autoloader
             php artisan optimize

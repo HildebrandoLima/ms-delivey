@@ -15,9 +15,9 @@ class ForgotPasswordTest extends TestCase
     public function it_endpoint_post_forgot_password_base_response_200(): void
     {
         // Arrange
-        $email = User::query()->first()->email;
+        $user = User::factory()->createOne();
         $data = [
-            'email' => $email
+            'email' => $user['email']
         ];
 
         // Act

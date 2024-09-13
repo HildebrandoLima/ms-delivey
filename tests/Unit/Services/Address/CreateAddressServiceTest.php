@@ -13,24 +13,25 @@ class CreateAddressServiceTest extends TestCase
 {
     private CreateAddressRequest $request;
     private IEntityRepository $addressRepository;
+    private array $data;
 
-    public function clearMockery(): void
+    protected function setUp(): void
     {
-        $this->tearDown();
+        parent::setUp();
+        $this->data = $this->setDataAddress();
     }
 
     public function test_success_create_address_with_params_user_id_service(): void
     {
         // Arrange
-        $createdAddress = Endereco::query()->first();
         $this->request = new CreateAddressRequest();
-        $this->request['logradouro'] = $createdAddress->logradouro;
-        $this->request['numero'] = $createdAddress->numero;
-        $this->request['bairro'] = $createdAddress->bairro;
-        $this->request['cidade'] = $createdAddress->cidade;
-        $this->request['cep'] = $createdAddress->cep;
-        $this->request['uf'] = $createdAddress->uf;
-        $this->request['usuarioId'] = $createdAddress->usuario_id;
+        $this->request['logradouro'] = $this->data['logradouro'];
+        $this->request['numero'] = $this->data['numero'];
+        $this->request['bairro'] = $this->data['bairro'];
+        $this->request['cidade'] = $this->data['cidade'];
+        $this->request['cep'] = $this->data['cep'];
+        $this->request['uf'] = $this->data['uf'];
+        $this->request['usuarioId'] = $this->data['usuarioId'];
 
         $this->addressRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
@@ -45,27 +46,26 @@ class CreateAddressServiceTest extends TestCase
         // Assert
         $this->assertTrue($result);
         $this->assertInstanceOf(Endereco::class, $mappedAddress);
-        $this->assertEquals($this->request['logradouro'], $createdAddress->logradouro);
-        $this->assertEquals($this->request['numero'], $createdAddress->numero);
-        $this->assertEquals($this->request['bairro'], $createdAddress->bairro);
-        $this->assertEquals($this->request['cidade'], $createdAddress->cidade);
-        $this->assertEquals($this->request['cep'], $createdAddress->cep);
-        $this->assertEquals($this->request['uf'], $createdAddress->uf);
-        $this->assertEquals($this->request['usuarioId'], $createdAddress->usuario_id);
+        $this->assertEquals($this->request['logradouro'], $this->data['logradouro']);
+        $this->assertEquals($this->request['numero'], $this->data['numero']);
+        $this->assertEquals($this->request['bairro'], $this->data['bairro']);
+        $this->assertEquals($this->request['cidade'], $this->data['cidade']);
+        $this->assertEquals($this->request['cep'], $this->data['cep']);
+        $this->assertEquals($this->request['uf'], $this->data['uf']);
+        $this->assertEquals($this->request['usuarioId'], $this->data['usuarioId']);
     }
 
     public function test_success_create_address_with_params_provider_id_service(): void
     {
         // Arrange
-        $createdAddress = Endereco::query()->first();
         $this->request = new CreateAddressRequest();
-        $this->request['logradouro'] = $createdAddress->logradouro;
-        $this->request['numero'] = $createdAddress->numero;
-        $this->request['bairro'] = $createdAddress->bairro;
-        $this->request['cidade'] = $createdAddress->cidade;
-        $this->request['cep'] = $createdAddress->cep;
-        $this->request['uf'] = $createdAddress->uf;
-        $this->request['fornecedorId'] = $createdAddress->fornecedor_id;
+        $this->request['logradouro'] = $this->data['logradouro'];
+        $this->request['numero'] = $this->data['numero'];
+        $this->request['bairro'] = $this->data['bairro'];
+        $this->request['cidade'] = $this->data['cidade'];
+        $this->request['cep'] = $this->data['cep'];
+        $this->request['uf'] = $this->data['uf'];
+        $this->request['fornecedorId'] = $this->data['fornecedorId'];
 
         $this->addressRepository = $this->mock(IEntityRepository::class,
             function (MockInterface $mock) {
@@ -80,12 +80,12 @@ class CreateAddressServiceTest extends TestCase
         // Assert
         $this->assertTrue($result);
         $this->assertInstanceOf(Endereco::class, $mappedAddress);
-        $this->assertEquals($this->request['logradouro'], $createdAddress->logradouro);
-        $this->assertEquals($this->request['numero'], $createdAddress->numero);
-        $this->assertEquals($this->request['bairro'], $createdAddress->bairro);
-        $this->assertEquals($this->request['cidade'], $createdAddress->cidade);
-        $this->assertEquals($this->request['cep'], $createdAddress->cep);
-        $this->assertEquals($this->request['uf'], $createdAddress->uf);
-        $this->assertEquals($this->request['fornecedorId'], $createdAddress->fornecedor_id);
+        $this->assertEquals($this->request['logradouro'], $this->data['logradouro']);
+        $this->assertEquals($this->request['numero'], $this->data['numero']);
+        $this->assertEquals($this->request['bairro'], $this->data['bairro']);
+        $this->assertEquals($this->request['cidade'], $this->data['cidade']);
+        $this->assertEquals($this->request['cep'], $this->data['cep']);
+        $this->assertEquals($this->request['uf'], $this->data['uf']);
+        $this->assertEquals($this->request['fornecedorId'], $this->data['fornecedorId']);
     }
 }

@@ -7,7 +7,6 @@ use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Categoria;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -16,52 +15,42 @@ class CategoryRepository implements ICategoryRepository
 {
     use AutoMapper;
 
-    public function readAll(Pagination $pagination, string $search, bool $filter): Collection
+    public function hasPagination(string $search, bool $filter): Collection
     {
-        if (isset($pagination->page) && isset($pagination->perPage)):
-            return $this->hasPagination($search, $filter);
-        else:
-            return $this->noPagination($search, $filter);
-        endif;
-    }
-
-    public function readOne(int $id, bool $filter): Collection
-    {
-        $collection = Categoria::query()
-        ->where(function($query) use ($filter){
-            QueryFilter::getQueryFilter($query, $filter);
-        })->where('id', '=', $id)->get();
-        foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = $this->map($instance);
-        endforeach;
-        return $collection;
-    }
-
-    private function hasPagination(string $search, bool $filter): Collection
-    {
-        $collection = $this->query($search, $filter)->paginate(10);
+        $collection = $this->query($search, 0, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
           $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string $search, bool $filter): Collection
+    public function noPagination(string $search, bool $filter): Collection
     {
-        $collection = $this->query($search, $filter)->get();
+        $collection = $this->query($search, 0, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
         return $collection;
     }
 
-    private function query(string $search, bool $filter): Builder
+    public function readOne(int $id, bool $filter): Collection
+    {
+        $collection = $this->query('', $id, $filter)->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = $this->map($instance);
+        endforeach;
+        return $collection;
+    }
+
+    private function query(string $search, int $id, bool $filter): Builder
     {
         return Categoria::query()
-        ->where(function($query) use ($search, $filter) {
+        ->where(function($query) use ($search, $id, $filter) {
             QueryFilter::getQueryFilter($query, $filter);
             if (!empty($search)):
                 $query->where('nome', 'like', $search);
+            elseif (!empty($id)):
+                $query->where('id', '=', $id);
             else:
                 QueryFilter::getQueryFilter($query, $filter);
             endif;

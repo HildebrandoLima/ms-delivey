@@ -8,7 +8,7 @@ use App\Support\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class AdminUserSeeder extends Seeder
+class CreateUserTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,9 +24,21 @@ class AdminUserSeeder extends Seeder
             'password' => Hash::make('HiLd3br@ndo'),
             'data_nascimento' => date('Y-m-d H:i:s'),
             'genero' => 'Outro',
-            'email_verificado' => ActiveEnum::ATIVADO,
-            'ativo' => true,
+            'email_verificado' => true,
+            'ativo' => ActiveEnum::ATIVADO,
             'role_id' => RoleEnum::ADMIN,
+        ]);
+
+        User::query()->create([
+            'nome' => 'Client',
+            'cpf' => '167.934.740-30',
+            'email' => 'cliente@gmail.com',
+            'password' => Hash::make('@PClient5'),
+            'data_nascimento' => date('Y-m-d H:i:s'),
+            'genero' => 'Outro',
+            'email_verificado' => true,
+            'ativo' => ActiveEnum::ATIVADO,
+            'role_id' => RoleEnum::CLIENTE,
         ]);
     }
 }

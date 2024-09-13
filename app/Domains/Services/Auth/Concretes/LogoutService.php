@@ -2,22 +2,20 @@
 
 namespace App\Domains\Services\Auth\Concretes;
 
+use App\Data\Repositories\Abstracts\IAuthRepository;
 use App\Domains\Services\Auth\Abstracts\ILogoutService;
-use App\Exceptions\HttpBadRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class LogoutService implements ILogoutService
 {
+    private IAuthRepository $authRepository;
+
+    public function __construct(IAuthRepository $authRepository)
+    {
+        $this->authRepository = $authRepository;
+    }
+
     public function logout(): bool
     {
-        if (auth()->check()):
-            auth()->logout();
-        return true;
-        else:
-            throw new HttpResponseException(HttpBadRequest::getResponse(collect(),
-            collect([
-                'Usuário não está logado.'
-            ])));
-        endif;
+        return $this->authRepository->logout();
     }
 }

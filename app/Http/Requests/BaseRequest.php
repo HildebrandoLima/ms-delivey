@@ -6,6 +6,7 @@ use App\Exceptions\HttpBadRequest;
 use App\Exceptions\HttpConflict;
 use App\Exceptions\HttpNotFound;
 use App\Support\Utils\Messages\DefaultErrorMessages;
+use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -26,6 +27,11 @@ abstract class BaseRequest extends FormRequest
         endforeach;
 
         throw new HttpResponseException(HttpBadRequest::getResponse($errors, $details));
+    }
+
+    public function hasPagination(Pagination $pagination): bool
+    {
+        return !empty($pagination->page) && !empty($pagination->perPage);
     }
 
     private function getErrors(Validator $validator): Collection

@@ -4,7 +4,6 @@ namespace Tests\Unit\Services\Order;
 
 use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Domains\Services\Order\Concretes\ListOrderService;
-use App\Support\Enums\RoleEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -17,21 +16,21 @@ class ListOrderServiceTest extends TestCase
     private bool $filter;
     private string $search;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_list_order_all_service(): void
     {
         // Arrange
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $this->pagination = new Pagination();
         $this->pagination['page'] = 1;
         $this->pagination['perPage'] = 10;
-        $this->id = $authenticate['userId'];
+        $this->id = rand(1, 100);
         $this->filter = true;
         $this->search = '';
-        $expectedResult = $this->paginationList();
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);        
+        $expectedResult = $this->paginationList();     
 
         $this->orderRepository = $this->mock(IOrderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
@@ -53,12 +52,7 @@ class ListOrderServiceTest extends TestCase
         $orderId = rand(1, 100);
         $this->id = $orderId;
         $this->filter = true;
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
         $expectedResult = collect([]);
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
 
         $this->orderRepository = $this->mock(IOrderRepository::class,
             function (MockInterface $mock) use ($expectedResult) {

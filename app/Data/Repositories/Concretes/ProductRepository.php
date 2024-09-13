@@ -9,7 +9,6 @@ use App\Domains\Traits\Dtos\AutoMapper;
 use App\Exceptions\HttpInternalServerError;
 use App\Models\Produto;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Pagination\PaginationList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -20,42 +19,27 @@ class ProductRepository extends DBConnection implements IProductRepository
 {
     use AutoMapper;
 
-    public function readAll(Pagination $pagination, string|int $search, bool $filter): Collection
+    public function hasPagination(string|int $search, bool $filter): Collection
     {
-        if (isset($pagination->page) && isset($pagination->perPage)):
-            return $this->hasPagination($search, $filter);
-        else:
-            return $this->noPagination($search, $filter);
-        endif;
-    }
-
-    public function readOne(int $id, bool $filter): Collection
-    {
-        $collection = Produto::query()->with('imagem')
-        ->where(function($query) use ($filter) {
-            QueryFilter::getQueryFilter($query, $filter);
-        })->where('produto.id', '=', $id)
-        ->orWhere(function ($query) use ($id) {
-            $query->where('produto.categoria_id', $id);
-        })->get();
-        foreach ($collection->toArray() as $key => $instance):
-            $collection[$key] = $this->map($instance);
-        endforeach;
-        return $collection;
-    }
-
-    private function hasPagination(string|int $search, bool $filter): Collection
-    {
-        $collection = $this->query($search, $filter)->paginate(10);
+        $collection = $this->query($search, 0, $filter)->paginate(10);
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = $this->map($instance->toArray());
         endforeach;
         return PaginationList::createFromPagination($collection);
     }
 
-    private function noPagination(string|int $search, bool $filter): Collection
+    public function noPagination(string|int $search, bool $filter): Collection
     {
-        $collection = $this->query($search, $filter)->get();
+        $collection = $this->query($search, 0, $filter)->get();
+        foreach ($collection->toArray() as $key => $instance):
+            $collection[$key] = $this->map($instance);
+        endforeach;
+        return $collection;
+    }
+
+    public function readOne(int $id, bool $filter): Collection
+    {
+        $collection = $this->query('', $id, $filter)->get();
         foreach ($collection->toArray() as $key => $instance):
             $collection[$key] = $this->map($instance);
         endforeach;
@@ -75,15 +59,19 @@ class ProductRepository extends DBConnection implements IProductRepository
         }
     }
 
-    private function query(string|int $search, bool $filter): Builder
+    private function query(string|int $search, int $id, bool $filter): Builder
     {
         return Produto::query()->with('imagem')
-        ->where(function($query) use ($search, $filter) {
+        ->where(function($query) use ($search, $id, $filter) {
             QueryFilter::getQueryFilter($query, $filter);
-            if (!empty($search) and is_numeric($search)):
-                $query->where('produto.categoria_id', '=', $search);
-            elseif (!empty($search) and is_string($search)):
-                $query->where('produto.nome', 'like', $search);    
+            if (!empty($search)):
+                if (is_numeric($search)):
+                    $query->where('produto.categoria_id', '=', $search);
+                else:
+                    $query->where('produto.nome', 'like', $search);
+                endif;
+            elseif (!empty($id)):
+                $query->where('produto.id', '=', $id);
             else:
                 QueryFilter::getQueryFilter($query, $filter);
             endif;

@@ -7,6 +7,6 @@ use Illuminate\Support\Collection;
 
 interface IListProviderService
 {
-    public function listProviderAll(Pagination $pagination, string $search, bool $active): Collection;
-    public function listProviderFind(int $id, bool $active): Collection;
+    public function listProviderAll(Pagination $pagination, string $search, bool $filter): Collection;
+    public function listProviderFind(int $id, bool $filter): Collection;
 }

@@ -4,7 +4,6 @@ namespace Tests\Unit\Services\Category;
 
 use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Domains\Services\Category\Concretes\ListCategoryService;
-use App\Support\Enums\RoleEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -16,6 +15,11 @@ class ListCategoryServiceTest extends TestCase
     private int $id;
     private bool $filter;
     private string $search;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
 
     public function test_success_list_category_all_has_pagination_service(): void
     {
@@ -29,7 +33,10 @@ class ListCategoryServiceTest extends TestCase
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -53,7 +60,10 @@ class ListCategoryServiceTest extends TestCase
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -75,7 +85,10 @@ class ListCategoryServiceTest extends TestCase
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -93,11 +106,6 @@ class ListCategoryServiceTest extends TestCase
         $this->id = rand(1, 100);
         $this->filter = true;
         $expectedResult = collect([]);
-
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
 
         $this->categoryRepository = $this->mock(ICategoryRepository::class,
             function (MockInterface $mock) use ($expectedResult) {

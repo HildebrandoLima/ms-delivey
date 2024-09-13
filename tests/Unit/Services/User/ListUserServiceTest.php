@@ -4,7 +4,6 @@ namespace Tests\Unit\Services\User;
 
 use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Domains\Services\User\Concretes\ListUserService;
-use App\Support\Enums\RoleEnum;
 use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
@@ -18,6 +17,11 @@ class ListUserServiceTest extends TestCase
     private bool $filter;
     private string $search;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_success_list_user_all_has_pagination_service(): void
     {
         // Arrange
@@ -28,14 +32,12 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
         $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -53,17 +55,14 @@ class ListUserServiceTest extends TestCase
         $this->pagination = new Pagination();
         $this->search = '';
         $this->filter = true;
-
         $expectedResult = $this->paginationList();
-
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
 
         $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -85,14 +84,12 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
         $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -112,14 +109,12 @@ class ListUserServiceTest extends TestCase
         $this->filter = true;
         $expectedResult = $this->paginationList();
 
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
-
         $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('readAll')->with(Pagination::class, $this->search, $this->filter)
+                $mock->shouldReceive('hasPagination')->with($this->search, $this->filter)
+                     ->andReturn($expectedResult);
+
+                $mock->shouldReceive('noPagination')->with($this->search, $this->filter)
                      ->andReturn($expectedResult);
         });
 
@@ -137,11 +132,6 @@ class ListUserServiceTest extends TestCase
         $this->id = rand(1, 100);
         $this->filter = true;
         $expectedResult = collect([]);
-
-        $authenticate = $this->authenticate(RoleEnum::ADMIN);
-        $this->withHeaders([
-            'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ]);
 
         $this->userRepository = $this->mock(IUserRepository::class,
             function (MockInterface $mock) use ($expectedResult) {

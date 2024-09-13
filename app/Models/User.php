@@ -51,6 +51,16 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function permissions(): BelongsToMany
+    {
+        return $this->role->permissions();
+    }
+
     public function endereco(): HasMany
     {
         return $this->hasMany(Endereco::class, 'usuario_id', 'id');
@@ -59,17 +69,5 @@ class User extends Authenticatable implements JWTSubject
     public function telefone(): HasMany
     {
         return $this->hasMany(Telefone::class, 'usuario_id', 'id');
-    }
-
-    public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function permissions(): array
-    {
-        return PermissionRole::query()->with('permission')
-        ->where('permission_role.role_id', '=', auth()->user()->role->id)
-        ->get()->pluck('permission.0.description')->toArray();
     }
 }
