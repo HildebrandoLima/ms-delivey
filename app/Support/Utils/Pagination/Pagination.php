@@ -20,15 +20,15 @@ class Pagination
         return $this->page;
     }
 
-    public function getPerPage(): int
-    {
-        return $this->perPage;
-    }
-
     public function setPage(int $page): int
     {
         $this->page = $page;
         return $this->page;
+    }
+
+    public function getPerPage(): int
+    {
+        return $this->perPage;
     }
 
     public function setPerPage(int $perPage): int
