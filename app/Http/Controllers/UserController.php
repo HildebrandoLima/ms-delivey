@@ -11,7 +11,6 @@ use App\Http\Requests\User\EditUserRequest;
 use App\Http\Requests\User\ParamsUserRequest;
 use App\Http\Requests\User\PermissonUserRequest;
 use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
@@ -37,14 +36,14 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService =   $emailUserVerifiedAtService;
     }
 
-    public function index(PermissonUserRequest $request, Search $search, FilterByActive $filter): Response
+    public function index(PermissonUserRequest $request, Search $search): Response
     {
         try {
             $success = $this->listUserService->listUserAll
             (
                 new Pagination($request),
                 $search->search(request()),
-                $filter->active
+                (bool)$request->active
             );
             return Controller::get($success);
         } catch (Exception $e) {
@@ -52,13 +51,13 @@ class UserController extends Controller
         }
     }
 
-    public function show(ParamsUserRequest $request, FilterByActive $filter): Response
+    public function show(ParamsUserRequest $request): Response
     {
         try {
             $success = $this->listUserService->listUserFind
             (
                 $request->id,
-                $filter->active
+                (bool)$request->active
             );
             return Controller::get($success);
         } catch (Exception $e) {

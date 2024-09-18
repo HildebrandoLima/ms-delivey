@@ -8,7 +8,6 @@ use App\Domains\Services\Order\Abstracts\IListOrderService;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Http\Requests\User\ParamsUserRequest;
-use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
@@ -31,14 +30,14 @@ class OrderController extends Controller
         $this->listOrderService   = $listOrderService;
     }
 
-    public function index(Search $search, ParamsUserRequest $request, FilterByActive $filter): Response
+    public function index(Search $search, ParamsUserRequest $request): Response
     {
         try {
             $success = $this->listOrderService->listOrderAll
             (
                 $search->search(request()),
                 $request->id,
-                $filter->active
+                (bool)$request->active
             );
             return Controller::get($success);
         } catch (Exception $e) {
@@ -46,13 +45,13 @@ class OrderController extends Controller
         }
     }
 
-    public function show(ParamsOrderRequest $request, FilterByActive $filter): Response
+    public function show(ParamsOrderRequest $request): Response
     {
         try {
             $success = $this->listOrderService->listOrderFind
             (
                 $request->id,
-                $filter->active
+                (bool)$request->active
             );
             return Controller::get($success);
         } catch (Exception $e) {

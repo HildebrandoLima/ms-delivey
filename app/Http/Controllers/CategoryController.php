@@ -9,7 +9,6 @@ use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\Category\ParamsCategoryRequest;
 use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
@@ -33,14 +32,14 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(Request $request, Search $search, FilterByActive $filter): Response
+    public function index(Request $request, Search $search): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryAll
             (
                 new Pagination($request),
                 $search->search(request()),
-                $filter->active
+                (bool)$request->active
             );
             return Controller::get($success);
         } catch (Exception $e) {
@@ -48,13 +47,13 @@ class CategoryController extends Controller
         }
     }
 
-    public function show(ParamsCategoryRequest $request, FilterByActive $filter): Response
+    public function show(ParamsCategoryRequest $request): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryFind
             (
                 $request->id,
-                $filter->active
+                (bool)$request->active
             );
             return Controller::get($success);
         } catch (Exception $e) {
