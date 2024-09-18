@@ -7,7 +7,7 @@ use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Pedido;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\Pagination\PaginatedList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -31,7 +31,7 @@ class OrderRepository implements IOrderRepository
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = $this->map($instance->toArray());
         endforeach;
-        return PaginationList::createFromPagination($collection);
+        return PaginatedList::createFromPagination($collection);
     }
 
     public function readOne(int $id, bool $filter): Collection

@@ -2,29 +2,43 @@
 
 namespace App\Support\Utils\Pagination;
 
-use App\Http\Requests\BaseRequest;
-use App\Support\Utils\Messages\DefaultErrorMessages;
+use Illuminate\Http\Request;
 
-class Pagination extends BaseRequest
+class Pagination
 {
-    public function authorize(): bool
+    private int $page;
+    private int $perPage;
+
+    public function __construct(Request $request)
     {
-        return true;
+        $this->page = $request->page;
+        $this->perPage = $request->perPage;
     }
 
-    public function rules(): array
+    public function getPage(): int
     {
-        return [
-            'page' => 'int',
-            'perPage' => 'int',
-        ];
+        return $this->page;
     }
 
-    public function messages(): array
+    public function getPerPage(): int
     {
-        return [
-            'page.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'perPage.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-        ];
+        return $this->perPage;
+    }
+
+    public function setPage(int $page): int
+    {
+        $this->page = $page;
+        return $this->page;
+    }
+
+    public function setPerPage(int $perPage): int
+    {
+        $this->perPage = $perPage;
+        return $this->perPage;
+    }
+
+    public function hasPagination(): bool
+    {
+        return !empty($this->page) && !empty($this->perPage);
     }
 }

@@ -12,6 +12,7 @@ use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\FilterByActive;
 use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 use Exception;
 
 class CategoryController extends Controller
@@ -32,12 +33,12 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(Request $request, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listCategoryService->listCategoryAll
             (
-                $pagination,
+                new Pagination($request),
                 $search->search(request()),
                 $filter->active
             );

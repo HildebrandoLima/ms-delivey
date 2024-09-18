@@ -7,7 +7,7 @@ use App\Data\Repositories\Abstracts\ICategoryRepository;
 use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Categoria;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\Pagination\PaginatedList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -21,7 +21,7 @@ class CategoryRepository implements ICategoryRepository
         foreach ($collection->items() as $key => $instance):
           $collection[$key] = $this->map($instance->toArray());
         endforeach;
-        return PaginationList::createFromPagination($collection);
+        return PaginatedList::createFromPagination($collection);
     }
 
     public function noPagination(string $search, bool $filter): Collection

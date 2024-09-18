@@ -9,7 +9,7 @@ use App\Domains\Traits\Dtos\AutoMapper;
 use App\Exceptions\HttpInternalServerError;
 use App\Models\Produto;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\Pagination\PaginatedList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
@@ -25,7 +25,7 @@ class ProductRepository extends DBConnection implements IProductRepository
         foreach ($collection->items() as $key => $instance):
             $collection[$key] = $this->map($instance->toArray());
         endforeach;
-        return PaginationList::createFromPagination($collection);
+        return PaginatedList::createFromPagination($collection);
     }
 
     public function noPagination(string|int $search, bool $filter): Collection

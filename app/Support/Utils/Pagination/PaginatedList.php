@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Exception;
 
-class PaginationList
+class PaginatedList
 {
     public static function createFromPagination(LengthAwarePaginator $paginator): Collection
     {

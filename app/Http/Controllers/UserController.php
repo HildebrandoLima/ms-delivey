@@ -37,12 +37,12 @@ class UserController extends Controller
         $this->emailUserVerifiedAtService =   $emailUserVerifiedAtService;
     }
 
-    public function index(PermissonUserRequest $request, Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(PermissonUserRequest $request, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listUserService->listUserAll
             (
-                $pagination,
+                new Pagination($request),
                 $search->search(request()),
                 $filter->active
             );

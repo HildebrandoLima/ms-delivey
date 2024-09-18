@@ -33,12 +33,12 @@ class ProviderController extends Controller
         $this->listProviderService   = $listProviderService;
     }
 
-    public function index(PermissonProviderRequest $request, Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(PermissonProviderRequest $request, Search $search, FilterByActive $filter): Response
     {
         try {
             $success = $this->listProviderService->listProviderAll
             (
-                $pagination,
+                new Pagination($request),
                 $search->search(request()),
                 $filter->active
             );
