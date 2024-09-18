@@ -7,14 +7,11 @@ use Illuminate\Support\Facades\Http;
 
 class IntegrationViaCep
 {
-    public function integrationViaCep(string $cep): Collection|null
+    public function integrationViaCep(string $cep): ?Collection
     {
         $response = Http::get('https://viacep.com.br/ws/' . $cep . '/json')->json();
 
-        if (!is_null($response)):
-            return collect($this->treatObject($response));
-        endif;
-        return null;
+        return optional($response) ? collect($this->treatObject($response)) : null;
     }
 
     private function treatObject(array $data): array
