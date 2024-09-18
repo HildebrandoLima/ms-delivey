@@ -9,8 +9,6 @@ use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Http\Requests\Provider\EditProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Http\Requests\Provider\PermissonProviderRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
@@ -32,15 +30,10 @@ class ProviderController extends Controller
         $this->listProviderService   = $listProviderService;
     }
 
-    public function index(PermissonProviderRequest $request, Search $search): Response
+    public function index(PermissonProviderRequest $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderAll
-            (
-                new Pagination($request),
-                $search->search(request()),
-                (bool)$request->active
-            );
+            $success = $this->listProviderService->listProviderAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -50,11 +43,7 @@ class ProviderController extends Controller
     public function show(ParamsProviderRequest $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderFind
-            (
-                $request->id,
-                (bool)$request->active
-            );
+            $success = $this->listProviderService->listProviderFind($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);

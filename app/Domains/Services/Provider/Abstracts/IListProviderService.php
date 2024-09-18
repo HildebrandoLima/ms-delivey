@@ -2,11 +2,11 @@
 
 namespace App\Domains\Services\Provider\Abstracts;
 
-use App\Support\Utils\Pagination\Pagination;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 interface IListProviderService
 {
-    public function listProviderAll(Pagination $pagination, string $search, bool $filter): Collection;
-    public function listProviderFind(int $id, bool $filter): Collection;
+    public function listProviderAll(Request $request): Collection;
+    public function listProviderFind(Request $request): Collection;
 }

@@ -4,6 +4,8 @@ namespace App\Domains\Services\Order\Concretes;
 
 use App\Data\Repositories\Abstracts\IOrderRepository;
 use App\Domains\Services\Order\Abstracts\IListOrderService;
+use App\Support\Utils\Params\Search;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ListOrderService implements IListOrderService
@@ -15,13 +17,15 @@ class ListOrderService implements IListOrderService
         $this->orderRepository = $orderRepository;
     }
 
-    public function listOrderAll(string $search, int $id, bool $filter): Collection
+    public function listOrderAll(Request $request): Collection
     {
-        return $this->orderRepository->readAll($search, $id, $filter);
+        $search = new Search($request);
+        $active = (bool) $request->active;
+        return $this->orderRepository->readAll($search->getSearch(), $request->id, $active);
     }
 
-    public function listOrderFind(int $id, bool $filter): Collection
+    public function listOrderFind(Request $request): Collection
     {
-        return $this->orderRepository->readOne($id, $filter);
+        return $this->orderRepository->readOne($request->id, (bool)$request->active);
     }
 }

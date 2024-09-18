@@ -2,11 +2,11 @@
 
 namespace App\Domains\Services\User\Abstracts;
 
-use App\Support\Utils\Pagination\Pagination;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 interface IListUserService
 {
-    public function listUserAll(Pagination $pagination, string $search, bool $filter): Collection;
-    public function listUserFind(int $id, bool $filter): Collection;
+    public function listUserAll(Request $request): Collection;
+    public function listUserFind(Request $request): Collection;
 }

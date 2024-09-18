@@ -5,6 +5,8 @@ namespace App\Domains\Services\Provider\Concretes;
 use App\Data\Repositories\Abstracts\IProviderRepository;
 use App\Domains\Services\Provider\Abstracts\IListProviderService;
 use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Params\Search;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ListProviderService implements IListProviderService
@@ -16,17 +18,20 @@ class ListProviderService implements IListProviderService
         $this->providerRepository = $providerRepository;
     }
 
-    public function listProviderAll(Pagination $pagination, string $search, bool $filter): Collection
+    public function listProviderAll(Request $request): Collection
     {
-        if ($pagination->hasPagination($pagination)):
-            return $this->providerRepository->hasPagination($search, $filter);
-        else:
-            return $this->providerRepository->noPagination($search, $filter);
-        endif;
+        $pagination = new Pagination($request);
+        $search = new Search($request);
+        $active = (bool) $request->active;
+        if ($pagination->hasPagination($pagination)) {
+            return $this->providerRepository->hasPagination($search->getSearch(), $active);
+        } else {
+            return $this->providerRepository->noPagination($search->getSearch(), $active);
+        }
     }
 
-    public function listProviderFind(int $id, bool $filter): Collection
+    public function listProviderFind(Request $request): Collection
     {
-        return $this->providerRepository->readOne($id, $filter);
+        return $this->providerRepository->readOne($request->id, (bool)$request->active);
     }
 }

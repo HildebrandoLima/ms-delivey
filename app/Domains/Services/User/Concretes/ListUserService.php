@@ -5,6 +5,8 @@ namespace App\Domains\Services\User\Concretes;
 use App\Data\Repositories\Abstracts\IUserRepository;
 use App\Domains\Services\User\Abstracts\IListUserService;
 use App\Support\Utils\Pagination\Pagination;
+use App\Support\Utils\Params\Search;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ListUserService implements IListUserService
@@ -16,17 +18,20 @@ class ListUserService implements IListUserService
         $this->userRepository = $userRepository;
     }
 
-    public function listUserAll(Pagination $pagination, string $search, bool $filter): Collection
+    public function listUserAll(Request $request): Collection
     {
-        if ($pagination->hasPagination($pagination)):
-            return $this->userRepository->hasPagination($search, $filter);
-        else:
-            return $this->userRepository->noPagination($search, $filter);
-        endif;
+        $pagination = new Pagination($request);
+        $search = new Search($request);
+        $active = (bool) $request->active;
+        if ($pagination->hasPagination($pagination)) {
+            return $this->userRepository->hasPagination($search->getSearch(), $active);
+        } else {
+            return $this->userRepository->noPagination($search->getSearch(), $active);
+        }
     }
 
-    public function listUserFind(int $id, bool $filter): Collection
+    public function listUserFind(Request $request): Collection
     {
-        return $this->userRepository->readOne($id, $filter);
+        return $this->userRepository->readOne($request->id, (bool)$request->active);
     }
 }

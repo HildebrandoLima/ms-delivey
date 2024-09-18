@@ -8,8 +8,6 @@ use App\Domains\Services\Category\Abstracts\IListCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\EditCategoryRequest;
 use App\Http\Requests\Category\ParamsCategoryRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Exception;
@@ -32,15 +30,10 @@ class CategoryController extends Controller
         $this->listCategoryService   = $listCategoryService;
     }
 
-    public function index(Request $request, Search $search): Response
+    public function index(Request $request): Response
     {
         try {
-            $success = $this->listCategoryService->listCategoryAll
-            (
-                new Pagination($request),
-                $search->search(request()),
-                (bool)$request->active
-            );
+            $success = $this->listCategoryService->listCategoryAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -50,11 +43,7 @@ class CategoryController extends Controller
     public function show(ParamsCategoryRequest $request): Response
     {
         try {
-            $success = $this->listCategoryService->listCategoryFind
-            (
-                $request->id,
-                (bool)$request->active
-            );
+            $success = $this->listCategoryService->listCategoryFind($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);

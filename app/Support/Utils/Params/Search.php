@@ -4,17 +4,26 @@ namespace App\Support\Utils\Params;
 
 use Illuminate\Http\Request;
 
-final class Search
+class Search
 {
-    private string|int $search;
+    private mixed $search;
 
-    final public function search(Request $request): string|int
+    public function __construct(Request $request)
     {
-        if (is_numeric($request->search)):
-            return $this->search = $request->search;
-        else:
-            $request->search === null ? $this->search = '' : $this->search = '%' . $request->search . '%';
-            return $this->search;
-        endif;
+        $this->search = $this->formatSearch($request->search);
+    }
+
+    private function formatSearch(mixed $search): mixed
+    {
+        if (is_numeric($search)) {
+            return $search;
+        } else {
+            return $search === null ? '' : '%' . $search . '%';
+        }
+    }
+
+    public function getSearch(): mixed
+    {
+        return $this->search;
     }
 }

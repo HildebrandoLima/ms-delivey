@@ -8,8 +8,6 @@ use App\Domains\Services\Product\Abstracts\IListProductService;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\EditProductRequest;
 use App\Http\Requests\Product\ParamsProductRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Exception;
@@ -32,15 +30,10 @@ class ProductController extends Controller
         $this->listProductService   = $listProductService;
     }
 
-    public function index(Request $request, Search $search): Response
+    public function index(Request $request): Response
     {
         try {
-            $success = $this->listProductService->listProductAll
-            (
-                new Pagination($request),
-                $search->search(request()),
-                (bool)$request->active
-            );
+            $success = $this->listProductService->listProductAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -50,11 +43,7 @@ class ProductController extends Controller
     public function show(ParamsProductRequest $request): Response
     {
         try {
-            $success = $this->listProductService->listProductFind
-            (
-                $request->id,
-                (bool)$request->active
-            );
+            $success = $this->listProductService->listProductFind($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);

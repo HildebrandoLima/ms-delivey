@@ -8,7 +8,6 @@ use App\Domains\Services\Order\Abstracts\IListOrderService;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ParamsOrderRequest;
 use App\Http\Requests\User\ParamsUserRequest;
-use App\Support\Utils\Params\Search;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
@@ -30,15 +29,10 @@ class OrderController extends Controller
         $this->listOrderService   = $listOrderService;
     }
 
-    public function index(Search $search, ParamsUserRequest $request): Response
+    public function index(ParamsUserRequest $request): Response
     {
         try {
-            $success = $this->listOrderService->listOrderAll
-            (
-                $search->search(request()),
-                $request->id,
-                (bool)$request->active
-            );
+            $success = $this->listOrderService->listOrderAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -48,11 +42,7 @@ class OrderController extends Controller
     public function show(ParamsOrderRequest $request): Response
     {
         try {
-            $success = $this->listOrderService->listOrderFind
-            (
-                $request->id,
-                (bool)$request->active
-            );
+            $success = $this->listOrderService->listOrderFind($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
