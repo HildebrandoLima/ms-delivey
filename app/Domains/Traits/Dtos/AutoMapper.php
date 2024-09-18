@@ -8,19 +8,19 @@ trait AutoMapper
     {
         $dto = new $dtoClass();
 
-        foreach ($data as $key => $value):
+        foreach ($data as $key => $value) {
             $property = self::convertSnakeToCamel($key);
-            if (property_exists($dtoClass, $property)):
-                if (is_null($dto->$property)):
+            if (property_exists($dtoClass, $property)) {
+                if (is_null($dto->$property)) {
                     self::validateType($dto, $property, $value);
-                endif;
+                }
                 self::validateType($dto, $property, $value);
-            endif;
-        endforeach;
+            }
+        }
 
-        if (method_exists($dtoClass, 'customizeMapping')):
+        if (method_exists($dtoClass, 'customizeMapping')) {
             $dto->customizeMapping($data);
-        endif;
+        }
 
         return $dto;
     }
@@ -32,7 +32,7 @@ trait AutoMapper
 
     private static function validateType(object $dto, string $property, $value): void
     {
-        switch (true):
+        switch (true) {
             case is_int($dto->$property):
                 $dto->$property = $value ?? 0;
             break;
@@ -48,6 +48,6 @@ trait AutoMapper
             case is_bool($dto->$property):
                 $dto->$property = $value ?? false;
             break;
-        endswitch;
+        }
     }
 }

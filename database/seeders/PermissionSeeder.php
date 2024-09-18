@@ -16,10 +16,10 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $permissionsDb = PermissonsDb::PEMISSONS;
-        foreach ($permissionsDb as $instance):
+        foreach ($permissionsDb as $value) {
             Permission::query()->insert([
-                'description' => $instance['description']
+                'description' => $value['description']
             ]);
-        endforeach;
+        }
     }
 }

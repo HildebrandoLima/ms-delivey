@@ -16,11 +16,11 @@ class PermissionRoleSeeder extends Seeder
     public function run()
     {
         $permissionsDb = PermissonsRolesDb::PERMISSIONS_ROLES;
-        foreach ($permissionsDb as $instance):
+        foreach ($permissionsDb as $value) {
             PermissionRole::query()->insert([
-                'role_id' => $instance['role_id'],
-                'permission_id' => $instance['permission_id'],
+                'role_id' => $value['role_id'],
+                'permission_id' => $value['permission_id'],
             ]);
-        endforeach;
+        }
     }
 }

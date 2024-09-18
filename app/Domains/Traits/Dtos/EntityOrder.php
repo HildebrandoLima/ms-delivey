@@ -11,9 +11,9 @@ trait EntityOrder
 
     public function items(array $items): array
     {
-        foreach ($items as $key => $instance):
-            $items[$key] = $this->mapItems($instance);
-        endforeach;
+        foreach ($items as $key => $value) {
+            $items[$key] = $this->mapItems($value);
+        }
         return $items;
     }
 
@@ -24,9 +24,9 @@ trait EntityOrder
 
     public function payment(array $payment): array
     {
-        foreach ($payment as $key => $instance):
-            $payment[$key] = $this->mapPayment($instance);
-        endforeach;
+        foreach ($payment as $key => $value) {
+            $payment[$key] = $this->mapPayment($value);
+        }
         return $payment;
     }
 

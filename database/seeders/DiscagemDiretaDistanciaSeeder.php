@@ -16,12 +16,12 @@ class DiscagemDiretaDistanciaSeeder extends Seeder
     public function run()
     {
         $dialingDirectDistanceDb = DialingDirectDistanceDb::DIALING_DIRECT_DISTANCE;
-        foreach ($dialingDirectDistanceDb as $instance):
+        foreach ($dialingDirectDistanceDb as $value) {
             DDD::query()->insert([
-                'ddd' => $instance['ddd'],
-                'descricao' => $instance['descricao'],
-                'regiao' => $instance['regiao']
+                'ddd' => $value['ddd'],
+                'descricao' => $value['descricao'],
+                'regiao' => $value['regiao']
             ]);
-        endforeach;
+        }
     }
 }

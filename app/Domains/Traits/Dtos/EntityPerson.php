@@ -11,9 +11,9 @@ trait EntityPerson
 
     public function address(array $address): array
     {
-        foreach ($address as $key => $instance):
-            $address[$key] = $this->mapAddress($instance);
-        endforeach;
+        foreach ($address as $key => $value) {
+            $address[$key] = $this->mapAddress($value);
+        }
         return $address;
     }
 
@@ -24,9 +24,9 @@ trait EntityPerson
 
     public function telephone(array $telephones): array
     {
-        foreach ($telephones as $key => $instance):
-            $telephones[$key] = $this->mapTelephone($instance);
-        endforeach;
+        foreach ($telephones as $key => $value) {
+            $telephones[$key] = $this->mapTelephone($value);
+        }
         return $telephones;
     }
 

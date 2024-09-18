@@ -16,6 +16,7 @@ use Exception;
 class ForgotPassword implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     private array $data;
 
     public function __construct(array $data)
