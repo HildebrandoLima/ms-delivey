@@ -12,26 +12,16 @@ trait EntityOrder
     public function items(array $items): array
     {
         foreach ($items as $key => $value) {
-            $items[$key] = $this->mapItems($value);
+            $items[$key] = $this->mapTo($value, ItemDto::class);
         }
         return $items;
-    }
-
-    private function mapItems(array $data): ItemDto
-    {
-        return $this->mapper($data, ItemDto::class);
     }
 
     public function payment(array $payment): array
     {
         foreach ($payment as $key => $value) {
-            $payment[$key] = $this->mapPayment($value);
+            $payment[$key] = $this->mapTo($value, PaymentDto::class);
         }
         return $payment;
-    }
-
-    private function mapPayment(array $data): PaymentDto
-    {
-        return $this->mapper($data, PaymentDto::class);
     }
 }

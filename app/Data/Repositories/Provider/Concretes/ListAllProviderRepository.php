@@ -19,7 +19,7 @@ class ListAllProviderRepository implements IListAllProviderRepository
     {
         $collection = $this->query($search, $active)->paginate(10);
         foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->map($value->toArray());
+          $collection[$key] = $this->mapTo($value->toArray(), ProviderDto::class);
         }
         return PaginatedList::createFromPagination($collection);
     }
@@ -28,7 +28,7 @@ class ListAllProviderRepository implements IListAllProviderRepository
     {
         $collection = $this->query($search, $active)->get();
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, ProviderDto::class);
         }
         return $collection;
     }
@@ -44,10 +44,5 @@ class ListAllProviderRepository implements IListAllProviderRepository
                 $query->where('fornecedor.razao_social', 'like', $search);
             }
         })->orderByDesc('id');
-    }
-
-    private function map(array $data): ProviderDto
-    {
-        return $this->mapper($data, ProviderDto::class);
     }
 }

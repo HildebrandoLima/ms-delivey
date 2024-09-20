@@ -17,7 +17,7 @@ class ListFindByIdCategoryRepository implements IListFindByIdCategoryRepository
     {
         $collection = $this->query($id, $active);
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, CategoryDto::class);
         }
         return $collection;
     }
@@ -28,10 +28,5 @@ class ListFindByIdCategoryRepository implements IListFindByIdCategoryRepository
         ->where(function($query) use ($active) {
             QueryFilter::getQueryFilter($query, $active);
         })->where('id', '=', $id)->get();
-    }
-
-    private function map(array $data): CategoryDto
-    {
-        return $this->mapper($data, CategoryDto::class);
     }
 }

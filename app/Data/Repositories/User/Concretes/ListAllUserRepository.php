@@ -19,7 +19,7 @@ class ListAllUserRepository implements IListAllUserRepository
     {
         $collection = $this->query($search, $active)->paginate(10);
         foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->map($value->toArray());
+          $collection[$key] = $this->mapTo($value->toArray(), UserDto::class);
         }
         return PaginatedList::createFromPagination($collection);
     }
@@ -28,7 +28,7 @@ class ListAllUserRepository implements IListAllUserRepository
     {
         $collection = $this->query($search, $active)->get();
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, UserDto::class);
         }
         return $collection;
     }
@@ -44,10 +44,5 @@ class ListAllUserRepository implements IListAllUserRepository
                 $query->where('users.nome', 'like', $search);
             }
         })->orderByDesc('users.id');
-    }
-
-    private function map(array $data): UserDto
-    {
-        return $this->mapper($data, UserDto::class);
     }
 }

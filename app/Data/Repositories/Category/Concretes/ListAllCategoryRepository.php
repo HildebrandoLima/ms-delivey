@@ -19,7 +19,7 @@ class ListAllCategoryRepository implements IListAllCategoryRepository
     {
         $collection = $this->query($search, $active)->paginate(10);
         foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->map($value->toArray());
+          $collection[$key] = $this->mapTo($value->toArray(), CategoryDto::class);
         }
         return PaginatedList::createFromPagination($collection);
     }
@@ -28,7 +28,7 @@ class ListAllCategoryRepository implements IListAllCategoryRepository
     {
         $collection = $this->query($search, $active)->get();
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, CategoryDto::class);
         }
         return $collection;
     }
@@ -44,10 +44,5 @@ class ListAllCategoryRepository implements IListAllCategoryRepository
                 $query->where('nome', 'like', $search);
             }
         })->orderByDesc('id');
-    }
-
-    private function map(array $data): CategoryDto
-    {
-        return $this->mapper($data, CategoryDto::class);
     }
 }

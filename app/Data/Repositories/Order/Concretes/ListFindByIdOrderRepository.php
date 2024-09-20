@@ -22,7 +22,7 @@ class ListFindByIdOrderRepository implements IListFindByIdOrderRepository
         })->where('pedido.id', '=', $id)->get();
 
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, OrderDto::class);
         }
         return $collection;
     }
@@ -30,10 +30,5 @@ class ListFindByIdOrderRepository implements IListFindByIdOrderRepository
     private function query(): Builder
     {
         return Pedido::query()->with('item')->with('pagamento')->with('endereco');
-    }
-
-    private function map(array $data): OrderDto
-    {
-        return $this->mapper($data, OrderDto::class);
     }
 }

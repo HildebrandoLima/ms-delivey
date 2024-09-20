@@ -17,7 +17,7 @@ class ListFindByIdProviderRepository implements IListFindByIdProviderRepository
     {
         $collection = $this->query($id, $active);
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, ProviderDto::class);
         }
         return $collection;
     }
@@ -28,10 +28,5 @@ class ListFindByIdProviderRepository implements IListFindByIdProviderRepository
         ->where(function($query) use ($active) {
             QueryFilter::getQueryFilter($query, $active);
         })->where('users.id', $id)->get();
-    }
-
-    private function map(array $data): ProviderDto
-    {
-        return $this->mapper($data, ProviderDto::class);
     }
 }

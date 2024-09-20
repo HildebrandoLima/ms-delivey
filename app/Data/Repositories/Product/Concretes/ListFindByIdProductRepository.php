@@ -17,7 +17,7 @@ class ListFindByIdProductRepository implements IListFindByIdProductRepository
     {
         $collection = $this->query($id, $active);
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, ProductDto::class);
         }
         return $collection;
     }
@@ -30,10 +30,5 @@ class ListFindByIdProductRepository implements IListFindByIdProductRepository
             QueryFilter::getQueryFilter($query, $active);
 
         })->where('produto.id', '=', $id)->get();
-    }
-
-    private function map(array $data): ProductDto
-    {
-        return $this->mapper($data, ProductDto::class);
     }
 }

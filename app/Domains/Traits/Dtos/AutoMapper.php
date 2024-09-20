@@ -4,12 +4,13 @@ namespace App\Domains\Traits\Dtos;
 
 trait AutoMapper
 {
-    public static function mapper(array $data, string $dtoClass): object
+    public static function mapTo(array $data, string $dtoClass): object
     {
         $dto = new $dtoClass();
 
         foreach ($data as $key => $value) {
             $property = self::convertSnakeToCamel($key);
+
             if (property_exists($dtoClass, $property)) {
                 if (is_null($dto->$property)) {
                     self::validateType($dto, $property, $value);
@@ -30,7 +31,7 @@ trait AutoMapper
         return lcfirst(str_replace('_', '', ucwords($input, '_')));
     }
 
-    private static function validateType(object $dto, string $property, $value): void
+    private static function validateType(object $dto, string $property, mixed $value): void
     {
         switch (true) {
             case is_int($dto->$property):

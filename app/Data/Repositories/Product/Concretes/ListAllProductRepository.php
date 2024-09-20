@@ -19,7 +19,7 @@ class ListAllProductRepository implements IListAllProductRepository
     {
         $collection = $this->query($search, $active)->paginate(10);
         foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->map($value->toArray());
+          $collection[$key] = $this->mapTo($value->toArray(), ProductDto::class);
         }
         return PaginatedList::createFromPagination($collection);
     }
@@ -28,7 +28,7 @@ class ListAllProductRepository implements IListAllProductRepository
     {
         $collection = $this->query($search, $active)->get();
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, ProductDto::class);
         }
         return $collection;
     }
@@ -48,10 +48,5 @@ class ListAllProductRepository implements IListAllProductRepository
                 }
             }
         })->orderByDesc('produto.id');
-    }
-
-    private function map(array $data): ProductDto
-    {
-        return $this->mapper($data, ProductDto::class);
     }
 }

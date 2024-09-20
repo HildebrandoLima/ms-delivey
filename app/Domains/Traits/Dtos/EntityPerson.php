@@ -12,26 +12,16 @@ trait EntityPerson
     public function address(array $address): array
     {
         foreach ($address as $key => $value) {
-            $address[$key] = $this->mapAddress($value);
+            $address[$key] = $this->mapTo($value, AddressDto::class);
         }
         return $address;
-    }
-
-    private function mapAddress(array $data): AddressDto
-    {
-        return $this->mapper($data, AddressDto::class);
     }
 
     public function telephone(array $telephones): array
     {
         foreach ($telephones as $key => $value) {
-            $telephones[$key] = $this->mapTelephone($value);
+            $telephones[$key] = $this->mapTo($value, TelephoneDto::class);
         }
         return $telephones;
-    }
-
-    private function mapTelephone(array $data): TelephoneDto
-    {
-        return $this->mapper($data, TelephoneDto::class);
     }
 }

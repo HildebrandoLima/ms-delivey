@@ -33,7 +33,7 @@ class ListAllOrderRepository implements IListAllOrderRepository
         })->orderByDesc('pedido.id')->paginate(10);
 
         foreach ($collection->items() as $key => $value) {
-            $collection[$key] = $this->map($value->toArray());
+            $collection[$key] = $this->mapTo($value->toArray(), OrderDto::class);
         }
         return PaginatedList::createFromPagination($collection);
     }
@@ -41,10 +41,5 @@ class ListAllOrderRepository implements IListAllOrderRepository
     private function query(): Builder
     {
         return Pedido::query()->with('item')->with('pagamento')->with('endereco');
-    }
-
-    private function map(array $data): OrderDto
-    {
-        return $this->mapper($data, OrderDto::class);
     }
 }

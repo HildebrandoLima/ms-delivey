@@ -17,7 +17,7 @@ class ListFindByIdUserRepository implements IListFindByIdUserRepository
     {
         $collection = $this->query($id, $active);
         foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->map($value);
+            $collection[$key] = $this->mapTo($value, UserDto::class);
         }
         return $collection;
     }
@@ -28,10 +28,5 @@ class ListFindByIdUserRepository implements IListFindByIdUserRepository
         ->where(function($query) use ($id, $active) {
             QueryFilter::getQueryFilter($query, $active);
         })->where('users.id', $id)->get();
-    }
-
-    private function map(array $data): UserDto
-    {
-        return $this->mapper($data, UserDto::class);
     }
 }
