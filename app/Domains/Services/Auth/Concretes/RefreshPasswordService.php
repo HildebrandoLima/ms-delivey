@@ -2,44 +2,29 @@
 
 namespace App\Domains\Services\Auth\Concretes;
 
-use App\Data\Repositories\Abstracts\IAuthRepository;
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Auth\Interfaces\IAuthResetRepository;
+use App\Data\Repositories\Auth\Interfaces\IRefreshPasswordRepository;
 use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class RefreshPasswordService implements IRefreshPasswordService
 {
-    private IAuthRepository   $authRepository;
-    private IEntityRepository $entityRepository;
+    private IAuthResetRepository       $authResetRepository;
+    private IRefreshPasswordRepository $refreshPasswordRepository;
 
     public function __construct
     (
-        IAuthRepository   $authRepository,
-        IEntityRepository $entityRepository
+        IAuthResetRepository          $authResetRepository,
+        IRefreshPasswordRepository    $refreshPasswordRepository
     )
     {
-        $this->authRepository = $authRepository;
-        $this->entityRepository = $entityRepository;
+        $this->authResetRepository       = $authResetRepository;
+        $this->refreshPasswordRepository = $refreshPasswordRepository;
     }
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        $userId = $this->authRepository->readCode($request->codigo);
-        $user = $this->map($userId, $request->senha);
-        if ($this->entityRepository->update($user) and $this->authRepository->delete($request->codigo)):
-            return true;
-        else:
-            return false;
-        endif;
-    }
-
-    private function map(int $userId, string $senha): User
-    {
-        $user = new User();
-        $user->id = $userId;
-        $user->password = Hash::make($senha);
-        return $user;
+        $userId = $this->authResetRepository->readCode($request->codigo);
+        return ($this->refreshPasswordRepository->update($userId, $request->senha) && $this->authResetRepository->delete($request->codigo)) ? true : false;
     }
 }

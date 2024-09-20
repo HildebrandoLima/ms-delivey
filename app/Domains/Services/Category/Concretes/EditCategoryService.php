@@ -2,33 +2,20 @@
 
 namespace App\Domains\Services\Category\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Category\Interfaces\IUpdateCategoryRepository;
 use App\Domains\Services\Category\Abstracts\IEditCategoryService;
 use App\Http\Requests\Category\EditCategoryRequest;
-use App\Models\Categoria;
-use App\Support\Enums\ActiveEnum;
-
 class EditCategoryService implements IEditCategoryService
 {
-    private IEntityRepository $categoryRepository;
+    private IUpdateCategoryRepository $updateCategoryRepository;
 
-    public function __construct(IEntityRepository $categoryRepository)
+    public function __construct(IUpdateCategoryRepository $updateCategoryRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->updateCategoryRepository = $updateCategoryRepository;
     }
 
     public function editCategory(EditCategoryRequest $request): bool
     {
-        $category = $this->map($request);
-        return $this->categoryRepository->update($category);
-    }
-
-    public function map(EditCategoryRequest $request): Categoria
-    {
-        $category = new Categoria();
-        $category->id = $request->id;
-        $category->nome = $request->nome;
-        $category->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
-        return $category;
+        return $this->updateCategoryRepository->update($request);
     }
 }

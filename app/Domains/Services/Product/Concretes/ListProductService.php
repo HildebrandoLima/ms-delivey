@@ -2,7 +2,7 @@
 
 namespace App\Domains\Services\Product\Concretes;
 
-use App\Data\Repositories\Abstracts\IProductRepository;
+use App\Data\Repositories\Product\Interfaces\IListAllProductRepository;
 use App\Domains\Services\Product\Abstracts\IListProductService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\Search;
@@ -11,11 +11,11 @@ use Illuminate\Support\Collection;
 
 class ListProductService implements IListProductService
 {
-    private IProductRepository $productRepository;
+    private IListAllProductRepository $listAllProductRepository;
 
-    public function __construct(IProductRepository $productRepository)
+    public function __construct(IListAllProductRepository $listAllProductRepository)
     {
-        $this->productRepository = $productRepository;
+        $this->listAllProductRepository = $listAllProductRepository;
     }
 
     public function listProductAll(Request $request): Collection
@@ -24,14 +24,15 @@ class ListProductService implements IListProductService
         $search = new Search($request);
         $active = (bool) $request->active;
         if ($pagination->hasPagination($pagination)) {
-            return $this->productRepository->hasPagination($search->getSearch(), $active);
+            return $this->listAllProductRepository->hasPagination($search->getSearch(), $active);
         } else {
-            return $this->productRepository->noPagination($search->getSearch(), $active);
+            return $this->listAllProductRepository->noPagination($search->getSearch(), $active);
         }
     }
 
     public function listProductFind(Request $request): Collection
     {
-        return $this->productRepository->readOne($request->id, (bool)$request->active);
+        return collect();
+        //$this->productRepository->readOne($request->id, (bool)$request->active);
     }
 }

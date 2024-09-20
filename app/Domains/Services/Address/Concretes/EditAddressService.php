@@ -2,40 +2,21 @@
 
 namespace App\Domains\Services\Address\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Address\Interfaces\IUpdateAddressRepository;
 use App\Domains\Services\Address\Abstracts\IEditAddressService;
 use App\Http\Requests\Address\EditAddressRequest;
-use App\Models\Endereco;
-use App\Support\Enums\ActiveEnum;
 
 class EditAddressService implements IEditAddressService
 {
-    private IEntityRepository $addressRepository;
+    private IUpdateAddressRepository $updateAddressRepository;
 
-    public function __construct(IEntityRepository $addressRepository)
+    public function __construct(IUpdateAddressRepository $updateAddressRepository)
     {
-        $this->addressRepository = $addressRepository;
+        $this->updateAddressRepository = $updateAddressRepository;
     }
 
     public function editAddress(EditAddressRequest $request): bool
     {
-        $address = $this->map($request);
-        return $this->addressRepository->update($address);
-    }
-
-    public function map(EditAddressRequest $request): Endereco
-    {
-        $address = new Endereco();
-        $address->id = $request->id;
-        $address->logradouro = $request->logradouro;
-        $address->numero = $request->numero;
-        $address->bairro = $request->bairro;
-        $address->cidade = $request->cidade;
-        $address->cep = $request->cep;
-        $address->uf = $request->uf;
-        $address->usuario_id = $request->usuarioId;
-        $address->fornecedor_id = $request->fornecedorId;
-        $address->ativo = $request->ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
-        return $address;
+        return $this->updateAddressRepository->update($request);
     }
 }

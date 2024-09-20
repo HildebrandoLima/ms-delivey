@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class Pagination
 {
-    private int $page;
-    private int $perPage;
+    private ?int $page;
+    private ?int $perPage;
 
     public function __construct(Request $request)
     {

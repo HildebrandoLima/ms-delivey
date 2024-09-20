@@ -2,38 +2,24 @@
 
 namespace App\Domains\Services\Telephone\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Telephone\Interfaces\ICreateTelephoneRepository;
 use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
-use App\Models\Telefone;
-use App\Support\Enums\ActiveEnum;
 
 class CreateTelephoneService implements ICreateTelephoneService
 {
-    private IEntityRepository $telephoneRepository;
+    private ICreateTelephoneRepository $createTelephoneRepository;
 
-    public function __construct(IEntityRepository $telephoneRepository)
+    public function __construct(ICreateTelephoneRepository $createTelephoneRepository)
     {
-        $this->telephoneRepository = $telephoneRepository;
+        $this->createTelephoneRepository = $createTelephoneRepository;
     }
 
     public function createTelephone(CreateTelephoneRequest $request): bool
     {
-        foreach ($request->all() as $telefone):
-            $telephone = $this->map($telefone);
-            $this->telephoneRepository->create($telephone);
-        endforeach;
+        foreach ($request->all() as $telefone) {
+            $this->createTelephoneRepository->create($telefone);
+        }
         return true;
-    }
-
-    public function map(array $telefone): Telefone
-    {
-        $telephone = new Telefone();
-        $telephone->numero = $telefone['numero'];
-        $telephone->tipo = $telefone['tipo'];
-        $telephone->usuario_id = $telefone['usuarioId'] ?? null;
-        $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
-        $telephone->ativo = ActiveEnum::ATIVADO;
-        return $telephone;
     }
 }

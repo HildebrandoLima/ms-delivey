@@ -8,10 +8,13 @@ class DependencyInjection extends ServiceProvider
 {
     public function register(): void
     {
+        $this->mapBindRepositories(AddressDi::$interfaces, AddressDi::$concretes);
         $this->mapBindRepositories(AuthDi::$interfaces, AuthDi::$concretes);
         $this->mapBindRepositories(CategoryDi::$interfaces, CategoryDi::$concretes);
         $this->mapBindRepositories(EntityDi::$interfaces, EntityDi::$concretes);
         $this->mapBindRepositories(OrderDi::$interfaces, OrderDi::$concretes);
+        $this->mapBindRepositories(PaymentDi::$interfaces, PaymentDi::$concretes);
+        $this->mapBindRepositories(PhoneDi::$interfaces, PhoneDi::$concretes);
         $this->mapBindRepositories(ProductDi::$interfaces, ProductDi::$concretes);
         $this->mapBindRepositories(ProviderDi::$interfaces, ProviderDi::$concretes);
         $this->mapBindRepositories(UserDi::$interfaces, UserDi::$concretes);

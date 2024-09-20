@@ -2,7 +2,7 @@
 
 namespace App\Domains\Services\Category\Concretes;
 
-use App\Data\Repositories\Abstracts\ICategoryRepository;
+use App\Data\Repositories\Category\Interfaces\IListAllCategoryRepository;
 use App\Domains\Services\Category\Abstracts\IListCategoryService;
 use App\Support\Utils\Pagination\Pagination;
 use App\Support\Utils\Params\Search;
@@ -11,11 +11,11 @@ use Illuminate\Support\Collection;
 
 class ListCategoryService implements IListCategoryService
 {
-    private ICategoryRepository $categoryRepository;
+    private IListAllCategoryRepository $listAllCategoryRepository;
 
-    public function __construct(ICategoryRepository $categoryRepository)
+    public function __construct(IListAllCategoryRepository $listAllCategoryRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->listAllCategoryRepository = $listAllCategoryRepository;
     }
 
     public function listCategoryAll(Request $request): Collection
@@ -24,14 +24,14 @@ class ListCategoryService implements IListCategoryService
         $search = new Search($request);
         $active = (bool) $request->active;
         if ($pagination->hasPagination($request)) {
-            return $this->categoryRepository->hasPagination($search->getSearch(), $active);
+            return $this->listAllCategoryRepository->hasPagination($search->getSearch(), $active);
         } else {
-            return $this->categoryRepository->noPagination($search->getSearch(), $active);
+            return $this->listAllCategoryRepository->noPagination($search->getSearch(), $active);
         }
     }
 
     public function listCategoryFind(Request $request): Collection
     {
-        return $this->categoryRepository->readOne($request->id, (bool)$request->active);
+        return collect();
     }
 }

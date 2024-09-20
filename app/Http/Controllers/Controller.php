@@ -21,7 +21,7 @@ class Controller extends BaseController
         ], Response::HTTP_OK);
     }
 
-    public function post(bool $success): Response
+    public function post(int $success): Response
     {
         return response()->json([
             "message" => "Cadastro efetuado com sucesso.",

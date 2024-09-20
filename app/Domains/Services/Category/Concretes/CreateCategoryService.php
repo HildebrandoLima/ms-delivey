@@ -2,32 +2,21 @@
 
 namespace App\Domains\Services\Category\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Category\Interfaces\ICreateCategoryRepository;
 use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Models\Categoria;
-use App\Support\Enums\ActiveEnum;
 
 class CreateCategoryService implements ICreateCategoryService
 {
-    private IEntityRepository $categoryRepository;
+    private ICreateCategoryRepository $createCategoryRepository;
 
-    public function __construct(IEntityRepository $categoryRepository)
+    public function __construct(ICreateCategoryRepository $createCategoryRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->createCategoryRepository = $createCategoryRepository;
     }
 
     public function createCategory(CreateCategoryRequest $request): bool
     {
-        $category = $this->map($request);
-        return $this->categoryRepository->create($category);
-    }
-
-    public function map(CreateCategoryRequest $request): Categoria
-    {
-        $category = new Categoria();
-        $category->nome = $request->nome;
-        $category->ativo = ActiveEnum::ATIVADO;
-        return $category;
+        return $this->createCategoryRepository->create($request);
     }
 }

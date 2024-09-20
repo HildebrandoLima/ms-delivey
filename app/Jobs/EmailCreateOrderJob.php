@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Data\Repositories\Concretes\UserRepository;
+use App\Data\Repositories\User\Concretes\ListFindByIdUserRepository;
 use App\Mail\EmailCreateOrder;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -20,7 +20,7 @@ class EmailCreateOrderJob implements ShouldQueue
 
     private array $order;
     private array $items;
-    private UserRepository $userRepository;
+    private ListFindByIdUserRepository $listFindByIdUserRepository;
 
     public function __construct(array $order, array $items)
     {
@@ -31,9 +31,11 @@ class EmailCreateOrderJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $userEmail = new UserRepository();
-            $email = $userEmail->readOne($this->order['usuario_id'], 1)->first()->email;
-            Mail::to($email)->send(new EmailCreateOrder($this->order, $this->items));
+            $userEmail = new ListFindByIdUserRepository();
+            $email = $userEmail->listFindById($this->order['usuario_id'], true)->first()->email;
+            if (!is_null($email)) {
+                Mail::to($email)->send(new EmailCreateOrder($this->order, $this->items));
+            }
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }

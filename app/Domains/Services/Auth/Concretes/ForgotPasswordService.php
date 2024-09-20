@@ -2,41 +2,29 @@
 
 namespace App\Domains\Services\Auth\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Auth\Interfaces\IForgotPasswordRepository;
 use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
-use App\Models\PasswordReset;
-use Illuminate\Support\Str;
 
 class ForgotPasswordService implements IForgotPasswordService
 {
-    private IEntityRepository $entityRepository;
+    private IForgotPasswordRepository $forgotPasswordRepository;
 
-    public function __construct(IEntityRepository $entityRepository)
+    public function __construct(IForgotPasswordRepository $forgotPasswordRepository)
     {
-        $this->entityRepository = $entityRepository;
+        $this->forgotPasswordRepository = $forgotPasswordRepository;
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
-        $passwordReset = $this->map($request);
-        $auth = $this->entityRepository->create($passwordReset);
-        if ($auth) $this->dispatchJob($passwordReset->toArray());
+        $this->forgotPasswordRepository->create($request);
+        $this->dispatchJob($request->email);
         return true;
     }
 
-    private function map(ForgotPasswordRequest $request): PasswordReset
+    private function dispatchJob(string $email): void
     {
-        $passwordReset = new PasswordReset();
-        $passwordReset->email = $request->email;
-        $passwordReset->token = Str::uuid();
-        $passwordReset->codigo = Str::random(10);
-        return $passwordReset;
-    }
-
-    private function dispatchJob(array $passwordReset): void
-    {
-        ForgotPassword::dispatch($passwordReset);
+        ForgotPassword::dispatch($email);
     }
 }
