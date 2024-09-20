@@ -12,7 +12,7 @@ class PermissonProviderRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::LISTAR_FORNECEDORES);
+        return $this->hasPermission(PermissionEnum::LISTAR_FORNECEDORES);
     }
 
     public function rules(): array

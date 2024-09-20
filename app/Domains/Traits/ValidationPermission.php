@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 trait ValidationPermission
 {
-    public function validationPermission(string $permission): bool
+    public function hasPermission(string $permission): bool
     {
         $user = auth()->user();
         $permissions = $user->role->permissions()->where('description', $permission)->exists();

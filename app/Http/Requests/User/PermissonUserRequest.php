@@ -12,7 +12,7 @@ class PermissonUserRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::LISTAR_USUARIOS);
+        return $this->hasPermission(PermissionEnum::LISTAR_USUARIOS);
     }
 
     public function rules(): array

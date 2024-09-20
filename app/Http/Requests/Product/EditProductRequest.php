@@ -14,7 +14,7 @@ class EditProductRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::EDITAR_PRODUTO);
+        return $this->hasPermission(PermissionEnum::EDITAR_PRODUTO);
     }
 
     public function rules(): array

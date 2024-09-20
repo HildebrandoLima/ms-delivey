@@ -13,7 +13,7 @@ class ParamsUserRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::LISTAR_DETALHES_USUARIO);
+        return $this->hasPermission(PermissionEnum::LISTAR_DETALHES_USUARIO);
     }
 
     public function rules(): array

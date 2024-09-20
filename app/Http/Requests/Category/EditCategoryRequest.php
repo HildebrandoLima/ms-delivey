@@ -13,7 +13,7 @@ class EditCategoryRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::EDITAR_CATEGORIA);
+        return $this->hasPermission(PermissionEnum::EDITAR_CATEGORIA);
     }
 
     public function rules(): array

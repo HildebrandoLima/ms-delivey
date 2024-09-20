@@ -13,7 +13,7 @@ class ParamsCategoryRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::LISTAR_DETALHES_CATEGORIA);
+        return $this->hasPermission(PermissionEnum::LISTAR_DETALHES_CATEGORIA);
     }
 
     public function rules(): array

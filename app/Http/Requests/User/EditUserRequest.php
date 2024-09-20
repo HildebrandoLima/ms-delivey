@@ -14,7 +14,7 @@ class EditUserRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::EDITAR_USUARIO);
+        return $this->hasPermission(PermissionEnum::EDITAR_USUARIO);
     }
 
     public function rules(): array

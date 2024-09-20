@@ -14,7 +14,7 @@ class CreateOrderRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::CRIAR_PEDIDO);
+        return $this->hasPermission(PermissionEnum::CRIAR_PEDIDO);
     }
 
     public function rules(): array
