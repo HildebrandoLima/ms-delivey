@@ -2,20 +2,21 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
-use App\Domains\Services\Telephone\Abstracts\IEditTelephoneService;
 use App\Domains\Services\Telephone\Concretes\CreateTelephoneService;
-use App\Domains\Services\Telephone\Concretes\EditTelephoneService;
+use App\Domains\Services\Telephone\Concretes\UpdateTelephoneService;
+
+use App\Domains\Services\Telephone\Interfaces\ICreateTelephoneService;
+use App\Domains\Services\Telephone\Interfaces\IUpdateTelephoneService;
 
 class TelephoneDi
 {
     public static $interfaces = [
         ICreateTelephoneService::class,
-        IEditTelephoneService::class,
+        IUpdateTelephoneService::class,
     ];
 
     public static $concretes = [
         CreateTelephoneService::class,
-        EditTelephoneService::class,
+        UpdateTelephoneService::class,
     ];
 }

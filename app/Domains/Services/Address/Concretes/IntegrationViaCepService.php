@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Address\Concretes;
 
 use App\Data\Infra\Integration\IntegrationViaCep;
-use App\Domains\Services\Address\Abstracts\IIntegrationViaCepService;
+use App\Domains\Services\Address\Interfaces\IIntegrationViaCepService;
 use Illuminate\Support\Collection;
 
 class IntegrationViaCepService implements IIntegrationViaCepService
@@ -15,7 +15,7 @@ class IntegrationViaCepService implements IIntegrationViaCepService
         $this->integrationViaCep = $integrationViaCep;
     }
 
-    public function integrationViaCep(string $cep): Collection|null
+    public function integration(string $cep): ?Collection
     {
         return $this->integrationViaCep->integrationViaCep($cep);   
     }

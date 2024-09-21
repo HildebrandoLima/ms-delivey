@@ -4,7 +4,7 @@ namespace App\Domains\Services\Auth\Concretes;
 
 use App\Data\Repositories\Auth\Interfaces\IAuthResetRepository;
 use App\Data\Repositories\Auth\Interfaces\IRefreshPasswordRepository;
-use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
+use App\Domains\Services\Auth\Interfaces\IRefreshPasswordService;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
 
 class RefreshPasswordService implements IRefreshPasswordService

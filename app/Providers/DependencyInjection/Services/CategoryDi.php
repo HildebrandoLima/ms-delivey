@@ -2,24 +2,29 @@
 
 namespace App\Providers\DependencyInjection\Services;
 
-use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
-use App\Domains\Services\Category\Abstracts\IEditCategoryService;
-use App\Domains\Services\Category\Abstracts\IListCategoryService;
 use App\Domains\Services\Category\Concretes\CreateCategoryService;
-use App\Domains\Services\Category\Concretes\EditCategoryService;
-use App\Domains\Services\Category\Concretes\ListCategoryService;
+use App\Domains\Services\Category\Concretes\ListAllCategoryService;
+use App\Domains\Services\Category\Concretes\ListFindByIdCategoryService;
+use App\Domains\Services\Category\Concretes\UpdateCategoryService;
+
+use App\Domains\Services\Category\Interfaces\ICreateCategoryService;
+use App\Domains\Services\Category\Interfaces\IListAllCategoryService;
+use App\Domains\Services\Category\Interfaces\IListFindByIdCategoryService;
+use App\Domains\Services\Category\Interfaces\IUpdateCategoryService;
 
 class CategoryDi
 {
     public static $interfaces = [
         ICreateCategoryService::class,
-        IEditCategoryService::class,
-        IListCategoryService::class,
+        IListAllCategoryService::class,
+        IListFindByIdCategoryService::class,
+        IUpdateCategoryService::class
     ];
 
     public static $concretes = [
         CreateCategoryService::class,
-        EditCategoryService::class,
-        ListCategoryService::class,
+        ListAllCategoryService::class,
+        ListFindByIdCategoryService::class,
+        UpdateCategoryService::class
     ];
 }

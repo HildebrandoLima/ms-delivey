@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Auth\Concretes;
 
 use App\Data\Repositories\Auth\Interfaces\IForgotPasswordRepository;
-use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
+use App\Domains\Services\Auth\Interfaces\IForgotPasswordService;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 

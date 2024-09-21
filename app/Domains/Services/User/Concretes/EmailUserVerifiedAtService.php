@@ -3,7 +3,7 @@
 namespace App\Domains\Services\User\Concretes;
 
 use App\Data\Repositories\User\Interfaces\IEmailUserVerifiedAtRepository;
-use App\Domains\Services\User\Abstracts\IEmailUserVerifiedAtService;
+use App\Domains\Services\User\Interfaces\IEmailUserVerifiedAtService;
 
 class EmailUserVerifiedAtService implements IEmailUserVerifiedAtService
 {

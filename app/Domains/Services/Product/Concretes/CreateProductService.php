@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Product\Concretes;
 
 use App\Data\Repositories\Product\Interfaces\ICreateProductRepository;
-use App\Domains\Services\Product\Abstracts\ICreateProductService;
+use App\Domains\Services\Product\Interfaces\ICreateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
@@ -17,7 +17,7 @@ class CreateProductService implements ICreateProductService
         $this->createProductRepository  = $createProductRepository;
     }
 
-    public function createProduct(CreateProductRequest $request): bool
+    public function create(CreateProductRequest $request): bool
     {
         $this->request = $request;
         return $this->createProductRepository->create($this->map());

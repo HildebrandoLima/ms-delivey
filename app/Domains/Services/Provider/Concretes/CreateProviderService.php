@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Provider\Concretes;
 
 use App\Data\Repositories\Provider\Interfaces\ICreateProviderRepository;
-use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
+use App\Domains\Services\Provider\Interfaces\ICreateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 
@@ -16,7 +16,7 @@ class CreateProviderService implements ICreateProviderService
         $this->createProviderRepository = $createProviderRepository;
     }
 
-    public function createProvider(CreateProviderRequest $request): int
+    public function create(CreateProviderRequest $request): int
     {
         $providerId = $this->createProviderRepository->create($request);
         if ($providerId) $this->dispatchJob($request->email, $providerId);

@@ -3,8 +3,8 @@
 namespace App\Domains\Services\Auth\Concretes;
 
 use App\Data\Repositories\Auth\Interfaces\IAuthRepository;
+use App\Domains\Services\Auth\Interfaces\ILoginService;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Domains\Services\Auth\Abstracts\ILoginService;
 use App\Exceptions\HttpBadRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;

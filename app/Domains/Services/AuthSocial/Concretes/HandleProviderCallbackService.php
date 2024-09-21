@@ -3,7 +3,7 @@
 namespace App\Domains\Services\AuthSocial\Concretes;
 
 use App\Data\Repositories\Abstracts\IPermissionRepository;
-use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
+use App\Domains\Services\AuthSocial\Interfaces\IHandleProviderCallbackService;
 use App\Models\PermissionUser;
 use App\Models\User;
 use App\Support\Enums\ActiveEnum;

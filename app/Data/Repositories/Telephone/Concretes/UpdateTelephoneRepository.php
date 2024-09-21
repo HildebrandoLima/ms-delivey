@@ -6,7 +6,7 @@ use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Telephone\Interfaces\IUpdateTelephoneRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
-use App\Http\Requests\Telephone\EditTelephoneRequest;
+use App\Http\Requests\Telephone\UpdateTelephoneRequest;
 use App\Models\Telefone;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Exception;
@@ -15,7 +15,7 @@ class UpdateTelephoneRepository extends DBConnection implements IUpdateTelephone
 {
     use DefaultConditionActive;
 
-    public function update(EditTelephoneRequest $request): bool
+    public function update(UpdateTelephoneRequest $request): bool
     {
         try {
             $this->db->beginTransaction();

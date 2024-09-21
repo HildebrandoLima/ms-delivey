@@ -6,7 +6,7 @@ use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Category\Interfaces\IUpdateCategoryRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
-use App\Http\Requests\Category\EditCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Categoria;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Exception;
@@ -15,7 +15,7 @@ class UpdateCategoryRepository extends DBConnection implements IUpdateCategoryRe
 {
     use DefaultConditionActive;
 
-    public function update(EditCategoryRequest $request): bool
+    public function update(UpdateCategoryRequest $request): bool
     {
         try {
             $this->db->beginTransaction();

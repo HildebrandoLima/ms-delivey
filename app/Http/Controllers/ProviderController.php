@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
-use App\Domains\Services\Provider\Abstracts\IEditProviderService;
-use App\Domains\Services\Provider\Abstracts\IListProviderService;
+use App\Domains\Services\Provider\Interfaces\ICreateProviderService;
+use App\Domains\Services\Provider\Interfaces\IListAllProviderService;
+use App\Domains\Services\Provider\Interfaces\IListFindByIdProviderService;
+use App\Domains\Services\Provider\Interfaces\IUpdateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
-use App\Http\Requests\Provider\EditProviderRequest;
+use App\Http\Requests\Provider\UpdateProviderRequest;
 use App\Http\Requests\Provider\ParamsProviderRequest;
 use App\Http\Requests\Provider\PermissonProviderRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,26 +15,29 @@ use Exception;
 
 class ProviderController extends Controller
 {
-    private ICreateProviderService $createProviderService;
-    private IEditProviderService   $editProviderService;
-    private IListProviderService   $listProviderService;
+    private ICreateProviderService       $createProviderService;
+    private IListAllProviderService      $listAllProviderService;
+    private IListFindByIdProviderService $listFindByIdProviderService;
+    private IUpdateProviderService       $updateProviderService;
 
     public function __construct
     (
-        ICreateProviderService $createProviderService,
-        IEditProviderService   $editProviderService,
-        IListProviderService   $listProviderService,
+        ICreateProviderService       $createProviderService,
+        IListAllProviderService      $listAllProviderService,
+        IListFindByIdProviderService $listFindByIdProviderService,
+        IUpdateProviderService       $updateProviderService
     )
     {
-        $this->createProviderService = $createProviderService;
-        $this->editProviderService   = $editProviderService;
-        $this->listProviderService   = $listProviderService;
+        $this->createProviderService       = $createProviderService;
+        $this->listAllProviderService      = $listAllProviderService;
+        $this->listFindByIdProviderService = $listFindByIdProviderService;
+        $this->updateProviderService       = $updateProviderService;
     }
 
     public function index(PermissonProviderRequest $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderAll($request);
+            $success = $this->listAllProviderService->listAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -43,7 +47,7 @@ class ProviderController extends Controller
     public function show(ParamsProviderRequest $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderFind($request);
+            $success = $this->listFindByIdProviderService->listFindById($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -53,17 +57,17 @@ class ProviderController extends Controller
     public function store(CreateProviderRequest $request): Response
     {
         try {
-            $success = $this->createProviderService->createProvider($request);
+            $success = $this->createProviderService->create($request);
             return Controller::post($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function update(EditProviderRequest $request): Response
+    public function update(UpdateProviderRequest $request): Response
     {
         try {
-            $success = $this->editProviderService->editProvider($request);
+            $success = $this->updateProviderService->update($request);
             return Controller::put($success);
         } catch (Exception $e) {
             return Controller::error($e);

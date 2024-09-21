@@ -27,6 +27,6 @@ class ListFindByIdProviderRepository implements IListFindByIdProviderRepository
         return Fornecedor::with('endereco')->with('telefone')
         ->where(function($query) use ($active) {
             QueryFilter::getQueryFilter($query, $active);
-        })->where('users.id', $id)->get();
+        })->where('fornecedor.id', $id)->get();
     }
 }

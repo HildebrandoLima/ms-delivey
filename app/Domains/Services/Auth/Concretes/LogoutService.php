@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Auth\Concretes;
 
 use App\Data\Repositories\Auth\Interfaces\IAuthRepository;
-use App\Domains\Services\Auth\Abstracts\ILogoutService;
+use App\Domains\Services\Auth\Interfaces\ILogoutService;
 
 class LogoutService implements ILogoutService
 {

@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories\User\Interfaces;
 
-use App\Http\Requests\User\EditUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 interface IUpdateUserRepository
 {
-    public function update(EditUserRequest $request): bool;
+    public function update(UpdateUserRequest $request): bool;
 }

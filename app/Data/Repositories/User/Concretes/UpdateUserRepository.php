@@ -6,7 +6,7 @@ use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\User\Interfaces\IUpdateUserRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
-use App\Http\Requests\User\EditUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Endereco;
 use App\Models\Item;
 use App\Models\Pedido;
@@ -20,11 +20,11 @@ class UpdateUserRepository extends DBConnection implements IUpdateUserRepository
 {
     use DefaultConditionActive;
 
-    private EditUserRequest $request;
+    private UpdateUserRequest $request;
     private Collection $listItems;
     private array $itemsIds;
 
-    public function update(EditUserRequest $request): bool
+    public function update(UpdateUserRequest $request): bool
     {
         try {
             $this->request = $request;

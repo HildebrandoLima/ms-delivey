@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories\Address\Interfaces;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Address\UpdateAddressRequest;
 
 interface IUpdateAddressRepository
 {
-    public function update(Request $request): bool;
+    public function update(UpdateAddressRequest $request): bool;
 }

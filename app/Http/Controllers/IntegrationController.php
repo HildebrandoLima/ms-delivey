@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Address\Abstracts\IIntegrationViaCepService;
+use App\Domains\Services\Address\Interfaces\IIntegrationViaCepService;
 use App\Exceptions\HttpBadRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
@@ -19,7 +19,7 @@ class IntegrationController extends Controller
     public function show(string $cep): Response
     {
         try {
-            $success = $this->integrationViaCepService->integrationViaCep($cep);
+            $success = $this->integrationViaCepService->integration($cep);
             if (is_null($success)):
                 return HttpBadRequest::getResponse(collect([]), collect([]));
             endif;

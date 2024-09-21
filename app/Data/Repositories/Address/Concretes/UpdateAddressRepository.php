@@ -6,16 +6,16 @@ use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Address\Interfaces\IUpdateAddressRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
+use App\Http\Requests\Address\UpdateAddressRequest;
 use App\Models\Endereco;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\Request;
 use Exception;
 
 class UpdateAddressRepository extends DBConnection implements IUpdateAddressRepository
 {
     use DefaultConditionActive;
 
-    public function update(Request $request): bool
+    public function update(UpdateAddressRequest $request): bool
     {
         try {
             $this->db->beginTransaction();

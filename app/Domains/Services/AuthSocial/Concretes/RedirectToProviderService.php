@@ -2,7 +2,7 @@
 
 namespace App\Domains\Services\AuthSocial\Concretes;
 
-use App\Domains\Services\AuthSocial\Abstracts\IRedirectToProviderService;
+use App\Domains\Services\AuthSocial\Interfaces\IRedirectToProviderService;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\RedirectResponse;
 

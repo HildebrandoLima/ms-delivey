@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Telephone\Concretes;
 
 use App\Data\Repositories\Telephone\Interfaces\ICreateTelephoneRepository;
-use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
+use App\Domains\Services\Telephone\Interfaces\ICreateTelephoneService;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 
 class CreateTelephoneService implements ICreateTelephoneService
@@ -15,7 +15,7 @@ class CreateTelephoneService implements ICreateTelephoneService
         $this->createTelephoneRepository = $createTelephoneRepository;
     }
 
-    public function createTelephone(CreateTelephoneRequest $request): bool
+    public function create(CreateTelephoneRequest $request): bool
     {
         foreach ($request->all() as $telefone) {
             $this->createTelephoneRepository->create($telefone);

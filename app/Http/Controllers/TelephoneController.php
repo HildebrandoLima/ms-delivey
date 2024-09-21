@@ -2,42 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
-use App\Domains\Services\Telephone\Abstracts\IEditTelephoneService;
+use App\Domains\Services\Telephone\Interfaces\ICreateTelephoneService;
+use App\Domains\Services\Telephone\Interfaces\IUpdateTelephoneService;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
-use App\Http\Requests\Telephone\EditTelephoneRequest;
+use App\Http\Requests\Telephone\UpdateTelephoneRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
 class TelephoneController extends Controller
 {
     private ICreateTelephoneService $createTelephoneService;
-    private IEditTelephoneService   $editTelephoneService;
+    private IUpdateTelephoneService $updateTelephoneService;
 
     public function __construct
     (
         ICreateTelephoneService $createTelephoneService,
-        IEditTelephoneService   $editTelephoneService,
+        IUpdateTelephoneService $updateTelephoneService,
     )
     {
         $this->createTelephoneService = $createTelephoneService;
-        $this->editTelephoneService   = $editTelephoneService;
+        $this->updateTelephoneService = $updateTelephoneService;
     }
 
     public function store(CreateTelephoneRequest $request): Response
     {
         try {
-            $success = $this->createTelephoneService->createTelephone($request);
+            $success = $this->createTelephoneService->create($request);
             return Controller::post($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function update(EditTelephoneRequest $request): Response
+    public function update(UpdateTelephoneRequest $request): Response
     {
         try {
-            $success = $this->editTelephoneService->editTelephone($request);
+            $success = $this->updateTelephoneService->update($request);
             return Controller::put($success);
         } catch (Exception $e) {
             return Controller::error($e);

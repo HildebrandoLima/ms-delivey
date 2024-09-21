@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories\Telephone\Interfaces;
 
-use App\Http\Requests\Telephone\EditTelephoneRequest;
+use App\Http\Requests\Telephone\UpdateTelephoneRequest;
 
 interface IUpdateTelephoneRepository
 {
-    public function update(EditTelephoneRequest $request): bool;
+    public function update(UpdateTelephoneRequest $request): bool;
 }

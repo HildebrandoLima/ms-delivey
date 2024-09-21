@@ -3,7 +3,7 @@
 namespace App\Domains\Services\Category\Concretes;
 
 use App\Data\Repositories\Category\Interfaces\ICreateCategoryRepository;
-use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
+use App\Domains\Services\Category\Interfaces\ICreateCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
 
 class CreateCategoryService implements ICreateCategoryService
@@ -15,7 +15,7 @@ class CreateCategoryService implements ICreateCategoryService
         $this->createCategoryRepository = $createCategoryRepository;
     }
 
-    public function createCategory(CreateCategoryRequest $request): bool
+    public function create(CreateCategoryRequest $request): bool
     {
         return $this->createCategoryRepository->create($request);
     }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
-use App\Domains\Services\AuthSocial\Abstracts\IRedirectToProviderService;
+use App\Domains\Services\AuthSocial\Interfaces\IHandleProviderCallbackService;
+use App\Domains\Services\AuthSocial\Interfaces\IRedirectToProviderService;
 use App\Exceptions\HttpBadRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;

@@ -6,7 +6,7 @@ use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Provider\Interfaces\IUpdateProviderRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
-use App\Http\Requests\Provider\EditProviderRequest;
+use App\Http\Requests\Provider\UpdateProviderRequest;
 use App\Models\Endereco;
 use App\Models\Fornecedor;
 use App\Models\Telefone;
@@ -17,9 +17,9 @@ class UpdateProviderRepository extends DBConnection implements IUpdateProviderRe
 {
     use DefaultConditionActive;
 
-    private EditProviderRequest $request;
+    private UpdateProviderRequest $request;
 
-    public function update(EditProviderRequest $request): bool
+    public function update(UpdateProviderRequest $request): bool
     {
         try {
             $this->request = $request;
