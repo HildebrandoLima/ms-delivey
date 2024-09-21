@@ -12,26 +12,11 @@ use Exception;
 
 class AuthRepository extends DBConnection implements IAuthRepository
 {
-    public function login(LoginRequest $request): Collection
+    public function login(LoginRequest $request): ?Collection
     {
         try {
-            $auth = auth()->attempt($request->only(['email', 'password']));
-            if ($auth) {
-                $user = auth()->user();
-                return collect([
-                    'accessToken' => $auth,
-                    'userId' => $user->id,
-                    'userName' => $user->nome,
-                    'userEmail' => $user->email,
-                    'role' => $user->role,
-                    'permissions' => $user->permissions->map(function ($permission) {
-                        return $permission->description;
-                    }),
-                ]);
-            } else {
-                return collect([]);
-            }
-
+            $authToken = $this->attemptLogin($request->only(['email', 'password']));
+            return $authToken ? $this->createDataResponse($authToken) : collect([]);
         } catch (Exception $e) {
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
@@ -43,5 +28,24 @@ class AuthRepository extends DBConnection implements IAuthRepository
             auth()->logout();
         }
         return auth()->check() ? false : true;
+    }
+
+    private function attemptLogin(array $credentials): ?string
+    {
+        return auth()->attempt($credentials);
+    }
+
+    private function createDataResponse(string $authToken): Collection
+    {
+        $user = auth()->user();
+
+        return collect([
+            'accessToken' => $authToken,
+            'userId' => $user->id,
+            'userName' => $user->nome,
+            'userEmail' => $user->email,
+            'role' => $user->role,
+            'permissions' => $user->permissions->pluck('description')
+        ]);
     }
 }

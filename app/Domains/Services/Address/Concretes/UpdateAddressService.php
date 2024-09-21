@@ -9,6 +9,7 @@ use App\Http\Requests\Address\UpdateAddressRequest;
 class UpdateAddressService implements IUpdateAddressService
 {
     private IUpdateAddressRepository $updateAddressRepository;
+    private UpdateAddressRequest $request;
 
     public function __construct(IUpdateAddressRepository $updateAddressRepository)
     {
@@ -17,6 +18,17 @@ class UpdateAddressService implements IUpdateAddressService
 
     public function update(UpdateAddressRequest $request): bool
     {
-        return $this->updateAddressRepository->update($request);
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(UpdateAddressRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function updated(): bool
+    {
+        return $this->updateAddressRepository->update($this->request);
     }
 }

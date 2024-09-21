@@ -9,6 +9,7 @@ use App\Http\Requests\Category\UpdateCategoryRequest;
 class UpdateCategoryService implements IUpdateCategoryService
 {
     private IUpdateCategoryRepository $updateCategoryRepository;
+    private UpdateCategoryRequest $request;
 
     public function __construct(IUpdateCategoryRepository $updateCategoryRepository)
     {
@@ -17,6 +18,17 @@ class UpdateCategoryService implements IUpdateCategoryService
 
     public function update(UpdateCategoryRequest $request): bool
     {
-        return $this->updateCategoryRepository->update($request);
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(UpdateCategoryRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function updated(): bool
+    {
+        return $this->updateCategoryRepository->update($this->request);
     }
 }

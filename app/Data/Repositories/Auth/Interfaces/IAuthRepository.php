@@ -7,6 +7,6 @@ use Illuminate\Support\Collection;
 
 interface IAuthRepository
 {
-    public function login(LoginRequest $request): Collection;
+    public function login(LoginRequest $request): ?Collection;
     public function logout(): bool;
 }

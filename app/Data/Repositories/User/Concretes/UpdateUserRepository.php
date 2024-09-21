@@ -32,7 +32,6 @@ class UpdateUserRepository extends DBConnection implements IUpdateUserRepository
             $this->queryItems();
             $this->itemsIds();
             $this->updateEntity();
-            $this->updateUser();
             $this->db->commit();
             return true;
         } catch (Exception $e) {
@@ -61,6 +60,7 @@ class UpdateUserRepository extends DBConnection implements IUpdateUserRepository
         $this->updateOrder();
         $this->updateAddress();
         $this->updatePhone();
+        $this->updateUser();
     }
 
     private function updateItem(): void

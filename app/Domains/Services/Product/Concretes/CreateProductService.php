@@ -11,6 +11,9 @@ class CreateProductService implements ICreateProductService
 {
     private ICreateProductRepository  $createProductRepository;
     private CreateProductRequest $request;
+    private float $precoCusto = 0;
+    private float $precoVenda = 0;
+    private array $product = [];
 
     public function __construct(ICreateProductRepository $createProductRepository)
     {
@@ -19,20 +22,35 @@ class CreateProductService implements ICreateProductService
 
     public function create(CreateProductRequest $request): bool
     {
-        $this->request = $request;
-        return $this->createProductRepository->create($this->map());
+        $this->setRequest($request);
+        $this->priceFormart();
+        $this->map();
+        return $this->created();
     }
 
-    private function map(): array
+    private function setRequest(CreateProductRequest $request): void
     {
-        $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoCusto));
-        $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoVenda));
+        $this->request = $request;
+    }
 
-        return [
+    private function priceFormart(): void
+    {
+        $this->precoCusto = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoCusto));
+        $this->precoVenda = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoVenda));
+    }
+
+    private function directory(): string
+    {
+        return 'images/' . strtolower(str_replace(' ', '_', $this->request->nome));
+    }
+
+    private function map(): void
+    {
+        $this->product = [
             'nome' => $this->request->nome,
-            'precoCusto' => $precoCusto,
-            'precoVenda' => $precoVenda,
-            'margemLucro' => $precoVenda - $precoCusto,
+            'precoCusto' => $this->precoCusto,
+            'precoVenda' => $this->precoVenda,
+            'margemLucro' => $this->precoVenda - $this->precoCusto,
             'codigoBarra' => $this->request->codigoBarra,
             'descricao' => $this->request->descricao,
             'quantidade' => $this->request->quantidade,
@@ -45,8 +63,8 @@ class CreateProductService implements ICreateProductService
         ];
     }
 
-    private function directory(): string
+    private function created(): bool
     {
-        return 'images/' . strtolower(str_replace(' ', '_', $this->request->nome));
+        return $this->createProductRepository->create($this->product);
     }
 }

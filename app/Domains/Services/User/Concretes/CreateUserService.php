@@ -10,6 +10,8 @@ use App\Jobs\EmailForRegisterJob;
 class CreateUserService implements ICreateUserService
 {
     private ICreateUserRepository $createUserRepository;
+    private CreateUserRequest $request;
+    private int $userId = 0;
 
     public function __construct(ICreateUserRepository $createUserRepository)
     {
@@ -18,13 +20,29 @@ class CreateUserService implements ICreateUserService
 
     public function create(CreateUserRequest $request): int
     {
-        $userId = $this->createUserRepository->create($request);
-        if ($userId) $this->dispatchJob($request->email, $userId);
-        return $userId;
+        $this->setRequest($request);
+        $this->created();
+        $this->check();
+        return $this->userId;
     }
 
-    private function dispatchJob(string $email, int $userId): void
+    private function setRequest(CreateUserRequest $request): void
     {
-        EmailForRegisterJob::dispatch($email, $userId);
+        $this->request = $request;
+    }
+
+    public function created(): void
+    {
+        $this->userId = $this->createUserRepository->create($this->request);
+    }
+
+    public function check(): void
+    {
+        if ($this->userId) $this->dispatchJob();
+    }
+
+    private function dispatchJob(): void
+    {
+        EmailForRegisterJob::dispatch($this->request->email, $this->userId);
     }
 }

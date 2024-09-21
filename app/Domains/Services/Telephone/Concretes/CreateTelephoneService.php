@@ -9,6 +9,7 @@ use App\Http\Requests\Telephone\CreateTelephoneRequest;
 class CreateTelephoneService implements ICreateTelephoneService
 {
     private ICreateTelephoneRepository $createTelephoneRepository;
+    private CreateTelephoneRequest $request;
 
     public function __construct(ICreateTelephoneRepository $createTelephoneRepository)
     {
@@ -17,9 +18,20 @@ class CreateTelephoneService implements ICreateTelephoneService
 
     public function create(CreateTelephoneRequest $request): bool
     {
-        foreach ($request->all() as $telefone) {
-            $this->createTelephoneRepository->create($telefone);
-        }
+        $this->setRequest($request);
+        $this->created();
         return true;
+    }
+
+    private function setRequest(CreateTelephoneRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function created(): void
+    {
+        foreach ($this->request->all() as $telephone) {
+            $this->createTelephoneRepository->create($telephone);
+        }
     }
 }

@@ -11,6 +11,9 @@ class UpdateProductService implements IUpdateProductService
 {
     private IUpdateProductRepository $updateProductRepository;
     private UpdateProductRequest $request;
+    private float $precoCusto = 0;
+    private float $precoVenda = 0;
+    private array $product = [];
 
     public function __construct(IUpdateProductRepository $updateProductRepository)
     {
@@ -19,20 +22,31 @@ class UpdateProductService implements IUpdateProductService
 
     public function update(UpdateProductRequest $request): bool
     {
-        $this->request = $request;
-        return $this->updateProductRepository->update($this->map());
+        $this->setRequest($request);
+        $this->priceFormart();
+        $this->map();
+        return $this->updated();
     }
-    private function map(): array
-    {
-        $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoCusto));
-        $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoVenda));
 
-        return [
+    private function setRequest(UpdateProductRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function priceFormart(): void
+    {
+        $this->precoCusto = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoCusto));
+        $this->precoVenda = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoVenda));
+    }
+
+    private function map(): void
+    {
+        $this->product =  [
             'id' => $this->request->id,
             'nome' => $this->request->nome,
-            'precoCusto' => $precoCusto,
-            'precoVenda' => $precoVenda,
-            'margemLucro' => $precoVenda - $precoCusto,
+            'precoCusto' => $this->precoCusto,
+            'precoVenda' => $this->precoVenda,
+            'margemLucro' => $this->precoVenda - $this->precoCusto,
             'codigoBarra' => $this->request->codigoBarra,
             'descricao' => $this->request->descricao,
             'quantidade' => $this->request->quantidade,
@@ -42,5 +56,10 @@ class UpdateProductService implements IUpdateProductService
             'fornecedorId' => $this->request->fornecedorId,
             'ativo' => $this->request->ativo
         ];
+    }
+    
+    private function updated(): bool
+    {
+        return $this->updateProductRepository->update($this->product);
     }
 }

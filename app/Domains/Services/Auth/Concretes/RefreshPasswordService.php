@@ -11,6 +11,8 @@ class RefreshPasswordService implements IRefreshPasswordService
 {
     private IAuthResetRepository       $authResetRepository;
     private IRefreshPasswordRepository $refreshPasswordRepository;
+    private RefreshPasswordRequest $request;
+    private int $userId = 0;
 
     public function __construct
     (
@@ -24,7 +26,18 @@ class RefreshPasswordService implements IRefreshPasswordService
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        $userId = $this->authResetRepository->readCode($request->codigo);
-        return ($this->refreshPasswordRepository->update($userId, $request->senha) && $this->authResetRepository->delete($request->codigo)) ? true : false;
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(RefreshPasswordRequest $request): void
+    {
+        $this->request = $request;
+        $this->userId = $this->authResetRepository->readCode($request->codigo);
+    }
+
+    private function updated(): bool
+    {
+        return ($this->refreshPasswordRepository->update($this->userId, $this->request->senha) && $this->authResetRepository->delete($this->request->codigo)) ? true : false;
     }
 }

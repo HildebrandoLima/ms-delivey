@@ -10,6 +10,7 @@ use App\Jobs\ForgotPassword;
 class ForgotPasswordService implements IForgotPasswordService
 {
     private IForgotPasswordRepository $forgotPasswordRepository;
+    private ForgotPasswordRequest $request;
 
     public function __construct(IForgotPasswordRepository $forgotPasswordRepository)
     {
@@ -18,13 +19,24 @@ class ForgotPasswordService implements IForgotPasswordService
 
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
-        $this->forgotPasswordRepository->create($request);
-        $this->dispatchJob($request->email);
-        return true;
+        $this->setRequest($request);
+        $created = $this->created();
+        $this->dispatchJob();
+        return $created;
     }
 
-    private function dispatchJob(string $email): void
+    private function setRequest(ForgotPasswordRequest $request): void
     {
-        ForgotPassword::dispatch($email);
+        $this->request = $request;
+    }
+
+    private function created(): bool
+    {
+        return $this->forgotPasswordRepository->create($this->request);
+    }
+
+    private function dispatchJob(): void
+    {
+        ForgotPassword::dispatch($this->request->email);
     }
 }

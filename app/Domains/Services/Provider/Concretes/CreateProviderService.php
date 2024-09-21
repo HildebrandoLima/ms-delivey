@@ -10,6 +10,8 @@ use App\Jobs\EmailForRegisterJob;
 class CreateProviderService implements ICreateProviderService
 {
     private ICreateProviderRepository $createProviderRepository;
+    private CreateProviderRequest $request;
+    private int $providerId;
 
     public function __construct(ICreateProviderRepository $createProviderRepository)
     {
@@ -18,13 +20,29 @@ class CreateProviderService implements ICreateProviderService
 
     public function create(CreateProviderRequest $request): int
     {
-        $providerId = $this->createProviderRepository->create($request);
-        if ($providerId) $this->dispatchJob($request->email, $providerId);
-        return $providerId;
+        $this->setRequest($request);
+        $this->created();
+        $this->check();
+        return $this->providerId;
     }
 
-    private function dispatchJob(string $email, int $providerId): void
+    private function setRequest(CreateProviderRequest $request): void
     {
-        EmailForRegisterJob::dispatch($email, $providerId);
+        $this->request = $request;
+    }
+
+    public function created(): void
+    {
+        $this->providerId = $this->createProviderRepository->create($this->request);
+    }
+
+    public function check(): void
+    {
+        if ($this->providerId) $this->dispatchJob();
+    }
+
+    private function dispatchJob(): void
+    {
+        EmailForRegisterJob::dispatch($this->request->email, $this->providerId);
     }
 }

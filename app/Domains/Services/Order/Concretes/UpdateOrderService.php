@@ -9,6 +9,7 @@ use App\Http\Requests\Order\ParamsOrderRequest;
 class UpdateOrderService implements IUpdateOrderService
 {
     private IUpdateOrderRepository $updateOrderRepository;
+    private ParamsOrderRequest $request;
 
     public function __construct(IUpdateOrderRepository $updateOrderRepository)
     {
@@ -17,6 +18,17 @@ class UpdateOrderService implements IUpdateOrderService
 
     public function update(ParamsOrderRequest $request): bool
     {
-        return $this->updateOrderRepository->update($request);
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(ParamsOrderRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function updated(): bool
+    {
+        return $this->updateOrderRepository->update($this->request);
     }
 }

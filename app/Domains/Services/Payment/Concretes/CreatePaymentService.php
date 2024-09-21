@@ -9,6 +9,7 @@ use App\Http\Requests\Payment\CreatePaymentRequest;
 class CreatePaymentService implements ICreatePaymentService
 {
     private ICreatePaymentRepository $createPaymentRepository;
+    private CreatePaymentRequest $request;
 
     public function __construct(ICreatePaymentRepository $createPaymentRepository)
     {
@@ -17,6 +18,17 @@ class CreatePaymentService implements ICreatePaymentService
 
     public function create(CreatePaymentRequest $request): bool
     {
-        return $this->createPaymentRepository->create($request);
+        $this->setRequest($request);
+        return $this->created();
+    }
+
+    private function setRequest(CreatePaymentRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    public function created(): bool
+    {
+        return $this->createPaymentRepository->create($this->request);
     }
 }

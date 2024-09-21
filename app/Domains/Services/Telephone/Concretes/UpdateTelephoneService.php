@@ -9,6 +9,7 @@ use App\Http\Requests\Telephone\UpdateTelephoneRequest;
 class UpdateTelephoneService implements IUpdateTelephoneService
 {
     private IUpdateTelephoneRepository $updateTelephoneRepository;
+    private UpdateTelephoneRequest $request;
 
     public function __construct(IUpdateTelephoneRepository $updateTelephoneRepository)
     {
@@ -17,6 +18,17 @@ class UpdateTelephoneService implements IUpdateTelephoneService
 
     public function update(UpdateTelephoneRequest $request): bool
     {
-        return $this->updateTelephoneRepository->update($request);
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(UpdateTelephoneRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function updated(): bool
+    {
+        return $this->updateTelephoneRepository->update($this->request);
     }
 }

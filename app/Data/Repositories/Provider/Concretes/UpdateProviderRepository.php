@@ -25,7 +25,6 @@ class UpdateProviderRepository extends DBConnection implements IUpdateProviderRe
             $this->request = $request;
             $this->db->beginTransaction();
             $this->updateEntity();
-            $this->updateProvider();
             $this->db->commit();
             return true;
         } catch (Exception $e) {
@@ -38,6 +37,7 @@ class UpdateProviderRepository extends DBConnection implements IUpdateProviderRe
     {
         $this->updateAddress();
         $this->updatePhone();
+        $this->updateProvider();
     }
 
     private function updateAddress(): void

@@ -14,16 +14,16 @@ class CreateTelephoneRepository extends DBConnection implements ICreateTelephone
 {
     use DefaultConditionActive;
 
-    public function create(array $telefone): bool
+    public function create(array $telephone): bool
     {
         try {
             $this->db->beginTransaction();
             Telefone::query()
             ->create([
-                'numero' => $telefone['numero'],
-                'tipo' => $telefone['tipo'],
-                'usuario_id' => $telefone['usuarioId'] ?? null,
-                'fornecedor_id' => $telefone['fornecedorId'] ?? null,
+                'numero' => $telephone['numero'],
+                'tipo' => $telephone['tipo'],
+                'usuario_id' => $telephone['usuarioId'] ?? null,
+                'fornecedor_id' => $telephone['fornecedorId'] ?? null,
                 'ativo' => $this->defaultConditionActive(true)
             ]);
             $this->db->commit();

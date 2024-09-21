@@ -9,15 +9,18 @@ use App\Exceptions\HttpInternalServerError;
 use App\Models\Imagem;
 use App\Models\Produto;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\UploadedFile;
 use Exception;
 
 class CreateProductRepository extends DBConnection implements ICreateProductRepository
 {
     use DefaultConditionActive;
 
-    private array $product;
+    private array $product = [];
     private int $productId = 0;
     private string $path = '';
+    private string $directory = '';
+    private array $uploadedImages = [];
 
     public function create(array $product): bool
     {
@@ -56,22 +59,27 @@ class CreateProductRepository extends DBConnection implements ICreateProductRepo
 
     private function uploadFile(): void
     {
-        $uploadedImages = [];
-        if ($this->product['imagens']) {
-            $images = $this->product['imagens'];
-            $directory = $this->product['directory'];
+        $images = $this->product['imagens'];
+        if (!empty($images)) {
+            $this->directory = $this->product['directory'];
 
             foreach ($images as $image) {
                 if ($image->isValid()) {
-                    $imageName = $image->getClientOriginalName();
-                    $image->storeAs($directory, $imageName, 'public');
-                    $uploadedImages[] = $imageName;
-                    $this->path = $directory . '/' . $imageName;
-                    $this->createImage();
+                    $this->storeImage($image);
                 }
             }
 
         }
+    }
+
+    private function storeImage(UploadedFile $image): void
+    {
+        $originalName = $image->getClientOriginalName();
+        $imageName = str_replace(' ', '_', $originalName);
+        $image->storeAs($this->directory, $imageName, 'public');
+        $this->uploadedImages[] = $imageName;
+        $this->path = $this->directory . '/' . $imageName;
+        $this->createImage();
     }
 
     private function createImage(): void

@@ -9,6 +9,7 @@ use App\Http\Requests\Provider\UpdateProviderRequest;
 class UpdateProviderService implements IUpdateProviderService
 {
     private IUpdateProviderRepository $updateProviderRepository;
+    private UpdateProviderRequest $request;
 
     public function __construct(IUpdateProviderRepository $updateProviderRepository)
     {
@@ -17,6 +18,17 @@ class UpdateProviderService implements IUpdateProviderService
 
     public function update(UpdateProviderRequest $request): bool
     {
-        return $this->updateProviderRepository->update($request);
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(UpdateProviderRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    public function updated(): bool
+    {
+        return $this->updateProviderRepository->update($this->request);
     }
 }

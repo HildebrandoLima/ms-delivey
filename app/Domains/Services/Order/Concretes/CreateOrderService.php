@@ -11,6 +11,8 @@ use App\Jobs\InventoryManagementJob;
 class CreateOrderService implements ICreateOrderService
 {
     private ICreateOrderRepository $createOrderRepository;
+    private CreateOrderRequest $request;
+    private array $order = [], $items = [];
 
     public function __construct(ICreateOrderRepository $createOrderRepository)
     {
@@ -19,14 +21,31 @@ class CreateOrderService implements ICreateOrderService
 
     public function create(CreateOrderRequest $request): int
     {
-        $order = $this->createOrderRepository->create($request);
-        if ($order) $this->dispatchJob($order, $request->itens);
-        return $order['id'];
+        $this->setRequest($request);
+        $this->created();
+        $this->check();
+        return $this->order['id'];
     }
 
-    private function dispatchJob(array $order, array $items): void
+    private function setRequest(CreateOrderRequest $request): void
     {
-        InventoryManagementJob::dispatch($items);
-        EmailCreateOrderJob::dispatch($order, $items);
+        $this->request = $request;
+        $this->items = $request->itens;
+    }
+
+    private function created(): void
+    {
+        $this->order = $this->createOrderRepository->create($this->request);
+    }
+
+    private function check(): void
+    {
+        if ($this->order) $this->dispatchJob();
+    }
+
+    private function dispatchJob(): void
+    {
+        InventoryManagementJob::dispatch($this->items);
+        EmailCreateOrderJob::dispatch($this->order, $this->items);
     }
 }

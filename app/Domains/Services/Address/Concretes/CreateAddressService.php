@@ -9,6 +9,7 @@ use App\Http\Requests\Address\CreateAddressRequest;
 class CreateAddressService implements ICreateAddressService
 {
     private ICreateAddressRepository $createAddressRepository;
+    private CreateAddressRequest $request;
 
     public function __construct(ICreateAddressRepository $createAddressRepository)
     {
@@ -17,6 +18,17 @@ class CreateAddressService implements ICreateAddressService
 
     public function create(CreateAddressRequest $request): bool
     {
-        return $this->createAddressRepository->create($request);
+        $this->setRequest($request);
+        return $this->created();
+    }
+
+    private function setRequest(CreateAddressRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    private function created(): bool
+    {
+        return $this->createAddressRepository->create($this->request);
     }
 }

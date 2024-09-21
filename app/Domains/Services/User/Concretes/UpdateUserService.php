@@ -9,6 +9,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 class UpdateUserService implements IUpdateUserService
 {
     private IUpdateUserRepository $updateUserRepository;
+    private UpdateUserRequest $request;
 
     public function __construct(IUpdateUserRepository $updateUserRepository)
     {
@@ -17,6 +18,17 @@ class UpdateUserService implements IUpdateUserService
 
     public function update(UpdateUserRequest $request): bool
     {
-        return $this->updateUserRepository->update($request);
+        $this->setRequest($request);
+        return $this->updated();
+    }
+
+    private function setRequest(UpdateUserRequest $request): void
+    {
+        $this->request = $request;
+    }
+
+    public function updated(): bool
+    {
+        return $this->updateUserRepository->update($this->request);
     }
 }
