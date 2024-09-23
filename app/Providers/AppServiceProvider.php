@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Providers\DependencyInjection\DependencyInjection;
 use App\Support\Utils\Pagination\Concrete\Pagination;
 use App\Support\Utils\Pagination\Interface\IPagination;
 use App\Support\Utils\Params\Concrete\Search;
@@ -19,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        DependencyInjection::providers($this->app)
+        ->each(function (DependencyInjection $di): void {
+            $di->configure();
+        });
+
         $this->app->bind(IPagination::class, function ($app) {
             if (is_null(request()->page) && is_null(request()->perPage)) {
                 return new Pagination(null, null);
