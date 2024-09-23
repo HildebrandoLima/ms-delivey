@@ -2,7 +2,6 @@
 
 namespace App\Data\Repositories\Auth\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Auth\Interfaces\IAuthRepository;
 use App\Exceptions\HttpInternalServerError;
 use App\Http\Requests\Auth\LoginRequest;
@@ -10,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Exception;
 
-class AuthRepository extends DBConnection implements IAuthRepository
+class AuthRepository implements IAuthRepository
 {
     public function login(LoginRequest $request): ?Collection
     {

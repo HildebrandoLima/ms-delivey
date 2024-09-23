@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories\User\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\User\Interfaces\IUpdateUserRepository;
 use App\Domains\Traits\DefaultConditionActive;
+use App\Domains\Traits\RequestConfigurator;
 use App\Exceptions\HttpInternalServerError;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Endereco;
@@ -14,41 +14,37 @@ use App\Models\Telefone;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class UpdateUserRepository extends DBConnection implements IUpdateUserRepository
+class UpdateUserRepository implements IUpdateUserRepository
 {
-    use DefaultConditionActive;
-
+    use DefaultConditionActive, RequestConfigurator;
     private UpdateUserRequest $request;
     private Collection $listItems;
-    private array $itemsIds;
+    private array $itemsIds = [];
 
     public function update(UpdateUserRequest $request): bool
     {
         try {
-            $this->request = $request;
-            $this->db->beginTransaction();
-            $this->queryItems();
-            $this->itemsIds();
+            $this->setRequest($request);
+            DB::beginTransaction();
+            $this->fetchItems();
             $this->updateEntity();
-            $this->db->commit();
+            DB::commit();
             return true;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
 
-    private function queryItems(): void
+    private function fetchItems(): void
     {
         $this->listItems = Pedido::with('item')
         ->where('pedido.usuario_id', '=', $this->request->id)
         ->get();
-    }
 
-    private function itemsIds(): void
-    {
         $this->itemsIds = $this->listItems->flatMap(function ($pedido) {
             return $pedido->item->pluck('id');
         })->unique()->values()->toArray();
@@ -56,14 +52,14 @@ class UpdateUserRepository extends DBConnection implements IUpdateUserRepository
 
     private function updateEntity(): void
     {
-        $this->updateItem();
-        $this->updateOrder();
-        $this->updateAddress();
-        $this->updatePhone();
-        $this->updateUser();
+        $this->updatedItem();
+        $this->updatedOrder();
+        $this->updatedAddress();
+        $this->updatedPhone();
+        $this->updatedUser();
     }
 
-    private function updateItem(): void
+    private function updatedItem(): void
     {
         Item::query()
         ->whereIn('id', $this->itemsIds)
@@ -72,42 +68,41 @@ class UpdateUserRepository extends DBConnection implements IUpdateUserRepository
         ]);
     }
 
-    private function updateOrder(): void
+    private function updatedOrder(): void
     {
-        Pedido::query()
-        ->where('usuario_id', $this->request->id)
-        ->update([
+        $this->updateModel(Pedido::class, [
             'ativo' => $this->defaultConditionActive($this->request->ativo)
-        ]);
+        ], 'usuario_id');
     }
 
-    private function updateAddress(): void
+    private function updatedAddress(): void
     {
-        Endereco::query()
-        ->where('usuario_id', $this->request->id)
-        ->update([
+        $this->updateModel(Endereco::class, [
             'ativo' => $this->defaultConditionActive($this->request->ativo)
-        ]);
+        ], 'usuario_id');
     }
 
-    private function updatePhone(): void
+    private function updatedPhone(): void
     {
-        Telefone::query()
-        ->where('usuario_id', $this->request->id)
-        ->update([
+        $this->updateModel(Telefone::class, [
             'ativo' => $this->defaultConditionActive($this->request->ativo)
-        ]);
+        ], 'usuario_id');
     }
 
-    private function updateUser(): void
+    private function updatedUser(): void
     {
-        User::query()
-        ->where('id', $this->request->id)
-        ->update([
+        $this->updateModel(User::class, [
             'nome' => $this->request->nome,
             'email' => $this->request->email,
             'genero' => $this->request->genero,
             'ativo' => $this->defaultConditionActive($this->request->ativo)
-        ]);
+        ], 'id');
+    }
+
+    private function updateModel(string  $model, array $data, string $column): void
+    {
+        $model::query()
+        ->where($column, $this->request->id)
+        ->update($data);
     }
 }

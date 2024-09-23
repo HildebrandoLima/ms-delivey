@@ -4,12 +4,13 @@ namespace App\Domains\Services\Order\Concretes;
 
 use App\Data\Repositories\Order\Interfaces\IUpdateOrderRepository;
 use App\Domains\Services\Order\Interfaces\IUpdateOrderService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Order\ParamsOrderRequest;
 
 class UpdateOrderService implements IUpdateOrderService
 {
+    use RequestConfigurator;
     private IUpdateOrderRepository $updateOrderRepository;
-    private ParamsOrderRequest $request;
 
     public function __construct(IUpdateOrderRepository $updateOrderRepository)
     {
@@ -20,11 +21,6 @@ class UpdateOrderService implements IUpdateOrderService
     {
         $this->setRequest($request);
         return $this->updated();
-    }
-
-    private function setRequest(ParamsOrderRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function updated(): bool

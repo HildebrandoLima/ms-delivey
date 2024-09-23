@@ -3,34 +3,22 @@
 namespace App\Data\Repositories\User\Concretes;
 
 use App\Data\Repositories\User\Interfaces\IListAllUserRepository;
-use App\Domains\Dtos\UserDto;
-use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\User;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginatedList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ListAllUserRepository implements IListAllUserRepository
 {
-    use AutoMapper;
-
-    public function hasPagination(string $search, bool $active): Collection
+    public function hasPagination(string $search, bool $active): LengthAwarePaginator
     {
-        $collection = $this->query($search, $active)->paginate(10);
-        foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->mapTo($value->toArray(), UserDto::class);
-        }
-        return PaginatedList::createFromPagination($collection);
+        return $this->query($search, $active)->paginate(10);
     }
 
     public function noPagination(string $search, bool $active): Collection
     {
-        $collection = $this->query($search, $active)->get();
-        foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->mapTo($value, UserDto::class);
-        }
-        return $collection;
+        return $this->query($search, $active)->get();
     }
 
     private function query(string $search, bool $active): Builder

@@ -2,16 +2,16 @@
 
 namespace App\Data\Repositories\Product\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Product\Interfaces\IUpdateProductRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
 use App\Models\Imagem;
 use App\Models\Produto;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class UpdateProductRepository extends DBConnection implements IUpdateProductRepository
+class UpdateProductRepository implements IUpdateProductRepository
 {
     use DefaultConditionActive;
 
@@ -21,13 +21,13 @@ class UpdateProductRepository extends DBConnection implements IUpdateProductRepo
     {
         try {
             $this->product = $product;
-            $this->db->beginTransaction();
+            DB::beginTransaction();
             $this->updateImage();
             $this->updateProduct();
-            $this->db->commit();
+            DB::commit();
             return true;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }

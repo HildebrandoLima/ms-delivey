@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Data\Repositories\Concretes\EntityRepository;
-use App\Data\Repositories\Concretes\ProductRepository;
+use App\Data\Repositories\Product\Concretes\ListFindByIdProductRepository;
 use App\Models\Produto;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -17,11 +16,10 @@ use Exception;
 class InventoryManagementJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    private array $items;
-    private int $newQuantity;
-    private ProductRepository $productRepository;
-    private EntityRepository $entityRepository;
+    private Produto $product;
+    private ListFindByIdProductRepository $listFindByIdProductRepository;
+    private array $items = [];
+    private int $newQuantity = 0, $productId = 0, $quantityItem = 0;
 
     public function __construct(array $items)
     {
@@ -31,31 +29,52 @@ class InventoryManagementJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $product = new EntityRepository();
-            foreach($this->items as $item):
-                $this->calculateQuantity($item);
-                $productModel = $this->map($item['produtoId']);
-                $product->update($productModel);
-            endforeach;
+            $this->instantiate();
+            foreach ($this->items as $item) {
+                $this->setProduct($item['produtoId'], $item['quantidadeItem']);
+                $this->processItem();   
+            }
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
     }
 
-    private function calculateQuantity(array $item): int
+    private function instantiate(): void
     {
-        $product = new ProductRepository();
-        $currentQuantity = $product->readOne($item['produtoId'], 1)->first()->quantidade;
-        $quantity = $currentQuantity - $item['quantidadeItem'];
-        $this->newQuantity = $quantity;
-        return $this->newQuantity;
+        $this->listFindByIdProductRepository = new ListFindByIdProductRepository();
     }
 
-    private function map(int $produtoId): Produto
+    private function processItem(): void
     {
-        $product = new Produto();
-        $product->id = $produtoId;
-        $product->quantidade = $this->newQuantity;
-        return $product;
+        $this->getProduct();
+        $this->calculateQuantity();
+        $this->updated();
+    }
+
+    private function setProduct(int $productId, int $quantityItem): void
+    {
+        $this->productId = $productId;
+        $this->quantityItem =  $quantityItem;
+    }
+
+    private function getProduct(): void
+    {
+        $this->product = $this->listFindByIdProductRepository->listFindById($this->productId, true)->first();
+    }
+
+    private function calculateQuantity(): void
+    {
+        if ($this->product) {
+            $this->newQuantity = $this->product->quantidade - $this->quantityItem;
+        }
+    }
+
+    private function updated(): void
+    {
+        Produto::query()
+        ->where('id', $this->productId)
+        ->update([
+            'quantidade' => $this->newQuantity
+        ]);
     }
 }

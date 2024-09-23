@@ -17,8 +17,8 @@ use Exception;
 class ForgotPassword implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    private string $email;
+    private PasswordReset $data;
+    private string $email = '';
 
     public function __construct(string $email)
     {
@@ -28,10 +28,23 @@ class ForgotPassword implements ShouldQueue
     public function handle(): void
     {
         try {
-            $data = PasswordReset::query()->where('email', $this->email)->first();
-            Mail::to($this->email)->send(new EmailForgotPassword($data->toArray()));
+            $this->getDataUser();
+            $this->sendEmail();
         } catch (Exception $e) {
             Log::error($e->getMessage());
+        }
+    }
+
+    private function getDataUser(): void
+    {
+        $this->data = PasswordReset::query()->where('email', $this->email)->first();
+    }
+
+    private function sendEmail(): void
+    {
+        if ($this->data) {
+            Mail::to($this->email)
+            ->send(new EmailForgotPassword($this->data->toArray()));
         }
     }
 }

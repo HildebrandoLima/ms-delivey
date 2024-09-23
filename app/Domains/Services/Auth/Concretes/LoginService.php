@@ -5,9 +5,10 @@ namespace App\Domains\Services\Auth\Concretes;
 use App\Data\Repositories\Auth\Interfaces\IAuthRepository;
 use App\Domains\Services\Auth\Interfaces\ILoginService;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Exceptions\HttpBadRequest;
+use App\Exceptions\HttpInternalServerError;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
+use Exception;
 
 class LoginService implements ILoginService
 {
@@ -20,16 +21,10 @@ class LoginService implements ILoginService
 
     public function login(LoginRequest $request): Collection
     {
-        $auth = $this->authRepository->login($request);
-        if ($auth->isEmpty()):
-            throw new HttpResponseException(HttpBadRequest::getResponse(
-                collect(),
-                collect([
-                    'Não foi possível gerar seu token de acesso. Verifique novamente seus dados enviados.'
-                ]))
-            );
-        else:
-            return $auth;
-        endif;
+        try {
+            return $this->authRepository->login($request);
+        } catch (Exception $e) {
+            throw new HttpResponseException(HttpInternalServerError::getResponse($e));
+        }
     }
 }

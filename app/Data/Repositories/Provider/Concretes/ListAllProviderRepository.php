@@ -3,34 +3,22 @@
 namespace App\Data\Repositories\Provider\Concretes;
 
 use App\Data\Repositories\Provider\Interfaces\IListAllProviderRepository;
-use App\Domains\Dtos\ProviderDto;
-use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Fornecedor;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginatedList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ListAllProviderRepository implements IListAllProviderRepository
 {
-    use AutoMapper;
-
-    public function hasPagination(string $search, bool $active): Collection
+    public function hasPagination(string $search, bool $active): LengthAwarePaginator
     {
-        $collection = $this->query($search, $active)->paginate(10);
-        foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->mapTo($value->toArray(), ProviderDto::class);
-        }
-        return PaginatedList::createFromPagination($collection);
+        return $this->query($search, $active)->paginate(10);
     }
 
     public function noPagination(string $search, bool $active): Collection
     {
-        $collection = $this->query($search, $active)->get();
-        foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->mapTo($value, ProviderDto::class);
-        }
-        return $collection;
+        return $this->query($search, $active)->get();
     }
 
     private function query(string $search, bool $active): Builder

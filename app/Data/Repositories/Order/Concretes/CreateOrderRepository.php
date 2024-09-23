@@ -2,7 +2,6 @@
 
 namespace App\Data\Repositories\Order\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Order\Interfaces\ICreateOrderRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
@@ -10,24 +9,24 @@ use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class CreateOrderRepository extends DBConnection implements ICreateOrderRepository
+class CreateOrderRepository implements ICreateOrderRepository
 {
     use DefaultConditionActive;
-
     private Pedido $order;
 
     public function create(CreateOrderRequest $request): array
     {
         try {
-            $this->db->beginTransaction();
+            DB::beginTransaction();
             $this->createOrder($request);
             $this->createItem($request);
-            $this->db->commit();
+            DB::commit();
             return $this->order->toArray();
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
@@ -44,7 +43,7 @@ class CreateOrderRepository extends DBConnection implements ICreateOrderReposito
             'usuario_id' => $request->usuarioId,
             'endereco_id' => $request->enderecoId,
             'ativo' => $this->defaultConditionActive(true)
-        ])->orderBy('id', 'desc')->first();
+        ]);
     }
 
     public function createItem(CreateOrderRequest $request): void
@@ -59,12 +58,17 @@ class CreateOrderRepository extends DBConnection implements ICreateOrderReposito
         Item::query()
         ->create([
             'nome' => $item['nome'],
-            'preco' => str_replace(',', '.', $item['preco']),
+            'preco' => $this->formatCurrency($item['preco']),
             'quantidade_item' => $item['quantidadeItem'],
             'sub_total' => $item['subTotal'],
             'pedido_id' => $this->order['id'],
             'produto_id' => $item['produtoId'],
             'ativo' => $this->defaultConditionActive(true)
         ]);
+    }
+
+    private function formatCurrency(string $value): string
+    {
+        return str_replace(',', '.', $value);
     }
 }

@@ -3,34 +3,22 @@
 namespace App\Data\Repositories\Category\Concretes;
 
 use App\Data\Repositories\Category\Interfaces\IListAllCategoryRepository;
-use App\Domains\Dtos\CategoryDto;
-use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Categoria;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginatedList;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ListAllCategoryRepository implements IListAllCategoryRepository
 {
-    use AutoMapper;
-
-    public function hasPagination(string $search, bool $active): Collection
+    public function hasPagination(string $search, bool $active): LengthAwarePaginator
     {
-        $collection = $this->query($search, $active)->paginate(10);
-        foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->mapTo($value->toArray(), CategoryDto::class);
-        }
-        return PaginatedList::createFromPagination($collection);
+        return $this->query($search, $active)->paginate(10);
     }
 
     public function noPagination(string $search, bool $active): Collection
     {
-        $collection = $this->query($search, $active)->get();
-        foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->mapTo($value, CategoryDto::class);
-        }
-        return $collection;
+        return $this->query($search, $active)->get();
     }
 
     private function query(string $search, bool $active): Builder

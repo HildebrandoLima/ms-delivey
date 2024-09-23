@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Support\Utils\Pagination;
+namespace App\Support\Utils\Pagination\Concrete;
 
-use Illuminate\Http\Request;
+use App\Support\Utils\Pagination\Interface\IPagination;
 
-class Pagination
+class Pagination implements IPagination
 {
     private ?int $page;
     private ?int $perPage;
 
-    public function __construct(Request $request)
+    public function __construct(?int $page, ?int $perPage)
     {
-        $this->page = $request->page;
-        $this->perPage = $request->perPage;
+        $this->page = $page;
+        $this->perPage = $perPage;
     }
 
     public function getPage(): int
@@ -20,10 +20,9 @@ class Pagination
         return $this->page;
     }
 
-    public function setPage(int $page): int
+    public function setPage(?int $page): void
     {
         $this->page = $page;
-        return $this->page;
     }
 
     public function getPerPage(): int
@@ -31,10 +30,9 @@ class Pagination
         return $this->perPage;
     }
 
-    public function setPerPage(int $perPage): int
+    public function setPerPage(?int $perPage): void
     {
         $this->perPage = $perPage;
-        return $this->perPage;
     }
 
     public function hasPagination(): bool

@@ -3,34 +3,22 @@
 namespace App\Data\Repositories\Product\Concretes;
 
 use App\Data\Repositories\Product\Interfaces\IListAllProductRepository;
-use App\Domains\Dtos\ProductDto;
-use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Produto;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginatedList;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ListAllProductRepository implements IListAllProductRepository
 {
-    use AutoMapper;
-
-    public function hasPagination(string|int $search, bool $active): Collection
+    public function hasPagination(string|int $search, bool $active): LengthAwarePaginator
     {
-        $collection = $this->query($search, $active)->paginate(10);
-        foreach ($collection->items() as $key => $value) {
-          $collection[$key] = $this->mapTo($value->toArray(), ProductDto::class);
-        }
-        return PaginatedList::createFromPagination($collection);
+        return $this->query($search, $active)->paginate(10);
     }
 
     public function noPagination(string|int $search, bool $active): Collection
     {
-        $collection = $this->query($search, $active)->get();
-        foreach ($collection->toArray() as $key => $value) {
-            $collection[$key] = $this->mapTo($value, ProductDto::class);
-        }
-        return $collection;
+        return $this->query($search, $active)->get();
     }
 
     private function query(string|int $search, bool $active): Builder

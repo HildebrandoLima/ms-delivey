@@ -2,23 +2,23 @@
 
 namespace App\Data\Repositories\Telephone\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Telephone\Interfaces\IUpdateTelephoneRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
 use App\Http\Requests\Telephone\UpdateTelephoneRequest;
 use App\Models\Telefone;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class UpdateTelephoneRepository extends DBConnection implements IUpdateTelephoneRepository
+class UpdateTelephoneRepository implements IUpdateTelephoneRepository
 {
     use DefaultConditionActive;
 
     public function update(UpdateTelephoneRequest $request): bool
     {
         try {
-            $this->db->beginTransaction();
+            DB::beginTransaction();
             Telefone::query()
             ->where('id', $request->id)
             ->update([
@@ -28,10 +28,10 @@ class UpdateTelephoneRepository extends DBConnection implements IUpdateTelephone
                 'fornecedor_id' => $request->fornecedorId ?? null,
                 'ativo' => $this->defaultConditionActive($request->ativo)
             ]);
-            $this->db->commit();
+            DB::commit();
             return true;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }

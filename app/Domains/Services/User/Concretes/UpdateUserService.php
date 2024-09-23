@@ -4,12 +4,13 @@ namespace App\Domains\Services\User\Concretes;
 
 use App\Data\Repositories\User\Interfaces\IUpdateUserRepository;
 use App\Domains\Services\User\Interfaces\IUpdateUserService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\User\UpdateUserRequest;
 
 class UpdateUserService implements IUpdateUserService
 {
+    use RequestConfigurator;
     private IUpdateUserRepository $updateUserRepository;
-    private UpdateUserRequest $request;
 
     public function __construct(IUpdateUserRepository $updateUserRepository)
     {
@@ -22,12 +23,7 @@ class UpdateUserService implements IUpdateUserService
         return $this->updated();
     }
 
-    private function setRequest(UpdateUserRequest $request): void
-    {
-        $this->request = $request;
-    }
-
-    public function updated(): bool
+    private function updated(): bool
     {
         return $this->updateUserRepository->update($this->request);
     }

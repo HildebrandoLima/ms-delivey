@@ -4,12 +4,13 @@ namespace App\Domains\Services\Provider\Concretes;
 
 use App\Data\Repositories\Provider\Interfaces\IUpdateProviderRepository;
 use App\Domains\Services\Provider\Interfaces\IUpdateProviderService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Provider\UpdateProviderRequest;
 
 class UpdateProviderService implements IUpdateProviderService
 {
+    use RequestConfigurator;
     private IUpdateProviderRepository $updateProviderRepository;
-    private UpdateProviderRequest $request;
 
     public function __construct(IUpdateProviderRepository $updateProviderRepository)
     {
@@ -22,12 +23,7 @@ class UpdateProviderService implements IUpdateProviderService
         return $this->updated();
     }
 
-    private function setRequest(UpdateProviderRequest $request): void
-    {
-        $this->request = $request;
-    }
-
-    public function updated(): bool
+    private function updated(): bool
     {
         return $this->updateProviderRepository->update($this->request);
     }

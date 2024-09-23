@@ -4,13 +4,14 @@ namespace App\Domains\Services\Product\Concretes;
 
 use App\Data\Repositories\Product\Interfaces\IUpdateProductRepository;
 use App\Domains\Services\Product\Interfaces\IUpdateProductService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
 class UpdateProductService implements IUpdateProductService
 {
+    use RequestConfigurator;
     private IUpdateProductRepository $updateProductRepository;
-    private UpdateProductRequest $request;
     private float $precoCusto = 0;
     private float $precoVenda = 0;
     private array $product = [];
@@ -26,11 +27,6 @@ class UpdateProductService implements IUpdateProductService
         $this->priceFormart();
         $this->map();
         return $this->updated();
-    }
-
-    private function setRequest(UpdateProductRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function priceFormart(): void

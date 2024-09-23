@@ -5,13 +5,14 @@ namespace App\Domains\Services\Auth\Concretes;
 use App\Data\Repositories\Auth\Interfaces\IAuthResetRepository;
 use App\Data\Repositories\Auth\Interfaces\IRefreshPasswordRepository;
 use App\Domains\Services\Auth\Interfaces\IRefreshPasswordService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
 
 class RefreshPasswordService implements IRefreshPasswordService
 {
+    use RequestConfigurator;
     private IAuthResetRepository       $authResetRepository;
     private IRefreshPasswordRepository $refreshPasswordRepository;
-    private RefreshPasswordRequest $request;
     private int $userId = 0;
 
     public function __construct
@@ -30,10 +31,9 @@ class RefreshPasswordService implements IRefreshPasswordService
         return $this->updated();
     }
 
-    private function setRequest(RefreshPasswordRequest $request): void
+    private function userId(): void
     {
-        $this->request = $request;
-        $this->userId = $this->authResetRepository->readCode($request->codigo);
+        $this->userId = $this->authResetRepository->readCode($this->request->codigo);
     }
 
     private function updated(): bool

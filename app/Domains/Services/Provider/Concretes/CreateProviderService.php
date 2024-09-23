@@ -4,13 +4,14 @@ namespace App\Domains\Services\Provider\Concretes;
 
 use App\Data\Repositories\Provider\Interfaces\ICreateProviderRepository;
 use App\Domains\Services\Provider\Interfaces\ICreateProviderService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Provider\CreateProviderRequest;
 use App\Jobs\EmailForRegisterJob;
 
 class CreateProviderService implements ICreateProviderService
 {
+    use RequestConfigurator;
     private ICreateProviderRepository $createProviderRepository;
-    private CreateProviderRequest $request;
     private int $providerId;
 
     public function __construct(ICreateProviderRepository $createProviderRepository)
@@ -24,11 +25,6 @@ class CreateProviderService implements ICreateProviderService
         $this->created();
         $this->check();
         return $this->providerId;
-    }
-
-    private function setRequest(CreateProviderRequest $request): void
-    {
-        $this->request = $request;
     }
 
     public function created(): void

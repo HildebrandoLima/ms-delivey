@@ -4,12 +4,13 @@ namespace App\Domains\Services\Category\Concretes;
 
 use App\Data\Repositories\Category\Interfaces\ICreateCategoryRepository;
 use App\Domains\Services\Category\Interfaces\ICreateCategoryService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Category\CreateCategoryRequest;
 
 class CreateCategoryService implements ICreateCategoryService
 {
+    use RequestConfigurator;
     private ICreateCategoryRepository $createCategoryRepository;
-    private CreateCategoryRequest $request;
 
     public function __construct(ICreateCategoryRepository $createCategoryRepository)
     {
@@ -20,11 +21,6 @@ class CreateCategoryService implements ICreateCategoryService
     {
         $this->setRequest($request);
         return $this->created();
-    }
-
-    private function setRequest(CreateCategoryRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function created(): bool

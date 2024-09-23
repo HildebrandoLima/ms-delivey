@@ -4,13 +4,14 @@ namespace App\Domains\Services\Auth\Concretes;
 
 use App\Data\Repositories\Auth\Interfaces\IForgotPasswordRepository;
 use App\Domains\Services\Auth\Interfaces\IForgotPasswordService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
 
 class ForgotPasswordService implements IForgotPasswordService
 {
+    use RequestConfigurator;
     private IForgotPasswordRepository $forgotPasswordRepository;
-    private ForgotPasswordRequest $request;
 
     public function __construct(IForgotPasswordRepository $forgotPasswordRepository)
     {
@@ -23,11 +24,6 @@ class ForgotPasswordService implements IForgotPasswordService
         $created = $this->created();
         $this->dispatchJob();
         return $created;
-    }
-
-    private function setRequest(ForgotPasswordRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function created(): bool

@@ -2,7 +2,6 @@
 
 namespace App\Data\Repositories\Product\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Product\Interfaces\ICreateProductRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
@@ -10,12 +9,13 @@ use App\Models\Imagem;
 use App\Models\Produto;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class CreateProductRepository extends DBConnection implements ICreateProductRepository
+class CreateProductRepository implements ICreateProductRepository
 {
     use DefaultConditionActive;
-
+    private Produto $productModel;
     private array $product = [];
     private int $productId = 0;
     private string $path = '';
@@ -26,21 +26,21 @@ class CreateProductRepository extends DBConnection implements ICreateProductRepo
     {
         try {
             $this->product = $product;
-            $this->db->beginTransaction();
-            $this->createProduct();
+            DB::beginTransaction();
+            $this->createdProduct();
+            $this->productId();
             $this->uploadFile();
-            $this->createImage();
-            $this->db->commit();
+            DB::commit();
             return true;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }
 
-    private function createProduct(): void
+    private function createdProduct(): void
     {
-        $this->productId = Produto::query()
+        $this->productModel = Produto::query()
         ->create([
             'nome' => $this->product['nome'],
             'preco_custo' => $this->product['precoCusto'],
@@ -54,7 +54,12 @@ class CreateProductRepository extends DBConnection implements ICreateProductRepo
             'categoria_id' => $this->product['categoriaId'],
             'fornecedor_id'=> $this->product['fornecedorId'],
             'ativo' => $this->defaultConditionActive(true)
-        ])->orderBy('id', 'desc')->first()->id;
+        ]);
+    }
+
+    private function productId(): void
+    {
+        $this->productId = $this->productModel->id;
     }
 
     private function uploadFile(): void
@@ -79,10 +84,10 @@ class CreateProductRepository extends DBConnection implements ICreateProductRepo
         $image->storeAs($this->directory, $imageName, 'public');
         $this->uploadedImages[] = $imageName;
         $this->path = $this->directory . '/' . $imageName;
-        $this->createImage();
+        $this->createdImage();
     }
 
-    private function createImage(): void
+    private function createdImage(): void
     {
         Imagem::query()
         ->create([

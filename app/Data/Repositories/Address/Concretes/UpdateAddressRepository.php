@@ -2,23 +2,23 @@
 
 namespace App\Data\Repositories\Address\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\Address\Interfaces\IUpdateAddressRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
 use App\Http\Requests\Address\UpdateAddressRequest;
 use App\Models\Endereco;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class UpdateAddressRepository extends DBConnection implements IUpdateAddressRepository
+class UpdateAddressRepository implements IUpdateAddressRepository
 {
     use DefaultConditionActive;
 
     public function update(UpdateAddressRequest $request): bool
     {
         try {
-            $this->db->beginTransaction();
+            DB::beginTransaction();
             Endereco::query()
             ->where('id', $request->id)
             ->update([
@@ -32,10 +32,10 @@ class UpdateAddressRepository extends DBConnection implements IUpdateAddressRepo
                 'fornecedor_id' => $request->fornecedorId ?? null,
                 'ativo' => $this->defaultConditionActive($request->ativo)
             ]);
-            $this->db->commit();
+            DB::commit();
             return true;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }

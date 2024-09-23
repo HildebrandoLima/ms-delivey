@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Utils\Pagination;
+namespace App\Support\Utils\Pagination\Concrete;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;

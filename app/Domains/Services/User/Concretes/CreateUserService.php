@@ -4,13 +4,14 @@ namespace App\Domains\Services\User\Concretes;
 
 use App\Data\Repositories\User\Interfaces\ICreateUserRepository;
 use App\Domains\Services\User\Interfaces\ICreateUserService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
 
 class CreateUserService implements ICreateUserService
 {
+    use RequestConfigurator;
     private ICreateUserRepository $createUserRepository;
-    private CreateUserRequest $request;
     private int $userId = 0;
 
     public function __construct(ICreateUserRepository $createUserRepository)
@@ -24,11 +25,6 @@ class CreateUserService implements ICreateUserService
         $this->created();
         $this->check();
         return $this->userId;
-    }
-
-    private function setRequest(CreateUserRequest $request): void
-    {
-        $this->request = $request;
     }
 
     public function created(): void

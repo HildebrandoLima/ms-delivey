@@ -2,7 +2,6 @@
 
 namespace App\Data\Repositories\User\Concretes;
 
-use App\Data\Infra\Database\DBConnection;
 use App\Data\Repositories\User\Interfaces\ICreateUserRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Exceptions\HttpInternalServerError;
@@ -11,16 +10,17 @@ use App\Models\User;
 use App\Support\Enums\RoleEnum;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
-class CreateUserRepository extends DBConnection implements ICreateUserRepository
+class CreateUserRepository implements ICreateUserRepository
 {
     use DefaultConditionActive;
 
     public function create(CreateUserRequest $request): int
     {
         try {
-            $this->db->beginTransaction();
+            DB::beginTransaction();
             $userId = User::query()
             ->create([
                 'nome' => $request->nome,
@@ -31,11 +31,11 @@ class CreateUserRepository extends DBConnection implements ICreateUserRepository
                 'genero' => $request->genero,
                 'role_id' => $request->perfil === 1 ? RoleEnum::ADMIN : RoleEnum::CLIENTE,
                 'ativo' => $this->defaultConditionActive(true)
-            ])->orderBy('id', 'desc')->first()->id;
-            $this->db->commit();
-            return $userId;
+            ]);
+            DB::commit();
+            return $userId->id;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            DB::rollBack();
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
         }
     }

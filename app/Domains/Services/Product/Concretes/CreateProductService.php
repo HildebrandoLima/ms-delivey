@@ -4,13 +4,14 @@ namespace App\Domains\Services\Product\Concretes;
 
 use App\Data\Repositories\Product\Interfaces\ICreateProductRepository;
 use App\Domains\Services\Product\Interfaces\ICreateProductService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
 class CreateProductService implements ICreateProductService
 {
+    use RequestConfigurator;
     private ICreateProductRepository  $createProductRepository;
-    private CreateProductRequest $request;
     private float $precoCusto = 0;
     private float $precoVenda = 0;
     private array $product = [];
@@ -26,11 +27,6 @@ class CreateProductService implements ICreateProductService
         $this->priceFormart();
         $this->map();
         return $this->created();
-    }
-
-    private function setRequest(CreateProductRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function priceFormart(): void

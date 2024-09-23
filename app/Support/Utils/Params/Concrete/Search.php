@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Support\Utils\Params;
+namespace App\Support\Utils\Params\Concrete;
 
-use Illuminate\Http\Request;
+use App\Support\Utils\Params\Interface\ISearch;
 
-class Search
+class Search implements ISearch
 {
     private mixed $search;
 
-    public function __construct(Request $request)
+    public function __construct(mixed $search)
     {
-        $this->search = $this->formatSearch($request->search);
+        $this->search = $this->formatSearch($search);
     }
 
     private function formatSearch(mixed $search): mixed
@@ -25,5 +25,10 @@ class Search
     public function getSearch(): mixed
     {
         return $this->search;
+    }
+
+    public function setSearch(mixed $search): void
+    {
+        $this->search = $this->formatSearch($search);
     }
 }

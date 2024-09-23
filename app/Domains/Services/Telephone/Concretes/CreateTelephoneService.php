@@ -4,12 +4,13 @@ namespace App\Domains\Services\Telephone\Concretes;
 
 use App\Data\Repositories\Telephone\Interfaces\ICreateTelephoneRepository;
 use App\Domains\Services\Telephone\Interfaces\ICreateTelephoneService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
 
 class CreateTelephoneService implements ICreateTelephoneService
 {
+    use RequestConfigurator;
     private ICreateTelephoneRepository $createTelephoneRepository;
-    private CreateTelephoneRequest $request;
 
     public function __construct(ICreateTelephoneRepository $createTelephoneRepository)
     {
@@ -21,11 +22,6 @@ class CreateTelephoneService implements ICreateTelephoneService
         $this->setRequest($request);
         $this->created();
         return true;
-    }
-
-    private function setRequest(CreateTelephoneRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function created(): void

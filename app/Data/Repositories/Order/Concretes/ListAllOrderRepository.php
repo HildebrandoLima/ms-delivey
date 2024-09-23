@@ -3,43 +3,41 @@
 namespace App\Data\Repositories\Order\Concretes;
 
 use App\Data\Repositories\Order\Interfaces\IListAllOrderRepository;
-use App\Domains\Dtos\OrderDto;
-use App\Domains\Traits\Dtos\AutoMapper;
 use App\Models\Pedido;
 use App\Support\Queries\QueryFilter;
-use App\Support\Utils\Pagination\PaginatedList;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ListAllOrderRepository implements IListAllOrderRepository
 {
-    use AutoMapper;
-
-    public function listAll(string $search, int $id, bool $active): Collection
+    public function hasPagination(string|int $search, bool $active): LengthAwarePaginator
     {
-        $collection = $this->query()
-        ->where(function ($query) use ($id, $search, $active) {
+        return $this->query($search, $active)->paginate(10);
+    }
+
+    public function noPagination(string|int $search, bool $active): Collection
+    {
+        return $this->query($search, $active)->get();
+    }
+
+    private function query(string|int $search, bool $active): Builder
+    {
+        return Pedido::query()->with('item')->with('pagamento')->with('endereco')
+        ->where(function ($query) use ($search, $active) {
 
             QueryFilter::getQueryFilter($query, $active)
 
-            ->where(function($query) use ($id, $search) {
+            ->where(function($query) use ($search) {
 
                 if (!empty($search)) {
-                    $query->where('pedido.numero_pedido', 'like', $search);
-                } else {
-                    $query->where('pedido.usuario_id', '=', $id);
-                }
+                    if (is_numeric($search)) {
+                        $query->where('pedido.usuario_id', '=', $search);
+                    } else {
+                        $query->where('pedido.numero_pedido', 'like', $search);
+                    }
+                } 
             });
-        })->orderByDesc('pedido.id')->paginate(10);
-
-        foreach ($collection->items() as $key => $value) {
-            $collection[$key] = $this->mapTo($value->toArray(), OrderDto::class);
-        }
-        return PaginatedList::createFromPagination($collection);
-    }
-
-    private function query(): Builder
-    {
-        return Pedido::query()->with('item')->with('pagamento')->with('endereco');
+        })->orderByDesc('pedido.id');
     }
 }

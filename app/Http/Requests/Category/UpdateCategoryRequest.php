@@ -20,7 +20,7 @@ class UpdateCategoryRequest extends BaseRequest
     {
         return [
             'id' => 'required|int|exists:categoria,id',
-            'nome' => 'required|string|unique:categoria,nome',
+            'nome' => 'required|string',
             'ativo' => 'required|boolean',
         ];
     }
@@ -29,7 +29,6 @@ class UpdateCategoryRequest extends BaseRequest
     {
         return [
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
-            'nome.unique' => DefaultErrorMessages::ALREADY_EXISTING,
 
             'nome.required' => DefaultErrorMessages::REQUIRED_FIELD,
             'ativo.required' => DefaultErrorMessages::REQUIRED_FIELD,

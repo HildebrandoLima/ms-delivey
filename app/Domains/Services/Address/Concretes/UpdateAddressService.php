@@ -4,12 +4,13 @@ namespace App\Domains\Services\Address\Concretes;
 
 use App\Data\Repositories\Address\Interfaces\IUpdateAddressRepository;
 use App\Domains\Services\Address\Interfaces\IUpdateAddressService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Address\UpdateAddressRequest;
 
 class UpdateAddressService implements IUpdateAddressService
 {
+    use RequestConfigurator;
     private IUpdateAddressRepository $updateAddressRepository;
-    private UpdateAddressRequest $request;
 
     public function __construct(IUpdateAddressRepository $updateAddressRepository)
     {
@@ -20,11 +21,6 @@ class UpdateAddressService implements IUpdateAddressService
     {
         $this->setRequest($request);
         return $this->updated();
-    }
-
-    private function setRequest(UpdateAddressRequest $request): void
-    {
-        $this->request = $request;
     }
 
     private function updated(): bool

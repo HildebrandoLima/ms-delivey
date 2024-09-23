@@ -28,9 +28,15 @@ class EmailForRegisterJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            Mail::to($this->email)->send(new EmailForRegister($this->id));
+            $this->sendEmail();
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
+    }
+
+    private function sendEmail(): void
+    {
+        Mail::to($this->email)
+        ->send(new EmailForRegister($this->id));
     }
 }
