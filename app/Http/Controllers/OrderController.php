@@ -8,8 +8,8 @@ use App\Domains\Services\Order\Interfaces\IListFindByIdOrderService;
 use App\Domains\Services\Order\Interfaces\IUpdateOrderService;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ParamsOrderRequest;
-use App\Http\Requests\User\ParamsUserRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 use Exception;
 
 class OrderController extends Controller
@@ -33,7 +33,7 @@ class OrderController extends Controller
         $this->updateOrderService       = $updateOrderService;
     }
 
-    public function index(ParamsUserRequest $request): Response
+    public function index(Request $request): Response
     {
         try {
             $success = $this->listAllOrderService->listAll($request);

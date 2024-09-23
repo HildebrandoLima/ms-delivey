@@ -19,8 +19,7 @@ class ParamsOrderRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|int|exists:pedido,id',
-            'ativo' => 'boolean',
+            'id' => 'required|int|exists:pedido,id'
         ];
     }
 
@@ -29,8 +28,7 @@ class ParamsOrderRequest extends BaseRequest
         return [
             'id.exists' => DefaultErrorMessages::NOT_FOUND,
             'id.required' => DefaultErrorMessages::REQUIRED_FIELD,
-            'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER,
-            'ativo.boolean' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+            'id.int' => DefaultErrorMessages::FIELD_MUST_BE_INTEGER
         ];
     }
 }

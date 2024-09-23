@@ -25,18 +25,10 @@ class ListAllOrderRepository implements IListAllOrderRepository
     {
         return Pedido::query()->with('item')->with('pagamento')->with('endereco')
         ->where(function ($query) use ($search, $active) {
-
             QueryFilter::getQueryFilter($query, $active)
-
             ->where(function($query) use ($search) {
-
-                if (!empty($search)) {
-                    if (is_numeric($search)) {
-                        $query->where('pedido.usuario_id', '=', $search);
-                    } else {
-                        $query->where('pedido.numero_pedido', 'like', $search);
-                    }
-                } 
+                $query->where('pedido.usuario_id', '=', $search)
+                ->orWhere('pedido.numero_pedido', 'like', $search);
             });
         })->orderByDesc('pedido.id');
     }
