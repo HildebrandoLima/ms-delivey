@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 trait RequestConfigurator
 {
-    protected Request $request;
+    private Request $request;
 
     protected function setRequest(Request $request): void
     {
