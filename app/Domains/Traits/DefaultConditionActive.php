@@ -6,7 +6,7 @@ use App\Support\Enums\ActiveEnum;
 
 trait DefaultConditionActive
 {
-    public function defaultConditionActive(bool $ativo): bool
+    protected function defaultConditionActive(bool $ativo): bool
     {
         return $ativo == true ? ActiveEnum::ATIVADO : ActiveEnum::DESATIVADO;
     }
