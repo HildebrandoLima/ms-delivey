@@ -20,7 +20,6 @@ use Exception;
 class UpdateUserRepository implements IUpdateUserRepository
 {
     use DefaultConditionActive, RequestConfigurator;
-    private UpdateUserRequest $request;
     private Collection $listItems;
     private array $itemsIds = [];
 
