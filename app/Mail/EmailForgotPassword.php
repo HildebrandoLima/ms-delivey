@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 class EmailForgotPassword extends Mailable
 {
     use Queueable, SerializesModels;
+
     private array $data;
     private string $url;
 

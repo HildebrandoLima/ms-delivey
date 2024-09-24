@@ -2,60 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Provider\Abstracts\ICreateProviderService;
-use App\Domains\Services\Provider\Abstracts\IEditProviderService;
-use App\Domains\Services\Provider\Abstracts\IListProviderService;
+use App\Domains\Services\Provider\Interfaces\ICreateProviderService;
+use App\Domains\Services\Provider\Interfaces\IListAllProviderService;
+use App\Domains\Services\Provider\Interfaces\IListFindByIdProviderService;
+use App\Domains\Services\Provider\Interfaces\IUpdateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
-use App\Http\Requests\Provider\EditProviderRequest;
-use App\Http\Requests\Provider\ParamsProviderRequest;
-use App\Http\Requests\Provider\PermissonProviderRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\FilterByActive;
-use App\Support\Utils\Params\Search;
+use App\Http\Requests\Provider\ListAllProviderRequest;
+use App\Http\Requests\Provider\ListFindByIdProviderRequest;
+use App\Http\Requests\Provider\UpdateProviderRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
 class ProviderController extends Controller
 {
-    private ICreateProviderService $createProviderService;
-    private IEditProviderService   $editProviderService;
-    private IListProviderService   $listProviderService;
+    private ICreateProviderService       $createProviderService;
+    private IListAllProviderService      $listAllProviderService;
+    private IListFindByIdProviderService $listFindByIdProviderService;
+    private IUpdateProviderService       $updateProviderService;
 
     public function __construct
     (
-        ICreateProviderService $createProviderService,
-        IEditProviderService   $editProviderService,
-        IListProviderService   $listProviderService,
+        ICreateProviderService       $createProviderService,
+        IListAllProviderService      $listAllProviderService,
+        IListFindByIdProviderService $listFindByIdProviderService,
+        IUpdateProviderService       $updateProviderService
     )
     {
-        $this->createProviderService = $createProviderService;
-        $this->editProviderService   = $editProviderService;
-        $this->listProviderService   = $listProviderService;
+        $this->createProviderService       = $createProviderService;
+        $this->listAllProviderService      = $listAllProviderService;
+        $this->listFindByIdProviderService = $listFindByIdProviderService;
+        $this->updateProviderService       = $updateProviderService;
     }
 
-    public function index(PermissonProviderRequest $request, Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(ListAllProviderRequest $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderAll
-            (
-                $pagination,
-                $search->search(request()),
-                $filter->active
-            );
+            $success = $this->listAllProviderService->listAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function show(ParamsProviderRequest $request, FilterByActive $filter): Response
+    public function show(ListFindByIdProviderRequest $request): Response
     {
         try {
-            $success = $this->listProviderService->listProviderFind
-            (
-                $request->id,
-                $filter->active
-            );
+            $success = $this->listFindByIdProviderService->listFindById($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -65,17 +57,17 @@ class ProviderController extends Controller
     public function store(CreateProviderRequest $request): Response
     {
         try {
-            $success = $this->createProviderService->createProvider($request);
+            $success = $this->createProviderService->create($request);
             return Controller::post($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function update(EditProviderRequest $request): Response
+    public function update(UpdateProviderRequest $request): Response
     {
         try {
-            $success = $this->editProviderService->editProvider($request);
+            $success = $this->updateProviderService->update($request);
             return Controller::put($success);
         } catch (Exception $e) {
             return Controller::error($e);

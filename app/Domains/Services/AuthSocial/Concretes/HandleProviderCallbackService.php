@@ -3,7 +3,7 @@
 namespace App\Domains\Services\AuthSocial\Concretes;
 
 use App\Data\Repositories\Abstracts\IPermissionRepository;
-use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
+use App\Domains\Services\AuthSocial\Interfaces\IHandleProviderCallbackService;
 use App\Models\PermissionUser;
 use App\Models\User;
 use App\Support\Enums\ActiveEnum;
@@ -57,10 +57,10 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
 
     private function createPermission(int $userId): bool
     {
-        foreach ($this->permissions as $permission):
+        foreach ($this->permissions as $permission) {
             $permission = $this->mapPermission($userId, $permission);
             $this->permissionRepository->create($permission);
-        endforeach;
+        }
         return true;
     }
 

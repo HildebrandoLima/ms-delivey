@@ -30,7 +30,7 @@ class CreateOrderTest extends TestCase
         $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
         $data['itens'] = [];
-        foreach ($products as $product):
+        foreach ($products as $product) {
             $item = [
                 'nome' => $product['nome'],
                 'preco' => $product['preco_venda'],
@@ -40,7 +40,7 @@ class CreateOrderTest extends TestCase
             ];
             $this->total += $product['preco_venda'];
             array_push($data['itens'], $item);
-        endforeach;
+        }
         $data = [
             'quantidadeItens' => $this->count,
             'total' => $this->total,
@@ -102,7 +102,7 @@ class CreateOrderTest extends TestCase
         $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
         $data['itens'] = [];
-        foreach ($products as $product):
+        foreach ($products as $product) {
             $item = [
                 'nome' => $product['nome'],
                 'preco' => $product['preco_venda'],
@@ -112,7 +112,7 @@ class CreateOrderTest extends TestCase
             ];
             $this->total += $product['preco_venda'];
             array_push($data['itens'], $item);
-        endforeach;
+        }
         $data = [
             'quantidadeItems' => $this->count,
             'total' => $this->total,
@@ -145,7 +145,7 @@ class CreateOrderTest extends TestCase
         $randKeys = array_rand($this->typeDelivery);
         $products = $this->product();
         $data['itens'] = [];
-        foreach ($products as $product):
+        foreach ($products as $product) {
             $item = [
                 'nome' => $product['nome'],
                 'preco' => $product['preco_venda'],
@@ -155,7 +155,7 @@ class CreateOrderTest extends TestCase
             ];
             $this->total += $product['preco_venda'];
             array_push($data['itens'], $item);
-        endforeach;
+        }
         $data = [
             'quantidadeItens' => $this->count,
             'total' => $this->total,

@@ -2,12 +2,9 @@
 
 namespace Tests\Unit\Services\Product;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Data\Repositories\Abstracts\IProductRepository;
+use App\Data\Repositories\Product\Interfaces\ICreateProductRepository;
 use App\Domains\Services\Product\Concretes\CreateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
-use App\Models\Imagem;
-use App\Models\Produto;
 use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -15,10 +12,10 @@ use Tests\TestCase;
 class CreateProductServiceTest extends TestCase
 {
     private CreateProductRequest $request;
-    private IEntityRepository $entityRepository;
-    private IProductRepository  $productRepository;
+    private ICreateProductRepository $createProductRepository;
+    private array $product = [];
     private array $images = [];
-    private array $data;
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -45,33 +42,53 @@ class CreateProductServiceTest extends TestCase
         $this->request['categoriaId'] = $this->data['categoriaId'];
         $this->request['fornecedorId'] = $this->data['fornecedorId'];
         $this->request['imagens'] = $this->images;
-        $productId = $this->data['id'];
 
-        $this->entityRepository = $this->mock(IEntityRepository::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('create')->with(Produto::class)->andReturn(true);
-            $mock->shouldReceive('create')->with(Imagem::class)->andReturn(true);
-        });
+        $this->product = [
+            'nome' => $this->data['nome'],
+            'precoCusto' => $this->data['precoCusto'],
+            'precoVenda' => $this->data['precoVenda'],
+            'margemLucro' => $this->data['precoVenda'] - $this->data['precoCusto'],
+            'codigoBarra' => $this->data['codigoBarra'],
+            'descricao' => $this->data['descricao'],
+            'quantidade' => $this->data['quantidade'],
+            'unidadeMedida' => $this->data['unidadeMedida'],
+            'dataValidade' => $this->data['dataValidade'],
+            'categoriaId' => $this->data['categoriaId'],
+            'fornecedorId' => $this->data['fornecedorId'],
+            'directory' => 'images/' . strtolower(str_replace(' ', '_', $this->data['nome'])),
+            'imagens' => $this->images
+        ];
 
-        $this->productRepository = $this->mock(IProductRepository::class,
-        function (MockInterface $mock) use ($productId) {
-            $mock->shouldReceive('delete')->with($productId)->andReturn(true);
+        $this->createProductRepository = $this->mock(ICreateProductRepository::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('create')
+                     ->withArgs(function() {
+                        return
+                            isset($this->product['nome']) &&
+                            isset($this->product['precoCusto']) &&
+                            isset($this->product['precoVenda']) &&
+                            isset($this->product['codigoBarra']) &&
+                            isset($this->product['descricao']) &&
+                            isset($this->product['quantidade']) &&
+                            isset($this->product['unidadeMedida']) &&
+                            isset($this->product['dataValidade']) &&
+                            isset($this->product['categoriaId']) &&
+                            isset($this->product['fornecedorId']) &&
+                            isset($this->product['directory']) &&
+                            isset($this->product['imagens']);
+                    })
+                     ->andReturn(true);
         });
 
         // Act
-        $createProductService = new CreateProductService($this->entityRepository, $this->productRepository);
-        $resultProduct = $createProductService->createProduct($this->request);
-        $mappedProduct = $createProductService->mapProduct($this->request);
-        $directory = $createProductService->directory($this->request['nome']);
-        $resultImage = $createProductService->createImage($this->request, $productId);
-        $mappedImage = $createProductService->mapImage($directory, $productId);
+        $createProductService = new CreateProductService($this->createProductRepository);
+        $result = $createProductService->create($this->request);
 
         // Assert
-        $this->assertTrue($resultProduct);
-        $this->assertTrue($resultImage);
-        $this->assertFileExists($this->images[0]);
-        $this->assertInstanceOf(Produto::class, $mappedProduct);
-        $this->assertInstanceOf(Imagem::class, $mappedImage);
+        foreach ($this->images as $image) {
+            $this->assertFileExists($image->getPathname());
+        }
+        $this->assertTrue($result);
         $this->assertEquals($this->request['nome'], $this->data['nome']);
         $this->assertEquals($this->request['precoCusto'], $this->data['precoCusto']);
         $this->assertEquals($this->request['precoVenda'], $this->data['precoVenda']);

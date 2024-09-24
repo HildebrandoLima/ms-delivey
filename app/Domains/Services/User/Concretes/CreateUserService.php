@@ -2,48 +2,43 @@
 
 namespace App\Domains\Services\User\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\User\Abstracts\ICreateUserService;
+use App\Data\Repositories\User\Interfaces\ICreateUserRepository;
+use App\Domains\Services\User\Interfaces\ICreateUserService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Models\User;
-use App\Support\Enums\ActiveEnum;
-use App\Support\Enums\RoleEnum;
-use Illuminate\Support\Facades\Hash;
 
 class CreateUserService implements ICreateUserService
 {
-    private IEntityRepository $userRepository;
+    use RequestConfigurator;
+    private ICreateUserRepository $createUserRepository;
+    private int $userId = 0;
 
-    public function __construct(IEntityRepository $userRepository)
+    public function __construct(ICreateUserRepository $createUserRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->createUserRepository = $createUserRepository;
     }
 
-    public function createUser(CreateUserRequest $request): int
+    public function create(CreateUserRequest $request): int
     {
-        $user = $this->mapUser($request);
-        $userId = $this->userRepository->create($user);
-        if ($userId) $this->dispatchJob($request->email, $userId);
-        return $userId;
+        $this->setRequest($request);
+        $this->created();
+        $this->check();
+        return $this->userId;
     }
 
-    public function mapUser(CreateUserRequest $request): User
+    public function created(): void
     {
-        $user = new User();
-        $user->nome = $request->nome;
-        $user->cpf = $request->cpf;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->senha);
-        $user->data_nascimento = $request->dataNascimento;
-        $user->genero = $request->genero;
-        $user->role_id = $request->perfil === 1 ? RoleEnum::ADMIN : RoleEnum::CLIENTE;
-        $user->ativo = ActiveEnum::ATIVADO;
-        return $user;
+        $this->userId = $this->createUserRepository->create($this->request);
     }
 
-    private function dispatchJob(string $email, int $userId): void
+    public function check(): void
     {
-        EmailForRegisterJob::dispatch($email, $userId);
+        if ($this->userId) $this->dispatchJob();
+    }
+
+    private function dispatchJob(): void
+    {
+        EmailForRegisterJob::dispatch($this->request->email, $this->userId);
     }
 }

@@ -2,18 +2,17 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Category\Interfaces\ICreateCategoryRepository;
 use App\Domains\Services\Category\Concretes\CreateCategoryService;
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Models\Categoria;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CreateCategoryServiceTest extends TestCase
 {
     private CreateCategoryRequest $request;
-    private IEntityRepository $categoryRepository;
-    private array $data;
+    private ICreateCategoryRepository $createCategoryRepository;
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -27,19 +26,19 @@ class CreateCategoryServiceTest extends TestCase
         $this->request = new CreateCategoryRequest();
         $this->request['nome'] = $this->data['nome'];
 
-        $this->categoryRepository = $this->mock(IEntityRepository::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('create')->with(Categoria::class)->andReturn(true);
+        $this->createCategoryRepository = $this->mock(ICreateCategoryRepository::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('create')
+                    ->with($this->request)
+                    ->andReturn(true);
         });
 
         // Act
-        $createCategoryService = new CreateCategoryService($this->categoryRepository);
-        $result = $createCategoryService->createCategory($this->request);
-        $mappedCategory = $createCategoryService->map($this->request);
+        $createCategoryService = new CreateCategoryService($this->createCategoryRepository);
+        $result = $createCategoryService->create($this->request);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Categoria::class, $mappedCategory);
         $this->assertEquals($this->request['nome'], $this->data['nome']);
     }
 }

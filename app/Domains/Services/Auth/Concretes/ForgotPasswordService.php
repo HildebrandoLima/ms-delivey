@@ -2,41 +2,37 @@
 
 namespace App\Domains\Services\Auth\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
+use App\Data\Repositories\Auth\Interfaces\IForgotPasswordRepository;
+use App\Domains\Services\Auth\Interfaces\IForgotPasswordService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Jobs\ForgotPassword;
-use App\Models\PasswordReset;
-use Illuminate\Support\Str;
 
 class ForgotPasswordService implements IForgotPasswordService
 {
-    private IEntityRepository $entityRepository;
+    use RequestConfigurator;
+    private IForgotPasswordRepository $forgotPasswordRepository;
 
-    public function __construct(IEntityRepository $entityRepository)
+    public function __construct(IForgotPasswordRepository $forgotPasswordRepository)
     {
-        $this->entityRepository = $entityRepository;
+        $this->forgotPasswordRepository = $forgotPasswordRepository;
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): bool
     {
-        $passwordReset = $this->map($request);
-        $auth = $this->entityRepository->create($passwordReset);
-        if ($auth) $this->dispatchJob($passwordReset->toArray());
-        return true;
+        $this->setRequest($request);
+        $created = $this->created();
+        $this->dispatchJob();
+        return $created;
     }
 
-    private function map(ForgotPasswordRequest $request): PasswordReset
+    private function created(): bool
     {
-        $passwordReset = new PasswordReset();
-        $passwordReset->email = $request->email;
-        $passwordReset->token = Str::uuid();
-        $passwordReset->codigo = Str::random(10);
-        return $passwordReset;
+        return $this->forgotPasswordRepository->create($this->request);
     }
 
-    private function dispatchJob(array $passwordReset): void
+    private function dispatchJob(): void
     {
-        ForgotPassword::dispatch($passwordReset);
+        ForgotPassword::dispatch($this->request->email);
     }
 }

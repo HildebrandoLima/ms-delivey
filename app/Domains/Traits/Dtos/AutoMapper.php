@@ -4,23 +4,24 @@ namespace App\Domains\Traits\Dtos;
 
 trait AutoMapper
 {
-    public static function mapper(array $data, string $dtoClass): object
+    public static function mapTo(array $data, string $dtoClass): object
     {
         $dto = new $dtoClass();
 
-        foreach ($data as $key => $value):
+        foreach ($data as $key => $value) {
             $property = self::convertSnakeToCamel($key);
-            if (property_exists($dtoClass, $property)):
-                if (is_null($dto->$property)):
-                    self::validateType($dto, $property, $value);
-                endif;
-                self::validateType($dto, $property, $value);
-            endif;
-        endforeach;
 
-        if (method_exists($dtoClass, 'customizeMapping')):
+            if (property_exists($dtoClass, $property)) {
+                if (is_null($dto->$property)) {
+                    self::validateType($dto, $property, $value);
+                }
+                self::validateType($dto, $property, $value);
+            }
+        }
+
+        if (method_exists($dtoClass, 'customizeMapping')) {
             $dto->customizeMapping($data);
-        endif;
+        }
 
         return $dto;
     }
@@ -30,9 +31,9 @@ trait AutoMapper
         return lcfirst(str_replace('_', '', ucwords($input, '_')));
     }
 
-    private static function validateType(object $dto, string $property, $value): void
+    private static function validateType(object $dto, string $property, mixed $value): void
     {
-        switch (true):
+        switch (true) {
             case is_int($dto->$property):
                 $dto->$property = $value ?? 0;
             break;
@@ -48,6 +49,6 @@ trait AutoMapper
             case is_bool($dto->$property):
                 $dto->$property = $value ?? false;
             break;
-        endswitch;
+        }
     }
 }

@@ -7,14 +7,14 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 trait ValidationPermission
 {
-    public function validationPermission(string $permission): bool
+    protected function hasPermission(string $permission): bool
     {
         $user = auth()->user();
         $permissions = $user->role->permissions()->where('description', $permission)->exists();
         $message = 'Permissão negada! Você não possue acesso de administrador.';
-        if ($permissions): 
+        if ($permissions) {
             return true;
-        endif;
+        }
         throw new HttpResponseException(HttpForbidden::getResponse($message));
     }
 }

@@ -2,39 +2,29 @@
 
 namespace App\Domains\Services\Address\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\Address\Abstracts\ICreateAddressService;
+use App\Data\Repositories\Address\Interfaces\ICreateAddressRepository;
+use App\Domains\Services\Address\Interfaces\ICreateAddressService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Address\CreateAddressRequest;
-use App\Models\Endereco;
-use App\Support\Enums\ActiveEnum;
 
 class CreateAddressService implements ICreateAddressService
 {
-    private IEntityRepository $addressRepository;
+    use RequestConfigurator;
+    private ICreateAddressRepository $createAddressRepository;
 
-    public function __construct(IEntityRepository $addressRepository)
+    public function __construct(ICreateAddressRepository $createAddressRepository)
     {
-        $this->addressRepository = $addressRepository;
+        $this->createAddressRepository = $createAddressRepository;
     }
 
-    public function createAddress(CreateAddressRequest $request): bool
+    public function create(CreateAddressRequest $request): bool
     {
-        $address = $this->map($request);
-        return $this->addressRepository->create($address);
+        $this->setRequest($request);
+        return $this->created();
     }
 
-    public function map(CreateAddressRequest $request): Endereco
+    private function created(): bool
     {
-        $address = new Endereco();
-        $address->logradouro = $request->logradouro;
-        $address->numero = $request->numero;
-        $address->bairro = $request->bairro;
-        $address->cidade = $request->cidade;
-        $address->cep = $request->cep;
-        $address->uf = $request->uf;
-        $address->usuario_id = $request->usuarioId ?? null;
-        $address->fornecedor_id = $request->fornecedorId ?? null;
-        $address->ativo = ActiveEnum::ATIVADO;
-        return $address;
+        return $this->createAddressRepository->create($this->request);
     }
 }

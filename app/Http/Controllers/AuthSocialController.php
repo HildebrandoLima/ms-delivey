@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\AuthSocial\Abstracts\IHandleProviderCallbackService;
-use App\Domains\Services\AuthSocial\Abstracts\IRedirectToProviderService;
+use App\Domains\Services\AuthSocial\Interfaces\IHandleProviderCallbackService;
+use App\Domains\Services\AuthSocial\Interfaces\IRedirectToProviderService;
 use App\Exceptions\HttpBadRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
@@ -36,14 +36,14 @@ class AuthSocialController extends Controller
         try {
             $this->validateProvider($provider);
             $success = $this->handleProviderCallbackService->handleProviderCallback($provider);
-            if (!isset($success)):
+            if (!isset($success)) {
                 return response()->json([
                     "message" => "Error ao efetuar login!",
                     "data" => [],
                     "status" => Response::HTTP_UNAUTHORIZED,
                     "details" => ""
                 ], Response::HTTP_UNAUTHORIZED);
-            endif;
+            }
             return response()->json([
                 "message" => "Login efetuado com sucesso!",
                 "data" => $success,
@@ -57,11 +57,11 @@ class AuthSocialController extends Controller
 
     private function validateProvider(string $provider): void
     {
-        if (!in_array($provider, ['facebook', 'google', 'github'])):
+        if (!in_array($provider, ['facebook', 'google', 'github'])) {
             throw new HttpResponseException(HttpBadRequest::getResponse(collect(),
             collect([
                 'Informe umas das seguintes redes sociais: Facebook, Google ou GitHub.'
             ])));
-        endif;
+        }
     }
 }

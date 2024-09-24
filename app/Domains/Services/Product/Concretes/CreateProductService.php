@@ -2,102 +2,65 @@
 
 namespace App\Domains\Services\Product\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Data\Repositories\Abstracts\IProductRepository;
-use App\Domains\Services\Product\Abstracts\ICreateProductService;
+use App\Data\Repositories\Product\Interfaces\ICreateProductRepository;
+use App\Domains\Services\Product\Interfaces\ICreateProductService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Product\CreateProductRequest;
-use App\Models\Imagem;
-use App\Models\Produto;
-use App\Support\Enums\ActiveEnum;
 use App\Support\Utils\PriceFormat\PriceFormat;
 
 class CreateProductService implements ICreateProductService
 {
-    private IEntityRepository   $entityRepository;
-    private IProductRepository  $productRepository;
+    use RequestConfigurator;
+    private ICreateProductRepository  $createProductRepository;
+    private float $precoCusto = 0;
+    private float $precoVenda = 0;
+    private array $product = [];
 
-    public function __construct(IEntityRepository $entityRepository, IProductRepository $productRepository)
+    public function __construct(ICreateProductRepository $createProductRepository)
     {
-        $this->entityRepository  = $entityRepository;
-        $this->productRepository = $productRepository;
+        $this->createProductRepository  = $createProductRepository;
     }
 
-    public function createProduct(CreateProductRequest $request): bool
+    public function create(CreateProductRequest $request): bool
     {
-        $product = $this->mapProduct($request);
-        $productId = $this->entityRepository->create($product);
-        if ($productId):
-            $image = $this->createImage($request, $productId);
-            if ($image):
-                return true;
-            else:
-                $this->productRepository->delete($productId);
-            return false;
-            endif;
-        else:
-            return false;
-        endif;
+        $this->setRequest($request);
+        $this->priceFormart();
+        $this->map();
+        return $this->created();
     }
 
-    public function mapProduct(CreateProductRequest $request): Produto
+    private function priceFormart(): void
     {
-        $precoCusto = str_replace(',', '.', PriceFormat::priceFormart($request->precoCusto));
-        $precoVenda = str_replace(',', '.', PriceFormat::priceFormart($request->precoVenda));
-
-        $product = new Produto();
-        $product->nome = $request->nome;
-        $product->preco_custo = $precoCusto;
-        $product->preco_venda = $precoVenda;
-        $product->margem_lucro = $precoVenda - $precoCusto;
-        $product->codigo_barra = $request->codigoBarra;
-        $product->descricao = $request->descricao;
-        $product->quantidade = $request->quantidade;
-        $product->unidade_medida = $request->unidadeMedida;
-        $product->data_validade = $request->dataValidade;
-        $product->categoria_id = $request->categoriaId;
-        $product->fornecedor_id = $request->fornecedorId;
-        $product->ativo = ActiveEnum::ATIVADO;
-        return $product;
+        $this->precoCusto = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoCusto));
+        $this->precoVenda = str_replace(',', '.', PriceFormat::priceFormart($this->request->precoVenda));
     }
 
-    public function directory(string $productName): string
+    private function directory(): string
     {
-        $swapSpaceForUnderline = str_replace(' ', '_', $productName);
-        $changeUppercaseLettersToLowercaseLetters = strtolower($swapSpaceForUnderline);
-        $nameDirectory = $changeUppercaseLettersToLowercaseLetters;
-        $directory = 'images/' . $nameDirectory;
-        return $directory;
+        return 'images/' . strtolower(str_replace(' ', '_', $this->request->nome));
     }
 
-    public function createImage(CreateProductRequest $request, int $productId): bool
+    private function map(): void
     {
-        $uploadedImages = [];
-        if ($request['imagens']):
-            $images = $request['imagens'];
-            $directory = $this->directory($request->nome);
-            foreach ($images as $image):
-                if ($image->isValid()):
-                    $imageName = $image->getClientOriginalName();
-                    $image->storeAs($directory, $imageName, 'public');
-                    $uploadedImages[] = $imageName;
-                    $imageModel = $this->mapImage($directory . '/' . $imageName, $productId);
-                    $this->entityRepository->create($imageModel);
-                else:
-                    return false;
-                endif;
-            endforeach;
-            return true;
-        else:
-            return false;
-        endif;
+        $this->product = [
+            'nome' => $this->request->nome,
+            'precoCusto' => $this->precoCusto,
+            'precoVenda' => $this->precoVenda,
+            'margemLucro' => $this->precoVenda - $this->precoCusto,
+            'codigoBarra' => $this->request->codigoBarra,
+            'descricao' => $this->request->descricao,
+            'quantidade' => $this->request->quantidade,
+            'unidadeMedida' => $this->request->unidadeMedida,
+            'dataValidade' => $this->request->dataValidade,
+            'categoriaId' => $this->request->categoriaId,
+            'fornecedorId' => $this->request->fornecedorId,
+            'directory' => $this->directory(),
+            'imagens' => $this->request->imagens
+        ];
     }
 
-    public function mapImage(string $path, int $productId): Imagem
+    private function created(): bool
     {
-        $image = new Imagem();
-        $image->caminho = $path;
-        $image->produto_id = $productId;
-        $image->ativo = ActiveEnum::ATIVADO;
-        return $image;
+        return $this->createProductRepository->create($this->product);
     }
 }

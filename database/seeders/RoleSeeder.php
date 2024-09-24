@@ -16,10 +16,10 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $rolesDb = RolesDb::ROLES;
-        foreach ($rolesDb as $instance):
+        foreach ($rolesDb as $value) {
             Role::query()->insert([
-                'description' => $instance['description']
+                'description' => $value['description']
             ]);
-        endforeach;
+        }
     }
 }

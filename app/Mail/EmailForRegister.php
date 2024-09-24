@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 class EmailForRegister extends Mailable
 {
     use Queueable, SerializesModels;
+
     private int $id;
 
     public function __construct(int $id)

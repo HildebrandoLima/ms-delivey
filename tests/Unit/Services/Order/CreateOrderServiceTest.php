@@ -2,13 +2,11 @@
 
 namespace Tests\Unit\Services\Order;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Order\Interfaces\ICreateOrderRepository;
 use App\Domains\Services\Order\Concretes\CreateOrderService;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Jobs\EmailCreateOrderJob;
 use App\Jobs\InventoryManagementJob;
-use App\Models\Item;
-use App\Models\Pedido;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -16,8 +14,10 @@ use Tests\TestCase;
 class CreateOrderServiceTest extends TestCase
 {
     private CreateOrderRequest $request;
-    private IEntityRepository $orderRepository;
-    private array $data;
+    private ICreateOrderRepository $createOrderRepository;
+    private array $data = [];
+    private array $order = [];
+    private array $itens = [];
 
     protected function setUp(): void
     {
@@ -36,47 +36,52 @@ class CreateOrderServiceTest extends TestCase
         $this->request['usuarioId'] = $this->data['usuarioId'];
         $this->request['itens'] = $this->data['itens'];
 
-        $this->orderRepository = $this->mock(IEntityRepository::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('create')->with(Pedido::class)->andReturn(rand(10, 10));
-            $mock->shouldReceive('create')->with(Item::class)->andReturn(true);
+        $this->order = $this->order = [
+            'id' => $this->data['id'],
+            'quantidadeItens' => $this->data['quantidadeItens'],
+            'total' => $this->data['total'],
+            'tipoEntrega' => $this->data['tipoEntrega'],
+            'valorEntrega' => $this->data['valorEntrega'],
+            'usuarioId' => $this->data['usuarioId']
+        ];
+
+        $this->createOrderRepository = $this->mock(ICreateOrderRepository::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('create')
+                     ->with($this->request)
+                     ->andReturn($this->order);
         });
 
         // Act
         Queue::fake();
-        $createOrderService = new CreateOrderService($this->orderRepository);
-        $resultOrder = $createOrderService->createOrder($this->request);
-        $resultItems = $createOrderService->createItem($this->request, $resultOrder);
-        $mappedOrder = $createOrderService->mapOrder($this->request);
-        $mappedItems = $createOrderService->mapItem($this->request['itens'][0], $resultOrder);
-        $order = $this->request->toArray();
-        unset($order['itens']);
-        $itens = $this->request['itens'][0];
+        $createOrderService = new CreateOrderService($this->createOrderRepository);
+        $result = $createOrderService->create($this->request);
+        $this->itens = $this->request['itens'][0];
 
         // Assert
-        $this->assertIsInt($resultOrder);
-        $this->assertInstanceOf(Pedido::class, $mappedOrder);
+        $this->assertIsInt($result);
+        $this->assertEquals($this->order['id'], $result);
         $this->assertEquals($this->request['quantidadeItens'], $this->data['quantidadeItens']);
         $this->assertEquals($this->request['total'], $this->data['total']);
         $this->assertEquals($this->request['tipoEntrega'], $this->data['tipoEntrega']);
         $this->assertEquals($this->request['valorEntrega'], $this->data['valorEntrega']);
         $this->assertEquals($this->request['usuarioId'], $this->data['usuarioId']);
 
-        $this->assertTrue($resultItems);
-        $this->assertInstanceOf(Item::class, $mappedItems);
         $this->assertIsArray($this->request['itens']);
-        $this->assertEquals($itens['nome'], $this->data['itens'][0]['nome']);
-        $this->assertEquals($itens['preco'], $this->data['itens'][0]['preco']);
-        $this->assertEquals($itens['quantidadeItem'], $this->data['itens'][0]['quantidadeItem']);
-        $this->assertEquals($itens['subTotal'], $this->data['itens'][0]['subTotal']);
-        $this->assertEquals($itens['produtoId'], $this->data['itens'][0]['produtoId']);
+        $this->assertEquals($this->itens['nome'], $this->data['itens'][0]['nome']);
+        $this->assertEquals($this->itens['preco'], $this->data['itens'][0]['preco']);
+        $this->assertEquals($this->itens['quantidadeItem'], $this->data['itens'][0]['quantidadeItem']);
+        $this->assertEquals($this->itens['subTotal'], $this->data['itens'][0]['subTotal']);
+        $this->assertEquals($this->itens['produtoId'], $this->data['itens'][0]['produtoId']);
 
-        Queue::assertPushed(InventoryManagementJob::class, function ($items) {
-            return $items;
+        Queue::assertPushed(InventoryManagementJob::class,
+            function () {
+                return $this->itens;
         });
 
-        Queue::assertPushed(EmailCreateOrderJob::class, function ($items) use ($order) {
-            return $order and $items;
+        Queue::assertPushed(EmailCreateOrderJob::class,
+            function () {
+                return $this->order and $this->itens;
         });
     }
 }

@@ -6,7 +6,6 @@ use App\Exceptions\HttpBadRequest;
 use App\Exceptions\HttpConflict;
 use App\Exceptions\HttpNotFound;
 use App\Support\Utils\Messages\DefaultErrorMessages;
-use App\Support\Utils\Pagination\Pagination;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -20,18 +19,13 @@ abstract class BaseRequest extends FormRequest
         $errors = $this->getErrors($validator);
         $details = $this->getDetails($validator);
 
-        foreach ($this->createResponseError() as $response):
-            if ($response['condition']($errors)):
+        foreach ($this->createResponseError() as $response) {
+            if ($response['condition']($errors)) {
                 throw new HttpResponseException($response['response']::getResponse($errors, $details));
-            endif;
-        endforeach;
+            }
+        }
 
         throw new HttpResponseException(HttpBadRequest::getResponse($errors, $details));
-    }
-
-    public function hasPagination(Pagination $pagination): bool
-    {
-        return !empty($pagination->page) && !empty($pagination->perPage);
     }
 
     private function getErrors(Validator $validator): Collection
@@ -51,15 +45,15 @@ abstract class BaseRequest extends FormRequest
     private function mappedRules(): Collection
     {
         return collect($this->rules())->map(function ($rule) {
-            if (gettype($rule) !== 'array'):
+            if (gettype($rule) !== 'array') {
                 return explode( '|', $rule);
-            endif;
+            }
 
-            foreach ($rule as $i => $subRule):
-                if (gettype($subRule) === 'object'):
+            foreach ($rule as $i => $subRule) {
+                if (gettype($subRule) === 'object') {
                     $rule[$i] = get_class($subRule);
-                endif;
-            endforeach;
+                }
+            }
             return $rule;
         });
     }

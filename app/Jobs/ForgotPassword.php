@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\EmailForgotPassword;
+use App\Models\PasswordReset;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,19 +17,34 @@ use Exception;
 class ForgotPassword implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    private array $data;
+    private PasswordReset $data;
+    private string $email = '';
 
-    public function __construct(array $data)
+    public function __construct(string $email)
     {
-        $this->data = $data;
+        $this->email = $email;
     }
 
     public function handle(): void
     {
         try {
-            Mail::to($this->data['email'])->send(new EmailForgotPassword($this->data));
+            $this->getDataUser();
+            $this->sendEmail();
         } catch (Exception $e) {
             Log::error($e->getMessage());
+        }
+    }
+
+    private function getDataUser(): void
+    {
+        $this->data = PasswordReset::query()->where('email', $this->email)->first();
+    }
+
+    private function sendEmail(): void
+    {
+        if ($this->data) {
+            Mail::to($this->email)
+            ->send(new EmailForgotPassword($this->data->toArray()));
         }
     }
 }

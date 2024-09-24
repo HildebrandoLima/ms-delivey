@@ -2,59 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Product\Abstracts\ICreateProductService;
-use App\Domains\Services\Product\Abstracts\IEditProductService;
-use App\Domains\Services\Product\Abstracts\IListProductService;
+use App\Domains\Services\Product\Interfaces\ICreateProductService;
+use App\Domains\Services\Product\Interfaces\IListAllProductService;
+use App\Domains\Services\Product\Interfaces\IListFindByIdProductService;
+use App\Domains\Services\Product\Interfaces\IUpdateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
-use App\Http\Requests\Product\EditProductRequest;
-use App\Http\Requests\Product\ParamsProductRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\FilterByActive;
-use App\Support\Utils\Params\Search;
+use App\Http\Requests\Product\ListAllProductRequest;
+use App\Http\Requests\Product\ListFindByIdProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
 class ProductController extends Controller
 {
     private ICreateProductService $createProductService;
-    private IEditProductService   $editProductService;
-    private IListProductService   $listProductService;
+    private IListAllProductService $listAllProductService;
+    private IListFindByIdProductService $listFindByIdProductService;
+    private IUpdateProductService $updateProductService;
 
     public function __construct
     (
-        ICreateProductService $createProductService,
-        IEditProductService   $editProductService,
-        IListProductService   $listProductService
+        ICreateProductService       $createProductService,
+        IListAllProductService      $listAllProductService,
+        IListFindByIdProductService $listFindByIdProductService,
+        IUpdateProductService       $updateProductService
     )
     {
-        $this->createProductService = $createProductService;
-        $this->editProductService   = $editProductService;
-        $this->listProductService   = $listProductService;
+        $this->createProductService       = $createProductService;
+        $this->listAllProductService      = $listAllProductService;
+        $this->listFindByIdProductService = $listFindByIdProductService;
+        $this->updateProductService       = $updateProductService;
     }
 
-    public function index(Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(ListAllProductRequest $request): Response
     {
         try {
-            $success = $this->listProductService->listProductAll
-            (
-                $pagination,
-                $search->search(request()),
-                $filter->active
-            );
+            $success = $this->listAllProductService->listAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function show(ParamsProductRequest $request, FilterByActive $filter): Response
+    public function show(ListFindByIdProductRequest $request): Response
     {
         try {
-            $success = $this->listProductService->listProductFind
-            (
-                $request->id,
-                $filter->active
-            );
+            $success = $this->listFindByIdProductService->listFindById($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -64,17 +57,17 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request): Response
     {
         try {
-            $success = $this->createProductService->createProduct($request);
+            $success = $this->createProductService->create($request);
             return Controller::post($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function update(EditProductRequest $request): Response
+    public function update(UpdateProductRequest $request): Response
     {
         try {
-            $success = $this->editProductService->editProduct($request);
+            $success = $this->updateProductService->update($request);
             return Controller::put($success);
         } catch (Exception $e) {
             return Controller::error($e);

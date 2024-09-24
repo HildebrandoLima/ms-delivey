@@ -2,11 +2,10 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\User\Interfaces\ICreateUserRepository;
 use App\Domains\Services\User\Concretes\CreateUserService;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Jobs\EmailForRegisterJob;
-use App\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -14,8 +13,8 @@ use Tests\TestCase;
 class CreateUserServiceTest extends TestCase
 {
     private CreateUserRequest $request;
-    private IEntityRepository $userRepository;
-    private array $data;
+    private ICreateUserRepository $createUserRepository;
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -35,20 +34,20 @@ class CreateUserServiceTest extends TestCase
         $this->request['genero'] = $this->data['genero'];
         $this->request['perfil'] = $this->data['perfil'];
 
-        $this->userRepository = $this->mock(IEntityRepository::class,
+        $this->createUserRepository = $this->mock(ICreateUserRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('create')->with(User::class)->andReturn(true);
+                $mock->shouldReceive('create')
+                     ->with($this->request)
+                     ->andReturn(true);
         });
 
         // Act
         Queue::fake();
-        $createUserService = new CreateUserService($this->userRepository);
-        $resultUser = $createUserService->createUser($this->request);
-        $mappedUser = $createUserService->mapUser($this->request);
+        $createUserService = new CreateUserService($this->createUserRepository);
+        $result = $createUserService->create($this->request);
 
         // Assert
-        $this->assertIsInt($resultUser);
-        $this->assertInstanceOf(User::class, $mappedUser);
+        $this->assertIsInt($result);
         $this->assertEquals($this->request['nome'], $this->data['nome']);
         $this->assertEquals($this->request['cpf'], $this->data['cpf']);
         $this->assertEquals($this->request['email'], $this->data['email']);
@@ -57,8 +56,9 @@ class CreateUserServiceTest extends TestCase
         $this->assertEquals($this->request['genero'], $this->data['genero']);
         $this->assertEquals($this->request['perfil'], $this->data['perfil']);
 
-        Queue::assertPushed(EmailForRegisterJob::class, function ($user) {
-            return $user;
+        Queue::assertPushed(EmailForRegisterJob::class,
+            function ($user) {
+                return $user;
         });
     }
 }

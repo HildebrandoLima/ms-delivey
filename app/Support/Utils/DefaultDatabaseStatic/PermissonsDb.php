@@ -6,61 +6,61 @@ class PermissonsDb
 {
     public const PEMISSONS = [
         [
-            'description' => 'CRIAR CATEGORIA'
+            'description' => 'CRIAR_CATEGORIA'
         ],
         [
-            'description' => 'CRIAR FORNECEDOR'
+            'description' => 'CRIAR_FORNECEDOR'
         ],
         [
-            'description' => 'CRIAR PAGAMENTO'
+            'description' => 'CRIAR_PAGAMENTO'
         ],
         [
-            'description' => 'CRIAR PEDIDO'
+            'description' => 'CRIAR_PEDIDO'
         ],
         [
-            'description' => 'CRIAR PRODUTO'
+            'description' => 'CRIAR_PRODUTO'
         ],
         [
-            'description' => 'EDITAR CATEGORIA'
+            'description' => 'EDITAR_CATEGORIA'
         ],
         [
-            'description' => 'EDITAR ENDERECO'
+            'description' => 'EDITAR_ENDERECO'
         ],
         [
-            'description' => 'EDITAR FORNECEDOR'
+            'description' => 'EDITAR_FORNECEDOR'
         ],
         [
-            'description' => 'EDITAR PRODUTO'
+            'description' => 'EDITAR_PRODUTO'
         ],
         [
-            'description' => 'EDITAR TELEFONE'
+            'description' => 'EDITAR_TELEFONE'
         ],
         [
-            'description' => 'EDITAR USUARIO'
+            'description' => 'EDITAR_USUARIO'
         ],
         [
-            'description' => 'LISTAR CATEGORIAS'
+            'description' => 'LISTAR_CATEGORIAS'
         ],
         [
-            'description' => 'LISTAR FORNECEDORES'
+            'description' => 'LISTAR_FORNECEDORES'
         ],
         [
-            'description' => 'LISTAR PEDIDOS'
+            'description' => 'LISTAR_PEDIDOS'
         ],
         [
-            'description' => 'LISTAR USUARIOS'
+            'description' => 'LISTAR_USUARIOS'
         ],
         [
-            'description' => 'LISTAR DETALHES DA CATEGORIA'
+            'description' => 'LISTAR_DETALHES_CATEGORIA'
         ],
         [
-            'description' => 'LISTAR DETALHES DO FORNECEDOR'
+            'description' => 'LISTAR_DETALHES_FORNECEDOR'
         ],
         [
-            'description' => 'LISTAR DETALHES DO PEDIDO'
+            'description' => 'LISTAR_DETALHES_PEDIDO'
         ],
         [
-            'description' => 'LISTAR DETALHES DO USUARIO'
+            'description' => 'LISTAR_DETALHES_USUARIO'
         ]
     ];
 }

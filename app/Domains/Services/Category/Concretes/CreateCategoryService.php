@@ -2,32 +2,29 @@
 
 namespace App\Domains\Services\Category\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
+use App\Data\Repositories\Category\Interfaces\ICreateCategoryRepository;
+use App\Domains\Services\Category\Interfaces\ICreateCategoryService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Models\Categoria;
-use App\Support\Enums\ActiveEnum;
 
 class CreateCategoryService implements ICreateCategoryService
 {
-    private IEntityRepository $categoryRepository;
+    use RequestConfigurator;
+    private ICreateCategoryRepository $createCategoryRepository;
 
-    public function __construct(IEntityRepository $categoryRepository)
+    public function __construct(ICreateCategoryRepository $createCategoryRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->createCategoryRepository = $createCategoryRepository;
     }
 
-    public function createCategory(CreateCategoryRequest $request): bool
+    public function create(CreateCategoryRequest $request): bool
     {
-        $category = $this->map($request);
-        return $this->categoryRepository->create($category);
+        $this->setRequest($request);
+        return $this->created();
     }
 
-    public function map(CreateCategoryRequest $request): Categoria
+    private function created(): bool
     {
-        $category = new Categoria();
-        $category->nome = $request->nome;
-        $category->ativo = ActiveEnum::ATIVADO;
-        return $category;
+        return $this->createCategoryRepository->create($this->request);
     }
 }

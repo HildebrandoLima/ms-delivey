@@ -2,38 +2,32 @@
 
 namespace App\Domains\Services\Telephone\Concretes;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\Telephone\Abstracts\ICreateTelephoneService;
+use App\Data\Repositories\Telephone\Interfaces\ICreateTelephoneRepository;
+use App\Domains\Services\Telephone\Interfaces\ICreateTelephoneService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
-use App\Models\Telefone;
-use App\Support\Enums\ActiveEnum;
 
 class CreateTelephoneService implements ICreateTelephoneService
 {
-    private IEntityRepository $telephoneRepository;
+    use RequestConfigurator;
+    private ICreateTelephoneRepository $createTelephoneRepository;
 
-    public function __construct(IEntityRepository $telephoneRepository)
+    public function __construct(ICreateTelephoneRepository $createTelephoneRepository)
     {
-        $this->telephoneRepository = $telephoneRepository;
+        $this->createTelephoneRepository = $createTelephoneRepository;
     }
 
-    public function createTelephone(CreateTelephoneRequest $request): bool
+    public function create(CreateTelephoneRequest $request): bool
     {
-        foreach ($request->all() as $telefone):
-            $telephone = $this->map($telefone);
-            $this->telephoneRepository->create($telephone);
-        endforeach;
+        $this->setRequest($request);
+        $this->created();
         return true;
     }
 
-    public function map(array $telefone): Telefone
+    private function created(): void
     {
-        $telephone = new Telefone();
-        $telephone->numero = $telefone['numero'];
-        $telephone->tipo = $telefone['tipo'];
-        $telephone->usuario_id = $telefone['usuarioId'] ?? null;
-        $telephone->fornecedor_id = $telefone['fornecedorId'] ?? null;
-        $telephone->ativo = ActiveEnum::ATIVADO;
-        return $telephone;
+        foreach ($this->request->all() as $telephone) {
+            $this->createTelephoneRepository->create($telephone);
+        }
     }
 }

@@ -2,44 +2,43 @@
 
 namespace App\Domains\Services\Auth\Concretes;
 
-use App\Data\Repositories\Abstracts\IAuthRepository;
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
+use App\Data\Repositories\Auth\Interfaces\IAuthResetRepository;
+use App\Data\Repositories\Auth\Interfaces\IRefreshPasswordRepository;
+use App\Domains\Services\Auth\Interfaces\IRefreshPasswordService;
+use App\Domains\Traits\RequestConfigurator;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class RefreshPasswordService implements IRefreshPasswordService
 {
-    private IAuthRepository   $authRepository;
-    private IEntityRepository $entityRepository;
+    use RequestConfigurator;
+    private IAuthResetRepository       $authResetRepository;
+    private IRefreshPasswordRepository $refreshPasswordRepository;
+    private int $userId = 0;
 
     public function __construct
     (
-        IAuthRepository   $authRepository,
-        IEntityRepository $entityRepository
+        IAuthResetRepository          $authResetRepository,
+        IRefreshPasswordRepository    $refreshPasswordRepository
     )
     {
-        $this->authRepository = $authRepository;
-        $this->entityRepository = $entityRepository;
+        $this->authResetRepository       = $authResetRepository;
+        $this->refreshPasswordRepository = $refreshPasswordRepository;
     }
 
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
-        $userId = $this->authRepository->readCode($request->codigo);
-        $user = $this->map($userId, $request->senha);
-        if ($this->entityRepository->update($user) and $this->authRepository->delete($request->codigo)):
-            return true;
-        else:
-            return false;
-        endif;
+        $this->setRequest($request);
+        $this->userId();
+        return $this->updated();
     }
 
-    private function map(int $userId, string $senha): User
+    private function userId(): void
     {
-        $user = new User();
-        $user->id = $userId;
-        $user->password = Hash::make($senha);
-        return $user;
+        $this->userId = $this->authResetRepository->readCode($this->request->codigo);
+    }
+
+    private function updated(): bool
+    {
+        return ($this->refreshPasswordRepository->update($this->userId, $this->request->senha) && $this->authResetRepository->delete($this->request->codigo)) ? true : false;
     }
 }

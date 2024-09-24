@@ -2,64 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\User\Abstracts\ICreateUserService;
-use App\Domains\Services\User\Abstracts\IEditUserService;
-use App\Domains\Services\User\Abstracts\IEmailUserVerifiedAtService;
-use App\Domains\Services\User\Abstracts\IListUserService;
+use App\Domains\Services\User\Concretes\ListFindByIdUserService;
+use App\Domains\Services\User\Interfaces\ICreateUserService;
+use App\Domains\Services\User\Interfaces\IEmailUserVerifiedAtService;
+use App\Domains\Services\User\Interfaces\IListAllUserService;
+use App\Domains\Services\User\Interfaces\IUpdateUserService;
 use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\EditUserRequest;
-use App\Http\Requests\User\ParamsUserRequest;
-use App\Http\Requests\User\PermissonUserRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\FilterByActive;
-use App\Support\Utils\Params\Search;
+use App\Http\Requests\User\ListAllUserRequest;
+use App\Http\Requests\User\ListFindByIdUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
 class UserController extends Controller
 {
     private ICreateUserService          $createUserService;
-    private IEditUserService            $editUserService;
-    private IListUserService            $listUserService;
     private IEmailUserVerifiedAtService $emailUserVerifiedAtService;
+    private IListAllUserService         $listAllUserService;
+    private ListFindByIdUserService     $listFindByIdUserService;
+    private IUpdateUserService          $updateUserService;
 
     public function __construct
     (
         ICreateUserService          $createUserService,
-        IEditUserService            $editUserService,
-        IListUserService            $listUserService,
-        IEmailUserVerifiedAtService $emailUserVerifiedAtService
+        IEmailUserVerifiedAtService $emailUserVerifiedAtService,
+        IListAllUserService         $listAllUserService,
+        ListFindByIdUserService     $listFindByIdUserService,
+        IUpdateUserService          $updateUserService
     )
     {
-        $this->createUserService          =   $createUserService;
-        $this->editUserService            =   $editUserService;
-        $this->listUserService            =   $listUserService;
-        $this->emailUserVerifiedAtService =   $emailUserVerifiedAtService;
+        $this->createUserService          = $createUserService;
+        $this->emailUserVerifiedAtService = $emailUserVerifiedAtService;
+        $this->listAllUserService         = $listAllUserService;
+        $this->listFindByIdUserService    = $listFindByIdUserService;
+        $this->updateUserService          = $updateUserService;
     }
 
-    public function index(PermissonUserRequest $request, Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(ListAllUserRequest $request): Response
     {
         try {
-            $success = $this->listUserService->listUserAll
-            (
-                $pagination,
-                $search->search(request()),
-                $filter->active
-            );
+            $success = $this->listAllUserService->listAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function show(ParamsUserRequest $request, FilterByActive $filter): Response
+    public function show(ListFindByIdUserRequest $request): Response
     {
         try {
-            $success = $this->listUserService->listUserFind
-            (
-                $request->id,
-                $filter->active
-            );
+            $success = $this->listFindByIdUserService->listFindById($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -69,17 +61,17 @@ class UserController extends Controller
     public function store(CreateUserRequest $request): Response
     {
         try {
-            $success = $this->createUserService->createUser($request);
+            $success = $this->createUserService->create($request);
             return Controller::post($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function update(EditUserRequest $request): Response
+    public function update(UpdateUserRequest $request): Response
     {
         try {
-            $success = $this->editUserService->editUser($request);
+            $success = $this->updateUserService->update($request);
             return Controller::put($success);
         } catch (Exception $e) {
             return Controller::error($e);

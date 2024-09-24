@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Auth\Abstracts\IForgotPasswordService;
-use App\Domains\Services\Auth\Abstracts\ILoginService;
-use App\Domains\Services\Auth\Abstracts\ILogoutService;
-use App\Domains\Services\Auth\Abstracts\IRefreshPasswordService;
+use App\Domains\Services\Auth\Interfaces\IForgotPasswordService;
+use App\Domains\Services\Auth\Interfaces\ILoginService;
+use App\Domains\Services\Auth\Interfaces\ILogoutService;
+use App\Domains\Services\Auth\Interfaces\IRefreshPasswordService;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RefreshPasswordRequest;

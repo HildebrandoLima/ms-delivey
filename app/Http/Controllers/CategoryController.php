@@ -2,69 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Domains\Services\Category\Abstracts\ICreateCategoryService;
-use App\Domains\Services\Category\Abstracts\IEditCategoryService;
-use App\Domains\Services\Category\Abstracts\IListCategoryService;
+use App\Domains\Services\Category\Interfaces\ICreateCategoryService;
+use App\Domains\Services\Category\Interfaces\IListAllCategoryService;
+use App\Domains\Services\Category\Interfaces\IListFindByIdCategoryService;
+use App\Domains\Services\Category\Interfaces\IUpdateCategoryService;
+use App\Http\Requests\Category\ListFindByIdCategoryRequest;
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Requests\Category\EditCategoryRequest;
-use App\Http\Requests\Category\ParamsCategoryRequest;
-use App\Support\Utils\Pagination\Pagination;
-use App\Support\Utils\Params\FilterByActive;
-use App\Support\Utils\Params\Search;
+use App\Http\Requests\Category\ListAllCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
 class CategoryController extends Controller
 {
-    private ICreateCategoryService $createCategoryService;
-    private IEditCategoryService   $editCategoryService;
-    private IListCategoryService   $listCategoryService;
+    private ICreateCategoryService       $createCategoryService;
+    private IListAllCategoryService      $listAllCategoryService;
+    private IListFindByIdCategoryService $listFindByIdCategoryService;
+    private IUpdateCategoryService       $updateCategoryService;
 
     public function __construct
     (
-        ICreateCategoryService $createCategoryService,
-        IEditCategoryService   $editCategoryService,
-        IListCategoryService   $listCategoryService
+        ICreateCategoryService       $createCategoryService,
+        IListAllCategoryService      $listAllCategoryService,
+        IListFindByIdCategoryService $listFindByIdCategoryService,
+        IUpdateCategoryService       $updateCategoryService
     )
     {
-        $this->createCategoryService = $createCategoryService;
-        $this->editCategoryService   = $editCategoryService;
-        $this->listCategoryService   = $listCategoryService;
+        $this->createCategoryService       = $createCategoryService;
+        $this->listAllCategoryService      = $listAllCategoryService;
+        $this->listFindByIdCategoryService = $listFindByIdCategoryService;
+        $this->updateCategoryService       = $updateCategoryService;
     }
 
-    public function index(Pagination $pagination, Search $search, FilterByActive $filter): Response
+    public function index(ListAllCategoryRequest $request): Response
     {
         try {
-            $success = $this->listCategoryService->listCategoryAll
-            (
-                $pagination,
-                $search->search(request()),
-                $filter->active
-            );
+            $success = $this->listAllCategoryService->listAll($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function show(ParamsCategoryRequest $request, FilterByActive $filter): Response
+    public function show(ListFindByIdCategoryRequest $request): Response
     {
         try {
-            $success = $this->listCategoryService->listCategoryFind
-            (
-                $request->id,
-                $filter->active
-            );
+            $success = $this->listFindByIdCategoryService->listFindById($request);
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);
         }
     }
 
-    public function update(EditCategoryRequest $request): Response
+    public function update(UpdateCategoryRequest $request): Response
     {
         try {
-            $success = $this->editCategoryService->editCategory($request);
+            $success = $this->updateCategoryService->update($request);
             return Controller::put($success);
         } catch (Exception $e) {
             return Controller::error($e);
@@ -74,7 +67,7 @@ class CategoryController extends Controller
     public function store(CreateCategoryRequest $request): Response
     {
         try {
-            $success = $this->createCategoryService->createCategory($request);
+            $success = $this->createCategoryService->create($request);
             return Controller::post($success);
         } catch (Exception $e) {
             return Controller::error($e);

@@ -13,7 +13,7 @@ class CreateCategoryRequest extends BaseRequest
 
     public function authorize(): bool
     {
-        return $this->validationPermission(PermissionEnum::CRIAR_CATEGORIA);
+        return $this->hasPermission(PermissionEnum::CRIAR_CATEGORIA);
     }
 
     public function rules(): array
