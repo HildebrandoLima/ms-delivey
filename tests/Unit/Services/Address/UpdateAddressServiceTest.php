@@ -2,18 +2,17 @@
 
 namespace Tests\Unit\Services\Address;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
-use App\Domains\Services\Address\Concretes\EditAddressService;
-use App\Http\Requests\Address\EditAddressRequest;
-use App\Models\Endereco;
+use App\Data\Repositories\Address\Interfaces\IUpdateAddressRepository;
+use App\Domains\Services\Address\Concretes\UpdateAddressService;
+use App\Http\Requests\Address\UpdateAddressRequest;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-class EditAddressServiceTest extends TestCase
+class UpdateAddressServiceTest extends TestCase
 {
-    private EditAddressRequest $request;
-    private IEntityRepository $addressRepository;
-    private array $data;
+    private UpdateAddressRequest $request;
+    private IUpdateAddressRepository $updateAddressRepository;
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -24,7 +23,7 @@ class EditAddressServiceTest extends TestCase
     public function test_success_edit_address__with_params_user_id_service(): void
     {
         // Arrange
-        $this->request = new EditAddressRequest();
+        $this->request = new UpdateAddressRequest();
         $this->request['id'] = $this->data['id'];
         $this->request['logradouro'] = $this->data['logradouro'];
         $this->request['numero'] = $this->data['numero'];
@@ -35,19 +34,19 @@ class EditAddressServiceTest extends TestCase
         $this->request['usuarioId'] = $this->data['usuarioId'];
         $this->request['ativo'] = $this->data['ativo'];
 
-        $this->addressRepository = $this->mock(IEntityRepository::class,
+        $this->updateAddressRepository = $this->mock(IUpdateAddressRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with(Endereco::class)->andReturn(true);
+                $mock->shouldReceive('update')
+                     ->with($this->request)
+                     ->andReturn(true);
         });
 
         // Act
-        $editAddressService = new EditAddressService($this->addressRepository);
-        $result = $editAddressService->editAddress($this->request);
-        $mappedAddress = $editAddressService->map($this->request);
+        $editAddressService = new UpdateAddressService($this->updateAddressRepository);
+        $result = $editAddressService->update($this->request);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Endereco::class, $mappedAddress);
         $this->assertEquals($this->request['id'], $this->data['id']);
         $this->assertEquals($this->request['logradouro'], $this->data['logradouro']);
         $this->assertEquals($this->request['numero'], $this->data['numero']);
@@ -61,7 +60,7 @@ class EditAddressServiceTest extends TestCase
     public function test_success_edit_address__with_params_provider_id_service(): void
     {
         // Arrange
-        $this->request = new EditAddressRequest();
+        $this->request = new UpdateAddressRequest();
         $this->request['id'] = $this->data['id'];
         $this->request['logradouro'] = $this->data['logradouro'];
         $this->request['numero'] = $this->data['numero'];
@@ -72,19 +71,19 @@ class EditAddressServiceTest extends TestCase
         $this->request['fornecedorId'] = $this->data['fornecedorId'];
         $this->request['ativo'] = $this->data['ativo'];
 
-        $this->addressRepository = $this->mock(IEntityRepository::class,
+        $this->updateAddressRepository = $this->mock(IUpdateAddressRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with(Endereco::class)->andReturn(true);
+                $mock->shouldReceive('update')
+                     ->with($this->request)
+                     ->andReturn(true);
         });
 
         // Act
-        $editAddressService = new EditAddressService($this->addressRepository);
-        $result = $editAddressService->editAddress($this->request);
-        $mappedAddress = $editAddressService->map($this->request);
+        $editAddressService = new UpdateAddressService($this->updateAddressRepository);
+        $result = $editAddressService->update($this->request);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Endereco::class, $mappedAddress);
         $this->assertEquals($this->request['id'], $this->data['id']);
         $this->assertEquals($this->request['logradouro'], $this->data['logradouro']);
         $this->assertEquals($this->request['numero'], $this->data['numero']);

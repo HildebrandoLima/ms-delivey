@@ -2,18 +2,18 @@
 
 namespace Tests\Unit\Services\Telephone;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Telephone\Interfaces\ICreateTelephoneRepository;
 use App\Domains\Services\Telephone\Concretes\CreateTelephoneService;
 use App\Http\Requests\Telephone\CreateTelephoneRequest;
-use App\Models\Telefone;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CreateTelephoneServiceTest extends TestCase
 {
     private CreateTelephoneRequest $request;
-    private IEntityRepository $telephoneRepository;
-    private array $data;
+    private ICreateTelephoneRepository $createTelephoneRepository;
+    private array $phone = [];
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -25,20 +25,32 @@ class CreateTelephoneServiceTest extends TestCase
     {
         // Arrange
         $this->request = new CreateTelephoneRequest($this->data);
+        $this->phone = [
+            'ddd' => $this->data[0]['ddd'],
+            'numero' => $this->data[0]['numero'],
+            'tipo' => $this->data[0]['tipo'],
+            'usuarioId' => $this->data[0]['usuarioId']
+        ];
 
-        $this->telephoneRepository = $this->mock(IEntityRepository::class,
+        $this->createTelephoneRepository = $this->mock(ICreateTelephoneRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('create')->with(Telefone::class)->andReturn(true);
+                $mock->shouldReceive('create')
+                     ->withArgs(function() {
+                        return
+                            isset($this->phone['ddd']) &&
+                            isset($this->phone['tipo']) &&
+                            isset($this->phone['numero']) &&
+                            isset($this->phone['usuarioId']);
+                    })
+                    ->andReturn(true);
         });
 
         // Act
-        $createTelephoneService = new CreateTelephoneService($this->telephoneRepository);
-        $result = $createTelephoneService->createTelephone($this->request);
-        $mappedTelephone = $createTelephoneService->map($this->request[0]);
+        $createTelephoneService = new CreateTelephoneService($this->createTelephoneRepository);
+        $result = $createTelephoneService->create($this->request);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
         $this->assertEquals($this->request[0]['ddd'],  $this->data[0]['ddd']);
         $this->assertEquals($this->request[0]['numero'], $this->data[0]['numero']);
         $this->assertEquals($this->request[0]['tipo'], $this->data[0]['tipo']);
@@ -49,20 +61,32 @@ class CreateTelephoneServiceTest extends TestCase
     {
         // Arrange
         $this->request = new CreateTelephoneRequest($this->data);
+        $this->phone = [
+            'ddd' => $this->data[0]['ddd'],
+            'numero' => $this->data[0]['numero'],
+            'tipo' => $this->data[0]['tipo'],
+            'fornecedorId' => $this->data[0]['fornecedorId']
+        ];
 
-        $this->telephoneRepository = $this->mock(IEntityRepository::class,
+        $this->createTelephoneRepository = $this->mock(ICreateTelephoneRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('create')->with(Telefone::class)->andReturn(true);
+                $mock->shouldReceive('create')
+                     ->withArgs(function() {
+                        return
+                            isset($this->phone['ddd']) &&
+                            isset($this->phone['tipo']) &&
+                            isset($this->phone['numero']) &&
+                            isset($this->phone['fornecedorId']);
+                    })
+                    ->andReturn(true);
         });
 
         // Act
-        $createTelephoneService = new CreateTelephoneService($this->telephoneRepository);
-        $result = $createTelephoneService->createTelephone($this->request);
-        $mappedTelephone = $createTelephoneService->map($this->request[0]);
+        $createTelephoneService = new CreateTelephoneService($this->createTelephoneRepository);
+        $result = $createTelephoneService->create($this->request);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Telefone::class, $mappedTelephone);
         $this->assertEquals($this->request[0]['ddd'], $this->data[0]['ddd']);
         $this->assertEquals($this->request[0]['numero'], $this->data[0]['numero']);
         $this->assertEquals($this->request[0]['tipo'], $this->data[0]['tipo']);

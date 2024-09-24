@@ -2,20 +2,18 @@
 
 namespace Tests\Unit\Services\Product;
 
-use App\Data\Repositories\Product\Interfaces\ICreateProductRepository;
-use App\Domains\Services\Product\Concretes\CreateProductService;
-use App\Http\Requests\Product\CreateProductRequest;
-use Illuminate\Http\UploadedFile;
+use App\Data\Repositories\Product\Interfaces\IUpdateProductRepository;
+use App\Domains\Services\Product\Concretes\UpdateProductService;
+use App\Http\Requests\Product\UpdateProductRequest;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-class CreateProductServiceTest extends TestCase
+class UpdateProductServiceTest extends TestCase
 {
-    private CreateProductRequest $request;
-    private ICreateProductRepository $createProductRepository;
-    private array $product = [];
-    private array $images = [];
+    private UpdateProductRequest $request;
+    private IUpdateProductRepository $updateProductRepository;
     private array $data = [];
+    private array $product = [];
 
     protected function setUp(): void
     {
@@ -23,14 +21,11 @@ class CreateProductServiceTest extends TestCase
         $this->data = $this->setDataProduct();
     }
 
-    public function test_success_create_product_service(): void
+    public function test_success_edit_product_service(): void
     {
         // Arrange
-        $this->images = [
-            UploadedFile::fake()->image('testing1.png'),
-            UploadedFile::fake()->image('testing2.png')
-        ];
-        $this->request = new CreateProductRequest();
+        $this->request = new UpdateProductRequest();
+        $this->request['id'] = $this->data['id'];
         $this->request['nome'] = $this->data['nome'];
         $this->request['precoCusto'] = $this->data['precoCusto'];
         $this->request['precoVenda'] = $this->data['precoVenda'];
@@ -41,7 +36,7 @@ class CreateProductServiceTest extends TestCase
         $this->request['dataValidade'] = $this->data['dataValidade'];
         $this->request['categoriaId'] = $this->data['categoriaId'];
         $this->request['fornecedorId'] = $this->data['fornecedorId'];
-        $this->request['imagens'] = $this->images;
+        $this->request['ativo'] = $this->data['ativo'];
 
         $this->product = [
             'nome' => $this->data['nome'],
@@ -54,14 +49,12 @@ class CreateProductServiceTest extends TestCase
             'unidadeMedida' => $this->data['unidadeMedida'],
             'dataValidade' => $this->data['dataValidade'],
             'categoriaId' => $this->data['categoriaId'],
-            'fornecedorId' => $this->data['fornecedorId'],
-            'directory' => 'images/' . strtolower(str_replace(' ', '_', $this->data['nome'])),
-            'imagens' => $this->images
+            'fornecedorId' => $this->data['fornecedorId']
         ];
-
-        $this->createProductRepository = $this->mock(ICreateProductRepository::class,
+    
+        $this->updateProductRepository = $this->mock(IUpdateProductRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('create')
+                $mock->shouldReceive('update')
                      ->withArgs(function() {
                         return
                             isset($this->product['nome']) &&
@@ -73,22 +66,18 @@ class CreateProductServiceTest extends TestCase
                             isset($this->product['unidadeMedida']) &&
                             isset($this->product['dataValidade']) &&
                             isset($this->product['categoriaId']) &&
-                            isset($this->product['fornecedorId']) &&
-                            isset($this->product['directory']) &&
-                            isset($this->product['imagens']);
+                            isset($this->product['fornecedorId']);
                     })
                      ->andReturn(true);
         });
 
         // Act
-        $createProductService = new CreateProductService($this->createProductRepository);
-        $result = $createProductService->create($this->request);
+        $updateProductSerice = new UpdateProductService($this->updateProductRepository);
+        $result = $updateProductSerice->update($this->request);
 
         // Assert
-        foreach ($this->images as $image) {
-            $this->assertFileExists($image->getPathname());
-        }
         $this->assertTrue($result);
+        $this->assertEquals($this->request['id'], $this->data['id']);
         $this->assertEquals($this->request['nome'], $this->data['nome']);
         $this->assertEquals($this->request['precoCusto'], $this->data['precoCusto']);
         $this->assertEquals($this->request['precoVenda'], $this->data['precoVenda']);
@@ -99,7 +88,6 @@ class CreateProductServiceTest extends TestCase
         $this->assertEquals($this->request['dataValidade'], $this->data['dataValidade']);
         $this->assertEquals($this->request['categoriaId'], $this->data['categoriaId']);
         $this->assertEquals($this->request['fornecedorId'], $this->data['fornecedorId']);
-        $this->assertFileEquals($this->request['imagens'][0], $this->images[0]);
-        $this->assertFileEquals($this->request['imagens'][1], $this->images[1]);
+        $this->assertEquals($this->request['ativo'], $this->data['ativo']);
     }
 }

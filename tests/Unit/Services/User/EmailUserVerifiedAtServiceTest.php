@@ -2,15 +2,14 @@
 
 namespace Tests\Unit\Services\User;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\User\Interfaces\IEmailUserVerifiedAtRepository;
 use App\Domains\Services\User\Concretes\EmailUserVerifiedAtService;
-use App\Models\User;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class EmailUserVerifiedAtServiceTest extends TestCase
 {
-    private IEntityRepository $userRepository;
+    private IEmailUserVerifiedAtRepository $emailUserVerifiedAtRepository;
 
     protected function setUp(): void
     {
@@ -22,18 +21,18 @@ class EmailUserVerifiedAtServiceTest extends TestCase
         // Arrange
         $id = rand(0, 100);
 
-        $this->userRepository = $this->mock(IEntityRepository::class,
-            function (MockInterface $mock) {
-                $mock->shouldReceive('update')->with(User::class)->andReturn(true);
+        $this->emailUserVerifiedAtRepository = $this->mock(IEmailUserVerifiedAtRepository::class,
+            function (MockInterface $mock) use ($id) {
+                $mock->shouldReceive('emailVerifiedAt')
+                     ->with($id)
+                     ->andReturn(true);
         });
 
         // Act
-        $emailUserVerifiedAtService = new EmailUserVerifiedAtService($this->userRepository);
+        $emailUserVerifiedAtService = new EmailUserVerifiedAtService($this->emailUserVerifiedAtRepository);
         $result = $emailUserVerifiedAtService->emailVerifiedAt($id);
-        $mappedUser = $emailUserVerifiedAtService->map($id);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(User::class, $mappedUser);
     }
 }

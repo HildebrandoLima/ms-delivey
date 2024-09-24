@@ -8,19 +8,23 @@ use App\Domains\Traits\GenerateData\GenerateEmail;
 use App\Domains\Traits\GenerateData\GeneratePassword;
 use App\Models\User;
 use App\Support\Enums\RoleEnum;
-use App\Support\Utils\Pagination\PaginationList;
+use App\Support\Utils\Pagination\Concrete\PaginatedList;
+use App\Support\Utils\Pagination\Interface\IPagination;
+use App\Support\Utils\Params\Interface\ISearch;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Mockery\MockInterface;
 use DateTime;
-use Mockery;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use GenerateCNPJ, GenerateCPF, GenerateEmail, GeneratePassword;
+    private IPagination $pagination;
+    private ISearch $search;
     private array $data;
 
     public function bearerTokenInvalid(): string
@@ -30,11 +34,11 @@ abstract class TestCase extends BaseTestCase
 
     public function authenticate(int $perfil): Collection
     {
-        if ($perfil === 1):
+        if ($perfil === 1) {
             $credentials = $this->authenticateAdmin();
-        else:
+        } else {
             $credentials = $this->authenticateCliente();
-        endif;
+        }
 
         $auth = auth()->attempt($credentials);
         $user = auth()->user();
@@ -48,6 +52,7 @@ abstract class TestCase extends BaseTestCase
             'permissions' => $user->permissions->map(function ($permission) {
                 return $permission->description;
             }),
+            //$user->permissions->pluck('description')
         ]);
     }
 
@@ -87,44 +92,68 @@ abstract class TestCase extends BaseTestCase
         return count($response->baseResponse->original['data']['list']);
     }
 
-    public function paginationList(): Collection
+    protected function paginatedList(): Collection
     {
-        return PaginationList::createFromPagination(new LengthAwarePaginator(400, 400, 10, null, []));
+        return PaginatedList::createFromPagination(new LengthAwarePaginator(collect([]), 0, 1, 10));
     }
 
-    public function caseDate(string $dateRequest): bool
+    protected function lengthAwarePaginator(): LengthAwarePaginator
+    {
+        return new LengthAwarePaginator(collect([]), 0, 1, 10);
+    }
+
+    protected function caseDate(string $dateRequest): bool
     {
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $dateRequest);
-        if ($date && $date->format('Y-m-d H:i:s') == $dateRequest):
+        if ($date && $date->format('Y-m-d H:i:s') == $dateRequest) {
             return true;
-        else:
+        } else {
             return false;
-        endif;
+        }
     }
 
-    public function mask(int $value, string $format): string
+    protected function mask(int $value, string $format): string
     {
         $mask = '';
         $position_value = 0;
-        for ($i = 0; $i <= strlen($format) - 1; $i++):
-            if ($format[$i] == '#'):
-                if (isset($value[$position_value])):
+        for ($i = 0; $i <= strlen($format) - 1; $i++) {
+
+            if ($format[$i] == '#') {
+
+                if (isset($value[$position_value])) {
                     $mask .= $value[$position_value++];
-                endif;
-            else:
+                }
+
+            } else {
                 $mask .= $format[$i];
-            endif;
-        endfor;
+            }
+        }
         return $mask;
     }
 
-    public function tearDown(): void
+    protected function setMockPagination(bool $hasPagination): IPagination
     {
-        Mockery::close();
-        parent::tearDown();
+        $this->pagination = $this->mock(IPagination::class,
+            function (MockInterface $mock) use ($hasPagination) {
+                $mock->shouldReceive('setPage')->with(1);
+                $mock->shouldReceive('setPerPage')->with(10);
+                $mock->shouldReceive('hasPagination')->andReturn($hasPagination);
+        });
+        return $this->pagination;
     }
 
-    public function setDataAuth(): array{
+    protected function setMockSearch(string $searchRandom): ISearch
+    {
+        $this->search = $this->mock(ISearch::class,
+            function (MockInterface $mock) use ($searchRandom) {
+                $mock->shouldReceive('setSearch')->with($searchRandom);
+                $mock->shouldReceive('getSearch')->andReturn($searchRandom);
+        });
+        return $this->search;
+    }
+
+    protected function setDataAuth(): array
+    {
         return [
             'email' => 'hildebrandolima16@gmail.com',
             'password' => 'HiLd3br@ndo',
@@ -134,7 +163,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataAddress(): array
+    protected function setDataAddress(): array
     {
         return [
             'id' => 1,
@@ -150,7 +179,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataCategory(): array
+    protected function setDataCategory(): array
     {
         $this->data = [
             'id' => 1,
@@ -160,7 +189,7 @@ abstract class TestCase extends BaseTestCase
         return $this->data;
     }
 
-    public function setDataOrder(): array
+    protected function setDataOrder(): array
     {
         $typeDelivery = array('Expresso', 'Correio', 'Retirada');
         $randKeys = array_rand($typeDelivery);
@@ -186,7 +215,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataPayment(): array
+    protected function setDataPayment(): array
     {
         $typeCard = array('Crédito', 'Débito', 'NULL');
         $randKeysCard = array_rand($typeCard);
@@ -206,7 +235,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataProduct(): array
+    protected function setDataProduct(): array
     {
         $unitMeasure = array('UN', 'G', 'KG', 'ML', 'L', 'M2', 'CX');
         $randKeys = array_rand($unitMeasure);
@@ -226,7 +255,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataProvider(): array
+    protected function setDataProvider(): array
     {
         return [
             'id' => 1,
@@ -238,7 +267,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataPhone(): array
+    protected function setDataPhone(): array
     {
         $type = array('Fixo', 'Celular');
         $randKeys = array_rand($type);
@@ -255,7 +284,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDataUser(): array
+    protected function setDataUser(): array
     {
         $gender = array('Masculino', 'Feminino', 'Outro');
         $randKeys = array_rand($gender);

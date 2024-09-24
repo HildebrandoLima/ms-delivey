@@ -7,10 +7,10 @@ use App\Domains\Services\Product\Interfaces\IListAllProductService;
 use App\Domains\Services\Product\Interfaces\IListFindByIdProductService;
 use App\Domains\Services\Product\Interfaces\IUpdateProductService;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\ListAllProductRequest;
+use App\Http\Requests\Product\ListFindByIdProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use App\Http\Requests\Product\ParamsProductRequest;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
 use Exception;
 
 class ProductController extends Controller
@@ -34,7 +34,7 @@ class ProductController extends Controller
         $this->updateProductService       = $updateProductService;
     }
 
-    public function index(Request $request): Response
+    public function index(ListAllProductRequest $request): Response
     {
         try {
             $success = $this->listAllProductService->listAll($request);
@@ -44,7 +44,7 @@ class ProductController extends Controller
         }
     }
 
-    public function show(ParamsProductRequest $request): Response
+    public function show(ListFindByIdProductRequest $request): Response
     {
         try {
             $success = $this->listFindByIdProductService->listFindById($request);

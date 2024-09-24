@@ -2,7 +2,7 @@
 
 namespace App\Domains\Services\Order\Concretes;
 
-use App\Data\Repositories\Order\Concretes\ListFindByIdOrderRepository;
+use App\Data\Repositories\Order\Interfaces\IListFindByIdOrderRepository;
 use App\Domains\Dtos\OrderDto;
 use App\Domains\Services\Order\Interfaces\IListFindByIdOrderService;
 use App\Domains\Traits\Dtos\ListPaginationMapper;
@@ -14,9 +14,9 @@ class ListFindByIdOrderService implements IListFindByIdOrderService
 {
     use RequestConfigurator, ListPaginationMapper;
 
-    private ListFindByIdOrderRepository $listFindByIdOrderRepository;
+    private IListFindByIdOrderRepository $listFindByIdOrderRepository;
 
-    public function __construct(ListFindByIdOrderRepository $listFindByIdOrderRepository)
+    public function __construct(IListFindByIdOrderRepository $listFindByIdOrderRepository)
     {
         $this->listFindByIdOrderRepository = $listFindByIdOrderRepository;
     }

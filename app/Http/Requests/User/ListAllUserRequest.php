@@ -5,8 +5,9 @@ namespace App\Http\Requests\User;
 use App\Domains\Traits\ValidationPermission;
 use App\Http\Requests\BaseRequest;
 use App\Support\Enums\PermissionEnum;
+use App\Support\Utils\Messages\DefaultErrorMessages;
 
-class PermissonUserRequest extends BaseRequest
+class ListAllUserRequest extends BaseRequest
 {
     use ValidationPermission;
 
@@ -17,11 +18,16 @@ class PermissonUserRequest extends BaseRequest
 
     public function rules(): array
     {
-        return [];
+        return [
+            'active' => 'required|boolean',
+        ];
     }
 
     public function messages(): array
     {
-        return [];
+        return [
+            'active.required' => DefaultErrorMessages::REQUIRED_FIELD,
+            'active.int' => DefaultErrorMessages::FIELD_MUST_BE_BOOLEAN,
+        ];
     }
 }

@@ -29,7 +29,7 @@ class IntegrationViaCepServiceTest extends TestCase
 
         // Act
         $integrationViaCepService = new IntegrationViaCepService($this->integrationViaCep);
-        $result = $integrationViaCepService->integrationViaCep($cep);
+        $result = $integrationViaCepService->integration($cep);
 
         // Assert
         $this->assertSame($result, $expectedResult);

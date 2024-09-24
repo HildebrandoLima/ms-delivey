@@ -2,18 +2,17 @@
 
 namespace Tests\Unit\Services\Category;
 
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Payment\Interfaces\ICreatePaymentRepository;
 use App\Domains\Services\Payment\Concretes\CreatePaymentService;
 use App\Http\Requests\Payment\CreatePaymentRequest;
-use App\Models\Pagamento;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CreatePaymentServiceTest extends TestCase
 {
     private CreatePaymentRequest $request;
-    private IEntityRepository $paymentRepository;
-    private array $data;
+    private ICreatePaymentRepository $createPaymentRepository;
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -34,19 +33,19 @@ class CreatePaymentServiceTest extends TestCase
         $this->request['metodoPagamento'] = $this->data['metodoPagamento'];
         $this->request['pedidoId'] = $this->data['pedidoId'];
 
-        $this->paymentRepository = $this->mock(IEntityRepository::class,
-        function (MockInterface $mock) {
-            $mock->shouldReceive('create')->with(Pagamento::class)->andReturn(true);
+        $this->createPaymentRepository = $this->mock(ICreatePaymentRepository::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('create')
+                     ->with($this->request)
+                     ->andReturn(true);
         });
 
         // Act
-        $createPaymentService = new CreatePaymentService($this->paymentRepository);
-        $result = $createPaymentService->createPayment($this->request);
-        $mappedPayment = $createPaymentService->map($this->request);
+        $createPaymentService = new CreatePaymentService($this->createPaymentRepository);
+        $result = $createPaymentService->create($this->request);
 
         // Assert
         $this->assertTrue($result);
-        $this->assertInstanceOf(Pagamento::class, $mappedPayment);
         $this->assertEquals($this->request['numeroCartao'], $this->data['numeroCartao']);
         $this->assertEquals($this->request['tipoCartao'], $this->data['tipoCartao']);
         $this->assertEquals($this->request['ccv'], $this->data['ccv']);

@@ -8,9 +8,9 @@ use App\Domains\Services\User\Interfaces\IEmailUserVerifiedAtService;
 use App\Domains\Services\User\Interfaces\IListAllUserService;
 use App\Domains\Services\User\Interfaces\IUpdateUserService;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\ListAllUserRequest;
+use App\Http\Requests\User\ListFindByIdUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\ParamsUserRequest;
-use App\Http\Requests\User\PermissonUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
@@ -38,7 +38,7 @@ class UserController extends Controller
         $this->updateUserService          = $updateUserService;
     }
 
-    public function index(PermissonUserRequest $request): Response
+    public function index(ListAllUserRequest $request): Response
     {
         try {
             $success = $this->listAllUserService->listAll($request);
@@ -48,7 +48,7 @@ class UserController extends Controller
         }
     }
 
-    public function show(ParamsUserRequest $request): Response
+    public function show(ListFindByIdUserRequest $request): Response
     {
         try {
             $success = $this->listFindByIdUserService->listFindById($request);

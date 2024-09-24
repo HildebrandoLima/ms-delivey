@@ -28,6 +28,7 @@ class RefreshPasswordService implements IRefreshPasswordService
     public function refreshPassword(RefreshPasswordRequest $request): bool
     {
         $this->setRequest($request);
+        $this->userId();
         return $this->updated();
     }
 

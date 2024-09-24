@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Auth;
 
-use App\Data\Repositories\Abstracts\IAuthRepository;
+use App\Data\Repositories\Auth\Interfaces\IAuthRepository;
 use App\Domains\Services\Auth\Concretes\LogoutService;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -21,7 +21,9 @@ class LogoutServiceTest extends TestCase
         // Arrange
         $this->authRepository = $this->mock(IAuthRepository::class,
             function (MockInterface $mock) {
-                $mock->shouldReceive('logout')->with()->andReturn(true);
+                $mock->shouldReceive('logout')
+                     ->with()
+                     ->andReturn(true);
         });
 
         // Act

@@ -5,7 +5,7 @@ namespace App\Domains\Services\Order\Concretes;
 use App\Data\Repositories\Order\Interfaces\IUpdateOrderRepository;
 use App\Domains\Services\Order\Interfaces\IUpdateOrderService;
 use App\Domains\Traits\RequestConfigurator;
-use App\Http\Requests\Order\ParamsOrderRequest;
+use App\Http\Requests\Order\ListFindByIdOrderRequest;
 
 class UpdateOrderService implements IUpdateOrderService
 {
@@ -17,7 +17,7 @@ class UpdateOrderService implements IUpdateOrderService
         $this->updateOrderRepository = $updateOrderRepository;
     }
 
-    public function update(ParamsOrderRequest $request): bool
+    public function update(ListFindByIdOrderRequest $request): bool
     {
         $this->setRequest($request);
         return $this->updated();

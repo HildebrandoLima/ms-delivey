@@ -6,11 +6,11 @@ use App\Domains\Services\Category\Interfaces\ICreateCategoryService;
 use App\Domains\Services\Category\Interfaces\IListAllCategoryService;
 use App\Domains\Services\Category\Interfaces\IListFindByIdCategoryService;
 use App\Domains\Services\Category\Interfaces\IUpdateCategoryService;
+use App\Http\Requests\Category\ListFindByIdCategoryRequest;
 use App\Http\Requests\Category\CreateCategoryRequest;
+use App\Http\Requests\Category\ListAllCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Http\Requests\Category\ParamsCategoryRequest;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
 use Exception;
 
 class CategoryController extends Controller
@@ -34,7 +34,7 @@ class CategoryController extends Controller
         $this->updateCategoryService       = $updateCategoryService;
     }
 
-    public function index(Request $request): Response
+    public function index(ListAllCategoryRequest $request): Response
     {
         try {
             $success = $this->listAllCategoryService->listAll($request);
@@ -44,7 +44,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function show(ParamsCategoryRequest $request): Response
+    public function show(ListFindByIdCategoryRequest $request): Response
     {
         try {
             $success = $this->listFindByIdCategoryService->listFindById($request);

@@ -6,7 +6,7 @@ use App\Data\Repositories\Order\Interfaces\IUpdateOrderRepository;
 use App\Domains\Traits\DefaultConditionActive;
 use App\Domains\Traits\RequestConfigurator;
 use App\Exceptions\HttpInternalServerError;
-use App\Http\Requests\Order\ParamsOrderRequest;
+use App\Http\Requests\Order\ListFindByIdOrderRequest;
 use App\Models\Item;
 use App\Models\Pedido;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -20,7 +20,7 @@ class UpdateOrderRepository implements IUpdateOrderRepository
     private Collection $listItems;
     private array $itemsIds = [];
 
-    public function update(ParamsOrderRequest $request): bool
+    public function update(ListFindByIdOrderRequest $request): bool
     {
         try {
             $this->setRequest($request);
@@ -52,7 +52,7 @@ class UpdateOrderRepository implements IUpdateOrderRepository
         Item::query()
         ->whereIn('id', $this->itemsIds)
         ->update([
-            'ativo' => $this->defaultConditionActive($this->request->ativo)
+            'ativo' => $this->defaultConditionActive($this->request->active)
         ]);
     }
 
@@ -61,7 +61,7 @@ class UpdateOrderRepository implements IUpdateOrderRepository
         Pedido::query()
         ->where('id', $this->request->id)
         ->update([
-            'ativo' => $this->defaultConditionActive($this->request->ativo)
+            'ativo' => $this->defaultConditionActive($this->request->active)
         ]);
     }
 }

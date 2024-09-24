@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Auth;
 
-use App\Data\Repositories\Abstracts\IAuthRepository;
+use App\Data\Repositories\Auth\Interfaces\IAuthRepository;
 use App\Domains\Services\Auth\Concretes\LoginService;
 use App\Http\Requests\Auth\LoginRequest;
 use Mockery\MockInterface;
@@ -12,7 +12,7 @@ class LoginServiceTest extends TestCase
 {
     private LoginRequest $request;
     private IAuthRepository $authRepository;
-    private array $data;
+    private array $data = [];
 
     protected function setUp(): void
     {
@@ -30,7 +30,9 @@ class LoginServiceTest extends TestCase
 
         $this->authRepository = $this->mock(IAuthRepository::class,
             function (MockInterface $mock) use ($expectedResult) {
-                $mock->shouldReceive('login')->with($this->request)->andReturn($expectedResult);
+                $mock->shouldReceive('login')
+                     ->with($this->request)
+                     ->andReturn($expectedResult);
         });
 
         // Act

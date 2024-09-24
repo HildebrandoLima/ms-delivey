@@ -2,20 +2,20 @@
 
 namespace Tests\Unit\Services\Auth;
 
-use App\Data\Repositories\Abstracts\IAuthRepository;
-use App\Data\Repositories\Abstracts\IEntityRepository;
+use App\Data\Repositories\Auth\Interfaces\IAuthResetRepository;
+use App\Data\Repositories\Auth\Interfaces\IRefreshPasswordRepository;
 use App\Domains\Services\Auth\Concretes\RefreshPasswordService;
 use App\Http\Requests\Auth\RefreshPasswordRequest;
-use App\Models\User;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 class RefreshPasswordServiceTest extends TestCase
 {
     private RefreshPasswordRequest $request;
-    private IEntityRepository $entityRepository;
-    private IAuthRepository $authRepository;
-    private array $data;
+    private IAuthResetRepository $authResetRepository;
+    private IRefreshPasswordRepository $refreshPasswordRepository;
+    private array $data = [];
+    private int $userId = 1;
 
     protected function setUp(): void
     {
@@ -31,19 +31,26 @@ class RefreshPasswordServiceTest extends TestCase
         $this->request['codigo'] = $this->data['codigo'];
         $this->request['senha'] = $this->data['senha'];
 
-        // Mocking IAuthRepository
-        $this->authRepository = $this->mock(IAuthRepository::class, function (MockInterface $mock) {
-            $mock->shouldReceive('readCode')->with($this->request['codigo'])->andReturn(1);
-            $mock->shouldReceive('delete')->with($this->request['codigo'])->andReturn(true);
+        $this->authResetRepository = $this->mock(IAuthResetRepository::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('readCode')
+                     ->with($this->request->codigo)
+                     ->andReturn($this->userId);
+
+                    $mock->shouldReceive('delete')
+                         ->with($this->request->codigo)
+                         ->andReturn(true);
         });
 
-        // Mocking IEntityRepository
-        $this->entityRepository = $this->mock(IEntityRepository::class, function (MockInterface $mock) {
-            $mock->shouldReceive('update')->with(User::class)->andReturn(true);
+        $this->refreshPasswordRepository = $this->mock(IrefreshPasswordRepository::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('update')
+                     ->with($this->userId, $this->request->senha)
+                     ->andReturn(true);
         });
 
         // Act
-        $refreshPasswordService = new RefreshPasswordService($this->authRepository, $this->entityRepository);
+        $refreshPasswordService = new RefreshPasswordService($this->authResetRepository, $this->refreshPasswordRepository);
         $result = $refreshPasswordService->refreshPassword($this->request);
 
         // Assert

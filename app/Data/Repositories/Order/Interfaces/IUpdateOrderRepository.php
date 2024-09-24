@@ -2,9 +2,9 @@
 
 namespace App\Data\Repositories\Order\Interfaces;
 
-use App\Http\Requests\Order\ParamsOrderRequest;
+use App\Http\Requests\Order\ListFindByIdOrderRequest;
 
 interface IUpdateOrderRepository
 {
-    public function update(ParamsOrderRequest $request): bool;
+    public function update(ListFindByIdOrderRequest $request): bool;
 }

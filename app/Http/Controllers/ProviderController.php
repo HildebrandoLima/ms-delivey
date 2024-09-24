@@ -7,9 +7,9 @@ use App\Domains\Services\Provider\Interfaces\IListAllProviderService;
 use App\Domains\Services\Provider\Interfaces\IListFindByIdProviderService;
 use App\Domains\Services\Provider\Interfaces\IUpdateProviderService;
 use App\Http\Requests\Provider\CreateProviderRequest;
+use App\Http\Requests\Provider\ListAllProviderRequest;
+use App\Http\Requests\Provider\ListFindByIdProviderRequest;
 use App\Http\Requests\Provider\UpdateProviderRequest;
-use App\Http\Requests\Provider\ParamsProviderRequest;
-use App\Http\Requests\Provider\PermissonProviderRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
@@ -34,7 +34,7 @@ class ProviderController extends Controller
         $this->updateProviderService       = $updateProviderService;
     }
 
-    public function index(PermissonProviderRequest $request): Response
+    public function index(ListAllProviderRequest $request): Response
     {
         try {
             $success = $this->listAllProviderService->listAll($request);
@@ -44,7 +44,7 @@ class ProviderController extends Controller
         }
     }
 
-    public function show(ParamsProviderRequest $request): Response
+    public function show(ListFindByIdProviderRequest $request): Response
     {
         try {
             $success = $this->listFindByIdProviderService->listFindById($request);

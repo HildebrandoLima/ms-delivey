@@ -7,9 +7,9 @@ use App\Domains\Services\Order\Interfaces\IListAllOrderService;
 use App\Domains\Services\Order\Interfaces\IListFindByIdOrderService;
 use App\Domains\Services\Order\Interfaces\IUpdateOrderService;
 use App\Http\Requests\Order\CreateOrderRequest;
-use App\Http\Requests\Order\ParamsOrderRequest;
+use App\Http\Requests\Order\ListAllOrderRequest;
+use App\Http\Requests\Order\ListFindByIdOrderRequest;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
 use Exception;
 
 class OrderController extends Controller
@@ -33,7 +33,7 @@ class OrderController extends Controller
         $this->updateOrderService       = $updateOrderService;
     }
 
-    public function index(Request $request): Response
+    public function index(ListAllOrderRequest $request): Response
     {
         try {
             $success = $this->listAllOrderService->listAll($request);
@@ -43,7 +43,7 @@ class OrderController extends Controller
         }
     }
 
-    public function show(ParamsOrderRequest $request): Response
+    public function show(ListFindByIdOrderRequest $request): Response
     {
         try {
             $success = $this->listFindByIdOrderService->listFindById($request);
@@ -63,7 +63,7 @@ class OrderController extends Controller
         }
     }
 
-    public function update(ParamsOrderRequest $request): Response
+    public function update(ListFindByIdOrderRequest $request): Response
     {
         try {
             $success = $this->updateOrderService->update($request);
