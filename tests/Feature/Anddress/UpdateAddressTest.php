@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class EditAddressTest extends TestCase
+class UpdateAddressTest extends TestCase
 {
     private function address(): array
     {

@@ -19,6 +19,7 @@ class RefreshPasswordTest extends TestCase
     public function it_endpoint_post_refresh_password_base_response_200(): void
     {
         // Arrange
+        User::factory()->createOne();
         $email = User::query()->first()->email;
         PasswordReset::factory()->createOne(['email' => $email]);
         $reset = PasswordReset::query()->first()->toArray();

@@ -9,7 +9,7 @@ use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EditTelephoneTest extends TestCase
+class UpdateTelephoneTest extends TestCase
 {
     private function telephone(): array
     {

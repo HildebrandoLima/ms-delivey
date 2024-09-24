@@ -5,9 +5,10 @@ namespace Tests\Feature\User;
 use App\Models\User;
 use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class ListFinderUserTest extends TestCase
+class UpdateUserTest extends TestCase
 {
     private function user(): array
     {
@@ -18,20 +19,23 @@ class ListFinderUserTest extends TestCase
      * @test
      * @group user
      */
-    public function it_endpoint_get_list_find_base_response_200(): void
+    public function it_endpoint_put_base_response_200(): void
     {
         // Arrange
         $user = $this->user();
         $data = [
             'id' => $user['id'],
-            'active' => true,
+            'nome' => Str::random(10),
+            'email' => $user['email'],
+            'genero' => $user['genero'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.find', $data));
+        ])->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertOk();
@@ -43,20 +47,23 @@ class ListFinderUserTest extends TestCase
      * @test
      * @group user
      */
-    public function it_endpoint_get_list_find_base_response_400(): void
+    public function it_endpoint_put_base_response_400(): void
     {
         // Arrange
         $user = $this->user();
         $data = [
             'id' => $user['id'],
-            'active' => null,
+            'nome' => null,
+            'email' => null,
+            'genero' => $user['genero'],
+            'ativo' => true,
         ];
         $authenticate = $this->authenticate(RoleEnum::CLIENTE);
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $authenticate['accessToken'],
-        ])->getJson(route('user.list.find', $data));
+        ])->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertStatus(400);
@@ -68,23 +75,54 @@ class ListFinderUserTest extends TestCase
      * @test
      * @group user
      */
-    public function it_endpoint_get_list_find_base_response_401(): void
+    public function it_endpoint_put_base_response_401(): void
     {
         // Arrange
         $user = $this->user();
         $data = [
             'id' => $user['id'],
-            'active' => true,
+            'nome' => $user['nome'],
+            'email' => $user['email'],
+            'genero' => 'Outro',
+            'ativo' => true,
         ];
 
         // Act
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '. $this->bearerTokenInvalid(),
-        ])->getJson(route('user.list.find', $data));
+        ])->putJson(route('user.edit'), $data);
 
         // Assert
         $response->assertUnauthorized();
         $this->assertJson($this->baseResponse($response));
         $this->assertEquals($this->httpStatusCode($response), 401);
+    }
+
+    /**
+     * @test
+     * @group user
+     */
+    public function it_endpoint_put_base_response_404(): void
+    {
+        // Arrange
+        $user = $this->user();
+        $data = [
+            'id' => 1000,
+            'nome' => Str::random(10),
+            'email' => $user['email'],
+            'genero' => 'A',
+            'ativo' => true,
+        ];
+        $authenticate = $this->authenticate(RoleEnum::CLIENTE);
+
+        // Act
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '. $authenticate['accessToken'],
+        ])->putJson(route('user.edit'), $data);
+
+        // Assert
+        $response->assertNotFound();
+        $this->assertJson($this->baseResponse($response));
+        $this->assertEquals($this->httpStatusCode($response), 404);
     }
 }

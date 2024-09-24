@@ -7,7 +7,7 @@ use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListFinderProviderTest extends TestCase
+class ListFindByIdProviderTest extends TestCase
 {
     private function provider(): array
     {

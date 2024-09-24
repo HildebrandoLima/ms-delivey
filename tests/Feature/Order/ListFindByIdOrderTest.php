@@ -7,7 +7,7 @@ use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListFinderOrderTest extends TestCase
+class ListFindByIdOrderTest extends TestCase
 {
     private function order(): array
     {

@@ -6,7 +6,7 @@ use App\Models\Produto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListFinderProductTest extends TestCase
+class ListFindByIdProductTest extends TestCase
 {
     private function product(): array
     {

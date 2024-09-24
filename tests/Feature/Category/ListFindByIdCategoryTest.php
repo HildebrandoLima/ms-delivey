@@ -7,7 +7,7 @@ use App\Support\Enums\RoleEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ListFinderCategoryTest extends TestCase
+class ListFindByIdCategoryTest extends TestCase
 {
     private function category(): array
     {

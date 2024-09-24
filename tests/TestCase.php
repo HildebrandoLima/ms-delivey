@@ -27,12 +27,12 @@ abstract class TestCase extends BaseTestCase
     private ISearch $search;
     private array $data;
 
-    public function bearerTokenInvalid(): string
+    protected function bearerTokenInvalid(): string
     {
         return 'x4md1lfkewofqimvSKNDIEWHI@L';
     }
 
-    public function authenticate(int $perfil): Collection
+    protected function authenticate(int $perfil): Collection
     {
         if ($perfil === 1) {
             $credentials = $this->authenticateAdmin();
@@ -49,14 +49,11 @@ abstract class TestCase extends BaseTestCase
             'userName' => $user->name,
             'userEmail' => $user->email,
             'role' => $user->role,
-            'permissions' => $user->permissions->map(function ($permission) {
-                return $permission->description;
-            }),
-            //$user->permissions->pluck('description')
+            'permissions' => $user->permissions->pluck('description')            
         ]);
     }
 
-    public function authenticateAdmin(): array
+    protected function authenticateAdmin(): array
     {
         return [
             'email' => 'hildebrandolima16@gmail.com',
@@ -64,7 +61,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function authenticateCliente(): array
+    protected function authenticateCliente(): array
     {
         return [
             'email' => 'cliente@gmail.com',
@@ -72,22 +69,22 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function emailVerifiedAt(): string
+    protected function emailVerifiedAt(): string
     {
         return User::query()->whereNull('email_verificado_em')->first()->email;
     }
 
-    public function httpStatusCode(TestResponse $response): int
+    protected function httpStatusCode(TestResponse $response): int
     {
         return $response->baseResponse->original['status'];
     }
 
-    public function baseResponse(TestResponse $response): string
+    protected function baseResponse(TestResponse $response): string
     {
         return json_encode($response->baseResponse->original);
     }
 
-    public function countPaginateList(TestResponse $response): int
+    protected function countPaginateList(TestResponse $response): int
     {
         return count($response->baseResponse->original['data']['list']);
     }

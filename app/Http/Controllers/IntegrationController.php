@@ -20,9 +20,9 @@ class IntegrationController extends Controller
     {
         try {
             $success = $this->integrationViaCepService->integration($cep);
-            if (is_null($success)):
+            if (is_null($success)) {
                 return HttpBadRequest::getResponse(collect([]), collect([]));
-            endif;
+            }
             return Controller::get($success);
         } catch (Exception $e) {
             return Controller::error($e);

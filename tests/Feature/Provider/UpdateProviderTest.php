@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class EditProviderTest extends TestCase
+class UpdateProviderTest extends TestCase
 {
     private function provider(): array
     {

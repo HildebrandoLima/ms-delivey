@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class EditProductTest extends TestCase
+class UpdateProductTest extends TestCase
 {
     private function product(): array
     {
