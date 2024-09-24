@@ -11,9 +11,9 @@ trait EntityProduct
 
     public function images(array $images): array
     {
-        foreach ($images as $key => $instance):
-            $images[$key] = $this->map($instance);
-        endforeach;
+        foreach ($images as $key => $value) {
+            $images[$key] = $this->map($value);
+        }
         return $images;
     }
 

@@ -57,10 +57,10 @@ class HandleProviderCallbackService implements IHandleProviderCallbackService
 
     private function createPermission(int $userId): bool
     {
-        foreach ($this->permissions as $permission):
+        foreach ($this->permissions as $permission) {
             $permission = $this->mapPermission($userId, $permission);
             $this->permissionRepository->create($permission);
-        endforeach;
+        }
         return true;
     }
 

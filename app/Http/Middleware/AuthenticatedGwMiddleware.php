@@ -28,23 +28,23 @@ class AuthenticatedGwMiddleware extends BaseMiddleware
         try {
             JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
-            if ($e instanceof TokenInvalidException):
+            if ($e instanceof TokenInvalidException) {
                $this->getResponse($e);
-            elseif ($e instanceof TokenExpiredException):
+            } elseif ($e instanceof TokenExpiredException) {
                $this->getResponse($e);
-            else:
+            } else {
                $this->getResponse($e);
-            endif;
+            }
         }
         return $next($request);
     }
 
     private function getResponse(Exception $e): void
     {
-        if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException):
+        if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException) {
             throw new HttpResponseException(HttpUnauthorized::getResponse($e));
-        else:
+        } else {
             throw new HttpResponseException(HttpInternalServerError::getResponse($e));
-        endif;
+        }
     }
 }

@@ -19,11 +19,11 @@ abstract class BaseRequest extends FormRequest
         $errors = $this->getErrors($validator);
         $details = $this->getDetails($validator);
 
-        foreach ($this->createResponseError() as $response):
-            if ($response['condition']($errors)):
+        foreach ($this->createResponseError() as $response) {
+            if ($response['condition']($errors)) {
                 throw new HttpResponseException($response['response']::getResponse($errors, $details));
-            endif;
-        endforeach;
+            }
+        }
 
         throw new HttpResponseException(HttpBadRequest::getResponse($errors, $details));
     }
@@ -45,15 +45,15 @@ abstract class BaseRequest extends FormRequest
     private function mappedRules(): Collection
     {
         return collect($this->rules())->map(function ($rule) {
-            if (gettype($rule) !== 'array'):
+            if (gettype($rule) !== 'array') {
                 return explode( '|', $rule);
-            endif;
+            }
 
-            foreach ($rule as $i => $subRule):
-                if (gettype($subRule) === 'object'):
+            foreach ($rule as $i => $subRule) {
+                if (gettype($subRule) === 'object') {
                     $rule[$i] = get_class($subRule);
-                endif;
-            endforeach;
+                }
+            }
             return $rule;
         });
     }

@@ -16,11 +16,11 @@ class UnidadeFederativaSeeder extends Seeder
     public function run()
     {
         $unitFederalDb = UnitFederalDb::UNIT_FEDERAL;
-        foreach ($unitFederalDb as $value):
+        foreach ($unitFederalDb as $value) {
             UnidadeFederativa::query()->insert([
                 'uf' => $value['uf'],
                 'descricao' => $value['descricao']
             ]);
-        endforeach;
+        }
     }
 }
